@@ -1,0 +1,452 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bugs and Errors :: Eloquent JavaScript</title>
+  <link rel="stylesheet" href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":8,"load_files":["code/chapter/08_error.js"]}</script></head>
+
+<body><article>
+<nav><a href="07_robot.html" title="previous chapter" aria-label="previous chapter">◂</a>&nbsp;<a href="index.html" title="cover" aria-label="cover">●</a>&nbsp;<a href="09_regexp.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class="help" title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+
+<h1>Bugs and Errors</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-tsWlII94Rs" href="#p-tsWlII94Rs" tabindex="-1" role="presentation"></a>Depurar es el doble de difícil que escribir el código en primer lugar. Por lo tanto, si escribes el código de la manera más ingeniosa posible, eres, por definición, no lo suficientemente inteligente como para depurarlo.</p>
+
+<footer>Brian Kernighan y P.J. Plauger, <cite>Los Elementos del Estilo de Programación</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="images/chapter_picture_8.jpg" alt="Ilustración mostrando varios insectos y un ciempiés"></figure>
+
+<p><a class="p_ident" id="p-ub167VNGcG" href="#p-ub167VNGcG" tabindex="-1" role="presentation"></a>Las fallas en los programas de computadora suelen ser llamadas <em>bugs</em>. Hace que los programadores se sientan bien imaginándolos como pequeñas cosas que simplemente se introducen en nuestro trabajo. En realidad, por supuesto, nosotros mismos los colocamos allí.</p>
+
+<p><a class="p_ident" id="p-bcWk0EwGpY" href="#p-bcWk0EwGpY" tabindex="-1" role="presentation"></a>Si un programa es pensamiento cristalizado, se pueden categorizar groseramente los bugs en aquellos causados por pensamientos confusos y aquellos causados por errores introducidos al convertir un pensamiento en código. El primer tipo generalmente es más difícil de diagnosticar y solucionar que el segundo.</p>
+
+<h2><a class="h_ident" id="h-ibhqsOZvUn" href="#h-ibhqsOZvUn" tabindex="-1" role="presentation"></a>Lenguaje</h2>
+
+<p><a class="p_ident" id="p-ye1ml09vBV" href="#p-ye1ml09vBV" tabindex="-1" role="presentation"></a>Muchos errores podrían señalarse automáticamente por la computadora, si supiera lo suficiente sobre lo que estamos tratando de hacer. Pero aquí la falta de rigidez de JavaScript es un obstáculo. Su concepto de enlaces y propiedades es lo suficientemente vago como para que rara vez atrape errores tipográficos antes de ejecutar realmente el programa. E incluso entonces, te permite hacer cosas claramente insensatas sin quejarse, como calcular <code>true * "monkey"</code>.</p>
+
+<p><a class="p_ident" id="p-EcSg7P4I9E" href="#p-EcSg7P4I9E" tabindex="-1" role="presentation"></a>Hay algunas cosas sobre las que JavaScript sí se queja. Escribir un programa que no siga la gramática del lenguaje hará que la computadora se queje de inmediato. Otras cosas, como llamar a algo que no es una función o buscar una propiedad en un valor no definido, provocarán que se informe un error cuando el programa intente realizar la acción.</p><p><a class="p_ident" id="p-M/fMASXkeH" href="#p-M/fMASXkeH" tabindex="-1" role="presentation"></a>But often, your nonsense computation will merely produce <code>NaN</code> (not a number) or an undefined value, while the program happily continues, convinced that it’s doing something meaningful. The mistake will manifest itself only later, after the bogus value has traveled through several functions. It might not trigger an error at all but silently cause the program’s output to be wrong. Finding the source of such problems can be difficult.</p>
+
+<p><a class="p_ident" id="p-D4KIEMyl44" href="#p-D4KIEMyl44" tabindex="-1" role="presentation"></a>The process of finding mistakes—bugs—in programs is called <em>debugging</em>.</p>
+
+<h2><a class="h_ident" id="h-u1jlTq3i42" href="#h-u1jlTq3i42" tabindex="-1" role="presentation"></a>Modo estricto</h2>
+
+<p><a class="p_ident" id="p-WJCaiNx5iy" href="#p-WJCaiNx5iy" tabindex="-1" role="presentation"></a>JavaScript puede ser un <em>poco</em> más estricto al habilitar el modo estricto. Esto se hace poniendo la cadena <code>"use strict"</code> en la parte superior de un archivo o dentro del cuerpo de una función. Aquí tienes un ejemplo:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-tKCBneE0vw" href="#c-tKCBneE0vw" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">puedesIdentificarElProblema</span>() {
+  <span class="tok-string">"use strict"</span>;
+  <span class="tok-keyword">for</span> (counter = <span class="tok-number">0</span>; counter &lt; <span class="tok-number">10</span>; counter++) {
+    console.log(<span class="tok-string">"Feliz feliz"</span>);
+  }
+}
+
+puedesIdentificarElProblema();
+<span class="tok-comment">// → ReferenceError: counter is not defined</span></pre>
+
+<p><a class="p_ident" id="p-7Ewd6RX+uF" href="#p-7Ewd6RX+uF" tabindex="-1" role="presentation"></a>Normalmente, cuando olvidas poner <code>let</code> delante de tu declaración, como en el caso de <code>counter</code> en el ejemplo, JavaScript silenciosamente crea una declaración global y la utiliza. En modo estricto, en cambio, se informa de un error. Esto es muy útil. Sin embargo, cabe mencionar que esto no funciona cuando la declaración en cuestión ya existe en algún lugar dentro del ámbito. En ese caso, el bucle todavía sobrescribirá silenciosamente el valor de la declaración.</p>
+
+<p><a class="p_ident" id="p-WqXHKWNRd1" href="#p-WqXHKWNRd1" tabindex="-1" role="presentation"></a>Otro cambio en el modo estricto es que la declaración <code>this</code> mantiene el valor <code>undefined</code> en funciones que no son llamadas como métodos. Cuando se hace una llamada de este tipo fuera del modo estricto, <code>this</code> se refiere al objeto de ámbito global, que es un objeto cuyas propiedades son las declaraciones globales. Por lo tanto, si accidentalmente llamas incorrectamente a un método o constructor en modo estricto, JavaScript producirá un error en cuanto intente leer algo desde <code>this</code>, en vez de escribir felizmente en el ámbito global.</p>
+
+<p><a class="p_ident" id="p-eZSU5aTSD4" href="#p-eZSU5aTSD4" tabindex="-1" role="presentation"></a>Por ejemplo, considera el siguiente código, que llama a una función constructora sin la palabra clave <code>new</code> para que su <code>this</code> <em>no</em> se refiera a un objeto recién construido:</p><pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-FPKrb2F1C3" href="#c-FPKrb2F1C3" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">Persona</span>(<span class="tok-definition">nombre</span>) { <span class="tok-keyword">this</span>.name = nombre; }
+<span class="tok-keyword">let</span> <span class="tok-definition">ferdinand</span> = Persona(<span class="tok-string">"Ferdinand"</span>); <span class="tok-comment">// oops</span>
+console.log(name);
+<span class="tok-comment">// → Ferdinand</span></pre>
+
+<p><a class="p_ident" id="p-NNFpkpZKdP" href="#p-NNFpkpZKdP" tabindex="-1" role="presentation"></a>Entonces la llamada falsa a <code>Persona</code> tuvo éxito pero devolvió un valor no definido y creó la variable global <code>name</code>. En modo estricto, el resultado es diferente.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-HFy5dGOOh4" href="#c-HFy5dGOOh4" tabindex="-1" role="presentation"></a><span class="tok-string">"use strict"</span>;
+<span class="tok-keyword">function</span> <span class="tok-definition">Persona</span>(<span class="tok-definition">nombre</span>) { <span class="tok-keyword">this</span>.name = nombre; }
+<span class="tok-keyword">let</span> <span class="tok-definition">ferdinand</span> = Persona(<span class="tok-string">"Ferdinand"</span>); <span class="tok-comment">// forgot new</span>
+<span class="tok-comment">// → TypeError: No se puede establecer la propiedad 'name' de indefinido</span></pre>
+
+<p><a class="p_ident" id="p-0eYPyoGi1l" href="#p-0eYPyoGi1l" tabindex="-1" role="presentation"></a>Se nos informa de inmediato que algo está mal. Esto es útil.</p>
+
+<p><a class="p_ident" id="p-WGJIyAOZ/i" href="#p-WGJIyAOZ/i" tabindex="-1" role="presentation"></a>Afortunadamente, los constructores creados con la notación <code>class</code> siempre se quejarán si se llaman sin <code>new</code>, lo que hace que este problema sea menos grave incluso en modo no estricto.</p>
+
+<p><a class="p_ident" id="p-qlYTT6nRD4" href="#p-qlYTT6nRD4" tabindex="-1" role="presentation"></a>El modo estricto hace algunas cosas más. Prohíbe dar a una función múltiples parámetros con el mismo nombre y elimina ciertas características problemáticas del lenguaje por completo (como la sentencia <code>with</code>, que es tan incorrecta que no se discute más en este libro).</p>
+
+<p><a class="p_ident" id="p-kIUErMqROW" href="#p-kIUErMqROW" tabindex="-1" role="presentation"></a>En resumen, colocar <code>"use strict"</code> en la parte superior de tu programa rara vez causa problemas y podría ayudarte a detectar un problema.</p>
+
+<h2><a class="h_ident" id="h-k7niieKEJG" href="#h-k7niieKEJG" tabindex="-1" role="presentation"></a>Tipos</h2>
+
+<p><a class="p_ident" id="p-/6kDGJQN3V" href="#p-/6kDGJQN3V" tabindex="-1" role="presentation"></a>Algunos lenguajes quieren conocer los tipos de todas tus variables y expresiones antes incluso de ejecutar un programa. Te dirán de inmediato cuando se utiliza un tipo de forma inconsistente. JavaScript solo considera los tipos al ejecutar el programa y, incluso allí, a menudo intenta convertir valores implícitamente al tipo que espera, por lo que no es de mucha ayuda.</p><p><a class="p_ident" id="p-YdtQydcPrv" href="#p-YdtQydcPrv" tabindex="-1" role="presentation"></a>Sin embargo, los tipos proporcionan un marco útil para hablar sobre programas. Muchos errores provienen de la confusión sobre el tipo de valor que entra o sale de una función. Si tienes esa información escrita, es menos probable que te confundas.</p>
+
+<p><a class="p_ident" id="p-YSuG1qtqyR" href="#p-YSuG1qtqyR" tabindex="-1" role="presentation"></a>Podrías agregar un comentario como el siguiente antes de la función <code>findRoute</code> del capítulo anterior para describir su tipo:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-VApmuU1GdX" href="#c-VApmuU1GdX" tabindex="-1" role="presentation"></a><span class="tok-comment">// (graph: Object, from: string, to: string) =&gt; string[]</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">findRoute</span>(<span class="tok-definition">graph</span>, <span class="tok-definition">from</span>, <span class="tok-definition">to</span>) {
+  <span class="tok-comment">// ...</span>
+}</pre>
+
+<p><a class="p_ident" id="p-9rFocTi7iZ" href="#p-9rFocTi7iZ" tabindex="-1" role="presentation"></a>Existen varias convenciones diferentes para anotar programas de JavaScript con tipos.</p>
+
+<p><a class="p_ident" id="p-K+Rg+L+z0T" href="#p-K+Rg+L+z0T" tabindex="-1" role="presentation"></a>Una cosa sobre los tipos es que necesitan introducir su propia complejidad para poder describir suficiente código para ser útiles. ¿Qué tipo crees que tendría la función <code>randomPick</code> que devuelve un elemento aleatorio de un array? Tendrías que introducir una <em>variable de tipo</em>, <em>T</em>, que pueda representar cualquier tipo, para que puedas darle a <code>randomPick</code> un tipo como <code>(T[]) → T</code> (función de un array de <em>T</em>s a un <em>T</em>).</p>
+
+<p id="typing"><a class="p_ident" id="p-eztjw3zFDU" href="#p-eztjw3zFDU" tabindex="-1" role="presentation"></a>Cuando se conocen los tipos de un programa, es posible que la computadora los <em>verifique</em> por ti, señalando errores antes de que se ejecute el programa. Hay varios dialectos de JavaScript que agregan tipos al lenguaje y los verifican. El más popular se llama <a href="https://www.typescriptlang.org/">TypeScript</a>. Si estás interesado en agregar más rigor a tus programas, te recomiendo que lo pruebes.</p>
+
+<p><a class="p_ident" id="p-RfpECCXHtP" href="#p-RfpECCXHtP" tabindex="-1" role="presentation"></a>En este libro, seguiremos utilizando código JavaScript sin procesar, peligroso y sin tipos.</p>
+
+<h2><a class="h_ident" id="h-CCCzKyBrc1" href="#h-CCCzKyBrc1" tabindex="-1" role="presentation"></a>Pruebas</h2>
+
+<p><a class="p_ident" id="p-cfHj2WfM1O" href="#p-cfHj2WfM1O" tabindex="-1" role="presentation"></a>Si el lenguaje no va a hacer mucho para ayudarnos a encontrar errores, tendremos que encontrarlos de la manera difícil: ejecutando el programa y viendo si hace lo correcto.</p>
+
+<p><a class="p_ident" id="p-8W1dLTf8k6" href="#p-8W1dLTf8k6" tabindex="-1" role="presentation"></a>Hacer esto a mano, una y otra vez, es una idea realmente mala. No solo es molesto, también tiende a ser ineficaz ya que lleva demasiado tiempo probar exhaustivamente todo cada vez que haces un cambio.</p><p><a class="p_ident" id="p-ngk+1LWoAU" href="#p-ngk+1LWoAU" tabindex="-1" role="presentation"></a>Las computadoras son buenas en tareas repetitivas, y las pruebas son la tarea repetitiva ideal. Las pruebas automatizadas son el proceso de escribir un programa que prueba otro programa. Escribir pruebas es un poco más trabajo que probar manualmente, pero una vez que lo has hecho, adquieres una especie de superpoder: solo te tomará unos segundos verificar que tu programa siga comportándose correctamente en todas las situaciones para las que escribiste pruebas. Cuando rompes algo, te das cuenta de inmediato, en lugar de encontrártelo al azar en algún momento posterior.</p>
+
+<p><a class="p_ident" id="p-S/z0iwnHlS" href="#p-S/z0iwnHlS" tabindex="-1" role="presentation"></a>Las pruebas suelen tomar la forma de pequeños programas etiquetados que verifican algún aspecto de tu código. Por ejemplo, un conjunto de pruebas para el método <code>toUpperCase</code> (estándar, probablemente ya probado por alguien más) podría lucir así:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-WrGyqyPbp3" href="#c-WrGyqyPbp3" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">test</span>(<span class="tok-definition">label</span>, <span class="tok-definition">body</span>) {
+  <span class="tok-keyword">if</span> (!body()) console.log(<span class="tok-string2">`Fallo: </span>${label}<span class="tok-string2">`</span>);
+}
+
+test(<span class="tok-string">"convertir texto Latino a mayúsculas"</span>, () =&gt; {
+  <span class="tok-keyword">return</span> <span class="tok-string">"hello"</span>.toUpperCase() == <span class="tok-string">"HELLO"</span>;
+});
+test(<span class="tok-string">"convertir texto Griego a mayúsculas"</span>, () =&gt; {
+  <span class="tok-keyword">return</span> <span class="tok-string">"Χαίρετε"</span>.toUpperCase() == <span class="tok-string">"ΧΑΊΡΕΤΕ"</span>;
+});
+test(<span class="tok-string">"no convertir caracteres sin mayúsculas"</span>, () =&gt; {
+  <span class="tok-keyword">return</span> <span class="tok-string">"مرحبا"</span>.toUpperCase() == <span class="tok-string">"مرحبا"</span>;
+});</pre>
+
+<p><a class="p_ident" id="p-Gyas+RfY6l" href="#p-Gyas+RfY6l" tabindex="-1" role="presentation"></a>Escribir pruebas de esta manera tiende a producir un código bastante repetitivo y engorroso. Afortunadamente, existen piezas de software que te ayudan a construir y ejecutar colecciones de pruebas (<em>suites de pruebas</em>) al proporcionar un lenguaje (en forma de funciones y métodos) adecuado para expresar pruebas y al mostrar información informativa cuando una prueba falla. Estos suelen ser llamados <em>corredores de pruebas</em>.</p>
+
+<p><a class="p_ident" id="p-zmvP6RI0eK" href="#p-zmvP6RI0eK" tabindex="-1" role="presentation"></a>Algunos códigos son más fáciles de probar que otros. Por lo general, cuantos más objetos externos interactúe el código, más difícil será configurar el contexto para probarlo. El estilo de programación mostrado en el <a href="07_robot.html">capítulo anterior</a>, que utiliza valores persistentes autocontenidos en lugar de objetos cambiantes, tiende a ser fácil de probar.</p><h2><a class="h_ident" id="h-iVsnyIAWUT" href="#h-iVsnyIAWUT" tabindex="-1" role="presentation"></a>Depuración</h2>
+
+<p><a class="p_ident" id="p-5mME8LB07m" href="#p-5mME8LB07m" tabindex="-1" role="presentation"></a>Una vez que notes que hay algo mal en tu programa porque no se comporta como debería o produce errores, el siguiente paso es descubrir <em>qué</em> es el problema.</p>
+
+<p><a class="p_ident" id="p-CJKevweHV6" href="#p-CJKevweHV6" tabindex="-1" role="presentation"></a>A veces es obvio. El mensaje de error apuntará a una línea específica de tu programa, y si miras la descripción del error y esa línea de código, a menudo puedes ver el problema.</p>
+
+<p><a class="p_ident" id="p-U2MGlMiUv1" href="#p-U2MGlMiUv1" tabindex="-1" role="presentation"></a>Pero no siempre. A veces la línea que desencadenó el problema es simplemente el primer lugar donde se utiliza de manera incorrecta un valor inestable que se produjo en otra parte. Si has estado resolviendo los ejercicios en capítulos anteriores, probablemente ya hayas experimentado tales situaciones.</p>
+
+<p><a class="p_ident" id="p-rsq5hJyXKX" href="#p-rsq5hJyXKX" tabindex="-1" role="presentation"></a>El siguiente programa de ejemplo intenta convertir un número entero en una cadena en una base dada (decimal, binaria, y así sucesivamente) al seleccionar repetidamente el último dígito y luego dividir el número para deshacerse de este dígito. Pero la extraña salida que produce actualmente sugiere que tiene un error.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-8tOR9x4PzT" href="#c-8tOR9x4PzT" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">numberToString</span>(<span class="tok-definition">n</span>, <span class="tok-definition">base</span> = <span class="tok-number">10</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">result</span> = <span class="tok-string">""</span>, <span class="tok-definition">sign</span> = <span class="tok-string">""</span>;
+  <span class="tok-keyword">if</span> (n &lt; <span class="tok-number">0</span>) {
+    sign = <span class="tok-string">"-"</span>;
+    n = -n;
+  }
+  <span class="tok-keyword">do</span> {
+    result = String(n % base) + result;
+    n /= base;
+  } <span class="tok-keyword">while</span> (n &gt; <span class="tok-number">0</span>);
+  <span class="tok-keyword">return</span> sign + result;
+}
+console.log(numberToString(<span class="tok-number">13</span>, <span class="tok-number">10</span>));
+<span class="tok-comment">// → 1.5e-3231.3e-3221.3e-3211.3e-3201.3e-3191.3e-3181.3…</span></pre>
+
+<p><a class="p_ident" id="p-RAeAoBjrC7" href="#p-RAeAoBjrC7" tabindex="-1" role="presentation"></a>Incluso si ya ves el problema, finge por un momento que no lo ves. Sabemos que nuestro programa no funciona correctamente, y queremos averiguar por qué.</p>
+
+<p><a class="p_ident" id="p-2OJsjnmKOW" href="#p-2OJsjnmKOW" tabindex="-1" role="presentation"></a>Este es el momento en que debes resistir la tentación de empezar a hacer cambios aleatorios en el código para ver si eso lo mejora. En cambio, <em>piensa</em>. Analiza lo que está sucediendo y elabora una teoría sobre por qué podría estar ocurriendo. Luego, haz observaciones adicionales para probar esta teoría, o si aún no tienes una teoría, haz observaciones adicionales para ayudarte a elaborar una. </p><p><a class="p_ident" id="p-HuAniqpAd5" href="#p-HuAniqpAd5" tabindex="-1" role="presentation"></a>Agregar algunas llamadas estratégicas de <code>console.log</code> en el programa es una buena manera de obtener información adicional sobre lo que hace el programa. En este caso, queremos que <code>n</code> tome los valores <code>13</code>, <code>1</code> y luego <code>0</code>. Escribamos su valor al comienzo del bucle.</p>
+
+<pre class="snippet" data-language="null"><a class="c_ident" id="c-nB/OeL8UNa" href="#c-nB/OeL8UNa" tabindex="-1" role="presentation"></a>13
+1.3
+0.13
+0.013
+…
+1.5e-323</pre>
+
+<p><a class="p_ident" id="p-I+PNN6aJ0e" href="#p-I+PNN6aJ0e" tabindex="-1" role="presentation"></a><em>Correcto</em>. Dividir 13 por 10 no produce un número entero. En lugar de <code>n /= base</code>, lo que realmente queremos es <code>n = Math.<wbr>floor(n /<wbr> base)</code> para que el número esté correctamente "desplazado" hacia la derecha.</p>
+
+<p><a class="p_ident" id="p-Uh0X9a/GMY" href="#p-Uh0X9a/GMY" tabindex="-1" role="presentation"></a>Una alternativa a usar <code>console.log</code> para espiar el comportamiento del programa es utilizar las capacidades de <em>depuración</em> de tu navegador. Los navegadores vienen con la habilidad de establecer un <em>punto de interrupción</em> en una línea específica de tu código. Cuando la ejecución del programa llega a una línea con un punto de interrupción, se pausa y puedes inspeccionar los valores de las asignaciones en ese punto. No entraré en detalles, ya que los depuradores varían de un navegador a otro, pero busca en las herramientas de desarrollo de tu navegador o busca instrucciones en la web.</p>
+
+<p><a class="p_ident" id="p-h2R9jlfw7o" href="#p-h2R9jlfw7o" tabindex="-1" role="presentation"></a>Otra forma de establecer un punto de interrupción es incluir una sentencia <code>debugger</code> (consistiendo únicamente en esa palabra clave) en tu programa. Si las herramientas de desarrollo de tu navegador están activas, el programa se pausará siempre que alcance esa sentencia.</p>
+
+<h2><a class="h_ident" id="h-iwwPbaBjJD" href="#h-iwwPbaBjJD" tabindex="-1" role="presentation"></a>Propagación de errores</h2>
+
+<p><a class="p_ident" id="p-cHc7tL2ujS" href="#p-cHc7tL2ujS" tabindex="-1" role="presentation"></a>No todos los problemas pueden ser prevenidos por el programador, desafortunadamente. Si tu programa se comunica de alguna manera con el mundo exterior, es posible recibir una entrada mal formada, sobrecargarse de trabajo o que falle la red.</p>
+
+<p><a class="p_ident" id="p-Lk/I1kWMBF" href="#p-Lk/I1kWMBF" tabindex="-1" role="presentation"></a>Si estás programando solo para ti, puedes permitirte simplemente ignorar dichos problemas hasta que ocurran. Pero si estás construyendo algo que será utilizado por otra persona, generalmente quieres que el programa haga algo más que simplemente estrellarse. A veces lo correcto es tomar la mala entrada con calma y continuar ejecutándose. En otros casos, es mejor informar al usuario qué salió mal y luego rendirse. Pero en cualquier situación, el programa tiene que hacer activamente algo en respuesta al problema.</p>
+
+<p><a class="p_ident" id="p-ZrDi3JVFsJ" href="#p-ZrDi3JVFsJ" tabindex="-1" role="presentation"></a>Imagina que tienes una función <code>promptNumber</code> que le pide al usuario un número y lo devuelve. ¿Qué debería devolver si el usuario introduce "naranja"?</p><p><a class="p_ident" id="p-ee4d/K1Bh5" href="#p-ee4d/K1Bh5" tabindex="-1" role="presentation"></a>Una opción es hacer que devuelva un valor especial. Las opciones comunes para tales valores son <code>null</code>, <code>undefined</code> o -1.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-ssOc2pf47/" href="#c-ssOc2pf47/" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">promptNumber</span>(<span class="tok-definition">pregunta</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">resultado</span> = Number(prompt(pregunta));
+  <span class="tok-keyword">if</span> (Number.isNaN(resultado)) <span class="tok-keyword">return</span> <span class="tok-keyword">null</span>;
+  <span class="tok-keyword">else</span> <span class="tok-keyword">return</span> resultado;
+}
+
+console.log(promptNumber(<span class="tok-string">"¿Cuántos árboles ves?"</span>));</pre>
+
+<p><a class="p_ident" id="p-8/CuHXN0/U" href="#p-8/CuHXN0/U" tabindex="-1" role="presentation"></a>Ahora cualquier código que llame a <code>promptNumber</code> debe verificar si se leyó un número real y, en caso de que no, debe recuperar de alguna forma, quizás preguntando nuevamente o completando con un valor predeterminado. O podría devolver de nuevo un valor especial a <em>su</em> llamador para indicar que no pudo hacer lo que se le pidió.</p>
+
+<p><a class="p_ident" id="p-Wc5BXSBSI5" href="#p-Wc5BXSBSI5" tabindex="-1" role="presentation"></a>En muchas situaciones, sobre todo cuando los errores son comunes y el llamador debe tenerlos explícitamente en cuenta, devolver un valor especial es una buena manera de indicar un error. Sin embargo, tiene sus desventajas. Primero, ¿qué sucede si la función ya puede devolver todo tipo de valores posibles? En tal función, tendrás que hacer algo como envolver el resultado en un objeto para poder distinguir el éxito del fracaso, de la forma en que lo hace el método <code>next</code> en la interfaz del iterador.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-xNuzmR0/PP" href="#c-xNuzmR0/PP" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">ultimoElemento</span>(<span class="tok-definition">arreglo</span>) {
+  <span class="tok-keyword">if</span> (arreglo.length == <span class="tok-number">0</span>) {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">fallido</span>: true};
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">valor</span>: arreglo[arreglo.length - <span class="tok-number">1</span>]};
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-+E9fllIVBt" href="#p-+E9fllIVBt" tabindex="-1" role="presentation"></a>El segundo problema con devolver valores especiales es que puede llevar a un código incómodo. Si un fragmento de código llama a <code>promptNumber</code> 10 veces, tiene que verificar 10 veces si se devolvió <code>null</code>. Y si su respuesta al encontrar <code>null</code> es simplemente devolver <code>null</code> en sí mismo, los llamadores de la función a su vez tendrán que verificarlo, y así sucesivamente.</p><h2><a class="h_ident" id="h-zT3755/aOp" href="#h-zT3755/aOp" tabindex="-1" role="presentation"></a>Excepciones</h2>
+
+<p><a class="p_ident" id="p-ZBsTKhGA4i" href="#p-ZBsTKhGA4i" tabindex="-1" role="presentation"></a>Cuando una función no puede proceder normalmente, a menudo lo que nos gustaría hacer es simplemente detener lo que estamos haciendo y saltar inmediatamente a un lugar que sepa cómo manejar el problema. Esto es lo que hace el <em>manejo de excepciones</em>.</p>
+
+<p><a class="p_ident" id="p-kjXcPy8jGf" href="#p-kjXcPy8jGf" tabindex="-1" role="presentation"></a>Las excepciones son un mecanismo que permite que el código que se encuentra con un problema <em>genere</em> (o <em>lanze</em>) una excepción. Una excepción puede ser cualquier valor. Generar una se asemeja un poco a un retorno supercargado de una función: salta no solo fuera de la función actual sino también de sus llamadas, hasta llegar a la primera llamada que inició la ejecución actual. Esto se llama <em>desenrollar la pila</em>. Puede que recuerdes la pila de llamadas a funciones que se mencionó en el <a href="03_functions.html#stack">Capítulo 3</a>. Una excepción recorre rápidamente esta pila, descartando todos los contextos de llamada que encuentre.</p>
+
+<p><a class="p_ident" id="p-giUX2OynLm" href="#p-giUX2OynLm" tabindex="-1" role="presentation"></a>Si las excepciones siempre fueran directamente hasta el final de la pila, no serían de mucha utilidad. Simplemente proporcionarían una forma novedosa de hacer explotar tu programa. Su poder radica en el hecho de que puedes colocar "obstáculos" a lo largo de la pila para <em>capturar</em> la excepción mientras se desplaza hacia abajo. Una vez que has capturado una excepción, puedes hacer algo con ella para abordar el problema y luego continuar ejecutando el programa.</p>
+
+<p><a class="p_ident" id="p-DQmDywMub9" href="#p-DQmDywMub9" tabindex="-1" role="presentation"></a>Aquí tienes un ejemplo:</p>
+
+<pre id="look" tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-0VA94HjY2e" href="#c-0VA94HjY2e" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">promptDirection</span>(<span class="tok-definition">question</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">result</span> = prompt(question);
+  <span class="tok-keyword">if</span> (result.toLowerCase() == <span class="tok-string">"left"</span>) <span class="tok-keyword">return</span> <span class="tok-string">"L"</span>;
+  <span class="tok-keyword">if</span> (result.toLowerCase() == <span class="tok-string">"right"</span>) <span class="tok-keyword">return</span> <span class="tok-string">"R"</span>;
+  <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string">"Dirección inválida: "</span> + result);
+}
+
+<span class="tok-keyword">function</span> <span class="tok-definition">look</span>() {
+  <span class="tok-keyword">if</span> (promptDirection(<span class="tok-string">"¿Hacia dónde?"</span>) == <span class="tok-string">"L"</span>) {
+    <span class="tok-keyword">return</span> <span class="tok-string">"una casa"</span>;
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">return</span> <span class="tok-string">"dos osos enojados"</span>;
+  }
+}
+<span class="tok-keyword">intenta</span> {
+  console.log(<span class="tok-string">"You see"</span>, look());
+} <span class="tok-keyword">atrapa</span> (<span class="tok-definition">error</span>) {
+  console.log(<span class="tok-string">"Algo salió mal: "</span> + error);
+}
+
+<p><a class="p_ident" id="p-bbpj24fusK" href="#p-bbpj24fusK" tabindex="-1" role="presentation"></a>La palabra clave <code>throw</code> se utiliza para lanzar una excepción. Capturar una excepción se realiza envolviendo un fragmento de código en un bloque <code>try</code>, seguido de la palabra clave <code>catch</code>. Cuando el código en el bloque <code>try</code> provoca que se lance una excepción, se evalúa el bloque <code>catch</code>, con el nombre entre paréntesis vinculado al valor de la excepción. Después de que finalice el bloque <code>catch</code>, o si el bloque <code>try</code> termina sin problemas, el programa continúa debajo de toda la declaración de <code>try/catch</code>.</p>
+
+<p><a class="p_ident" id="p-E2FZ/XLaOT" href="#p-E2FZ/XLaOT" tabindex="-1" role="presentation"></a>En este caso, utilizamos el constructor <code>Error</code> para crear nuestro valor de excepción. Este es un constructor estándar de JavaScript que crea un objeto con una propiedad <code>message</code>. Las instancias de <code>Error</code> también recopilan información sobre la pila de llamadas que existía cuando se creó la excepción, una llamada <em>traza de pila</em> o <em>stack trace</em>. Esta información se almacena en la propiedad <code>stack</code> y puede ser útil al intentar depurar un problema: nos dice la función donde ocurrió el problema y qué funciones realizaron la llamada fallida.</p>
+
+<p><a class="p_ident" id="p-BYCPINQ0h5" href="#p-BYCPINQ0h5" tabindex="-1" role="presentation"></a>Observa que la función <code>look</code> ignora por completo la posibilidad de que <code>promptDirection</code> pueda fallar. Esta es la gran ventaja de las excepciones: el código de manejo de errores solo es necesario en el punto donde ocurre el error y en el punto donde se maneja. Las funciones intermedias pueden olvidarse por completo de ello.</p>
+
+<p><a class="p_ident" id="p-deFX/IC34y" href="#p-deFX/IC34y" tabindex="-1" role="presentation"></a>Bueno, ¡casi siempre...</p>
+
+<h2><a class="h_ident" id="h-cgoP7o2fe9" href="#h-cgoP7o2fe9" tabindex="-1" role="presentation"></a>Limpieza después de excepciones</h2>
+
+<p><a class="p_ident" id="p-sZNOED76cz" href="#p-sZNOED76cz" tabindex="-1" role="presentation"></a>El efecto de una excepción es otro tipo de flujo de control. Cada acción que pueda causar una excepción, que es prácticamente cada llamada a función y acceso a propiedad, puede hacer que el control abandone repentinamente tu código.</p>
+
+<p><a class="p_ident" id="p-Mqr7VzgCYa" href="#p-Mqr7VzgCYa" tabindex="-1" role="presentation"></a>Esto significa que cuando el código tiene varios efectos secundarios, incluso si su flujo de control "regular" parece indicar que siempre ocurrirán todos, una excepción podría evitar que algunos de ellos se produzcan.</p>
+
+<p><a class="p_ident" id="p-V7nPGHDnR1" href="#p-V7nPGHDnR1" tabindex="-1" role="presentation"></a>Aquí tenemos un código bancario realmente malo.</p><pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-JGqwKurB03" href="#c-JGqwKurB03" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">cuentas</span> = {
+  <span class="tok-definition">a</span>: <span class="tok-number">100</span>,
+  <span class="tok-definition">b</span>: <span class="tok-number">0</span>,
+  <span class="tok-definition">c</span>: <span class="tok-number">20</span>
+};
+
+<span class="tok-keyword">function</span> <span class="tok-definition">obtenerCuenta</span>() {
+  <span class="tok-keyword">let</span> <span class="tok-definition">nombreCuenta</span> = prompt(<span class="tok-string">"Ingrese un nombre de cuenta"</span>);
+  <span class="tok-keyword">if</span> (!Object.hasOwn(cuentas, nombreCuenta)) {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string2">`No existe esa cuenta: </span>${nombreCuenta}<span class="tok-string2">`</span>);
+  }
+  <span class="tok-keyword">return</span> nombreCuenta;
+}
+
+<span class="tok-keyword">function</span> <span class="tok-definition">transferir</span>(<span class="tok-definition">desde</span>, <span class="tok-definition">cantidad</span>) {
+  <span class="tok-keyword">if</span> (cuentas[desde] &lt; cantidad) <span class="tok-keyword">return</span>;
+  cuentas[desde] -= cantidad;
+  cuentas[obtenerCuenta()] += cantidad;
+}</pre>
+
+<p><a class="p_ident" id="p-lj3bgLcO/p" href="#p-lj3bgLcO/p" tabindex="-1" role="presentation"></a>La función <code>transferir</code> traslada una suma de dinero desde una cuenta dada a otra, solicitando el nombre de la otra cuenta en el proceso. Si se proporciona un nombre de cuenta inválido, <code>obtenerCuenta</code> genera una excepción.</p>
+
+<p><a class="p_ident" id="p-9uSTvnXw4Y" href="#p-9uSTvnXw4Y" tabindex="-1" role="presentation"></a>Pero <code>transferir</code> primero retira el dinero de la cuenta y luego llama a <code>obtenerCuenta</code> antes de agregarlo a otra cuenta. Si en ese punto se interrumpe por una excepción, simplemente hará que el dinero desaparezca.</p>
+
+<p><a class="p_ident" id="p-vSkNwpOGmb" href="#p-vSkNwpOGmb" tabindex="-1" role="presentation"></a>Ese código podría haber sido escrito de forma un poco más inteligente, por ejemplo, llamando a <code>obtenerCuenta</code> antes de comenzar a mover el dinero alrededor. Pero a menudo los problemas como este ocurren de maneras más sutiles. Incluso las funciones que no parecen que lanzarán una excepción podrían hacerlo en circunstancias excepcionales o cuando contienen un error de programación.</p>
+
+<p><a class="p_ident" id="p-CGy+BgW7bC" href="#p-CGy+BgW7bC" tabindex="-1" role="presentation"></a>Una forma de abordar esto es utilizar menos efectos secundarios. Nuevamente, un estilo de programación que calcula nuevos valores en lugar de cambiar datos existentes ayuda. Si un trozo de código se detiene a mitad de la creación de un nuevo valor, ninguna estructura de datos existente resultó dañada, lo que facilita la recuperación.</p>
+
+<p><a class="p_ident" id="p-lhrnmP99dZ" href="#p-lhrnmP99dZ" tabindex="-1" role="presentation"></a>Pero eso no siempre es práctico. Por lo tanto, hay otra característica que tienen las sentencias <code>try</code>. Pueden ir seguidas de un bloque <code>finally</code> ya sea en lugar de o además de un bloque <code>catch</code>. Un bloque <code>finally</code> dice "sin importar <em>qué</em> ocurra, ejecuta este código después de intentar ejecutar el código en el bloque <code>try</code>".</p><pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-brWpzDAy4+" href="#c-brWpzDAy4+" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">transfer</span>(<span class="tok-definition">from</span>, <span class="tok-definition">amount</span>) {
+  <span class="tok-keyword">if</span> (accounts[from] < amount) <span class="tok-keyword">return</span>;
+  <span class="tok-keyword">let</span> <span class="tok-definition">progress</span> = <span class="tok-number">0</span>;
+  <span class="tok-keyword">try</span> {
+    accounts[from] -= amount;
+    progress = <span class="tok-number">1</span>;
+    accounts[getAccount()] += amount;
+    progress = <span class="tok-number">2</span>;
+  } <span class="tok-keyword">finally</span> {
+    <span class="tok-keyword">if</span> (progress == <span class="tok-number">1</span>) {
+      accounts[from] += amount;
+    }
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-LvvK85Vh5F" href="#p-LvvK85Vh5F" tabindex="-1" role="presentation"></a>This version of the function tracks its progress, and if, when leaving, it notices that it was aborted at a point where it had created an inconsistent program state, it repairs the damage it did.</p>
+
+<p><a class="p_ident" id="p-Gs19OQg3TY" href="#p-Gs19OQg3TY" tabindex="-1" role="presentation"></a>Note that even though the <code>finally</code> code is run when an exception is thrown in the <code>try</code> block, it does not interfere with the exception. After the <code>finally</code> block runs, the stack continues unwinding.</p>
+
+<p><a class="p_ident" id="p-yZkXySCQHr" href="#p-yZkXySCQHr" tabindex="-1" role="presentation"></a>Writing programs that operate reliably even when exceptions pop up in unexpected places is hard. Many people simply don’t bother, and because exceptions are typically reserved for exceptional circumstances, the problem may occur so rarely that it is never even noticed. Whether that is a good thing or a really bad thing depends on how much damage the software will do when it fails.</p>
+
+<h2><a class="h_ident" id="h-vfoJqEDazI" href="#h-vfoJqEDazI" tabindex="-1" role="presentation"></a>Selective catching</h2>
+
+<p><a class="p_ident" id="p-HUJ9GRG1jC" href="#p-HUJ9GRG1jC" tabindex="-1" role="presentation"></a>When an exception makes it all the way to the bottom of the stack without being caught, it gets handled by the environment. What this means differs between environments. In browsers, a description of the error typically gets written to the JavaScript console (reachable through the browser’s Tools or Developer menu). Node.js, the browserless JavaScript environment we will discuss in <a href="20_node.html">Chapter 20</a>, is more careful about data corruption. It aborts the whole process when an unhandled exception occurs.</p>
+
+<p><a class="p_ident" id="p-9JOlpepKZE" href="#p-9JOlpepKZE" tabindex="-1" role="presentation"></a>For programmer mistakes, just letting the error go through is often the best you can do. An unhandled exception is a reasonable way to signal a broken program, and the JavaScript console will, on modern browsers, provide you with some information about which function calls were on the stack when the problem occurred.</p><p><a class="p_ident" id="p-KGWPPf4CcF" href="#p-KGWPPf4CcF" tabindex="-1" role="presentation"></a>Para problemas que se <em>espera</em> que ocurran durante el uso rutinario, fallar con una excepción no controlada es una estrategia terrible.</p>
+
+<p><a class="p_ident" id="p-ZkwQ40b3to" href="#p-ZkwQ40b3to" tabindex="-1" role="presentation"></a>Usos inválidos del lenguaje, como hacer referencia a una asignación inexistente, buscar una propiedad en <code>null</code>, o llamar a algo que no es una función, también resultarán en el lanzamiento de excepciones. Tales excepciones también pueden ser atrapadas.</p>
+
+<p><a class="p_ident" id="p-xXQDgFLcvA" href="#p-xXQDgFLcvA" tabindex="-1" role="presentation"></a>Cuando se ingresa en un cuerpo de <code>catch</code>, todo lo que sabemos es que <em>algo</em> en nuestro cuerpo de <code>try</code> causó una excepción. Pero no sabemos <em>qué</em> lo causó ni <em>qué</em> excepción causó.</p>
+
+<p><a class="p_ident" id="p-wiJu150q/l" href="#p-wiJu150q/l" tabindex="-1" role="presentation"></a>JavaScript (en una omisión bastante evidente) no proporciona soporte directo para atrapar excepciones selectivamente: o las atrapas todas o no atrapas ninguna. Esto hace que sea tentador <em>asumir</em> que la excepción que obtienes es la que tenías en mente cuando escribiste el bloque <code>catch</code>.</p>
+
+<p><a class="p_ident" id="p-O9bj9nd33p" href="#p-O9bj9nd33p" tabindex="-1" role="presentation"></a>Pero podría no serlo. Puede que se viole alguna otra suposición, o que hayas introducido un error que está causando una excepción. Aquí hay un ejemplo que <em>intenta</em> seguir llamando a <code>promptDirection</code> hasta que obtiene una respuesta válida:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-ZxDKrGLCQ3" href="#c-ZxDKrGLCQ3" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (;;) {
+  <span class="tok-keyword">try</span> {
+    <span class="tok-keyword">let</span> <span class="tok-definition">dir</span> = promtDirection(<span class="tok-string">"¿Dónde?"</span>); <span class="tok-comment">// ← ¡error tipográfico!</span>
+    console.log(<span class="tok-string">"Elegiste "</span>, dir);
+    <span class="tok-keyword">break</span>;
+  } <span class="tok-keyword">catch</span> (<span class="tok-definition">e</span>) {
+    console.log(<span class="tok-string">"No es una dirección válida. Inténtalo de nuevo."</span>);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-pdL8VKiwnf" href="#p-pdL8VKiwnf" tabindex="-1" role="presentation"></a>La construcción <code>for (;;)</code> es una forma de crear intencionalmente un bucle que no termina por sí mismo. Salimos del bucle solo cuando se proporciona una dirección válida. <em>Pero</em> escribimos mal <code>promptDirection</code>, lo que resultará en un error de "variable indefinida". Debido a que el bloque <code>catch</code> ignora por completo el valor de su excepción (<code>e</code>), asumiendo que sabe cuál es el problema, trata erróneamente el error de asignación como si indicara una entrada incorrecta. Esto no solo causa un bucle infinito, sino que "oculta" el útil mensaje de error sobre la asignación mal escrita.</p><p><a class="p_ident" id="p-hk/lwBIhah" href="#p-hk/lwBIhah" tabindex="-1" role="presentation"></a>Como regla general, no captures excepciones de forma indiscriminada a menos que sea con el propósito de "enrutarlas" a algún lugar, por ejemplo, a través de la red para informar a otro sistema que nuestro programa falló. Y aún así, piensa cuidadosamente en cómo podrías estar ocultando información.</p>
+
+<p><a class="p_ident" id="p-FVrgLfvNOk" href="#p-FVrgLfvNOk" tabindex="-1" role="presentation"></a>Así que queremos capturar un tipo <em>específico</em> de excepción. Podemos hacer esto comprobando en el bloque <code>catch</code> si la excepción que recibimos es la que nos interesa y relanzándola en caso contrario. Pero, ¿cómo reconocemos una excepción?</p>
+
+<p><a class="p_ident" id="p-qurSIk3pjE" href="#p-qurSIk3pjE" tabindex="-1" role="presentation"></a>Podríamos comparar su propiedad <code>message</code> con el mensaje de error que esperamos. Pero esta no es una forma sólida de escribir código, ya que estaríamos utilizando información destinada al consumo humano (el mensaje) para tomar una decisión programática. Tan pronto como alguien cambie (o traduzca) el mensaje, el código dejará de funcionar.</p>
+
+<p><a class="p_ident" id="p-wxne9fyvyu" href="#p-wxne9fyvyu" tabindex="-1" role="presentation"></a>Más bien, definamos un nuevo tipo de error y usemos <code>instanceof</code> para identificarlo.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-miFD8lvrWj" href="#c-miFD8lvrWj" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> InputError <span class="tok-keyword">extends</span> Error {}
+
+<span class="tok-keyword">function</span> <span class="tok-definition">promptDirection</span>(<span class="tok-definition">question</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">result</span> = prompt(question);
+  <span class="tok-keyword">if</span> (result.toLowerCase() == <span class="tok-string">"left"</span>) <span class="tok-keyword">return</span> <span class="tok-string">"L"</span>;
+  <span class="tok-keyword">if</span> (result.toLowerCase() == <span class="tok-string">"right"</span>) <span class="tok-keyword">return</span> <span class="tok-string">"R"</span>;
+  <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> InputError(<span class="tok-string">"Dirección inválida: "</span> + result);
+}</pre>
+
+<p><a class="p_ident" id="p-JixasATSAt" href="#p-JixasATSAt" tabindex="-1" role="presentation"></a>La nueva clase de error extiende <code>Error</code>. No define su propio constructor, lo que significa que hereda el constructor de <code>Error</code>, que espera un mensaje en forma de cadena como argumento. De hecho, no define nada en absoluto, la clase está vacía. Los objetos <code>InputError</code> se comportan como objetos <code>Error</code>, excepto que tienen una clase diferente con la que podemos identificarlos.</p>
+
+<p><a class="p_ident" id="p-JqyLwQxCGY" href="#p-JqyLwQxCGY" tabindex="-1" role="presentation"></a>Ahora el bucle puede capturar estos errores más cuidadosamente.</p><pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-ab/mR1C1nr" href="#c-ab/mR1C1nr" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (;;) {
+  <span class="tok-keyword">try</span> {
+    <span class="tok-keyword">let</span> <span class="tok-definition">dir</span> = promptDirection(<span class="tok-string">"¿A dónde?"</span>);
+    console.log(<span class="tok-string">"Elegiste "</span>, dir);
+    <span class="tok-keyword">break</span>;
+  } <span class="tok-keyword">catch</span> (<span class="tok-definition">e</span>) {
+    <span class="tok-keyword">if</span> (e <span class="tok-keyword">instanceof</span> InputError) {
+      console.log(<span class="tok-string">"No es una dirección válida. Inténtalo de nuevo."</span>);
+    } <span class="tok-keyword">else</span> {
+      <span class="tok-keyword">throw</span> e;
+    }
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-N4ExnmZrQ/" href="#p-N4ExnmZrQ/" tabindex="-1" role="presentation"></a>Esto solo capturará instancias de <code>InputError</code> y dejará pasar las excepciones no relacionadas. Si reintroduces el error tipográfico, el error de enlace indefinido se reportará correctamente.</p>
+
+<h2><a class="h_ident" id="h-Sb9V3BEus1" href="#h-Sb9V3BEus1" tabindex="-1" role="presentation"></a>Afirmaciones</h2>
+
+<p><a class="p_ident" id="p-Is9Zkz2o9G" href="#p-Is9Zkz2o9G" tabindex="-1" role="presentation"></a><em>Afirmaciones</em> son chequeos dentro de un programa que verifican que algo sea como se supone que debe ser. No se usan para manejar situaciones que pueden surgir en la operación normal, sino para encontrar errores de programación.</p>
+
+<p><a class="p_ident" id="p-uMhd4mC7ZW" href="#p-uMhd4mC7ZW" tabindex="-1" role="presentation"></a>Por ejemplo, si <code>primerElemento</code> se describe como una función que nunca debe ser llamada en arrays vacíos, podríamos escribirla así:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-gRlHo3tyh8" href="#c-gRlHo3tyh8" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">primerElemento</span>(<span class="tok-definition">array</span>) {
+  <span class="tok-keyword">if</span> (array.length == <span class="tok-number">0</span>) {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string">"primerElemento llamado con []"</span>);
+  }
+  <span class="tok-keyword">return</span> array[<span class="tok-number">0</span>];
+}</pre>
+
+<p><a class="p_ident" id="p-kmRbQt2Aem" href="#p-kmRbQt2Aem" tabindex="-1" role="presentation"></a>Ahora, en lugar de devolver silenciosamente undefined (lo que obtienes al leer una propiedad de un array que no existe), esto hará fallar tu programa de manera ruidosa tan pronto como lo uses incorrectamente. Esto reduce la probabilidad de que tales errores pasen desapercibidos y facilita encontrar su causa cuando ocurren.</p>
+
+<p><a class="p_ident" id="p-bFN2bXWxAz" href="#p-bFN2bXWxAz" tabindex="-1" role="presentation"></a>No recomiendo intentar escribir afirmaciones para cada tipo posible de entrada errónea. Eso sería mucho trabajo y conduciría a un código muy ruidoso. Debes reservarlas para errores que sean fáciles de cometer (o que te encuentres cometiendo).</p><h2><a class="h_ident" id="h-ErccPg/l98" href="#h-ErccPg/l98" tabindex="-1" role="presentation"></a>Resumen</h2>
+
+<p><a class="p_ident" id="p-NmxBuWBld3" href="#p-NmxBuWBld3" tabindex="-1" role="presentation"></a>Una parte importante de la programación es encontrar, diagnosticar y corregir errores. Los problemas pueden ser más fáciles de notar si tienes un conjunto de pruebas automatizado o añades afirmaciones a tus programas.</p>
+
+<p><a class="p_ident" id="p-8tal4BvCRU" href="#p-8tal4BvCRU" tabindex="-1" role="presentation"></a>Los problemas causados por factores fuera del control del programa generalmente deben ser planificados activamente. A veces, cuando el problema puede ser manejado localmente, los valores de retorno especiales son una buena manera de rastrearlos. De lo contrario, pueden ser preferibles las excepciones.</p>
+
+<p><a class="p_ident" id="p-ZJkq9NFh8W" href="#p-ZJkq9NFh8W" tabindex="-1" role="presentation"></a>Lanzar una excepción hace que la pila de llamadas se deshaga hasta el próximo bloque <code>try/catch</code> que la envuelve o hasta el fondo de la pila. El valor de la excepción será entregado al bloque <code>catch</code> que la captura, el cual debe verificar que realmente es el tipo de excepción esperado y luego hacer algo con ella. Para ayudar a abordar el flujo de control impredecible causado por las excepciones, se pueden utilizar bloques <code>finally</code> para asegurarse de que un trozo de código <em>siempre</em> se ejecute cuando un bloque finaliza.</p>
+
+<h2><a class="h_ident" id="h-TcUD2vzyMe" href="#h-TcUD2vzyMe" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<h3><a class="i_ident" id="i-n1zYouiAfX" href="#i-n1zYouiAfX" tabindex="-1" role="presentation"></a>Reintentar</h3>
+
+<p><a class="p_ident" id="p-oAuWXajIJA" href="#p-oAuWXajIJA" tabindex="-1" role="presentation"></a>Imagina que tienes una función <code>primitiveMultiply</code> que en el 20 por ciento de los casos multiplica dos números y en el otro 80 por ciento de los casos genera una excepción del tipo <code>MultiplicatorUnitFailure</code>. Escribe una función que envuelva esta función engorrosa y simplemente siga intentándolo hasta que una llamada tenga éxito, momento en el que devuelva el resultado.</p>
+
+<p><a class="p_ident" id="p-FfNd4pOv0L" href="#p-FfNd4pOv0L" tabindex="-1" role="presentation"></a>Asegúrate de manejar solo las excepciones que estás intentando manejar.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-E1Acr2VS8k" href="#c-E1Acr2VS8k" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> MultiplicatorUnitFailure <span class="tok-keyword">extends</span> Error {}
+
+<span class="tok-keyword">function</span> <span class="tok-definition">primitiveMultiply</span>(<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) {
+  <span class="tok-keyword">if</span> (Math.random() &lt; <span class="tok-number">0.2</span>) {
+    <span class="tok-keyword">return</span> a * b;
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> MultiplicatorUnitFailure(<span class="tok-string">"Klunk"</span>);
+  }
+}```html
+<span class="tok-keyword">function</span> <span class="tok-definition">reliableMultiply</span>(<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) {
+  <span class="tok-comment">// Tu código aquí.</span>
+}
+
+console.log(reliableMultiply(<span class="tok-number">8</span>, <span class="tok-number">8</span>));
+<span class="tok-comment">// → 64</span></pre>
+
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-ChowJFeR1F" href="#p-ChowJFeR1F" tabindex="-1" role="presentation"></a>La llamada a <code>primitiveMultiply</code> definitivamente debería suceder en un bloque <code>try</code>. El bloque <code>catch</code> correspondiente debería volver a lanzar la excepción cuando no sea una instancia de <code>MultiplicatorUnitFailure</code> y asegurarse de que la llamada se intente de nuevo cuando lo sea.</p>
+
+<p><a class="p_ident" id="p-c2MPH2Cr0C" href="#p-c2MPH2Cr0C" tabindex="-1" role="presentation"></a>Para hacer la reintentación, puedes usar un bucle que se detiene solo cuando una llamada tiene éxito, como en el <a href="08_error.html#look"><code>ejemplo look</code> anterior</a> en este capítulo, o usar recursión y esperar que no obtengas una cadena de fallos tan larga que desborde la pila (lo cual es bastante seguro).</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-iGlwnUbkRs" href="#i-iGlwnUbkRs" tabindex="-1" role="presentation"></a>The locked box</h3>
+
+<p><a class="p_ident" id="p-uGznOGuYh8" href="#p-uGznOGuYh8" tabindex="-1" role="presentation"></a>Considera el siguiente objeto (bastante forzado):</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-EOa+Yrq1e3" href="#c-EOa+Yrq1e3" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">box</span> = <span class="tok-keyword">new</span> <span class="tok-keyword">class</span> {
+  <span class="tok-definition">locked</span> = true;
+  <span class="tok-definition">#content</span> = [];
+
+  <span class="tok-definition">unlock</span>() { <span class="tok-keyword">this</span>.locked = false; }
+  <span class="tok-definition">lock</span>() { <span class="tok-keyword">this</span>.locked = true;  }
+  <span class="tok-keyword">get</span> <span class="tok-definition">content</span>() {
+    <span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.locked) <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string">"¡Bloqueado!"</span>);
+    <span class="tok-keyword">return</span> <span class="tok-keyword">this</span>.#content;
+  }
+};</pre>
+
+<p><a class="p_ident" id="p-Jk8cP96rqW" href="#p-Jk8cP96rqW" tabindex="-1" role="presentation"></a>Es una caja con candado. Hay un arreglo en la caja, pero solo puedes acceder a él cuando la caja está desbloqueada.</p>
+
+<p><a class="p_ident" id="p-KI+tJ+amDX" href="#p-KI+tJ+amDX" tabindex="-1" role="presentation"></a>Escribe una función llamada <code>withBoxUnlocked</code> que tome una función como argumento, desbloquee la caja, ejecute la función y luego asegure que la caja esté cerrada de nuevo antes de retornar, independientemente de si la función argumento retornó normalmente o lanzó una excepción.</p>
+```<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-w1vGwb4pIE" href="#c-w1vGwb4pIE" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">caja</span> = <span class="tok-keyword">new</span> <span class="tok-keyword">class</span> {
+  <span class="tok-definition">bloqueado</span> = true;
+  <span class="tok-definition">#contenido</span> = [];
+
+  <span class="tok-definition">desbloquear</span>() { <span class="tok-keyword">this</span>.bloqueado = false; }
+  <span class="tok-definition">bloquear</span>() { <span class="tok-keyword">this</span>.bloqueado = true;  }
+  <span class="tok-keyword">get</span> <span class="tok-definition">contenido</span>() {
+    <span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.bloqueado) <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string">"¡Bloqueado!"</span>);
+    <span class="tok-keyword">return</span> <span class="tok-keyword">this</span>.#contenido;
+  }
+};
+
+<span class="tok-keyword">function</span> <span class="tok-definition">conCajaDesbloqueada</span>(<span class="tok-definition">cuerpo</span>) {
+  <span class="tok-comment">// Tu código aquí.</span>
+}
+
+conCajaDesbloqueada(() =&gt; {
+  caja.contenido.push(<span class="tok-string">"pieza de oro"</span>);
+});
+
+<span class="tok-keyword">try</span> {
+  conCajaDesbloqueada(() =&gt; {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string">"¡Piratas en el horizonte! ¡Abortar!"</span>);
+  });
+} <span class="tok-keyword">catch</span> (<span class="tok-definition">e</span>) {
+  console.log(<span class="tok-string">"Error generado: "</span> + e);
+}
+console.log(caja.bloqueado);
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-X5dxXtnN4l" href="#p-X5dxXtnN4l" tabindex="-1" role="presentation"></a>Para puntos adicionales, asegúrate de que si llamas a <code>conCajaDesbloqueada</code> cuando la caja ya está desbloqueada, la caja permanezca desbloqueada.</p>
+
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-4MxgD1VcbV" href="#p-4MxgD1VcbV" tabindex="-1" role="presentation"></a>Este ejercicio requiere un bloque <code>finally</code>. Tu función debe primero desbloquear la caja y luego llamar a la función argumento desde dentro de un cuerpo <code>try</code>. El bloque <code>finally</code> después debería bloquear la caja nuevamente.</p>
+
+<p><a class="p_ident" id="p-PvZL0oQnMG" href="#p-PvZL0oQnMG" tabindex="-1" role="presentation"></a>Para asegurarte de que no bloqueamos la caja cuando no estaba bloqueada previamente, verifica su estado de bloqueo al inicio de la función y desbloquéala y bloquéala solo cuando comenzó bloqueada.</p>
+
+</div></details><nav><a href="07_robot.html" title="capítulo anterior" aria-label="capítulo anterior">◂</a>&nbsp;<a href="index.html" title="portada" aria-label="portada">●</a>&nbsp;<a href="09_regexp.html" title="próximo capítulo" aria-label="próximo capítulo">▸</a>&nbsp;<button class="help" title="ayuda" aria-label="ayuda"><strong>?</strong></button>
+</nav>
+</article><script src="js/ejs.js"></script>
+</body></html>

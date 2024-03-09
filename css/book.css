@@ -1,0 +1,296 @@
+body {
+  margin: 0;
+}
+
+div.content {
+  font-family: tahoma, arial, sans-serif;
+  padding: 3em 5em;
+  padding-right: 4em;
+  max-width: 850px;
+  color: #222;
+  line-height: 150%;
+}
+
+h1 {
+  font-size: 200%;
+  margin-left: -1em;
+  margin-bottom: 1.4em;
+  page-break-before: left;
+}
+
+h1 .number {
+  display: block;
+  font-size: 45%;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 150%;
+}
+
+div.block {
+  padding: 0 .5em;
+  position: relative;
+}
+
+div.exercisenum {
+  top: 0;
+  width: 7em;
+  margin-left: -8em;
+  position: absolute;
+  text-align: right;
+  z-index: 11;
+  font-size: 85%;
+  color: #AAAAAA;
+}
+
+div.exercise {
+  border-left: .2em solid #FFBBBB;
+  margin-left: -.7em;
+  padding-left: .5em;
+}
+
+div.solution {
+  border-left: .2em solid #AAEEAA;
+  margin-left: -.7em;
+  padding-left: .5em;
+  position: relative;
+}
+
+div.solutionarrow {
+  position: absolute;
+  top: 0;
+  margin-left: -4em;
+  width: 3em;
+  text-align: right;
+  z-index: 11;
+  color: #AAAAAA;
+  cursor: pointer;
+}
+
+code {
+  font-family: courier new, courier, monospace;
+  color: #033;
+}
+
+p {
+  margin: 1em 0;
+  orphans: 2;
+}
+
+pre.preformatted, pre.code {
+  margin: 1.1em 12px;
+  border: 1px solid #CCCCCC;
+  padding: .4em;
+  font-family: courier new, courier, monospace;
+  font-size: 90%;
+  page-break-inside: avoid;
+}
+
+pre.invalid {
+  border: 1px solid #FF9999;
+}
+
+a:link {
+  color: #223388;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #554477;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.footref, span.exponent {
+  vertical-align: super;
+  font-size: 60%;
+}
+
+span.footref {
+  color: #223388;
+  cursor: pointer;
+}
+
+ol.footnotes {
+  font-size: 70%;
+  padding-left: 2em;
+}
+
+div.footnotefloat {
+  font-size: 80%;
+}
+
+div.footnotefloat code {
+  color: #002222;
+}
+
+/* Revolting hack to make image-rulers work in IE */
+hr {
+  background: url(../images/hr.png) no-repeat top center;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/hr.png');
+  width: 1px;
+  height: 1px;
+  border: 0;
+}
+* > hr {
+  width: 100%;
+  height: 10px;
+}
+
+blockquote {
+  font-style: italic;
+  page-break-inside: avoid;
+}
+
+blockquote em {
+  font-style: normal;
+}
+
+div.illustration {
+  padding-left: 1em;
+  page-break-inside: avoid;
+}
+
+div.picture {
+  text-align: center;
+  page-break-inside: avoid;
+}
+
+div.navigation {
+  font-size: 85%;
+  color: #AAAAAA;
+  margin-top: 2em;
+}
+
+div.navigation a:link {
+  color: #888888;
+}
+
+div.navigation a:visited {
+  color: #888888;
+}
+
+ul.index {
+  list-style-type: none;
+  margin: 1em 0;
+  padding: 0;
+}
+
+div.toggle {
+  color: #AA0000;
+  cursor: pointer;
+}
+
+div.toggle:hover {
+  text-decoration: underline;
+}
+
+div.floater {
+  position: absolute;
+  border: 1px solid #888888;
+  background-color: #EEEEEE;
+  padding: .3em;
+  z-index: 12;
+}
+
+button.react {
+  position: absolute;
+  z-index: 10;
+  left: 3px;
+  top: 3px;
+  border: 0;
+  height: 23px;
+  width: 30px;
+  padding: 0;
+  background-image: url(../images/react.png);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+div.reactpopup {
+  position: absolute;
+  font-family: tahoma, arial, sans-serif;
+  padding: .2em .5em;
+  border: 1px solid #888888;
+  background-color: #EEEEEE;
+  top: 27px;
+  left: 3px;
+  z-index: 12;
+  overflow: auto; /* workaround for FF invisible-cursor bug */
+}
+
+div.reactpopup p {
+  margin: .3em 0;
+}
+
+div.reactpopup span {
+  width: 7.5em;
+  display: block;
+  float: left;
+}
+  
+div.reactpopup input {
+  border: 1px solid #888888;
+  padding: 2px;
+  vertical-align: middle;
+  width: 12.5em;
+}
+
+div.reactpopup textarea {
+  width: 24em;
+  height: 10em;
+  border: 1px solid #888888;
+  padding: 2px;
+  font-family: tahoma, arial, sans-serif;
+}
+
+div.reactpopup button {
+  border: 1px solid #888888;
+  background-color: white;
+}
+
+div.footer {
+  font-size: 80%;
+  color: #AAAAAA;
+  margin-top: 2em;
+}
+
+div.footer a:link, div.footer a:visited {
+  color: #6688BB;
+}
+
+a.donate {
+  position: absolute;
+  font-family: tahoma, arial, sans-serif;
+  z-index: 12;
+  left: 6px;
+  top: 33px;
+  text-decoration: none;
+  color: #CCCCCC;
+  font-size: 70%;
+  font-weight: bold;
+}
+
+a.paragraph {
+  position: absolute;
+  color: white;
+  color: transparent;
+  display: block;
+  right: 0px;
+  padding: 0 1em;
+  margin-right: -2em;
+  text-decoration: none;
+}
+
+p:hover a.paragraph, a.paragraph:hover { color: #aaa; }
+
+.banner {
+    background: #ffa;
+    margin: 1em 4em 1em 0;
+    padding: .5em 1em;
+    border: 1px solid #eea;
+}

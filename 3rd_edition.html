@@ -1,0 +1,136 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eloquent JavaScript</title>
+  <link rel="stylesheet" href="css/ejs_1.css">
+  <style>
+    article { display: flex; margin: 0 2em; flex-wrap: wrap; max-width: none; max-width: calc(38em + 500px); }
+    #cover { flex-basis: 480px; max-width: 35em; flex-grow: 1; margin-right: 3em; }
+    #contents { flex-basis: 500px; flex-grow: 1; max-width: 35em;  }
+    #links { flex-basis: 100%; max-width: 35em; }
+    li.contents-intro:before { display: none; }
+    .toc h3 { float: right; font-family: inherit; margin: 0; font-weight: normal; font-size: 90%; }
+    @media screen and (max-width: 585px) { .toc h3 { display: none }}
+    @media screen and (max-width: 500px) { #cover { margin-right: 0; } article { margin: 0; } }
+    ul.links { list-style-type: circle; }
+    img.logo { vertical-align: text-top; padding: 0px 4px; border: 0; }
+  </style>
+</head>
+
+<body><article>
+<div id="cover">
+
+  <p style="margin: 1em 0">
+    <a href="https://nostarch.com/ejs3">
+      <img src="images/cover_1.jpg" alt="Cover image" style="border: 1px solid black; max-width: 100%; box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.4)">
+    </a>
+  </p>
+
+  <h1>Eloquent JavaScript<div style="font-size: 70%">3ra edición (2018)</div></h1>
+
+  <p>Este es un libro sobre JavaScript, programación y las maravillas del mundo digital. Puedes leerlo en línea aquí, o comprar tu propia <a href="https://nostarch.com/ejs3">copia impresa</a>.</p>
+
+  <p>Escrito por Marijn Haverbeke.</p>
+
+  <div style="font-size: 80%">
+  <p>Bajo licencia
+  de <a href="https://creativecommons.org/licenses/by-nc/3.0/">Creative
+  Commons atribución-no comercial</a>. Todo el código en este libro
+  también puede considerarse bajo licencia
+  de <a href="https://eloquentjavascript.net/code/LICENSE">MIT</a>.</p>
+
+  <p>Ilustraciones de varios artistas: Ilustraciones de portada y capítulos
+  por <a href="http://madalinatantareanu.com/">Madalina Tantareanu</a>.
+  Arte en píxeles en los Capítulos 7 y 16 por Antonio Perdomo Pastor. Diagramas
+  de expresiones regulares en el Capítulo 9 generados
+  con <a href="https://regexper.com">regexper.com</a> por Jeff
+  Avallone. Fotografía del pueblo en el Capítulo 11 por Fabrice Creuzot. Concepto
+  de juego para el Capítulo 16 por <a href="http://lessmilk.com">Thomas
+  Palef</a>.</p>
+
+  <p>La tercera edición fue posible
+  gracias a <a href="backers3.html">325 patrocinadores financieros</a>, en su mayoría
+  notablemente <a href="https://nextjournal.com/"><img src="images/nextjournal.png" alt="Nextjournal" class="logo"></a> y <a href="https://www.holbertonschool.com/"><img src="images/holberton.png" alt="Holberton School" class="logo"></a>. La segunda edición
+  fue apoyada por <a href="backers.html">454 patrocinadores</a>, con
+  contribuciones significativas
+  de <a href="https://www.mozilla.org/en-US/"><img src="images/mozilla_mini.png" alt="Mozilla" class="logo"></a>, <a href="https://www.hackreactor.com/"><img src="images/hack_reactor_mini.png" alt="Hack Reactor" class="logo"></a>,
+  y <a href="https://www.ghostery.com/"><img src="images/ghostery_mini.png" alt="Ghostery" class="logo"></a>.</p>
+  </div></div>
+
+<div id="contents">
+
+  <h2>Contenido</h2>
+
+  <ol class="toc">
+    <li class="contents-intro"><a href="00_intro.html">Introducción</a>
+    </li><li>
+      <h3>(Parte 1: Lenguaje)</h3>
+      <a href="01_values.html">Valores, Tipos y Operadores</a>
+    </li>
+    <li><a href="02_program_structure.html">Estructura del Programa</a>
+    </li><li><a href="03_functions.html">Funciones</a>
+    </li><li><a href="04_data.html">Estructuras de Datos: Objetos y Arreglos</a>
+    </li><li><a href="05_higher_order.html">Funciones de Orden Superior</a>
+    </li><li><a href="06_object.html">La Vida Secreta de los Objetos</a>
+    </li><li><a href="07_robot.html">Proyecto: Un Robot</a>
+    </li><li><a href="08_error.html">Errores y Bugs</a>
+    </li><li><a href="09_regexp.html">Expresiones Regulares</a>
+    </li><li><a href="10_modules.html">Módulos</a>
+    </li><li><a href="11_async.html">Programación Asíncrona</a>
+    </li><li><a href="12_language.html">Proyecto: Un Lenguaje de Programación</a>
+    </li><li>
+      <h3>(Parte 2: Navegador)</h3>
+      <a href="13_browser.html">JavaScript y el Navegador</a>
+    </li>
+    <li><a href="14_dom.html">El Modelo de Objetos del Documento</a>
+    </li><li><a href="15_event.html">Manejo de Eventos</a>
+    </li><li><a href="16_game.html">Proyecto: Un Juego de Plataformas</a>
+    </li><li><a href="17_canvas.html">Dibujando en Canvas</a>
+    </li><li><a href="18_http.html">HTTP y Formularios</a>
+    </li><li><a href="19_paint.html">Proyecto: Un Editor de Arte de Píxeles</a>
+    </li><li>
+      <h3>(Parte 3: Node)</h3>
+      <a href="20_node.html">Node.js</a>
+    </li>
+    <li><a href="21_skillsharing.html">Proyecto: Sitio Web de Compartir Habilidades</a>
+  </li></ol>
+
+</div>
+
+<div id="links">
+
+  <p>Una versión impresa de "Eloquent JavaScript", que incluye un
+  capítulo adicional, está siendo lanzada por <a href="http://www.nostarch.com/ejs3">No Starch Press</a>.</p>
+
+  <h2>Otras páginas</h2>
+
+  <ul class="links">
+    <li><a href="code">Código sandbox y soluciones de ejercicios</a></li>
+    <li><a href="errata.html">Erratas del libro impreso</a></li>
+    <li><a href="Eloquent_JavaScript.pdf">Este libro en un solo archivo PDF</a> (&amp; <a href="Eloquent_JavaScript_small.pdf">versión reducida para móviles</a>)</li>
+    <li><a href="Eloquent_JavaScript.epub">Este libro en un archivo EPUB</a></li>
+    <li><a href="Eloquent_JavaScript.mobi">Este libro en un archivo MOBI (Kindle)</a></li>
+    <li><a href="https://eloquentjavascript.net/1st_edition">La primera edición del libro</a></li>
+    <li><a href="https://eloquentjavascript.net/2nd_edition">La segunda edición del libro</a></li>
+  </ul>
+
+  <h2>Traducciones</h2>
+
+  <h3>Tercera Edición</h3>
+
+  <ul class="translations">
+    <li><a href="https://academy.hsoub.com/files/27-%D8%A7%D9%84%D8%A8%D8%B1%D9%85%D8%AC%D8%A9-%D8%A8%D9%84%D8%BA%D8%A9-%D8%AC%D8%A7%D9%81%D8%A7%D8%B3%D9%83%D8%B1%D8%A8%D8%AA/">عَرَبِيّ (Árabe)</a></li>
+    <li><a href="http://eloquentjs.ir/">فارسی (Persa)</a></li>
+    <li><a href="https://eloquentjs-es.thedojo.mx/">Español (Español, parcial)</a></li>
+  </ul>
+
+  <h3>Segunda Edición</h3>  <ul class="translations">
+    <li><a href="https://rabahboudia.gitbooks.io/arabic-eloquent-js/content/index.html">عَرَبِيّ‎ (Árabe)</a></li>
+    <li><a href="https://to6esko.github.io/">Български (Búlgaro)</a></li>
+    <li><a href="https://github.com/braziljs/eloquente-javascript">Português (Portugués)</a></li>
+    <li><a href="https://karmazzin.gitbooks.io/eloquentjavascript_ru/content/">Русский (Ruso)</a></li>
+  </ul>
+
+</div>
+</article>
+</body></html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Funciones de Orden Superior :: Eloquent JavaScript</title>
+  <link rel="stylesheet" href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":5,"load_files":["code/scripts.js","code/chapter/05_higher_order.js","code/intro.js"]}</script></head>
+
+<body><article>
+<nav><a href="04_data.html" title="capítulo anterior" aria-label="capítulo anterior">◂</a>&nbsp;<a href="index.html" title="portada" aria-label="portada">●</a>&nbsp;<a href="06_object.html" title="próximo capítulo" aria-label="próximo capítulo">▸</a>&nbsp;<button class="help" title="ayuda" aria-label="ayuda"><strong>?</strong></button>
+</nav>
+
+<h1>Funciones de Orden Superior</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-MZD8y19lPz" href="#p-MZD8y19lPz" tabindex="-1" role="presentation"></a>Hay dos maneras de construir un diseño de software: Una es hacerlo tan simple que obviamente no tenga deficiencias, y la otra es hacerlo tan complicado que no haya deficiencias obvias.</p>
+
+<footer>C.A.R. Hoare, <cite>Conferencia del Premio Turing de la ACM de 1980</cite></footer>
+
+</blockquote><figure class="chapter true"><img src="images/chapter_picture_5.jpg" alt="Ilustración mostrando letras y jeroglíficos de diferentes escrituras: latín, griego, árabe, egipcia antigua, entre otras"></figure>
+
+<p><a class="p_ident" id="p-1SpKr5NIrc" href="#p-1SpKr5NIrc" tabindex="-1" role="presentation"></a>Un programa grande es un programa costoso, y no solo por el tiempo que lleva construirlo. El tamaño casi siempre implica complejidad, y la complejidad confunde a los programadores. Los programadores confundidos, a su vez, introducen errores (<em>bugs</em>) en los programas. Un programa grande entonces proporciona mucho espacio para que estos errores se escondan, haciéndolos difíciles de encontrar.</p>
+
+<p><a class="p_ident" id="p-nR+iebr1Ci" href="#p-nR+iebr1Ci" tabindex="-1" role="presentation"></a>Volvamos brevemente a los dos programas de ejemplo finales en la introducción. El primero es autónomo y tiene seis líneas.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-uIkg9pj99q" href="#c-uIkg9pj99q" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">total</span> = <span class="tok-number">0</span>, <span class="tok-definition">count</span> = <span class="tok-number">1</span>;
+<span class="tok-keyword">while</span> (count &lt;= <span class="tok-number">10</span>) {
+  total += count;
+  count += <span class="tok-number">1</span>;
+}
+console.log(total);</pre>
+
+<p><a class="p_ident" id="p-Sy8N6Qcb09" href="#p-Sy8N6Qcb09" tabindex="-1" role="presentation"></a>El segundo depende de dos funciones externas y tiene una línea de longitud.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-KTbQMmMCli" href="#c-KTbQMmMCli" tabindex="-1" role="presentation"></a>console.log(sum(range(<span class="tok-number">1</span>, <span class="tok-number">10</span>)));</pre><p><a class="p_ident" id="p-srOi7846QY" href="#p-srOi7846QY" tabindex="-1" role="presentation"></a>¿Cuál es más probable que contenga un error?</p>
+
+<p><a class="p_ident" id="p-G+ApGqjOk4" href="#p-G+ApGqjOk4" tabindex="-1" role="presentation"></a>Si contamos el tamaño de las definiciones de <code>sum</code> y <code>range</code>, el segundo programa también es grande, incluso más grande que el primero. Pero aún así, yo argumentaría que es más probable que sea correcto.</p>
+
+<p><a class="p_ident" id="p-+zWXfXVM//" href="#p-+zWXfXVM//" tabindex="-1" role="presentation"></a>Esto se debe a que la solución se expresa en un vocabulario que corresponde al problema que se está resolviendo. Sumar un rango de números no se trata de bucles y contadores. Se trata de rangos y sumas.</p>
+
+<p><a class="p_ident" id="p-VwxmDNivhe" href="#p-VwxmDNivhe" tabindex="-1" role="presentation"></a>Las definiciones de este vocabulario (las funciones <code>sum</code> y <code>range</code>) seguirán involucrando bucles, contadores y otros detalles incidentales. Pero debido a que expresan conceptos más simples que el programa en su totalidad, son más fáciles de hacer correctos.</p>
+
+<h2><a class="h_ident" id="h-j9ps8qrlyo" href="#h-j9ps8qrlyo" tabindex="-1" role="presentation"></a>Abstracción</h2>
+
+<p><a class="p_ident" id="p-siavLDE8I0" href="#p-siavLDE8I0" tabindex="-1" role="presentation"></a>En el contexto de la programación, estos tipos de vocabularios suelen ser llamados <em>abstracciones</em>. Las abstracciones nos proporcionan la capacidad de hablar sobre problemas en un nivel más alto (o más abstracto), sin distraernos con detalles poco interesantes.</p>
+
+<p><a class="p_ident" id="p-bZjfawaGXi" href="#p-bZjfawaGXi" tabindex="-1" role="presentation"></a>Como analogía, compara estas dos recetas para sopa de guisantes. La primera es así:</p>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-F+PunfZCXq" href="#p-F+PunfZCXq" tabindex="-1" role="presentation"></a>Pon 1 taza de guisantes secos por persona en un recipiente. Añade agua hasta que los guisantes estén bien cubiertos. Deja los guisantes en agua durante al menos 12 horas. Saca los guisantes del agua y ponlos en una olla. Añade 4 tazas de agua por persona. Cubre la olla y deja que los guisantes hiervan a fuego lento durante dos horas. Toma media cebolla por persona. Córtala en trozos con un cuchillo. Añádela a los guisantes. Toma un tallo de apio por persona. Córtalo en trozos con un cuchillo. Añádelo a los guisantes. Toma una zanahoria por persona. Córtala en trozos. ¡Con un cuchillo! Añádela a los guisantes. Cocina durante 10 minutos más.</p>
+
+</blockquote>
+
+<p><a class="p_ident" id="p-K0c2hwcDfp" href="#p-K0c2hwcDfp" tabindex="-1" role="presentation"></a>Y esta es la segunda receta:</p>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-iNBZReprTd" href="#p-iNBZReprTd" tabindex="-1" role="presentation"></a>Por persona: 1 taza de guisantes secos partidos, 4 tazas de agua, media cebolla picada, un tallo de apio, y una zanahoria.</p>
+
+<p><a class="p_ident" id="p-k5rI5P5p5u" href="#p-k5rI5P5p5u" tabindex="-1" role="presentation"></a>Remoja los guisantes durante 12 horas. Hierve a fuego lento durante 2 horas. Pica y añade las verduras. Cocina durante 10 minutos más.</p></blockquote>
+
+<p><a class="p_ident" id="p-cSeY164LbX" href="#p-cSeY164LbX" tabindex="-1" role="presentation"></a>El segundo es más corto y más fácil de interpretar. Pero necesitas entender algunas palabras más relacionadas con la cocina como <em>soak</em>, <em>simmer</em>, <em>chop</em>, y, supongo, <em>vegetable</em>.</p>
+
+<p><a class="p_ident" id="p-b7pOrv2VKr" href="#p-b7pOrv2VKr" tabindex="-1" role="presentation"></a>Cuando programamos, no podemos depender de que todas las palabras que necesitamos estén esperándonos en el diccionario. Así, podríamos caer en el patrón de la primera receta—trabajar en los pasos precisos que la computadora tiene que realizar, uno por uno, ciegos a los conceptos de nivel superior que expresan.</p>
+
+<p><a class="p_ident" id="p-Hp26gkGVxA" href="#p-Hp26gkGVxA" tabindex="-1" role="presentation"></a>Es una habilidad útil, en programación, notar cuando estás trabajando a un nivel de abstracción demasiado bajo.</p>
+
+<h2><a class="h_ident" id="h-8AV6kA9jcD" href="#h-8AV6kA9jcD" tabindex="-1" role="presentation"></a>Abstrayendo la repetición</h2>
+
+<p><a class="p_ident" id="p-kYV0l7wLUe" href="#p-kYV0l7wLUe" tabindex="-1" role="presentation"></a>Las funciones simples, como las hemos visto hasta ahora, son una buena manera de construir abstracciones. Pero a veces se quedan cortas.</p>
+
+<p><a class="p_ident" id="p-1v9Uha9PnV" href="#p-1v9Uha9PnV" tabindex="-1" role="presentation"></a>Es común que un programa haga algo un número dado de veces. Puedes escribir un bucle <code>for</code> para eso, así:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-5c+C2+9IG1" href="#c-5c+C2+9IG1" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; <span class="tok-number">10</span>; i++) {
+  console.log(i);
+}</pre>
+
+<p><a class="p_ident" id="p-cNB+u+7TGa" href="#p-cNB+u+7TGa" tabindex="-1" role="presentation"></a>¿Podemos abstraer "hacer algo <em>N</em> veces" como una función? Bueno, es fácil escribir una función que llama a <code>console.log</code> <em>N</em> veces:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-/gKhlra9P+" href="#c-/gKhlra9P+" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">repeatLog</span>(<span class="tok-definition">n</span>) {
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; n; i++) {
+    console.log(i);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-q8hNTrfIYb" href="#p-q8hNTrfIYb" tabindex="-1" role="presentation"></a>Pero ¿y si queremos hacer algo distinto a imprimir los números? Dado que "hacer algo" se puede representar como una función y las funciones son solo valores, podemos pasar nuestra acción como un valor de función:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-p03rPqGmn9" href="#c-p03rPqGmn9" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">repeat</span>(<span class="tok-definition">n</span>, <span class="tok-definition">action</span>) {
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; n; i++) {
+    action(i);
+  }
+}repeat(<span class="tok-number">3</span>, console.log);
+<span class="tok-comment">// → 0</span>
+<span class="tok-comment">// → 1</span>
+<span class="tok-comment">// → 2</span></pre>
+
+<p><a class="p_ident" id="p-zYjmzihkkN" href="#p-zYjmzihkkN" tabindex="-1" role="presentation"></a>No es necesario pasar una función predefinida a <code>repeat</code>. A menudo, es más fácil crear un valor de función en el momento:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-EiK2Y8M/Mh" href="#c-EiK2Y8M/Mh" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">labels</span> = [];
+repeat(<span class="tok-number">5</span>, <span class="tok-definition">i</span> =&gt; {
+  labels.push(<span class="tok-string2">`Unit </span>${i + <span class="tok-number">1</span>}<span class="tok-string2">`</span>);
+});
+console.log(labels);
+<span class="tok-comment">// → ["Unit 1", "Unit 2", "Unit 3", "Unit 4", "Unit 5"]</span></pre>
+
+<p><a class="p_ident" id="p-iuDYWrtCLy" href="#p-iuDYWrtCLy" tabindex="-1" role="presentation"></a>Esto está estructurado un poco como un ciclo <code>for</code>—primero describe el tipo de ciclo y luego proporciona un cuerpo. Sin embargo, el cuerpo se escribe como un valor de función, que está envuelto entre paréntesis en la llamada a <code>repeat</code>. Por eso debe cerrarse con el corchete de cierre <em>y</em> el paréntesis de cierre. En casos como este ejemplo donde el cuerpo es una sola expresión pequeña, también se podrían omitir los corchetes y escribir el ciclo en una sola línea.</p>
+
+<h2><a class="h_ident" id="h-xxCc98lOBK" href="#h-xxCc98lOBK" tabindex="-1" role="presentation"></a>Funciones de orden superior</h2>
+
+<p><a class="p_ident" id="p-cao2fH68Tj" href="#p-cao2fH68Tj" tabindex="-1" role="presentation"></a>Las funciones que operan sobre otras funciones, ya sea tomando funciones como argumentos o devolviéndolas, se llaman <em>funciones de orden superior</em>. Dado que ya hemos visto que las funciones son valores regulares, no hay nada particularmente notable sobre el hecho de que existan tales funciones. El término viene de las matemáticas, donde se toma más en serio la distinción entre funciones y otros valores.</p>
+
+<p><a class="p_ident" id="p-+cgNTV2i2y" href="#p-+cgNTV2i2y" tabindex="-1" role="presentation"></a>Las funciones de orden superior nos permiten abstraer sobre <em>acciones</em>, no solo sobre valores. Vienen en varias formas. Por ejemplo, podemos tener funciones que crean nuevas funciones:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-kHXugeV8Vn" href="#c-kHXugeV8Vn" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">greaterThan</span>(<span class="tok-definition">n</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-definition">m</span> =&gt; m &gt; n;
+}
+<span class="tok-keyword">let</span> <span class="tok-definition">greaterThan10</span> = greaterThan(<span class="tok-number">10</span>);
+console.log(greaterThan10(<span class="tok-number">11</span>));
+<span class="tok-comment">// → true</span></pre><p><a class="p_ident" id="p-BphGdvX3Sa" href="#p-BphGdvX3Sa" tabindex="-1" role="presentation"></a>También podemos tener funciones que cambian otras funciones:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-17dfYaooPK" href="#c-17dfYaooPK" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">ruidosa</span>(<span class="tok-definition">f</span>) {
+  <span class="tok-keyword">return</span> (...<span class="tok-definition">args</span>) =&gt; {
+    console.log(<span class="tok-string">"llamando con"</span>, args);
+    <span class="tok-keyword">let</span> <span class="tok-definition">resultado</span> = f(...args);
+    console.log(<span class="tok-string">"llamada con"</span>, args, <span class="tok-string">", devolvió"</span>, resultado);
+    <span class="tok-keyword">return</span> resultado;
+  };
+}
+ruidosa(Math.min)(<span class="tok-number">3</span>, <span class="tok-number">2</span>, <span class="tok-number">1</span>);
+<span class="tok-comment">// → llamando con [3, 2, 1]</span>
+<span class="tok-comment">// → llamada con [3, 2, 1] , devolvió 1</span></pre>
+
+<p><a class="p_ident" id="p-lObEs7dS9+" href="#p-lObEs7dS9+" tabindex="-1" role="presentation"></a>Incluso podemos escribir funciones que proporcionen nuevos tipos de flujo de control:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-of6iH06dyE" href="#c-of6iH06dyE" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">aMenosQue</span>(<span class="tok-definition">prueba</span>, <span class="tok-definition">entonces</span>) {
+  <span class="tok-keyword">if</span> (!prueba) entonces();
+}
+
+repetir(<span class="tok-number">3</span>, <span class="tok-definition">n</span> =&gt; {
+  aMenosQue(n % <span class="tok-number">2</span> == <span class="tok-number">1</span>, () =&gt; {
+    console.log(n, <span class="tok-string">"es par"</span>);
+  });
+});
+<span class="tok-comment">// → 0 es par</span>
+<span class="tok-comment">// → 2 es par</span></pre>
+
+<p><a class="p_ident" id="p-/zKXdveDWD" href="#p-/zKXdveDWD" tabindex="-1" role="presentation"></a>Hay un método de array incorporado, <code>forEach</code>, que proporciona algo similar a un bucle <code>for</code>/<code>of</code> como una función de orden superior:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-v9jL6NafRj" href="#c-v9jL6NafRj" tabindex="-1" role="presentation"></a>[<span class="tok-string">"A"</span>, <span class="tok-string">"B"</span>].forEach(<span class="tok-definition">l</span> =&gt; console.log(l));
+<span class="tok-comment">// → A</span>
+<span class="tok-comment">// → B</span></pre>
+
+<h2 id="scripts"><a class="h_ident" id="h-/SVokn16u9" href="#h-/SVokn16u9" tabindex="-1" role="presentation"></a>Conjunto de datos de script</h2>
+
+<p><a class="p_ident" id="p-t0gePcJ5To" href="#p-t0gePcJ5To" tabindex="-1" role="presentation"></a>Un área donde las funciones de orden superior brillan es el procesamiento de datos. Para procesar datos, necesitaremos algunos datos de ejemplo reales. Este capítulo utilizará un conjunto de datos sobre scripts, sistemas de escritura como el latín, cirílico o árabe.</p><p><a class="p_ident" id="p-Bwxmym8KXD" href="#p-Bwxmym8KXD" tabindex="-1" role="presentation"></a>Recuerda Unicode de <a href="01_values.html#unicode">Capítulo 1</a>, ¿el sistema que asigna un número a cada carácter en el lenguaje escrito? La mayoría de estos caracteres están asociados con un script específico. El estándar contiene 140 scripts diferentes, de los cuales 81 aún se utilizan hoy en día y 59 son históricos.</p>
+
+<p><a class="p_ident" id="p-0ebPJMgh6D" href="#p-0ebPJMgh6D" tabindex="-1" role="presentation"></a>Aunque solo puedo leer con fluidez caracteres latinos, aprecio el hecho de que las personas estén escribiendo textos en al menos 80 otros sistemas de escritura, muchos de los cuales ni siquiera reconocería. Por ejemplo, aquí tienes una muestra de escritura tamil:</p><figure><img src="images/tamil.png" alt="Una línea de verso en escritura tamil. Los caracteres son relativamente simples y están separados de manera ordenada, pero completamente diferentes del latín."></figure>
+
+<p><a class="p_ident" id="p-RWVZnsc/dS" href="#p-RWVZnsc/dS" tabindex="-1" role="presentation"></a>El conjunto de datos de ejemplo contiene algunas piezas de información sobre los 140 scripts definidos en Unicode. Está disponible en el <a href="https://eloquentjavascript.net/code#5">sandbox de codificación</a> de este capítulo como el enlace <code>SCRIPTS</code>. Este enlace contiene una matriz de objetos, cada uno de los cuales describe un script:</p>
+
+<pre class="snippet" data-language="json"><a class="c_ident" id="c-YkfuyBG2fl" href="#c-YkfuyBG2fl" tabindex="-1" role="presentation"></a>{
+  <span class="tok-definition">name</span>: <span class="tok-string">"Copto"</span>,
+  <span class="tok-definition">ranges</span>: [[<span class="tok-number">994</span>, <span class="tok-number">1008</span>], [<span class="tok-number">11392</span>, <span class="tok-number">11508</span>], [<span class="tok-number">11513</span>, <span class="tok-number">11520</span>]],
+  <span class="tok-definition">direction</span>: <span class="tok-string">"ltr"</span>,
+  <span class="tok-definition">year</span>: -<span class="tok-number">200</span>,
+  <span class="tok-definition">living</span>: false,
+  <span class="tok-definition">link</span>: <span class="tok-string">"https://en.wikipedia.org/wiki/Alfabeto_copto"</span>
+}</pre>
+
+<p><a class="p_ident" id="p-rrPU5ybF5Y" href="#p-rrPU5ybF5Y" tabindex="-1" role="presentation"></a>Un objeto como este nos indica el nombre del script, los rangos Unicode asignados a él, la dirección en la que se escribe, el momento (aproximado) de origen, si aún se usa, y un enlace para obtener más información. La dirección puede ser <code>"ltr"</code> para izquierda a derecha, <code>"rtl"</code> para derecha a izquierda (como se escribe el texto árabe y hebreo), o <code>"ttb"</code> para arriba hacia abajo (como en la escritura mongola).</p>
+
+<p><a class="p_ident" id="p-AvCZCbMsgs" href="#p-AvCZCbMsgs" tabindex="-1" role="presentation"></a>La propiedad <code>ranges</code> contiene una matriz de rangos de caracteres Unicode, cada uno de los cuales es un array de dos elementos que contienen un límite inferior y un límite superior. Cualquier código de carácter dentro de estos rangos es asignado al script. El límite inferior es inclusivo (el código 994 es un carácter copto) y el límite superior no es inclusivo (el código 1008 no lo es).</p><h2><a class="h_ident" id="h-MM7RF32uzF" href="#h-MM7RF32uzF" tabindex="-1" role="presentation"></a>Filtrado de arreglos</h2>
+
+<p><a class="p_ident" id="p-EQ8xGHltWu" href="#p-EQ8xGHltWu" tabindex="-1" role="presentation"></a>Si queremos encontrar los scripts en el conjunto de datos que aún están en uso, la siguiente función podría ser útil. Filtra los elementos de un arreglo que no pasan una prueba.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-POEf7pMCk0" href="#c-POEf7pMCk0" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">filter</span>(<span class="tok-definition">array</span>, <span class="tok-definition">test</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">passed</span> = [];
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">element</span> <span class="tok-keyword">of</span> array) {
+    <span class="tok-keyword">if</span> (test(element)) {
+      passed.push(element);
+    }
+  }
+  <span class="tok-keyword">return</span> passed;
+}
+
+console.log(filter(SCRIPTS, <span class="tok-definition">script</span> =&gt; script.living));
+<span class="tok-comment">// → [{name: "Adlam", …}, …]</span></pre>
+
+<p><a class="p_ident" id="p-rUWludD494" href="#p-rUWludD494" tabindex="-1" role="presentation"></a>La función utiliza el argumento llamado <code>test</code>, un valor de función, para llenar un "hueco" en la computación: el proceso de decidir qué elementos recolectar.</p>
+
+<p><a class="p_ident" id="p-vcnUQxte/7" href="#p-vcnUQxte/7" tabindex="-1" role="presentation"></a>Fíjate cómo la función <code>filter</code>, en lugar de eliminar elementos del arreglo existente, construye un nuevo arreglo con solo los elementos que pasan la prueba. Esta función es <em>pura</em>. No modifica el arreglo que se le da.</p>
+
+<p><a class="p_ident" id="p-nxWtg+vobY" href="#p-nxWtg+vobY" tabindex="-1" role="presentation"></a>Al igual que <code>forEach</code>, <code>filter</code> es un método estándar de arreglos. El ejemplo definió la función solo para mostrar qué hace internamente. A partir de ahora, lo usaremos de esta manera en su lugar:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-x8e0PmGGB1" href="#c-x8e0PmGGB1" tabindex="-1" role="presentation"></a>console.log(SCRIPTS.filter(<span class="tok-definition">s</span> =&gt; s.direction == <span class="tok-string">"ttb"</span>));
+<span class="tok-bgc-comment">// → [{name: "Mongolian", …}, …]</span></pre>
+
+<h2 id="map"><a class="h_ident" id="h-lJEtQ+qjXz" href="#h-lJEtQ+qjXz" tabindex="-1" role="presentation"></a>Transformación con map</h2>
+
+<p><a class="p_ident" id="p-z7ZYMFMZh1" href="#p-z7ZYMFMZh1" tabindex="-1" role="presentation"></a>Imaginemos que tenemos un arreglo de objetos que representan scripts, producidos filtrando de alguna manera el arreglo <code>SCRIPTS</code>. Queremos un arreglo solo con los nombres, lo cual es más fácil de inspeccionar.</p>
+
+<p><a class="p_ident" id="p-6b1/g51xNK" href="#p-6b1/g51xNK" tabindex="-1" role="presentation"></a>El método <code>map</code> transforma un arreglo aplicando una función a todos sus elementos y construyendo un nuevo arreglo a partir de los valores retornados. El nuevo arreglo tendrá la misma longitud que el arreglo de entrada, pero su contenido habrá sido <em>mapeado</em> a una nueva forma por la función:</p><pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-03caQcQElo" href="#c-03caQcQElo" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">map</span>(<span class="tok-definition">array</span>, <span class="tok-definition">transform</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">mapeado</span> = [];
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">elemento</span> <span class="tok-keyword">of</span> array) {
+    mapeado.push(transform(elemento));
+  }
+  <span class="tok-keyword">return</span> mapeado;
+}
+
+<span class="tok-keyword">let</span> <span class="tok-definition">scriptsDerecha</span> = SCRIPTS.filter(<span class="tok-definition">s</span> =&gt; s.direction == <span class="tok-string">"rtl"</span>);
+console.log(map(scriptsDerecha, <span class="tok-definition">s</span> =&gt; s.name));
+<span class="tok-comment">// → ["Adlam", "Arabic", "Imperial Aramaic", …]</span></pre>
+
+<p><a class="p_ident" id="p-337o6zaWyY" href="#p-337o6zaWyY" tabindex="-1" role="presentation"></a>Like <code>forEach</code> and <code>filter</code>, <code>map</code> is a standard array method.</p>
+
+<h2><a class="h_ident" id="h-fx3e34kT/k" href="#h-fx3e34kT/k" tabindex="-1" role="presentation"></a>Summarizing with reduce</h2>
+
+<p><a class="p_ident" id="p-k7Wm2bpGwn" href="#p-k7Wm2bpGwn" tabindex="-1" role="presentation"></a>Another common thing to do with arrays is to compute a single value from them. Our recurring example, summing a collection of numbers, is an instance of this. Another example is finding the script with the most characters.</p>
+
+<p><a class="p_ident" id="p-AQTWjyAzxS" href="#p-AQTWjyAzxS" tabindex="-1" role="presentation"></a>The higher-order operation that represents this pattern is called <em>reduce</em> (sometimes also called <em>fold</em>). It builds a value by repeatedly taking a single element from the array and combining it with the current value. When summing numbers, you’d start with the number zero and, for each element, add that to the sum.</p>
+
+<p><a class="p_ident" id="p-f2gNWZyiAV" href="#p-f2gNWZyiAV" tabindex="-1" role="presentation"></a>The parameters to <code>reduce</code> are, apart from the array, a combining function and a start value. This function is a little less straightforward than <code>filter</code> and <code>map</code>, so take a close look at it:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-k5GDHjqpSc" href="#c-k5GDHjqpSc" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">reduce</span>(<span class="tok-definition">array</span>, <span class="tok-definition">combinar</span>, <span class="tok-definition">inicio</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">actual</span> = inicio;
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">elemento</span> <span class="tok-keyword">of</span> array) {
+    actual = combinar(actual, elemento);
+  }
+  <span class="tok-keyword">return</span> actual;
+}
+
+console.log(reduce([<span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>, <span class="tok-number">4</span>], (<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) =&gt; a + b, <span class="tok-number">0</span>));
+<span class="tok-comment">// → 10</span></pre>
+
+<p><a class="p_ident" id="p-r9cFmJJTar" href="#p-r9cFmJJTar" tabindex="-1" role="presentation"></a>El método estándar de arrays <code>reduce</code>, que por supuesto corresponde a esta función, tiene una conveniencia añadida. Si tu array contiene al menos un elemento, se te permite omitir el argumento <code>start</code>. El método tomará el primer elemento del array como su valor de inicio y comenzará a reducir a partir del segundo elemento.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-Dxn7muuMkk" href="#c-Dxn7muuMkk" tabindex="-1" role="presentation"></a>console.log([<span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>, <span class="tok-number">4</span>].reduce((<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) =&gt; a + b));
+<span class="tok-comment">// → 10</span></pre>
+
+<p><a class="p_ident" id="p-co+X+c08nc" href="#p-co+X+c08nc" tabindex="-1" role="presentation"></a>Para usar <code>reduce</code> (dos veces) y encontrar el script con más caracteres, podemos escribir algo como esto:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-x76Ukt5X+H" href="#c-x76Ukt5X+H" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">characterCount</span>(<span class="tok-definition">script</span>) {
+  <span class="tok-keyword">return</span> script.ranges.reduce((<span class="tok-definition">count</span>, [<span class="tok-definition">from</span>, <span class="tok-definition">to</span>]) =&gt; {
+    <span class="tok-keyword">return</span> count + (to - from);
+  }, <span class="tok-number">0</span>);
+}
+
+console.log(SCRIPTS.reduce((<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) =&gt; {
+  <span class="tok-keyword">return</span> characterCount(a) &lt; characterCount(b) ? b : a;
+}));
+<span class="tok-comment">// → {name: "Han", …}</span></pre>
+
+<p><a class="p_ident" id="p-Zk/GcSOyra" href="#p-Zk/GcSOyra" tabindex="-1" role="presentation"></a>La función <code>characterCount</code> reduce los rangos asignados a un script sumando sus tamaños. Observa el uso de la destructuración en la lista de parámetros de la función reductora. La segunda llamada a <code>reduce</code> luego utiliza esto para encontrar el script más grande al comparar repetidamente dos scripts y devolver el más grande.</p>
+
+<p><a class="p_ident" id="p-z8su8U5bcc" href="#p-z8su8U5bcc" tabindex="-1" role="presentation"></a>El script Han tiene más de 89,000 caracteres asignados en el estándar Unicode, lo que lo convierte en el sistema de escritura más grande de lejos en el conjunto de datos. El Han es un script a veces utilizado para textos en chino, japonés y coreano. Estos idiomas comparten muchos caracteres, aunque tienden a escribirlos de manera diferente. El Consorcio Unicode (basado en EE. UU.) decidió tratarlos como un único sistema de escritura para ahorrar códigos de caracteres. Esto se llama <em>Unificación del Han</em> y todavía hace que algunas personas se enojen mucho.</p><h2><a class="h_ident" id="h-+NeFt8aXxf" href="#h-+NeFt8aXxf" tabindex="-1" role="presentation"></a>Composabilidad</h2>
+
+<p><a class="p_ident" id="p-UHvCjnmGjM" href="#p-UHvCjnmGjM" tabindex="-1" role="presentation"></a>Considera cómo habríamos escrito el ejemplo anterior (encontrar el script más grande) sin funciones de orden superior. El código no es mucho peor:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-1FmIKHNB24" href="#c-1FmIKHNB24" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">biggest</span> = <span class="tok-keyword">null</span>;
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">script</span> <span class="tok-keyword">of</span> SCRIPTS) {
+  <span class="tok-keyword">if</span> (biggest == <span class="tok-keyword">null</span> ||
+      characterCount(biggest) &lt; characterCount(script)) {
+    biggest = script;
+  }
+}
+console.log(biggest);
+<span class="tok-comment">// → {name: "Han", …}</span></pre>
+
+<p><a class="p_ident" id="p-rW1l2uIQYQ" href="#p-rW1l2uIQYQ" tabindex="-1" role="presentation"></a>Hay algunas más asignaciones, y el programa tiene cuatro líneas más, pero sigue siendo muy legible.</p>
+
+<p id="average_function"><a class="p_ident" id="p-3RRtt5qlOL" href="#p-3RRtt5qlOL" tabindex="-1" role="presentation"></a>Las abstracciones proporcionadas por estas funciones realmente brillan cuando necesitas <em>componer</em> operaciones. Como ejemplo, escribamos un código que encuentre el año promedio de origen de los scripts vivos y muertos en el conjunto de datos:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-rumPqbzokK" href="#c-rumPqbzokK" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">average</span>(<span class="tok-definition">array</span>) {
+  <span class="tok-keyword">return</span> array.reduce((<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) =&gt; a + b) / array.length;
+}
+
+console.log(Math.round(average(
+  SCRIPTS.filter(<span class="tok-definition">s</span> =&gt; s.living).map(<span class="tok-definition">s</span> =&gt; s.year))));
+<span class="tok-comment">// → 1165</span>
+console.log(Math.round(average(
+  SCRIPTS.filter(<span class="tok-definition">s</span> =&gt; !s.living).map(<span class="tok-definition">s</span> =&gt; s.year))));
+<span class="tok-comment">// → 204</span></pre>
+
+<p><a class="p_ident" id="p-nrGxJjJYLA" href="#p-nrGxJjJYLA" tabindex="-1" role="presentation"></a>Como puedes ver, los scripts muertos en Unicode son, en promedio, más antiguos que los vivos. Esta no es una estadística terriblemente significativa o sorprendente. Pero espero que estés de acuerdo en que el código utilizado para calcularlo no es difícil de leer. Puedes verlo como un pipeline: empezamos con todos los scripts, filtramos los vivos (o muertos), tomamos los años de esos, los promediamos y redondeamos el resultado.</p>
+
+<p><a class="p_ident" id="p-FNSiaZ2hBC" href="#p-FNSiaZ2hBC" tabindex="-1" role="presentation"></a>También podrías escribir esta computación como un solo gran bucle:</p><pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-noyYOD0Kiy" href="#c-noyYOD0Kiy" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">total</span> = <span class="tok-number">0</span>, <span class="tok-definition">count</span> = <span class="tok-number">0</span>;
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">script</span> <span class="tok-keyword">of</span> SCRIPTS) {
+  <span class="tok-keyword">if</span> (script.living) {
+    total += script.year;
+    count += <span class="tok-number">1</span>;
+  }
+}
+console.log(Math.round(total / count));
+<span class="tok-comment">// → 1165</span></pre>
+
+<p><a class="p_ident" id="p-HFiahJwjXk" href="#p-HFiahJwjXk" tabindex="-1" role="presentation"></a>However, it is harder to see what was being computed and how. And because intermediate results aren’t represented as coherent values, it’d be a lot more work to extract something like <code>average</code> into a separate function.</p>
+
+<p><a class="p_ident" id="p-CiGDWoU0I9" href="#p-CiGDWoU0I9" tabindex="-1" role="presentation"></a>In terms of what the computer is actually doing, these two approaches are also quite different. The first will build up new arrays when running <code>filter</code> and <code>map</code>, whereas the second computes only some numbers, doing less work. You can usually afford the readable approach, but if you’re processing huge arrays and doing so many times, the less abstract style might be worth the extra speed.</p>
+
+<h2><a class="h_ident" id="h-gQf5HZNGpM" href="#h-gQf5HZNGpM" tabindex="-1" role="presentation"></a>Strings and character codes</h2>
+
+<p><a class="p_ident" id="p-lX1fs4gEvw" href="#p-lX1fs4gEvw" tabindex="-1" role="presentation"></a>One interesting use of this data set would be figuring out what script a piece of text is using. Let’s go through a program that does this.</p>
+
+<p><a class="p_ident" id="p-aEEZgRpp75" href="#p-aEEZgRpp75" tabindex="-1" role="presentation"></a>Remember that each script has an array of character code ranges associated with it. Given a character code, we could use a function like this to find the corresponding script (if any):</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-Q8918ecfHn" href="#c-Q8918ecfHn" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">characterScript</span>(<span class="tok-definition">code</span>) {
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">script</span> <span class="tok-keyword">of</span> SCRIPTS) {
+    <span class="tok-keyword">if</span> (script.ranges.some(([<span class="tok-definition">from</span>, <span class="tok-definition">to</span>]) =&gt; {
+      <span class="tok-keyword">return</span> code &gt;= from &amp;&amp; code &lt; to;
+    })) {
+      <span class="tok-keyword">return</span> script;
+    }
+  }
+  <span class="tok-keyword">return</span> <span class="tok-keyword">null</span>;
+}console.log(characterScript(<span class="tok-number">121</span>));
+<span class="tok-comment">// → {nombre: "Latín", …}</span></pre>
+
+<p><a class="p_ident" id="p-j3Y+wD1N4H" href="#p-j3Y+wD1N4H" tabindex="-1" role="presentation"></a>El método <code>some</code> es otra función de orden superior. Toma una función de prueba y te dice si esa función devuelve verdadero para alguno de los elementos en el array.</p>
+
+<p id="code_units"><a class="p_ident" id="p-NZ3lS1jnJX" href="#p-NZ3lS1jnJX" tabindex="-1" role="presentation"></a>Pero ¿cómo obtenemos los códigos de caracteres en una cadena?</p>
+
+<p><a class="p_ident" id="p-UsDhhqR3EH" href="#p-UsDhhqR3EH" tabindex="-1" role="presentation"></a>En <a href="01_values.html">Capítulo 1</a> mencioné que las cadenas de JavaScript están codificadas como una secuencia de números de 16 bits. Estos se llaman <em>unidades de código</em>. Se suponía inicialmente que un código de carácter Unicode cabría dentro de dicha unidad (lo que te da un poco más de 65,000 caracteres). Cuando quedó claro que eso no iba a ser suficiente, muchas personas se opusieron a la necesidad de usar más memoria por carácter. Para abordar estas preocupaciones, se inventó UTF-16, el formato también utilizado por las cadenas de JavaScript. Describe los caracteres más comunes con un solo código de 16 bits pero usa un par de dos tales unidades para otros.</p>
+
+<p><a class="p_ident" id="p-np3GxNBA5E" href="#p-np3GxNBA5E" tabindex="-1" role="presentation"></a>UTF-16 generalmente se considera una mala idea hoy en día. Parece casi diseñado intencionalmente para invitar a cometer errores. Es fácil escribir programas que pretendan que las unidades de código y los caracteres son lo mismo. Y si tu lenguaje no usa caracteres de dos unidades, eso parecerá funcionar muy bien. Pero tan pronto como alguien intente usar dicho programa con algunos caracteres chinos menos comunes, fallará. Afortunadamente, con la llegada de los emojis, todo el mundo ha comenzado a usar caracteres de dos unidades, y la carga de lidiar con estos problemas se distribuye de manera más justa.</p>
+
+<p><a class="p_ident" id="p-iQl/Gok4Mf" href="#p-iQl/Gok4Mf" tabindex="-1" role="presentation"></a>Desafortunadamente, las operaciones obvias en las cadenas de JavaScript, como obtener su longitud a través de la propiedad <code>length</code> y acceder a su contenido usando corchetes cuadrados, tratan solo con unidades de código.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-50Oes+9anA" href="#c-50Oes+9anA" tabindex="-1" role="presentation"></a><span class="tok-comment">// Dos caracteres emoji, caballo y zapato</span>
+<span class="tok-keyword">let</span> <span class="tok-definition">horseShoe</span> = <span class="tok-string">"🐴👟"</span>;
+console.log(horseShoe.length);
+<span class="tok-comment">// → 4</span>
+console.log(horseShoe[<span class="tok-number">0</span>]);
+<span class="tok-comment">// → (Carácter medio inválido)</span>
+console.log(horseShoe.charCodeAt(<span class="tok-number">0</span>));
+<span class="tok-comment">// → 55357 (Código del carácter medio)</span>
+console.log(horseShoe.codePointAt(<span class="tok-number">0</span>));
+<span class="tok-comment">// → 128052 (Código real para el emoji de caballo)</span></pre><p><a class="p_ident" id="p-whNOOL2UUI" href="#p-whNOOL2UUI" tabindex="-1" role="presentation"></a>El método <code>charCodeAt</code> de JavaScript te da una unidad de código, no un código de carácter completo. El método <code>codePointAt</code>, añadido más tarde, sí da un carácter Unicode completo, por lo que podríamos usarlo para obtener caracteres de una cadena. Pero el argumento pasado a <code>codePointAt</code> sigue siendo un índice en la secuencia de unidades de código. Para recorrer todos los caracteres de una cadena, aún necesitaríamos enfrentar la pregunta de si un carácter ocupa una o dos unidades de código.</p>
+
+<p><a class="p_ident" id="p-AEbxGojOu6" href="#p-AEbxGojOu6" tabindex="-1" role="presentation"></a>En el <a href="04_data.html#for_of_loop">capítulo anterior</a>, mencioné que un bucle <code>for</code>/<code>of</code> también se puede usar en cadenas. Al igual que <code>codePointAt</code>, este tipo de bucle fue introducido en un momento en el que las personas eran muy conscientes de los problemas con UTF-16. Cuando lo usas para recorrer una cadena, te da caracteres reales, no unidades de código:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-9QIfA1qjtG" href="#c-9QIfA1qjtG" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">roseDragon</span> = <span class="tok-string">"🌹🐉"</span>;
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">char</span> <span class="tok-keyword">of</span> roseDragon) {
+  console.log(char);
+}
+<span class="tok-comment">// → 🌹</span>
+<span class="tok-comment">// → 🐉</span></pre>
+
+<p><a class="p_ident" id="p-1lRKu8d5oS" href="#p-1lRKu8d5oS" tabindex="-1" role="presentation"></a>Si tienes un carácter (que será una cadena de una o dos unidades de código), puedes usar <code>codePointAt(0)</code> para obtener su código.</p>
+
+<h2><a class="h_ident" id="h-qYzPQMwIvv" href="#h-qYzPQMwIvv" tabindex="-1" role="presentation"></a>Reconociendo texto</h2>
+
+<p><a class="p_ident" id="p-rg3rI97v85" href="#p-rg3rI97v85" tabindex="-1" role="presentation"></a>Tenemos una función <code>characterScript</code> y una forma de recorrer correctamente los caracteres. El siguiente paso es contar los caracteres que pertenecen a cada script. La siguiente abstracción de conteo será útil allí:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-b8ZEeu/LH5" href="#c-b8ZEeu/LH5" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">countBy</span>(<span class="tok-definition">items</span>, <span class="tok-definition">groupName</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">counts</span> = [];
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">item</span> <span class="tok-keyword">of</span> items) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">name</span> = groupName(item);
+    <span class="tok-keyword">let</span> <span class="tok-definition">known</span> = counts.find(<span class="tok-definition">c</span> =&gt; c.name == name);
+    <span class="tok-keyword">if</span> (!known) {
+      counts.push({<span class="tok-definition">name</span>, <span class="tok-definition">count</span>: <span class="tok-number">1</span>});
+    } <span class="tok-keyword">else</span> {
+      known.count++;
+    }
+  }
+  <span class="tok-keyword">return</span> counts;
+}console.log(countBy([<span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>, <span class="tok-number">4</span>, <span class="tok-number">5</span>], <span class="tok-definition">n</span> =&gt; n &gt; <span class="tok-number">2</span>));
+<span class="tok-comment">// → [{name: false, count: 2}, {name: true, count: 3}]</span></pre>
+
+<p><a class="p_ident" id="p-XJKbcULdUw" href="#p-XJKbcULdUw" tabindex="-1" role="presentation"></a>La función <code>countBy</code> espera una colección (cualquier cosa sobre la que podamos iterar con <code>for</code>/<code>of</code>) y una función que calcule un nombre de grupo para un elemento dado. Devuelve un array de objetos, cada uno de los cuales nombra un grupo y te indica la cantidad de elementos que se encontraron en ese grupo.</p>
+
+<p><a class="p_ident" id="p-YjH+mbwxM+" href="#p-YjH+mbwxM+" tabindex="-1" role="presentation"></a>Utiliza otro método de array, <code>find</code>, que recorre los elementos del array y devuelve el primero para el cual una función devuelve true. Devuelve <code>undefined</code> cuando no se encuentra tal elemento.</p>
+
+<p><a class="p_ident" id="p-T2D/Ix5YaM" href="#p-T2D/Ix5YaM" tabindex="-1" role="presentation"></a>Usando <code>countBy</code>, podemos escribir la función que nos dice qué scripts se usan en un fragmento de texto:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-TyAeKAD0HB" href="#c-TyAeKAD0HB" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">textScripts</span>(<span class="tok-definition">texto</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">scripts</span> = countBy(texto, <span class="tok-definition">caracter</span> =&gt; {
+    <span class="tok-keyword">let</span> <span class="tok-definition">script</span> = characterScript(caracter.codePointAt(<span class="tok-number">0</span>));
+    <span class="tok-keyword">return</span> script ? script.name : <span class="tok-string">"ninguno"</span>;
+  }).filter(({name}) =&gt; name != <span class="tok-string">"ninguno"</span>);
+
+  <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = scripts.reduce((<span class="tok-definition">n</span>, {count}) =&gt; n + count, <span class="tok-number">0</span>);
+  <span class="tok-keyword">if</span> (total == <span class="tok-number">0</span>) <span class="tok-keyword">return</span> <span class="tok-string">"No se encontraron scripts"</span>;
+
+  <span class="tok-keyword">return</span> scripts.map(({name, count}) =&gt; {
+    <span class="tok-keyword">return</span> <span class="tok-string2">`</span>${Math.round(count * <span class="tok-number">100</span> / total)}<span class="tok-string2>% </span>${name}<span class="tok-string2">`</span>;
+  }).join(<span class="tok-string">", "</span>);
+}
+
+console.log(textScripts(<span class="tok-string">'英国的狗说"woof", 俄罗斯的狗说"тяв"'</span>));
+<span class="tok-comment">// → 61% Han, 22% Latin, 17% Cyrillic</span></pre><p><a class="p_ident" id="p-ydjmkrkJ8Y" href="#p-ydjmkrkJ8Y" tabindex="-1" role="presentation"></a>La función cuenta primero los caracteres por nombre, usando <code>characterScript</code> para asignarles un nombre y retrocediendo a la cadena <code>"none"</code> para los caracteres que no forman parte de ningún script. La llamada a <code>filter</code> elimina la entrada de <code>"none"</code> del array resultante, ya que no nos interesan esos caracteres.</p>
+
+<p><a class="p_ident" id="p-avwH1AKErw" href="#p-avwH1AKErw" tabindex="-1" role="presentation"></a>Para poder calcular porcentajes, primero necesitamos el número total de caracteres que pertenecen a un script, lo cual podemos calcular con <code>reduce</code>. Si no se encuentran caracteres de este tipo, la función devuelve una cadena específica. De lo contrario, transforma las entradas de conteo en cadenas legibles con <code>map</code> y luego las combina con <code>join</code>.</p>
+
+<h2><a class="h_ident" id="h-ErccPg/l98" href="#h-ErccPg/l98" tabindex="-1" role="presentation"></a>Resumen</h2>
+
+<p><a class="p_ident" id="p-N6wo+JYLCW" href="#p-N6wo+JYLCW" tabindex="-1" role="presentation"></a>La capacidad de pasar valores de funciones a otras funciones es un aspecto muy útil de JavaScript. Nos permite escribir funciones que modelan cálculos con "brechas" en ellos. El código que llama a estas funciones puede rellenar las brechas proporcionando valores de función.</p>
+
+<p><a class="p_ident" id="p-RSm+n5dlJf" href="#p-RSm+n5dlJf" tabindex="-1" role="presentation"></a>Los arrays proporcionan varios métodos de orden superior útiles. Puedes usar <code>forEach</code> para recorrer los elementos de un array. El método <code>filter</code> devuelve un nuevo array que contiene solo los elementos que pasan la función de predicado. Transformar un array poniendo cada elemento a través de una función se hace con <code>map</code>. Puedes usar <code>reduce</code> para combinar todos los elementos en un array en un único valor. El método <code>some</code> prueba si algún elemento coincide con una función de predicado dada, mientras que <code>find</code> encuentra el primer elemento que coincide con un predicado.</p>
+
+<h2><a class="h_ident" id="h-TcUD2vzyMe" href="#h-TcUD2vzyMe" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<h3><a class="i_ident" id="i-aIOczlLyX1" href="#i-aIOczlLyX1" tabindex="-1" role="presentation"></a>Aplanamiento</h3>
+
+<p><a class="p_ident" id="p-6CVUmjaoYw" href="#p-6CVUmjaoYw" tabindex="-1" role="presentation"></a>Usa el método <code>reduce</code> en combinación con el método <code>concat</code> para "aplanar" un array de arrays en un único array que contenga todos los elementos de los arrays originales.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-I+o+qLGLXB" href="#c-I+o+qLGLXB" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">arrays</span> = [[<span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>], [<span class="tok-number">4</span>, <span class="tok-number">5</span>], [<span class="tok-number">6</span>]];
+<span class="tok-comment">// Tu código aquí.</span>
+<span class="tok-comment">// → [1, 2, 3, 4, 5, 6]</span></pre><h3><a class="i_ident" id="i-gKQ1S54F4o" href="#i-gKQ1S54F4o" tabindex="-1" role="presentation"></a>Tu propio bucle</h3>
+
+<p><a class="p_ident" id="p-LWMRzXlJIe" href="#p-LWMRzXlJIe" tabindex="-1" role="presentation"></a>Escribe una función de orden superior <code>loop</code> que proporcione algo similar a una declaración de bucle <code>for</code>. Debería tomar un valor, una función de prueba, una función de actualización y una función de cuerpo. En cada iteración, primero debería ejecutar la función de prueba en el valor actual del bucle y detenerse si eso devuelve falso. Luego debería llamar a la función de cuerpo, dándole el valor actual, y finalmente llamar a la función de actualización para crear un nuevo valor y comenzar de nuevo desde el principio.</p>
+
+<p><a class="p_ident" id="p-56Gym1d0eB" href="#p-56Gym1d0eB" tabindex="-1" role="presentation"></a>Cuando definas la función, puedes usar un bucle normal para hacer el bucle real.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-Fv1rc97GEM" href="#c-Fv1rc97GEM" tabindex="-1" role="presentation"></a><span class="tok-comment">// Tu código aquí.</span>
+
+loop(<span class="tok-number">3</span>, <span class="tok-definition">n</span> =&gt; n &gt; <span class="tok-number">0</span>, <span class="tok-definition">n</span> =&gt; n - <span class="tok-number">1</span>, console.log);
+<span class="tok-comment">// → 3</span>
+<span class="tok-comment">// → 2</span>
+<span class="tok-comment">// → 1</span></pre>
+
+<h3><a class="i_ident" id="i-SmbRSAd5GA" href="#i-SmbRSAd5GA" tabindex="-1" role="presentation"></a>Todo</h3>
+
+<p><a class="p_ident" id="p-mCva3ZA9gp" href="#p-mCva3ZA9gp" tabindex="-1" role="presentation"></a>Los arrays también tienen un método <code>every</code> análogo al método <code>some</code>. Este método devuelve verdadero cuando la función dada devuelve verdadero para <em>cada</em> elemento en el array. De cierta manera, <code>some</code> es una versión del operador <code>||</code> que actúa en arrays, y <code>every</code> es como el operador <code>&amp;&amp;</code>.</p>
+
+<p><a class="p_ident" id="p-m8iHZxZZwf" href="#p-m8iHZxZZwf" tabindex="-1" role="presentation"></a>Implementa <code>every</code> como una función que tome un array y una función predicado como parámetros. Escribe dos versiones, una usando un bucle y otra usando el método <code>some</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-NludaTWDls" href="#c-NludaTWDls" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">every</span>(<span class="tok-definition">array</span>, <span class="tok-definition">test</span>) {
+  <span class="tok-comment">// Tu código aquí.</span>
+}
+
+console.log(every([<span class="tok-number">1</span>, <span class="tok-number">3</span>, <span class="tok-number">5</span>], <span class="tok-definition">n</span> =&gt; n &lt; <span class="tok-number">10</span>));
+<span class="tok-comment">// → true</span>
+console.log(every([<span class="tok-number">2</span>, <span class="tok-number">4</span>, <span class="tok-number">16</span>], <span class="tok-definition">n</span> =&gt; n &lt; <span class="tok-number">10</span>));
+<span class="tok-comment">// → false</span>
+console.log(every([], <span class="tok-definition">n</span> =&gt; n &lt; <span class="tok-number">10</span>));
+<span class="tok-comment">// → true</span></pre><details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-6hANimSBBy" href="#p-6hANimSBBy" tabindex="-1" role="presentation"></a>Al igual que el operador <code>&amp;&amp;</code>, el método <code>every</code> puede dejar de evaluar más elementos en cuanto encuentra uno que no coincide. Por lo tanto, la versión basada en bucles puede salir del bucle—con <code>break</code> o <code>return</code>—tan pronto como se encuentra con un elemento para el cual la función de predicado devuelve falso. Si el bucle llega a su fin sin encontrar tal elemento, sabemos que todos los elementos coincidieron y deberíamos devolver true.</p>
+
+<p><a class="p_ident" id="p-Ox5LquJ8IQ" href="#p-Ox5LquJ8IQ" tabindex="-1" role="presentation"></a>Para construir <code>every</code> sobre <code>some</code>, podemos aplicar las <em>leyes de De Morgan</em>, que establecen que <code>a &amp;&amp; b</code> es igual a <code>!(!a || !b)</code>. Esto puede generalizarse a arrays, donde todos los elementos en el array coinciden si no hay ningún elemento en el array que no coincida.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-4ccl4J1nOw" href="#i-4ccl4J1nOw" tabindex="-1" role="presentation"></a>Dirección de escritura dominante</h3>
+
+<p><a class="p_ident" id="p-9kMfnY4I1g" href="#p-9kMfnY4I1g" tabindex="-1" role="presentation"></a>Escribe una función que calcule la dirección de escritura dominante en una cadena de texto. Recuerda que cada objeto de script tiene una propiedad <code>direction</code> que puede ser <code>"ltr"</code> (izquierda a derecha), <code>"rtl"</code> (derecha a izquierda) o <code>"ttb"</code> (de arriba a abajo).</p>
+
+<p><a class="p_ident" id="p-WGH1oH+EyU" href="#p-WGH1oH+EyU" tabindex="-1" role="presentation"></a>La dirección dominante es la dirección de la mayoría de los caracteres que tienen un script asociado. Las funciones <code>characterScript</code> y <code>countBy</code> definidas anteriormente en el capítulo probablemente sean útiles aquí.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-CNawUvyti3" href="#c-CNawUvyti3" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">dominantDirection</span>(<span class="tok-definition">texto</span>) {
+  <span class="tok-comment">// Tu código aquí.</span>
+}
+
+console.log(dominantDirection(<span class="tok-string">"¡Hola!"</span>));
+<span class="tok-comment">// → ltr</span>
+console.log(dominantDirection(<span class="tok-string">"Hey, مساء الخير"</span>));
+<span class="tok-comment">// → rtl</span></pre>
+
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-Z2nEY1sOaH" href="#p-Z2nEY1sOaH" tabindex="-1" role="presentation"></a>Tu solución puede parecerse mucho a la primera mitad del ejemplo <code>textScripts</code>. Una vez más, debes contar caracteres según un criterio basado en <code>characterScript</code> y luego filtrar la parte del resultado que se refiere a caracteres sin interés (sin script).</p><p><a class="p_ident" id="p-1yNhVH0QH9" href="#p-1yNhVH0QH9" tabindex="-1" role="presentation"></a>Encontrar la dirección con el conteo de caracteres más alto se puede hacer con <code>reduce</code>. Si no está claro cómo hacerlo, consulta el ejemplo anterior en el capítulo, donde se utilizó <code>reduce</code> para encontrar el script con más caracteres.</p>
+
+</div></details><nav><a href="04_data.html" title="capítulo anterior" aria-label="capítulo anterior">◂</a>&nbsp;<a href="index.html" title="portada" aria-label="portada">●</a>&nbsp;<a href="06_object.html" title="próximo capítulo" aria-label="próximo capítulo">▸</a>&nbsp;<button class="help" title="ayuda" aria-label="ayuda"><strong>?</strong></button>
+</nav>
+</article>
+
+<script src="js/ejs.js"></script>
+</body></html>
