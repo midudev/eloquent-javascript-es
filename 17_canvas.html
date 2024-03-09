@@ -1,0 +1,663 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dibujo en Canvas :: Eloquent JavaScript</title>
+  <link rel="stylesheet" href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":17,"load_files":["code/chapter/16_game.js","code/levels.js","code/_stop_keys.js","code/chapter/17_canvas.js"]}</script></head>
+
+<body><article>
+<nav><a href="16_game.html" title="capítulo anterior" aria-label="capítulo anterior">◂</a>&nbsp;<a href="index.html" title="portada" aria-label="portada">●</a>&nbsp;<a href="18_http.html" title="siguiente capítulo" aria-label="siguiente capítulo">▸</a>&nbsp;<button class="help" title="ayuda" aria-label="ayuda"><strong>?</strong></button>
+</nav>
+
+<h1>Dibujo en Canvas</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-ubdp8gf0Gn" href="#p-ubdp8gf0Gn" tabindex="-1" role="presentation"></a>Dibujar es engañar.</p>
+
+<footer>M.C. Escher, <cite>citado por Bruno Ernst en El Espejo Mágico de M.C. Escher</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="images/chapter_picture_17.jpg" alt="Ilustración que muestra un brazo de robot con aspecto industrial dibujando una ciudad en un pedazo de papel"></figure>
+
+<p><a class="p_ident" id="p-gaEEPgv4jz" href="#p-gaEEPgv4jz" tabindex="-1" role="presentation"></a>Los navegadores nos ofrecen varias formas de mostrar gráficos. La forma más sencilla es utilizar estilos para posicionar y dar color a elementos DOM regulares. Esto puede llevarte bastante lejos, como mostró el juego en el <a href="16_game.html">capítulo anterior</a>. Al añadir imágenes de fondo parcialmente transparentes a los nodos, podemos hacer que se vean exactamente como queremos. Incluso es posible rotar o sesgar nodos con el estilo <code>transform</code>.</p>
+
+<p><a class="p_ident" id="p-J3P7N9Hfvk" href="#p-J3P7N9Hfvk" tabindex="-1" role="presentation"></a>Pero estaríamos utilizando el DOM para algo que no fue diseñado originalmente. Algunas tareas, como dibujar una línea entre puntos arbitrarios, son extremadamente incómodas de hacer con elementos HTML regulares.</p>
+
+<p><a class="p_ident" id="p-vZ4w2z/4jM" href="#p-vZ4w2z/4jM" tabindex="-1" role="presentation"></a>Existen dos alternativas. La primera es basada en el DOM pero utiliza <em>Gráficos Vectoriales Escalables</em> (SVG), en lugar de HTML. Piensa en SVG como un dialecto de marcado de documento que se centra en formas en lugar de texto. Puedes incrustar un documento SVG directamente en un documento HTML o incluirlo con una etiqueta <code>&lt;img&gt;</code>.</p>
+
+<p><a class="p_ident" id="p-wU9UQEILbC" href="#p-wU9UQEILbC" tabindex="-1" role="presentation"></a>La segunda alternativa se llama <em>canvas</em>. Un canvas es un único elemento DOM que encapsula una imagen. Proporciona una interfaz de programación para dibujar formas en el espacio ocupado por el nodo. La principal diferencia entre un canvas y una imagen SVG es que en SVG se conserva la descripción original de las formas para que puedan ser movidas o redimensionadas en cualquier momento. Un canvas, por otro lado, convierte las formas en píxeles (puntos de color en una cuadrícula) tan pronto como se dibujan y no recuerda qué representan esos píxeles. La única forma de mover una forma en un canvas es borrar el canvas (o la parte del canvas alrededor de la forma) y volver a dibujarlo con la forma en una nueva posición.</p><h2><a class="h_ident" id="h-UPzm0CiZhQ" href="#h-UPzm0CiZhQ" tabindex="-1" role="presentation"></a>SVG</h2>
+
+<p><a class="p_ident" id="p-gCxXcLPC1N" href="#p-gCxXcLPC1N" tabindex="-1" role="presentation"></a>Este libro no entrará en detalle sobre SVG, pero explicaré brevemente cómo funciona. Al <a href="17_canvas.html#graphics_tradeoffs">final del capítulo</a>, volveré a los compromisos que debes considerar al decidir qué mecanismo de dibujo es apropiado para una aplicación determinada.</p>
+
+<p><a class="p_ident" id="p-aF1bihN0fO" href="#p-aF1bihN0fO" tabindex="-1" role="presentation"></a>Este es un documento HTML con una imagen SVG simple:</p>
+
+<pre tabindex="0" class="snippet" data-language="html" data-sandbox="svg"><a class="c_ident" id="c-AkjyzdSyFr" href="#c-AkjyzdSyFr" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;HTML normal aquí.&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">svg</span> xmlns=<span class="tok-string">"http://www.w3.org/2000/svg"</span>&gt;
+  &lt;<span class="tok-typeName">circle</span> r=<span class="tok-string">"50"</span> cx=<span class="tok-string">"50"</span> cy=<span class="tok-string">"50"</span> fill=<span class="tok-string">"red"</span>/&gt;
+  &lt;<span class="tok-typeName">rect</span> x=<span class="tok-string">"120"</span> y=<span class="tok-string">"5"</span> width=<span class="tok-string">"90"</span> height=<span class="tok-string">"90"</span>
+        stroke=<span class="tok-string">"blue"</span> fill=<span class="tok-string">"none"</span>/&gt;
+&lt;/<span class="tok-typeName">svg</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-c8MBY3FCuZ" href="#p-c8MBY3FCuZ" tabindex="-1" role="presentation"></a>El atributo <code>xmlns</code> cambia un elemento (y sus hijos) a un <em>namespace XML</em> diferente. Este namespace, identificado por una URL, especifica el dialecto que estamos utilizando actualmente. Las etiquetas <code>&lt;circle&gt;</code> y <code>&lt;rect&gt;</code>, que no existen en HTML, tienen un significado en SVG: dibujan formas utilizando el estilo y la posición especificados por sus atributos.</p>
+
+<p><a class="p_ident" id="p-DcMLpWRkj0" href="#p-DcMLpWRkj0" tabindex="-1" role="presentation"></a>Estas etiquetas crean elementos DOM, al igual que las etiquetas HTML, con las que los scripts pueden interactuar. Por ejemplo, esto cambia el color del elemento <code>&lt;circle&gt;</code> a cian:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="svg"><a class="c_ident" id="c-jx+UOHRvDL" href="#c-jx+UOHRvDL" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">circle</span> = document.querySelector(<span class="tok-string">"circle"</span>);
+circle.setAttribute(<span class="tok-string">"fill"</span>, <span class="tok-string">"cyan"</span>);</pre>
+
+<h2><a class="h_ident" id="h-QXPPgw0nn4" href="#h-QXPPgw0nn4" tabindex="-1" role="presentation"></a>El elemento canvas</h2>
+
+<p><a class="p_ident" id="p-81TEgZtPp7" href="#p-81TEgZtPp7" tabindex="-1" role="presentation"></a>Gráficos de canvas se pueden dibujar en un elemento <code>&lt;canvas&gt;</code>. Puedes darle a ese elemento atributos <code>width</code> y <code>height</code> para determinar su tamaño en píxeles.</p><p><a class="p_ident" id="p-oQeTfkBH6v" href="#p-oQeTfkBH6v" tabindex="-1" role="presentation"></a>Un nuevo lienzo está vacío, lo que significa que es completamente transparente y por lo tanto aparece como un espacio vacío en el documento.</p>
+
+<p><a class="p_ident" id="p-rGGmEqFCfh" href="#p-rGGmEqFCfh" tabindex="-1" role="presentation"></a>La etiqueta <code>&lt;canvas&gt;</code> está destinada a permitir diferentes estilos de dibujo. Para acceder a una interfaz de dibujo real, primero necesitamos crear un <em>contexto</em>, un objeto cuyos métodos proporcionan la interfaz de dibujo. Actualmente, hay tres estilos de dibujo ampliamente compatibles: <code>"2d"</code> para gráficos bidimensionales, <code>"webgl"</code> para gráficos tridimensionales a través de la interfaz OpenGL, y <code>"webgpu"</code>, una alternativa más moderna y flexible a WebGL.</p>
+
+<p><a class="p_ident" id="p-jwj+O0MSuO" href="#p-jwj+O0MSuO" tabindex="-1" role="presentation"></a>Este libro no discutirá WebGL ni WebGPU—nos quedaremos en dos dimensiones. Pero si te interesa la gráfica tridimensional, te animo a investigar WebGPU. Proporciona una interfaz directa al hardware gráfico y te permite renderizar incluso escenas complicadas de manera eficiente, utilizando JavaScript.</p>
+
+<p><a class="p_ident" id="p-vlW/Yl/xfo" href="#p-vlW/Yl/xfo" tabindex="-1" role="presentation"></a>Se crea un contexto con el método <code>getContext</code> en el elemento DOM <code>&lt;canvas&gt;</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-A0Bt33IRVE" href="#c-A0Bt33IRVE" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Antes del lienzo.&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">"120"</span> height=<span class="tok-string">"60"</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">p</span>&gt;Después del lienzo.&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">lienzo</span> = document.querySelector(<span class="tok-string">"canvas"</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">contexto</span> = lienzo.getContext(<span class="tok-string">"2d"</span>);
+  contexto.fillStyle = <span class="tok-string">"rojo"</span>;
+  contexto.fillRect(<span class="tok-number">10</span>, <span class="tok-number">10</span>, <span class="tok-number">100</span>, <span class="tok-number">50</span>);
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-fv4PQSHT32" href="#p-fv4PQSHT32" tabindex="-1" role="presentation"></a>Después de crear el objeto contexto, el ejemplo dibuja un rectángulo rojo de 100 píxeles de ancho y 50 píxeles de alto, con su esquina superior izquierda en las coordenadas (10,10).</p>
+
+<p><a class="p_ident" id="p-e1SRsTstnD" href="#p-e1SRsTstnD" tabindex="-1" role="presentation"></a>Al igual que en HTML (y SVG), el sistema de coordenadas que utiliza el lienzo coloca (0,0) en la esquina superior izquierda, y el eje y positivo va hacia abajo desde allí. Por lo tanto, (10,10) está 10 píxeles debajo y a la derecha de la esquina superior izquierda.</p><h2 id="fill_stroke"><a class="h_ident" id="h-Dtw0KBlBdA" href="#h-Dtw0KBlBdA" tabindex="-1" role="presentation"></a>Líneas y superficies</h2>
+
+<p><a class="p_ident" id="p-UvxB22/zji" href="#p-UvxB22/zji" tabindex="-1" role="presentation"></a>En la interfaz de lienzo, una forma puede ser <em>rellenada</em>, lo que significa que su área se le asigna un color o patrón, o puede ser <em>trazada</em>, lo que significa que se dibuja una línea a lo largo de su borde. La misma terminología es utilizada por SVG.</p>
+
+<p><a class="p_ident" id="p-ju8WCrIWOz" href="#p-ju8WCrIWOz" tabindex="-1" role="presentation"></a>El método <code>fillRect</code> rellena un rectángulo. Primero toma las coordenadas x e y de la esquina superior izquierda del rectángulo, luego su ancho y luego su altura. Un método similar llamado <code>strokeRect</code> dibuja el contorno de un rectángulo.</p>
+
+<p><a class="p_ident" id="p-a+mohoFrQD" href="#p-a+mohoFrQD" tabindex="-1" role="presentation"></a>Ningún método toma parámetros adicionales. El color del relleno, el grosor de la línea, etc., no son determinados por un argumento del método, como razonablemente podrías esperar, sino por propiedades del objeto de contexto.</p>
+
+<p><a class="p_ident" id="p-kkrOpEa71h" href="#p-kkrOpEa71h" tabindex="-1" role="presentation"></a>La propiedad <code>fillStyle</code> controla la forma en que se rellenan las formas. Puede ser establecida con una cadena que especifica un color, utilizando la notación de color utilizada por CSS.</p>
+
+<p><a class="p_ident" id="p-nE1twk7mw2" href="#p-nE1twk7mw2" tabindex="-1" role="presentation"></a>La propiedad <code>strokeStyle</code> funciona de manera similar pero determina el color usado para una línea trazada. El ancho de esa línea es determinado por la propiedad <code>lineWidth</code>, que puede contener cualquier número positivo.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-RXlmHDTr07" href="#c-RXlmHDTr07" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">lienzo</span>&gt;&lt;/<span class="tok-typeName">lienzo</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.strokeStyle = <span class="tok-string">"azul"</span>;
+  cx.strokeRect(<span class="tok-number">5</span>, <span class="tok-number">5</span>, <span class="tok-number">50</span>, <span class="tok-number">50</span>);
+  cx.lineWidth = <span class="tok-number">5</span>;
+  cx.strokeRect(<span class="tok-number">135</span>, <span class="tok-number">5</span>, <span class="tok-number">50</span>, <span class="tok-number">50</span>);
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-Xt3ZlUBewH" href="#p-Xt3ZlUBewH" tabindex="-1" role="presentation"></a>Cuando no se especifica ningún atributo <code>width</code> o <code>height</code>, como en el ejemplo, un elemento de lienzo obtiene un ancho predeterminado de 300 píxeles y una altura de 150 píxeles.</p>
+
+<h2><a class="h_ident" id="h-E+fhFyL32D" href="#h-E+fhFyL32D" tabindex="-1" role="presentation"></a>Trayectorias</h2><p><a class="p_ident" id="p-EjhhpUs4B/" href="#p-EjhhpUs4B/" tabindex="-1" role="presentation"></a>Un camino es una secuencia de líneas. La interfaz de lienzo 2D adopta un enfoque peculiar para describir este tipo de camino. Se realiza completamente a través de efectos secundarios. Los caminos no son valores que se puedan almacenar y pasar por ahí. En su lugar, si quieres hacer algo con un camino, haces una secuencia de llamadas a métodos para describir su forma.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-q5tyCN7mU3" href="#c-q5tyCN7mU3" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">lienzo</span>&gt;&lt;/<span class="tok-typeName">lienzo</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.beginPath();
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">y</span> = <span class="tok-number">10</span>; y &lt; <span class="tok-number">100</span>; y += <span class="tok-number">10</span>) {
+    cx.moveTo(<span class="tok-number">10</span>, y);
+    cx.lineTo(<span class="tok-number">90</span>, y);
+  }
+  cx.stroke();
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-a4h7997sQi" href="#p-a4h7997sQi" tabindex="-1" role="presentation"></a>Este ejemplo crea un camino con una serie de segmentos de línea horizontales y luego lo dibuja usando el método <code>stroke</code>. Cada segmento creado con <code>lineTo</code> comienza en la posición <em>actual</em> del camino. Esa posición suele ser el final del último segmento, a menos que se haya llamado a <code>moveTo</code>. En ese caso, el próximo segmento comenzaría en la posición pasada a <code>moveTo</code>.</p>
+
+<p><a class="p_ident" id="p-/C3/H/w2FX" href="#p-/C3/H/w2FX" tabindex="-1" role="presentation"></a>Cuando se rellena un camino (usando el método <code>fill</code>), cada forma se rellena por separado. Un camino puede contener múltiples formas—cada movimiento de <code>moveTo</code> inicia una nueva. Pero el camino debe estar <em>cerrado</em> (es decir, su inicio y fin están en la misma posición) antes de poder rellenarse. Si el camino no está cerrado previamente, se agrega una línea desde su fin hasta su inicio, y la forma encerrada por el camino completo se rellena.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-dKfK5v1gw2" href="#c-dKfK5v1gw2" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">lienzo</span>&gt;&lt;/<span class="tok-typeName">lienzo</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.beginPath();
+  cx.moveTo(<span class="tok-number">50</span>, <span class="tok-number">10</span>);
+  cx.lineTo(<span class="tok-number">10</span>, <span class="tok-number">70</span>);
+  cx.lineTo(<span class="tok-number">90</span>, <span class="tok-number">70</span>);
+  cx.fill();
+&lt;/<span class="tok-typeName">script</span>&gt;</pre><p><a class="p_ident" id="p-9unYw61//h" href="#p-9unYw61//h" tabindex="-1" role="presentation"></a>Este ejemplo dibuja un triángulo relleno. Ten en cuenta que solo dos de los lados del triángulo se dibujan explícitamente. El tercero, desde la esquina inferior derecha de regreso hacia arriba, se subentiende y no estaría allí si trazas el camino.</p>
+
+<p><a class="p_ident" id="p-6TyHPpw704" href="#p-6TyHPpw704" tabindex="-1" role="presentation"></a>También podrías usar el método <code>closePath</code> para cerrar explícitamente un camino añadiendo un segmento de línea real de regreso al inicio del camino. Este segmento <em>se</em> dibuja al trazar el camino.</p>
+
+<h2><a class="h_ident" id="h-B8g7k6vws+" href="#h-B8g7k6vws+" tabindex="-1" role="presentation"></a>Curvas</h2>
+
+<p><a class="p_ident" id="p-4/5JyRbnoi" href="#p-4/5JyRbnoi" tabindex="-1" role="presentation"></a>Un camino también puede contener líneas curvas. Desafortunadamente, dibujarlas es un poco más complicado.</p>
+
+<p><a class="p_ident" id="p-aIjUSaPbwv" href="#p-aIjUSaPbwv" tabindex="-1" role="presentation"></a>El método <code>quadraticCurveTo</code> dibuja una curva hacia un punto dado. Para determinar la curvatura de la línea, el método recibe un punto de control además de un punto de destino. Imagina este punto de control como que <em>atrae</em> a la línea, dándole su curva. La línea no pasará a través del punto de control, pero su dirección en los puntos de inicio y fin será tal que una línea recta en esa dirección apuntaría hacia el punto de control. El siguiente ejemplo ilustra esto:</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-Jq9+Wmbm3J" href="#c-Jq9+Wmbm3J" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.beginPath();
+  cx.moveTo(<span class="tok-number">10</span>, <span class="tok-number">90</span>);
+  <span class="tok-comment">// control=(60,10) goal=(90,90)</span>
+  cx.quadraticCurveTo(<span class="tok-number">60</span>, <span class="tok-number">10</span>, <span class="tok-number">90</span>, <span class="tok-number">90</span>);
+  cx.lineTo(<span class="tok-number">60</span>, <span class="tok-number">10</span>);
+  cx.closePath();
+  cx.stroke();
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-OIjzl6Dc9Y" href="#p-OIjzl6Dc9Y" tabindex="-1" role="presentation"></a>Dibujamos una curva cuadrática de izquierda a derecha, con (60,10) como punto de control, y luego dibujamos dos segmentos de línea que pasan por ese punto de control y vuelven al inicio de la línea. El resultado se parece un poco a un emblema de <em>Star Trek</em>. Puedes ver el efecto del punto de control: las líneas que salen de las esquinas inferiores comienzan en dirección al punto de control y luego se curvan hacia su objetivo.</p><p><a class="p_ident" id="p-W0g7mQl1YV" href="#p-W0g7mQl1YV" tabindex="-1" role="presentation"></a>El método <code>bezierCurveTo</code> dibuja un tipo similar de curva. En lugar de un único punto de control, este tiene dos—uno para cada extremo de la línea. Aquí hay un boceto similar para ilustrar el comportamiento de dicha curva:</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-88jydjz4KB" href="#c-88jydjz4KB" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.beginPath();
+  cx.moveTo(<span class="tok-number">10</span>, <span class="tok-number">90</span>);
+  <span class="tok-comment">// control1=(10,10) control2=(90,10) goal=(50,90)</span>
+  cx.bezierCurveTo(<span class="tok-number">10</span>, <span class="tok-number">10</span>, <span class="tok-number">90</span>, <span class="tok-number">10</span>, <span class="tok-number">50</span>, <span class="tok-number">90</span>);
+  cx.lineTo(<span class="tok-number">90</span>, <span class="tok-number">10</span>);
+  cx.lineTo(<span class="tok-number">10</span>, <span class="tok-number">10</span>);
+  cx.closePath();
+  cx.stroke();
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-UVt0ID9CaV" href="#p-UVt0ID9CaV" tabindex="-1" role="presentation"></a>Los dos puntos de control especifican la dirección en ambos extremos de la curva. Cuanto más alejados estén de su punto correspondiente, más la curva se "abultará" en esa dirección.</p>
+
+<p><a class="p_ident" id="p-tMRY3uv3sU" href="#p-tMRY3uv3sU" tabindex="-1" role="presentation"></a>Estas curvas pueden ser difíciles de trabajar, no siempre está claro cómo encontrar los puntos de control que proporcionen la forma que estás buscando. A veces puedes calcularlos, y a veces simplemente tendrás que encontrar un valor adecuado mediante ensayo y error.</p>
+
+<p><a class="p_ident" id="p-AattY0V1YG" href="#p-AattY0V1YG" tabindex="-1" role="presentation"></a>El método <code>arc</code> es una forma de dibujar una línea que se curva a lo largo del borde de un círculo. Toma un par de coordenadas para el centro del arco, un radio, y luego un ángulo de inicio y un ángulo final.</p>
+
+<p><a class="p_ident" id="p-R0hMJ8VOzu" href="#p-R0hMJ8VOzu" tabindex="-1" role="presentation"></a>Estos dos últimos parámetros permiten dibujar solo parte del círculo. Los ángulos se miden en radianes, no grados. Esto significa que un círculo completo tiene un ángulo de 2π, o <code>2 * Math.PI</code>, que es aproximadamente 6.28. El ángulo comienza a contar en el punto a la derecha del centro del círculo y va en sentido horario desde allí. Puedes usar un inicio de 0 y un final mayor que 2π (por ejemplo, 7) para dibujar un círculo completo.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-LopNVujEda" href="#c-LopNVujEda" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.beginPath();
+  <span class="tok-comment">// centro=(50,50) radio=40 ángulo=0 a 7</span>
+  cx.arc(<span class="tok-number">50</span>, <span class="tok-number">50</span>, <span class="tok-number">40</span>, <span class="tok-number">0</span>, <span class="tok-number">7</span>);
+  <span class="tok-comment">// centro=(150,50) radio=40 ángulo=0 a ½π</span>
+  cx.arc(<span class="tok-number">150</span>, <span class="tok-number">50</span>, <span class="tok-number">40</span>, <span class="tok-number">0</span>, <span class="tok-number">0.5</span> * Math.PI);
+  cx.stroke();
+&lt;/<span class="tok-typeName">script</span>&gt;</pre><p><a class="p_ident" id="p-NhI3gukqbY" href="#p-NhI3gukqbY" tabindex="-1" role="presentation"></a>La imagen resultante contiene una línea desde la derecha del círculo completo (primera llamada a <code>arc</code>) hasta la derecha del cuarto de círculo (segunda llamada). Al igual que otros métodos de dibujo de trazados, una línea dibujada con <code>arc</code> está conectada al segmento de trazado previo. Puedes llamar a <code>moveTo</code> o empezar un nuevo trazado para evitar esto.</p>
+
+<h2 id="pie_chart"><a class="h_ident" id="h-9yOdkmATfT" href="#h-9yOdkmATfT" tabindex="-1" role="presentation"></a>Dibujando un gráfico circular</h2>
+
+<p><a class="p_ident" id="p-06/iVRb5L1" href="#p-06/iVRb5L1" tabindex="-1" role="presentation"></a>Imagina que acabas de empezar un trabajo en EconomiCorp, Inc., y tu primera tarea es dibujar un gráfico circular de los resultados de la encuesta de satisfacción de sus clientes.</p>
+
+<p><a class="p_ident" id="p-cqsvtvxLO/" href="#p-cqsvtvxLO/" tabindex="-1" role="presentation"></a>El enlace <code>results</code> contiene un array de objetos que representan las respuestas de la encuesta.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="pie"><a class="c_ident" id="c-evimv7LBgO" href="#c-evimv7LBgO" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">results</span> = [
+  {<span class="tok-definition">name</span>: <span class="tok-string">"Satisfecho"</span>, <span class="tok-definition">count</span>: <span class="tok-number">1043</span>, <span class="tok-definition">color</span>: <span class="tok-string">"lightblue"</span>},
+  {<span class="tok-definition">name</span>: <span class="tok-string">"Neutral"</span>, <span class="tok-definition">count</span>: <span class="tok-number">563</span>, <span class="tok-definition">color</span>: <span class="tok-string">"lightgreen"</span>},
+  {<span class="tok-definition">name</span>: <span class="tok-string">"Insatisfecho"</span>, <span class="tok-definition">count</span>: <span class="tok-number">510</span>, <span class="tok-definition">color</span>: <span class="tok-string">"pink"</span>},
+  {<span class="tok-definition">name</span>: <span class="tok-string">"Sin comentario"</span>, <span class="tok-definition">count</span>: <span class="tok-number">175</span>, <span class="tok-definition">color</span>: <span class="tok-string">"silver"</span>}
+];</pre>
+
+<p><a class="p_ident" id="p-P3SJQbINGf" href="#p-P3SJQbINGf" tabindex="-1" role="presentation"></a>Para dibujar un gráfico circular, dibujamos varios sectores circulares, cada uno compuesto por un arco y un par de líneas hacia el centro de ese arco. Podemos calcular el ángulo ocupado por cada arco dividiendo un círculo completo (2π) por el número total de respuestas y luego multiplicando ese número (el ángulo por respuesta) por la cantidad de personas que eligieron una opción dada.</p>
+
+<pre tabindex="0" class="snippet" data-language="html" data-sandbox="pie"><a class="c_ident" id="c-j6Un5vCZUN" href="#c-j6Un5vCZUN" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">lienzo</span> ancho=<span class="tok-string">"200"</span> alto=<span class="tok-string">"200"</span>&gt;&lt;/<span class="tok-typeName">lienzo</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = results
+    .reduce((<span class="tok-definition">sum</span>, {count}) =&gt; sum + count, <span class="tok-number">0</span>);
+  <span class="tok-comment">// Empezar en la parte superior</span>
+  <span class="tok-keyword">let</span> <span class="tok-definition">currentAngle</span> = -<span class="tok-number">0.5</span> * Math.PI;
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">result</span> <span class="tok-keyword">of</span> results) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">sliceAngle</span> = (result.count / total) * <span class="tok-number">2</span> * Math.PI;
+    cx.beginPath();
+    <span class="tok-comment">// centro=100,100, radio=100</span>
+    <span class="tok-comment">// desde el ángulo actual, en sentido horario por el ángulo del sector</span>
+    cx.arc(<span class="tok-number">100</span>, <span class="tok-number">100</span>, <span class="tok-number">100</span>,
+           currentAngle, currentAngle + sliceAngle);
+    currentAngle += sliceAngle;
+    cx.lineTo(<span class="tok-number">100</span>, <span class="tok-number">100</span>);
+    cx.fillStyle = result.color;
+    cx.fill();
+  }
+&lt;/<span class="tok-typeName">script</span>&gt;</pre><p><a class="p_ident" id="p-e5+MpAPZp1" href="#p-e5+MpAPZp1" tabindex ="-1" role="presentation"></a>Pero un gráfico que no nos dice lo que significan las porciones no es muy útil. Necesitamos una forma de dibujar texto en el lienzo.</p>
+
+<h2><a class="h_ident" id="h-wzKMObDin3" href="#h-wzKMObDin3" tabindex ="-1" role="presentation"></a>Texto</h2>
+
+<p><a class="p_ident" id="p-gXYVsxy73+" href="#p-gXYVsxy73+" tabindex ="-1" role="presentation"></a>Un contexto de dibujo de lienzo 2D proporciona los métodos <code>fillText</code> y <code>strokeText</code>. Este último puede ser útil para contornear letras, pero generalmente <code>fillText</code> es lo que necesitas. Rellenará el contorno del texto dado con el <code>fillStyle</code> actual.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-I5eI8lFy8O" href="#c-I5eI8lFy8O" tabindex ="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.font = <span class="tok-string">"28px Georgia"</span>;
+  cx.fillStyle = <span class="tok-string">"fuchsia"</span>;
+  cx.fillText(<span class="tok-string">"¡También puedo dibujar texto!"</span>, <span class="tok-number">10</span>, <span class="tok-number">50</span>);
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-n79D894g2i" href="#p-n79D894g2i" tabindex ="-1" role="presentation"></a>Puedes especificar el tamaño, estilo y fuente del texto con la propiedad <code>font</code>. Este ejemplo solo proporciona un tamaño de fuente y un nombre de familia. También es posible agregar <code>italic</code> o <code>bold</code> al inicio de la cadena para seleccionar un estilo.</p>
+
+<p><a class="p_ident" id="p-Zc9FEe8Zce" href="#p-Zc9FEe8Zce" tabindex ="-1" role="presentation"></a>Los dos últimos argumentos de <code>fillText</code> y <code>strokeText</code> proporcionan la posición en la que se dibuja la fuente. De forma predeterminada, indican la posición del inicio de la línea base alfabética del texto, que es la línea sobre la que las letras "se apoyan", sin contar las partes colgantes en letras como <em>j</em> o <em>p</em>. Puedes cambiar la posición horizontal estableciendo la propiedad <code>textAlign</code> en <code>"end"</code> o <code>"center"</code> y la posición vertical estableciendo <code>textBaseline</code> en <code>"top"</code>, <code>"middle"</code> o <code>"bottom"</code>.</p>
+
+<p><a class="p_ident" id="p-CqC0o/MzWb" href="#p-CqC0o/MzWb" tabindex ="-1" role="presentation"></a>Volveremos a nuestro gráfico circular y al problema de etiquetar las porciones en los <a href="17_canvas.html#exercise_pie_chart">ejercicios</a> al final del capítulo.</p>
+
+<h2><a class="h_ident" id="h-CehxyY/vO5" href="#h-CehxyY/vO5" tabindex ="-1" role="presentation"></a>Imágenes</h2>
+
+<p><a class="p_ident" id="p-y7aK+8CMcM" href="#p-y7aK+8CMcM" tabindex ="-1" role="presentation"></a>En gráficos por computadora, a menudo se hace una distinción entre gráficos <em>vectoriales</em> y gráficos <em>de mapa de bits</em>. El primero es lo que hemos estado haciendo hasta ahora en este capítulo: especificando una imagen dando una descripción lógica de las formas. Los gráficos de mapa de bits, en cambio, no especifican formas reales, sino que trabajan con datos de píxeles (raster de puntos de color).</p><p><a class="p_ident" id="p-a/eD/4ve/R" href="#p-a/eD/4ve/R" tabindex="-1" role="presentation"></a>El método <code>drawImage</code> nos permite dibujar datos de píxeles en un lienzo. Estos datos de píxeles pueden provenir de un elemento <code>&lt;img&gt;</code> o de otro lienzo. El siguiente ejemplo crea un elemento <code>&lt;img&gt;</code> independiente y carga un archivo de imagen en él. Pero no puede comenzar a dibujar inmediatamente desde esta imagen porque es posible que el navegador aún no la haya cargado. Para manejar esto, registramos un controlador de eventos <code>"load"</code> y realizamos el dibujo después de que la imagen se haya cargado.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-Uzn6msw1dJ" href="#c-Uzn6msw1dJ" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">img</span> = document.createElement(<span class="tok-string">"img"</span>);
+  img.src = <span class="tok-string">"img/hat.png"</span>;
+  img.addEventListener(<span class="tok-string">"load"</span>, () =&gt; {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">x</span> = <span class="tok-number">10</span>; x &lt; <span class="tok-number">200</span>; x += <span class="tok-number">30</span>) {
+      cx.drawImage(img, x, <span class="tok-number">10</span>);
+    }
+  });
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-bQjVjGKPoj" href="#p-bQjVjGKPoj" tabindex="-1" role="presentation"></a>Por defecto, <code>drawImage</code> dibujará la imagen en su tamaño original. También puedes proporcionarle dos argumentos adicionales para establecer un ancho y alto diferentes.</p>
+
+<p><a class="p_ident" id="p-9rhUti7aj6" href="#p-9rhUti7aj6" tabindex="-1" role="presentation"></a>Cuando a <code>drawImage</code> se le dan <em>nueve</em> argumentos, se puede utilizar para dibujar solo un fragmento de una imagen. Los argumentos segundo a quinto indican el rectángulo (x, y, ancho y alto) en la imagen fuente que debe ser copiado, y los argumentos sexto a noveno dan el rectángulo (en el lienzo) en el cual debe ser copiado.</p>
+
+<p><a class="p_ident" id="p-xKlo8wmmgJ" href="#p-xKlo8wmmgJ" tabindex="-1" role="presentation"></a>Esto se puede usar para empaquetar múltiples <em>sprites</em> (elementos de imagen) en un solo archivo de imagen y luego dibujar solo la parte que necesitas. Por ejemplo, tenemos esta imagen que contiene un personaje de juego en múltiples poses:</p><figure><img src="images/player_big.png" alt="Arte de píxeles que muestra un personaje de juego en 10 poses diferentes. Las primeras 8 forman su ciclo de animación corriendo, la 9na tiene al personaje parado, y la 10ma lo muestra saltando."></figure><p><a class="p_ident" id="p-u8W4Vqh39a" href="#p-u8W4Vqh39a" tabindex="-1" role="presentation"></a>Al alternar la pose que dibujamos, podemos mostrar una animación que se ve como un personaje caminando.</p>
+
+<p><a class="p_ident" id="p-SWjzmvMXcR" href="#p-SWjzmvMXcR" tabindex="-1" role="presentation"></a>Para animar una imagen en un lienzo, el método <code>clearRect</code> es útil. Se asemeja a <code>fillRect</code>, pero en lugar de colorear el rectángulo, lo hace transparente, eliminando los píxeles dibujados previamente.</p>
+
+<p><a class="p_ident" id="p-VcrdBA3T8z" href="#p-VcrdBA3T8z" tabindex="-1" role="presentation"></a>Sabemos que cada <em>sprite</em>, cada subimagen, tiene 24 píxeles de ancho y 30 píxeles de alto. El siguiente código carga la imagen y luego configura un intervalo (temporizador repetido) para dibujar el siguiente fotograma:</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-fHdIKXnjfm" href="#c-fHdIKXnjfm" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">img</span> = document.createElement(<span class="tok-string">"img"</span>);
+  img.src = <span class="tok-string">"img/player.png"</span>;
+  <span class="tok-keyword">let</span> <span class="tok-definition">spriteW</span> = <span class="tok-number">24</span>, <span class="tok-definition">spriteH</span> = <span class="tok-number">30</span>;
+  img.addEventListener(<span class="tok-string">"load"</span>, () =&gt; {
+    <span class="tok-keyword">let</span> <span class="tok-definition">cycle</span> = <span class="tok-number">0</span>;
+    setInterval(() =&gt; {
+      cx.clearRect(<span class="tok-number">0</span>, <span class="tok-number">0</span>, spriteW, spriteH);
+      cx.drawImage(img,
+                   <span class="tok-comment">// rectángulo fuente</span>
+                   cycle * spriteW, <span class="tok-number">0</span>, spriteW, spriteH,
+                   <span class="tok-comment">// rectángulo destino</span>
+                   <span class="tok-number">0</span>,               <span class="tok-number">0</span>, spriteW, spriteH);
+      cycle = (cycle + <span class="tok-number">1</span>) % <span class="tok-number">8</span>;
+    }, <span class="tok-number">120</span>);
+  });
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-+KihqBcHw9" href="#p-+KihqBcHw9" tabindex="-1" role="presentation"></a>El enlace <code>cycle</code> sigue nuestra posición en la animación. Para cada fotograma, se incrementa y luego se recorta de nuevo al rango de 0 a 7 usando el operador de resto. Este enlace se utiliza luego para calcular la coordenada x que tiene el sprite para la pose actual en la imagen.</p><h2><a class="h_ident" id="h-3BwjEnWhbh" href="#h-3BwjEnWhbh" tabindex="-1" role="presentation"></a>Transformación</h2>
+
+<p><a class="p_ident" id="p-b00lbwHiev" href="#p-b00lbwHiev" tabindex="-1" role="presentation"></a>Pero, ¿qué pasa si queremos que nuestro personaje camine hacia la izquierda en lugar de hacia la derecha? Por supuesto, podríamos dibujar otro conjunto de sprites. Pero también podemos indicarle al lienzo que dibuje la imagen al revés.</p>
+
+<p><a class="p_ident" id="p-9UTg0pE0zY" href="#p-9UTg0pE0zY" tabindex="-1" role="presentation"></a>Llamar al método <code>scale</code> hará que todo lo que se dibuje después de él se escale. Este método toma dos parámetros, uno para establecer una escala horizontal y otro para establecer una escala vertical.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-Ih3Ewav/dQ" href="#c-Ih3Ewav/dQ" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">lienzo</span>&gt;&lt;/<span class="tok-typeName">lienzo</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  cx.scale(<span class="tok-number">3</span>, <span class="tok-number">.5</span>);
+  cx.beginPath();
+  cx.arc(<span class="tok-number">50</span>, <span class="tok-number">50</span>, <span class="tok-number">40</span>, <span class="tok-number">0</span>, <span class="tok-number">7</span>);
+  cx.lineWidth = <span class="tok-number">3</span>;
+  cx.stroke();
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-u+8/LLl96H" href="#p-u+8/LLl96H" tabindex="-1" role="presentation"></a>Escalar hará que todo sobre la imagen dibujada, incluido el ancho de línea, se estire o se comprima según lo especificado. Escalar por una cantidad negativa volteará la imagen. El volteo ocurre alrededor del punto (0,0), lo que significa que también volteará la dirección del sistema de coordenadas. Cuando se aplica una escala horizontal de -1, una forma dibujada en la posición x 100 terminará en lo que solía ser la posición -100.</p>
+
+<p><a class="p_ident" id="p-bZnJ+aZtFS" href="#p-bZnJ+aZtFS" tabindex="-1" role="presentation"></a>Por lo tanto, para voltear una imagen, no podemos simplemente agregar <code>cx.scale(-1, 1)</code> antes de llamar a <code>drawImage</code> porque eso movería nuestra imagen fuera del lienzo, donde no sería visible. Podrías ajustar las coordenadas dadas a <code>drawImage</code> para compensar esto dibujando la imagen en la posición x -50 en lugar de 0. Otra solución, que no requiere que el código que realiza el dibujo conozca el cambio de escala, es ajustar el eje alrededor del cual ocurre la escala.</p>
+
+<p><a class="p_ident" id="p-LbiF7s9yt4" href="#p-LbiF7s9yt4" tabindex="-1" role="presentation"></a>Existen varios otros métodos además de <code>scale</code> que influyen en el sistema de coordenadas de un lienzo. Puedes rotar formas dibujadas posteriormente con el método <code>rotate</code> y moverlas con el método <code>translate</code>. Lo interesante—y confuso—es que estas transformaciones <em>se acumulan</em>, lo que significa que cada una ocurre relativa a las transformaciones anteriores.</p><p><a class="p_ident" id="p-mkNUtuNxcG" href="#p-mkNUtuNxcG" tabindex="-1" role="presentation"></a>Entonces, si traducimos 10 píxeles horizontales dos veces, todo se dibujará 20 píxeles hacia la derecha. Si primero movemos el centro del sistema de coordenadas a (50, 50) y luego rotamos 20 grados (cerca de 0.1π radianes), esa rotación ocurrirá <em>alrededor</em> del punto (50, 50).</p><figure><img src="fonts/transform.svg" alt="Diagrama que muestra el resultado de apilar transformaciones. En el primer diagrama se traduce y luego se rota, causando que la traducción ocurra normalmente y la rotación alrededor del objetivo de la traducción. En el segundo diagrama primero se rota y luego se traduce, causando que la rotación ocurra alrededor del origen y la dirección de la traducción se incline por esa rotación."></figure>
+
+<p><a class="p_ident" id="p-TGBwm05/cn" href="#p-TGBwm05/cn" tabindex="-1" role="presentation"></a>Pero si <em>primero</em> rotamos 20 grados y <em>luego</em> traducimos por (50, 50), la traducción ocurrirá en el sistema de coordenadas rotado y producirá una orientación diferente. El orden en el que se aplican las transformaciones importa.</p>
+
+<p><a class="p_ident" id="p-9a1O8aEtUA" href="#p-9a1O8aEtUA" tabindex="-1" role="presentation"></a>Para voltear una imagen alrededor de la línea vertical en una posición x dada, podemos hacer lo siguiente:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-gPWtMqSBLU" href="#c-gPWtMqSBLU" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">flipHorizontally</span>(<span class="tok-definition">context</span>, <span class="tok-definition">alrededor</span>) {
+  context.translate(alrededor, <span class="tok-number">0</span>);
+  context.scale(-<span class="tok-number">1</span>, <span class="tok-number">1</span>);
+  context.translate(-alrededor, <span class="tok-number">0</span>);
+}</pre>
+
+<p><a class="p_ident" id="p-qob4Y7lZ5I" href="#p-qob4Y7lZ5I" tabindex="-1" role="presentation"></a>Movemos el eje y a donde queremos que esté nuestro espejo, aplicamos el reflejo y finalmente devolvemos el eje y a su lugar adecuado en el universo reflejado. La siguiente imagen explica por qué esto funciona:</p><figure><img src="fonts/mirror.svg" alt="Diagrama que muestra el efecto de trasladar y reflejar un triángulo"></figure>
+
+<p><a class="p_ident" id="p-AGahdKv9Zv" href="#p-AGahdKv9Zv" tabindex="-1" role="presentation"></a>Esto muestra los sistemas de coordenadas antes y después de reflejar a través de la línea central. Los triángulos están numerados para ilustrar cada paso. Si dibujamos un triángulo en una posición x positiva, por defecto estaría en el lugar donde se encuentra el triángulo 1. Una llamada a <code>flipHorizontally</code> primero hace una traslación a la derecha, lo que nos lleva al triángulo 2. Luego escala, volcando el triángulo a la posición 3. Esto no es donde debería estar si estuviera reflejado en la línea dada. La segunda llamada a <code>translate</code> corrige esto—“cancela” la traslación inicial y hace que el triángulo 4 aparezca exactamente donde debería.</p><p><a class="p_ident" id="p-VQO441ijr7" href="#p-VQO441ijr7" tabindex="-1" role="presentation"></a>Ahora podemos dibujar un personaje reflejado en la posición (100,0) al voltear el mundo alrededor del centro vertical del personaje.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-dmV/R5ifO7" href="#c-dmV/R5ifO7" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">lienzo</span>&gt;&lt;/<span class="tok-typeName">lienzo</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"lienzo"</span>).getContext(<span class="tok-string">"2d"</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">img</span> = document.createElement(<span class="tok-string">"img"</span>);
+  img.src = <span class="tok-string">"img/personaje.png"</span>;
+  <span class="tok-keyword">let</span> <span class="tok-definition">spriteW</span> = <span class="tok-number">24</span>, <span class="tok-definition">spriteH</span> = <span class="tok-number">30</span>;
+  img.addEventListener(<span class="tok-string">"load"</span>, () =&gt; {
+    flipHorizontally(cx, <span class="tok-number">100</span> + spriteW / <span class="tok-number">2</span>);
+    cx.drawImage(img, <span class="tok-number">0</span>, <span class="tok-number">0</span>, spriteW, spriteH,
+                 <span class="tok-number">100</span>, <span class="tok-number">0</span>, spriteW, spriteH);
+  });
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<h2><a class="h_ident" id="h-Z+iS7LhRr9" href="#h-Z+iS7LhRr9" tabindex="-1" role="presentation"></a>Almacenar y limpiar transformaciones</h2>
+
+<p><a class="p_ident" id="p-uLoiCqVmzn" href="#p-uLoiCqVmzn" tabindex="-1" role="presentation"></a>Las transformaciones se mantienen. Todo lo demás que dibujemos después de ese personaje reflejado también estará reflejado. Eso podría resultar inconveniente.</p>
+
+<p><a class="p_ident" id="p-4R4LetOdqr" href="#p-4R4LetOdqr" tabindex="-1" role="presentation"></a>Es posible guardar la transformación actual, hacer algunos dibujos y transformaciones, y luego restaurar la antigua transformación. Esto suele ser lo correcto para una función que necesita transformar temporalmente el sistema de coordenadas. Primero, guardamos la transformación que estaba usando el código que llamó a la función. Luego la función hace lo suyo, añadiendo más transformaciones encima de la transformación actual. Finalmente, revertimos a la transformación con la que comenzamos.</p>
+
+<p><a class="p_ident" id="p-SSYJ48O6M9" href="#p-SSYJ48O6M9" tabindex="-1" role="presentation"></a>Los métodos <code>save</code> y <code>restore</code> en el contexto del lienzo 2D realizan esta gestión de transformaciones. Conceptualmente mantienen una pila de estados de transformación. Cuando llamas a <code>save</code>, el estado actual se apila en la pila, y cuando llamas a <code>restore</code>, el estado en la cima de la pila se quita y se utiliza como la transformación actual del contexto. También puedes llamar a <code>resetTransform</code> para restablecer completamente la transformación.</p><p><a class="p_ident" id="p-7pwwztNlZ8" href="#p-7pwwztNlZ8" tabindex="-1" role="presentation"></a>La función <code>branch</code> en el siguiente ejemplo ilustra lo que se puede hacer con una función que cambia la transformación y luego llama a una función (en este caso a sí misma), que continúa dibujando con la transformación dada.</p>
+
+<p><a class="p_ident" id="p-2U+6WbJ0Or" href="#p-2U+6WbJ0Or" tabindex="-1" role="presentation"></a>Esta función dibuja una forma tipo árbol dibujando una línea, moviendo el centro del sistema de coordenadas al final de la línea, y llamándose dos veces a sí misma: primero rotada a la izquierda y luego rotada a la derecha. Cada llamada reduce la longitud de la rama dibujada, y la recursión se detiene cuando la longitud cae por debajo de 8.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-TvoVOvq541" href="#c-TvoVOvq541" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">lienzo</span> ancho=<span class="tok-string">"600"</span> alto=<span class="tok-string">"300"</span>&gt;&lt;/<span class="tok-typeName">lienzo</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"lienzo"</span>).getContext(<span class="tok-string">"2d"</span>);
+  <span class="tok-keyword">function</span> <span class="tok-definition">branch</span>(<span class="tok-definition">longitud</span>, <span class="tok-definition">ángulo</span>, <span class="tok-definition">escala</span>) {
+    cx.fillRect(<span class="tok-number">0</span>, <span class="tok-number">0</span>, <span class="tok-number">1</span>, longitud);
+    <span class="tok-keyword">if</span> (longitud &lt; <span class="tok-number">8</span>) <span class="tok-keyword">return</span>;
+    cx.save();
+    cx.translate(<span class="tok-number">0</span>, longitud);
+    cx.rotate(-ángulo);
+    branch(longitud * escala, ángulo, escala);
+    cx.rotate(<span class="tok-number">2</span> * ángulo);
+    branch(longitud * escala, ángulo, escala);
+    cx.restore();
+  }
+  cx.translate(<span class="tok-number">300</span>, <span class="tok-number">0</span>);
+  branch(<span class="tok-number">60</span>, <span class="tok-number">0.5</span>, <span class="tok-number">0.8</span>);
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-Fr9r9ZmPHu" href="#p-Fr9r9ZmPHu" tabindex="-1" role="presentation"></a>Si las llamadas a <code>save</code> y <code>restore</code> no estuvieran ahí, la segunda llamada recursiva a <code>branch</code> terminaría con la posición y rotación creadas por la primera llamada. No estaría conectada a la rama actual sino más bien a la rama más interna y a la derecha dibujada por la primera llamada. La forma resultante también podría ser interesante, pero definitivamente no sería un árbol.</p>
+
+<h2 id="canvasdisplay"><a class="h_ident" id="h-TOqgrv5vzl" href="#h-TOqgrv5vzl" tabindex="-1" role="presentation"></a>De vuelta al juego</h2>
+
+<p><a class="p_ident" id="p-fFHVQgHfYf" href="#p-fFHVQgHfYf" tabindex="-1" role="presentation"></a>Ahora sabemos lo suficiente sobre dibujo en lienzo para comenzar a trabajar en un sistema de visualización basado en lienzo para el juego del <a href="16_game.html">capítulo anterior</a>. La nueva visualización ya no mostrará simplemente cajas de colores. En su lugar, usaremos <code>drawImage</code> para dibujar imágenes que representen los elementos del juego.</p><p><a class="p_ident" id="p-vvKD3AqcET" href="#p-vvKD3AqcET" tabindex="-1" role="presentation"></a>Definimos otro tipo de objeto de visualización llamado <code>CanvasDisplay</code>, el cual soporta la misma interfaz que <code>DOMDisplay</code> de <a href="16_game.html#domdisplay">Capítulo 16</a>, es decir, los métodos <code>syncState</code> y <code>clear</code>.</p>
+
+<p><a class="p_ident" id="p-H/XEh6pFg7" href="#p-H/XEh6pFg7" tabindex="-1" role="presentation"></a>Este objeto mantiene un poco más de información que <code>DOMDisplay</code>. En lugar de usar la posición de desplazamiento de su elemento DOM, realiza un seguimiento de su propia vista, lo cual nos indica en qué parte del nivel estamos actualmente viendo. Finalmente, mantiene una propiedad <code>flipPlayer</code> para que incluso cuando el jugador esté quieto, siga mirando en la dirección en la que se movió por última vez.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="game"><a class="c_ident" id="c-0YCIeiiRNE" href="#c-0YCIeiiRNE" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> CanvasDisplay {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">parent</span>, <span class="tok-definition">level</span>) {
+    <span class="tok-keyword">this</span>.canvas = document.createElement(<span class="tok-string">"canvas"</span>);
+    <span class="tok-keyword">this</span>.canvas.width = Math.min(<span class="tok-number">600</span>, level.width * scale);
+    <span class="tok-keyword">this</span>.canvas.height = Math.min(<span class="tok-number">450</span>, level.height * scale);
+    parent.appendChild(<span class="tok-keyword">this</span>.canvas);
+    <span class="tok-keyword">this</span>.cx = <span class="tok-keyword">this</span>.canvas.getContext(<span class="tok-string">"2d"</span>);
+
+    <span class="tok-keyword">this</span>.flipPlayer = false;
+
+    <span class="tok-keyword">this</span>.viewport = {
+      <span class="tok-definition">left</span>: <span class="tok-number">0</span>,
+      <span class="tok-definition">top</span>: <span class="tok-number">0</span>,
+      <span class="tok-definition">width</span>: <span class="tok-keyword">this</span>.canvas.width / scale,
+      <span class="tok-definition">height</span>: <span class="tok-keyword">this</span>.canvas.height / scale
+    };
+  }
+
+  <span class="tok-definition">clear</span>() {
+    <span class="tok-keyword">this</span>.canvas.remove();
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-9ZmfX+wrVh" href="#p-9ZmfX+wrVh" tabindex="-1" role="presentation"></a>El método <code>syncState</code> primero calcula una nueva vista y luego dibuja la escena del juego en la posición apropiada.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="game"><a class="c_ident" id="c-cERhn3J5yx" href="#c-cERhn3J5yx" tabindex="-1" role="presentation"></a>CanvasDisplay.prototype.syncState = <span class="tok-keyword">function</span>(<span class="tok-definition">state</span>) {
+  <span class="tok-keyword">this</span>.updateViewport(state);
+  <span class="tok-keyword">this</span>.clearDisplay(state.status);
+  <span class="tok-keyword">this</span>.drawBackground(state.level);
+  <span class="tok-keyword">this</span>.drawActors(state.actors);
+};</pre><p><a class="p_ident" id="p-7nZQ2uq044" href="#p-7nZQ2uq044" tabindex="-1" role="presentation"></a>A diferencia de <code>DOMDisplay</code>, este estilo de visualización <em>sí</em> tiene que volver a dibujar el fondo en cada actualización. Debido a que las formas en un lienzo son solo píxeles, una vez que las dibujamos no hay una buena manera de moverlas (o eliminarlas). La única forma de actualizar la visualización del lienzo es borrarlo y volver a dibujar la escena. También puede ser que hayamos hecho scroll, lo que requiere que el fondo esté en una posición diferente.</p>
+
+<p><a class="p_ident" id="p-HVnriU8OAG" href="#p-HVnriU8OAG" tabindex="-1" role="presentation"></a>El método <code>updateViewport</code> es similar al método <code>scrollPlayerIntoView</code> de <code>DOMDisplay</code>. Comprueba si el jugador está demasiado cerca del borde de la pantalla y mueve la vista cuando este es el caso.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="game"><a class="c_ident" id="c-OjMIL2K7Ii" href="#c-OjMIL2K7Ii" tabindex="-1" role="presentation"></a>CanvasDisplay.prototype.updateViewport = <span class="tok-keyword">function</span>(<span class="tok-definition">estado</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">vista</span> = <span class="tok-keyword">this</span>.viewport, <span class="tok-definition">margen</span> = vista.width / <span class="tok-number">3</span>;
+  <span class="tok-keyword">let</span> <span class="tok-definition">jugador</span> = estado.player;
+  <span class="tok-keyword">let</span> <span class="tok-definition">centro</span> = jugador.pos.plus(jugador.size.times(<span class="tok-number">0.5</span>));
+
+  <span class="tok-keyword">if</span> (centro.x &lt; vista.left + margen) {
+    vista.left = Math.max(centro.x - margen, <span class="tok-number">0</span>);
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (centro.x &gt; vista.left + vista.width - margen) {
+    vista.left = Math.min(centro.x + margen - vista.width,
+                         estado.level.width - vista.width);
+  }
+  <span class="tok-keyword">if</span> (centro.y &lt; vista.top + margen) {
+    vista.top = Math.max(centro.y - margen, <span class="tok-number">0</span>);
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (centro.y &gt; vista.top + vista.height - margen) {
+    vista.top = Math.min(centro.y + margen - vista.height,
+                        estado.level.height - vista.height);
+  }
+};</pre>
+
+<p><a class="p_ident" id="p-qSUMwlAFeW" href="#p-qSUMwlAFeW" tabindex="-1" role="presentation"></a>Las llamadas a <code>Math.max</code> y <code>Math.min</code> aseguran que la vista no termine mostrando espacio fuera del nivel. <code>Math.max(x, 0)</code> se asegura de que el número resultante no sea menor que cero. <code>Math.min</code> de manera similar garantiza que un valor se mantenga por debajo de un límite dado.</p>
+
+<p><a class="p_ident" id="p-uxQ4EAtiQh" href="#p-uxQ4EAtiQh" tabindex="-1" role="presentation"></a>Al borrar la visualización, usaremos un color ligeramente diferente dependiendo de si el juego se ha ganado (más brillante) o se ha perdido (más oscuro).</p><pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="game"><a class="c_ident" id="c-P43rIXnt0B" href="#c-P43rIXnt0B" tabindex="-1" role="presentation"></a>CanvasDisplay.prototype.clearDisplay = <span class="tok-keyword">function</span>(<span class="tok-definition">status</span>) {
+  <span class="tok-keyword">if</span> (status == <span class="tok-string">"won"</span>) {
+    <span class="tok-keyword">this</span>.cx.fillStyle = <span class="tok-string">"rgb(68, 191, 255)"</span>;
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (status == <span class="tok-string">"lost"</span>) {
+    <span class="tok-keyword">this</span>.cx.fillStyle = <span class="tok-string">"rgb(44, 136, 214)"</span>;
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">this</span>.cx.fillStyle = <span class="tok-string">"rgb(52, 166, 251)"</span>;
+  }
+  <span class="tok-keyword">this</span>.cx.fillRect(<span class="tok-number">0</span>, <span class="tok-number">0</span>,
+                   <span class="tok-keyword">this</span>.canvas.width, <span class="tok-keyword">this</span>.canvas.height);
+};</pre>
+
+<p><a class="p_ident" id="p-TjOnlogmqf" href="#p-TjOnlogmqf" tabindex="-1" role="presentation"></a>Para dibujar el fondo, recorremos las baldosas que son visibles en la ventana gráfica actual, utilizando el mismo truco utilizado en el método <code>touches</code> del <a href="16_game.html#touches">capítulo anterior</a>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="game"><a class="c_ident" id="c-UYqDAMiEp6" href="#c-UYqDAMiEp6" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">otherSprites</span> = document.createElement(<span class="tok-string">"img"</span>);
+otherSprites.src = <span class="tok-string">"img/sprites.png"</span>;
+
+CanvasDisplay.prototype.drawBackground = <span class="tok-keyword">function</span>(<span class="tok-definition">level</span>) {
+  <span class="tok-keyword">let</span> {left, top, width, height} = <span class="tok-keyword">this</span>.viewport;
+  <span class="tok-keyword">let</span> <span class="tok-definition">xStart</span> = Math.floor(left);
+  <span class="tok-keyword">let</span> <span class="tok-definition">xEnd</span> = Math.ceil(left + width);
+  <span class="tok-keyword">let</span> <span class="tok-definition">yStart</span> = Math.floor(top);
+  <span class="tok-keyword">let</span> <span class="tok-definition">yEnd</span> = Math.ceil(top + height);
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">y</span> = yStart; y &lt; yEnd; y++) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">x</span> = xStart; x &lt; xEnd; x++) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">tile</span> = level.rows[y][x];
+      <span class="tok-keyword">if</span> (tile == <span class="tok-string">"empty"</span>) <span class="tok-keyword">continue</span>;
+      <span class="tok-keyword">let</span> <span class="tok-definition">screenX</span> = (x - left) * scale;
+      <span class="tok-keyword">let</span> <span class="tok-definition">screenY</span> = (y - top) * scale;
+      <span class="tok-keyword">let</span> <span class="tok-definition">tileX</span> = tile == <span class="tok-string">"lava"</span> ? scale : <span class="tok-number">0</span>;
+      <span class="tok-keyword">this</span>.cx.drawImage(otherSprites,
+                        tileX,         <span class="tok-number">0</span>, scale, scale,
+                        screenX, screenY, scale, scale);
+    }
+  }
+};</pre><p><a class="p_ident" id="p-exCLyNQQL6" href="#p-exCLyNQQL6" tabindex="-1" role="presentation"></a>Los azulejos que no están vacíos se dibujan con <code>drawImage</code>. La imagen <code>otherSprites</code> contiene las imágenes utilizadas para elementos que no sean el jugador. Contiene, de izquierda a derecha, el azulejo de la pared, el azulejo de lava y el sprite de una moneda.</p><figure><img src="images/sprites_big.png" alt="Arte de píxeles que muestra tres sprites: un trozo de pared, hecho de pequeñas piedras blancas, un cuadrado de lava naranja y una moneda redonda."></figure>
+
+<p><a class="p_ident" id="p-1R4HdSFR8E" href="#p-1R4HdSFR8E" tabindex="-1" role="presentation"></a>Los azulejos de fondo son de 20 por 20 píxeles ya que usaremos la misma escala que usamos en <code>DOMDisplay</code>. Por lo tanto, el desplazamiento para los azulejos de lava es 20 (el valor del enlace de <code>escala</code>), y el desplazamiento para las paredes es 0.</p>
+
+<p><a class="p_ident" id="p-LOS6wlGop3" href="#p-LOS6wlGop3" tabindex="-1" role="presentation"></a>No nos molestamos en esperar a que se cargue la imagen del sprite. Llamar a <code>drawImage</code> con una imagen que aún no se ha cargado simplemente no hará nada. Por lo tanto, podríamos no dibujar correctamente el juego durante los primeros cuadros, mientras la imagen aún se está cargando, pero eso no es un problema grave. Dado que seguimos actualizando la pantalla, la escena correcta aparecerá tan pronto como termine la carga.</p>
+
+<p><a class="p_ident" id="p-/1DXjZpAsq" href="#p-/1DXjZpAsq" tabindex="-1" role="presentation"></a>El personaje en movimiento que se mostró anteriormente se usará para representar al jugador. El código que lo dibuja debe elegir el sprite y la dirección correctos en función del movimiento actual del jugador. Los primeros ocho sprites contienen una animación de caminar. Cuando el jugador se está moviendo a lo largo de un piso, ciclamos a través de ellos según el tiempo actual. Queremos cambiar de cuadro cada 60 milisegundos, por lo que primero se divide el tiempo por 60. Cuando el jugador está quieto, dibujamos el noveno sprite. Durante los saltos, que se reconocen por el hecho de que la velocidad vertical no es cero, usamos el décimo, sprite más a la derecha.</p>
+
+<p><a class="p_ident" id="p-NKcG+qZfSz" href="#p-NKcG+qZfSz" tabindex="-1" role="presentation"></a>Dado que los sprites son ligeramente más anchos que el objeto del jugador, 24 en lugar de 16 píxeles para permitir un espacio para pies y brazos, el método debe ajustar la coordenada x y el ancho por una cantidad dada (<code>playerXOverlap</code>).</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" data-sandbox="game"><a class="c_ident" id="c-T61uCWX04T" href="#c-T61uCWX04T" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">playerSprites</span> = document.createElement(<span class="tok-string">"img"</span>);
+playerSprites.src = <span class="tok-string">"img/player.png"</span>;
+<span class="tok-keyword">const</span> <span class="tok-definition">playerXOverlap</span> = <span class="tok-number">4</span>;
+
+CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<span class="tok-definition">player</span>, <span class="tok-definition">x</span>, <span class="tok-definition">y</span>,
+                                              <span class="tok-definition">width</span>, <span class="tok-definition">height</span>){
+  width += playerXOverlap * <span class="tok-number">2</span>;
+  x -= playerXOverlap;
+  <span class="tok-keyword">if</span> (player.speed.x != <span class="tok-number">0</span>) {
+    <span class="tok-keyword">this</span>.flipPlayer = player.speed.x &lt; <span class="tok-number">0</span>;
+  }
+```javascript
+let tile = 8;
+if (player.speed.y != 0) {
+  tile = 9;
+} else if (player.speed.x != 0) {
+  tile = Math.floor(Date.now() / 60) % 8;
+}
+
+this.cx.save();
+if (this.flipPlayer) {
+  flipHorizontally(this.cx, x + width / 2);
+}
+let tileX = tile * width;
+this.cx.drawImage(playerSprites, tileX, 0, width, height,
+                                 x,     y, width, height);
+this.cx.restore();
+};
+
+The drawPlayer method is called by drawActors, which is responsible for drawing all the actors in the game.
+
+CanvasDisplay.prototype.drawActors = function(actors) {
+  for (let actor of actors) {
+    let width = actor.size.x * scale;
+    let height = actor.size.y * scale;
+    let x = (actor.pos.x - this.viewport.left) * scale;
+    let y = (actor.pos.y - this.viewport.top) * scale;
+    if (actor.type == "player") {
+      this.drawPlayer(actor, x, y, width, height);
+    } else {
+      let tileX = (actor.type == "coin" ? 2 : 1) * scale;
+      this.cx.drawImage(otherSprites,
+                        tileX, 0, width, height,
+                        x,     y, width, height);
+    }
+  }
+};
+```<p><a class="p_ident" id="p-eKrbbTbFOt" href="#p-eKrbbTbFOt" tabindex="-1" role="presentation"></a>Cuando dibujamos algo que no es el jugador, miramos su tipo para encontrar el desplazamiento del sprite correcto. La baldosa de lava se encuentra en el desplazamiento 20, y el sprite de la moneda se encuentra en el 40 (dos veces <code>scale</code>).</p>
+
+<p><a class="p_ident" id="p-e6Z9O4bib+" href="#p-e6Z9O4bib+" tabindex="-1" role="presentation"></a>Debemos restar la posición de la ventana gráfica al calcular la posición del actor, ya que (0,0) en nuestro lienzo corresponde a la parte superior izquierda de la ventana gráfica, no a la parte superior izquierda del nivel. También podríamos haber usado <code>translate</code> para esto. De cualquier manera funciona.</p>
+
+<p><a class="p_ident" id="p-L/8CF09Vt1" href="#p-L/8CF09Vt1" tabindex="-1" role="presentation"></a>Este documento conecta la nueva visualización a <code>runGame</code>:</p>
+
+<pre tabindex="0" class="snippet" data-language="html" data-focus="true" data-sandbox="game"><a class="c_ident" id="c-TSR2vcnWZv" href="#c-TSR2vcnWZv" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">body</span>&gt;
+  &lt;<span class="tok-typeName">script</span>&gt;
+    runGame(GAME_LEVELS, CanvasDisplay);
+  &lt;/<span class="tok-typeName">script</span>&gt;
+&lt;/<span class="tok-typeName">body</span>&gt;</pre>
+
+<h2 id="graphics_tradeoffs"><a class="h_ident" id="h-T6CfghQSfx" href="#h-T6CfghQSfx" tabindex="-1" role="presentation"></a>Escogiendo una interfaz gráfica</h2>
+
+<p><a class="p_ident" id="p-lnz0Mh6LE0" href="#p-lnz0Mh6LE0" tabindex="-1" role="presentation"></a>Así, cuando necesitas generar gráficos en el navegador, puedes elegir entre HTML simple, SVG y lienzo. No hay un enfoque único <em>mejor</em> que funcione en todas las situaciones. Cada opción tiene fortalezas y debilidades.</p>
+
+<p><a class="p_ident" id="p-O7BQaYbnwn" href="#p-O7BQaYbnwn" tabindex="-1" role="presentation"></a>HTML simple tiene la ventaja de ser sencillo. También se integra bien con el texto. Tanto SVG como lienzo te permiten dibujar texto, pero no te ayudarán a posicionar ese texto o envolverlo cuando ocupe más de una línea. En una imagen basada en HTML, es mucho más fácil incluir bloques de texto.</p>
+
+<p><a class="p_ident" id="p-hvYGIoy7o5" href="#p-hvYGIoy7o5" tabindex="-1" role="presentation"></a>SVG se puede utilizar para producir gráficos nítidos que se ven bien a cualquier nivel de zoom. A diferencia de HTML, está diseñado para dibujar y por lo tanto es más adecuado para ese propósito.</p>
+
+<p><a class="p_ident" id="p-J5B7lFXtzE" href="#p-J5B7lFXtzE" tabindex="-1" role="presentation"></a>Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que el usuario está haciendo o como parte de una animación, hacerlo en un lienzo puede ser innecesariamente costoso. El DOM también nos permite registrar controladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con un lienzo.</p><p><a class="p_ident" id="p-7N4OSlG5eS" href="#p-7N4OSlG5eS" tabindex="-1" role="presentation"></a>Pero el enfoque orientado a píxeles del lienzo puede ser una ventaja al dibujar un gran número de elementos pequeños. El hecho de que no construya una estructura de datos sino que solo dibuje repetidamente en la misma superficie de píxeles le da al lienzo un menor costo por forma.</p>
+
+<p><a class="p_ident" id="p-qdtUtT4dG0" href="#p-qdtUtT4dG0" tabindex="-1" role="presentation"></a>También existen efectos, como renderizar una escena píxel a píxel (por ejemplo, usando un trazador de rayos) o procesar una imagen con JavaScript (difuminarla o distorsionarla), que solo son prácticos con un elemento canvas.</p>
+
+<p><a class="p_ident" id="p-lecWO5A8ae" href="#p-lecWO5A8ae" tabindex="-1" role="presentation"></a>En algunos casos, es posible que desees combinar varias de estas técnicas. Por ejemplo, podrías dibujar un gráfico con SVG o canvas pero mostrar información textual posicionando un elemento HTML encima de la imagen.</p>
+
+<p><a class="p_ident" id="p-a/8O6rqnkg" href="#p-a/8O6rqnkg" tabindex="-1" role="presentation"></a>Para aplicaciones poco exigentes, realmente no importa mucho qué interfaz elijas. La pantalla que construimos para nuestro juego en este capítulo podría haberse implementado utilizando cualquiera de estas tres tecnologías gráficas ya que no necesita dibujar texto, manejar interacción con el ratón o trabajar con un número extraordinariamente grande de elementos.</p>
+
+<h2><a class="h_ident" id="h-ErccPg/l98" href="#h-ErccPg/l98" tabindex="-1" role="presentation"></a>Resumen</h2>
+
+<p><a class="p_ident" id="p-gRVlk0yedA" href="#p-gRVlk0yedA" tabindex="-1" role="presentation"></a>En este capítulo discutimos técnicas para dibujar gráficos en el navegador, centrándonos en el elemento <code>&lt;canvas&gt;</code>.</p>
+
+<p><a class="p_ident" id="p-5VXwNvtdy0" href="#p-5VXwNvtdy0" tabindex="-1" role="presentation"></a>Un nodo canvas representa un área en un documento en la que nuestro programa puede dibujar. Este dibujo se realiza a través de un objeto de contexto de dibujo, creado con el método <code>getContext</code>.</p>
+
+<p><a class="p_ident" id="p-77n8vdtsoS" href="#p-77n8vdtsoS" tabindex="-1" role="presentation"></a>La interfaz de dibujo 2D nos permite rellenar y trazar diversas formas. La propiedad <code>fillStyle</code> del contexto determina cómo se rellenan las formas. Las propiedades <code>strokeStyle</code> y <code>lineWidth</code> controlan la forma en que se dibujan las líneas.</p>
+
+<p><a class="p_ident" id="p-p9lwBrZeDB" href="#p-p9lwBrZeDB" tabindex="-1" role="presentation"></a>Rectángulos y trozos de texto pueden ser dibujados con una sola llamada a un método. Los métodos <code>fillRect</code> y <code>strokeRect</code> dibujan rectángulos, y los métodos <code>fillText</code> y <code>strokeText</code> dibujan texto. Para crear formas personalizadas, primero debemos construir un camino.</p>
+
+<p><a class="p_ident" id="p-fJAAnWmzV7" href="#p-fJAAnWmzV7" tabindex="-1" role="presentation"></a>Llamar a <code>beginPath</code> inicia un nuevo camino. Varios otros métodos añaden líneas y curvas al camino actual. Por ejemplo, <code>lineTo</code> puede añadir una línea recta. Cuando un camino está terminado, puede ser rellenado con el método <code>fill</code> o trazado con el método <code>stroke</code>.</p><p><a class="p_ident" id="p-DjIq4BWBzl" href="#p-DjIq4BWBzl" tabindex="-1" role="presentation"></a>Moviendo píxeles de una imagen u otro lienzo a nuestro lienzo se hace con el método <code>drawImage</code>. Por defecto, este método dibuja toda la imagen de origen, pero al darle más parámetros, puedes copiar un área específica de la imagen. Nosotros utilizamos esto para nuestro juego copiando poses individuales del personaje del juego de una imagen que contenía muchas poses.</p>
+
+<p><a class="p_ident" id="p-g8a+OHsvlL" href="#p-g8a+OHsvlL" tabindex="-1" role="presentation"></a>Las transformaciones te permiten dibujar una forma en múltiples orientaciones. Un contexto de dibujo 2D tiene una transformación actual que puede ser cambiada con los métodos <code>translate</code>, <code>scale</code> y <code>rotate</code>. Estos afectarán a todas las operaciones de dibujo posteriores. Un estado de transformación puede ser guardado con el método <code>save</code> y restaurado con el método <code>restore</code>.</p>
+
+<p><a class="p_ident" id="p-Cp6Llruuba" href="#p-Cp6Llruuba" tabindex="-1" role="presentation"></a>Cuando se muestra una animación en un lienzo, el método <code>clearRect</code> se puede utilizar para borrar parte del lienzo antes de volver a dibujarlo.</p>
+
+<h2><a class="h_ident" id="h-TcUD2vzyMe" href="#h-TcUD2vzyMe" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<h3><a class="i_ident" id="i-sZheOHQF5N" href="#i-sZheOHQF5N" tabindex="-1" role="presentation"></a>Formas</h3>
+
+<p><a class="p_ident" id="p-ML2Sk/PrfT" href="#p-ML2Sk/PrfT" tabindex="-1" role="presentation"></a>Escribe un programa que dibuje las siguientes formas en un lienzo:</p>
+
+<ol>
+
+<li>
+
+<p><a class="p_ident" id="p-jg9BlkxnI6" href="#p-jg9BlkxnI6" tabindex="-1" role="presentation"></a>Un trapezoide (un rectángulo que es más ancho en un lado)</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-TsmIPWkWaZ" href="#p-TsmIPWkWaZ" tabindex="-1" role="presentation"></a>Un rombo rojo (un rectángulo rotado 45 grados o ¼π radianes)</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-rB8lM2f3nJ" href="#p-rB8lM2f3nJ" tabindex="-1" role="presentation"></a>Una línea en zigzag</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-giU72/tC1m" href="#p-giU72/tC1m" tabindex="-1" role="presentation"></a>Una espiral compuesta por 100 segmentos de línea recta</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-BaFPNufkG9" href="#p-BaFPNufkG9" tabindex="-1" role="presentation"></a>Una estrella amarilla</p></li>
+
+</ol><figure><img src="images/exercise_shapes.png" alt="Imagen que muestra las formas que se te pide dibujar"></figure>
+
+<p><a class="p_ident" id="p-rGwDFrV/8d" href="#p-rGwDFrV/8d" tabindex="-1" role="presentation"></a>Cuando dibujes las dos últimas, es posible que quieras consultar la explicación de <code>Math.cos</code> y <code>Math.sin</code> en <a href="14_dom.html#sin_cos">Capítulo 14</a>, que describe cómo obtener coordenadas en un círculo utilizando estas funciones.</p>
+
+<p><a class="p_ident" id="p-8n4Hu9tdGs" href="#p-8n4Hu9tdGs" tabindex="-1" role="presentation"></a>Recomiendo crear una función para cada forma. Pasa la posición y opcionalmente otras propiedades como el tamaño o el número de puntos, como parámetros. La alternativa, que es codificar números en todo tu código, tiende a hacer que el código sea innecesariamente difícil de leer y modificar.</p><pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-kWm/btAd42" href="#c-kWm/btAd42" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">"600"</span> height=<span class="tok-string">"200"</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+
+  <span class="tok-comment">// Tu código aquí.</span>
+&lt;/<span class="tok-typeName">script</span>&gt;</pre></div></details>
+
+<h3 id="exercise_pie_chart"><a class="i_ident" id="i-bJrtZj5liF" href="#i-bJrtZj5liF" tabindex="-1" role="presentation"></a>El gráfico circular</h3>
+
+<p><a class="p_ident" id="p-JDTyZfhjjQ" href="#p-JDTyZfhjjQ" tabindex="-1" role="presentation"></a><a href="17_canvas.html#pie_chart">Anteriormente</a> en el capítulo, vimos un programa de ejemplo que dibujaba un gráfico circular. Modifica este programa para que el nombre de cada categoría se muestre junto a la porción que la representa. Intenta encontrar una forma agradable de posicionar automáticamente este texto que funcione también para otros conjuntos de datos. Puedes asumir que las categorías son lo suficientemente grandes como para dejar espacio suficiente para sus etiquetas.</p>
+
+<p><a class="p_ident" id="p-mVc8CSmLIz" href="#p-mVc8CSmLIz" tabindex="-1" role="presentation"></a>Puede que necesites usar <code>Math.sin</code> y <code>Math.cos</code> de nuevo, los cuales se describen en el <a href="14_dom.html#sin_cos">Capítulo 14</a>.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-DTliIvEhY1" href="#c-DTliIvEhY1" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">"600"</span> height=<span class="tok-string">"300"</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = results
+    .reduce((<span class="tok-definition">sum</span>, {count}) =&gt; sum + count, <span class="tok-number">0</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">currentAngle</span> = -<span class="tok-number">0.5</span> * Math.PI;
+  <span class="tok-keyword">let</span> <span class="tok-definition">centerX</span> = <span class="tok-number">300</span>, <span class="tok-definition">centerY</span> = <span class="tok-number">150</span>;
+
+  <span class="tok-comment">// Agrega código para dibujar las etiquetas de las porciones en este bucle.</span>
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">result</span> <span class="tok-keyword">of</span> results) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">sliceAngle</span> = (result.count / total) * <span class="tok-number">2</span> * Math.PI;
+    cx.beginPath();
+    cx.arc(centerX, centerY, <span class="tok-number">100</span>,
+           currentAngle, currentAngle + sliceAngle);
+    currentAngle += sliceAngle;
+    cx.lineTo(centerX, centerY);
+    cx.fillStyle = result.color;
+    cx.fill();
+  }
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-HdZ8krVlO9" href="#p-HdZ8krVlO9" tabindex="-1" role="presentation"></a>Necesitarás llamar a <code>fillText</code> y configurar las propiedades <code>textAlign</code> y <code>textBaseline</code> del contexto de manera que el texto termine donde desees.</p><p><a class="p_ident" id="p-+9lrfaiHeA" href="#p-+9lrfaiHeA" tabindex="-1" role="presentation"></a>Una forma sensata de posicionar las etiquetas sería colocar el texto en la línea que va desde el centro del pastel a través del medio de la porción. No quieres colocar el texto directamente contra el lado del pastel, sino moverlo hacia afuera a un lado del pastel por un número dado de píxeles.</p>
+
+<p><a class="p_ident" id="p-kM123YG/Z7" href="#p-kM123YG/Z7" tabindex="-1" role="presentation"></a>El ángulo de esta línea es <code>currentAngle + 0.<wbr>5 * sliceAngle</code>. El siguiente código encuentra una posición en esta línea a 120 píxeles del centro:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"><a class="c_ident" id="c-7kVY28rLLf" href="#c-7kVY28rLLf" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">middleAngle</span> = currentAngle + <span class="tok-number">0.5</span> * sliceAngle;
+<span class="tok-keyword">let</span> <span class="tok-definition">textX</span> = Math.cos(middleAngle) * <span class="tok-number">120</span> + centerX;
+<span class="tok-keyword">let</span> <span class="tok-definition">textY</span> = Math.sin(middleAngle) * <span class="tok-number">120</span> + centerY;</pre>
+
+<p><a class="p_ident" id="p-s+P5XXGh4w" href="#p-s+P5XXGh4w" tabindex="-1" role="presentation"></a>Para <code>textBaseline</code>, el valor <code>"middle"</code> es probablemente apropiado al usar este enfoque. Lo que se use para <code>textAlign</code> depende de qué lado del círculo nos encontremos. En el lado izquierdo, debería ser <code>"right"</code>, y en el lado derecho, debería ser <code>"left"</code>, para que el texto se posicione lejos del pastel.</p>
+
+<p><a class="p_ident" id="p-BmCLUHGaC3" href="#p-BmCLUHGaC3" tabindex="-1" role="presentation"></a>Si no estás seguro de cómo saber en qué lado del círculo se encuentra un ángulo dado, busca la explicación de <code>Math.cos</code> en <a href="14_dom.html#sin_cos">Capítulo 14</a>. El coseno de un ángulo nos dice a qué coordenada x corresponde, lo que a su vez nos dice exactamente en qué lado del círculo estamos.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-IoBBN8CiQ5" href="#i-IoBBN8CiQ5" tabindex="-1" role="presentation"></a>Una pelota rebotando</h3>
+
+<p><a class="p_ident" id="p-0Oga5tkIVF" href="#p-0Oga5tkIVF" tabindex="-1" role="presentation"></a>Usa la técnica <code>requestAnimationFrame</code> que vimos en <a href="14_dom.html#animationFrame">Capítulo 14</a> y <a href="16_game.html#runAnimation">Capítulo 16</a> para dibujar un cuadro con una pelota rebotando en él. La pelota se mueve a una velocidad constante y rebota en los lados del cuadro cuando los golpea.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"><a class="c_ident" id="c-9Io71wlUw7" href="#c-9Io71wlUw7" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">"400"</span> height=<span class="tok-string">"400"</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">"canvas"</span>).getContext(<span class="tok-string">"2d"</span>);```html
+<span class="tok-keyword">let</span> <span class="tok-definition">lastTime</span> = <span class="tok-keyword">null</span>;
+<span class="tok-keyword">function</span> <span class="tok-definition">frame</span>(<span class="tok-definition">time</span>) {
+  <span class="tok-keyword">if</span> (lastTime != <span class="tok-keyword">null</span>) {
+    updateAnimation(Math.min(<span class="tok-number">100</span>, time - lastTime) / <span class="tok-number">1000</span>);
+  }
+  lastTime = time;
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+<span class="tok-keyword">function</span> <span class="tok-definition">updateAnimation</span>(<span class="tok-definition">step</span>) {
+  <span class="tok-comment">// Tu código aquí.</span>
+}
+```<p><a class="p_ident" id="p-WgNsgEoaNe" href="#p-WgNsgEoaNe" tabindex="-1" role="presentation"></a>Considera una forma de permitirnos dibujar un carácter invertido sin cargar archivos de imagen adicionales y sin tener que hacer llamadas <code>drawImage</code> transformadas en cada fotograma.</p>
+
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-NmNTuxj7Ml" href="#p-NmNTuxj7Ml" tabindex="-1" role="presentation"></a>La clave de la solución es el hecho de que podemos usar un elemento canvas como imagen fuente al utilizar <code>drawImage</code>. Es posible crear un elemento <code>&lt;canvas&gt;</code> adicional, sin añadirlo al documento, y dibujar nuestros sprites invertidos en él, una vez. Al dibujar un fotograma real, simplemente copiamos los sprites ya invertidos al canvas principal.</p>
+
+<p><a class="p_ident" id="p-MbtRzmupcp" href="#p-MbtRzmupcp" tabindex="-1" role="presentation"></a>Se requeriría cierto cuidado porque las imágenes no se cargan al instante. Realizamos el dibujo invertido solo una vez, y si lo hacemos antes de que la imagen se cargue, no dibujará nada. Se puede utilizar un manejador <code>"load"</code> en la imagen para dibujar las imágenes invertidas en el canvas adicional. Este canvas se puede utilizar como fuente de dibujo de inmediato (simplemente estará en blanco hasta que dibujemos el personaje en él).</p>
+
+</div></details><nav><a href="16_game.html" title="capítulo anterior" aria-label="capítulo anterior">◂</a>&nbsp;<a href="index.html" title="portada" aria-label="portada">●</a>&nbsp;<a href="18_http.html" title="siguiente capítulo" aria-label="siguiente capítulo">▸</a>&nbsp;<button class="help" title="ayuda" aria-label="ayuda"><strong>?</strong></button>
+</nav>
+</article>
