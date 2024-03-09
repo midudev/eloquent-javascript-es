@@ -1,0 +1,64 @@
+<!doctype html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Eloquent JavaScript :: Área de Pruebas de Código</title>
+
+  <link rel=stylesheet href="../css/ejs.css">
+  <script src="./chapter_info.js"></script>
+  <script>
+    var page = { type: "code" }
+  </script>
+
+  <style>
+    .control {
+      font-size: 15px
+    }
+  </style>
+</head>
+
+<article style="max-width: 50em;">
+  <h1>Área de Pruebas de Código<div style="font-size: 70%"><a class="subtlelink" href="../index.html">Eloquent
+        JavaScript</a></div>
+  </h1>
+
+  <p>Puedes usar esta página para descargar el código fuente y soluciones a
+    ejercicios del libro Eloquent JavaScript, y para ejecutar código directamente
+    en el contexto de los capítulos de ese libro, ya sea para resolver ejercicios
+    o simplemente experimentar.</p>
+
+  <p>
+    Capítulo: <select id="chapters" class=control></select>
+    <select id="per_chapter" class=control></select>
+    <button id="run" class=control>ejecutar código</button>
+  </p>
+
+  <div class="editor-wrap">
+    <div id="editor"></div>
+    <div class="sandbox-output" id="output" aria-live=polite></div>
+  </div>
+
+  <div id="runLocally">
+    Para ejecutar el código de este capítulo localmente, usa estos archivos:
+    <ul id="local-files" style="font-family: 'PT Mono', monospace; margin-top: 0"></ul>
+  </div>
+
+  <div id="fileInfo">
+    Estos archivos contienen el código del proyecto de este capítulo:
+    <ul id="files" style="font-family: 'PT Mono', monospace; margin-top: 0"></ul>
+  </div>
+
+  <p id="exercise_info">Si has resuelto el ejercicio y quieres comparar tu código con
+    el mío, o si <em>realmente</em> lo intentaste, pero no puedes hacer funcionar tu código,
+    puedes <button id="solution" style="color: #c22;" class=control>mirar la
+      solución</button> (o <a id="download">descargarla</a>).</p>
+
+  <p id="box_info">
+    El entorno base para este capítulo (si lo hay) está disponible en la
+    caja de pruebas arriba, permitiéndote ejecutar los ejemplos del capítulo simplemente
+    pegándolos en el editor.
+  </p>
+</article>
+
+<script src="../ejs.js"></script>
