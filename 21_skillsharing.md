@@ -1,119 +1,115 @@
 {{meta {code_links: ["code/skillsharing.zip"]}}}
 
-# Project: Skill-Sharing Website
+# Proyecto: Sitio web de intercambio de habilidades
 
 {{quote {author: "Margaret Fuller", chapter: true}
 
-If you have knowledge, let others light their candles at it.
+Si tienes conocimiento, permite que otros enciendan sus velas en él.
 
 quote}}
 
-{{index "skill-sharing project", meetup, "project chapter"}}
+{{index "proyecto de intercambio de habilidades", meetup, "capítulo del proyecto"}}
 
-{{figure {url: "img/chapter_picture_21.jpg", alt: "Illustration showing two unicycles leaned against a mailbox", chapter: "framed"}}}
+{{figure {url: "img/chapter_picture_21.jpg", alt: "Ilustración que muestra dos monociclos apoyados en un buzón", chapter: "framed"}}}
 
-A _((skill-sharing))_ meeting is an event where people with a shared interest come together and give small, informal presentations about things they know. At a ((gardening)) skill-sharing meeting, someone might explain how to cultivate ((celery)). Or in a programming skill-sharing group, you could drop by and tell people about Node.js.
+Una reunión de ((intercambio de habilidades)) es un evento en el que personas con un interés compartido se reúnen y dan pequeñas presentaciones informales sobre cosas que saben. En una reunión de intercambio de habilidades de ((jardinería)), alguien podría explicar cómo cultivar ((apio)). O en un grupo de intercambio de habilidades de programación, podrías pasar y contarles a la gente sobre Node.js.
 
-In this final project chapter, our goal is to set up a ((website)) for managing ((talk))s given at a skill-sharing meeting. Imagine a small group of people meeting up regularly in the office of one of the members to talk about ((unicycling)). The previous organizer of the meetings moved to another town, and nobody stepped forward to take over this task. We want a system that will let the participants propose and discuss talks among themselves, without an active organizer.
+En este último capítulo del proyecto, nuestro objetivo es configurar un ((sitio web)) para gestionar las ((charla))s impartidas en una reunión de intercambio de habilidades. Imagina un pequeño grupo de personas que se reúnen regularmente en la oficina de uno de los miembros para hablar sobre ((monociclos)). El organizador anterior de las reuniones se mudó a otra ciudad y nadie se ofreció a asumir esta tarea. Queremos un sistema que permita a los participantes proponer y discutir charlas entre ellos, sin un organizador activo.
 
-[Just like in the [previous chapter](node), some of the code in this chapter is written for Node.js, and running it directly in the HTML page that you are looking at is unlikely to work.]{if interactive} The full code for the project can be ((download))ed from [_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip).
+[Al igual que en el [capítulo anterior](node), parte del código en este capítulo está escrito para Node.js y es poco probable que funcione si se ejecuta directamente en la página HTML que estás viendo.]{if interactive} El código completo del proyecto se puede ((descargar)) desde [_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip).
 
-## Design
+## Diseño
 
-{{index "skill-sharing project", persistence}}
+{{index "proyecto de intercambio de habilidades", persistencia}}
 
-There is a _((server))_ part to this project, written for ((Node.js)), and a _((client))_ part, written for the ((browser)). The server stores the system's data and provides it to the client. It also serves the files that implement the client-side system.
+Este proyecto tiene una parte de _((servidor))_, escrita para ((Node.js)), y una parte de _((cliente))_, escrita para el ((navegador)). El servidor almacena los datos del sistema y los proporciona al cliente. También sirve los archivos que implementan el sistema del lado del cliente.
 
-{{index [HTTP, client]}}
+{{index [HTTP, cliente]}}
 
-The server keeps the list of ((talk))s proposed for the next meeting, and the client shows this list. Each talk has a presenter name, a title, a summary, and an array of ((comment))s associated with it. The client allows users to propose new talks (adding them to the list), delete talks, and comment on existing talks. Whenever the user makes such a change, the client makes an HTTP ((request)) to tell the server about it.
+El servidor mantiene la lista de ((charla))s propuestas para la próxima reunión, y el cliente muestra esta lista. Cada charla tiene un nombre de presentador, un título, un resumen y una matriz de ((comentario))s asociados. El cliente permite a los usuarios proponer nuevas charlas (agregándolas a la lista), eliminar charlas y comentar en charlas existentes. Cada vez que el usuario realiza un cambio de este tipo, el cliente realiza una solicitud HTTP para informar al servidor al respecto.
 
-{{figure {url: "img/skillsharing.png", alt: "Screenshot of the skill-sharing website", width: "10cm"}}}
+{{figure {url: "img/skillsharing.png", alt: "Captura de pantalla del sitio web de intercambio de habilidades", ancho: "10cm"}}}
 
-{{index "live view", "user experience", "pushing data", connection}}
+{{index "vista en vivo", "experiencia del usuario", "envío de datos", conexión}}
 
-The ((application)) will be set up to show a _live_ view of the current proposed talks and their comments. Whenever someone, somewhere, submits a new talk or adds a comment, all people who have the page open in their browsers should immediately see the change. This poses a bit of a challenge—there is no way for a web server to open a connection to a client, nor is there a good way to know which clients are currently looking at a given website.
+La ((aplicación)) se configurará para mostrar una vista _en vivo_ de las charlas propuestas actuales y sus comentarios. Cada vez que alguien, en algún lugar, envíe una nueva charla o agregue un comentario, todas las personas que tengan la página abierta en sus navegadores deberían ver el cambio de inmediato. Esto plantea un desafío—no hay forma de que un servidor web abra una conexión a un cliente, ni hay una buena forma de saber qué clientes están viendo actualmente un sitio web dado.
 
-{{index "Node.js"}}
-
-A common solution to this problem is called _((long polling))_, which happens to be one of the motivations for Node's design.
+{{index "Node.js"}}Una solución común a este problema se llama _((long polling))_, que resulta ser una de las motivaciones del diseño de Node.
 
 ## Long polling
 
-{{index firewall, notification, "long polling", network, [browser, security]}}
+{{index firewall, notificación, "long polling", red, [navegador, seguridad]}}
 
-To be able to immediately notify a client that something changed, we need a ((connection)) to that client. Since web browsers do not traditionally accept connections and clients are often behind ((router))s that would block such connections anyway, having the server initiate this connection is not practical.
+Para poder notificar inmediatamente a un cliente que algo ha cambiado, necesitamos una ((conexión)) con ese cliente. Dado que los navegadores web tradicionalmente no aceptan conexiones y los clientes a menudo están detrás de ((router))s que bloquearían tales conexiones de todos modos, no es práctico que sea el servidor quien inicie esta conexión.
 
-We can arrange for the client to open the connection and keep it around so that the server can use it to send information when it needs to do so.
+Podemos hacer que el cliente abra la conexión y la mantenga activa para que el servidor pueda usarla para enviar información cuando sea necesario.
 
 {{index socket}}
 
-But an ((HTTP)) request allows only a simple flow of information: the client sends a request, the server comes back with a single response, and that is it. There is a technology called _((WebSockets))_ that makes it possible to open ((connection))s for arbitrary data exchange. But using them properly is somewhat tricky.
+Sin embargo, una solicitud ((HTTP)) permite solo un flujo simple de información: el cliente envía una solicitud, el servidor responde una sola vez, y eso es todo. Existe una tecnología llamada _((WebSockets))_ que permite abrir ((conexiones)) para el intercambio arbitrario de datos. Pero usarlas adecuadamente es algo complicado.
 
-In this chapter, we use a simpler technique—((long polling))—where clients continuously ask the server for new information using regular HTTP requests, and the server stalls its answer when it has nothing new to report.
+En este capítulo, utilizamos una técnica más sencilla—((long polling))—donde los clientes preguntan continuamente al servidor por nueva información mediante solicitudes HTTP regulares, y el servidor retiene su respuesta cuando no tiene nada nuevo que informar.
 
-{{index "live view"}}
+{{index "vista en vivo"}}
 
-As long as the client makes sure it constantly has a polling request open, it will receive information from the server quickly after it becomes available. For example, if Fatma has our skill-sharing application open in her browser, that browser will have made a request for updates and will be waiting for a response to that request. When Iman submits a talk on Extreme Downhill Unicycling, the server will notice that Fatma is waiting for updates and send a response containing the new talk to her pending request. Fatma's browser will receive the data and update the screen to show the talk.
+Mientras el cliente se asegure de tener una solicitud de sondeo abierta constantemente, recibirá información del servidor rápidamente cuando esté disponible. Por ejemplo, si Fatma tiene nuestra aplicación de intercambio de habilidades abierta en su navegador, ese navegador habrá solicitado actualizaciones y estará esperando una respuesta a esa solicitud. Cuando Iman envía una charla sobre "Extreme Downhill Unicycling", el servidor notará que Fatma está esperando actualizaciones y enviará una respuesta que contiene la nueva charla a su solicitud pendiente. El navegador de Fatma recibirá los datos y actualizará la pantalla para mostrar la charla.
 
-{{index robustness, timeout}}
+{{index robustez, tiempo de espera}}
 
-To prevent connections from timing out (being aborted because of a lack of activity), ((long polling)) techniques usually set a maximum time for each request, after which the server will respond anyway, even though it has nothing to report. The client can then start a new request. Periodically restarting the request also makes the technique more robust, allowing clients to recover from temporary ((connection)) failures or server problems.
+Para evitar que las conexiones se agoten por tiempo (se aborten debido a una falta de actividad), las técnicas de ((long polling)) suelen establecer un tiempo máximo para cada solicitud, tras el cual el servidor responderá de todos modos, aunque no tenga nada que informar. Entonces, el cliente puede iniciar una nueva solicitud. Reiniciar periódicamente la solicitud también hace que la técnica sea más robusta, permitiendo a los clientes recuperarse de fallos temporales de ((conexión)) o problemas de servidor.
 
 {{index "Node.js"}}
 
-A busy server that is using long polling may have thousands of waiting requests, and thus ((TCP)) connections, open. Node, which makes it easy to manage many connections without creating a separate thread of control for each one, is a good fit for such a system.
+Un servidor ocupado que utiliza long polling puede tener miles de solicitudes en espera, y por lo tanto ((conexiones)) ((TCP)) abiertas. Node, que facilita la gestión de muchas conexiones sin crear un hilo de control separado para cada una, es ideal para este tipo de sistema.
 
-## HTTP interface
+## Interfaz HTTP
 
-{{index "skill-sharing project", [interface, HTTP]}}
+{{index "proyecto de intercambio de habilidades", [interfaz, HTTP]}}
 
-Before we start designing either the server or the client, let's think about the point where they touch: the ((HTTP)) interface over which they communicate.
+Antes de comenzar a diseñar el servidor o el cliente, pensemos en el punto donde se conectan: la interfaz ((HTTP)) a través de la cual se comunican.
 
-{{index [path, URL], [method, HTTP]}}
+{{index [ruta, URL], [método, HTTP]}}
 
-We will use ((JSON)) as the format of our request and response body. Like in the file server from [Chapter ?](node#file_server), we'll try to make good use of HTTP methods and ((header))s. The interface is centered around the `/talks` path. Paths that do not start with `/talks` will be used for serving ((static file))s—the HTML and JavaScript code for the client-side system.
+Utilizaremos ((JSON)) como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del [Capítulo ?](node#file_server), intentaremos hacer un buen uso de los métodos y ((cabecera))s HTTP. La interfaz se centra en la ruta `/talks`. Las rutas que no comienzan con `/talks` se utilizarán para servir ((archivos estáticos))—el código HTML y JavaScript para el sistema del lado del cliente.{{index "Método GET"}}
 
-{{index "GET method"}}
-
-A `GET` request to `/talks` returns a JSON document like this:
+Una solicitud `GET` a `/talks` devuelve un documento JSON como este:
 
 ```{lang: "json"}
 [{"title": "Unituning",
   "presenter": "Jamal",
-  "summary": "Modifying your cycle for extra style",
+  "summary": "Modificando tu bicicleta para darle más estilo",
   "comments": []}]
 ```
 
-{{index "PUT method", URL}}
+{{index "Método PUT", URL}}
 
-Creating a new talk is done by making a `PUT` request to a URL like `/talks/Unituning`, where the part after the second slash is the title of the talk. The `PUT` request's body should contain a ((JSON)) object that has `presenter` and `summary` properties.
+Crear una nueva charla se hace haciendo una solicitud `PUT` a una URL como `/talks/Unituning`, donde la parte después de la segunda barra es el título de la charla. El cuerpo de la solicitud `PUT` debe contener un objeto ((JSON)) que tenga propiedades `presenter` y `summary`.
 
-{{index "encodeURIComponent function", [escaping, "in URLs"], [whitespace, "in URLs"]}}
+{{index "Función encodeURIComponent", [escape, "en URLs"], [espacios en blanco, "en URLs"]}}
 
-Since talk titles may contain spaces and other characters that may not appear normally in a URL, title strings must be encoded with the `encodeURIComponent` function when building up such a URL.
+Dado que los títulos de las charlas pueden contener espacios y otros caracteres que normalmente no aparecen en una URL, las cadenas de título deben ser codificadas con la función `encodeURIComponent` al construir una URL de ese tipo.
 
 ```
-console.log("/talks/" + encodeURIComponent("How to Idle"));
-// → /talks/How%20to%20Idle
+console.log("/talks/" + encodeURIComponent("Cómo hacer el caballito"));
+// → /talks/Cómo%20hacer%20el%20caballito
 ```
 
-A request to create a talk about idling might look something like this:
+Una solicitud para crear una charla sobre hacer el caballito podría ser algo así:
 
 ```{lang: http}
-PUT /talks/How%20to%20Idle HTTP/1.1
+PUT /talks/Cómo%20hacer%20el%20caballito HTTP/1.1
 Content-Type: application/json
 Content-Length: 92
 
 {"presenter": "Maureen",
- "summary": "Standing still on a unicycle"}
+ "summary": "Permanecer quieto sobre un monociclo"}
 ```
 
-Such URLs also support `GET` requests to retrieve the JSON representation of a talk and `DELETE` requests to delete a talk.
+Estas URLs también admiten solicitudes `GET` para recuperar la representación JSON de una charla y solicitudes `DELETE` para eliminar una charla.
 
-{{index "POST method"}}
+{{index "Método POST"}}
 
-Adding a ((comment)) to a talk is done with a `POST` request to a URL like `/talks/Unituning/comments`, with a JSON body that has `author` and `message` properties.
+Agregar un ((comentario)) a una charla se hace con una solicitud `POST` a una URL como `/talks/Unituning/comments`, con un cuerpo JSON que tiene propiedades `author` y `message`.
 
 ```{lang: http}
 POST /talks/Unituning/comments HTTP/1.1
@@ -121,29 +117,27 @@ Content-Type: application/json
 Content-Length: 72
 
 {"author": "Iman",
- "message": "Will you talk about raising a cycle?"}
+ "message": "¿Vas a hablar sobre cómo levantar una bicicleta?"}
 ```
 
-{{index "query string", timeout, "ETag header", "If-None-Match header"}}
+{{index "cadena de consulta", tiempo de espera, "encabezado ETag", "encabezado If-None-Match"}}
 
-To support ((long polling)), `GET` requests to `/talks` may include extra headers that inform the server to delay the response if no new information is available. We'll use a pair of headers normally intended to manage caching: `ETag` and `If-None-Match`.
+Para soportar ((encuestas prolongadas)), las solicitudes `GET` a `/talks` pueden incluir encabezados adicionales que informen al servidor para retrasar la respuesta si no hay nueva información disponible. Usaremos un par de encabezados normalmente destinados a gestionar el almacenamiento en caché: `ETag` y `If-None-Match`.
 
-{{index "304 (HTTP status code)"}}
+{{index "304 (código de estado HTTP)"}}
 
-Servers may include an `ETag` ("entity tag") header in a response. Its value is a string that identifies the current version of the resource. Clients, when they later request that resource again, may make a _((conditional request))_ by including an `If-None-Match` header whose value holds that same string. If the resource hasn't changed, the server will respond with status code 304, which means "not modified", telling the client that its cached version is still current. When the tag does not match, the server responds as normal.
+Los servidores pueden incluir un encabezado `ETag` ("etiqueta de entidad") en una respuesta. Su valor es una cadena que identifica la versión actual del recurso. Los clientes, al solicitar posteriormente ese recurso de nuevo, pueden hacer una _((solicitud condicional))_ incluyendo un encabezado `If-None-Match` cuyo valor contenga esa misma cadena. Si el recurso no ha cambiado, el servidor responderá con el código de estado 304, que significa "no modificado", indicando al cliente que su versión en caché sigue siendo actual. Cuando la etiqueta no coincide, el servidor responde como de costumbre.
 
-{{index "Prefer header"}}
+{{index "encabezado Prefer"}}
 
-We need something like this, where the client can tell the server which version of the list of talks it has, and the server responds only when that list has changed. But instead of immediately returning a 304 response, the server should stall the response and return only when something new is available or a given amount of time has elapsed. To distinguish long polling requests from normal conditional requests, we give them another header, `Prefer: wait=90`, which tells the server that the client is willing to wait up to 90 seconds for the response.
-
-The server will keep a version number that it updates every time the talks change and will use that as the `ETag` value. Clients can make requests like this to be notified when the talks change:
+Necesitamos algo como esto, donde el cliente puede decirle al servidor qué versión de la lista de charlas tiene, y el servidor responde solo cuando esa lista ha cambiado. Pero en lugar de devolver inmediatamente una respuesta 304, el servidor debería demorar la respuesta y devolverla solo cuando haya algo nuevo disponible o haya transcurrido una cantidad de tiempo determinada. Para distinguir las solicitudes de encuestas prolongadas de las solicitudes condicionales normales, les damos otro encabezado, `Prefer: wait=90`, que le indica al servidor que el cliente está dispuesto a esperar hasta 90 segundos por la respuesta.El servidor mantendrá un número de versión que actualiza cada vez que cambian las charlas y lo utilizará como valor `ETag`. Los clientes pueden hacer solicitudes como esta para ser notificados cuando las charlas cambien:
 
 ```{lang: null}
 GET /talks HTTP/1.1
 If-None-Match: "4"
 Prefer: wait=90
 
-(time passes)
+(pasa el tiempo)
 
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -153,31 +147,31 @@ Content-Length: 295
 [....]
 ```
 
-{{index security}}
+{{index seguridad}}
 
-The protocol described here does not do any ((access control)). Everybody can comment, modify talks, and even delete them. (Since the Internet is full of ((hooligan))s, putting such a system online without further protection probably wouldn't end well.)
+El protocolo descrito aquí no realiza ningún ((control de acceso)). Cualquiera puede comentar, modificar charlas e incluso eliminarlas. (Dado que Internet está lleno de ((matones)), poner un sistema en línea sin una protección adicional probablemente no terminaría bien).
 
-## The server
+## El servidor
 
-{{index "skill-sharing project"}}
+{{index "proyecto de intercambio de habilidades"}}
 
-Let's start by building the ((server))-side part of the program. The code in this section runs on ((Node.js)).
+Comencemos construyendo la parte del programa del lado del ((servidor)). El código en esta sección se ejecuta en ((Node.js)).
 
-### Routing
+### Enrutamiento
 
-{{index "createServer function", [path, URL], [method, HTTP]}}
+{{index "función createServer", [ruta, URL], [método, HTTP]}}
 
-Our server will use Node's `createServer` to start an HTTP server. In the function that handles a new request, we must distinguish between the various kinds of requests (as determined by the method and the path) that we support. This can be done with a long chain of `if` statements, but there is a nicer way.
+Nuestro servidor utilizará `createServer` de Node para iniciar un servidor HTTP. En la función que maneja una nueva solicitud, debemos distinguir entre los diferentes tipos de solicitudes (como se determina por el método y la ruta) que soportamos. Esto se puede hacer con una larga cadena de declaraciones `if`, pero hay una manera más elegante.
 
-{{index dispatch}}
+{{index despacho}}
 
-A _((router))_ is a component that helps dispatch a request to the function that can handle it. You can tell the router, for example, that `PUT` requests with a path that matches the regular expression `/^\/talks\/([^\/]+)$/` (`/talks/` followed by a talk title) can be handled by a given function. In addition, it can help extract the meaningful parts of the path (in this case the talk title), wrapped in parentheses in the ((regular expression)), and pass them to the handler function.
+Un _((enrutador))_ es un componente que ayuda a despachar una solicitud a la función que puede manejarla. Puedes indicarle al enrutador, por ejemplo, que las solicitudes `PUT` con una ruta que coincida con la expresión regular `/^\/talks\/([^\/]+)$/` (`/talks/` seguido de un título de charla) pueden ser manejadas por una función dada. Además, puede ayudar a extraer las partes significativas de la ruta (en este caso el título de la charla), envueltas en paréntesis en la ((expresión regular)), y pasarlas a la función manejadora.
 
-There are a number of good router packages on ((NPM)), but here we'll write one ourselves to illustrate the principle.
+Hay varios paquetes de enrutadores buenos en ((NPM)), pero aquí escribiremos uno nosotros mismos para ilustrar el principio.
 
-{{index "import keyword", "Router class", module}}
+{{index "palabra clave import", "clase Router", módulo}}
 
-This is `router.mjs`, which we will later `import` from our server module:
+Este es `router.mjs`, que luego `importaremos` desde nuestro módulo del servidor:
 
 ```{includeCode: ">code/skillsharing/router.mjs"}
 export class Router {
@@ -199,21 +193,21 @@ export class Router {
 }
 ```
 
-{{index "Router class"}}
+{{index "clase Router"}}
 
-The module exports the `Router` class. A router object allows you to register handlers for specific methods and URL patterns with its `add` method. When a request is resolved with the `resolve` method, the router calls the handler whose method and URL match the request and return its result.
+El módulo exporta la clase `Router`. Un objeto de enrutador te permite registrar manejadores para métodos específicos y patrones de URL con su método `add`. Cuando una solicitud se resuelve con el método `resolve`, el enrutador llama al manejador cuyo método y URL coinciden con la solicitud y devuelve su resultado.
 
-{{index "capture group", "decodeURIComponent function", [escaping, "in URLs"]}}
+{{index "grupo de captura", "función decodeURIComponent", [escape, "en URL"]}}
 
-Handler functions are called with the `context` value given to `resolve`. We will use this to give them access to our server state. Additionally, they receive the match strings for any groups they defined in their ((regular expression)), and the request object. The strings have to be URL-decoded since the raw URL may contain `%20`-style codes.
+Las funciones manejadoras se llaman con el valor `context` dado a `resolve`. Utilizaremos esto para darles acceso al estado de nuestro servidor. Además, reciben las cadenas coincidentes para cualquier grupo que hayan definido en su ((expresión regular)), y el objeto de solicitud. Las cadenas deben ser decodificadas de la URL ya que la URL cruda puede contener códigos estilo `%20`.
 
-### Serving files
+### Sirviendo archivos
 
-When a request matches none of the request types defined in our router, the server must interpret it as a request for a file in the `public` directory. It would be possible to use the file server defined in [Chapter ?](node#file_server) to serve such files, but we neither need nor want to support `PUT` and `DELETE` requests on files, and we would like to have advanced features such as support for caching. So let's use a solid, well-tested ((static file)) server from ((NPM)) instead.
+Cuando una solicitud no coincide con ninguno de los tipos de solicitud definidos en nuestro enrutador, el servidor debe interpretarlo como una solicitud de un archivo en el directorio `public`. Sería posible usar el servidor de archivos definido en [Capítulo ?](node#file_server) para servir dichos archivos, pero ni necesitamos ni queremos admitir solicitudes `PUT` y `DELETE` en archivos, y nos gustaría tener funciones avanzadas como el soporte para almacenamiento en caché. Así que usemos en cambio un servidor de archivos estático sólido y bien probado de ((NPM)).
 
 {{index "createServer function", "serve-static package"}}
 
-I opted for `serve-static`. This isn't the only such server on NPM, but it works well and fits our purposes. The `serve-static` package exports a function that can be called with a root directory to produce a request handler function. The handler function accepts the `request` and `response` arguments provided by the server from `"node:http"`, and a third argument, a function that it will call if no file matches the request. We want our server to first check for requests that we should handle specially, as defined in the router, so we wrap it in another function.
+Opté por `serve-static`. Este no es el único servidor de este tipo en NPM, pero funciona bien y se ajusta a nuestros propósitos. El paquete `serve-static` exporta una función que puede ser llamada con un directorio raíz para producir una función manipuladora de solicitudes. La función manipuladora acepta los argumentos `request` y `response` proporcionados por el servidor de `"node:http"`, y un tercer argumento, una función que se llamará si ningún archivo coincide con la solicitud. Queremos que nuestro servidor primero compruebe las solicitudes que deberíamos manejar de manera especial, según lo definido en el enrutador, por lo que lo envolvemos en otra función.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 import {createServer} from "node:http";
@@ -247,9 +241,9 @@ class SkillShareServer {
 }
 ```
 
-The `serveFromRouter` function has the same interface as `fileServer`, taking `(request, response, next)` arguments. This allows us to “chain” several request handlers, allowing each to either handle the request, or pass responsibility for that on to the next handler. The final handler, `notFound`, simply responds with a “not found” error.
+La función `serveFromRouter` tiene la misma interfaz que `fileServer`, tomando los argumentos `(request, response, next)`. Esto nos permite "encadenar" varios manipuladores de solicitudes, permitiendo que cada uno maneje la solicitud o pase la responsabilidad de eso al siguiente manejador. El manejador final, `notFound`, simplemente responde con un error de "no encontrado".
 
-Our `serveFromRouter` function uses a similar convention as the file server from the [previous chapter](node) for responses—handlers in the router return promises that resolve to objects describing the response.
+Nuestra función `serveFromRouter` utiliza una convención similar a la del servidor de archivos del [capítulo anterior](node) para las respuestas: los manejadores en el enrutador devuelven promesas que se resuelven en objetos que describen la respuesta.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 import {Router} from "./router.mjs";
@@ -262,7 +256,7 @@ async function serveFromRouter(server, request,
   let resolved = await router.resolve(request, server)
     .catch(error => {
       if (error.status != null) return error;
-      return {body: String(err), status: 500};
+      return {body: String(error), status: 500};
     });
   if (!resolved) return next();
   let {body, status = 200, headers = defaultHeaders} =
@@ -270,32 +264,30 @@ async function serveFromRouter(server, request,
   response.writeHead(status, headers);
   response.end(body);
 }
-```
+```### Charlas como recursos
 
-### Talks as resources
+Las ((charlas)) que se han propuesto se almacenan en la propiedad `talks` del servidor, un objeto cuyas propiedades son los títulos de las charlas. Agregaremos algunos controladores a nuestro enrutador que expongan estos como ((recursos)) HTTP bajo `/charlas/[título]`.
 
-The ((talk))s that have been proposed are stored in the `talks` property of the server, an object whose property names are the talk titles. We will add some handlers to our router that expose these as HTTP ((resource))s under `/talks/[title]`.
+{{index "método GET", "404 (código de estado HTTP)", "función hasOwn"}}
 
-{{index "GET method", "404 (HTTP status code)" "hasOwn function"}}
-
-The handler for requests that `GET` a single talk must look up the talk and respond either with the talk's JSON data or with a 404 error response.
+El controlador para las solicitudes que `GET` una sola charla debe buscar la charla y responder ya sea con los datos JSON de la charla o con una respuesta de error 404.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
-const talkPath = /^\/talks\/([^\/]+)$/;
+const talkPath = /^\/charlas\/([^\/]+)$/;
 
 router.add("GET", talkPath, async (server, title) => {
   if (Object.hasOwn(server.talks, title)) {
     return {body: JSON.stringify(server.talks[title]),
             headers: {"Content-Type": "application/json"}};
   } else {
-    return {status: 404, body: `No talk '${title}' found`};
+    return {status: 404, body: `No se encontró la charla '${title}'`};
   }
 });
 ```
 
-{{index "DELETE method"}}
+{{index "método DELETE"}}
 
-Deleting a talk is done by removing it from the `talks` object.
+Eliminar una charla se hace eliminándola del objeto `talks`.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 router.add("DELETE", talkPath, async (server, title) => {
@@ -307,21 +299,21 @@ router.add("DELETE", talkPath, async (server, title) => {
 });
 ```
 
-{{index "long polling", "updated method"}}
+{{index "espera larga", "método updated"}}
 
-The `updated` method, which we will define [later](skillsharing#updated), notifies waiting long polling requests about the change.
+El método `updated`, que definiremos [más adelante](skillsharing#updated), notifica a las solicitudes de espera larga sobre el cambio.
 
-{{index validation, input, "PUT method"}}
+{{index validación, entrada, "método PUT"}}
 
-One handler that needs to read request bodies is the `PUT` handler, which is used to create new ((talk))s. It has to check whether the data it was given has `presenter` and `summary` properties, which are strings. Any data coming from outside the system might be nonsense, and we don't want to corrupt our internal data model or ((crash)) when bad requests come in.
+Un controlador que necesita leer cuerpos de solicitud es el controlador `PUT`, que se utiliza para crear nuevas ((charlas)). Debe verificar si los datos que se le proporcionaron tienen propiedades `presentador` y `resumen`, que son cadenas de texto. Cualquier dato que provenga de fuera del sistema podría ser un sinsentido y no queremos corromper nuestro modelo de datos interno o ((fallar)) cuando lleguen solicitudes incorrectas.
 
-{{index "updated method"}}
+{{index "método updated"}}
 
-If the data looks valid, the handler stores an object that represents the new talk in the `talks` object, possibly ((overwriting)) an existing talk with this title, and again calls `updated`.
+Si los datos parecen válidos, el controlador almacena un objeto que representa la nueva charla en el objeto `talks`, posiblemente ((sobrescribiendo)) una charla existente con este título, y nuevamente llama a `updated`.
 
-{{index "node:stream/consumers package", JSON, "readable stream"}}
+{{index "node:stream/consumers package", JSON, "flujo legible"}}
 
-To read the body from the request stream, we will use the `json` function from `"node:stream/consumers"`, which collects the data in the stream and then parses it as JSON. There are similar exports called `text` (to read the content as a string) and `buffer` (to read it as binary data) in this package. Since `json` is a very generic name, the import renames it to `readJSON` to avoid confusion.
+Para leer el cuerpo del flujo de solicitud, utilizaremos la función `json` de `"node:stream/consumers"`, que recopila los datos en el flujo y luego los analiza como JSON. Hay exportaciones similares llamadas `text` (para leer el contenido como una cadena) y `buffer` (para leerlo como datos binarios) en este paquete. Dado que `json` es un nombre genérico, la importación lo renombra a `readJSON` para evitar confusiones.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 import {json as readJSON} from "node:stream/consumers"
@@ -332,7 +324,7 @@ router.add("PUT", talkPath,
   if (!talk ||
       typeof talk.presenter != "string" ||
       typeof talk.summary != "string") {
-    return {status: 400, body: "Bad talk data"};
+    return {status: 400, body: "Datos de charla incorrectos"};
   }
   server.talks[title] = {
     title,
@@ -343,9 +335,7 @@ router.add("PUT", talkPath,
   server.updated();
   return {status: 204};
 });
-```
-
-Adding a ((comment)) to a ((talk)) works similarly. We use `readJSON` to get the content of the request, validate the resulting data, and store it as a comment when it looks valid.
+```Agregar un ((comentario)) a una ((charla)) funciona de manera similar. Usamos `readJSON` para obtener el contenido de la solicitud, validamos los datos resultantes y los almacenamos como un comentario cuando parecen válidos.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 router.add("POST", /^\/talks\/([^\/]+)\/comments$/,
@@ -354,28 +344,28 @@ router.add("POST", /^\/talks\/([^\/]+)\/comments$/,
   if (!comment ||
       typeof comment.author != "string" ||
       typeof comment.message != "string") {
-    return {status: 400, body: "Bad comment data"};
+    return {status: 400, body: "Datos de comentario incorrectos"};
   } else if (Object.hasOwn(server.talks, title)) {
     server.talks[title].comments.push(comment);
     server.updated();
     return {status: 204};
   } else {
-    return {status: 404, body: `No talk '${title}' found`};
+    return {status: 404, body: `No se encontró la charla '${title}'`};
   }
 });
 ```
 
-{{index "404 (HTTP status code)"}}
+{{index "404 (código de estado HTTP)"}}
 
-Trying to add a comment to a nonexistent talk returns a 404 error.
+Intentar agregar un comentario a una charla inexistente devuelve un error 404.
 
-### Long polling support
+### Soporte para larga espera
 
-The most interesting aspect of the server is the part that handles ((long polling)). When a `GET` request comes in for `/talks`, it may be either a regular request or a long polling request.
+El aspecto más interesante del servidor es la parte que maneja la ((larga espera)). Cuando llega una solicitud `GET` para `/charlas`, puede ser una solicitud regular o una solicitud de larga espera.
 
-{{index "talkResponse method", "ETag header"}}
+{{index "método talkResponse", "encabezado ETag"}}
 
-There will be multiple places in which we have to send an array of talks to the client, so we first define a helper method that builds up such an array and includes an `ETag` header in the response.
+Habrá varios lugares en los que debamos enviar una matriz de charlas al cliente, por lo que primero definimos un método auxiliar que construya dicha matriz e incluya un encabezado `ETag` en la respuesta.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 SkillShareServer.prototype.talkResponse = function() {
@@ -390,9 +380,9 @@ SkillShareServer.prototype.talkResponse = function() {
 };
 ```
 
-{{index "query string", "url package", parsing}}
+{{index "cadena de consulta", "paquete url", análisis}}
 
-The handler itself needs to look at the request headers to see whether `If-None-Match` and `Prefer` headers are present. Node stores headers, whose names are specified to be case insensitive, under their lowercase names.
+El controlador en sí mismo necesita examinar los encabezados de la solicitud para ver si están presentes los encabezados `If-None-Match` y `Prefer`. Node almacena los encabezados, cuyos nombres se especifican como insensibles a mayúsculas y minúsculas, bajo sus nombres en minúsculas.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 router.add("GET", /^\/talks$/, async (server, request) => {
@@ -408,13 +398,13 @@ router.add("GET", /^\/talks$/, async (server, request) => {
 });
 ```
 
-{{index "long polling", "waitForChanges method", "If-None-Match header", "Prefer header"}}
+{{index "larga espera", "método waitForChanges", "encabezado If-None-Match", "encabezado Prefer"}}
 
-If no tag was given or a tag was given that doesn't match the server's current version, the handler responds with the list of talks. If the request is conditional and the talks did not change, we consult the `Prefer` header to see whether we should delay the response or respond right away.
+Si no se proporcionó ninguna etiqueta o se proporcionó una etiqueta que no coincide con la versión actual del servidor, el controlador responde con la lista de charlas. Si la solicitud es condicional y las charlas no han cambiado, consultamos el encabezado `Prefer` para ver si debemos retrasar la respuesta o responder de inmediato.
 
-{{index "304 (HTTP status code)", "setTimeout function", timeout, "callback function"}}
+{{index "304 (código de estado HTTP)", "función setTimeout", tiempo de espera, "función de devolución de llamada"}}
 
-Callback functions for delayed requests are stored in the server's `waiting` array so that they can be notified when something happens. The `waitForChanges` method also immediately sets a timer to respond with a 304 status when the request has waited long enough.
+Las funciones de devolución de llamada para solicitudes retardadas se almacenan en la matriz `waiting` del servidor para que puedan ser notificadas cuando ocurra algo. El método `waitForChanges` también establece inmediatamente un temporizador para responder con un estado 304 cuando la solicitud haya esperado el tiempo suficiente.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 SkillShareServer.prototype.waitForChanges = function(time) {
@@ -429,11 +419,11 @@ SkillShareServer.prototype.waitForChanges = function(time) {
 };
 ```
 
-{{index "updated method"}}
+{{index "método actualizado"}}
 
 {{id updated}}
 
-Registering a change with `updated` increases the `version` property and wakes up all waiting requests.
+Registrar un cambio con `updated` incrementa la propiedad `versión` y despierta todas las solicitudes en espera.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 SkillShareServer.prototype.updated = function() {
@@ -444,50 +434,50 @@ SkillShareServer.prototype.updated = function() {
 };
 ```
 
-{{index [HTTP, server]}}
+{{index [HTTP, servidor]}}
 
-That concludes the server code. If we create an instance of `SkillShareServer` and start it on port 8000, the resulting HTTP server serves files from the `public` subdirectory alongside a talk-managing interface under the `/talks` URL.
+Eso concluye el código del servidor. Si creamos una instancia de `SkillShareServer` y la iniciamos en el puerto 8000, el servidor HTTP resultante servirá archivos desde el subdirectorio `public` junto con una interfaz para manejar charlas bajo la URL `/talks`.
 
 ```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
 new SkillShareServer({}).start(8000);
 ```
 
-## The client
+## El cliente
 
-{{index "skill-sharing project"}}
+{{index "proyecto de intercambio de habilidades"}}
 
-The ((client))-side part of the skill-sharing website consists of three files: a tiny HTML page, a style sheet, and a JavaScript file.
+La parte del ((cliente)) del sitio web de intercambio de habilidades consiste en tres archivos: una pequeña página HTML, una hoja de estilos y un archivo JavaScript.
 
 ### HTML
 
 {{index "index.html"}}
 
-It is a widely used convention for web servers to try to serve a file named `index.html` when a request is made directly to a path that corresponds to a directory. The ((file server)) module we use, `serve-static`, supports this convention. When a request is made to the path `/`, the server looks for the file `./public/index.html` (`./public` being the root we gave it) and returns that file if found.
+Es una convención ampliamente utilizada para servidores web intentar servir un archivo llamado `index.html` cuando se realiza una solicitud directamente a una ruta que corresponde a un directorio. El módulo de servidor de archivos que utilizamos, `serve-static`, soporta esta convención. Cuando se realiza una solicitud a la ruta `/`, el servidor busca el archivo `./public/index.html` (`./public` siendo la raíz que le dimos) y devuelve ese archivo si se encuentra.
 
-Thus, if we want a page to show up when a browser is pointed at our server, we should put it in `public/index.html`. This is our index file:
+Por lo tanto, si queremos que una página aparezca cuando un navegador apunta a nuestro servidor, deberíamos colocarla en `public/index.html`. Este es nuestro archivo de índice:
 
 ```{lang: "html", includeCode: ">code/skillsharing/public/index.html"}
 <!doctype html>
 <meta charset="utf-8">
-<title>Skill Sharing</title>
+<title>Intercambio de habilidades</title>
 <link rel="stylesheet" href="skillsharing.css">
 
-<h1>Skill Sharing</h1>
+<h1>Intercambio de habilidades</h1>
 
 <script src="skillsharing_client.js"></script>
 ```
 
 {{index CSS}}
 
-It defines the document ((title)) and includes a style sheet, which defines a few styles to, among other things, make sure there is some space between talks. Then it adds a heading at the top of the page and loads the script that contains the ((client))-side application.
+Define el ((título)) del documento e incluye una hoja de estilos, que define algunos estilos para, entre otras cosas, asegurarse de que haya algo de espacio entre las charlas. Luego agrega un encabezado en la parte superior de la página y carga el script que contiene la aplicación del ((cliente)).
 
-### Actions
+### Acciones
 
-The application state consists of the list of talks and the name of the user, and we'll store it in a `{talks, user}` object. We don't allow the user interface to directly manipulate the state or send off HTTP requests. Rather, it may emit _actions_ that describe what the user is trying to do.
+El estado de la aplicación consiste en la lista de charlas y el nombre del usuario, y lo almacenaremos en un objeto `{charlas, usuario}`. No permitimos que la interfaz de usuario manipule directamente el estado ni envíe solicitudes HTTP. En cambio, puede emitir _acciones_ que describen lo que el usuario está intentando hacer.
 
-{{index "handleAction function"}}
+{{index "función handleAction"}}
 
-The `handleAction` function takes such an action and makes it happen. Because our state updates are so simple, state changes are handled in the same function.
+La función `handleAction` toma una acción de este tipo y la lleva a cabo. Debido a que nuestras actualizaciones de estado son tan simples, los cambios de estado se manejan en la misma función.
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function handleAction(state, action) {
@@ -520,15 +510,13 @@ function handleAction(state, action) {
   }
   return state;
 }
-```
+```{{index "objecto localStorage"}}
 
-{{index "localStorage object"}}
+Almacenaremos el nombre del usuario en `localStorage` para que pueda ser restaurado cuando se cargue la página.
 
-We'll store the user's name in `localStorage` so that it can be restored when the page is loaded.
+{{index "función fetch", "propiedad status"}}
 
-{{index "fetch function", "status property"}}
-
-The actions that need to involve the server make network requests, using `fetch`, to the HTTP interface described earlier. We use a wrapper function, `fetchOK`, which makes sure the returned promise is rejected when the server returns an error code.
+Las acciones que necesitan involucrar al servidor realizan peticiones a la red, utilizando `fetch`, a la interfaz HTTP descrita anteriormente. Utilizamos una función de envoltura, `fetchOK`, que se asegura de que la promesa devuelta sea rechazada cuando el servidor devuelve un código de error.
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function fetchOK(url, options) {
@@ -539,9 +527,9 @@ function fetchOK(url, options) {
 }
 ```
 
-{{index "talkURL function", "encodeURIComponent function"}}
+{{index "función talkURL", "función encodeURIComponent"}}
 
-This helper function is used to build up a ((URL)) for a talk with a given title.
+Esta función auxiliar se utiliza para construir una ((URL)) para una charla con un título dado.
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function talkURL(title) {
@@ -549,9 +537,9 @@ function talkURL(title) {
 }
 ```
 
-{{index "error handling", "user experience", "reportError function"}}
+{{index "manejo de errores", "experiencia de usuario", "función reportError"}}
 
-When the request fails, we don't want to have our page just sit there, doing nothing without explanation. So we define a function called `reportError`, which at least shows the user a dialog that tells them something went wrong.
+Cuando la petición falla, no queremos que nuestra página simplemente se quede ahí, sin hacer nada sin explicación. Así que definimos una función llamada `reportError`, que al menos muestra al usuario un cuadro de diálogo que le informa que algo salió mal.
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function reportError(error) {
@@ -559,15 +547,15 @@ function reportError(error) {
 }
 ```
 
-### Rendering components
+### Renderización de componentes
 
-{{index "renderUserField function"}}
+{{index "función renderUserField"}}
 
-We'll use an approach similar to the one we saw in [Chapter ?](paint), splitting the application into components. But since some of the components either never need to update or are always fully redrawn when updated, we'll define those not as classes but as functions that directly return a DOM node. For example, here is a component that shows the field where the user can enter their name:
+Utilizaremos un enfoque similar al que vimos en [Capítulo ?](paint), dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo DOM. Por ejemplo, aquí hay un componente que muestra el campo donde el usuario puede ingresar su nombre:
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function renderUserField(name, dispatch) {
-  return elt("label", {}, "Your name: ", elt("input", {
+  return elt("label", {}, "Tu nombre: ", elt("input", {
     type: "text",
     value: name,
     onchange(event) {
@@ -577,9 +565,9 @@ function renderUserField(name, dispatch) {
 }
 ```
 
-{{index "elt function"}}
+{{index "función elt"}}
 
-The `elt` function used to construct DOM elements is the one we used in [Chapter ?](paint).
+La función `elt` utilizada para construir elementos DOM es la misma que usamos en [Capítulo ?](paint).
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, hidden: true}
 function elt(type, props, ...children) {
@@ -593,9 +581,9 @@ function elt(type, props, ...children) {
 }
 ```
 
-{{index "renderTalk function"}}
+{{index "función renderTalk"}}
 
-A similar function is used to render talks, which include a list of comments and a form for adding a new ((comment)).
+Se utiliza una función similar para renderizar charlas, que incluyen una lista de comentarios y un formulario para agregar un nuevo ((comentario)).
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function renderTalk(talk, dispatch) {
@@ -606,8 +594,8 @@ function renderTalk(talk, dispatch) {
       onclick() {
         dispatch({type: "deleteTalk", talk: talk.title});
       }
-    }, "Delete")),
-    elt("div", null, "by ",
+    }, "Eliminar")),
+    elt("div", null, "por ",
         elt("strong", null, talk.presenter)),
     elt("p", null, talk.summary),
     ...talk.comments.map(renderComment),
@@ -621,17 +609,15 @@ function renderTalk(talk, dispatch) {
         form.reset();
       }
     }, elt("input", {type: "text", name: "comment"}), " ",
-       elt("button", {type: "submit"}, "Add comment")));
+       elt("button", {type: "submit"}, "Añadir comentario")));
 }
-```
+```{{index "evento submit"}}
 
-{{index "submit event"}}
+El controlador de evento `"submit"` llama a `form.reset` para limpiar el contenido del formulario después de crear una acción `"newComment"`.
 
-The `"submit"` event handler calls `form.reset` to clear the form's content after creating a `"newComment"` action.
+Cuando se crean piezas moderadamente complejas del DOM, este estilo de programación comienza a verse bastante desordenado. Para evitar esto, a menudo la gente utiliza un _((lenguaje de plantillas))_, que permite escribir la interfaz como un archivo HTML con algunos marcadores especiales para indicar dónde van los elementos dinámicos. O utilizan _((JSX))_, un dialecto de JavaScript no estándar que te permite escribir algo muy parecido a etiquetas HTML en tu programa como si fueran expresiones JavaScript. Ambos enfoques utilizan herramientas adicionales para preprocesar el código antes de que pueda ser ejecutado, lo cual evitaremos en este capítulo.
 
-When creating moderately complex pieces of DOM, this style of programming starts to look rather messy. To avoid this, people often use a _((templating language))_, which allows you to write your interface as an HTML file with some special markers to indicate where dynamic elements go. Or they use _((JSX))_, a non-standard JavaScript dialect that allows you to write something very close to HTML tags in your program as if they are JavaScript expressions. Both of these approaches use additional tools to pre-process the code before it can be run, which we will avoid in this chapter.
-
-Comments are simple to render.
+Los comentarios son simples de renderizar.
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function renderComment(comment) {
@@ -641,9 +627,9 @@ function renderComment(comment) {
 }
 ```
 
-{{index "form (HTML tag)", "renderTalkForm function"}}
+{{index "formulario (etiqueta HTML)", "función renderTalkForm"}}
 
-Finally, the form that the user can use to create a new talk is rendered like this:
+Finalmente, el formulario que el usuario puede usar para crear una nueva charla se representa de la siguiente manera:
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function renderTalkForm(dispatch) {
@@ -657,18 +643,18 @@ function renderTalkForm(dispatch) {
                 summary: summary.value});
       event.target.reset();
     }
-  }, elt("h3", null, "Submit a Talk"),
-     elt("label", null, "Title: ", title),
-     elt("label", null, "Summary: ", summary),
-     elt("button", {type: "submit"}, "Submit"));
+  }, elt("h3", null, "Enviar una charla"),
+     elt("label", null, "Título: ", title),
+     elt("label", null, "Resumen: ", summary),
+     elt("button", {type: "submit"}, "Enviar"));
 }
 ```
 
-### Polling
+### Sondeo
 
-{{index "pollTalks function", "long polling", "If-None-Match header", "Prefer header", "fetch function"}}
+{{index "función pollTalks", "sondeo prolongado", "cabecera If-None-Match", "cabecera Prefer", "función fetch"}}
 
-To start the app we need the current list of talks. Since the initial load is closely related to the long polling process—the `ETag` from the load must be used when polling—we'll write a function that keeps polling the server for `/talks` and calls a ((callback function)) when a new set of talks is available.
+Para iniciar la aplicación necesitamos la lista actual de charlas. Dado que la carga inicial está estrechamente relacionada con el proceso de sondeo prolongado, el `ETag` de la carga debe ser utilizado al sondear, escribiremos una función que siga sondeando al servidor en busca de `/charlas` y llame a una ((función de devolución de llamada)) cuando un nuevo conjunto de charlas esté disponible.
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 async function pollTalks(update) {
@@ -676,12 +662,12 @@ async function pollTalks(update) {
   for (;;) {
     let response;
     try {
-      response = await fetchOK("/talks", {
+      response = await fetchOK("/charlas", {
         headers: tag && {"If-None-Match": tag,
                          "Prefer": "wait=90"}
       });
     } catch (e) {
-      console.log("Request failed: " + e);
+      console.log("La solicitud falló: " + e);
       await new Promise(resolve => setTimeout(resolve, 500));
       continue;
     }
@@ -692,23 +678,21 @@ async function pollTalks(update) {
 }
 ```
 
-{{index "async function"}}
+{{index "función asincrónica"}}
 
-This is an `async` function so that looping and waiting for the request is easier. It runs an infinite loop that, on each iteration, retrieves the list of talks—either normally or, if this isn't the first request, with the headers included that make it a long polling request.
+Esta es una función `async` para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.{{index "manejo de errores", "clase Promise", "función setTimeout"}}
 
-{{index "error handling", "Promise class", "setTimeout function"}}
+Cuando una solicitud falla, la función espera un momento y luego intenta nuevamente. De esta manera, si tu conexión de red se interrumpe por un tiempo y luego vuelve, la aplicación puede recuperarse y continuar actualizándose. La promesa resuelta a través de `setTimeout` es una forma de forzar a la función `async` a esperar.
 
-When a request fails, the function waits a moment and then tries again. This way, if your network connection goes away for a while and then comes back, the application can recover and continue updating. The promise resolved via `setTimeout` is a way to force the `async` function to wait.
+{{index "304 (código de estado HTTP)", "encabezado ETag"}}
 
-{{index "304 (HTTP status code)", "ETag header"}}
+Cuando el servidor devuelve una respuesta 304, eso significa que una solicitud de intercambio de larga duración expiró, por lo que la función debería comenzar inmediatamente la siguiente solicitud. Si la respuesta es un estado 200 normal, su cuerpo se lee como JSON y se pasa a la devolución de llamada, y el valor del encabezado `ETag` se almacena para la próxima iteración.
 
-When the server gives back a 304 response, that means a long polling request timed out, so the function should just immediately start the next request. If the response is a normal 200 response, its body is read as ((JSON)) and passed to the callback, and its `ETag` header value is stored for the next iteration.
+### La aplicación
 
-### The application
+{{index "clase SkillShareApp"}}
 
-{{index "SkillShareApp class"}}
-
-The following component ties the whole user interface together:
+El siguiente componente une toda la interfaz de usuario:
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 class SkillShareApp {
@@ -735,11 +719,11 @@ class SkillShareApp {
 }
 ```
 
-{{index synchronization, "live view"}}
+{{index sincronización, "vista en vivo"}}
 
-When the talks change, this component redraws all of them. This is simple but also wasteful. We'll get back to that in the exercises.
+Cuando las charlas cambian, este componente las vuelve a dibujar todas. Esto es simple pero también derrochador. Hablaremos sobre eso en los ejercicios.
 
-We can start the application like this:
+Podemos iniciar la aplicación de esta manera:
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function runApp() {
@@ -764,54 +748,52 @@ function runApp() {
 runApp();
 ```
 
-If you run the server and open two browser windows for [_http://localhost:8000_](http://localhost:8000/) next to each other, you can see that the actions you perform in one window are immediately visible in the other.
+Si ejecutas el servidor y abres dos ventanas del navegador para [_http://localhost:8000_](http://localhost:8000/) una al lado de la otra, puedes ver que las acciones que realizas en una ventana son inmediatamente visibles en la otra.
 
-## Exercises
+## Ejercicios
 
 {{index "Node.js", NPM}}
 
-The following exercises will involve modifying the system defined in this chapter. To work on them, make sure you ((download)) the code first ([_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip)), have Node installed ([_https://nodejs.org_](https://nodejs.org)), and install the project's dependency with `npm install`.
+Los siguientes ejercicios implicarán modificar el sistema definido en este capítulo. Para trabajar en ellos, asegúrate de ((descargar)) primero el código ([_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip)), tener Node instalado ([_https://nodejs.org_](https://nodejs.org)), e instalar la dependencia del proyecto con `npm install`.
 
-### Disk persistence
+### Persistencia en disco
 
-{{index "data loss", persistence, [memory, persistence]}}
+{{index "pérdida de datos", persistencia, [memoria, persistencia]}}El servidor de intercambio de habilidades mantiene sus datos puramente en memoria. Esto significa que cuando se produce un fallo o se reinicia por cualquier motivo, se pierden todas las charlas y comentarios.
 
-The skill-sharing server keeps its data purely in memory. This means that when it ((crash))es or is restarted for any reason, all talks and comments are lost.
+{{index "disco duro"}}
 
-{{index "hard drive"}}
-
-Extend the server so that it stores the talk data to disk and automatically reloads the data when it is restarted. Do not worry about efficiency—do the simplest thing that works.
+Extiende el servidor para que almacene los datos de las charlas en disco y vuelva a cargar automáticamente los datos cuando se reinicie. No te preocupes por la eficiencia, haz lo más simple que funcione.
 
 {{hint
 
-{{index "file system", "writeFile function", "updated method", persistence}}
+{{index "sistema de archivos", "función writeFile", "método actualizado", persistencia}}
 
-The simplest solution I can come up with is to encode the whole `talks` object as ((JSON)) and dump it to a file with `writeFile`. There is already a method (`updated`) that is called every time the server's data changes. It can be extended to write the new data to disk.
+La solución más simple que se me ocurre es codificar todo el objeto `talks` como JSON y volcarlo en un archivo con `writeFile`. Ya existe un método (`updated`) que se llama cada vez que cambian los datos del servidor. Se puede ampliar para escribir los nuevos datos en el disco.
 
-{{index "readFile function", "JSON.parse function"}}
+{{index "función readFile", "función JSON.parse"}}
 
-Pick a ((file))name, for example `./talks.json`. When the server starts, it can try to read that file with `readFile`, and if that succeeds, the server can use the file's contents as its starting data.
+Elige un nombre de archivo, por ejemplo `./talks.json`. Cuando el servidor se inicie, puede intentar leer ese archivo con `readFile`, y si tiene éxito, el servidor puede usar el contenido del archivo como sus datos iniciales.
 
 hint}}
 
-### Comment field resets
+### Restablecimiento del campo de comentarios
 
-{{index "comment field reset (exercise)", template, [state, "of application"]}}
+{{index "restablecimiento del campo de comentarios (ejercicio)", plantilla, [estado, "de la aplicación"]}}
 
-The wholesale redrawing of talks works pretty well because you usually can't tell the difference between a DOM node and its identical replacement. But there are exceptions. If you start typing something in the comment ((field)) for a talk in one browser window and then, in another, add a comment to that talk, the field in the first window will be redrawn, removing both its content and its ((focus)).
+La remodelación completa de las charlas funciona bastante bien porque generalmente no se puede distinguir entre un nodo de DOM y su sustitución idéntica. Pero hay excepciones. Si empiezas a escribir algo en el campo de comentarios para una charla en una ventana del navegador y luego, en otra, añades un comentario a esa charla, el campo en la primera ventana se volverá a dibujar, eliminando tanto su contenido como su enfoque.
 
-When multiple people are adding comments at the same time, this would be annoying. Can you come up with a way to solve it?
+Cuando varias personas están añadiendo comentarios al mismo tiempo, esto podría resultar molesto. ¿Puedes idear una manera de resolverlo?
 
 {{hint
 
-{{index "comment field reset (exercise)", template, "syncState method"}}
+{{index "restablecimiento del campo de comentarios (ejercicio)", plantilla, método "syncState"}}
 
-The best way to do this is probably to make the talk component an object, with a `syncState` method, so that they can be updated to show a modified version of the talk. During normal operation, the only way a talk can be changed is by adding more comments, so the `syncState` method can be relatively simple.
+La mejor manera de hacerlo probablemente sea convertir el componente de la charla en un objeto, con un método `syncState`, para que se puedan actualizar para mostrar una versión modificada de la charla. Durante el funcionamiento normal, la única forma en que una charla puede cambiar es añadiendo más comentarios, por lo que el método `syncState` puede ser relativamente sencillo.
 
-The difficult part is that, when a changed list of talks comes in, we have to reconcile the existing list of DOM components with the talks on the new list—deleting components whose talk was deleted and updating components whose talk changed.
+La parte difícil es que, cuando llega una lista modificada de charlas, tenemos que conciliar la lista existente de componentes de DOM con las charlas de la nueva lista: eliminar los componentes cuya charla fue eliminada y actualizar los componentes cuya charla cambió.
 
-{{index synchronization, "live view"}}
+{{index sincronización, "vista en vivo"}}
 
-To do this, it might be helpful to keep a data structure that stores the talk components under the talk titles so that you can easily figure out whether a component exists for a given talk. You can then loop over the new array of talks, and for each of them, either synchronize an existing component or create a new one. To delete components for deleted talks, you'll have to also loop over the components and check whether the corresponding talks still exist.
+Para hacer esto, podría ser útil mantener una estructura de datos que almacene los componentes de las charlas bajo los títulos de las charlas para que puedas averiguar fácilmente si existe un componente para una charla dada. Luego puedes recorrer la nueva matriz de charlas y, para cada una de ellas, sincronizar un componente existente o crear uno nuevo. Para eliminar los componentes de charlas eliminadas, también tendrás que recorrer los componentes y comprobar si las charlas correspondientes aún existen.
 
 hint}}

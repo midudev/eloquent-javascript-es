@@ -41,14 +41,14 @@ test: html
 tex: $(foreach CHAP,$(CHAPTERS),pdf/$(CHAP).tex) pdf/hints.tex $(patsubst img/%.svg,img/generated/%.pdf,$(SVGS))
 
 book.pdf: tex pdf/book.tex
-	cd pdf && sh build.sh book > /dev/null
+	cd pdf && sh build.sh book
 	mv pdf/book.pdf .	
 
 pdf/book_mobile.tex: pdf/book.tex
 	cat pdf/book.tex | sed -e 's/natbib}/natbib}\n\\usepackage[a5paper, left=5mm, right=5mm]{geometry}/' | sed -e 's/setmonofont.Scale=0.8./setmonofont[Scale=0.75]/' > pdf/book_mobile.tex
 
 book_mobile.pdf: pdf/book_mobile.tex tex
-	cd pdf && sh build.sh book_mobile > /dev/null
+	cd pdf && sh build.sh book_mobile
 	mv pdf/book_mobile.pdf .	
 
 pdf/hints.tex: $(foreach CHAP,$(CHAPTERS),$(CHAP).md) src/extract_hints.mjs

@@ -4,41 +4,41 @@
 
 {{quote {author: "Brian Kernighan and P.J. Plauger", title: "The Elements of Programming Style", chapter: true}
 
-Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.
+Depurar es el doble de difícil que escribir el código en primer lugar. Por lo tanto, si escribes el código lo más ingeniosamente posible, por definición, no eres lo suficientemente inteligente como para depurarlo.
 
 quote}}
 
-{{figure {url: "img/chapter_picture_8.jpg", alt: "Illustration showing various insects and a centipede", chapter: framed}}}
+{{figure {url: "img/chapter_picture_8.jpg", alt: "Ilustración mostrando varios insectos y un ciempiés", chapter: framed}}
 
-{{index "Kernighan, Brian", "Plauger, P.J.", debugging, "error handling"}}
+{{index "Kernighan, Brian", "Plauger, P.J.", depuración, "manejo de errores"}}
 
-Flaws in computer programs are usually called _((bug))s_. It makes programmers feel good to imagine them as little things that just happen to crawl into our work. In reality, of course, we put them there ourselves.
+Las fallas en los programas de computadora generalmente se llaman _((bug))s_. Hace que los programadores se sientan bien imaginarlos como pequeñas cosas que simplemente se meten en nuestro trabajo. En realidad, por supuesto, nosotros mismos los colocamos allí.
 
-If a program is crystallized thought, you can roughly categorize bugs into those caused by the thoughts being confused and those caused by mistakes introduced while converting a thought to code. The former type is generally harder to diagnose and fix than the latter.
+Si un programa es pensamiento cristalizado, puedes clasificar aproximadamente los errores en aquellos causados por pensamientos confusos y aquellos causados por errores introducidos al convertir un pensamiento en código. El primer tipo generalmente es más difícil de diagnosticar y arreglar que el último.
 
-## Language
+## Lenguaje
 
-{{index parsing, analysis}}
+{{index análisis, parsing}}
 
-Many mistakes could be pointed out to us automatically by the computer, if it knew enough about what we're trying to do. But here JavaScript's looseness is a hindrance. Its concept of bindings and properties is vague enough that it will rarely catch ((typo))s before actually running the program. And even then, it allows you to do some clearly nonsensical things without complaint, such as computing `true * "monkey"`.
+Muchos errores podrían ser señalados automáticamente por la computadora, si supiera lo suficiente sobre lo que estamos intentando hacer. Pero la laxitud de JavaScript es un obstáculo aquí. Su concepto de enlaces y propiedades es lo suficientemente vago como para rara vez atrapar ((typo))s antes de ejecutar realmente el programa. E incluso entonces, te permite hacer algunas cosas claramente absurdas sin quejarse, como calcular `true * "monkey"`.
 
-{{index [syntax, error], [property, access]}}
+{{index [sintaxis, error], [propiedad, acceso]}}
 
-There are some things that JavaScript does complain about. Writing a program that does not follow the language's ((grammar)) will immediately make the computer complain. Other things, such as calling something that's not a function or looking up a property on an ((undefined)) value, will cause an error to be reported when the program tries to perform the action.
+Hay algunas cosas sobre las que JavaScript sí se queja. Escribir un programa que no siga la ((gramática)) del lenguaje hará que la computadora se queje de inmediato. Otras cosas, como llamar a algo que no es una función o buscar una propiedad en un valor ((undefined)) harán que se reporte un error cuando el programa intente realizar la acción.
 
 {{index NaN, error}}
 
-But often, your nonsense computation will merely produce `NaN` (not a number) or an undefined value, while the program happily continues, convinced that it's doing something meaningful. The mistake will manifest itself only later, after the bogus value has traveled through several functions. It might not trigger an error at all but silently cause the program's output to be wrong. Finding the source of such problems can be difficult.
+Pero a menudo, tu cálculo absurdo simplemente producirá `NaN` (no es un número) o un valor indefinido, mientras que el programa continúa felizmente, convencido de que está haciendo algo significativo. El error se manifestará solo más tarde, después de que el valor falso haya pasado por varias funciones. Es posible que no desencadene un error en absoluto, pero silenciosamente cause que la salida del programa sea incorrecta. Encontrar la fuente de tales problemas puede ser difícil.
 
-The process of finding mistakes—bugs—in programs is called _((debugging))_.
+El proceso de encontrar errores—bugs—en los programas se llama _((depuración))_.
 
-## Strict mode
+## Modo estricto
 
-{{index "strict mode", [syntax, error], function}}
+{{index "modo estricto", [sintaxis, error], función}}
 
-{{indexsee "use strict", "strict mode"}}
+{{indexsee "use strict", "modo estricto"}}
 
-JavaScript can be made a _little_ stricter by enabling _strict mode_. This is done by putting the string `"use strict"` at the top of a file or a function body. Here's an example:
+JavaScript puede ser un _poco_ más estricto al habilitar el _modo estricto_. Esto se hace colocando la cadena `"use strict"` en la parte superior de un archivo o en el cuerpo de una función. Aquí tienes un ejemplo:
 
 ```{test: "error \"ReferenceError: counter is not defined\""}
 function canYouSpotTheProblem() {
@@ -50,17 +50,15 @@ function canYouSpotTheProblem() {
 
 canYouSpotTheProblem();
 // → ReferenceError: counter is not defined
-```
+```{{index "let keyword", [binding, global]}}
 
-{{index "let keyword", [binding, global]}}
-
-Normally, when you forget to put `let` in front of your binding, as with `counter` in the example, JavaScript quietly creates a global binding and uses that. In strict mode, an ((error)) is reported instead. This is very helpful. It should be noted, though, that this doesn't work when the binding in question already exists somewhere in scope. In that case, the loop will still quietly overwrite the value of the binding.
+Normalmente, cuando olvidas poner `let` frente a tu enlace, como en el caso de `counter` en el ejemplo, JavaScript silenciosamente crea un enlace global y lo utiliza. En modo estricto, se reporta un ((error)) en su lugar. Esto es muy útil. Sin embargo, cabe mencionar que esto no funciona cuando el enlace en cuestión ya existe en algún lugar del ámbito. En ese caso, el bucle seguirá sobrescribiendo silenciosamente el valor del enlace.
 
 {{index "this binding", "global object", undefined, "strict mode"}}
 
-Another change in strict mode is that the `this` binding holds the value `undefined` in functions that are not called as ((method))s. When making such a call outside of strict mode, `this` refers to the global scope object, which is an object whose properties are the global bindings. So if you accidentally call a method or constructor incorrectly in strict mode, JavaScript will produce an error as soon as it tries to read something from `this`, rather than happily writing to the global scope.
+Otro cambio en el modo estricto es que el enlace `this` mantiene el valor `undefined` en funciones que no son llamadas como ((método))s. Al hacer una llamada de este tipo fuera del modo estricto, `this` se refiere al objeto de ámbito global, que es un objeto cuyas propiedades son los enlaces globales. Entonces, si accidentalmente llamas incorrectamente a un método o constructor en modo estricto, JavaScript producirá un error tan pronto como intente leer algo de `this`, en lugar de escribir felizmente en el ámbito global.
 
-For example, consider the following code, which calls a ((constructor)) function without the `new` keyword so that its `this` will _not_ refer to a newly constructed object:
+Por ejemplo, considera el siguiente código, que llama a una función ((constructor)) sin la palabra clave `new` para que su `this` _no_ se refiera a un objeto recién construido:
 
 ```
 function Person(name) { this.name = name; }
@@ -71,34 +69,32 @@ console.log(name);
 
 {{index error}}
 
-So the bogus call to `Person` succeeded but returned an undefined value and created the global binding `name`. In strict mode, the result is different.
+Entonces, la llamada falsa a `Person` tuvo éxito pero devolvió un valor no definido y creó el enlace global `name`. En modo estricto, el resultado es diferente.
 
 ```{test: "error \"TypeError: Cannot set properties of undefined (setting 'name')\""}
 "use strict";
 function Person(name) { this.name = name; }
-let ferdinand = Person("Ferdinand"); // forgot new
+let ferdinand = Person("Ferdinand"); // olvidó el new
 // → TypeError: Cannot set property 'name' of undefined
 ```
 
-We are immediately told that something is wrong. This is helpful.
+Inmediatamente se nos informa que algo está mal. Esto es útil.
 
-Fortunately, constructors created with the `class` notation will always complain if they are called without `new`, making this less of a problem even in non-strict mode.
+Afortunadamente, los constructores creados con la notación `class` siempre mostrarán una queja si se llaman sin `new`, lo que hace que esto sea menos problemático incluso en modo no estricto.
 
 {{index parameter, [binding, naming], "with statement"}}
 
-Strict mode does a few more things. It disallows giving a function multiple parameters with the same name and removes certain problematic language features entirely (such as the `with` statement, which is so wrong it is not further discussed in this book).
+El modo estricto hace algunas cosas más. Prohíbe darle a una función múltiples parámetros con el mismo nombre y elimina ciertas características problemáticas del lenguaje por completo (como la declaración `with`, que es tan incorrecta que no se discute más en este libro).
 
 {{index debugging}}
 
-In short, putting `"use strict"` at the top of your program rarely hurts and might help you spot a problem.
+En resumen, colocar `"use strict"` al principio de tu programa rara vez duele y podría ayudarte a identificar un problema.
 
-## Types
+## Tipos
 
-Some languages want to know the types of all your bindings and expressions before even running a program. They will tell you right away when a type is used in an inconsistent way. JavaScript considers types only when actually running the program, and even there often tries to implicitly convert values to the type it expects, so it's not much help.
+Algunos lenguajes quieren saber los tipos de todos tus enlaces y expresiones antes de ejecutar un programa. Te indicarán de inmediato cuando un tipo se utiliza de manera inconsistente. JavaScript considera los tipos solo cuando realmente se ejecuta el programa, e incluso allí a menudo intenta convertir valores implícitamente al tipo que espera, por lo que no es de mucha ayuda.
 
-Still, types provide a useful framework for talking about programs. A lot of mistakes come from being confused about the kind of value that goes into or comes out of a function. If you have that information written down, you're less likely to get confused.
-
-You could add a comment like the following before the `findRoute` function from the previous chapter to describe its type:
+No obstante, los tipos proporcionan un marco útil para hablar sobre programas. Muchos errores provienen de estar confundido acerca del tipo de valor que entra o sale de una función. Si tienes esa información escrita, es menos probable que te confundas.Podrías agregar un comentario como el siguiente antes de la función `findRoute` del capítulo anterior para describir su tipo:
 
 ```
 // (graph: Object, from: string, to: string) => string[]
@@ -107,71 +103,69 @@ function findRoute(graph, from, to) {
 }
 ```
 
-There are a number of different conventions for annotating JavaScript programs with types.
+Existen varias convenciones diferentes para anotar programas de JavaScript con tipos.
 
-One thing about types is that they need to introduce their own complexity to be able to describe enough code to be useful. What do you think would be the type of the `randomPick` function that returns a random element from an array? You'd need to introduce a _((type variable))_, _T_, which can stand in for any type, so that you can give `randomPick` a type like `(T[]) → T` (function from an array of *T*s to a *T*).
+Una cosa sobre los tipos es que necesitan introducir su propia complejidad para poder describir suficiente código para ser útiles. ¿Qué tipo crees que tendría la función `randomPick` que devuelve un elemento aleatorio de un array? Necesitarías introducir una _((variable de tipo))_, _T_, que pueda representar cualquier tipo, para que puedas darle a `randomPick` un tipo como `(T[]) → T` (función de un array de *T* a un *T*).
 
-{{index "type checking", TypeScript}}
+{{index "comprobación de tipos", TypeScript}}
 
 {{id typing}}
 
-When the types of a program are known, it is possible for the computer to _check_ them for you, pointing out mistakes before the program is run. There are several JavaScript dialects that add types to the language and check them. The most popular one is called [TypeScript](https://www.typescriptlang.org/). If you are interested in adding more rigor to your programs, I recommend you give it a try.
+Cuando los tipos de un programa son conocidos, es posible que la computadora los _verifique_ por ti, señalando errores antes de que se ejecute el programa. Hay varios dialectos de JavaScript que añaden tipos al lenguaje y los verifican. El más popular se llama [TypeScript](https://www.typescriptlang.org/). Si estás interesado en agregar más rigor a tus programas, te recomiendo que lo pruebes.
 
-In this book, we'll continue using raw, dangerous, untyped JavaScript code.
+En este libro, continuaremos utilizando código JavaScript crudo, peligroso y sin tipos.
 
-## Testing
+## Pruebas
 
-{{index "test suite", "run-time error", automation, testing}}
+{{index "suite de pruebas", "error en tiempo de ejecución", automatización, pruebas}}
 
-If the language is not going to do much to help us find mistakes, we'll have to find them the hard way: by running the program and seeing whether it does the right thing.
+Si el lenguaje no nos va a ayudar mucho a encontrar errores, tendremos que encontrarlos a la antigua: ejecutando el programa y viendo si hace lo correcto.
 
-Doing this by hand, again and again, is a really bad idea. Not only is it annoying, it also tends to be ineffective since it takes too much time to exhaustively test everything every time you make a change.
+Hacer esto manualmente, una y otra vez, es una idea muy mala. No solo es molesto, también tiende a ser ineficaz, ya que lleva demasiado tiempo probar exhaustivamente todo cada vez que haces un cambio.
 
-Computers are good at repetitive tasks, and testing is the ideal repetitive task. Automated testing is the process of writing a program that tests another program. Writing tests is a bit more work than testing manually, but once you've done it, you gain a kind of superpower: it takes you only a few seconds to verify that your program still behaves properly in all the situations you wrote tests for. When you break something, you'll immediately notice, rather than randomly running into it at some later time.
+Las computadoras son buenas en tareas repetitivas, y las pruebas son la tarea repetitiva ideal. Las pruebas automatizadas son el proceso de escribir un programa que prueba otro programa. Es un poco más trabajo escribir pruebas que probar manualmente, pero una vez que lo has hecho, adquieres una especie de superpoder: solo te llevará unos segundos verificar que tu programa siga comportándose correctamente en todas las situaciones para las que escribiste pruebas. Cuando rompes algo, lo notarás de inmediato en lugar de encontrártelo al azar en algún momento posterior.
 
-{{index "toUpperCase method"}}
+{{index "método toUpperCase"}}
 
-Tests usually take the form of little labeled programs that verify some aspect of your code. For example, a set of tests for the (standard, probably already tested by someone else) `toUpperCase` method might look like this:
+Las pruebas suelen tomar la forma de pequeños programas etiquetados que verifican algún aspecto de tu código. Por ejemplo, un conjunto de pruebas para el (probablemente ya probado por alguien más) método `toUpperCase` estándar podría lucir así:
 
 ```
 function test(label, body) {
-  if (!body()) console.log(`Failed: ${label}`);
+  if (!body()) console.log(`Fallo: ${label}`);
 }
 
-test("convert Latin text to uppercase", () => {
+test("convertir texto latino a mayúsculas", () => {
   return "hello".toUpperCase() == "HELLO";
 });
-test("convert Greek text to uppercase", () => {
+test("convertir texto griego a mayúsculas", () => {
   return "Χαίρετε".toUpperCase() == "ΧΑΊΡΕΤΕ";
 });
-test("don't convert case-less characters", () => {
+test("no convertir caracteres sin caso", () => {
   return "مرحبا".toUpperCase() == "مرحبا";
 });
 ```
 
-{{index "domain-specific language"}}
+{{index "lenguaje específico de dominio"}}
 
-Writing tests like this tends to produce rather repetitive, awkward code. Fortunately, there exist pieces of software that help you build and run collections of tests (_((test suites))_) by providing a language (in the form of functions and methods) suited to expressing tests and by outputting informative information when a test fails. These are usually called _((test runners))_.
+Escribir pruebas de esta forma tiende a producir código bastante repetitivo y torpe. Afortunadamente, existen software que te ayudan a construir y ejecutar colecciones de pruebas (_((suites de pruebas))_) al proporcionar un lenguaje (en forma de funciones y métodos) adecuado para expresar pruebas y al producir información informativa cuando una prueba falla. Estos suelen llamarse _((corredores de pruebas))_.{{index "estructura de datos persistente"}}
 
-{{index "persistent data structure"}}
+Alguno código es más fácil de probar que otro código. Generalmente, cuantos más objetos externos interactúan con el código, más difícil es configurar el contexto para probarlo. El estilo de programación mostrado en el [capítulo anterior](robot), que utiliza valores persistentes autocontenidos en lugar de objetos cambiantes, tiende a ser fácil de probar.
 
-Some code is easier to test than other code. Generally, the more external objects that the code interacts with, the harder it is to set up the context in which to test it. The style of programming shown in the [previous chapter](robot), which uses self-contained persistent values rather than changing objects, tends to be easy to test.
-
-## Debugging
+## Depuración
 
 {{index debugging}}
 
-Once you notice there is something wrong with your program because it misbehaves or produces errors, the next step is to figure out _what_ the problem is.
+Una vez que notas que hay algo mal en tu programa porque se comporta de manera incorrecta o produce errores, el siguiente paso es descubrir _cuál_ es el problema.
 
-Sometimes it is obvious. The ((error)) message will point at a specific line of your program, and if you look at the error description and that line of code, you can often see the problem.
+A veces es obvio. El mensaje de ((error)) señalará una línea específica de tu programa, y si miras la descripción del error y esa línea de código, a menudo puedes ver el problema.
 
-{{index "run-time error"}}
+{{index "error en tiempo de ejecución"}}
 
-But not always. Sometimes the line that triggered the problem is simply the first place where a flaky value produced elsewhere gets used in an invalid way. If you have been solving the ((exercises)) in earlier chapters, you will probably have already experienced such situations.
+Pero no siempre. A veces la línea que desencadenó el problema es simplemente el primer lugar donde se utiliza de manera incorrecta un valor defectuoso producido en otro lugar. Si has estado resolviendo los ((ejercicios)) en capítulos anteriores, probablemente ya hayas experimentado estas situaciones.
 
-{{index "decimal number", "binary number"}}
+{{index "número decimal", "número binario"}}
 
-The following example program tries to convert a whole number to a string in a given base (decimal, binary, and so on) by repeatedly picking out the last ((digit)) and then dividing the number to get rid of this digit. But the strange output that it currently produces suggests that it has a ((bug)).
+El siguiente programa de ejemplo intenta convertir un número entero en una cadena en una base dada (decimal, binaria, y así sucesivamente) al seleccionar repetidamente el último ((dígito)) y luego dividir el número para deshacerse de este dígito. Pero la extraña salida que produce actualmente sugiere que tiene un ((error)).
 
 ```
 function numberToString(n, base = 10) {
@@ -192,15 +186,15 @@ console.log(numberToString(13, 10));
 
 {{index analysis}}
 
-Even if you see the problem already, pretend for a moment that you don't. We know that our program is malfunctioning, and we want to find out why.
+Incluso si ya ves el problema, finge por un momento que no lo haces. Sabemos que nuestro programa no funciona correctamente, y queremos descubrir por qué.
 
-{{index "trial and error"}}
+{{index "ensayo y error"}}
 
-This is where you must resist the urge to start making random changes to the code to see whether that makes it better. Instead, _think_. Analyze what is happening and come up with a ((theory)) of why it might be happening. Then, make additional observations to test this theory—or, if you don't yet have a theory, make additional observations to help you come up with one.
+Aquí es donde debes resistir la tentación de empezar a hacer cambios aleatorios en el código para ver si eso lo mejora. En cambio, _piensa_. Analiza lo que está sucediendo y elabora una ((teoría)) sobre por qué podría estar ocurriendo. Luego, realiza observaciones adicionales para probar esta teoría, o si aún no tienes una teoría, realiza observaciones adicionales para ayudarte a crear una.
 
-{{index "console.log", output, debugging, logging}}
+{{index "console.log", salida, depuración, registro}}
 
-Putting a few strategic `console.log` calls into the program is a good way to get additional information about what the program is doing. In this case, we want `n` to take the values `13`, `1`, and then `0`. Let's write out its value at the start of the loop.
+Colocar algunas llamadas `console.log` estratégicas en el programa es una buena manera de obtener información adicional sobre lo que está haciendo el programa. En este caso, queremos que `n` tome los valores `13`, `1` y luego `0`. Vamos a escribir su valor al inicio del ciclo.
 
 ```{lang: null}
 13
@@ -213,77 +207,73 @@ Putting a few strategic `console.log` calls into the program is a good way to ge
 
 {{index rounding}}
 
-_Right_. Dividing 13 by 10 does not produce a whole number. Instead of `n /= base`, what we actually want is `n = Math.floor(n / base)` so that the number is properly "shifted" to the right.
+_Correcto_. Al dividir 13 por 10 no se produce un número entero. En lugar de `n /= base`, lo que realmente queremos es `n = Math.floor(n / base)` para que el número se "desplace" correctamente hacia la derecha.
 
-{{index "JavaScript console", "debugger statement"}}
+{{index "consola de JavaScript", "sentencia de depuración"}}
 
-An alternative to using `console.log` to peek into the program's behavior is to use the _debugger_ capabilities of your browser. Browsers come with the ability to set a _((breakpoint))_ on a specific line of your code. When the execution of the program reaches a line with a breakpoint, it is paused, and you can inspect the values of bindings at that point. I won't go into details, as debuggers differ from browser to browser, but look in your browser's ((developer tools)) or search the Web for instructions.
+Una alternativa a usar `console.log` para observar el comportamiento del programa es utilizar las capacidades del _depurador_ de tu navegador. Los navegadores vienen con la capacidad de establecer un _((punto de interrupción))_ en una línea específica de tu código. Cuando la ejecución del programa llega a una línea con un punto de interrupción, se pausa y puedes inspeccionar los valores de las asignaciones en ese punto. No entraré en detalles, ya que los depuradores difieren de un navegador a otro, pero busca en las ((herramientas de desarrollo)) de tu navegador o busca instrucciones en la Web.Otra forma de establecer un punto de interrupción es incluir una instrucción `debugger` (consistente únicamente en esa palabra clave) en tu programa. Si las herramientas de ((desarrollo)) de tu navegador están activas, el programa se pausará cada vez que alcance dicha instrucción.
 
-Another way to set a breakpoint is to include a `debugger` statement (consisting of simply that keyword) in your program. If the ((developer tools)) of your browser are active, the program will pause whenever it reaches such a statement.
+## Propagación de errores
 
-## Error propagation
+{{index entrada, salida, "error en tiempo de ejecución", error, validación}}
 
-{{index input, output, "run-time error", error, validation}}
+Lamentablemente, no todos los problemas pueden ser prevenidos por el programador. Si tu programa se comunica de alguna manera con el mundo exterior, es posible recibir entradas malformadas, sobrecargarse de trabajo o que falle la red.
 
-Not all problems can be prevented by the programmer, unfortunately. If your program communicates with the outside world in any way, it is possible to get malformed input, to become overloaded with work, or to have the network fail.
+{{index "recuperación de errores"}}
 
-{{index "error recovery"}}
+Si estás programando solo para ti, puedes permitirte simplemente ignorar esos problemas hasta que ocurran. Pero si estás construyendo algo que será utilizado por alguien más, generalmente quieres que el programa haga algo más que simplemente colapsar. A veces lo correcto es aceptar la entrada incorrecta y continuar ejecutándose. En otros casos, es mejor informar al usuario sobre lo que salió mal y luego rendirse. Pero en cualquier situación, el programa debe hacer algo activamente en respuesta al problema.
 
-If you're programming only for yourself, you can afford to just ignore such problems until they occur. But if you build something that is going to be used by anybody else, you usually want the program to do better than just crash. Sometimes the right thing to do is take the bad input in stride and continue running. In other cases, it is better to report to the user what went wrong and then give up. But in either situation, the program has to actively do something in response to the problem.
+{{index "función promptNumber", validación}}
 
-{{index "promptNumber function", validation}}
+Imaginemos que tienes una función `promptNumber` que solicita al usuario un número y lo retorna. ¿Qué debería retornar si el usuario ingresa "naranja"?
 
-Say you have a function `promptNumber` that asks the user for a number and returns it. What should it return if the user inputs "orange"?
+{{index null, undefined, "valor de retorno", "valor de retorno especial"}}
 
-{{index null, undefined, "return value", "special return value"}}
-
-One option is to make it return a special value. Common choices for such values are `null`, `undefined`, or -1.
+Una opción es hacer que retorne un valor especial. Las opciones comunes para tales valores son `null`, `undefined` o -1.
 
 ```{test: no}
-function promptNumber(question) {
-  let result = Number(prompt(question));
-  if (Number.isNaN(result)) return null;
-  else return result;
+function promptNumber(pregunta) {
+  let resultado = Number(prompt(pregunta));
+  if (Number.isNaN(resultado)) return null;
+  else return resultado;
 }
 
-console.log(promptNumber("How many trees do you see?"));
+console.log(promptNumber("¿Cuántos árboles ves?"));
 ```
 
-Now any code that calls `promptNumber` must check whether an actual number was read and, failing that, must somehow recover—maybe by asking again or by filling in a default value. Or it could again return a special value to _its_ caller to indicate that it failed to do what it was asked.
+Ahora, cualquier código que llame a `promptNumber` debe verificar si se leyó un número real y, de no ser así, debe recuperarse de alguna manera, quizás volviendo a preguntar o completando con un valor predeterminado. O podría retornar nuevamente un valor especial a su llamante para indicar que no pudo hacer lo que se le pidió.
 
-{{index "error handling"}}
+{{index "manejo de errores"}}
 
-In many situations, mostly when ((error))s are common and the caller should be explicitly taking them into account, returning a special value is a good way to indicate an error. It does, however, have its downsides. First, what if the function can already return every possible kind of value? In such a function, you'll have to do something like wrap the result in an object to be able to distinguish success from failure, the way the `next` method on the iterator interface does.
+En muchas situaciones, sobre todo cuando los ((errores)) son comunes y el llamante debería tomarlos explícitamente en cuenta, retornar un valor especial es una buena manera de indicar un error. Sin embargo, tiene sus inconvenientes. Primero, ¿qué pasa si la función ya puede devolver todos los tipos posibles de valores? En tal función, tendrás que hacer algo como envolver el resultado en un objeto para poder distinguir el éxito del fracaso, de la misma manera que lo hace el método `next` en la interfaz del iterador.
 
 ```
-function lastElement(array) {
-  if (array.length == 0) {
-    return {failed: true};
+function lastElement(arreglo) {
+  if (arreglo.length == 0) {
+    return {falló: true};
   } else {
-    return {value: array[array.length - 1]};
+    return {valor: arreglo[arreglo.length - 1]};
   }
 }
 ```
 
-{{index "special return value", readability}}
+{{index "valor de retorno especial", legibilidad}}
 
-The second issue with returning special values is that it can lead to awkward code. If a piece of code calls `promptNumber` 10 times, it has to check 10 times whether `null` was returned. And if its response to finding `null` is to simply return `null` itself, callers of the function will in turn have to check for it, and so on.
+El segundo problema con retornar valores especiales es que puede llevar a un código incómodo. Si un fragmento de código llama a `promptNumber` 10 veces, tendrá que verificar 10 veces si se devolvió `null`. Y si su respuesta al encontrar `null` es simplemente devolver `null` en sí mismo, los llamantes de la función a su vez tendrán que comprobarlo, y así sucesivamente.
 
-## Exceptions
+## Excepciones{{index "manejo de errores"}}
 
-{{index "error handling"}}
+Cuando una función no puede proceder normalmente, lo que a menudo _queremos_ hacer es simplemente detener lo que estamos haciendo e ir directamente a un lugar que sepa cómo manejar el problema. Esto es lo que hace el _((manejo de excepciones))_.
 
-When a function cannot proceed normally, what we would often _like_ to do is just stop what we are doing and immediately jump to a place that knows how to handle the problem. This is what _((exception handling))_ does.
+{{index ["flujo de control", excepciones], "lanzar (excepción)", "palabra clave throw", "pila de llamadas"}}
 
-{{index ["control flow", exceptions], "raising (exception)", "throw keyword", "call stack"}}
+Las excepciones son un mecanismo que hace posible que el código que se encuentra con un problema _lanze_ (o _emita_) una excepción. Una excepción puede ser cualquier valor. Lanzar una se asemeja de alguna manera a un retorno super potenciado de una función: sale no solo de la función actual sino también de sus llamadores, hasta llegar a la primera llamada que inició la ejecución actual. Esto se llama _((desenrollar la pila))_. Puede recordar la pila de llamadas a funciones que se mencionó en el [Capítulo ?](functions#stack). Una excepción recorre esta pila, descartando todos los contextos de llamada que encuentra.
 
-Exceptions are a mechanism that makes it possible for code that runs into a problem to _raise_ (or _throw_) an exception. An exception can be any value. Raising one somewhat resembles a super-charged return from a function: it jumps out of not just the current function but also its callers, all the way down to the first call that started the current execution. This is called _((unwinding the stack))_. You may remember the stack of function calls that was mentioned in [Chapter ?](functions#stack). An exception zooms down this stack, throwing away all the call contexts it encounters.
+{{index "manejo de errores", [sintaxis, declaración], "palabra clave catch"}}
 
-{{index "error handling", [syntax, statement], "catch keyword"}}
+Si las excepciones siempre fueran directamente hasta el final de la pila, no serían de mucha utilidad. Simplemente proporcionarían una forma novedosa de hacer que su programa falle. Su poder radica en el hecho de que puede colocar "obstáculos" a lo largo de la pila para _capturar_ la excepción mientras viaja hacia abajo. Una vez que ha capturado una excepción, puede hacer algo con ella para resolver el problema y luego continuar ejecutando el programa.
 
-If exceptions always zoomed right down to the bottom of the stack, they would not be of much use. They'd just provide a novel way to blow up your program. Their power lies in the fact that you can set "obstacles" along the stack to _catch_ the exception as it is zooming down. Once you've caught an exception, you can do something with it to address the problem and then continue to run the program.
-
-Here's an example:
+Aquí tienes un ejemplo:
 
 {{id look}}
 ```
@@ -291,49 +281,47 @@ function promptDirection(question) {
   let result = prompt(question);
   if (result.toLowerCase() == "left") return "L";
   if (result.toLowerCase() == "right") return "R";
-  throw new Error("Invalid direction: " + result);
+  throw new Error("Dirección inválida: " + result);
 }
 
 function look() {
-  if (promptDirection("Which way?") == "L") {
-    return "a house";
+  if (promptDirection("¿Hacia dónde?") == "L") {
+    return "una casa";
   } else {
-    return "two angry bears";
+    return "dos osos enojados";
   }
 }
 
 try {
-  console.log("You see", look());
+  console.log("Ves", look());
 } catch (error) {
-  console.log("Something went wrong: " + error);
+  console.log("Algo salió mal: " + error);
 }
 ```
 
-{{index "exception handling", block, "throw keyword", "try keyword", "catch keyword"}}
+{{index "manejo de excepciones", bloque, "palabra clave throw", "palabra clave try", "palabra clave catch"}}
 
-The `throw` keyword is used to raise an exception. Catching one is done by wrapping a piece of code in a `try` block, followed by the keyword `catch`. When the code in the `try` block causes an exception to be raised, the `catch` block is evaluated, with the name in parentheses bound to the exception value. After the `catch` block finishes—or if the `try` block finishes without problems—the program proceeds beneath the entire `try/catch` statement.
+La palabra clave `throw` se utiliza para lanzar una excepción. La captura de una excepción se realiza envolviendo un trozo de código en un bloque `try`, seguido de la palabra clave `catch`. Cuando el código en el bloque `try` provoca que se lance una excepción, se evalúa el bloque `catch`, con el nombre entre paréntesis vinculado al valor de la excepción. Después de que el bloque `catch` finalice, o si el bloque `try` finaliza sin problemas, el programa continúa debajo de toda la instrucción `try/catch`.
 
-{{index debugging, "call stack", "Error type"}}
+{{index depuración, "pila de llamadas", "Tipo de error"}}
 
-In this case, we used the `Error` ((constructor)) to create our exception value. This is a ((standard)) JavaScript constructor that creates an object with a `message` property. Instances of `Error` also gather information about the call stack that existed when the exception was created, a so-called _((stack trace))_. This information is stored in the `stack` property and can be helpful when trying to debug a problem: it tells us the function where the problem occurred and which functions made the failing call.
+En este caso, utilizamos el ((constructor)) `Error` para crear nuestro valor de excepción. Este es un constructor de JavaScript ((estándar)) que crea un objeto con una propiedad `message`. Las instancias de `Error` también recopilan información sobre la pila de llamadas que existía cuando se creó la excepción, una llamada _((traza de pila))_. Esta información se almacena en la propiedad `stack` y puede ser útil al intentar depurar un problema: nos indica la función donde ocurrió el problema y qué funciones realizaron la llamada fallida.{{index "manejo de excepciones"}}
 
-{{index "exception handling"}}
+Ten en cuenta que la función `look` ignora por completo la posibilidad de que `promptDirection` pueda fallar. Esta es la gran ventaja de las excepciones: el código de manejo de errores solo es necesario en el punto donde ocurre el error y en el punto donde se maneja. Las funciones intermedias pueden olvidarse por completo de ello.
 
-Note that the `look` function completely ignores the possibility that `promptDirection` might go wrong. This is the big advantage of exceptions: error-handling code is necessary only at the point where the error occurs and at the point where it is handled. The functions in between can forget all about it.
+Bueno, casi...
 
-Well, almost...
+## Limpiando después de excepciones
 
-## Cleaning up after exceptions
+{{index "manejo de excepciones", "limpieza", ["flujo de control", excepciones]}}
 
-{{index "exception handling", "cleaning up", ["control flow", exceptions]}}
+El efecto de una excepción es otro tipo de flujo de control. Cada acción que pueda causar una excepción, que es prácticamente cada llamada a función y acceso a propiedad, puede hacer que el control salga repentinamente de tu código.
 
-The effect of an exception is another kind of control flow. Every action that might cause an exception, which is pretty much every function call and property access, might cause control to suddenly leave your code.
+Esto significa que cuando el código tiene varios efectos secundarios, incluso si su flujo de control "regular" parece que siempre ocurrirán todos, una excepción podría evitar que algunos de ellos sucedan.
 
-This means when code has several side effects, even if its "regular" control flow looks like they'll always all happen, an exception might prevent some of them from taking place.
+{{index "ejemplo de banco"}}
 
-{{index "banking example"}}
-
-Here is some really bad banking code.
+Aquí tienes un código bancario realmente malo.
 
 ```{includeCode: true}
 const accounts = {
@@ -343,9 +331,9 @@ const accounts = {
 };
 
 function getAccount() {
-  let accountName = prompt("Enter an account name");
+  let accountName = prompt("Ingresa el nombre de una cuenta");
   if (!Object.hasOwn(accounts, accountName)) {
-    throw new Error(`No such account: ${accountName}`);
+    throw new Error(`No existe esa cuenta: ${accountName}`);
   }
   return accountName;
 }
@@ -357,17 +345,17 @@ function transfer(from, amount) {
 }
 ```
 
-The `transfer` function transfers a sum of money from a given account to another, asking for the name of the other account in the process. If given an invalid account name, `getAccount` throws an exception.
+La función `transfer` transfiere una suma de dinero desde una cuenta dada a otra, pidiendo el nombre de la otra cuenta en el proceso. Si se proporciona un nombre de cuenta inválido, `getAccount` lanza una excepción.
 
-But `transfer` _first_ removes the money from the account and _then_ calls `getAccount` before it adds it to another account. If it is broken off by an exception at that point, it'll just make the money disappear.
+Pero `transfer` _primero_ retira el dinero de la cuenta y _luego_ llama a `getAccount` antes de agregarlo a otra cuenta. Si se interrumpe por una excepción en ese momento, simplemente hará desaparecer el dinero.
 
-That code could have been written a little more intelligently, for example by calling `getAccount` before it starts moving money around. But often problems like this occur in more subtle ways. Even functions that don't look like they will throw an exception might do so in exceptional circumstances or when they contain a programmer mistake.
+Ese código podría haber sido escrito de manera un poco más inteligente, por ejemplo, llamando a `getAccount` antes de comenzar a mover el dinero. Pero a menudo los problemas como este ocurren de formas más sutiles. Incluso las funciones que no parecen que lanzarán una excepción podrían hacerlo en circunstancias excepcionales o cuando contienen un error del programador.
 
-One way to address this is to use fewer side effects. Again, a programming style that computes new values instead of changing existing data helps. If a piece of code stops running in the middle of creating a new value, no existing data structures were damaged, making it easier to recover.
+Una manera de abordar esto es utilizar menos efectos secundarios. Nuevamente, un estilo de programación que calcule nuevos valores en lugar de cambiar datos existentes ayuda. Si un fragmento de código deja de ejecutarse en medio de la creación de un nuevo valor, no se dañaron estructuras de datos existentes, lo que facilita la recuperación.
 
-{{index block, "try keyword", "finally keyword"}}
+{{index block, "palabra clave try", "palabra clave finally"}}
 
-But that isn't always practical. So there is another feature that `try` statements have. They may be followed by a `finally` block either instead of or in addition to a `catch` block. A `finally` block says "no matter _what_ happens, run this code after trying to run the code in the `try` block."
+Pero eso no siempre es práctico. Por eso existe otra característica que tienen las instrucciones `try`. Pueden estar seguidas de un bloque `finally` en lugar o además de un bloque `catch`. Un bloque `finally` dice "sin importar _qué_ suceda, ejecuta este código después de intentar ejecutar el código en el bloque `try`."
 
 ```{includeCode: true}
 function transfer(from, amount) {
@@ -384,102 +372,98 @@ function transfer(from, amount) {
     }
   }
 }
-```
+```Esta versión de la función rastrea su progreso y, si al salir nota que fue abortada en un punto donde había creado un estado del programa inconsistente, repara el daño causado. 
 
-This version of the function tracks its progress, and if, when leaving, it notices that it was aborted at a point where it had created an inconsistent program state, it repairs the damage it did.
+Cabe destacar que aunque el código `finally` se ejecuta cuando se lanza una excepción en el bloque `try`, no interfiere con la excepción. Después de que se ejecuta el bloque `finally`, la pila continúa desenrollándose.
 
-Note that even though the `finally` code is run when an exception is thrown in the `try` block, it does not interfere with the exception. After the `finally` block runs, the stack continues unwinding.
+{{index "excepción de seguridad"}}
 
-{{index "exception safety"}}
+Escribir programas que funcionen de manera confiable incluso cuando surgen excepciones en lugares inesperados es difícil. Muchas personas simplemente no se preocupan, y debido a que las excepciones suelen reservarse para circunstancias excepcionales, el problema puede ocurrir tan raramente que ni siquiera se note. Si eso es algo bueno o realmente malo depende de cuánto daño causará el software cuando falle.
 
-Writing programs that operate reliably even when exceptions pop up in unexpected places is hard. Many people simply don't bother, and because exceptions are typically reserved for exceptional circumstances, the problem may occur so rarely that it is never even noticed. Whether that is a good thing or a really bad thing depends on how much damage the software will do when it fails.
+## Captura selectiva
 
-## Selective catching
+{{index "excepción no capturada", "manejo de excepciones", "consola de JavaScript", "herramientas para desarrolladores", "pila de llamadas", error}}
 
-{{index "uncaught exception", "exception handling", "JavaScript console", "developer tools", "call stack", error}}
+Cuando una excepción llega hasta el final de la pila sin ser capturada, es manejada por el entorno. Lo que esto significa difiere según los entornos. En los navegadores, generalmente se escribe una descripción del error en la consola de JavaScript (accesible a través del menú Herramientas o Desarrollador del navegador). Node.js, el entorno de JavaScript sin navegador del que hablaremos en [Capítulo ?](node), es más cuidadoso con la corrupción de datos. Abortará todo el proceso cuando ocurra una excepción no manejada.
 
-When an exception makes it all the way to the bottom of the stack without being caught, it gets handled by the environment. What this means differs between environments. In browsers, a description of the error typically gets written to the JavaScript console (reachable through the browser's Tools or Developer menu). Node.js, the browserless JavaScript environment we will discuss in [Chapter ?](node), is more careful about data corruption. It aborts the whole process when an unhandled exception occurs.
+{{index crash, "manejo de errores"}}
 
-{{index crash, "error handling"}}
+Para errores de programación, a menudo dejar que el error siga su curso es lo mejor que se puede hacer. Una excepción no manejada es una forma razonable de señalar un programa defectuoso, y la consola de JavaScript proporcionará, en navegadores modernos, información sobre qué llamadas a funciones estaban en la pila cuando ocurrió el problema.
 
-For programmer mistakes, just letting the error go through is often the best you can do. An unhandled exception is a reasonable way to signal a broken program, and the JavaScript console will, on modern browsers, provide you with some information about which function calls were on the stack when the problem occurred.
+{{index "interfaz de usuario"}}
 
-{{index "user interface"}}
+Para problemas que se _espera_ que ocurran durante el uso rutinario, fallar con una excepción no manejada es una estrategia terrible.
 
-For problems that are _expected_ to happen during routine use, crashing with an unhandled exception is a terrible strategy.
+{{index [función, aplicación], "manejo de excepciones", "tipo de error", [enlace, indefinido]}}
 
-{{index [function, application], "exception handling", "Error type", [binding, undefined]}}
+Usos incorrectos del lenguaje, como hacer referencia a un enlace inexistente, buscar una propiedad en `null` o llamar a algo que no es una función, también provocarán que se lancen excepciones. Estas excepciones también pueden ser capturadas.
 
-Invalid uses of the language, such as referencing a nonexistent binding, looking up a property on `null`, or calling something that's not a function, will also result in exceptions being raised. Such exceptions can also be caught.
+{{index "palabra clave catch"}}
 
-{{index "catch keyword"}}
+Cuando se entra en un cuerpo `catch`, todo lo que sabemos es que _algo_ en nuestro cuerpo `try` causó una excepción. Pero no sabemos _qué_ lo hizo ni _qué_ excepción causó.
 
-When a `catch` body is entered, all we know is that _something_ in our `try` body caused an exception. But we don't know _what_ did or _which_ exception it caused.
+{{index "manejo de excepciones"}}
 
-{{index "exception handling"}}
+JavaScript (en una omisión bastante llamativa) no proporciona un soporte directo para capturar excepciones selectivamente: o las capturas todas o no capturas ninguna. Esto hace que sea tentador _asumir_ que la excepción que obtienes es la que tenías en mente cuando escribiste el bloque `catch`.
 
-JavaScript (in a rather glaring omission) doesn't provide direct support for selectively catching exceptions: either you catch them all or you don't catch any. This makes it tempting to _assume_ that the exception you get is the one you were thinking about when you wrote the `catch` block.
+{{index "función promptDirection"}}
 
-{{index "promptDirection function"}}
-
-But it might not be. Some other ((assumption)) might be violated, or you might have introduced a bug that is causing an exception. Here is an example that _attempts_ to keep on calling `promptDirection` until it gets a valid answer:
-
-```{test: no}
+Pero podría no serlo. Alguno otra ((asunción)) podría estar violada, o podrías haber introducido un error que está causando una excepción. Aquí tienes un ejemplo que _intenta_ seguir llamando a `promptDirection` hasta obtener una respuesta válida:```{test: no}
 for (;;) {
   try {
-    let dir = promtDirection("Where?"); // ← typo!
-    console.log("You chose ", dir);
+    let dir = promptDirection("¿Dónde?"); // ← ¡Error de tipeo!
+    console.log("Elegiste ", dir);
     break;
   } catch (e) {
-    console.log("Not a valid direction. Try again.");
+    console.log("Dirección no válida. Inténtalo de nuevo.");
   }
 }
 ```
 
-{{index "infinite loop", "for loop", "catch keyword", debugging}}
+{{index "bucle infinito", "bucle for", "palabra clave catch", depuración}}
 
-The `for (;;)` construct is a way to intentionally create a loop that doesn't terminate on its own. We break out of the loop only when a valid direction is given. _But_ we misspelled `promptDirection`, which will result in an "undefined variable" error. Because the `catch` block completely ignores its exception value (`e`), assuming it knows what the problem is, it wrongly treats the binding error as indicating bad input. Not only does this cause an infinite loop, it  "buries" the useful error message about the misspelled binding.
+La construcción `for (;;)` es una forma de crear intencionalmente un bucle que no se termina por sí mismo. Salimos del bucle solo cuando se proporciona una dirección válida. _Pero_ escribimos mal `promptDirection`, lo que resultará en un error de "variable no definida". Debido a que el bloque `catch` ignora por completo el valor de la excepción (`e`), asumiendo que sabe cuál es el problema, trata erróneamente el error de enlace mal escrito como indicativo de una entrada incorrecta. Esto no solo causa un bucle infinito, sino que también "entorpece" el útil mensaje de error sobre el enlace mal escrito.
 
-As a general rule, don't blanket-catch exceptions unless it is for the purpose of "routing" them somewhere—for example, over the network to tell another system that our program crashed. And even then, think carefully about how you might be hiding information.
+Como regla general, no captures excepciones de manera general a menos que sea con el propósito de "enviarlas" a algún lugar, por ejemplo, a través de la red para informar a otro sistema que nuestro programa se bloqueó. E incluso en ese caso, piensa cuidadosamente cómo podrías estar ocultando información.
 
-{{index "exception handling"}}
+{{index "manejo de excepciones"}}
 
-So we want to catch a _specific_ kind of exception. We can do this by checking in the `catch` block whether the exception we got is the one we are interested in and rethrowing it otherwise. But how do we recognize an exception?
+Por lo tanto, queremos capturar un tipo _específico_ de excepción. Podemos hacer esto verificando en el bloque `catch` si la excepción que recibimos es la que nos interesa y relanzándola en caso contrario. Pero, ¿cómo reconocemos una excepción?
 
-We could compare its `message` property against the ((error)) message we happen to expect. But that's a shaky way to write code—we'd be using information that's intended for human consumption (the message) to make a programmatic decision. As soon as someone changes (or translates) the message, the code will stop working.
+Podríamos comparar su propiedad `message` con el mensaje que esperamos ((error)). Pero esta es una forma poco confiable de escribir código, estaríamos utilizando información diseñada para consumo humano (el mensaje) para tomar una decisión programática. Tan pronto como alguien cambie (o traduzca) el mensaje, el código dejará de funcionar.
 
-{{index "Error type", "instanceof operator", "promptDirection function"}}
+{{index "tipo de Error", "operador instanceof", "función promptDirection"}}
 
-Rather, let's define a new type of error and use `instanceof` to identify it.
+En lugar de eso, definamos un nuevo tipo de error y usemos `instanceof` para identificarlo.
 
 ```{includeCode: true}
 class InputError extends Error {}
 
 function promptDirection(question) {
   let result = prompt(question);
-  if (result.toLowerCase() == "left") return "L";
-  if (result.toLowerCase() == "right") return "R";
-  throw new InputError("Invalid direction: " + result);
+  if (result.toLowerCase() == "izquierda") return "I";
+  if (result.toLowerCase() == "derecha") return "D";
+  throw new InputError("Dirección no válida: " + result);
 }
 ```
 
-{{index "throw keyword", inheritance}}
+{{index "palabra clave throw", herencia}}
 
-The new error class extends `Error`. It doesn't define its own constructor, which means that it inherits the `Error` constructor, which expects a string message as argument. In fact, it doesn't define anything at all—the class is empty. `InputError` objects behave like `Error` objects, except that they have a different class by which we can recognize them.
+La nueva clase de error extiende `Error`. No define su propio constructor, lo que significa que hereda el constructor de `Error`, que espera un mensaje de cadena como argumento. De hecho, no define nada en absoluto, la clase está vacía. Los objetos `InputError` se comportan como objetos `Error`, excepto que tienen una clase diferente mediante la cual podemos reconocerlos.
 
-{{index "exception handling"}}
+{{index "manejo de excepciones"}}
 
-Now the loop can catch these more carefully.
+Ahora el bucle puede capturar esto con más cuidado.
 
 ```{test: no}
 for (;;) {
   try {
-    let dir = promptDirection("Where?");
-    console.log("You chose ", dir);
+    let dir = promptDirection("¿Dónde?");
+    console.log("Elegiste ", dir);
     break;
   } catch (e) {
     if (e instanceof InputError) {
-      console.log("Not a valid direction. Try again.");
+      console.log("Dirección no válida. Inténtalo de nuevo.");
     } else {
       throw e;
     }
@@ -487,52 +471,50 @@ for (;;) {
 }
 ```
 
-{{index debugging}}
+{{index depuración}}
 
-This will catch only instances of `InputError` and let unrelated exceptions through. If you reintroduce the typo, the undefined binding error will be properly reported.
+Esto capturará solo instancias de `InputError` y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.## Afirmaciones
 
-## Assertions
+{{index "función assert", afirmación, depuración}}
 
-{{index "assert function", assertion, debugging}}
+Las _afirmaciones_ son verificaciones dentro de un programa que aseguran que algo es como se supone que debe ser. Se utilizan no para manejar situaciones que pueden surgir en la operación normal, sino para encontrar errores de programación.
 
-_Assertions_ are checks inside a program that verify that something is the way it is supposed to be. They are used not to handle situations that can come up in normal operation but to find programmer mistakes.
-
-If, for example, `firstElement` is described as a function that should never be called on empty arrays, we might write it like this:
+Si, por ejemplo, se describe `primerElemento` como una función que nunca debería ser llamada en arrays vacíos, podríamos escribirla de la siguiente manera:
 
 ```
-function firstElement(array) {
+function primerElemento(array) {
   if (array.length == 0) {
-    throw new Error("firstElement called with []");
+    throw new Error("primerElemento llamado con []");
   }
   return array[0];
 }
 ```
 
-{{index validation, "run-time error", crash, assumption}}
+{{index validación, "error en tiempo de ejecución", fallo, suposición}}
 
-Now, instead of silently returning undefined (which you get when reading an array property that does not exist), this will loudly blow up your program as soon as you misuse it. This makes it less likely for such mistakes to go unnoticed and easier to find their cause when they occur.
+Ahora, en lugar de devolver silenciosamente `undefined` (que es lo que obtienes al leer una propiedad de un array que no existe), esto hará que tu programa falle ruidosamente tan pronto como lo uses incorrectamente. Esto hace que sea menos probable que tales errores pasen desapercibidos y más fácil encontrar su causa cuando ocurran.
 
-I do not recommend trying to write assertions for every possible kind of bad input. That'd be a lot of work and would lead to very noisy code. You'll want to reserve them for mistakes that are easy to make (or that you find yourself making).
+No recomiendo intentar escribir afirmaciones para cada tipo de entrada incorrecta posible. Eso sería mucho trabajo y llevaría a un código muy ruidoso. Querrás reservarlas para errores que son fáciles de cometer (o que te encuentres cometiendo).
 
-## Summary
+## Resumen
 
-An important part of programming is finding, diagnosing, and fixing bugs. Problems can become easier to notice if you have an automated test suite or add assertions to your programs.
+Una parte importante de programar es encontrar, diagnosticar y corregir errores. Los problemas pueden ser más fáciles de notar si tienes un conjunto de pruebas automatizadas o agregas afirmaciones a tus programas.
 
-Problems caused by factors outside the program's control should usually be actively planned for. Sometimes, when the problem can be handled locally, special return values are a good way to track them. Otherwise, exceptions may be preferable.
+Los problemas causados por factores fuera del control del programa generalmente deberían ser planificados activamente. A veces, cuando el problema puede ser manejado localmente, los valores de retorno especiales son una buena forma de rastrearlos. De lo contrario, las excepciones pueden ser preferibles.
 
-Throwing an exception causes the call stack to be unwound until the next enclosing `try/catch` block or until the bottom of the stack. The exception value will be given to the `catch` block that catches it, which should verify that it is actually the expected kind of exception and then do something with it. To help address the unpredictable control flow caused by exceptions, `finally` blocks can be used to ensure that a piece of code _always_ runs when a block finishes.
+Lanzar una excepción provoca que la pila de llamadas se desenrolle hasta el próximo bloque `try/catch` envolvente o hasta la base de la pila. El valor de la excepción será entregado al bloque `catch` que la captura, el cual debe verificar que sea realmente el tipo de excepción esperado y luego hacer algo con él. Para ayudar a abordar el flujo de control impredecible causado por las excepciones, se pueden utilizar bloques `finally` para asegurar que un trozo de código se ejecute _siempre_ cuando un bloque termina.
 
-## Exercises
+## Ejercicios
 
-### Retry
+### Reintentar
 
-{{index "primitiveMultiply (exercise)", "exception handling", "throw keyword"}}
+{{index "primitiveMultiply (exercise)", "manejo de excepciones", "palabra clave throw"}}
 
-Say you have a function `primitiveMultiply` that in 20 percent of cases multiplies two numbers and in the other 80 percent of cases raises an exception of type `MultiplicatorUnitFailure`. Write a function that wraps this clunky function and just keeps trying until a call succeeds, after which it returns the result.
+Imagina que tienes una función `primitiveMultiply` que en el 20 por ciento de los casos multiplica dos números y en el otro 80 por ciento arroja una excepción del tipo `MultiplicatorUnitFailure`. Escribe una función que envuelva esta función problemática y siga intentando hasta que una llamada tenga éxito, momento en el que devuelva el resultado.
 
-{{index "catch keyword"}}
+{{index "palabra clave catch"}}
 
-Make sure you handle only the exceptions you are trying to handle.
+Asegúrate de manejar solo las excepciones que estás intentando manejar.
 
 {{if interactive
 
@@ -548,7 +530,7 @@ function primitiveMultiply(a, b) {
 }
 
 function reliableMultiply(a, b) {
-  // Your code here.
+  // Tu código aquí.
 }
 
 console.log(reliableMultiply(8, 8));
@@ -558,19 +540,15 @@ if}}
 
 {{hint
 
-{{index "primitiveMultiply (exercise)", "try keyword", "catch keyword", "throw keyword"}}
+{{index "primitiveMultiply (exercise)", "palabra clave try", "palabra clave catch", "palabra clave throw"}}La llamada a `primitiveMultiply` definitivamente debería ocurrir en un bloque `try`. El bloque `catch` correspondiente debería relanzar la excepción cuando no sea una instancia de `MultiplicatorUnitFailure` y asegurarse de que la llamada se reintente cuando lo sea.
 
-The call to `primitiveMultiply` should definitely happen in a `try` block. The corresponding `catch` block should rethrow the exception when it is not an instance of `MultiplicatorUnitFailure` and ensure the call is retried when it is.
-
-To do the retrying, you can either use a loop that stops only when a call succeeds—as in the [`look` example](error#look) earlier in this chapter—or use ((recursion)) and hope you don't get a string of failures so long that it overflows the stack (which is a pretty safe bet).
+Para hacer el reintentamiento, puedes usar un bucle que se detenga solo cuando una llamada tiene éxito, como en el ejemplo de [`look`](error#look) anterior en este capítulo, o usar la ((recursión)) y esperar que no tengas una cadena tan larga de fallos que colapse la pila (lo cual es bastante improbable).
 
 hint}}
 
-### The locked box
+### La caja cerrada con llave
 
-{{index "locked box (exercise)"}}
-
-Consider the following (rather contrived) object:
+Considera el siguiente objeto (bastante artificial):
 
 ```
 const box = new class {
@@ -580,7 +558,7 @@ const box = new class {
   unlock() { this.locked = false; }
   lock() { this.locked = true;  }
   get content() {
-    if (this.locked) throw new Error("Locked!");
+    if (this.locked) throw new Error("¡Cerrado con llave!");
     return this.#content;
   }
 };
@@ -588,11 +566,11 @@ const box = new class {
 
 {{index "private property", "access control"}}
 
-It is a ((box)) with a lock. There is an array in the box, but you can get at it only when the box is unlocked.
+Es una ((caja)) con una cerradura. Hay un array en la caja, pero solo puedes acceder a él cuando la caja está desbloqueada.
 
 {{index "finally keyword", "exception handling"}}
 
-Write a function called `withBoxUnlocked` that takes a function value as argument, unlocks the box, runs the function, and then ensures that the box is locked again before returning, regardless of whether the argument function returned normally or threw an exception.
+Escribe una función llamada `withBoxUnlocked` que reciba como argumento un valor de función, desbloquee la caja, ejecute la función y luego asegure que la caja esté cerrada de nuevo antes de devolverla, independientemente de si la función de argumento devolvió normalmente o lanzó una excepción.
 
 {{if interactive
 
@@ -630,14 +608,14 @@ console.log(box.locked);
 
 if}}
 
-For extra points, make sure that if you call `withBoxUnlocked` when the box is already unlocked, the box stays unlocked.
+Para puntos adicionales, asegúrate de que si llamas a `withBoxUnlocked` cuando la caja ya está desbloqueada, la caja permanezca desbloqueada.
 
 {{hint
 
 {{index "locked box (exercise)", "finally keyword", "try keyword"}}
 
-This exercise calls for a `finally` block. Your function should first unlock the box and then call the argument function from inside a `try` body. The `finally` block after it should lock the box again.
+En este ejercicio, es posible que desees usar `try` y `finally` juntos. Tu función debería desbloquear la caja y luego llamar a la función de argumento desde dentro de un bloque `try`. El bloque `finally` después de él debería volver a bloquear la caja.
 
-To make sure we don't lock the box when it wasn't already locked, check its lock at the start of the function and unlock and lock it only when it started out locked.
+Para asegurarte de que no bloquees la caja cuando no estaba bloqueada, verifica su bloqueo al comienzo de la función y desbloquéala y bloquéala solo cuando comenzó bloqueada.
 
 hint}}

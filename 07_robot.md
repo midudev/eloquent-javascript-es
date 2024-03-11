@@ -1,28 +1,26 @@
-{{meta {load_files: ["code/chapter/07_robot.js", "code/animatevillage.js"], zip: html}}}
+# Proyecto: Un Robot
 
-# Project: A Robot
+{{quote {author: "Edsger Dijkstra", title: "Las amenazas a la ciencia informática", chapter: true}
 
-{{quote {author: "Edsger Dijkstra", title: "The Threats to Computing Science", chapter: true}
-
-[...] the question of whether Machines Can Think [...] is about as relevant as the question of whether Submarines Can Swim.
+[...] la pregunta de si las Máquinas Pueden Pensar [...] es tan relevante como la pregunta de si los Submarinos Pueden Nadar.
 
 quote}}
 
-{{index "artificial intelligence", "Dijkstra, Edsger"}}
+{{index "inteligencia artificial", "Dijkstra, Edsger"}}
 
-{{figure {url: "img/chapter_picture_7.jpg", alt: "Illustration of a robot holding a stack of packages", chapter: framed}}}
+{{figure {url: "img/chapter_picture_7.jpg", alt: "Ilustración de un robot sosteniendo una pila de paquetes", chapter: framed}}
 
-{{index "project chapter", "reading code", "writing code"}}
+{{index "capítulo del proyecto", "leyendo código", "escribiendo código"}}
 
-In "project" chapters, I'll stop pummeling you with new theory for a brief moment, and instead we'll work through a program together. Theory is necessary to learn to program, but reading and understanding actual programs is just as important.
+En los capítulos del "proyecto", dejaré de golpearte con nueva teoría por un breve momento, y en su lugar trabajaremos en un programa juntos. La teoría es necesaria para aprender a programar, pero leer y entender programas reales es igual de importante.
 
-Our project in this chapter is to build an ((automaton)), a little program that performs a task in a ((virtual world)). Our automaton will be a mail-delivery ((robot)) picking up and dropping off parcels.
+Nuestro proyecto en este capítulo es construir un ((autómata)), un pequeño programa que realiza una tarea en un ((mundo virtual)). Nuestro autómata será un ((robot)) de entrega de correo que recoge y deja paquetes.
 
 ## Meadowfield
 
-{{index "roads array"}}
+{{index "array de carreteras"}}
 
-The village of ((Meadowfield)) isn't very big. It consists of 11 places with 14 roads between them. It can be described with this array of roads:
+El pueblo de ((Meadowfield)) no es muy grande. Consiste en 11 lugares con 14 carreteras entre ellos. Se puede describir con este array de carreteras:
 
 ```{includeCode: true}
 const roads = [
@@ -36,13 +34,13 @@ const roads = [
 ];
 ```
 
-{{figure {url: "img/village2x.png", alt: "Pixel art illustration of a small village with 11 locations, labeled with letters, and roads going being them"}}}
+{{figure {url: "img/village2x.png", alt: "Ilustración de arte pixelado de un pequeño pueblo con 11 ubicaciones, etiquetadas con letras, y carreteras entre ellas"}}}
 
-The network of roads in the village forms a _((graph))_. A graph is a collection of points (places in the village) with lines between them (roads). This graph will be the world that our robot moves through.
+La red de carreteras en el pueblo forma un _((gráfico))_. Un gráfico es una colección de puntos (lugares en el pueblo) con líneas entre ellos (carreteras). Este gráfico será el mundo por el que se moverá nuestro robot.
 
-{{index "roadGraph object"}}
+{{index "objeto roadGraph"}}
 
-The array of strings isn't very easy to work with. What we're interested in is the destinations that we can reach from a given place. Let's convert the list of roads to a data structure that, for each place, tells us what can be reached from there.
+El array de cadenas no es muy fácil de trabajar. Lo que nos interesa son los destinos a los que podemos llegar desde un lugar dado. Vamos a convertir la lista de carreteras en una estructura de datos que, para cada lugar, nos diga qué se puede alcanzar desde allí.
 
 ```{includeCode: true}
 function buildGraph(edges) {
@@ -64,35 +62,35 @@ function buildGraph(edges) {
 const roadGraph = buildGraph(roads);
 ```
 
-Given an array of edges, `buildGraph` creates a map object that, for each node, stores an array of connected nodes.
+Dado un array de aristas, `buildGraph` crea un objeto de mapa que, para cada nodo, almacena un array de nodos conectados.
 
-{{index "split method"}}
+{{index "método split"}}
 
-It uses the `split` method to go from the road strings, which have the form `"Start-End"`, to two-element arrays containing the start and end as separate strings.
+Utiliza el método `split` para pasar de las cadenas de carreteras, que tienen la forma `"Inicio-Fin"`, a arrays de dos elementos que contienen el inicio y el fin como cadenas separadas.
 
-## The task
+## La tarea
 
-Our ((robot)) will be moving around the village. There are parcels in various places, each addressed to some other place. The robot picks up parcels when it comes to them and delivers them when it arrives at their destinations.
+Nuestro ((robot)) se moverá por el pueblo. Hay paquetes en varios lugares, cada uno dirigido a algún otro lugar. El robot recoge los paquetes cuando llega a ellos y los entrega cuando llega a sus destinos.
 
-The automaton must decide, at each point, where to go next. It has finished its task when all parcels have been delivered.
+El autómata debe decidir, en cada punto, hacia dónde ir a continuación. Habrá terminado su tarea cuando todos los paquetes hayan sido entregados.
 
-{{index simulation, "virtual world"}}
+{{index simulación, "mundo virtual"}}
 
-To be able to simulate this process, we must define a virtual world that can describe it. This model tells us where the robot is and where the parcels are. When the robot has decided to move somewhere, we need to update the model to reflect the new situation.
+Para poder simular este proceso, debemos definir un mundo virtual que pueda describirlo. Este modelo nos dice dónde está el robot y dónde están los paquetes. Cuando el robot decide moverse a algún lugar, necesitamos actualizar el modelo para reflejar la nueva situación.
 
-{{index [state, in objects]}}
+{{index [estado, en objetos]}}
 
-If you're thinking in terms of ((object-oriented programming)), your first impulse might be to start defining objects for the various elements in the world: a ((class)) for the robot, one for a parcel, maybe one for places. These could then hold properties that describe their current ((state)), such as the pile of parcels at a location, which we could change when updating the world.
+Si estás pensando en términos de ((programación orientada a objetos)), tu primer impulso podría ser empezar a definir objetos para los diferentes elementos en el mundo: una ((clase)) para el robot, una para un paquete, tal vez una para lugares. Estos podrían tener propiedades que describen su ((estado)) actual, como la pila de paquetes en un lugar, que podríamos cambiar al actualizar el mundo.
 
-This is wrong. At least, it usually is. The fact that something sounds like an object does not automatically mean that it should be an object in your program. Reflexively writing classes for every concept in your application tends to leave you with a collection of interconnected objects that each have their own internal, changing state. Such programs are often hard to understand and thus easy to break.
+Esto es incorrecto. Al menos, usualmente lo es. El hecho de que algo suene como un objeto no significa automáticamente que deba ser un objeto en tu programa. Escribir reflexivamente clases para cada concepto en tu aplicación tiende a dejarte con una colección de objetos interconectados que tienen su propio estado interno cambiable. Estos programas a menudo son difíciles de entender y, por lo tanto, fáciles de romper.
 
-{{index [state, in objects]}}
+{{index [estado, en objetos]}}
 
-Instead, let's condense the village's state down to the minimal set of values that define it. There's the robot's current location and the collection of undelivered parcels, each of which has a current location and a destination address. That's it.
+En lugar de eso, vamos a condensar el estado del pueblo en el conjunto mínimo de valores que lo define. Está la ubicación actual del robot y la colección de paquetes no entregados, cada uno de los cuales tiene una ubicación actual y una dirección de destino. Eso es todo.
 
-{{index "VillageState class", "persistent data structure"}}
+{{index "clase VillageState", "estructura de datos persistente"}}
 
-And while we're at it, let's make it so that we don't _change_ this state when the robot moves but rather compute a _new_ state for the situation after the move.
+Y mientras lo hacemos, hagamos que no _cambiemos_ este estado cuando el robot se mueve, sino que calculemos un _nuevo_ estado para la situación después del movimiento.
 
 ```{includeCode: true}
 class VillageState {
@@ -115,38 +113,38 @@ class VillageState {
 }
 ```
 
-The `move` method is where the action happens. It first checks whether there is a road going from the current place to the destination, and if not, it returns the old state since this is not a valid move.
+El método `move` es donde ocurre la acción. Primero verifica si hay un camino desde el lugar actual hasta el destino, y si no lo hay, devuelve el estado anterior ya que este no es un movimiento válido.
 
-{{index "map method", "filter method"}}
+{{index método "map", método "filter"}} 
 
-Then it creates a new state with the destination as the robot's new place. But it also needs to create a new set of parcels—parcels that the robot is carrying (that are at the robot's current place) need to be moved along to the new place. And parcels that are addressed to the new place need to be delivered—that is, they need to be removed from the set of undelivered parcels. The call to `map` takes care of the moving, and the call to `filter` does the delivering.
+Luego crea un nuevo estado con el destino como el nuevo lugar del robot. Pero también necesita crear un nuevo conjunto de paquetes: los paquetes que lleva el robot (que están en el lugar actual del robot) deben ser trasladados al nuevo lugar. Y los paquetes dirigidos al nuevo lugar deben ser entregados, es decir, deben ser eliminados del conjunto de paquetes no entregados. La llamada a `map` se encarga del traslado y la llamada a `filter` de la entrega.
 
-Parcel objects aren't changed when they are moved but re-created. The `move` method gives us a new village state but leaves the old one entirely intact.
+Los objetos de parcela no se modifican cuando se mueven, sino que se vuelven a crear. El método `move` nos proporciona un nuevo estado de aldea pero deja intacto por completo el anterior.
 
 ```
 let first = new VillageState(
-  "Post Office",
-  [{place: "Post Office", address: "Alice's House"}]
+  "Oficina de Correos",
+  [{place: "Oficina de Correos", address: "Casa de Alice"}]
 );
-let next = first.move("Alice's House");
+let next = first.move("Casa de Alice");
 
 console.log(next.place);
-// → Alice's House
+// → Casa de Alice
 console.log(next.parcels);
 // → []
 console.log(first.place);
-// → Post Office
+// → Oficina de Correos
 ```
 
-The move causes the parcel to be delivered, and this is reflected in the next state. But the initial state still describes the situation where the robot is at the post office and the parcel is undelivered.
+El movimiento hace que la parcela se entregue, y esto se refleja en el siguiente estado. Pero el estado inicial sigue describiendo la situación en la que el robot está en la oficina de correos y la parcela no se ha entregado.
 
-## Persistent data
+## Datos persistentes
 
-{{index "persistent data structure", mutability, ["data structure", immutable]}}
+{{index "estructura de datos persistente", mutabilidad, ["estructura de datos", inmutable]}}
 
-Data structures that don't change are called _((immutable))_ or _persistent_. They behave a lot like strings and numbers in that they are who they are and stay that way, rather than containing different things at different times.
+Las estructuras de datos que no cambian se llaman _((inmutables))_ o _persistentes_. Se comportan de manera similar a las cadenas de texto y los números en el sentido de que son lo que son y se mantienen así, en lugar de contener cosas diferentes en momentos diferentes.
 
-In JavaScript, just about everything _can_ be changed, so working with values that are supposed to be persistent requires some restraint. There is a function called `Object.freeze` that changes an object so that writing to its properties is ignored. You could use that to make sure your objects aren't changed, if you want to be careful. Freezing does require the computer to do some extra work, and having updates ignored is just about as likely to confuse someone as having them do the wrong thing. So I usually prefer to just tell people that a given object shouldn't be messed with and hope they remember it.
+En JavaScript, casi todo _puede_ cambiarse, por lo que trabajar con valores que se supone que son persistentes requiere cierta moderación. Existe una función llamada `Object.freeze` que cambia un objeto para que la escritura en sus propiedades sea ignorada. Podrías usar esto para asegurarte de que tus objetos no se modifiquen, si así lo deseas. Congelar requiere que la computadora realice un trabajo adicional, y que las actualizaciones se ignoren es casi tan propenso a confundir a alguien como hacer que hagan lo incorrecto. Por lo tanto, suelo preferir simplemente decirle a las personas que un objeto dado no debe ser modificado y esperar que lo recuerden.
 
 ```
 let object = Object.freeze({value: 5});
@@ -155,46 +153,44 @@ console.log(object.value);
 // → 5
 ```
 
-Why am I going out of my way to not change objects when the language is obviously expecting me to?
+¿Por qué me estoy esforzando tanto en no cambiar los objetos cuando el lenguaje obviamente espera que lo haga?
 
-Because it helps me understand my programs. This is about complexity management again. When the objects in my system are fixed, stable things, I can consider operations on them in isolation—moving to Alice's house from a given start state always produces the same new state. When objects change over time, that adds a whole new dimension of complexity to this kind of reasoning.
+Porque me ayuda a entender mis programas. Una vez más, esto se trata de gestionar la complejidad. Cuando los objetos en mi sistema son cosas fijas y estables, puedo considerar operaciones sobre ellos de forma aislada: moverse a la casa de Alice desde un estado inicial dado siempre produce el mismo nuevo estado. Cuando los objetos cambian con el tiempo, eso añade toda una nueva dimensión de complejidad a este tipo de razonamiento.
 
-For a small system like the one we are building in this chapter, we could handle that bit of extra complexity. But the most important limit on what kind of systems we can build is how much we can understand. Anything that makes your code easier to understand makes it possible to build a more ambitious system.
+Para un sistema pequeño como el que estamos construyendo en este capítulo, podríamos manejar ese poco de complejidad extra. Pero el límite más importante respecto a qué tipo de sistemas podemos construir es cuánto podemos entender. Cualquier cosa que haga que tu código sea más fácil de entender te permite construir un sistema más ambicioso.
 
-Unfortunately, although understanding a system built on persistent data structures is easier, _designing_ one, especially when your programming language isn't helping, can be a little harder. We'll look for opportunities to use persistent data structures in this book, but we'll also be using changeable ones.
+Desafortunadamente, aunque entender un sistema construido sobre estructuras de datos persistentes es más fácil, _diseñar_ uno, especialmente cuando tu lenguaje de programación no ayuda, puede ser un poco más difícil. Buscaremos oportunidades para usar estructuras de datos persistentes en este libro, pero también usaremos aquellas que pueden cambiar.
 
-## Simulation
+## Simulación
 
-{{index simulation, "virtual world"}}
+{{index simulación, "mundo virtual"}}
 
-A delivery ((robot)) looks at the world and decides in which direction it wants to move. As such, we could say that a robot is a function that takes a `VillageState` object and returns the name of a nearby place.
+Un ((robot)) de entrega observa el mundo y decide en qué dirección quiere moverse. Como tal, podríamos decir que un robot es una función que toma un objeto `VillageState` y devuelve el nombre de un lugar cercano.{{index "función runRobot"}}
 
-{{index "runRobot function"}}
-
-Because we want robots to be able to remember things, so that they can make and execute plans, we also pass them their memory and allow them to return a new memory. Thus, the thing a robot returns is an object containing both the direction it wants to move in and a memory value that will be given back to it the next time it is called.
+Dado que queremos que los robots puedan recordar cosas, para que puedan hacer y ejecutar planes, también les pasamos su memoria y les permitimos devolver una nueva memoria. Por lo tanto, lo que un robot devuelve es un objeto que contiene tanto la dirección en la que quiere moverse como un valor de memoria que se le dará la próxima vez que se llame.
 
 ```{includeCode: true}
 function runRobot(state, robot, memory) {
   for (let turn = 0;; turn++) {
     if (state.parcels.length == 0) {
-      console.log(`Done in ${turn} turns`);
+      console.log(`Terminado en ${turn} turnos`);
       break;
     }
     let action = robot(state, memory);
     state = state.move(action.direction);
     memory = action.memory;
-    console.log(`Moved to ${action.direction}`);
+    console.log(`Movido a ${action.direction}`);
   }
 }
 ```
 
-Consider what a robot has to do to "solve" a given state. It must pick up all parcels by visiting every location that has a parcel and deliver them by visiting every location that a parcel is addressed to, but only after picking up the parcel.
+Consideremos lo que un robot tiene que hacer para "resolver" un estado dado. Debe recoger todos los paquetes visitando cada ubicación que tenga un paquete y entregarlos visitando cada ubicación a la que esté dirigido un paquete, pero solo después de recoger el paquete.
 
-What is the dumbest strategy that could possibly work? The robot could just walk in a random direction every turn. That means, with great likelihood, it will eventually run into all parcels and then also at some point reach the place where they should be delivered.
+¿Cuál es la estrategia más tonta que podría funcionar? El robot podría simplemente caminar en una dirección aleatoria en cada turno. Eso significa que, con gran probabilidad, eventualmente se topará con todos los paquetes y en algún momento también llegará al lugar donde deben ser entregados.
 
-{{index "randomPick function", "randomRobot function"}}
+{{index "función randomPick", "función randomRobot"}}
 
-Here's what that could look like:
+Esto es cómo podría lucir eso: 
 
 ```{includeCode: true}
 function randomPick(array) {
@@ -207,13 +203,13 @@ function randomRobot(state) {
 }
 ```
 
-{{index "Math.random function", "Math.floor function", [array, "random element"]}}
+{{index "función Math.random", "función Math.floor", [array, "elemento aleatorio"]}}
 
-Remember that `Math.random()` returns a number between zero and one—but always below one. Multiplying such a number by the length of an array and then applying `Math.floor` to it gives us a random index for the array.
+Recuerda que `Math.random()` devuelve un número entre cero y uno, pero siempre por debajo de uno. Multiplicar dicho número por la longitud de un array y luego aplicarle `Math.floor` nos da un índice aleatorio para el array.
 
-Since this robot does not need to remember anything, it ignores its second argument (remember that JavaScript functions can be called with extra arguments without ill effects) and omits the `memory` property in its returned object.
+Dado que este robot no necesita recordar nada, ignora su segundo argumento (recuerda que las funciones de JavaScript pueden ser llamadas con argumentos adicionales sin efectos adversos) y omite la propiedad `memory` en su objeto devuelto.
 
-To put this sophisticated robot to work, we'll first need a way to create a new state with some parcels. A static method (written here by directly adding a property to the constructor) is a good place to put that functionality.
+Para poner a trabajar a este sofisticado robot, primero necesitaremos una forma de crear un nuevo estado con algunos paquetes. Un método estático (escrito aquí añadiendo directamente una propiedad al constructor) es un buen lugar para poner esa funcionalidad.
 
 ```{includeCode: true}
 VillageState.random = function(parcelCount = 5) {
@@ -226,56 +222,54 @@ VillageState.random = function(parcelCount = 5) {
     } while (place == address);
     parcels.push({place, address});
   }
-  return new VillageState("Post Office", parcels);
+  return new VillageState("Oficina Postal", parcels);
 };
 ```
 
-{{index "do loop"}}
+{{index "bucle do"}}
 
-We don't want any parcels that are sent from the same place that they are addressed to. For this reason, the `do` loop keeps picking new places when it gets one that's equal to the address.
+No queremos ningún paquete que sea enviado desde el mismo lugar al que está dirigido. Por esta razón, el bucle `do` sigue eligiendo nuevos lugares cuando obtiene uno que es igual a la dirección.
 
-Let's start up a virtual world.
+Vamos a iniciar un mundo virtual.
 
 ```{test: no}
 runRobot(VillageState.random(), randomRobot);
-// → Moved to Marketplace
-// → Moved to Town Hall
+// → Movido a Mercado
+// → Movido a Ayuntamiento
 // → …
-// → Done in 63 turns
-```
-
-It takes the robot a lot of turns to deliver the parcels because it isn't planning ahead very well. We'll address that soon.
+// → Terminado en 63 turnos
+```Al robot le lleva muchas vueltas entregar los paquetes porque no está planificando muy bien. Abordaremos eso pronto.
 
 {{if interactive
 
-For a more pleasant perspective on the simulation, you can use the `runRobotAnimation` function that's available in [this chapter's programming environment](https://eloquentjavascript.net/code/#7). This runs the simulation, but instead of outputting text, it shows you the robot moving around the village map.
+Para tener una perspectiva más agradable de la simulación, puedes usar la función `runRobotAnimation` que está disponible en [el entorno de programación de este capítulo](https://eloquentjavascript.net/code/#7). Esto ejecuta la simulación, pero en lugar de mostrar texto, te muestra al robot moviéndose por el mapa del pueblo.
 
 ```{test: no}
 runRobotAnimation(VillageState.random(), randomRobot);
 ```
 
-The way `runRobotAnimation` is implemented will remain a mystery for now, but after you've read the [later chapters](dom) of this book, which discuss JavaScript integration in web browsers, you'll be able to guess how it works.
+La forma en que `runRobotAnimation` está implementada permanecerá como un misterio por ahora, pero después de que hayas leído los [capítulos posteriores](dom) de este libro, que tratan sobre la integración de JavaScript en los navegadores web, podrás adivinar cómo funciona.
 
 if}}
 
-## The mail truck's route
+## Ruta del camión de correo
 
 {{index "mailRoute array"}}
 
-We should be able to do a lot better than the random ((robot)). An easy improvement would be to take a hint from the way real-world mail delivery works. If we find a route that passes all places in the village, the robot could run that route twice, at which point it is guaranteed to be done. Here is one such route (starting from the post office):
+Deberíamos poder hacerlo mucho mejor que el ((robot)) aleatorio. Una mejora sencilla sería inspirarnos en la forma en que funciona la entrega de correo en el mundo real. Si encontramos una ruta que pase por todos los lugares del pueblo, el robot podría recorrer esa ruta dos veces, momento en que se garantizaría que ha terminado. Aquí tienes una de esas rutas (comenzando desde la oficina de correos):
 
 ```{includeCode: true}
 const mailRoute = [
-  "Alice's House", "Cabin", "Alice's House", "Bob's House",
-  "Town Hall", "Daria's House", "Ernie's House",
-  "Grete's House", "Shop", "Grete's House", "Farm",
-  "Marketplace", "Post Office"
+  "Casa de Alicia", "Cabaña", "Casa de Alicia", "Casa de Bob",
+  "Ayuntamiento", "Casa de Daria", "Casa de Ernie",
+  "Casa de Grete", "Tienda", "Casa de Grete", "Granja",
+  "Plaza del Mercado", "Oficina de Correos"
 ];
 ```
 
 {{index "routeRobot function"}}
 
-To implement the route-following robot, we'll need to make use of robot memory. The robot keeps the rest of its route in its memory and drops the first element every turn.
+Para implementar el robot que sigue la ruta, necesitaremos hacer uso de la memoria del robot. El robot guarda el resto de su ruta en su memoria y deja caer el primer elemento en cada turno.
 
 ```{includeCode: true}
 function routeRobot(state, memory) {
@@ -286,7 +280,7 @@ function routeRobot(state, memory) {
 }
 ```
 
-This robot is a lot faster already. It'll take a maximum of 26 turns (twice the 13-step route) but usually less.
+Este robot es mucho más rápido ya. Tomará un máximo de 26 vueltas (el doble de la ruta de 13 pasos) pero generalmente menos.
 
 {{if interactive
 
@@ -296,25 +290,23 @@ runRobotAnimation(VillageState.random(), routeRobot, []);
 
 if}}
 
-## Pathfinding
+## Búsqueda de caminos
 
-Still, I wouldn't really call blindly following a fixed route intelligent behavior. The ((robot)) could work more efficiently if it adjusted its behavior to the actual work that needs to be done.
+Aún así, no llamaría a seguir ciegamente una ruta fija un comportamiento inteligente. Sería más eficiente si el ((robot)) ajustara su comportamiento a la tarea real que debe realizarse.
 
 {{index pathfinding}}
 
-To do that, it has to be able to deliberately move toward a given parcel or toward the location where a parcel has to be delivered. Doing that, even when the goal is more than one move away, will require some kind of route-finding function.
+Para hacer eso, tiene que poder moverse deliberadamente hacia un paquete dado o hacia la ubicación donde se debe entregar un paquete. Hacer eso, incluso cuando el objetivo está a más de un movimiento de distancia, requerirá algún tipo de función de búsqueda de ruta.
 
-The problem of finding a route through a ((graph)) is a typical _((search problem))_. We can tell whether a given solution (a route) is a valid solution, but we can't directly compute the solution the way we could for 2 + 2. Instead, we have to keep creating potential solutions until we find one that works.
+El problema de encontrar una ruta a través de un ((grafo)) es un _((problema de búsqueda))_ típico. Podemos determinar si una solución dada (una ruta) es una solución válida, pero no podemos calcular directamente la solución como podríamos hacerlo para 2 + 2. En su lugar, debemos seguir creando soluciones potenciales hasta encontrar una que funcione.
 
-The  number of possible routes through a graph is infinite. But when searching for a route from _A_ to _B_, we are interested only in the ones that start at _A_. We also don't care about routes that visit the same place twice—those are definitely not the most efficient route anywhere. So that cuts down on the number of routes that the route finder has to consider.
-
-In fact, we are mostly interested in the _shortest_ route. So we want to make sure we look at short routes before we look at longer ones. A good approach would be to "grow" routes from the starting point, exploring every reachable place that hasn't been visited yet, until a route reaches the goal. That way, we'll only explore routes that are potentially interesting, and we know that the first route we find is the shortest route (or one of the shortest routes, if there are more than one).
+El número de rutas posibles a través de un grafo es infinito. Pero al buscar una ruta de _A_ a _B_, solo estamos interesados en aquellas que comienzan en _A_. Además, no nos importan las rutas que visiten el mismo lugar dos veces, esas definitivamente no son las rutas más eficientes en ningún lugar. Así que eso reduce la cantidad de rutas que el buscador de rutas debe considerar.De hecho, estamos mayormente interesados en la ruta _más corta_. Por lo tanto, queremos asegurarnos de buscar rutas cortas antes de mirar las más largas. Un buen enfoque sería "expandir" rutas desde el punto de inicio, explorando cada lugar alcanzable que aún no haya sido visitado, hasta que una ruta llegue al objetivo. De esta manera, solo exploraremos rutas que sean potencialmente interesantes, y sabremos que la primera ruta que encontremos es la ruta más corta (o una de las rutas más cortas, si hay más de una).
 
 {{index "findRoute function"}}
 
 {{id findRoute}}
 
-Here is a function that does this:
+Aquí hay una función que hace esto:
 
 ```{includeCode: true}
 function findRoute(graph, from, to) {
@@ -331,17 +323,17 @@ function findRoute(graph, from, to) {
 }
 ```
 
-The exploring has to be done in the right order—the places that were reached first have to be explored first. We can't immediately explore a place as soon as we reach it because that would mean places reached _from there_ would also be explored immediately, and so on, even though there may be other, shorter paths that haven't yet been explored.
+La exploración debe realizarse en el orden correcto: los lugares que se alcanzaron primero deben explorarse primero. No podemos explorar de inmediato un lugar tan pronto como lleguemos a él porque eso significaría que los lugares alcanzados _desde allí_ también se explorarían de inmediato, y así sucesivamente, incluso si puede haber otros caminos más cortos que aún no se han explorado.
 
-Therefore, the function keeps a _((work list))_. This is an array of places that should be explored next, along with the route that got us there. It starts with just the start position and an empty route.
+Por lo tanto, la función mantiene una _((lista de trabajo))_. Esta es una matriz de lugares que deben ser explorados a continuación, junto con la ruta que nos llevó allí. Comienza con solo la posición de inicio y una ruta vacía.
 
-The search then operates by taking the next item in the list and exploring that, which means all roads going from that place are looked at. If one of them is the goal, a finished route can be returned. Otherwise, if we haven't looked at this place before, a new item is added to the list. If we have looked at it before, since we are looking at short routes first, we've found either a longer route to that place or one precisely as long as the existing one, and we don't need to explore it.
+La búsqueda luego opera tomando el siguiente elemento en la lista y explorándolo, lo que significa que se ven todas las rutas que salen de ese lugar. Si una de ellas es el objetivo, se puede devolver una ruta terminada. De lo contrario, si no hemos mirado este lugar antes, se agrega un nuevo elemento a la lista. Si lo hemos mirado antes, dado que estamos buscando rutas cortas primero, hemos encontrado o bien una ruta más larga a ese lugar o una exactamente tan larga como la existente, y no necesitamos explorarla.
 
-You can visually imagine this as a web of known routes crawling out from the start location, growing evenly on all sides (but never tangling back into itself). As soon as the first thread reaches the goal location, that thread is traced back to the start, giving us our route.
+Puedes imaginar visualmente esto como una red de rutas conocidas que se extienden desde la ubicación de inicio, creciendo de manera uniforme en todos los lados (pero nunca enredándose de nuevo en sí misma). Tan pronto como el primer hilo alcance la ubicación objetivo, ese hilo se rastrea de vuelta al inicio, dándonos nuestra ruta.
 
-{{index "connected graph"}}
+{{index "grafo conectado"}}
 
-Our code doesn't handle the situation where there are no more work items on the work list because we know that our graph is _connected_, meaning that every location can be reached from all other locations. We'll always be able to find a route between two points, and the search can't fail.
+Nuestro código no maneja la situación en la que no hay más elementos de trabajo en la lista de trabajo porque sabemos que nuestro gráfico está _conectado_, lo que significa que se puede llegar a cada ubicación desde todas las demás ubicaciones. Siempre podremos encontrar una ruta entre dos puntos, y la búsqueda no puede fallar.
 
 ```{includeCode: true}
 function goalOrientedRobot({place, parcels}, route) {
@@ -357,13 +349,11 @@ function goalOrientedRobot({place, parcels}, route) {
 }
 ```
 
-{{index "goalOrientedRobot function"}}
-
-This robot uses its memory value as a list of directions to move in, just like the route-following robot. Whenever that list is empty, it has to figure out what to do next. It takes the first undelivered parcel in the set and, if that parcel hasn't been picked up yet, plots a route toward it. If the parcel _has_ been picked up, it still needs to be delivered, so the robot creates a route toward the delivery address instead.
+{{index "goalOrientedRobot function"}}Este robot utiliza el valor de su memoria como una lista de direcciones en las que moverse, al igual que el robot que sigue la ruta. Cuando esa lista está vacía, debe averiguar qué hacer a continuación. Toma el primer paquete no entregado del conjunto y, si ese paquete aún no ha sido recogido, traza una ruta hacia él. Si el paquete ya ha sido recogido, todavía necesita ser entregado, por lo que el robot crea una ruta hacia la dirección de entrega.
 
 {{if interactive
 
-Let's see how it does.
+Veamos cómo lo hace.
 
 ```{test: no, startCode: true}
 runRobotAnimation(VillageState.random(),
@@ -372,25 +362,25 @@ runRobotAnimation(VillageState.random(),
 
 if}}
 
-This robot usually finishes the task of delivering 5 parcels in about 16 turns. That's slightly better than `routeRobot` but still definitely not optimal.
+Este robot suele terminar la tarea de entregar 5 paquetes en aproximadamente 16 turnos. Eso es ligeramente mejor que `routeRobot` pero definitivamente no es óptimo.
 
-## Exercises
+## Ejercicios
 
-### Measuring a robot
+### Medición de un robot
 
 {{index "measuring a robot (exercise)", testing, automation, "compareRobots function"}}
 
-It's hard to objectively compare ((robot))s by just letting them solve a few scenarios. Maybe one robot just happened to get easier tasks or the kind of tasks that it is good at, whereas the other didn't.
+Es difícil comparar de manera objetiva los ((robot))s solo dejando que resuelvan algunos escenarios. Tal vez un robot simplemente tuvo tareas más fáciles o el tipo de tareas en las que es bueno, mientras que el otro no.
 
-Write a function `compareRobots` that takes two robots (and their starting memory). It should generate 100 tasks and let each of the robots solve each of these tasks. When done, it should output the average number of steps each robot took per task.
+Escribe una función `compareRobots` que tome dos robots (y su memoria inicial). Debería generar 100 tareas y permitir que cada uno de los robots resuelva cada una de estas tareas. Cuando termine, debería mostrar el número promedio de pasos que cada robot dio por tarea.
 
-For the sake of fairness, make sure you give each task to both robots, rather than generating different tasks per robot.
+Por el bien de la equidad, asegúrate de darle a cada tarea a ambos robots, en lugar de generar tareas diferentes por robot.
 
 {{if interactive
 
 ```{test: no}
 function compareRobots(robot1, memory1, robot2, memory2) {
-  // Your code here
+  // Tu código aquí
 }
 
 compareRobots(routeRobot, [], goalOrientedRobot, []);
@@ -401,26 +391,26 @@ if}}
 
 {{index "measuring a robot (exercise)", "runRobot function"}}
 
-You'll have to write a variant of the `runRobot` function that, instead of logging the events to the console, returns the number of steps the robot took to complete the task.
+Tendrás que escribir una variante de la función `runRobot` que, en lugar de registrar los eventos en la consola, devuelva el número de pasos que el robot tomó para completar la tarea.
 
-Your measurement function can then, in a loop, generate new states and count the steps each of the robots takes. When it has generated enough measurements, it can use `console.log` to output the average for each robot, which is the total number of steps taken divided by the number of measurements.
+Tu función de medición puede, entonces, en un bucle, generar nuevos estados y contar los pasos que toma cada uno de los robots. Cuando haya generado suficientes mediciones, puede usar `console.log` para mostrar el promedio de cada robot, que es el número total de pasos tomados dividido por el número de mediciones.
 
 hint}}
 
-### Robot efficiency
+### Eficiencia del robot
 
 {{index "robot efficiency (exercise)"}}
 
-Can you write a robot that finishes the delivery task faster than `goalOrientedRobot`? If you observe that robot's behavior, what obviously stupid things does it do? How could those be improved?
+¿Puedes escribir un robot que termine la tarea de entrega más rápido que `goalOrientedRobot`? Si observas el comportamiento de ese robot, ¿qué cosas claramente absurdas hace? ¿Cómo podrían mejorarse?
 
-If you solved the previous exercise, you might want to use your `compareRobots` function to verify whether you improved the robot.
+Si resolviste el ejercicio anterior, es posible que desees utilizar tu función `compareRobots` para verificar si mejoraste el robot.
 
 {{if interactive
 
 ```{test: no}
-// Your code here
+// Tu código aquí
 
-runRobotAnimation(VillageState.random(), yourRobot, memory);
+runRobotAnimation(VillageState.random(), tuRobot, memoria);
 ```
 
 if}}
@@ -429,37 +419,37 @@ if}}
 
 {{index "robot efficiency (exercise)"}}
 
-The main limitation of `goalOrientedRobot` is that it considers only one parcel at a time. It will often walk back and forth across the village because the parcel it happens to be looking at happens to be at the other side of the map, even if there are others much closer.
+La principal limitación de `goalOrientedRobot` es que solo considera un paquete a la vez. A menudo caminará de un lado a otro del pueblo porque el paquete en el que está centrando su atención sucede que está en el otro lado del mapa, incluso si hay otros mucho más cerca.
 
-One possible solution would be to compute routes for all packages and then take the shortest one. Even better results can be obtained, if there are multiple shortest routes, by preferring the ones that go to pick up a package instead of delivering a package.
+Una posible solución sería calcular rutas para todos paquetes y luego tomar la más corta. Se pueden obtener resultados aún mejores, si hay múltiples rutas más cortas, al preferir aquellas que van a recoger un paquete en lugar de entregarlo.
 
 hint}}
 
-### Persistent group
+### Grupo persistente
 
-{{index "persistent group (exercise)", "persistent data structure", "Set class", "set (data structure)", "Group class", "PGroup class"}}
+{{index "grupo persistente (ejercicio)", "estructura de datos persistente", "clase Set", "conjunto (estructura de datos)", "clase Grupo", "clase PGroup"}}
 
-Most data structures provided in a standard JavaScript environment aren't very well suited for persistent use. Arrays have `slice` and `concat` methods, which allow us to easily create new arrays without damaging the old one. But `Set`, for example, has no methods for creating a new set with an item added or removed.
+La mayoría de las estructuras de datos proporcionadas en un entorno estándar de JavaScript no son muy adecuadas para un uso persistente. Los Arrays tienen métodos `slice` y `concat`, que nos permiten crear fácilmente nuevos arrays sin dañar el antiguo. Pero `Set`, por ejemplo, no tiene métodos para crear un nuevo conjunto con un elemento añadido o eliminado.
 
-Write a new class `PGroup`, similar to the `Group` class from [Chapter ?](object#groups), which stores a set of values. Like `Group`, it has `add`, `delete`, and `has` methods.
+Escribe una nueva clase `PGroup`, similar a la clase `Grupo` del [Capítulo ?](object#groups), que almacena un conjunto de valores. Al igual que `Grupo`, tiene métodos `add`, `delete`, y `has`.
 
-Its `add` method, however, should return a _new_ `PGroup` instance with the given member added and leave the old one unchanged. Similarly, `delete` creates a new instance without a given member.
+Sin embargo, su método `add` debería devolver una _nueva_ instancia de `PGroup` con el miembro dado añadido y dejar la anterior sin cambios. De manera similar, `delete` crea una nueva instancia sin un miembro dado.
 
-The class should work for values of any type, not just strings. It does _not_ have to be efficient when used with large amounts of values.
+La clase debería funcionar para valores de cualquier tipo, no solo para strings. No tiene que ser eficiente cuando se utiliza con grandes cantidades de valores.
 
-{{index [interface, object]}}
+{{index [interfaz, objeto]}}
 
-The ((constructor)) shouldn't be part of the class's interface (though you'll definitely want to use it internally). Instead, there is an empty instance, `PGroup.empty`, that can be used as a starting value.
+El ((constructor)) no debería ser parte de la interfaz de la clase (aunque definitivamente querrás usarlo internamente). En su lugar, hay una instancia vacía, `PGroup.empty`, que se puede usar como valor inicial.
 
 {{index singleton}}
 
-Why do you need only one `PGroup.empty` value, rather than having a function that creates a new, empty map every time?
+¿Por qué necesitas solo un valor `PGroup.empty`, en lugar de tener una función que cree un nuevo mapa vacío cada vez?
 
 {{if interactive
 
 ```{test: no}
 class PGroup {
-  // Your code here
+  // Tu código aquí
 }
 
 let a = PGroup.empty.add("a");
@@ -478,20 +468,20 @@ if}}
 
 {{hint
 
-{{index "persistent map (exercise)", "Set class", [array, creation], "PGroup class"}}
+{{index "mapa persistente (ejercicio)", "clase Set", [array, creación], "clase PGroup"}}
 
-The most convenient way to represent the set of member values is still as an array since arrays are easy to copy.
+La forma más conveniente de representar el conjunto de valores miembro sigue siendo como un array, ya que los arrays son fáciles de copiar.
 
-{{index "concat method", "filter method"}}
+{{index "método concat", "método filter"}}
 
-When a value is added to the group, you can create a new group with a copy of the original array that has the value added (for example, using `concat`). When a value is deleted, you filter it from the array.
+Cuando se añade un valor al grupo, puedes crear un nuevo grupo con una copia del array original que tenga el valor añadido (por ejemplo, usando `concat`). Cuando se elimina un valor, puedes filtrarlo del array.
 
-The class's ((constructor)) can take such an array as argument and store it as the instance's (only) property. This array is never updated.
+El ((constructor)) de la clase puede tomar dicho array como argumento y almacenarlo como propiedad única de la instancia. Este array nunca se actualiza.
 
-{{index "static property"}}
+{{index "propiedad estática"}}
 
-To add the `empty` property to the constructor, you can declare it as a static property.
+Para añadir la propiedad `empty` al constructor, puedes declararla como una propiedad estática.
 
-You need only one `empty` instance because all empty groups are the same and instances of the class don't change. You can create many different groups from that single empty group without affecting it.
+Solo necesitas una instancia `empty` porque todos los grupos vacíos son iguales y las instancias de la clase no cambian. Puedes crear muchos grupos diferentes a partir de ese único grupo vacío sin afectarlo.
 
 hint}}

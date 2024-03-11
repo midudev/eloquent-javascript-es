@@ -1,84 +1,70 @@
-{{meta {}}}
-
-# HTTP and Forms
+# HTTP y Formularios
 
 {{quote {author: "Tim Berners-Lee", chapter: true}
 
-What was often difficult for people to understand about the design was that there was nothing else beyond URLs, HTTP and HTML. There was no central computer "controlling" the Web, no single network on which these protocols worked, not even an organisation anywhere that "ran" the Web. The Web was not a physical "thing" that existed in a certain "place". It was a "space" in which information could exist.
+Lo que a menudo resultaba difícil para las personas entender sobre el diseño era que no había nada más allá de las URL, HTTP y HTML. No había una computadora central "controlando" la Web, no existía una sola red en la que funcionaran estos protocolos, ni siquiera una organización en algún lugar que "dirigiera" la Web. La Web no era una "cosa" física que existía en un cierto "lugar". Era un "espacio" en el que la información podía existir.
 
 quote}}
 
 {{index "Fielding, Roy"}}
 
-{{figure {url: "img/chapter_picture_18.jpg", alt: "Illustration showing a web sign-up form on a parchment scroll", chapter: "framed"}}}
+{{figure {url: "img/chapter_picture_18.jpg", alt: "Ilustración mostrando un formulario de registro en la web en un pergamino", chapter: "framed"}}}
 
-{{index [browser, environment]}}
+El _Protocolo de Transferencia de Hipertexto_, mencionado anteriormente en [Capítulo ?](browser#web), es el mecanismo a través del cual se solicita y proporciona datos en la ((World Wide Web)). Este capítulo describe el ((protocolo)) con más detalle y explica la forma en que JavaScript del navegador tiene acceso a él.
 
-The _Hypertext Transfer Protocol_, already mentioned in [Chapter ?](browser#web), is the mechanism through which data is requested and provided on the ((World Wide Web)). This chapter describes the ((protocol)) in more detail and explains the way browser JavaScript has access to it.
+## El protocolo
 
-## The protocol
+Si escribes _eloquentjavascript.net/18_http.html_ en la barra de direcciones de tu navegador, el ((navegador)) primero busca la ((dirección)) del servidor asociado con _eloquentjavascript.net_ e intenta abrir una ((conexión)) ((TCP)) con él en el ((puerto)) 80, el puerto predeterminado para el tráfico ((HTTP)). Si el ((servidor)) existe y acepta la conexión, el navegador podría enviar algo como esto:
 
-{{index "IP address"}}
-
-If you type _eloquentjavascript.net/18_http.html_ into your browser's ((address bar)), the ((browser)) first looks up the ((address)) of the server associated with _eloquentjavascript.net_ and tries to open a ((TCP)) ((connection)) to it on ((port)) 80, the default port for ((HTTP)) traffic. If the ((server)) exists and accepts the connection, the browser might send something like this:
-
-```{lang: http}
+```http
 GET /18_http.html HTTP/1.1
 Host: eloquentjavascript.net
-User-Agent: Your browser's name
+User-Agent: Nombre de tu navegador
 ```
 
-Then the server responds, through that same connection.
+Luego el servidor responde, a través de esa misma conexión.
 
-```{lang: http}
+```http
 HTTP/1.1 200 OK
 Content-Length: 87320
 Content-Type: text/html
-Last-Modified: Fri, 13 Oct 2023 10:05:41 GMT
+Last-Modified: Vie, 13 Oct 2023 10:05:41 GMT
 
 <!doctype html>
-... the rest of the document
+... el resto del documento
 ```
 
-The browser takes the part of the ((response)) after the blank line, its _body_ (not to be confused with the HTML `<body>` tag), and displays it as an ((HTML)) document.
+El navegador toma la parte de la ((respuesta)) después de la línea en blanco, su _cuerpo_ (no confundir con la etiqueta HTML `<body>`), y lo muestra como un documento ((HTML)).
 
-{{index HTTP}}
+La información enviada por el cliente se llama la _((solicitud))_. Comienza con esta línea:
 
-The information sent by the client is called the _((request))_. It starts with this line:
-
-```{lang: http}
+```http
 GET /18_http.html HTTP/1.1
 ```
 
-{{index "DELETE method", "PUT method", "GET method", [method, HTTP]}}
+La primera palabra es el _método_ de la ((solicitud)). `GET` significa que queremos _obtener_ el recurso especificado. Otros métodos comunes son `DELETE` para eliminar un recurso, `PUT` para crearlo o reemplazarlo, y `POST` para enviar información a él. Cabe destacar que el ((servidor)) no está obligado a llevar a cabo cada solicitud que recibe. Si te acercas a un sitio web aleatorio y le dices que `DELETE` su página principal, probablemente se negará.
 
-The first word is the _method_ of the ((request)). `GET` means that we want to _get_ the specified resource. Other common methods are `DELETE` to delete a resource, `PUT` to create or replace it, and `POST` to send information to it. Note that the ((server)) is not obliged to carry out every request it gets. If you walk up to a random website and tell it to `DELETE` its main page, it'll probably refuse.
+La parte después del nombre del método es la ruta del _((recurso))_ al que aplica la solicitud. En el caso más simple, un recurso es simplemente un archivo en el ((servidor)), pero el protocolo no lo requiere así. Un recurso puede ser cualquier cosa que pueda transferirse _como si fuera_ un archivo. Muchos servidores generan las respuestas que producen al vuelo. Por ejemplo, si abres [_https://github.com/marijnh_](https://github.com/marijnh), el servidor buscará en su base de datos un usuario llamado "marijnh", y si lo encuentra, generará una página de perfil para ese usuario.Después de la ruta del recurso, la primera línea de la solicitud menciona `HTTP/1.1` para indicar la versión del protocolo HTTP que está utilizando.
 
-{{index [path, URL], GitHub, [file, resource]}}
+En la práctica, muchos sitios utilizan la versión 2 de HTTP, que soporta los mismos conceptos que la versión 1.1 pero es mucho más complicada para que pueda ser más rápida. Los navegadores cambiarán automáticamente a la versión de protocolo adecuada al comunicarse con un servidor dado, y el resultado de una solicitud es el mismo independientemente de la versión utilizada. Dado que la versión 1.1 es más directa y más fácil de entender, la usaremos para ilustrar el protocolo.
 
-The part after the method name is the path of the _((resource))_ the request applies to. In the simplest case, a resource is simply a file on the ((server)), but the protocol doesn't require it to be. A resource may be anything that can be transferred _as if_ it is a file. Many servers generate the responses they produce on the fly. For example, if you open [_https://github.com/marijnh_](https://github.com/marijnh), the server looks in its database for a user named "marijnh", and if it finds one, it will generate a profile page for that user.
+{{index "código de estado"}}
 
-After the resource path, the first line of the request mentions `HTTP/1.1` to indicate the ((version)) of the ((HTTP)) ((protocol)) it is using.
-
-In practice, many sites use HTTP version 2, which supports the same concepts as version 1.1 but is a lot more complicated so that it can be faster. Browsers will automatically switch to the appropriate protocol version when talking to a given server, and the outcome of a request is the same regardless of which version is used. Because version 1.1 is more straightforward and easier to play around with, we'll use that to illustrate the protocol.
-
-{{index "status code"}}
-
-The server's ((response)) will start with a version as well, followed by the status of the response, first as a three-digit status code and then as a human-readable string.
+La respuesta del servidor comenzará también con una versión, seguida del estado de la respuesta, primero como un código de estado de tres dígitos y luego como una cadena legible por humanos.
 
 ```{lang: http}
 HTTP/1.1 200 OK
 ```
 
-{{index "200 (HTTP status code)", "error response", "404 (HTTP status code)"}}
+{{index "200 (código de estado de HTTP)", "respuesta de error", "404 (código de estado de HTTP)"}}
 
-Status codes starting with a 2 indicate that the request succeeded. Codes starting with 4 mean there was something wrong with the ((request)). 404 is probably the most famous HTTP status code—it means that the resource could not be found. Codes that start with 5 mean an error happened on the ((server)) and the request is not to blame.
+Los códigos de estado que comienzan con 2 indican que la solicitud tuvo éxito. Los códigos que comienzan con 4 significan que hubo un problema con la solicitud. El 404 es probablemente el código de estado de HTTP más famoso, lo que significa que el recurso no se pudo encontrar. Los códigos que comienzan con 5 indican que ocurrió un error en el servidor y la solicitud no es la responsable.
 
 {{index HTTP}}
 
 {{id headers}}
 
-The first line of a request or response may be followed by any number of _((header))s_. These are lines in the form `name: value` that specify extra information about the request or response. These headers were part of the example ((response)):
+La primera línea de una solicitud o respuesta puede ir seguida de cualquier número de _cabeceras_. Estas son líneas en la forma `nombre: valor` que especifican información adicional sobre la solicitud o respuesta. Estas cabeceras eran parte del ejemplo de respuesta:
 
 ```{lang: null}
 Content-Length: 87320
@@ -86,53 +72,51 @@ Content-Type: text/html
 Last-Modified: Fri, 13 Oct 2023 10:05:41 GMT
 ```
 
-{{index "Content-Length header", "Content-Type header", "Last-Modified header"}}
+{{index "cabecera Content-Length", "cabecera Content-Type", "cabecera Last-Modified"}}
 
-This tells us the size and type of the response document. In this case, it is an HTML document of 87,320 bytes. It also tells us when that document was last modified.
+Esto nos indica el tamaño y tipo del documento de respuesta. En este caso, es un documento HTML de 87,320 bytes. También nos dice cuándo se modificó por última vez ese documento.
 
-The client and server are free to decide what ((header))s to include in their ((request))s or ((response))s. But some of them are necessary for things to work. For example, without a `Content-Type` header in the response, the browser won't know how to display the document.
+El cliente y servidor son libres de decidir qué cabeceras incluir en sus solicitudes o respuestas. Sin embargo, algunas de ellas son necesarias para que todo funcione. Por ejemplo, sin la cabecera `Content-Type` en la respuesta, el navegador no sabrá cómo mostrar el documento.
 
-{{index "GET method", "DELETE method", "PUT method", "POST method", "body (HTTP)"}}
+{{index "método GET", "método DELETE", "método PUT", "método POST", "cuerpo (HTTP)"}}
 
-After the headers, both requests and responses may include a blank line followed by a body, which contains the actual document being sent. `GET` and `DELETE` requests don't send along any data, but `PUT` and `POST` requests do. Some response types, such as error responses, also don't require a body.
+Después de las cabeceras, tanto las solicitudes como las respuestas pueden incluir una línea en blanco seguida de un cuerpo, que contiene el documento real que se envía. Las solicitudes `GET` y `DELETE` no envían ningún dato, pero las solicitudes `PUT` y `POST` sí lo hacen. Algunos tipos de respuestas, como las respuestas de error, tampoco requieren un cuerpo.
 
-## Browsers and HTTP
+## Navegadores y HTTP
 
-{{index HTTP, [file, resource]}}
+{{index HTTP, [archivo, recurso]}}
 
-As we saw, a ((browser)) will make a request when we enter a ((URL)) in its ((address bar)). When the resulting HTML page references other files, such as ((image))s and JavaScript files, it will retrieve those as well.
+Como vimos, un navegador hará una solicitud cuando introducimos una URL en la barra de direcciones. Cuando la página HTML resultante hace referencia a otros archivos, como imágenes y archivos de JavaScript, el navegador los recuperará también.
 
-{{index parallelism, "GET method"}}
+{{index paralelismo, "método GET"}}
 
-A moderately complicated ((website)) can easily include anywhere from 10 to 200 ((resource))s. To be able to fetch those quickly, browsers will make several `GET` requests simultaneously, rather than waiting for the responses one at a time.
-
-HTML pages may include _((form))s_, which allow the user to fill out information and send it to the server. This is an example of a form:
+Un sitio web moderadamente complicado puede incluir fácilmente entre 10 y 200 recursos. Para poder obtenerlos rápidamente, los navegadores harán varias solicitudes `GET` simultáneamente en lugar de esperar las respuestas una por una.Las páginas HTML pueden incluir formularios, que permiten al usuario completar información y enviarla al servidor. A continuación se muestra un ejemplo de un formulario:
 
 ```{lang: html}
 <form method="GET" action="example/message.html">
-  <p>Name: <input type="text" name="name"></p>
-  <p>Message:<br><textarea name="message"></textarea></p>
-  <p><button type="submit">Send</button></p>
+  <p>Nombre: <input type="text" name="name"></p>
+  <p>Mensaje:<br><textarea name="message"></textarea></p>
+  <p><button type="submit">Enviar</button></p>
 </form>
 ```
 
-{{index form, "method attribute", "GET method"}}
+{{index form, "atributo method", "método GET"}}
 
-This code describes a form with two ((field))s: a small one asking for a name and a larger one to write a message in. When you click the Send ((button)), the form is _submitted_, meaning that the content of its field is packed into an HTTP request and the browser navigates to the result of that request.
+Este código describe un formulario con dos campos: uno pequeño que pide un nombre y otro más grande para escribir un mensaje. Cuando se hace clic en el botón Enviar, el formulario se envía, lo que significa que el contenido de sus campos se empaqueta en una solicitud HTTP y el navegador navega hacia el resultado de esa solicitud.
 
-When the `<form>` element's `method` attribute is `GET` (or is omitted), the information in the form is added to the end of the `action` URL as a _((query string))_. The browser might make a request to this URL:
+Cuando el atributo `method` del elemento `<form>` es `GET` (o se omite), la información del formulario se agrega al final de la URL de `action` como una cadena de consulta. El navegador podría hacer una solicitud a esta URL:
 
 ```{lang: null}
 GET /example/message.html?name=Jean&message=Yes%3F HTTP/1.1
 ```
 
-{{index "ampersand character"}}
+{{index "carácter ampersand"}}
 
-The ((question mark)) indicates the end of the path part of the URL and the start of the query. It is followed by pairs of names and values, corresponding to the `name` attribute on the form field elements and the content of those elements, respectively. An ampersand character (`&`) is used to separate the pairs.
+El signo de interrogación indica el final de la parte de la ruta de la URL y el inicio de la consulta. Le siguen pares de nombres y valores, correspondientes al atributo `name` en los elementos del campo del formulario y al contenido de esos elementos, respectivamente. Un carácter ampersand (`&`) se utiliza para separar los pares.
 
-{{index [escaping, "in URLs"], "hexadecimal number", "encodeURIComponent function", "decodeURIComponent function"}}
+{{index [escaping, "en URLs"], "número hexadecimal", "función encodeURIComponent", "función decodeURIComponent"}}
 
-The actual message encoded in the URL is "Yes?", but the question mark is replaced by a strange code. Some characters in query strings must be escaped. The question mark, represented as `%3F`, is one of those. There seems to be an unwritten rule that every format needs its own way of escaping characters. This one, called _((URL encoding))_, uses a ((percent sign)) followed by two hexadecimal (base 16) digits that encode the character code. In this case, 3F, which is 63 in decimal notation, is the code of a question mark character. JavaScript provides the `encodeURIComponent` and `decodeURIComponent` functions to encode and decode this format.
+El mensaje real codificado en la URL es "Yes?", pero el signo de interrogación se reemplaza por un código extraño. Algunos caracteres en las cadenas de consulta deben ser escapados. El signo de interrogación, representado como `%3F`, es uno de ellos. Parece haber una regla no escrita de que cada formato necesita su propia forma de escapar caracteres. Este, llamado codificación de URL, utiliza un signo de porcentaje seguido de dos dígitos hexadecimales (base 16) que codifican el código de caracteres. En este caso, 3F, que es 63 en notación decimal, es el código de un signo de interrogación. JavaScript proporciona las funciones `encodeURIComponent` y `decodeURIComponent` para codificar y decodificar este formato.
 
 ```
 console.log(encodeURIComponent("Yes?"));
@@ -141,9 +125,9 @@ console.log(decodeURIComponent("Yes%3F"));
 // → Yes?
 ```
 
-{{index "body (HTTP)", "POST method"}}
+{{index "cuerpo (HTTP)", "método POST"}}
 
-If we change the `method` attribute of the HTML form in the example we saw earlier to `POST`, the ((HTTP)) request made to submit the ((form)) will use the `POST` method and put the ((query string)) in the body of the request, rather than adding it to the URL.
+Si cambiamos el atributo `method` del formulario HTML en el ejemplo que vimos anteriormente a `POST`, la solicitud HTTP realizada para enviar el formulario utilizará el método `POST` y colocará la cadena de consulta en el cuerpo de la solicitud, en lugar de agregarla a la URL.
 
 ```{lang: http}
 POST /example/message.html HTTP/1.1
@@ -153,20 +137,18 @@ Content-type: application/x-www-form-urlencoded
 name=Jean&message=Yes%3F
 ```
 
-`GET` requests should be used for requests that do not have ((side effect))s but simply ask for information. Requests that change something on the server, for example creating a new account or posting a message, should be expressed with other methods, such as `POST`. Client-side software such as a browser knows that it shouldn't blindly make `POST` requests but will often implicitly make `GET` requests—for example to prefetch a resource it believes the user will soon need.
-
-We'll come back to forms and how to interact with them from JavaScript [later in the chapter](http#forms).
+Las solicitudes `GET` deben utilizarse para solicitudes que no tengan efectos secundarios, sino simplemente para solicitar información. Las solicitudes que cambian algo en el servidor, como por ejemplo crear una nueva cuenta o publicar un mensaje, deben expresarse con otros métodos, como `POST`. El software del lado del cliente, como un navegador, sabe que no debe hacer solicitudes `POST` a ciegas, pero a menudo implícitamente realiza solicitudes `GET`, por ejemplo, para precargar un recurso que cree que pronto el usuario necesitará.Volveremos a hablar de formularios y cómo interactuar con ellos desde JavaScript [más adelante en el capítulo](http#forms).
 
 {{id fetch}}
 
 ## Fetch
 
-{{index "fetch function", "Promise class", [interface, module]}}
+{{index "función fetch", "clase Promise", [interfaz, módulo]}}
 
-The interface through which browser JavaScript can make HTTP requests is called `fetch`.
+La interfaz a través de la cual JavaScript del navegador puede hacer solicitudes HTTP se llama `fetch`.
 
 ```{test: no}
-fetch("example/data.txt").then(response => {
+fetch("ejemplo/datos.txt").then(response => {
   console.log(response.status);
   // → 200
   console.log(response.headers.get("Content-Type"));
@@ -174,220 +156,214 @@ fetch("example/data.txt").then(response => {
 });
 ```
 
-{{index "Response class", "status property", "headers property"}}
+{{index "clase Response", "propiedad status", "propiedad headers"}}
 
-Calling `fetch` returns a promise that resolves to a `Response` object holding information about the server's response, such as its status code and its headers. The headers are wrapped in a `Map`-like object that treats its keys (the header names) as case insensitive because header names are not supposed to be case sensitive. This means  `headers.get("Content-Type")` and `headers.get("content-TYPE")` will return the same value.
+Llamar a `fetch` devuelve una promesa que se resuelve en un objeto `Response` que contiene información sobre la respuesta del servidor, como su código de estado y sus encabezados. Los encabezados están envueltos en un objeto similar a un `Map` que trata sus claves (los nombres de los encabezados) como insensibles a mayúsculas y minúsculas porque los nombres de los encabezados no deben ser sensibles a mayúsculas y minúsculas. Esto significa que `headers.get("Content-Type")` y `headers.get("content-TYPE")` devolverán el mismo valor.
 
-Note that the promise returned by `fetch` resolves successfully even if the server responded with an error code. It can also be rejected if there is a network error or if the ((server)) that the request is addressed to can't be found.
+Ten en cuenta que la promesa devuelta por `fetch` se resuelve con éxito incluso si el servidor responde con un código de error. También puede ser rechazada si hay un error de red o si el ((servidor)) al que se dirige la solicitud no se puede encontrar.
 
-{{index [path, URL], "relative URL"}}
+{{index [ruta, URL], "URL relativa"}}
 
-The first argument to `fetch` is the URL that should be requested. When that ((URL)) doesn't start with a protocol name (such as _http:_), it is treated as _relative_, which means it is interpreted relative to the current document. When it starts with a slash (/), it replaces the current path, which is the part after the server name. When it does not, the part of the current path up to and including its last ((slash character)) is put in front of the relative URL.
+El primer argumento de `fetch` es la URL que se debe solicitar. Cuando esa ((URL)) no comienza con un nombre de protocolo (como _http:_), se trata como _relativa_, lo que significa que se interpreta en relación con el documento actual. Cuando comienza con una barra (/), reemplaza la ruta actual, que es la parte después del nombre del servidor. Cuando no lo hace, la parte de la ruta actual hasta e incluyendo su último ((carácter de barra)) se coloca al principio de la URL relativa.
 
-{{index "text method", "body (HTTP)", "Promise class"}}
+{{index "método text", "cuerpo (HTTP)", "clase Promise"}}
 
-To get at the actual content of a response, you can use its `text` method. Because the initial promise is resolved as soon as the response's headers have been received and because reading the response body might take a while longer, this again returns a promise.
+Para acceder al contenido real de una respuesta, puedes usar su método `text`. Debido a que la promesa inicial se resuelve tan pronto como se han recibido los encabezados de la respuesta y porque leer el cuerpo de la respuesta podría llevar un poco más de tiempo, esto devuelve nuevamente una promesa.
 
 ```{test: no}
-fetch("example/data.txt")
+fetch("ejemplo/datos.txt")
   .then(resp => resp.text())
   .then(text => console.log(text));
-// → This is the content of data.txt
+// → Este es el contenido de datos.txt
 ```
 
-{{index "json method"}}
+{{index "método json"}}
 
-A similar method, called `json`, returns a promise that resolves to the value you get when parsing the body as ((JSON)) or rejects if it's not valid JSON.
+Un método similar, llamado `json`, devuelve una promesa que se resuelve al valor que obtienes al analizar el cuerpo como ((JSON)) o se rechaza si no es un JSON válido.
 
-{{index "GET method", "body (HTTP)", "DELETE method", "method property"}}
+{{index "método GET", "cuerpo (HTTP)", "método DELETE", "propiedad método"}}
 
-By default, `fetch` uses the `GET` method to make its request and does not include a request body. You can configure it differently by passing an object with extra options as a second argument. For example, this request tries to delete `example/data.txt`:
+Por defecto, `fetch` utiliza el método `GET` para realizar su solicitud y no incluye un cuerpo de solicitud. Puedes configurarlo de manera diferente pasando un objeto con opciones adicionales como segundo argumento. Por ejemplo, esta solicitud intenta eliminar `ejemplo/datos.txt`:
 
 ```{test: no}
-fetch("example/data.txt", {method: "DELETE"}).then(resp => {
+fetch("ejemplo/datos.txt", {method: "DELETE"}).then(resp => {
   console.log(resp.status);
   // → 405
 });
 ```
 
-{{index "405 (HTTP status code)"}}
+{{index "código de estado 405 (HTTP)"}}
 
-The 405 status code means "method not allowed", an HTTP server's way of saying "I'm afraid I can't do that".
+El código de estado 405 significa "método no permitido", la forma en que un servidor HTTP dice "Me temo que no puedo hacer eso".
 
-{{index "Range header", "body property", "headers property"}}
-
-To add a request body, you can include a `body` option. To set headers, there's the `headers` option. For example, this request includes a `Range` header, which instructs the server to return only part of a document.
+{{index "encabezado de rango", "propiedad cuerpo", "propiedad headers"}}Para agregar un cuerpo de solicitud, puedes incluir una opción `body`. Para establecer cabeceras, está la opción `headers`. Por ejemplo, esta solicitud incluye una cabecera `Range`, que indica al servidor que devuelva solo una parte de un documento.
 
 ```{test: no}
-fetch("example/data.txt", {headers: {Range: "bytes=8-19"}})
+fetch("ejemplo/datos.txt", {headers: {Range: "bytes=8-19"}})
   .then(resp => resp.text())
   .then(console.log);
-// → the content
+// → el contenido
 ```
 
-The browser will automatically add some request ((header))s, such as "Host" and those needed for the server to figure out the size of the body. But adding your own headers is often useful to include things such as authentication information or to tell the server which file format you'd like to receive.
+El navegador automáticamente añadirá algunas cabeceras de solicitud, como "Host" y aquellas necesarias para que el servidor pueda determinar el tamaño del cuerpo. Sin embargo, añadir tus propias cabeceras es muchas veces útil para incluir cosas como información de autenticación o para indicar al servidor en qué formato de archivo te gustaría recibir.
 
 {{id http_sandbox}}
 
-## HTTP sandboxing
+## Aislamiento HTTP
 
-{{index sandbox, [browser, security]}}
+{{index sandbox, [navegador, seguridad]}}
 
-Making ((HTTP)) requests in web page scripts once again raises concerns about ((security)). The person who controls the script might not have the same interests as the person on whose computer it is running. More specifically, if I visit _themafia.org_, I do not want its scripts to be able to make a request to _mybank.com_, using identifying information from my browser, with instructions to transfer away all my money.
+Realizar solicitudes ((HTTP)) en scripts de páginas web plantea nuevamente preocupaciones sobre ((seguridad)). La persona que controla el script puede no tener los mismos intereses que la persona en cuya computadora se está ejecutando. Específicamente, si visito _themafia.org_, no quiero que sus scripts puedan hacer una solicitud a _mybank.com_, utilizando información de identificación de mi navegador, con instrucciones para transferir todo mi dinero.
 
-For this reason, browsers protect us by disallowing scripts to make HTTP requests to other ((domain))s (names such as _themafia.org_ and _mybank.com_).
+Por esta razón, los navegadores nos protegen al impedir que los scripts hagan solicitudes HTTP a otros ((dominios)) (nombres como _themafia.org_ y _mybank.com_).
 
-{{index "Access-Control-Allow-Origin header", "cross-domain request"}}
+{{index "cabecera Access-Control-Allow-Origin", "solicitud entre dominios"}}
 
-This can be an annoying problem when building systems that want to access several domains for legitimate reasons. Fortunately, ((server))s can include a ((header)) like this in their ((response)) to explicitly indicate to the browser that it is okay for the request to come from another domain:
+Esto puede ser un problema molesto al construir sistemas que necesitan acceder a varios dominios por razones legítimas. Afortunadamente, los ((servidores)) pueden incluir una ((cabecera)) como esta en sus ((respuestas)) para indicar explícitamente al navegador que está bien que la solicitud provenga de otro dominio:
 
 ```{lang: null}
 Access-Control-Allow-Origin: *
 ```
 
-## Appreciating HTTP
+## Apreciando HTTP
 
-{{index client, HTTP, [interface, HTTP]}}
+{{index cliente, HTTP, [interfaz, HTTP]}}
 
-When building a system that requires ((communication)) between a JavaScript program running in the ((browser)) (client-side) and a program on a ((server)) (server-side), there are several different ways to model this communication.
+Cuando se construye un sistema que requiere ((comunicación)) entre un programa JavaScript que se ejecuta en el ((navegador)) (lado del cliente) y un programa en un ((servidor)) (lado del servidor), hay varias formas diferentes de modelar esta comunicación.
 
-{{index [network, abstraction], abstraction}}
+{{index [red, abstracción], abstracción}}
 
-A commonly used model is that of _((remote procedure call))s_. In this model, communication follows the patterns of normal function calls, except that the function is actually running on another machine. Calling it involves making a request to the server that includes the function's name and arguments. The response to that request contains the returned value.
+Un modelo comúnmente utilizado es el de las _llamadas de procedimiento remoto_. En este modelo, la comunicación sigue los patrones de llamadas de función normales, excepto que la función en realidad se está ejecutando en otra máquina. Llamarla implica hacer una solicitud al servidor que incluye el nombre de la función y sus argumentos. La respuesta a esa solicitud contiene el valor devuelto.
 
-When thinking in terms of remote procedure calls, HTTP is just a vehicle for communication, and you will most likely write an abstraction layer that hides it entirely.
+Cuando se piensa en términos de llamadas de procedimiento remoto, HTTP es simplemente un vehículo de comunicación, y es muy probable que escribas una capa de abstracción que lo oculte por completo.
 
-{{index "media type", "document format", [method, HTTP]}}
+{{index "tipo de medio", "formato del documento", [método, HTTP]}}
 
-Another approach is to build your communication around the concept of ((resource))s and ((HTTP)) methods. Instead of a remote procedure called `addUser`, you use a `PUT` request to `/users/larry`. Instead of encoding that user's properties in function arguments, you define a JSON document format (or use an existing format) that represents a user. The body of the `PUT` request to create a new resource is then such a document. A resource is fetched by making a `GET` request to the resource's URL (for example, `/user/larry`), which again returns the document representing the resource.
+Otro enfoque es construir tu comunicación en torno al concepto de ((recurso))s y métodos ((HTTP)). En lugar de un procedimiento remoto llamado `addUser`, usas una solicitud `PUT` a `/usuarios/larry`. En lugar de codificar las propiedades de ese usuario en argumentos de función, defines un formato de documento JSON (o utilizas un formato existente) que represente a un usuario. El cuerpo de la solicitud `PUT` para crear un nuevo recurso es entonces dicho documento. Se obtiene un recurso realizando una solicitud `GET` a la URL del recurso (por ejemplo, `/usuario/larry`), que de nuevo devuelve el documento que representa al recurso.Este segundo enfoque facilita el uso de algunas de las características que proporciona HTTP, como el soporte para la caché de recursos (mantener una copia de un recurso en el cliente para un acceso rápido). Los conceptos utilizados en HTTP, que están bien diseñados, pueden proporcionar un conjunto útil de principios para diseñar la interfaz de tu servidor.
 
-This second approach makes it easier to use some of the features that HTTP provides, such as support for caching resources (keeping a copy of a resource on the client for fast access). The concepts used in HTTP, which are well designed, can provide a helpful set of principles to design your server interface around.
+## Seguridad y HTTPS
 
-## Security and HTTPS
+{{index "hombre en el medio", seguridad, HTTPS, [red, seguridad]}}
 
-{{index "man-in-the-middle", security, HTTPS, [network, security]}}
+Los datos que viajan por Internet tienden a seguir un largo y peligroso camino. Para llegar a su destino, deben pasar por cualquier cosa, desde puntos de acceso Wi-Fi de cafeterías hasta redes controladas por varias empresas y estados. En cualquier punto a lo largo de su ruta, pueden ser inspeccionados o incluso modificados.
 
-Data traveling over the Internet tends to follow a long, dangerous road. To get to its destination, it must hop through anything from coffee shop Wi-Fi hotspots to networks controlled by various companies and states. At any point along its route it may be inspected or even modified.
+{{index manipulación}}
 
-{{index tampering}}
+Si es importante que algo se mantenga en secreto, como la ((contraseña)) de tu cuenta de ((correo electrónico)), o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, HTTP simple no es suficiente.
 
-If it is important that something remain secret, such as the ((password)) to your ((email)) account, or that it arrive at its destination unmodified, such as the account number you transfer money to via your bank's website, plain HTTP is not good enough.
+{{index criptografía, cifrado}}
 
-{{index cryptography, encryption}}
+{{indexsee "HTTP seguro", HTTPS, [navegador, seguridad]}}
 
-{{indexsee "Secure HTTP", HTTPS, [browser, security]}}
+El protocolo seguro ((HTTP)), utilizado para ((URL))s que comienzan con _https://_, envuelve el tráfico HTTP de una manera que dificulta su lectura y manipulación. Antes de intercambiar datos, el cliente verifica que el servidor sea quien dice ser, solicitándole que demuestre que tiene un ((certificado)) criptográfico emitido por una autoridad de certificación que el navegador reconoce. Luego, todos los datos que pasan por la ((conexión)) están encriptados de una manera que debería evitar el espionaje y la manipulación.
 
-The secure ((HTTP)) protocol, used for ((URL))s starting with _https://_, wraps HTTP traffic in a way that makes it harder to read and tamper with. Before exchanging data, the client verifies that the server is who it claims to be by asking it to prove that it has a cryptographic ((certificate)) issued by a certificate authority that the browser recognizes. Next, all data going over the ((connection)) is encrypted in a way that should prevent eavesdropping and tampering.
+Así, cuando funciona correctamente, ((HTTPS)) evita que otras personas se hagan pasar por el sitio web con el que estás intentando comunicarte _y_ que espíen tu comunicación. No es perfecto, y ha habido varios incidentes en los que HTTPS falló debido a certificados falsificados o robados y software defectuoso, pero es _mucho_ más seguro que el simple HTTP.
 
-Thus, when it works right, ((HTTPS)) prevents other people from impersonating the website you are trying to talk to _and_ from snooping on your communication. It is not perfect, and there have been various incidents where HTTPS failed because of forged or stolen certificates and broken software, but it is a _lot_ safer than plain HTTP.
+{{id formularios}}
 
-{{id forms}}
+## Campos de formulario
 
-## Form fields
+Los formularios fueron diseñados originalmente para la Web pre-JavaScript para permitir que los sitios web envíen información enviada por el usuario en una solicitud HTTP. Este diseño asume que la interacción con el servidor siempre ocurre navegando a una nueva página.
 
-Forms were originally designed for the pre-JavaScript Web to allow web sites to send user-submitted information in an HTTP request. This design assumes that interaction with the server always happens by navigating to a new page.
+{{index [DOM, campos]}}
 
-{{index [DOM, fields]}}
+Pero sus elementos son parte del DOM al igual que el resto de la página, y los elementos DOM que representan los campos de formulario admiten una serie de propiedades y eventos que no están presentes en otros elementos. Esto hace posible inspeccionar y controlar dichos campos de entrada con programas JavaScript y hacer cosas como agregar nueva funcionalidad a un formulario o utilizar formularios y campos como bloques de construcción en una aplicación JavaScript.
 
-But their elements are part of the DOM like the rest of the page, and the DOM elements that represent form ((field))s support a number of properties and events that are not present on other elements. These make it possible to inspect and control such input fields with JavaScript programs and do things such as adding new functionality to a form or using forms and fields as building blocks in a JavaScript application.
+{{index "formulario (etiqueta HTML)"}}
 
-{{index "form (HTML tag)"}}
+Un formulario web consiste en cualquier número de campos de entrada agrupados en una etiqueta `<form>`. HTML permite varios estilos diferentes de campos, que van desde simples casillas de verificación de encendido/apagado hasta menús desplegables y campos para entrada de texto. Este libro no intentará discutir exhaustivamente todos los tipos de campos, pero comenzaremos con una vista general aproximada.
 
-A web form consists of any number of input ((field))s grouped in a `<form>` tag. HTML allows several different styles of fields, ranging from simple on/off checkboxes to drop-down menus and fields for text input. This book won't try to comprehensively discuss all field types, but we'll start with a rough overview.
+{{index "entrada (etiqueta HTML)", "atributo tipo"}}
 
-{{index "input (HTML tag)", "type attribute"}}
-
-A lot of field types use the `<input>` tag. This tag's `type` attribute is used to select the field's style. These are some commonly used `<input>` types:
-
-{{index "password field", checkbox, "radio button", "file field"}}
+Muchos tipos de campos utilizan la etiqueta `<input>`. El atributo `type` de esta etiqueta se utiliza para seleccionar el estilo del campo. Estos son algunos tipos comúnmente utilizados de `<input>`:{{index "campo de contraseña", casilla de verificación, botón de radio, campo de archivo"}}
 
 {{table {cols: [1,5]}}}
 
-| `text`     | A single-line ((text field))
-| `password` | Same as `text` but hides the text that is typed
-| `checkbox` | An on/off switch
-| `color`    | A color
-| `date`     | A calendar date
-| `radio`    | (Part of) a ((multiple-choice)) field
-| `file`     | Allows the user to choose a file from their computer
+| `texto`    | Un campo de una línea ((campo de texto))
+| `contraseña` | Igual que `texto` pero oculta el texto que se escribe
+| `casilla de verificación` | Un interruptor de encendido/apagado
+| `color`   | Un color
+| `fecha`   | Una fecha de calendario
+| `radio`   | (Parte de) un campo de ((opción múltiple))
+| `archivo` | Permite al usuario elegir un archivo de su computadora
 
-{{index "value attribute", "checked attribute", "form (HTML tag)"}}
+{{index "atributo valor", "atributo marcado", "formulario (etiqueta HTML)"}}
 
-Form fields do not necessarily have to appear in a `<form>` tag. You can put them anywhere in a page. Such form-less fields cannot be ((submit))ted (only a form as a whole can), but when responding to input with JavaScript, we often don't want to submit our fields normally anyway.
+Los campos de formulario no necesariamente tienen que aparecer en una etiqueta `<form>`. Puedes ponerlos en cualquier parte de una página. Campos sin formulario no pueden ser ((enviado))s (solo un formulario en su totalidad puede), pero al responder a la entrada con JavaScript, a menudo no queremos enviar nuestros campos de forma normal de todos modos.
 
 ```{lang: html}
-<p><input type="text" value="abc"> (text)</p>
-<p><input type="password" value="abc"> (password)</p>
-<p><input type="checkbox" checked> (checkbox)</p>
-<p><input type="color" value="orange"> (color)</p>
-<p><input type="date" value="2023-10-13"> (date)</p>
-<p><input type="radio" value="A" name="choice">
-   <input type="radio" value="B" name="choice" checked>
-   <input type="radio" value="C" name="choice"> (radio)</p>
-<p><input type="file"> (file)</p>
+<p><input type="texto" value="abc"> (texto)</p>
+<p><input type="contraseña" value="abc"> (contraseña)</p>
+<p><input type="casilla de verificación" checked> (casilla de verificación)</p>
+<p><input type="color" value="naranja"> (color)</p>
+<p><input type="fecha" value="2023-10-13"> (fecha)</p>
+<p><input type="radio" value="A" name="elección">
+   <input type="radio" value="B" name="elección" checked>
+   <input type="radio" value="C" name="elección"> (radio)</p>
+<p><input type="archivo"> (archivo)</p>
 ```
 
 {{if book
 
-The fields created with this HTML code look like this:
+Los campos creados con este código HTML lucen así:
 
-{{figure {url: "img/form_fields.png", alt: "Screenshot showing various types of input tags", width: "4cm"}}}
+{{figure {url: "img/form_fields.png", alt: "Captura de pantalla que muestra varios tipos de etiquetas de entrada", width: "4cm"}}}
 
 if}}
 
-The JavaScript interface for such elements differs with the type of the element.
+La interfaz de JavaScript para estos elementos difiere según el tipo de elemento.
 
-{{index "textarea (HTML tag)", "text field"}}
+{{index "área de texto (etiqueta HTML)", "campo de texto"}}
 
-Multiline text fields have their own tag, `<textarea>`, mostly because using an attribute to specify a multiline starting value would be awkward. The `<textarea>` tag requires a matching `</textarea>` closing tag and uses the text between those two, instead of the `value` attribute, as starting text.
+Los campos de texto de varias líneas tienen su propia etiqueta, `<textarea>`, principalmente porque sería incómodo utilizar un atributo para especificar un valor de inicio de varias líneas. La etiqueta `<textarea>` requiere una etiqueta de cierre `</textarea>` coincidente y utiliza el texto entre esas dos etiquetas, en lugar del atributo `valor`, como texto de inicio.
 
 ```{lang: html}
 <textarea>
-one
-two
-three
+uno
+dos
+tres
 </textarea>
 ```
 
-{{index "select (HTML tag)", "option (HTML tag)", "multiple choice", "drop-down menu"}}
+{{index "select (etiqueta HTML)", "option (etiqueta HTML)", "opción múltiple", "menú desplegable"}}
 
-Finally, the `<select>` tag is used to create a field that allows the user to select from a number of predefined options.
+Finalmente, la etiqueta `<select>` se usa para crear un campo que permite al usuario seleccionar de varias opciones predefinidas.
 
 ```{lang: html}
 <select>
-  <option>Pancakes</option>
-  <option>Pudding</option>
-  <option>Ice cream</option>
+  <option>Tortitas</option>
+  <option>Pudín</option>
+  <option>Helado</option>
 </select>
 ```
 
 {{if book
 
-Such a field looks like this:
+Dicho campo luce así:
 
-{{figure {url: "img/form_select.png", alt: "Screenshot showing a select field", width: "4cm"}}}
+{{figure {url: "img/form_select.png", alt: "Captura de pantalla que muestra un campo de selección", width: "4cm"}}}
 
 if}}
 
-{{index "change event"}}
+{{index "evento de cambio"}}
 
-Whenever the value of a form field changes, it will fire a `"change"` event.
+Cada vez que cambia el valor de un campo de formulario, se desencadenará un evento `"cambio"`.
 
-## Focus
+## Enfoque
 
-{{index keyboard, focus}}
+{{index teclado, enfoque}}
 
-{{indexsee "keyboard focus", focus}}
+{{indexsee "enfoque del teclado", enfoque}}
 
-Unlike most elements in HTML documents, form fields can get _keyboard ((focus))_. When clicked, moved to with the [tab]{keyname} key, or activated in some other way, they become the currently active element and the recipient of keyboard ((input)).
+A diferencia de la mayoría de elementos en documentos HTML, los campos de formulario pueden obtener _((enfoque)) de teclado_. Cuando se hace clic, se mueve con la tecla [tab]{keyname}, o se activa de alguna otra manera, se convierten en el elemento activo actual y en el receptor de la ((entrada)) de teclado.
 
-{{index "option (HTML tag)", "select (HTML tag)"}}
+{{index "option (etiqueta HTML)", "select (etiqueta HTML)"}}
 
-Thus, you can type into a ((text field)) only when it is focused. Other fields respond differently to keyboard events. For example, a `<select>` menu tries to move to the option that contains the text the user typed and responds to the arrow keys by moving its selection up and down.
+Por lo tanto, puedes escribir en un ((campo de texto)) solo cuando está enfocado. Otros campos responden diferentemente a los eventos de teclado. Por ejemplo, un menú `<select>` intenta moverse a la opción que contiene el texto que el usuario escribió y responde a las teclas de flecha moviendo su selección hacia arriba y hacia abajo.
 
-{{index "focus method", "blur method", "activeElement property"}}
+{{index "método focus", "método blur", "propiedad activeElement"}}
 
-We can control ((focus)) from JavaScript with the `focus` and `blur` methods. The first moves focus to the DOM element it is called on, and the second removes focus. The value in `document.activeElement` corresponds to the currently focused element.
+Podemos controlar el ((focus)) desde JavaScript con los métodos `focus` y `blur`. El primero mueve el enfoque al elemento del DOM en el que se llama, y el segundo elimina el enfoque. El valor en `document.activeElement` corresponde al elemento actualmente enfocado.
 
 ```{lang: html}
 <input type="text">
@@ -401,112 +377,108 @@ We can control ((focus)) from JavaScript with the `focus` and `blur` methods. Th
 </script>
 ```
 
-{{index "autofocus attribute"}}
+{{index "atributo autofocus"}}
 
-For some pages, the user is expected to want to interact with a form field immediately. JavaScript can be used to ((focus)) this field when the document is loaded, but HTML also provides the `autofocus` attribute, which produces the same effect while letting the browser know what we are trying to achieve. This gives the browser the option to disable the behavior when it is not appropriate, such as when the user has put the focus on something else.
+Para algunas páginas, se espera que el usuario desee interactuar inmediatamente con un campo de formulario. JavaScript se puede utilizar para ((enfocar)) este campo cuando se carga el documento, pero HTML también proporciona el atributo `autofocus`, que produce el mismo efecto al mismo tiempo que le indica al navegador lo que estamos tratando de lograr. Esto le da al navegador la opción de deshabilitar el comportamiento cuando no es apropiado, como cuando el usuario ha puesto el enfoque en otra parte.
 
-{{index "tab key", keyboard, "tabindex attribute", "a (HTML tag)"}}
+{{index "tecla de tabulación", teclado, "atributo tabindex", "a (etiqueta HTML)"}}
 
-Browsers allow the user to move the focus through the document by pressing the [tab]{keyname} key to move to the next focusable element, and [shift-tab]{keyname} to move back to the previous element. By default, elements are visited in the order they appear in the document. It is possible to use the `tabindex` attribute to change this order. The following example document will let the focus jump from the text input to the OK button, rather than going through the help link first:
+Los navegadores permiten al usuario mover el enfoque a través del documento presionando la tecla [tab]{keyname} para pasar al siguiente elemento enfocable, y [shift-tab]{keyname} para retroceder al elemento anterior. Por defecto, los elementos se visitan en el orden en que aparecen en el documento. Es posible usar el atributo `tabindex` para cambiar este orden. El siguiente ejemplo de documento permitirá que el enfoque salte del campo de texto al botón OK, en lugar de pasar primero por el enlace de ayuda:
 
 ```{lang: html, focus: true}
-<input type="text" tabindex=1> <a href=".">(help)</a>
+<input type="text" tabindex=1> <a href=".">(ayuda)</a>
 <button onclick="console.log('ok')" tabindex=2>OK</button>
 ```
 
-{{index "tabindex attribute"}}
+{{index "atributo tabindex"}}
 
-By default, most types of HTML elements cannot be focused. But you can add a `tabindex` attribute to any element that will make it focusable. A `tabindex` of 0 makes an element focusable without affecting the focus order.
+Por defecto, la mayoría de los tipos de elementos HTML no pueden ser enfocados. Pero se puede agregar un atributo `tabindex` a cualquier elemento para hacerlo enfocable. Un `tabindex` de 0 hace que un elemento sea enfocable sin afectar el orden de enfoque.
 
-## Disabled fields
+## Campos deshabilitados
 
-{{index "disabled attribute"}}
+{{index "atributo disabled"}}
 
-All ((form)) ((field))s can be _disabled_ through their `disabled` attribute. It is an ((attribute)) that can be specified without value—the fact that it is present at all disables the element.
+Todos los campos de ((formulario)) pueden ser _deshabilitados_ a través de su atributo `disabled`. Es un ((atributo)) que se puede especificar sin valor; el simple hecho de que esté presente deshabilita el elemento.
 
 ```{lang: html}
-<button>I'm all right</button>
-<button disabled>I'm out</button>
+<button>Estoy bien</button>
+<button disabled>Estoy fuera</button>
 ```
 
-Disabled fields cannot be ((focus))ed or changed, and browsers make them look gray and faded.
+Los campos deshabilitados no pueden ser ((enfocar))dos ni modificados, y los navegadores los muestran de color gris y atenuados.
 
 {{if book
 
-{{figure {url: "img/button_disabled.png", alt: "Screenshot of a disabled button", width: "3cm"}}}
+{{figure {url: "img/button_disabled.png", alt: "Captura de pantalla de un botón deshabilitado", width: "3cm"}}}
 
 if}}
 
-{{index "user experience"}}
+{{index "experiencia del usuario"}}
 
-When a program is in the process of handling an action caused by some ((button)) or other control that might require communication with the server and thus take a while, it can be a good idea to disable the control until the action finishes. That way, when the user gets impatient and clicks it again, they don't accidentally repeat their action.
+Cuando un programa está en proceso de manejar una acción provocada por algún ((botón)) u otro control que podría requerir comunicación con el servidor y por lo tanto llevar un tiempo, puede ser una buena idea deshabilitar el control hasta que la acción haya terminado. De esta forma, cuando el usuario se impaciente y hace clic nuevamente, no repiten accidentalmente su acción.
 
-## The form as a whole
+## El formulario en su totalidad
 
-{{index "array-like object", "form (HTML tag)", "form property", "elements property"}}
-
-When a ((field)) is contained in a `<form>` element, its DOM element will have a `form` property linking back to the form's DOM element. The `<form>` element, in turn, has a property called `elements` that contains an array-like collection of the fields inside it.
+{{index "objeto similar a un array", "formulario (etiqueta HTML)", "propiedad formulario", "propiedad elementos"}}Cuando un ((field)) está contenido en un elemento `<form>`, su elemento DOM tendrá una propiedad `form` que enlaza de vuelta al elemento DOM del formulario. El elemento `<form>`, a su vez, tiene una propiedad llamada `elements` que contiene una colección similar a un array de los campos dentro de él.
 
 {{index "elements property", "name attribute"}}
 
-The `name` attribute of a form field determines the way its value will be identified when the form is ((submit))ted. It can also be used as a property name when accessing the form's `elements` property, which acts both as an array-like object (accessible by number) and a ((map)) (accessible by name).
+El atributo `name` de un campo de formulario determina la forma en que se identificará su valor cuando se ((submit))ee el formulario. También se puede utilizar como nombre de propiedad al acceder a la propiedad `elements` del formulario, la cual actúa tanto como un objeto similar a un array (accesible por número) como un ((mapa)) (accesible por nombre).
 
 ```{lang: html}
-<form action="example/submit.html">
-  Name: <input type="text" name="name"><br>
-  Password: <input type="password" name="password"><br>
-  <button type="submit">Log in</button>
+<form action="ejemplo/enviar.html">
+  Nombre: <input type="text" name="nombre"><br>
+  Contraseña: <input type="password" name="contraseña"><br>
+  <button type="submit">Ingresar</button>
 </form>
 <script>
-  let form = document.querySelector("form");
-  console.log(form.elements[1].type);
+  let formulario = document.querySelector("form");
+  console.log(formulario.elements[1].type);
   // → password
-  console.log(form.elements.password.type);
+  console.log(formulario.elements.contraseña.type);
   // → password
-  console.log(form.elements.name.form == form);
+  console.log(formulario.elements.nombre.form == formulario);
   // → true
 </script>
 ```
 
 {{index "button (HTML tag)", "type attribute", submit, "enter key"}}
 
-A button with a `type` attribute of `submit` will, when pressed, cause the form to be submitted. Pressing [enter]{keyname} when a form field is focused has the same effect.
+Un botón con un atributo `type` de `submit` hará que, al presionarlo, se submita el formulario. Presionar [enter]{keyname} cuando un campo de formulario está enfocado tendrá el mismo efecto.
 
 {{index "submit event", "event handling", "preventDefault method", "page reload", "GET method", "POST method"}}
 
-Submitting a ((form)) normally means that the ((browser)) navigates to the page indicated by the form's `action` attribute, using either a `GET` or a `POST` ((request)). But before that happens, a `"submit"` event is fired. You can handle this event with JavaScript and prevent this default behavior by calling `preventDefault` on the event object.
+Enviar un ((form))ulario normalmente significa que el ((navegador)) se dirige a la página indicada por el atributo `action` del formulario, utilizando ya sea una solicitud `GET` o `POST`. Pero antes de que eso ocurra, se dispara un evento `"submit"`. Puedes manejar este evento con JavaScript y prevenir este comportamiento por defecto llamando a `preventDefault` en el objeto de evento.
 
 ```{lang: html}
 <form>
-  Value: <input type="text" name="value">
-  <button type="submit">Save</button>
+  Valor: <input type="text" name="valor">
+  <button type="submit">Guardar</button>
 </form>
 <script>
-  let form = document.querySelector("form");
-  form.addEventListener("submit", event => {
-    console.log("Saving value", form.elements.value.value);
-    event.preventDefault();
+  let formulario = document.querySelector("form");
+  formulario.addEventListener("submit", evento => {
+    console.log("Guardando valor", formulario.elements.valor.value);
+    evento.preventDefault();
   });
 </script>
 ```
 
 {{index "submit event", validation}}
 
-Intercepting `"submit"` events in JavaScript has various uses. We can write code to verify that the values the user entered make sense and immediately show an error message instead of submitting the form. Or we can disable the regular way of submitting the form entirely, as in the example, and have our program handle the input, possibly using `fetch` to send it to a server without reloading the page.
+Interceptar los eventos `"submit"` en JavaScript tiene varios usos. Podemos escribir código para verificar que los valores ingresados por el usuario tengan sentido y mostrar inmediatamente un mensaje de error en lugar de enviar el formulario. O podemos deshabilitar completamente la forma regular de enviar el formulario, como en el ejemplo, y hacer que nuestro programa maneje la entrada, posiblemente utilizando `fetch` para enviarla a un servidor sin recargar la página.
 
-## Text fields
+## Campos de texto
 
 {{index "value attribute", "input (HTML tag)", "text field", "textarea (HTML tag)", [DOM, fields], [interface, object]}}
 
-Fields created by `<textarea>` tags, or `<input>` tags with a type of `text` or `password`, share a common interface. Their DOM elements have a `value` property that holds their current content as a string value. Setting this property to another string changes the field's content.
+Los campos creados por etiquetas `<textarea>`, o etiquetas `<input>` con un tipo de `text` o `password`, comparten una interfaz común. Sus elementos DOM tienen una propiedad `value` que contiene su contenido actual como un valor de cadena. Establecer esta propiedad a otra cadena cambia el contenido del campo.
 
-{{index "selectionStart property", "selectionEnd property"}}
+{{index "selectionStart property", "selectionEnd property"}}Las propiedades `selectionStart` y `selectionEnd` de los ((campos de texto)) nos brindan información sobre la posición del ((cursor)) y la ((selección)) en el ((texto)). Cuando no se ha seleccionado nada, estas dos propiedades contienen el mismo número, indicando la posición del cursor. Por ejemplo, 0 indica el inicio del texto, y 10 indica que el cursor está después del 10^º^ ((carácter)). Cuando se selecciona parte del campo, las dos propiedades serán diferentes, dándonos el inicio y el final del texto seleccionado. Al igual que `value`, estas propiedades también se pueden escribir.
 
-The `selectionStart` and `selectionEnd` properties of ((text field))s give us information about the ((cursor)) and ((selection)) in the ((text)). When nothing is selected, these two properties hold the same number, indicating the position of the cursor. For example, 0 indicates the start of the text, and 10 indicates the cursor is after the 10^th^ ((character)). When part of the field is selected, the two properties will differ, giving us the start and end of the selected text. Like `value`, these properties may also be written to.
+{{index Khasekhemwy, "etiqueta textarea (HTML)", teclado, "manejo de eventos"}}
 
-{{index Khasekhemwy, "textarea (HTML tag)", keyboard, "event handling"}}
-
-Imagine you are writing an article about Khasekhemwy but have some trouble spelling his name. The following code wires up a `<textarea>` tag with an event handler that, when you press F2, inserts the string "Khasekhemwy" for you.
+Imagina que estás escribiendo un artículo sobre Khasekhemwy pero tienes problemas para deletrear su nombre. El siguiente código vincula una etiqueta `<textarea>` con un controlador de eventos que, al presionar F2, inserta la cadena "Khasekhemwy" por ti.
 
 ```{lang: html}
 <textarea></textarea>
@@ -522,71 +494,69 @@ Imagine you are writing an article about Khasekhemwy but have some trouble spell
     let from = field.selectionStart, to = field.selectionEnd;
     field.value = field.value.slice(0, from) + word +
                   field.value.slice(to);
-    // Put the cursor after the word
+    // Coloca el cursor después de la palabra
     field.selectionStart = from + word.length;
     field.selectionEnd = from + word.length;
   }
 </script>
 ```
 
-{{index "replaceSelection function", "text field"}}
+{{index "función replaceSelection", "campo de texto"}}
 
-The `replaceSelection` function replaces the currently selected part of a text field's content with the given word and then moves the ((cursor)) after that word so that the user can continue typing.
+La función `replaceSelection` reemplaza la parte actualmente seleccionada del contenido de un campo de texto con la palabra proporcionada y luego mueve el ((cursor)) después de esa palabra para que el usuario pueda continuar escribiendo.
 
-{{index "change event", "input event"}}
+{{index "evento change", "evento input"}}
 
-The `"change"` event for a ((text field)) does not fire every time something is typed. Rather, it fires when the field loses ((focus)) after its content was changed. To respond immediately to changes in a text field, you should register a handler for the `"input"` event instead, which fires for every time the user types a character, deletes text, or otherwise manipulates the field's content.
+El evento `"change"` para un ((campo de texto)) no se activa cada vez que se escribe algo. En cambio, se activa cuando el campo pierde el ((enfoque)) después de que su contenido haya cambiado. Para responder de inmediato a los cambios en un campo de texto, se debe registrar un controlador para el evento `"input"`, que se activa cada vez que el usuario escribe un carácter, elimina texto o de otra manera manipula el contenido del campo.
 
-The following example shows a text field and a counter displaying the current length of the text in the field:
+El siguiente ejemplo muestra un campo de texto y un contador que muestra la longitud actual del texto en el campo:
 
 ```{lang: html}
-<input type="text"> length: <span id="length">0</span>
+<input type="text"> longitud: <span id="length">0</span>
 <script>
-  let text = document.querySelector("input");
+  let texto = document.querySelector("input");
   let output = document.querySelector("#length");
-  text.addEventListener("input", () => {
-    output.textContent = text.value.length;
+  texto.addEventListener("input", () => {
+    output.textContent = texto.value.length;
   });
 </script>
 ```
 
-## Checkboxes and radio buttons
+## Casillas de verificación y botones de radio
 
-{{index "input (HTML tag)", "checked attribute"}}
+{{index "etiqueta input (HTML)", "atributo checked"}}
 
-A ((checkbox)) field is a binary toggle. Its value can be extracted or changed through its `checked` property, which holds a Boolean value.
+Un campo de ((casilla de verificación)) es un interruptor binario. Su valor se puede extraer o cambiar a través de su propiedad `checked`, que contiene un valor Booleano.
 
 ```{lang: html}
 <label>
-  <input type="checkbox" id="purple"> Make this page purple
+  <input type="checkbox" id="purple"> Hacer esta página morada
 </label>
 <script>
-  let checkbox = document.querySelector("#purple");
-  checkbox.addEventListener("change", () => {
+  let casillaVerificacion = document.querySelector("#purple");
+  casillaVerificacion.addEventListener("change", () => {
     document.body.style.background =
-      checkbox.checked ? "mediumpurple" : "";
+      casillaVerificacion.checked ? "mediumpurple" : "";
   });
 </script>
-```
+```{{index "for attribute", "id attribute", focus, "label (HTML tag)", labeling}}
 
-{{index "for attribute", "id attribute", focus, "label (HTML tag)", labeling}}
-
-The `<label>` tag associates a piece of document with an input ((field)). Clicking anywhere on the label will activate the field, which focuses it and toggles its value when it is a checkbox or radio button.
+La etiqueta `<label>` asocia un fragmento de documento con un campo de entrada. Hacer clic en cualquier parte de la etiqueta activará el campo, lo enfocará e invertirá su valor cuando sea un casilla de verificación o un botón de radio.
 
 {{index "input (HTML tag)", "multiple-choice"}}
 
-A ((radio button)) is similar to a checkbox, but it's implicitly linked to other radio buttons with the same `name` attribute so that only one of them can be active at any time.
+Un botón de radio es similar a una casilla de verificación, pero está vinculado implícitamente a otros botones de radio con el mismo atributo `name` para que solo uno de ellos pueda estar activo en cualquier momento.
 
 ```{lang: html}
 Color:
 <label>
-  <input type="radio" name="color" value="orange"> Orange
+  <input type="radio" name="color" value="orange"> Naranja
 </label>
 <label>
-  <input type="radio" name="color" value="lightgreen"> Green
+  <input type="radio" name="color" value="lightgreen"> Verde claro
 </label>
 <label>
-  <input type="radio" name="color" value="lightblue"> Blue
+  <input type="radio" name="color" value="lightblue"> Azul claro
 </label>
 <script>
   let buttons = document.querySelectorAll("[name=color]");
@@ -600,29 +570,29 @@ Color:
 
 {{index "name attribute", "querySelectorAll method"}}
 
-The ((square brackets)) in the CSS query given to `querySelectorAll` are used to match attributes. It selects elements whose `name` attribute is `"color"`.
+Los corchetes cuadrados en la consulta CSS proporcionada a `querySelectorAll` se utilizan para hacer coincidir atributos. Selecciona elementos cuyo atributo `name` es `"color"`.
 
-## Select fields
+## Campos de selección
 
 {{index "select (HTML tag)", "multiple-choice", "option (HTML tag)"}}
 
-Select fields are conceptually similar to radio buttons—they also allow the user to choose from a set of options. But where a radio button puts the layout of the options under our control, the appearance of a `<select>` tag is determined by the browser.
+Los campos de selección son conceptualmente similares a los botones de radio, ya que también permiten al usuario elegir entre un conjunto de opciones. Sin embargo, mientras que un botón de radio pone el diseño de las opciones bajo nuestro control, la apariencia de una etiqueta `<select>` está determinada por el navegador.
 
 {{index "multiple attribute", "drop-down menu"}}
 
-Select fields also have a variant that is more akin to a list of checkboxes, rather than radio boxes. When given the `multiple` attribute, a `<select>` tag will allow the user to select any number of options, rather than just a single option. Whereas a regular select field is drawn as a _drop-down_ control, which shows the inactive options only when you open it, a field with `multiple` enabled shows multiple options at the same time, allowing the user to enable or disable them individually.
+Los campos de selección también tienen una variante que se asemeja más a una lista de casillas de verificación que a botones de radio. Cuando se le otorga el atributo `multiple`, una etiqueta `<select>` permitirá al usuario seleccionar cualquier número de opciones, en lugar de una sola opción. Mientras que un campo de selección regular se muestra como un control de _lista desplegable_, que muestra las opciones inactivas solo cuando lo abres, un campo con `multiple` habilitado muestra múltiples opciones al mismo tiempo, permitiendo al usuario habilitar o deshabilitarlas individualmente.
 
 {{index "option (HTML tag)", "value attribute"}}
 
-Each `<option>` tag has a value. This value can be defined with a `value` attribute. When that is not given, the ((text)) inside the option will count as its value. The `value` property of a `<select>` element reflects the currently selected option. For a `multiple` field, though, this property doesn't mean much since it will give the value of only _one_ of the currently selected options.
+Cada etiqueta `<option>` tiene un valor. Este valor se puede definir con un atributo `value`. Cuando este no se proporciona, el ((texto)) dentro de la opción se considerará como su valor. La propiedad `value` de un elemento `<select>` refleja la opción actualmente seleccionada. Sin embargo, para un campo `multiple`, esta propiedad no significa mucho, ya que dará el valor de solo _una_ de las opciones actualmente seleccionadas.
 
 {{index "select (HTML tag)", "options property", "selected attribute"}}
 
-The `<option>` tags for a `<select>` field can be accessed as an array-like object through the field's `options` property. Each option has a property called `selected`, which indicates whether that option is currently selected. The property can also be written to select or deselect an option.
+Las etiquetas `<option>` para un campo `<select>` pueden ser accedidas como un objeto similar a un array a través de la propiedad `options` del campo. Cada opción tiene una propiedad llamada `selected`, que indica si esa opción está actualmente seleccionada. La propiedad también se puede escribir para seleccionar o deseleccionar una opción.
 
 {{index "multiple attribute", "binary number"}}
 
-This example extracts the selected values from a `multiple` select field and uses them to compose a binary number from individual bits. Hold [control]{keyname} (or [command]{keyname} on a Mac) to select multiple options.
+Este ejemplo extrae los valores seleccionados de un campo de selección `multiple` y los utiliza para componer un número binario a partir de bits individuales. Mantén pulsado [control]{keyname} (o [command]{keyname} en un Mac) para seleccionar múltiples opciones.
 
 ```{lang: html}
 <select multiple>
@@ -646,13 +616,13 @@ This example extracts the selected values from a `multiple` select field and use
 </script>
 ```
 
-## File fields
+## Campos de archivo
 
 {{index file, "hard drive", "file system", security, "file field", "input (HTML tag)"}}
 
-File fields were originally designed as a way to ((upload)) files from the user's machine through a form. In modern browsers, they also provide a way to read such files from JavaScript programs. The field acts as a kind of gatekeeper. The script cannot simply start reading private files from the user's computer, but if the user selects a file in such a field, the browser interprets that action to mean that the script may read the file.
+Los campos de archivo fueron diseñados originalmente como una forma de ((subir)) archivos desde la máquina del usuario a través de un formulario. En los navegadores modernos, también proporcionan una forma de leer dichos archivos desde programas JavaScript. El campo actúa como una especie de guardián. El script no puede simplemente comenzar a leer archivos privados desde la computadora del usuario, pero si el usuario selecciona un archivo en dicho campo, el navegador interpreta esa acción como que el script puede leer el archivo.
 
-A file field usually looks like a button labeled with something like "choose file" or "browse", with information about the chosen file next to it.
+Un campo de archivo suele parecerse a un botón etiquetado con algo como "elegir archivo" o "explorar", con información sobre el archivo elegido al lado.
 
 ```{lang: html}
 <input type="file">
@@ -661,8 +631,8 @@ A file field usually looks like a button labeled with something like "choose fil
   input.addEventListener("change", () => {
     if (input.files.length > 0) {
       let file = input.files[0];
-      console.log("You chose", file.name);
-      if (file.type) console.log("It has type", file.type);
+      console.log("Has elegido", file.name);
+      if (file.type) console.log("Tiene tipo", file.type);
     }
   });
 </script>
@@ -670,17 +640,17 @@ A file field usually looks like a button labeled with something like "choose fil
 
 {{index "multiple attribute", "files property"}}
 
-The `files` property of a ((file field)) element is an ((array-like object)) (once again, not a real array) containing the files chosen in the field. It is initially empty. The reason there isn't simply a `file` property is that file fields also support a `multiple` attribute, which makes it possible to select multiple files at the same time.
+La propiedad `files` de un elemento ((campo de archivo)) es un objeto similar a un arreglo (una vez más, no es un arreglo real) que contiene los archivos elegidos en el campo. Inicialmente está vacío. La razón por la que no hay simplemente una propiedad `file` es que los campos de archivo también admiten un atributo `multiple`, lo que permite seleccionar varios archivos al mismo tiempo.
 
 {{index "File type"}}
 
-The objects in `files` have properties such as `name` (the filename), `size` (the file's size in bytes, which are chunks of 8 bits), and `type` (the media type of the file, such as `text/plain` or `image/jpeg`).
+Los objetos en `files` tienen propiedades como `name` (el nombre de archivo), `size` (el tamaño del archivo en bytes, que son trozos de 8 bits) y `type` (el tipo de medio del archivo, como `text/plain` o `image/jpeg`).
 
 {{index ["asynchronous programming", "reading files"], "file reading", "FileReader class"}}
 
 {{id filereader}}
 
-What it does not have is a property that contains the content of the file. Getting at that is a little more involved. Since reading a file from disk can take time, the interface is asynchronous to avoid freezing the window.
+Lo que no tiene es una propiedad que contenga el contenido del archivo. Acceder a eso es un poco más complicado. Dado que leer un archivo desde el disco puede llevar tiempo, la interfaz es asíncrona para evitar que se congele la ventana.
 
 ```{lang: html}
 <input type="file" multiple>
@@ -690,22 +660,20 @@ What it does not have is a property that contains the content of the file. Getti
     for (let file of Array.from(input.files)) {
       let reader = new FileReader();
       reader.addEventListener("load", () => {
-        console.log("File", file.name, "starts with",
+        console.log("El archivo", file.name, "comienza con",
                     reader.result.slice(0, 20));
       });
       reader.readAsText(file);
     }
   });
 </script>
-```
+```{{index "Clase FileReader", "evento load", "método readAsText", "propiedad result"}}
 
-{{index "FileReader class", "load event", "readAsText method", "result property"}}
+La lectura de un archivo se realiza creando un objeto `FileReader`, registrando un controlador de eventos `"load"` para él y llamando a su método `readAsText`, dándole el archivo que queremos leer. Una vez que la carga finaliza, la propiedad `result` del lector contiene el contenido del archivo.
 
-Reading a file is done by creating a `FileReader` object, registering a `"load"` event handler for it, and calling its `readAsText` method, giving it the file we want to read. Once loading finishes, the reader's `result` property contains the file's content.
+{{index "evento error", "Clase FileReader", "Clase Promise"}}
 
-{{index "error event", "FileReader class", "Promise class"}}
-
-`FileReader`s also fire an `"error"` event when reading the file fails for any reason. The error object itself will end up in the reader's `error` property. This interface was designed before promises became part of the language. You could wrap it in a promise like this:
+Los `FileReader`s también disparan un evento `"error"` cuando la lectura del archivo falla por cualquier motivo. El objeto de error en sí terminará en la propiedad `error` del lector. Esta interfaz fue diseñada antes de que las promesas se convirtieran en parte del lenguaje. Podrías envolverlo en una promesa de la siguiente manera:
 
 ```
 function readFileText(file) {
@@ -720,45 +688,43 @@ function readFileText(file) {
 }
 ```
 
-## Storing data client-side
+## Almacenando datos del lado del cliente
 
-{{index "web application"}}
+{{index "aplicación web"}}
 
-Simple ((HTML)) pages with a bit of JavaScript can be a great format for "((mini application))s"—small helper programs that automate basic tasks. By connecting a few form ((field))s with event handlers, you can do anything from converting between centimeters and inches to computing passwords from a master password and a website name.
+Páginas simples de ((HTML)) con un poco de JavaScript pueden ser un gran formato para "((mini aplicaciones))" - pequeños programas auxiliares que automatizan tareas básicas. Conectando unos cuantos campos de formulario con controladores de eventos, puedes hacer desde convertir entre centímetros y pulgadas hasta calcular contraseñas a partir de una contraseña maestra y un nombre de sitio web.
 
-{{index persistence, [binding, "as state"], [browser, storage]}}
+{{index persistencia, [vinculación, "como estado"], [navegador, almacenamiento]}}
 
-When such an application needs to remember something between sessions, you cannot use JavaScript bindings—those are thrown away every time the page is closed. You could set up a server, connect it to the Internet, and have your application store something there. We will see how to do that in [Chapter ?](node). But that's a lot of extra work and complexity. Sometimes it is enough to just keep the data in the ((browser)).
+Cuando una aplicación así necesita recordar algo entre sesiones, no puedes usar las vinculaciones de JavaScript, ya que estas se descartan cada vez que se cierra la página. Podrías configurar un servidor, conectarlo a Internet y hacer que tu aplicación almacene algo allí. Veremos cómo hacerlo en el [Capítulo ?](node). Pero eso implica mucho trabajo extra y complejidad. A veces es suficiente con mantener los datos en el ((navegador)).
 
-{{index "localStorage object", "setItem method", "getItem method", "removeItem method"}}
+{{index "objeto localStorage", "método setItem", "método getItem", "método removeItem"}}
 
-The `localStorage` object can be used to store data in a way that survives ((page reload))s. This object allows you to file string values under names.
+El objeto `localStorage` se puede utilizar para almacenar datos de una manera que sobreviva a las recargas de página. Este objeto te permite guardar valores de cadena bajo nombres.
 
 ```
-localStorage.setItem("username", "marijn");
-console.log(localStorage.getItem("username"));
+localStorage.setItem("nombre de usuario", "marijn");
+console.log(localStorage.getItem("nombre de usuario"));
 // → marijn
-localStorage.removeItem("username");
+localStorage.removeItem("nombre de usuario");
 ```
 
-{{index "localStorage object"}}
+{{index "objeto localStorage"}}
 
-A value in `localStorage` sticks around until it is overwritten, it is removed with `removeItem`, or the user clears their local data.
+Un valor en `localStorage` permanece hasta que se sobrescribe, se elimina con `removeItem` o el usuario elimina sus datos locales.
 
-{{index security}}
+{{index seguridad}}
 
-Sites from different ((domain))s get different storage compartments. That means data stored in `localStorage` by a given website can, in principle, be read (and overwritten) only by scripts on that same site.
+Los sitios de diferentes ((dominios)) obtienen compartimentos de almacenamiento diferentes. Eso significa que los datos almacenados en `localStorage` por un sitio web dado, en principio, solo pueden ser leídos (y sobrescritos) por scripts en ese mismo sitio.
 
-{{index "localStorage object"}}
+{{index "objeto localStorage"}}
 
-Browsers do enforce a limit on the size of the data a site can store in `localStorage`. That restriction, along with the fact that filling up people's ((hard drive))s with junk is not really profitable, prevents the feature from eating up too much space.
+Los navegadores aplican un límite en el tamaño de los datos que un sitio puede almacenar en `localStorage`. Esta restricción, junto con el hecho de que llenar los ((discos duros)) de la gente con basura no es realmente rentable, evita que la función ocupe demasiado espacio.
 
-{{index "localStorage object", "note-taking example", "select (HTML tag)", "button (HTML tag)", "textarea (HTML tag)"}}
-
-The following code implements a crude note-taking application. It keeps a set of named notes and allows the user to edit notes and create new ones.
+{{index "objeto localStorage", "ejemplo de toma de notas", "etiqueta select (HTML)", "etiqueta botón (HTML)", "etiqueta textarea (HTML)"}}El siguiente código implementa una aplicación rudimentaria de toma de notas. Mantiene un conjunto de notas con nombres y permite al usuario editar notas y crear nuevas.
 
 ```{lang: html, startCode: true}
-Notes: <select></select> <button>Add</button><br>
+Notas: <select></select> <button>Añadir</button><br>
 <textarea style="width: 100%"></textarea>
 
 <script>
@@ -766,22 +732,22 @@ Notes: <select></select> <button>Add</button><br>
   let note = document.querySelector("textarea");
 
   let state;
-  function setState(newState) {
+  function setState(nuevoEstado) {
     list.textContent = "";
-    for (let name of Object.keys(newState.notes)) {
+    for (let nombre of Object.keys(nuevoEstado.notes)) {
       let option = document.createElement("option");
-      option.textContent = name;
-      if (newState.selected == name) option.selected = true;
+      option.textContent = nombre;
+      if (nuevoEstado.selected == nombre) option.selected = true;
       list.appendChild(option);
     }
-    note.value = newState.notes[newState.selected];
+    note.value = nuevoEstado.notes[nuevoEstado.selected];
 
-    localStorage.setItem("Notes", JSON.stringify(newState));
-    state = newState;
+    localStorage.setItem("Notas", JSON.stringify(nuevoEstado));
+    state = nuevoEstado;
   }
-  setState(JSON.parse(localStorage.getItem("Notes")) ?? {
-    notes: {"shopping list": "Carrots\nRaisins"},
-    selected: "shopping list"
+  setState(JSON.parse(localStorage.getItem("Notas")) ?? {
+    notes: {"lista de compras": "Zanahorias\nPasas"},
+    selected: "lista de compras"
   });
 
   list.addEventListener("change", () => {
@@ -796,100 +762,98 @@ Notes: <select></select> <button>Add</button><br>
   });
   document.querySelector("button")
     .addEventListener("click", () => {
-      let name = prompt("Note name");
-      if (name) setState({
-        notes: {...state.notes, [name]: ""},
-        selected: name
+      let nombre = prompt("Nombre de la nota");
+      if (nombre) setState({
+        notes: {...state.notes, [nombre]: ""},
+        selected: nombre
       });
     });
 </script>
 ```
 
-{{index "getItem method", JSON, "?? operator", "default value"}}
+{{index "método getItem", JSON, "operador ??", "valor predeterminado"}}
 
-The script gets its starting state from the `"Notes"` value stored in `localStorage` or, if that is missing, creates an example state that has only a shopping list in it. Reading a field that does not exist from `localStorage` will yield `null`. Passing `null` to `JSON.parse` will make it parse the string `"null"` and return `null`. Thus, the `??` operator can be used to provide a default value in a situation like this.
+El script obtiene su estado inicial del valor `"Notas"` almacenado en `localStorage` o, si está ausente, crea un estado de ejemplo que solo contiene una lista de compras. Leer un campo que no existe en `localStorage` devolverá `null`. Pasar `null` a `JSON.parse` hará que analice la cadena `"null"` y devuelva `null`. Por tanto, en una situación como esta se puede utilizar el operador `??` para proporcionar un valor predeterminado.
 
-The `setState` method makes sure the DOM is showing a given state and stores the new state to `localStorage`. Event handlers call this function to move to a new state.
+El método `setState` se asegura de que el DOM muestre un estado dado y almacena el nuevo estado en `localStorage`. Los controladores de eventos llaman a esta función para moverse a un nuevo estado.
 
-{{index [object, creation], property, "computed property"}}
+{{index [objeto, creación], propiedad, "propiedad computada"}}
 
-The `...` syntax in the example is used to create a new object that is a clone of the old `state.notes`, but with one property added or overwritten. It uses ((spread)) syntax to first add the properties from the old object, and then set a new property. The ((square brackets)) notation in the object literal is used to create a property whose name is based on some dynamic value.
+La sintaxis `...` en el ejemplo se utiliza para crear un nuevo objeto que es un clon del antiguo `state.notes`, pero con una propiedad añadida o sobrescrita. Utiliza la sintaxis ((spread)) para primero añadir las propiedades del objeto antiguo y luego establecer una nueva propiedad. La notación de ((corchetes cuadrados)) en el literal del objeto se utiliza para crear una propiedad cuyo nombre se basa en algún valor dinámico.
 
-{{index "sessionStorage object", [browser, storage]}}
+{{index "objeto sessionStorage", [navegador, almacenamiento]}}
 
-There is another object, similar to `localStorage`, called `sessionStorage`. The difference between the two is that the content of `sessionStorage` is forgotten at the end of each _((session))_, which for most browsers means whenever the browser is closed.
+Existe otro objeto, similar a `localStorage`, llamado `sessionStorage`. La diferencia entre los dos es que el contenido de `sessionStorage` se olvida al final de cada _((sesión))_, lo que en la mayoría de los navegadores significa cada vez que se cierra el navegador.
 
-## Summary
+## Resumen
 
-In this chapter, we discussed how the HTTP protocol works. A _client_ sends a request, which contains a method (usually `GET`) and a path that identifies a resource. The _server_ then decides what to do with the request and responds with a status code and a response body. Both requests and responses may contain headers that provide additional information.
+En este capítulo, discutimos cómo funciona el protocolo HTTP. Un _cliente_ envía una solicitud, que contiene un método (generalmente `GET`) y una ruta que identifica un recurso. El _servidor_ luego decide qué hacer con la solicitud y responde con un código de estado y un cuerpo de respuesta. Tanto las solicitudes como las respuestas pueden contener encabezados que proporcionan información adicional.La interfaz a través de la cual JavaScript del navegador puede realizar solicitudes HTTP se llama `fetch`. Realizar una solicitud se ve así:
 
-The interface through which browser JavaScript can make HTTP requests is called `fetch`. Making a request looks like this:
-
-```
+```js
 fetch("/18_http.html").then(r => r.text()).then(text => {
-  console.log(`The page starts with ${text.slice(0, 15)}`);
+  console.log(`La página comienza con ${text.slice(0, 15)}`);
 });
 ```
 
-Browsers make `GET` requests to fetch the resources needed to display a web page. A page may also contain forms, which allow information entered by the user to be sent as a request for a new page when the form is submitted.
+Los navegadores hacen solicitudes `GET` para obtener los recursos necesarios para mostrar una página web. Una página también puede contener formularios, que permiten enviar información ingresada por el usuario como una solicitud de una nueva página cuando se envía el formulario.
 
-HTML can represent various types of form fields, such as text fields, checkboxes, multiple-choice fields, and file pickers.
+HTML puede representar varios tipos de campos de formulario, como campos de texto, casillas de verificación, campos de selección múltiple y selectores de archivos.
 
-Such fields can be inspected and manipulated with JavaScript. They fire the `"change"` event when changed, fire the `"input"` event when text is typed, and receive keyboard events when they have keyboard focus. Properties like `value` (for text and select fields) or `checked` (for checkboxes and radio buttons) are used to read or set the field's content.
+Estos campos pueden ser inspeccionados y manipulados con JavaScript. Disparan el evento `"change"` al cambiar, disparan el evento `"input"` al escribir texto y reciben eventos del teclado cuando tienen el foco del teclado. Propiedades como `value` (para campos de texto y select) o `checked` (para casillas de verificación y botones de radio) se utilizan para leer o establecer el contenido del campo.
 
-When a form is submitted, a `"submit"` event is fired on it. A JavaScript handler can call `preventDefault` on that event to disable the browser's default behavior. Form field elements may also occur outside of a form tag.
+Cuando un formulario se envía, se dispara un evento `"submit"` en él. Un controlador de JavaScript puede llamar a `preventDefault` en ese evento para deshabilitar el comportamiento predeterminado del navegador. Los elementos de campo de formulario también pueden ocurrir fuera de una etiqueta de formulario.
 
-When the user has selected a file from their local file system in a file picker field, the `FileReader` interface can be used to access the content of this file from a JavaScript program.
+Cuando el usuario ha seleccionado un archivo de su sistema de archivos local en un campo de selección de archivos, la interfaz `FileReader` se puede utilizar para acceder al contenido de este archivo desde un programa JavaScript.
 
-The `localStorage` and `sessionStorage` objects can be used to save information in a way that survives page reloads. The first object saves the data forever (or until the user decides to clear it), and the second saves it until the browser is closed.
+Los objetos `localStorage` y `sessionStorage` se pueden usar para guardar información de una manera que sobrevive a las recargas de la página. El primer objeto guarda los datos para siempre (o hasta que el usuario decida borrarlos) y el segundo los guarda hasta que se cierra el navegador.
 
-## Exercises
+## Ejercicios
 
-### Content negotiation
+### Negociación de contenido
 
-{{index "Accept header", "media type", "document format", "content negotiation (exercise)"}}
+{{index "Encabezado Accept", "tipo de medios", "formato de documento", "negociación de contenido (ejercicio)"}}
 
-One of the things HTTP can do is called _content negotiation_. The `Accept` request header is used to tell the server what type of document the client would like to get. Many servers ignore this header, but when a server knows of various ways to encode a resource, it can look at this header and send the one that the client prefers.
+Una de las cosas que HTTP puede hacer es la _negociación de contenido_. El encabezado de solicitud `Accept` se utiliza para indicar al servidor qué tipo de documento le gustaría obtener al cliente. Muchos servidores ignoran este encabezado, pero cuando un servidor conoce diversas formas de codificar un recurso, puede mirar este encabezado y enviar la que el cliente prefiera.
 
-{{index "MIME type"}}
+{{index "tipo MIME"}}
 
-The URL [_https://eloquentjavascript.net/author_](https://eloquentjavascript.net/author) is configured to respond with either plaintext, HTML, or JSON, depending on what the client asks for. These formats are identified by the standardized _((media type))s_ `text/plain`, `text/html`, and `application/json`.
+La URL [_https://eloquentjavascript.net/author_](https://eloquentjavascript.net/author) está configurada para responder ya sea con texto sin formato, HTML o JSON, dependiendo de lo que pida el cliente. Estos formatos están identificados por los _((tipos de medios))_ estandarizados `text/plain`, `text/html` y `application/json`.
 
-{{index "headers property", "fetch function"}}
+{{index "propiedad headers", "función fetch"}}
 
-Send requests to fetch all three formats of this resource. Use the `headers` property in the options object passed to `fetch` to set the header named `Accept` to the desired media type.
+Envía solicitudes para obtener los tres formatos de este recurso. Utiliza la propiedad `headers` en el objeto de opciones pasado a `fetch` para establecer el encabezado llamado `Accept` en el tipo de medios deseado.
 
-Finally, try asking for the media type `application/rainbows+unicorns` and see which status code that produces.
+Finalmente, intenta pedir el tipo de medios `application/rainbows+unicorns` y mira qué código de estado produce.
 
 {{if interactive
 
 ```{test: no}
-// Your code here.
+// Tu código aquí.
 ```
 
 if}}
 
 {{hint
 
-{{index "content negotiation (exercise)"}}
+{{index "negociación de contenido (ejercicio)"}}
 
-Base your code on the `fetch` examples [earlier in the chapter](http#fetch).
+Basate en los ejemplos de `fetch` [anteriores en el capítulo](http#fetch).
 
-{{index "406 (HTTP status code)", "Accept header"}}
+{{index "406 (código de estado HTTP)", "encabezado Accept"}}
 
-Asking for a bogus media type will return a response with code 406, "Not acceptable", which is the code a server should return when it can't fulfill the `Accept` header.
+Al solicitar un tipo de medio falso devolverá una respuesta con el código 406, "No aceptable", que es el código que un servidor debería devolver cuando no puede cumplir con el encabezado `Accept`.
 
 hint}}
 
-### A JavaScript workbench
+### Un banco de trabajo de JavaScript
 
-{{index "JavaScript console", "workbench (exercise)"}}
+{{index "Consola de JavaScript", "banco de trabajo (ejercicio)"}}
 
-Build an interface that allows people to type and run pieces of JavaScript code.
+Construye una interfaz que permita a las personas escribir y ejecutar fragmentos de código JavaScript.
 
-{{index "textarea (HTML tag)", "button (HTML tag)", "Function constructor", "error message"}}
+{{index "textarea (etiqueta HTML)", "button (etiqueta HTML)", "Constructor de Function", "mensaje de error"}}
 
-Put a button next to a `<textarea>` field that, when pressed, uses the `Function` constructor we saw in [Chapter ?](modules#eval) to wrap the text in a function and call it. Convert the return value of the function, or any error it raises, to a string and display it below the text field.
+Coloca un botón al lado de un campo `<textarea>` que, al ser presionado, utilice el constructor `Function` que vimos en [Capítulo ?](modules#eval) para envolver el texto en una función y llamarla. Convierte el valor de retorno de la función, o cualquier error que genere, a una cadena y muéstralo debajo del campo de texto.
 
 {{if interactive
 
@@ -899,7 +863,7 @@ Put a button next to a `<textarea>` field that, when pressed, uses the `Function
 <pre id="output"></pre>
 
 <script>
-  // Your code here.
+  // Tu código aquí.
 </script>
 ```
 
@@ -907,50 +871,50 @@ if}}
 
 {{hint
 
-{{index "click event", "mousedown event", "Function constructor", "workbench (exercise)"}}
+{{index "evento click", "evento mousedown", "Constructor de Function", "banco de trabajo (ejercicio)"}}
 
-Use `document.querySelector` or `document.getElementById` to get access to the elements defined in your HTML. An event handler for `"click"` or `"mousedown"` events on the button can get the `value` property of the text field and call `Function` on it.
+Utiliza `document.querySelector` o `document.getElementById` para acceder a los elementos definidos en tu HTML. Un manejador de eventos para eventos `"click"` o `"mousedown"` en el botón puede obtener la propiedad `value` del campo de texto y llamar a `Function` en él.
 
-{{index "try keyword", "exception handling"}}
+{{index "palabra clave try", "manejo de excepciones"}}
 
-Make sure you wrap both the call to `Function` and the call to its result in a `try` block so you can catch the exceptions it produces. In this case, we really don't know what type of exception we are looking for, so catch everything.
+Asegúrate de envolver tanto la llamada a `Function` como la llamada a su resultado en un bloque `try` para poder capturar las excepciones que produce. En este caso, realmente no sabemos qué tipo de excepción estamos buscando, así que captura todo.
 
-{{index "textContent property", output, text, "createTextNode method", "newline character"}}
+{{index "propiedad textContent", output, texto, "método createTextNode", "carácter de nueva línea"}}
 
-The `textContent` property of the output element can be used to fill it with a string message. Or, if you want to keep the old content around, create a new text node using `document.createTextNode` and append it to the element. Remember to add a newline character to the end so that not all output appears on a single line.
+La propiedad `textContent` del elemento de salida se puede utilizar para llenarlo con un mensaje de cadena. O, si deseas mantener el contenido anterior, crea un nuevo nodo de texto utilizando `document.createTextNode` y apéndelo al elemento. Recuerda agregar un carácter de nueva línea al final para que no aparezca toda la salida en una sola línea.
 
 hint}}
 
-### Conway's Game of Life
+### Juego de la vida de Conway
 
-{{index "game of life (exercise)", "artificial life", "Conway's Game of Life"}}
+{{index "juego de la vida (ejercicio)", "vida artificial", "Juego de la vida de Conway"}}
 
-Conway's Game of Life is a simple ((simulation)) that creates artificial "life" on a ((grid)), each cell of which is either alive or not. Each ((generation)) (turn), the following rules are applied:
+El Juego de la vida de Conway es una ((simulación)) simple que crea "vida" artificial en una ((rejilla)), donde cada celda puede estar viva o no. En cada ((generación)) (turno), se aplican las siguientes reglas:
 
-* Any live ((cell)) with fewer than two or more than three live   ((neighbor))s dies.
+* Cualquier celda viva con menos de dos o más de tres vecinos vivos muere.
 
-* Any live cell with two or three live neighbors lives on to the next   generation.
+* Cualquier celda viva con dos o tres vecinos vivos sigue viva en la siguiente generación.
 
-* Any dead cell with exactly three live neighbors becomes a live cell.
+* Cualquier celda muerta con exactamente tres vecinos vivos se convierte en una celda viva.
 
-A _neighbor_ is defined as any adjacent cell, including diagonally adjacent ones.
+Un _vecino_ se define como cualquier celda adyacente, incluidas las células adyacentes en diagonal.
 
-{{index "pure function"}}
+{{index "función pura"}}
 
-Note that these rules are applied to the whole grid at once, not one square at a time. That means the counting of neighbors is based on the situation at the start of the generation, and changes happening to neighbor cells during this generation should not influence the new state of a given cell.
+Ten en cuenta que estas reglas se aplican a toda la rejilla de una vez, no cuadrado por cuadrado. Eso significa que el recuento de vecinos se basa en la situación al comienzo de la generación, y los cambios que ocurran en las células vecinas durante esta generación no deberían influir en el nuevo estado de una celda dada.
 
-{{index "Math.random function"}}
+{{index "función Math.random"}}
 
-Implement this game using whichever ((data structure)) you find appropriate. Use `Math.random` to populate the grid with a random pattern initially. Display it as a grid of ((checkbox)) ((field))s, with a ((button)) next to it to advance to the next ((generation)). When the user checks or unchecks the checkboxes, their changes should be included when computing the next generation.
+Implementa este juego utilizando la estructura de ((datos)) que consideres apropiada. Utiliza `Math.random` para poblar la rejilla con un patrón aleatorio inicialmente. Muestra la rejilla como una cuadrícula de ((campo de verificación)) ((campo))s, con un ((botón)) al lado para avanzar a la siguiente ((generación)). Cuando el usuario marque o desmarque los campos de verificación, sus cambios deberían incluirse al calcular la siguiente generación.
 
 {{if interactive
 
 ```{lang: html, test: no}
 <div id="grid"></div>
-<button id="next">Next generation</button>
+<button id="next">Siguiente generación</button>
 
 <script>
-  // Your code here.
+  // Tu código aquí.
 </script>
 ```
 
@@ -958,20 +922,20 @@ if}}
 
 {{hint
 
-{{index "game of life (exercise)"}}
+{{index "juego de la vida (ejercicio)"}}
 
-To solve the problem of having the changes conceptually happen at the same time, try to see the computation of a ((generation)) as a ((pure function)), which takes one ((grid)) and produces a new grid that represents the next turn.
+Para resolver el problema de que los cambios ocurran conceptualmente al mismo tiempo, intenta ver la computación de una ((generación)) como una ((función pura)), la cual toma un ((grid)) y produce un nuevo grid que representa el siguiente turno.
 
-Representing the matrix can be done with a single array of width × height elements, storing values row by row, so, for example, the third element in the fifth row is (using zero-based indexing) stored at position 4 × _width_ + 2. You can count live ((neighbor))s with two nested loops, looping over adjacent coordinates in both dimensions. Take care not to count cells outside of the field and to ignore the cell in the center, whose neighbors we are counting.
+La representación de la matriz se puede hacer con un solo array de elementos de ancho × alto, almacenando valores fila por fila, por lo que, por ejemplo, el tercer elemento en la quinta fila se almacena en la posición 4 × _ancho_ + 2 (usando indexación basada en cero). Puedes contar los ((vecinos)) vivos con dos bucles anidados, recorriendo coordenadas adyacentes en ambas dimensiones. Asegúrate de no contar celdas fuera del campo e ignorar la celda en el centro, cuyos vecinos estamos contando.
 
-{{index "event handling", "change event"}}
+{{index "manejo de eventos", "evento de cambio"}}
 
-Ensuring that changes to ((checkbox))es take effect on the next generation can be done in two ways. An event handler could notice these changes and update the current grid to reflect them, or you could generate a fresh grid from the values in the checkboxes before computing the next turn.
+Asegurarse de que los cambios en los ((checkbox)) tengan efecto en la siguiente generación se puede hacer de dos maneras. Un manejador de eventos podría notar estos cambios y actualizar el grid actual para reflejarlos, o podrías generar un grid nuevo a partir de los valores de los checkboxes antes de calcular el siguiente turno.
 
-If you choose to go with event handlers, you might want to attach ((attribute))s that identify the position that each checkbox corresponds to so that it is easy to find out which cell to change.
+Si decides utilizar manejadores de eventos, es posible que desees adjuntar ((atributo))s que identifiquen la posición a la que corresponde cada checkbox para que sea fácil saber qué celda cambiar.
 
-{{index drawing, "table (HTML tag)", "br (HTML tag)"}}
+{{index dibujo, "tabla (etiqueta HTML)", "br (etiqueta HTML)"}}
 
-To draw the grid of checkboxes, you can either use a `<table>` element (see [Chapter ?](dom#exercise_table)) or simply put them all in the same element and put `<br>` (line break) elements between the rows.
+Para dibujar el grid de checkboxes, puedes usar un elemento `<table>` (ver [Capítulo ?](dom#ejercicio_table)) o simplemente colocar todos en el mismo elemento y poner elementos `<br>` (salto de línea) entre las filas.
 
 hint}}

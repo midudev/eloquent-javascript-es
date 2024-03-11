@@ -1,39 +1,39 @@
-{{meta {load_files: ["code/chapter/16_game.js", "code/levels.js", "code/_stop_keys.js", "code/chapter/17_canvas.js"], zip: "html include=[\"img/player.png\", \"img/sprites.png\"]"}}}
+{{meta {load_files: ["code/chapter/16_game.js", "code/levels.js", "code/stop_keys.js", "code/chapter/17_canvas.js"], zip: "html include=["img/player.png", "img/sprites.png"]"}}}
 
-# Drawing on Canvas
+# Dibujando en Canvas
 
-{{quote {author: "M.C. Escher", title: "cited by Bruno Ernst in The Magic Mirror of M.C. Escher", chapter: true}
+{{quote {author: "M.C. Escher", title: "citado por Bruno Ernst en El Espejo Mágico de M.C. Escher", chapter: true}
 
-Drawing is deception.
+Dibujar es engañar.
 
 quote}}
 
 {{index "Escher, M.C."}}
 
-{{figure {url: "img/chapter_picture_17.jpg", alt: "Illustration showing an industrial-looking robot arm drawing a city on a piece of paper", chapter: "framed"}}}
+{{figure {url: "img/chapter_picture_17.jpg", alt: "Ilustración que muestra un brazo robótico con aspecto industrial dibujando una ciudad en un trozo de papel", chapter: "framed"}}
 
-{{index CSS, "transform (CSS)", [DOM, graphics]}}
+{{index CSS, "transform (CSS)", [DOM, gráficos]}}
 
-Browsers give us several ways to display ((graphics)). The simplest way is to use styles to position and color regular DOM elements. This can get you quite far, as the game in the [previous chapter](game) showed. By adding partially transparent background ((image))s to the nodes, we can make them look exactly the way we want. It is even possible to rotate or skew nodes with the `transform` style.
+Los navegadores nos ofrecen varias formas de mostrar ((gráficos)). La forma más simple es usar estilos para posicionar y colorear elementos DOM regulares. Esto puede llevarnos bastante lejos, como mostró el juego en el [capítulo anterior](game). Al agregar imágenes de fondo parcialmente transparentes a los nodos, podemos hacer que se vean exactamente como queremos. Incluso es posible rotar o sesgar nodos con el estilo `transform`.
 
-But we'd be using the DOM for something that it wasn't originally designed for. Some tasks, such as drawing a ((line)) between arbitrary points, are extremely awkward to do with regular HTML elements.
+Pero estaríamos utilizando el DOM para algo para lo que no fue diseñado originalmente. Algunas tareas, como dibujar una ((línea)) entre puntos arbitrarios, son extremadamente incómodas de hacer con elementos HTML regulares.
 
-{{index SVG, "img (HTML tag)"}}
+{{index SVG, "img (etiqueta HTML)"}}
 
-There are two alternatives. The first is DOM-based but utilizes _Scalable Vector Graphics_ (SVG), rather than HTML. Think of SVG as a ((document))-markup dialect that focuses on ((shape))s rather than text. You can embed an SVG document directly in an HTML document or include it with an `<img>` tag.
+Hay dos alternativas. La primera es basada en el DOM pero utiliza _Gráficos Vectoriales Escalables_ (SVG), en lugar de HTML. Piensa en SVG como un dialecto de marcado de ((documento)) que se centra en las ((forma))s en lugar de en el texto. Puedes incrustar un documento SVG directamente en un documento HTML o incluirlo con una etiqueta `<img>`.
 
-{{index clearing, [DOM graphics], [interface, canvas]}}
+{{index despejando, [gráficos DOM], [interfaz, lienzo]}}
 
-The second alternative is called a _((canvas))_. A canvas is a single DOM element that encapsulates a ((picture)). It provides a programming interface for drawing ((shape))s onto the space taken up by the node. The main difference between a canvas and an SVG picture is that in SVG the original description of the shapes is preserved so that they can be moved or resized at any time. A canvas, on the other hand, converts the shapes to ((pixel))s (colored dots on a raster) as soon as they are drawn and does not remember what these pixels represent. The only way to move a shape on a canvas is to clear the canvas (or the part of the canvas around the shape) and redraw it with the shape in a new position.
+La segunda alternativa se llama _((lienzo))_. Un lienzo es un solo elemento DOM que encapsula una ((imagen)). Proporciona una interfaz de programación para dibujar ((forma))s en el espacio ocupado por el nodo. La principal diferencia entre un lienzo y una imagen SVG es que en SVG se conserva la descripción original de las formas para que puedan moverse o redimensionarse en cualquier momento. Un lienzo, por otro lado, convierte las formas en ((píxel))s (puntos de color en una cuadrícula) en cuanto se dibujan y no recuerda qué representan estos píxeles. La única forma de mover una forma en un lienzo es borrar el lienzo (o la parte del lienzo alrededor de la forma) y volver a dibujarlo con la forma en una nueva posición.
 
 ## SVG
 
-This book will not go into ((SVG)) in detail, but I will briefly explain how it works. At the [end of the chapter](canvas#graphics_tradeoffs), I'll come back to the trade-offs that you must consider when deciding which ((drawing)) mechanism is appropriate for a given application.
+Este libro no se adentrará en detalles sobre ((SVG)), pero explicaré brevemente cómo funciona. Al [final del capítulo](canvas#tradeoffs_graficos), volveré a los compromisos que debes considerar al decidir qué mecanismo de ((dibujo)) es adecuado para una aplicación determinada.
 
-This is an HTML document with a simple SVG ((picture)) in it:
+Este es un documento HTML con una sencilla imagen SVG en él:
 
 ```{lang: html, sandbox: "svg"}
-<p>Normal HTML here.</p>
+<p>Aquí va HTML normal.</p>
 <svg xmlns="http://www.w3.org/2000/svg">
   <circle r="50" cx="50" cy="50" fill="red"/>
   <rect x="120" y="5" width="90" height="90"
@@ -41,51 +41,47 @@ This is an HTML document with a simple SVG ((picture)) in it:
 </svg>
 ```
 
-{{index "circle (SVG tag)", "rect (SVG tag)", "XML namespace", XML, "xmlns attribute"}}
+{{index "circle (etiqueta SVG)", "rect (etiqueta SVG)", "espacio de nombres XML", XML, "atributo xmlns"}}{{if book
 
-The `xmlns` attribute changes an element (and its children) to a different _XML namespace_. This namespace, identified by a ((URL)), specifies the dialect that we are currently speaking. The `<circle>` and `<rect>` tags, which do not exist in HTML, do have a meaning in SVG—they draw shapes using the style and position specified by their attributes.
+El documento se muestra de la siguiente manera:
 
-{{if book
-
-The document is displayed like this:
-
-{{figure {url: "img/svg-demo.png", alt: "Screenshot showing an SVG image embedded in an HTML document", width: "4.5cm"}}}
+{{figure {url: "img/svg-demo.png", alt: "Captura de pantalla que muestra una imagen SVG incrustada en un documento HTML", width: "4.5cm"}}}
 
 if}}
 
-{{index [DOM, graphics]}}
+{{index [DOM, gráficos]}}
 
-These tags create DOM elements, just like HTML tags, that scripts can interact with. For example, this changes the `<circle>` element to be ((color))ed cyan instead:
+Estas etiquetas crean elementos del DOM, al igual que las etiquetas HTML, con las que los scripts pueden interactuar. Por ejemplo, esto cambia el elemento `<circle>` para que se coloree de cian:
 
 ```{sandbox: "svg"}
 let circle = document.querySelector("circle");
 circle.setAttribute("fill", "cyan");
 ```
 
-## The canvas element
+## El elemento canvas
 
-{{index [canvas, size], "canvas (HTML tag)"}}
+{{index [lienzo, tamaño], "canvas (etiqueta HTML)"}}
 
-Canvas ((graphics)) can be drawn onto a `<canvas>` element. You can give such an element `width` and `height` attributes to determine its size in ((pixel))s.
+Los ((gráficos)) en lienzo pueden ser dibujados en un elemento `<canvas>`. Puedes darle a dicho elemento atributos `width` y `height` para determinar su tamaño en ((píxel))s.
 
-A new canvas is empty, meaning it is entirely ((transparent)) and thus shows up as empty space in the document.
+Un lienzo nuevo está vacío, lo que significa que es completamente ((transparente)) y por lo tanto se muestra como espacio vacío en el documento.
 
-{{index "2d (canvas context)", "webgl (canvas context)", OpenGL, [canvas, context], dimensions, [interface, canvas]}}
+{{index "2d (contexto de canvas)", "webgl (contexto de canvas)", OpenGL, [canvas, contexto], dimensiones, [interfaz, canvas]}}
 
-The `<canvas>` tag is intended to allow different styles of ((drawing)). To get access to an actual drawing interface, we first need to create a _((context))_, an object whose methods provide the drawing interface. There are currently three widely supported drawing styles: `"2d"` for two-dimensional graphics, `"webgl"` for three-dimensional graphics through the OpenGL interface, and `"webgpu"`, a more modern and flexible alternative to WebGL.
+La etiqueta `<canvas>` está destinada a permitir diferentes estilos de ((dibujo)). Para acceder a una interfaz de dibujo real, primero necesitamos crear un _((contexto))_, un objeto cuyos métodos proporcionan la interfaz de dibujo. Actualmente existen tres estilos de dibujo ampliamente compatibles: `"2d"` para gráficos bidimensionales, `"webgl"` para gráficos tridimensionales a través de la interfaz OpenGL, y `"webgpu"`, una alternativa más moderna y flexible a WebGL.
 
-{{index rendering, graphics, efficiency}}
+{{index renderizado, gráficos, eficiencia}}
 
-This book won't discuss WebGL or WebGPU—we'll stick to two dimensions. But if you are interested in three-dimensional graphics, I do encourage you to look into WebGPU. It provides a direct interface to graphics hardware and allows you to render even complicated scenes efficiently, using JavaScript.
+Este libro no discutirá WebGL ni WebGPU—nos mantendremos en dos dimensiones. Pero si estás interesado en gráficos tridimensionales, te animo a investigar sobre WebGPU. Proporciona una interfaz directa al hardware gráfico y te permite renderizar escenas incluso complicadas de manera eficiente, utilizando JavaScript.
 
-{{index "getContext method", [canvas, context]}}
+{{index "método getContext", [canvas, contexto]}}
 
-You create a ((context)) with the `getContext` method on the `<canvas>` DOM element.
+Creas un ((contexto)) con el método `getContext` en el elemento DOM `<canvas>`.
 
 ```{lang: html}
-<p>Before canvas.</p>
+<p>Antes del lienzo.</p>
 <canvas width="120" height="60"></canvas>
-<p>After canvas.</p>
+<p>Después del lienzo.</p>
 <script>
   let canvas = document.querySelector("canvas");
   let context = canvas.getContext("2d");
@@ -94,41 +90,39 @@ You create a ((context)) with the `getContext` method on the `<canvas>` DOM elem
 </script>
 ```
 
-After creating the context object, the example draws a red ((rectangle)) 100 ((pixel))s wide and 50 pixels high, with its top-left corner at coordinates (10,10).
+Después de crear el objeto de contexto, el ejemplo dibuja un ((rectángulo)) rojo de 100 píxeles de ancho y 50 píxeles de alto, con su esquina superior izquierda en las coordenadas (10,10).
 
 {{if book
 
-{{figure {url: "img/canvas_fill.png", alt: "Screenshot of a canvas with a rectangle on it", width: "2.5cm"}}}
+{{figure {url: "img/canvas_fill.png", alt: "Captura de pantalla de un lienzo con un rectángulo en él", width: "2.5cm"}}}
 
 if}}
 
-{{index SVG, coordinates}}
+{{index SVG, coordenadas}}
 
-Just like in HTML (and SVG), the coordinate system that the canvas uses puts (0,0) at the top-left corner, and the positive y-((axis)) goes down from there. So (10,10) is 10 pixels below and to the right of the top-left corner.
+Al igual que en HTML (y SVG), el sistema de coordenadas que utiliza el lienzo sitúa el (0,0) en la esquina superior izquierda, y el eje y-((positivo)) va hacia abajo desde allí. Por lo tanto, (10,10) está 10 píxeles abajo y a la derecha de la esquina superior izquierda.
 
 {{id fill_stroke}}
 
-## Lines and surfaces
+## Líneas y superficies
 
-{{index filling, stroking, drawing, SVG}}
+{{index relleno, trazado, dibujo, SVG}}
 
-In the ((canvas)) interface, a shape can be _filled_, meaning its area is given a certain color or pattern, or it can be _stroked_, which means a ((line)) is drawn along its edge. The same terminology is used by SVG.
+En la interfaz de ((lienzo)), una forma puede ser _rellenada_, lo que significa que su área recibe un color o patrón determinado, o puede ser _trazada_, lo que significa que se dibuja una ((línea)) a lo largo de su borde. La misma terminología se utiliza en SVG.{{index "fillRect method", "strokeRect method"}}
 
-{{index "fillRect method", "strokeRect method"}}
-
-The `fillRect` method fills a ((rectangle)). It takes first the x- and y-((coordinates)) of the rectangle's top-left corner, then its width, and then its height. A similar method called `strokeRect` draws the ((outline)) of a rectangle.
+El método `fillRect` rellena un ((rectángulo)). Primero toma las ((coordenadas)) x e y de la esquina superior izquierda del rectángulo, luego su ancho y finalmente su altura. Un método similar llamado `strokeRect` dibuja el ((contorno)) de un rectángulo.
 
 {{index [state, "of canvas"]}}
 
-Neither method takes any further parameters. The color of the fill, thickness of the stroke, and so on, are not determined by an argument to the method, as you might reasonably expect, but rather by properties of the context object.
+Ninguno de los métodos toma más parámetros. El color del relleno, el grosor del trazo, y demás, no son determinados por un argumento del método, como podrías esperar razonablemente, sino por propiedades del objeto contexto.
 
 {{index filling, "fillStyle property"}}
 
-The `fillStyle` property controls the way shapes are filled. It can be set to a string that specifies a ((color)), using the color notation used by ((CSS)).
+La propiedad `fillStyle` controla la forma en que se rellenan las formas. Puede establecerse como una cadena que especifica un ((color)), utilizando la notación de color utilizada por ((CSS)).
 
 {{index stroking, "line width", "strokeStyle property", "lineWidth property", canvas}}
 
-The `strokeStyle` property works similarly but determines the color used for a stroked line. The width of that line is determined by the `lineWidth` property, which may contain any positive number.
+La propiedad `strokeStyle` funciona de manera similar, pero determina el color utilizado para una línea contorneada. El ancho de esa línea se determina mediante la propiedad `lineWidth`, que puede contener cualquier número positivo.
 
 ```{lang: html}
 <canvas></canvas>
@@ -143,21 +137,21 @@ The `strokeStyle` property works similarly but determines the color used for a s
 
 {{if book
 
-This code draws two blue squares, using a thicker line for the second one.
+Este código dibuja dos cuadrados azules, usando una línea más gruesa para el segundo.
 
-{{figure {url: "img/canvas_stroke.png", alt: "Screenshot showing two outlined squares", width: "5cm"}}}
+{{figure {url: "img/canvas_stroke.png", alt: "Captura de pantalla que muestra dos cuadrados contorneados", width: "5cm"}}}
 
 if}}
 
 {{index "default value", [canvas, size]}}
 
-When no `width` or `height` attribute is specified, as in the example, a canvas element gets a default width of 300 pixels and height of 150 pixels.
+Cuando no se especifica ningún atributo `width` o `height`, como en el ejemplo, un elemento canvas obtiene un ancho predeterminado de 300 píxeles y una altura de 150 píxeles.
 
-## Paths
+## Caminos
 
 {{index [path, canvas], [interface, design], [canvas, path]}}
 
-A path is a sequence of ((line))s. The 2D canvas interface takes a peculiar approach to describing such a path. It is done entirely through ((side effect))s. Paths are not values that can be stored and passed around. Instead, if you want to do something with a path, you make a sequence of method calls to describe its shape.
+Un camino es una secuencia de ((línea))s. La interfaz del canvas 2D toma un enfoque peculiar para describir un camino. Se realiza completamente a través de ((efecto secundario))s. Los caminos no son valores que se puedan almacenar y pasar. En su lugar, si deseas hacer algo con un camino, haces una secuencia de llamadas a métodos para describir su forma.
 
 ```{lang: html}
 <canvas></canvas>
@@ -174,19 +168,19 @@ A path is a sequence of ((line))s. The 2D canvas interface takes a peculiar appr
 
 {{index canvas, "stroke method", "lineTo method", "moveTo method", shape}}
 
-This example creates a path with a number of horizontal ((line)) segments and then strokes it using the `stroke` method. Each segment created with `lineTo` starts at the path's _current_ position. That position is usually the end of the last segment, unless `moveTo` was called. In that case, the next segment would start at the position passed to `moveTo`.
+Este ejemplo crea un camino con varios segmentos horizontales de ((línea)) y luego lo traza usando el método `stroke`. Cada segmento creado con `lineTo` comienza en la posición _actual_ del camino. Esa posición suele ser el final del último segmento, a menos que se haya llamado a `moveTo`. En ese caso, el siguiente segmento comenzaría en la posición pasada a `moveTo`.
 
 {{if book
 
-The path described by the previous program looks like this:
+El camino descrito por el programa anterior se ve así:
 
-{{figure {url: "img/canvas_path.png", alt: "Screenshot showing a number of vertical lines", width: "2.1cm"}}}
+{{figure {url: "img/canvas_path.png", alt: "Captura de pantalla que muestra varias líneas verticales", width: "2.1cm"}}}
 
 if}}
 
 {{index [path, canvas], filling, [path, closing], "fill method"}}
 
-When filling a path (using the `fill` method), each ((shape)) is filled separately. A path can contain multiple shapes—each `moveTo` motion starts a new one. But the path needs to be _closed_ (meaning its start and end are in the same position) before it can be filled. If the path is not already closed, a line is added from its end to its start, and the shape enclosed by the completed path is filled.
+Cuando se rellena un camino (usando el método `fill`), cada ((forma)) se llena por separado. Un camino puede contener múltiples formas—cada movimiento de `moveTo` inicia una nueva forma. Pero el camino necesita estar _cerrado_ (significando que su inicio y final están en la misma posición) antes de poder ser rellenado. Si el camino aún no está cerrado, se agrega una línea desde su final hasta su inicio, y se rellena la forma encerrada por el camino completado.
 
 ```{lang: html}
 <canvas></canvas>
@@ -200,27 +194,27 @@ When filling a path (using the `fill` method), each ((shape)) is filled separate
 </script>
 ```
 
-This example draws a filled triangle. Note that only two of the triangle's sides are explicitly drawn. The third, from the bottom-right corner back to the top, is implied and wouldn't be there when you stroke the path.
+Este ejemplo dibuja un triángulo relleno. Ten en cuenta que solo se dibujan explícitamente dos de los lados del triángulo. El tercero, desde la esquina inferior derecha de regreso a la parte superior, se da por implícito y no estaría allí cuando se traze el recorrido.
 
 {{if book
 
-{{figure {url: "img/canvas_triangle.png", alt: "Screenshot showing a filled path", width: "2.2cm"}}}
+{{figure {url: "img/canvas_triangle.png", alt: "Captura de pantalla que muestra un recorrido relleno", width: "2.2cm"}}}
 
 if}}
 
-{{index "stroke method", "closePath method", [path, closing], canvas}}
+{{index "método stroke", "método closePath", [recorrido, cierre], lienzo}}
 
-You could also use the `closePath` method to explicitly close a path by adding an actual ((line)) segment back to the path's start. This segment _is_ drawn when stroking the path.
+También puedes usar el método `closePath` para cerrar explícitamente un recorrido agregando un segmento real ((line)) de vuelta al inicio del recorrido. Este segmento _se_ dibuja cuando se traza el recorrido.
 
-## Curves
+## Curvas
 
-{{index [path, canvas], canvas, drawing}}
+{{index [recorrido, lienzo], lienzo, dibujo}}
 
-A path may also contain ((curve))d ((line))s. These are unfortunately a bit more involved to draw.
+Un recorrido también puede contener ((líneas)) curvadas. Lamentablemente, estas son un poco más complicadas de dibujar.
 
-{{index "quadraticCurveTo method"}}
+{{index "método quadraticCurveTo"}}
 
-The `quadraticCurveTo` method draws a curve to a given point. To determine the curvature of the line, the method is given a ((control point)) as well as a destination point. Imagine this control point as _attracting_ the line, giving it its curve. The line won't go through the control point, but its direction at the start and end points will be such that a straight line in that direction would point toward the control point. The following example illustrates this:
+El método `quadraticCurveTo` dibuja una curva hacia un punto dado. Para determinar la curvatura de la línea, el método recibe un ((punto de control)) así como un punto de destino. Imagina este punto de control como _atrayendo_ la línea, dándole su curva. La línea no pasará por el punto de control, pero su dirección en los puntos de inicio y fin será tal que una línea recta en esa dirección apuntaría hacia el punto de control. El siguiente ejemplo ilustra esto:
 
 ```{lang: html}
 <canvas></canvas>
@@ -228,7 +222,7 @@ The `quadraticCurveTo` method draws a curve to a given point. To determine the c
   let cx = document.querySelector("canvas").getContext("2d");
   cx.beginPath();
   cx.moveTo(10, 90);
-  // control=(60,10) goal=(90,90)
+  // control=(60,10) meta=(90,90)
   cx.quadraticCurveTo(60, 10, 90, 90);
   cx.lineTo(60, 10);
   cx.closePath();
@@ -238,19 +232,19 @@ The `quadraticCurveTo` method draws a curve to a given point. To determine the c
 
 {{if book
 
-It produces a path that looks like this:
+Produce un recorrido que se ve así:
 
-{{figure {url: "img/canvas_quadraticcurve.png", alt: "Screenshot of a quadratic curve", width: "2.3cm"}}}
+{{figure {url: "img/canvas_quadraticcurve.png", alt: "Captura de pantalla de una curva cuadrática", width: "2.3cm"}}}
 
 if}}
 
-{{index "stroke method"}}
+{{index "método stroke"}}
 
-We draw a ((quadratic curve)) from the left to the right, with (60,10) as control point, and then draw two ((line)) segments going through that control point and back to the start of the line. The result somewhat resembles a _((Star Trek))_ insignia. You can see the effect of the control point: the lines leaving the lower corners start off in the direction of the control point and then ((curve)) toward their target.
+Dibujamos una ((curva cuadrática)) de izquierda a derecha, con (60,10) como punto de control, y luego dibujamos dos segmentos ((line)) que pasan por ese punto de control y vuelven al inicio de la línea. El resultado se asemeja a un emblema de _((Star Trek))_. Puedes ver el efecto del punto de control: las líneas que salen de las esquinas inferiores comienzan en la dirección del punto de control y luego se curvan hacia su objetivo.
 
-{{index canvas, "bezierCurveTo method"}}
+{{index lienzo, "método bezierCurveTo"}}
 
-The `bezierCurveTo` method draws a similar kind of curve. Instead of a single ((control point)), this one has two—one for each of the ((line))'s endpoints. Here is a similar sketch to illustrate the behavior of such a curve:
+El método `bezierCurveTo` dibuja un tipo de curva similar. En lugar de un único ((punto de control)), este tiene dos—uno para cada uno de los extremos de la ((línea)). Aquí hay un boceto similar para ilustrar el comportamiento de dicha curva:
 
 ```{lang: html}
 <canvas></canvas>
@@ -258,7 +252,7 @@ The `bezierCurveTo` method draws a similar kind of curve. Instead of a single ((
   let cx = document.querySelector("canvas").getContext("2d");
   cx.beginPath();
   cx.moveTo(10, 90);
-  // control1=(10,10) control2=(90,10) goal=(50,90)
+  // control1=(10,10) control2=(90,10) meta=(50,90)
   cx.bezierCurveTo(10, 10, 90, 10, 50, 90);
   cx.lineTo(90, 10);
   cx.lineTo(10, 10);
@@ -267,71 +261,69 @@ The `bezierCurveTo` method draws a similar kind of curve. Instead of a single ((
 </script>
 ```
 
-The two control points specify the direction at both ends of the curve. The farther they are away from their corresponding point, the more the curve will "bulge" in that direction.
+Los dos puntos de control especifican la dirección en ambos extremos de la curva. Cuanto más separados estén de su punto correspondiente, más la curva "abultará" en esa dirección.{{if book
 
-{{if book
-
-{{figure {url: "img/canvas_beziercurve.png", alt: "Screenshot of a bezier curve", width: "2.2cm"}}}
+{{figure {url: "img/canvas_beziercurve.png", alt: "Captura de pantalla de una curva de Bezier", width: "2.2cm"}}}
 
 if}}
 
-{{index "trial and error"}}
+{{index "prueba y error"}}
 
-Such ((curve))s can be hard to work with—it's not always clear how to find the ((control point))s that provide the ((shape)) you are looking for. Sometimes you can compute them, and sometimes you'll just have to find a suitable value by trial and error.
+((curve))s como estas pueden ser difíciles de trabajar, no siempre es claro cómo encontrar los ((control point))s que proporcionan la ((forma)) que estás buscando. A veces puedes calcularlos y a veces simplemente tendrás que encontrar un valor adecuado mediante prueba y error.
 
-{{index "arc method", arc}}
+{{index "método de arco", arc}}
 
-The `arc` method is a way to draw a line that curves along the edge of a circle. It takes a pair of ((coordinates)) for the arc's center, a radius, and then a start angle and end angle.
+El método `arc` es una forma de dibujar una línea que se curva a lo largo del borde de un círculo. Toma un par de ((coordenadas)) para el centro del arco, un radio, y luego un ángulo de inicio y un ángulo final.
 
-{{index pi, "Math.PI constant"}}
+{{index pi, "constante Math.PI"}}
 
-Those last two parameters make it possible to draw only part of the circle. The ((angle))s are measured in ((radian))s, not ((degree))s. This means a full ((circle)) has an angle of 2π, or `2 * Math.PI`, which is about 6.28. The angle starts counting at the point to the right of the circle's center and goes clockwise from there. You can use a start of 0 and an end bigger than 2π (say, 7) to draw a full circle.
+Estos últimos dos parámetros permiten dibujar solo parte del círculo. Los ((ángulo))s se miden en ((radian))es, no en ((grado))s. Esto significa que un ((círculo)) completo tiene un ángulo de 2π, o `2 * Math.PI`, que es aproximadamente 6.28. El ángulo comienza a contar en el punto a la derecha del centro del círculo y va en sentido horario desde allí. Puedes usar un inicio de 0 y un final mayor que 2π (por ejemplo, 7) para dibujar un círculo completo.
 
 ```{lang: html}
 <canvas></canvas>
 <script>
   let cx = document.querySelector("canvas").getContext("2d");
   cx.beginPath();
-  // center=(50,50) radius=40 angle=0 to 7
+  // centro=(50,50) radio=40 ángulo=0 a 7
   cx.arc(50, 50, 40, 0, 7);
-  // center=(150,50) radius=40 angle=0 to ½π
+  // centro=(150,50) radio=40 ángulo=0 a ½π
   cx.arc(150, 50, 40, 0, 0.5 * Math.PI);
   cx.stroke();
 </script>
 ```
 
-{{index "moveTo method", "arc method", [path, " canvas"]}}
+{{index "método moveTo", "método arc", [path, " lienzo"]}}
 
-The resulting picture contains a ((line)) from the right of the full circle (first call to `arc`) to the right of the quarter-((circle)) (second call). Like other path-drawing methods, a line drawn with `arc` is connected to the previous path segment. You can call `moveTo` or start a new path to avoid this.
+La imagen resultante contiene una ((línea)) desde la derecha del círculo completo (primer llamado a `arc`) hasta la derecha del cuarto del ((círculo)) (segundo llamado). Al igual que otros métodos de dibujo de trayectos, una línea dibujada con `arc` está conectada al segmento de trayecto anterior. Puedes llamar a `moveTo` o comenzar un nuevo trayecto para evitar esto.
 
 {{if book
 
-{{figure {url: "img/canvas_circle.png", alt: "Screenshot of a circle", width: "4.9cm"}}}
+{{figure {url: "img/canvas_circle.png", alt: "Captura de pantalla de un círculo", width: "4.9cm"}}}
 
 if}}
 
-{{id pie_chart}}
+{{id diagrama_sectores}}
 
-## Drawing a pie chart
+## Dibujo de un diagrama de sectores
 
-{{index "pie chart example"}}
+{{index "ejemplo de diagrama de sectores"}}
 
-Imagine you've just taken a ((job)) at EconomiCorp, Inc., and your first assignment is to draw a pie chart of its customer satisfaction ((survey)) results.
+Imagina que acabas de aceptar un ((trabajo)) en EconomiCorp, Inc., y tu primera tarea es dibujar un diagrama de sectores de los resultados de la encuesta de satisfacción de los clientes.
 
-The `results` binding contains an array of objects that represent the survey responses.
+El enlace `results` contiene una matriz de objetos que representan las respuestas de la encuesta.
 
 ```{sandbox: "pie", includeCode: true}
 const results = [
-  {name: "Satisfied", count: 1043, color: "lightblue"},
+  {name: "Satisfecho", count: 1043, color: "lightblue"},
   {name: "Neutral", count: 563, color: "lightgreen"},
-  {name: "Unsatisfied", count: 510, color: "pink"},
-  {name: "No comment", count: 175, color: "silver"}
+  {name: "Insatisfecho", count: 510, color: "pink"},
+  {name: "Sin comentario", count: 175, color: "silver"}
 ];
 ```
 
-{{index "pie chart example"}}
+{{index "ejemplo de diagrama de sectores"}}
 
-To draw a pie chart, we draw a number of pie slices, each made up of an ((arc)) and a pair of ((line))s to the center of that arc. We can compute the ((angle)) taken up by each arc by dividing a full circle (2π) by the total number of responses and then multiplying that number (the angle per response) by the number of people who picked a given choice.
+Para dibujar un diagrama de sectores, dibujamos una serie de sectores circulares, cada uno compuesto por un ((arco)) y un par de ((línea))s hacia el centro de ese arco. Podemos calcular el ((ángulo)) ocupado por cada arco dividiendo un círculo completo (2π) por el número total de respuestas y luego multiplicando ese número (el ángulo por respuesta) por el número de personas que eligieron una opción determinada.
 
 ```{lang: html, sandbox: "pie"}
 <canvas width="200" height="200"></canvas>
@@ -339,13 +331,13 @@ To draw a pie chart, we draw a number of pie slices, each made up of an ((arc)) 
   let cx = document.querySelector("canvas").getContext("2d");
   let total = results
     .reduce((sum, {count}) => sum + count, 0);
-  // Start at the top
+  // Comenzar en la parte superior
   let currentAngle = -0.5 * Math.PI;
   for (let result of results) {
     let sliceAngle = (result.count / total) * 2 * Math.PI;
     cx.beginPath();
-    // center=100,100, radius=100
-    // from current angle, clockwise by slice's angle
+    // centro=100,100, radio=100
+    // desde el ángulo actual, en sentido horario por el ángulo del sector
     cx.arc(100, 100, 100,
            currentAngle, currentAngle + sliceAngle);
     currentAngle += sliceAngle;
@@ -354,23 +346,21 @@ To draw a pie chart, we draw a number of pie slices, each made up of an ((arc)) 
     cx.fill();
   }
 </script>
-```
+```{{if book
 
-{{if book
+Esto dibuja el siguiente gráfico:
 
-This draws the following chart:
-
-{{figure {url: "img/canvas_pie_chart.png", alt: "Screenshot showing a pie chart", width: "5cm"}}}
+{{figure {url: "img/canvas_pie_chart.png", alt: "Captura de pantalla que muestra un gráfico circular", width: "5cm"}}}
 
 if}}
 
-But a chart that doesn't tell us what the slices mean isn't very helpful. We need a way to draw text to the ((canvas)).
+Pero un gráfico que no nos dice qué significan las porciones no es muy útil. Necesitamos una forma de dibujar texto en el ((canvas)).
 
-## Text
+## Texto
 
-{{index stroking, filling, "fillStyle property", "fillText method", "strokeText method"}}
+{{index trazado, relleno, "propiedad fillStyle", "método fillText", "método strokeText"}}
 
-A 2D canvas drawing context provides the methods `fillText` and `strokeText`. The latter can be useful for outlining letters, but usually `fillText` is what you need. It will fill the outline of the given ((text)) with the current `fillStyle`.
+Un contexto de dibujo en lienzo 2D proporciona los métodos `fillText` y `strokeText`. Este último puede ser útil para contornear letras, pero generalmente `fillText` es lo que necesitas. Este llenará el contorno del ((texto)) dado con el `fillStyle` actual.
 
 ```{lang: html}
 <canvas></canvas>
@@ -378,29 +368,29 @@ A 2D canvas drawing context provides the methods `fillText` and `strokeText`. Th
   let cx = document.querySelector("canvas").getContext("2d");
   cx.font = "28px Georgia";
   cx.fillStyle = "fuchsia";
-  cx.fillText("I can draw text, too!", 10, 50);
+  cx.fillText("¡También puedo dibujar texto!", 10, 50);
 </script>
 ```
 
-You can specify the size, style, and ((font)) of the text with the `font` property. This example just gives a font size and family name. It is also possible to add `italic` or `bold` to the start of the string to select a style.
+Puedes especificar el tamaño, estilo y ((fuente)) del texto con la propiedad `font`. Este ejemplo solo da un tamaño de fuente y un nombre de familia. También es posible agregar `italic` o `bold` al comienzo de la cadena para seleccionar un estilo.
 
-{{index "fillText method", "strokeText method", "textAlign property", "textBaseline property"}}
+{{index "método fillText", "método strokeText", "propiedad textAlign", "propiedad textBaseline"}}
 
-The last two arguments to `fillText` and `strokeText` provide the position at which the font is drawn. By default, they indicate the position of the start of the text's alphabetic baseline, which is the line that letters "stand" on, not counting hanging parts in letters such as _j_ or _p_. You can change the horizontal position by setting the `textAlign` property to `"end"` or `"center"` and the vertical position by setting `textBaseline` to `"top"`, `"middle"`, or `"bottom"`.
+Los dos últimos argumentos de `fillText` y `strokeText` proporcionan la posición en la que se dibuja la fuente. Por defecto, indican la posición del inicio de la línea alfabética del texto, que es la línea en la que las letras "se paran", sin contar las partes colgantes en letras como la _j_ o la _p_. Puedes cambiar la posición horizontal configurando la propiedad `textAlign` en `"end"` o `"center"` y la posición vertical configurando `textBaseline` en `"top"`, `"middle"` o `"bottom"`.
 
-{{index "pie chart example"}}
+{{index "ejemplo de gráfico circular"}}
 
-We'll come back to our pie chart, and the problem of ((label))ing the slices, in the [exercises](canvas#exercise_pie_chart) at the end of the chapter.
+Volveremos a nuestro gráfico circular y al problema de ((etiquetar)) las porciones, en los [ejercicios](canvas#exercise_pie_chart) al final del capítulo.
 
-## Images
+## Imágenes
 
-{{index "vector graphics", "bitmap graphics"}}
+{{index "gráficos vectoriales", "gráficos de mapa de bits"}}
 
-In computer ((graphics)), a distinction is often made between _vector_ graphics and _bitmap_ graphics. The first is what we have been doing so far in this chapter—specifying a picture by giving a logical description of ((shape))s. Bitmap graphics, on the other hand, don't specify actual shapes but rather work with ((pixel)) data (rasters of colored dots).
+En gráficos por computadora, a menudo se hace una distinción entre gráficos _vectoriales_ y gráficos _de mapa de bits_. El primero es lo que hemos estado haciendo hasta ahora en este capítulo: especificar una imagen dando una descripción lógica de las ((forma))s. Los gráficos de mapa de bits, por otro lado, no especifican formas reales, sino que trabajan con datos de ((píxel)) (rasteros de puntos de colores).
 
-{{index "load event", "event handling", "img (HTML tag)", "drawImage method"}}
+{{index "evento load", "manejo de eventos", "img (etiqueta HTML)", "método drawImage"}}
 
-The `drawImage` method allows us to draw ((pixel)) data onto a ((canvas)). This pixel data can originate from an `<img>` element or from another canvas. The following example creates a detached `<img>` element and loads an image file into it. But it cannot immediately start drawing from this picture because the browser may not have loaded it yet. To deal with this, we register a `"load"` event handler and do the drawing after the image has loaded.
+El método `drawImage` nos permite dibujar datos ((de píxel)) en un ((canvas)). Estos datos de píxel pueden originarse desde un elemento `<img>` o desde otro lienzo. El siguiente ejemplo crea un elemento `<img>` independiente y carga un archivo de imagen en él. Pero no podemos comenzar a dibujar inmediatamente desde esta imagen porque es posible que el navegador aún no la haya cargado. Para manejar esto, registramos un controlador de eventos `"load"` y hacemos el dibujo después de que la imagen se haya cargado.
 
 ```{lang: html}
 <canvas></canvas>
@@ -414,31 +404,29 @@ The `drawImage` method allows us to draw ((pixel)) data onto a ((canvas)). This 
     }
   });
 </script>
-```
+```{{index "método drawImage", escalado}}
 
-{{index "drawImage method", scaling}}
+Por defecto, `drawImage` dibujará la imagen a su tamaño original. También se le pueden proporcionar dos argumentos adicionales para establecer un ancho y alto diferente.
 
-By default, `drawImage` will draw the image at its original size. You can also give it two additional arguments to set a different width and height.
+Cuando se utilizan _nueve_ argumentos en `drawImage`, se puede usar para dibujar solo un fragmento de una imagen. Los argumentos segundo a quinto indican el rectángulo (x, y, ancho y alto) en la imagen de origen que se debería copiar, y los argumentos sexto a noveno indican el rectángulo (en el lienzo) en el cual se debería copiar.
 
-When `drawImage` is given _nine_ arguments, it can be used to draw only a fragment of an image. The second through fifth arguments indicate the rectangle (x, y, width, and height) in the source image that should be copied, and the sixth to ninth arguments give the rectangle (on the canvas) into which it should be copied.
+{{index "jugador", "arte de píxeles"}}
 
-{{index "player", "pixel art"}}
+Esto se puede utilizar para empaquetar varios _((sprites))_ (elementos de imagen) en un único archivo de imagen y luego dibujar solo la parte que se necesita. Por ejemplo, tenemos esta imagen que contiene un personaje de juego en múltiples ((poses)):
 
-This can be used to pack multiple _((sprite))s_ (image elements) into a single image file and then draw only the part you need. For example, we have this picture containing a game character in multiple ((pose))s:
+{{figure {url: "img/player_big.png", alt: "Arte de píxeles mostrando un personaje de videojuego en 10 poses diferentes. Las primeras 8 forman su ciclo de animación de carrera, la novena tiene al personaje parado, y la décima lo muestra saltando.", width: "6cm"}}}
 
-{{figure {url: "img/player_big.png", alt: "Pixel art showing a computer game character in 10 different poses. The first 8 form its running animation cycle, the 9th has the character standing still, and the 10th shows him jumping.", width: "6cm"}}}
+{{index [animación, "juego de plataforma"]}}
 
-{{index [animation, "platform game"]}}
+Alternando qué pose dibujamos, podemos mostrar una animación que parece un personaje caminando.
 
-By alternating which pose we draw, we can show an animation that looks like a walking character.
+{{index "método fillRect", "método clearRect", borrado}}
 
-{{index "fillRect method", "clearRect method", clearing}}
+Para animar una ((imagen)) en un ((lienzo)), el método `clearRect` es útil. Se asemeja a `fillRect`, pero en lugar de colorear el rectángulo, lo vuelve ((transparente)), eliminando los píxeles dibujados anteriormente.
 
-To animate a ((picture)) on a ((canvas)), the `clearRect` method is useful. It resembles `fillRect`, but instead of coloring the rectangle, it makes it ((transparent)), removing the previously drawn pixels.
+{{index "función setInterval", "etiqueta img (HTML)"}}
 
-{{index "setInterval function", "img (HTML tag)"}}
-
-We know that each _((sprite))_, each subpicture, is 24 ((pixel))s wide and 30 pixels high. The following code loads the image and then sets up an interval (repeated timer) to draw the next ((frame)):
+Sabemos que cada _((sprite))_, cada subimagen, tiene un ancho de 24 ((píxeles)) y una altura de 30 píxeles. El siguiente código carga la imagen y luego establece un intervalo (temporizador repetido) para dibujar el siguiente ((frame)):
 
 ```{lang: html}
 <canvas></canvas>
@@ -448,35 +436,35 @@ We know that each _((sprite))_, each subpicture, is 24 ((pixel))s wide and 30 pi
   img.src = "img/player.png";
   let spriteW = 24, spriteH = 30;
   img.addEventListener("load", () => {
-    let cycle = 0;
+    let ciclo = 0;
     setInterval(() => {
       cx.clearRect(0, 0, spriteW, spriteH);
       cx.drawImage(img,
-                   // source rectangle
-                   cycle * spriteW, 0, spriteW, spriteH,
-                   // destination rectangle
+                   // rectángulo de origen
+                   ciclo * spriteW, 0, spriteW, spriteH,
+                   // rectángulo de destino
                    0,               0, spriteW, spriteH);
-      cycle = (cycle + 1) % 8;
+      ciclo = (ciclo + 1) % 8;
     }, 120);
   });
 </script>
 ```
 
-{{index "remainder operator", "% operator", [animation, "platform game"]}}
+{{index "operador de resto", "operador %", [animación, "juego de plataforma"]}}
 
-The `cycle` binding tracks our position in the animation. For each ((frame)), it is incremented and then clipped back to the 0 to 7 range by using the remainder operator. This binding is then used to compute the x-coordinate that the sprite for the current pose has in the picture.
+El enlace `ciclo` sigue nuestra posición en la animación. En cada ((frame)), se incrementa y luego se recorta de nuevo al rango de 0 a 7 usando el operador de resto. Este enlace se utiliza luego para calcular la coordenada x que tiene el sprite para la pose actual en la imagen.
 
-## Transformation
+## Transformación
 
-{{index transformation, mirroring}}
+{{index transformación, espejado}}
 
-{{indexsee flipping, mirroring}}
+{{indexsee voltear, espejado}}
 
-But what if we want our character to walk to the left instead of to the right? We could draw another set of sprites, of course. But we can also instruct the ((canvas)) to draw the picture the other way round.
+Pero, ¿qué pasa si queremos que nuestro personaje camine hacia la izquierda en lugar de hacia la derecha? Podríamos dibujar otro conjunto de sprites, por supuesto. Pero también podemos instruir al ((lienzo)) para que dibuje la imagen en sentido contrario.
 
-{{index "scale method", scaling}}
+{{index "método scale", escalado}}
 
-Calling the `scale` method will cause anything drawn after it to be scaled. This method takes two parameters, one to set a horizontal scale and one to set a vertical scale.
+Llamar al método `scale` hará que todo lo que se dibuje después de él se escale. Este método toma dos parámetros, uno para establecer una escala horizontal y otro para establecer una escala vertical.
 
 ```{lang: html}
 <canvas></canvas>
@@ -492,37 +480,37 @@ Calling the `scale` method will cause anything drawn after it to be scaled. This
 
 {{if book
 
-Because of the call to `scale`, the circle is drawn three times as wide and half as high.
+Debido a la llamada a `scale`, el círculo se dibuja tres veces más ancho y la mitad de alto.
 
-{{figure {url: "img/canvas_scale.png", alt: "Screenshot of a scaled circle", width: "6.6cm"}}}
+{{figure {url: "img/canvas_scale.png", alt: "Captura de pantalla de un círculo escalado", width: "6.6cm"}}}
 
 if}}
 
 {{index mirroring}}
 
-Scaling will cause everything about the drawn image, including the ((line width)), to be stretched out or squeezed together as specified. Scaling by a negative amount will flip the picture around. The flipping happens around point (0,0), which means it will also flip the direction of the coordinate system. When a horizontal scaling of -1 is applied, a shape drawn at x position 100 will end up at what used to be position -100.
+Escalar hará que todo en la imagen dibujada, incluyendo el ((grosor de línea)), se estire o se comprima como se especifique. Escalar por una cantidad negativa volteará la imagen. La volteadura ocurre alrededor del punto (0,0), lo que significa que también volteará la dirección del sistema de coordenadas. Cuando se aplica una escala horizontal de -1, una forma dibujada en la posición x 100 terminará en lo que solía ser la posición -100.
 
 {{index "drawImage method"}}
 
-So to turn a picture around, we can't simply add `cx.scale(-1, 1)` before the call to `drawImage` because that would move our picture outside of the ((canvas)), where it won't be visible. You could adjust the ((coordinates)) given to `drawImage` to compensate for this by drawing the image at x position -50 instead of 0. Another solution, which doesn't require the code that does the drawing to know about the scale change, is to adjust the ((axis)) around which the scaling happens.
+Así que para voltear una imagen, no podemos simplemente agregar `cx.scale(-1, 1)` antes de la llamada a `drawImage` porque eso movería nuestra imagen fuera del ((lienzo)), donde no sería visible. Podrías ajustar las ((coordenadas)) dadas a `drawImage` para compensar esto dibujando la imagen en la posición x -50 en lugar de 0. Otra solución, que no requiere que el código que hace el dibujo sepa sobre el cambio de escala, es ajustar el ((eje)) alrededor del cual ocurre el escalado.
 
 {{index "rotate method", "translate method", transformation}}
 
-There are several other methods besides `scale` that influence the coordinate system for a ((canvas)). You can rotate subsequently drawn shapes with the `rotate` method and move them with the `translate` method. The interesting—and confusing—thing is that these transformations _stack_, meaning that each one happens relative to the previous transformations.
+Hay varios otros métodos además de `scale` que influyen en el sistema de coordenadas de un ((lienzo)). Puedes rotar formas dibujadas posteriormente con el método `rotate` y moverlas con el método `translate`. Lo interesante—y confuso—es que estas transformaciones _se apilan_, lo que significa que cada una ocurre relativa a las transformaciones anteriores.
 
 {{index "rotate method", "translate method"}}
 
-So if we translate by 10 horizontal pixels twice, everything will be drawn 20 pixels to the right. If we first move the center of the coordinate system to (50,50) and then rotate by 20 ((degree))s (about 0.1π ((radian))s), that rotation will happen _around_ point (50,50).
+Entonces, si traducimos por 10 píxeles horizontales dos veces, todo se dibujará 20 píxeles a la derecha. Si primero movemos el centro del sistema de coordenadas a (50,50) y luego rotamos por 20 ((grados)) (aproximadamente 0.1π ((radianes))), esa rotación ocurrirá _alrededor_ del punto (50,50).
 
-{{figure {url: "img/transform.svg", alt: "Diagram showing the result of stacking transformations. The first diagram translates and then rotates, causing the translation to happen normally and rotation to happen around the target of the translation. The second diagram first rotates, and then translates, causing the rotation to happen around the origin and the translation direction to be tilted by that rotation.", width: "9cm"}}}
+{{figure {url: "img/transform.svg", alt: "Diagrama que muestra el resultado de apilar transformaciones. El primer diagrama traduce y luego rota, causando que la traducción ocurra normalmente y la rotación alrededor del objetivo de la traducción. El segundo diagrama primero rota y luego traduce, causando que la rotación ocurra alrededor del origen y la dirección de traducción se incline por esa rotación.", width: "9cm"}}}
 
 {{index coordinates}}
 
-But if we _first_ rotate by 20 degrees and _then_ translate by (50,50), the translation will happen in the rotated coordinate system and thus produce a different orientation. The order in which transformations are applied matters.
+Pero si _primero_ rotamos 20 grados y _luego_ traducimos por (50,50), la traducción ocurrirá en el sistema de coordenadas rotado y producirá una orientación diferente. El orden en el que se aplican las transformaciones es importante.
 
 {{index axis, mirroring}}
 
-To flip a picture around the vertical line at a given x position, we can do the following:
+Para voltear una imagen alrededor de la línea vertical en una posición x dada, podemos hacer lo siguiente:
 
 ```{includeCode: true}
 function flipHorizontally(context, around) {
@@ -530,26 +518,24 @@ function flipHorizontally(context, around) {
   context.scale(-1, 1);
   context.translate(-around, 0);
 }
-```
+```{{index "método flipHorizontally"}}
 
-{{index "flipHorizontally method"}}
+Movemos el eje y a donde queremos que esté nuestro ((espejo)), aplicamos el efecto de espejo y finalmente devolvemos el eje y a su lugar adecuado en el universo espejado. La siguiente imagen explica por qué esto funciona:
 
-We move the y-((axis)) to where we want our ((mirror)) to be, apply the mirroring, and finally move the y-axis back to its proper place in the mirrored universe. The following picture explains why this works:
+{{figure {url: "img/mirror.svg", alt: "Diagrama que muestra el efecto de trasladar y espejar un triángulo", width: "8cm"}}}
 
-{{figure {url: "img/mirror.svg", alt: "Diagram showing the effect of translating and mirroring a triangle", width: "8cm"}}}
+{{index "método translate", "método scale", transformación, lienzo}}
 
-{{index "translate method", "scale method", transformation, canvas}}
+Esto muestra los sistemas de coordenadas antes y después del espejo a través de la línea central. Los triángulos están numerados para ilustrar cada paso. Si dibujamos un triángulo en una posición x positiva, por defecto estaría en el lugar donde se encuentra el triángulo 1. Una llamada a `flipHorizontally` primero realiza una traslación a la derecha, lo que nos lleva al triángulo 2. Luego escala, volteando el triángulo a la posición 3. Esto no es donde debería estar, si estuviera reflejado en la línea dada. La segunda llamada a `translate` corrige esto, "cancela" la traslación inicial y hace que el triángulo 4 aparezca exactamente donde debería.
 
-This shows the coordinate systems before and after mirroring across the central line. The triangles are numbered to illustrate each step. If we draw a triangle at a positive x position, it would, by default, be in the place where triangle 1 is. A call to `flipHorizontally` first does a translation to the right, which gets us to triangle 2. It then scales, flipping the triangle over to position 3. This is not where it should be, if it were mirrored in the given line. The second `translate` call fixes this—it "cancels" the initial translation and makes triangle 4 appear exactly where it should.
-
-We can now draw a mirrored character at position (100,0) by flipping the world around the character's vertical center.
+Ahora podemos dibujar un personaje espejado en la posición (100,0) volteando el mundo alrededor del centro vertical del personaje.
 
 ```{lang: html}
 <canvas></canvas>
 <script>
   let cx = document.querySelector("canvas").getContext("2d");
   let img = document.createElement("img");
-  img.src = "img/player.png";
+  img.src = "img/jugador.png";
   let spriteW = 24, spriteH = 30;
   img.addEventListener("load", () => {
     flipHorizontally(cx, 100 + spriteW / 2);
@@ -559,23 +545,21 @@ We can now draw a mirrored character at position (100,0) by flipping the world a
 </script>
 ```
 
-## Storing and clearing transformations
+## Almacenando y eliminando transformaciones
 
-{{index "side effect", canvas, transformation}}
+{{index "efecto secundario", lienzo, transformación}}
 
-Transformations stick around. Everything else we draw after ((drawing)) that mirrored character would also be mirrored. That might be inconvenient.
+Las transformaciones permanecen. Todo lo que dibujemos después de ese personaje espejado también estará reflejado. Eso podría ser inconveniente.
 
-It is possible to save the current transformation, do some drawing and transforming, and then restore the old transformation. This is usually the proper thing to do for a function that needs to temporarily transform the coordinate system. First, we save whatever transformation the code that called the function was using. Then the function does its thing, adding more transformations on top of the current transformation. Finally, we revert to the transformation we started with.
+Es posible guardar la transformación actual, hacer algunos dibujos y transformaciones, y luego restaurar la antigua transformación. Esto suele ser lo apropiado para una función que necesita transformar temporalmente el sistema de coordenadas. Primero, guardamos cualquier transformación que estuviera utilizando el código que llamó a la función. Luego, la función realiza su tarea, agregando más transformaciones sobre la transformación actual. Finalmente, volvemos a la transformación con la que comenzamos.
 
-{{index "save method", "restore method", [state, "of canvas"]}}
+{{index "método save", "método restore", [estado, "del lienzo"]}}
 
-The `save` and `restore` methods on the 2D ((canvas)) context do this ((transformation)) management. They conceptually keep a stack of transformation states. When you call `save`, the current state is pushed onto the stack, and when you call `restore`, the state on top of the stack is taken off and used as the context's current transformation. You can also call `resetTransform` to fully reset the transformation.
+Los métodos `save` y `restore` en el contexto 2D del lienzo hacen este manejo de transformaciones. Conceptualmente mantienen una pila de estados de transformación. Cuando llamas a `save`, el estado actual se apila, y cuando llamas a `restore`, se elimina el estado de la cima de la pila y se usa como la transformación actual del contexto. También puedes llamar a `resetTransform` para restablecer completamente la transformación.
 
-{{index "branching recursion", "fractal example", recursion}}
+{{index "recursión de ramificación", "ejemplo de fractal", recursión}}
 
-The `branch` function in the following example illustrates what you can do with a function that changes the transformation and then calls a function (in this case itself), which continues drawing with the given transformation.
-
-This function draws a treelike shape by drawing a line, moving the center of the coordinate system to the end of the line, and calling itself twice—first rotated to the left and then rotated to the right. Every call reduces the length of the branch drawn, and the recursion stops when the length drops below 8.
+La función `branch` en el siguiente ejemplo ilustra lo que puedes hacer con una función que cambia la transformación y luego llama a una función (en este caso a sí misma), que continúa dibujando con la transformación dada.Esta función dibuja una forma parecida a un árbol dibujando una línea, moviendo el centro del sistema de coordenadas al final de la línea, y llamándose a sí misma dos veces, primero rotada a la izquierda y luego rotada a la derecha. Cada llamada reduce la longitud de la rama dibujada, y la recursividad se detiene cuando la longitud desciende por debajo de 8.
 
 ```{lang: html}
 <canvas width="600" height="300"></canvas>
@@ -599,31 +583,31 @@ This function draws a treelike shape by drawing a line, moving the center of the
 
 {{if book
 
-The result is a simple fractal.
+El resultado es un fractal simple.
 
-{{figure {url: "img/canvas_tree.png", alt: "Screenshot of a fractal", width: "5cm"}}}
+{{figure {url: "img/canvas_tree.png", alt: "Captura de pantalla de un fractal", width: "5cm"}}}
 
 if}}
 
-{{index "save method", "restore method", canvas, "rotate method"}}
+{{index "método save", "método restore", canvas, "método rotate"}}
 
-If the calls to `save` and `restore` were not there, the second recursive call to `branch` would end up with the position and rotation created by the first call. It wouldn't be connected to the current branch but rather to the innermost, rightmost branch drawn by the first call. The resulting shape might also be interesting, but it is definitely not a tree.
+Si las llamadas a `save` y `restore` no estuvieran allí, la segunda llamada recursiva a `branch` terminaría con la posición y rotación creadas por la primera llamada. No estaría conectada a la rama actual sino más bien a la rama más interna y a la derecha dibujada por la primera llamada. La forma resultante podría ser interesante, pero definitivamente no sería un árbol.
 
 {{id canvasdisplay}}
 
-## Back to the game
+## De vuelta al juego
 
-{{index "drawImage method"}}
+{{index "método drawImage"}}
 
-We now know enough about ((canvas)) drawing to start working on a ((canvas))-based ((display)) system for the ((game)) from the [previous chapter](game). The new display will no longer be showing just colored boxes. Instead, we'll use `drawImage` to draw pictures that represent the game's elements.
+Ahora sabemos lo suficiente sobre el dibujo en ((canvas)) para empezar a trabajar en un sistema de ((display)) basado en ((canvas)) para el ((juego)) del [capítulo anterior](game). El nuevo display ya no mostrará solo cajas de colores. En su lugar, usaremos `drawImage` para dibujar imágenes que representen los elementos del juego.
 
-{{index "CanvasDisplay class", "DOMDisplay class", [interface, object]}}
+{{index "clase CanvasDisplay", "clase DOMDisplay", [interfaz, objeto]}}
 
-We define another display object type called `CanvasDisplay`, supporting the same interface as `DOMDisplay` from [Chapter ?](game#domdisplay), namely, the methods `syncState` and `clear`.
+Definimos otro tipo de objeto de display llamado `CanvasDisplay`, que soporta la misma interfaz que `DOMDisplay` del [Capítulo ?](game#domdisplay), es decir, los métodos `syncState` y `clear`.
 
-{{index [state, "in objects"]}}
+{{index [estado, "en objetos"]}}
 
-This object keeps a little more information than `DOMDisplay`. Rather than using the scroll position of its DOM element, it tracks its own ((viewport)), which tells us what part of the level we are currently looking at. Finally, it keeps a `flipPlayer` property so that even when the player is standing still, it keeps facing the direction it last moved in.
+Este objeto mantiene un poco más de información que `DOMDisplay`. En lugar de utilizar la posición de desplazamiento de su elemento DOM, realiza un seguimiento de su propio ((viewport)), que nos indica qué parte del nivel estamos viendo actualmente. Por último, mantiene una propiedad `flipPlayer` para que incluso cuando el jugador esté quieto, siga mirando en la dirección en la que se movió por última vez.
 
 ```{sandbox: "game", includeCode: true}
 class CanvasDisplay {
@@ -650,7 +634,7 @@ class CanvasDisplay {
 }
 ```
 
-The `syncState` method first computes a new viewport and then draws the game scene at the appropriate position.
+El método `syncState` primero calcula un nuevo viewport y luego dibuja la escena del juego en la posición adecuada.
 
 ```{sandbox: "game", includeCode: true}
 CanvasDisplay.prototype.syncState = function(state) {
@@ -661,13 +645,13 @@ CanvasDisplay.prototype.syncState = function(state) {
 };
 ```
 
-{{index scrolling, clearing}}
+{{index desplazamiento, limpieza}}
 
-Contrary to `DOMDisplay`, this display style _does_ have to redraw the background on every update. Because shapes on a canvas are just ((pixel))s, after we draw them there is no good way to move them (or remove them). The only way to update the canvas display is to clear it and redraw the scene. We may also have scrolled, which requires the background to be in a different position.
+A diferencia de `DOMDisplay`, este estilo de visualización **sí** tiene que redibujar el fondo en cada actualización. Debido a que las formas en un lienzo son solo píxeles, una vez que las dibujamos no hay una buena manera de moverlas (o eliminarlas). La única forma de actualizar la visualización en lienzo es borrarla y volver a dibujar la escena. También puede ser que hayamos hecho scroll, lo que requeriría que el fondo esté en una posición diferente.
 
-{{index "CanvasDisplay class"}}
+{{index "Clase CanvasDisplay"}}
 
-The `updateViewport` method is similar to `DOMDisplay`'s `scrollPlayerIntoView` method. It checks whether the player is too close to the edge of the screen and moves the ((viewport)) when this is the case.
+El método `updateViewport` es similar al método `scrollPlayerIntoView` de `DOMDisplay`. Verifica si el jugador está demasiado cerca del borde de la pantalla y mueve el **viewport** en ese caso.
 
 ```{sandbox: "game", includeCode: true}
 CanvasDisplay.prototype.updateViewport = function(state) {
@@ -690,11 +674,11 @@ CanvasDisplay.prototype.updateViewport = function(state) {
 };
 ```
 
-{{index boundary, "Math.max function", "Math.min function", clipping}}
+{{index límite, "Función Math.max", "Función Math.min", recorte}}
 
-The calls to `Math.max` and `Math.min` ensure that the viewport does not end up showing space outside of the level. `Math.max(x, 0)` makes sure the resulting number is not less than zero. `Math.min` similarly guarantees that a value stays below a given bound.
+Las llamadas a `Math.max` y `Math.min` aseguran que el **viewport** no termine mostrando espacio fuera del nivel. `Math.max(x, 0)` se asegura de que el número resultante no sea menor que cero. `Math.min` garantiza de manera similar que un valor se mantenga por debajo de un límite dado.
 
-When ((clearing)) the display, we'll use a slightly different ((color)) depending on whether the game is won (brighter) or lost (darker).
+Al **limpiar** la visualización, usaremos un color ligeramente diferente según si el juego se ha ganado (más brillante) o perdido (más oscuro).
 
 ```{sandbox: "game", includeCode: true}
 CanvasDisplay.prototype.clearDisplay = function(status) {
@@ -710,9 +694,9 @@ CanvasDisplay.prototype.clearDisplay = function(status) {
 };
 ```
 
-{{index "Math.floor function", "Math.ceil function", rounding}}
+{{index "Función Math.floor", "Función Math.ceil", redondeo}}
 
-To draw the background, we run through the tiles that are visible in the current viewport, using the same trick used in the `touches` method from the [previous chapter](game#touches).
+Para dibujar el fondo, recorremos los mosaicos que son visibles en el **viewport** actual, utilizando el mismo truco usado en el método `touches` del [capítulo anterior](game#touches).
 
 ```{sandbox: "game", includeCode: true}
 let otherSprites = document.createElement("img");
@@ -724,8 +708,8 @@ CanvasDisplay.prototype.drawBackground = function(level) {
   let xEnd = Math.ceil(left + width);
   let yStart = Math.floor(top);
   let yEnd = Math.ceil(top + height);
-
-  for (let y = yStart; y < yEnd; y++) {
+``````js
+for (let y = yStart; y < yEnd; y++) {
     for (let x = xStart; x < xEnd; x++) {
       let tile = level.rows[y][x];
       if (tile == "empty") continue;
@@ -740,29 +724,29 @@ CanvasDisplay.prototype.drawBackground = function(level) {
 };
 ```
 
-{{index "drawImage method", sprite, tile}}
+{{index "método drawImage", sprites, tile}}
 
-Tiles that are not empty are drawn with `drawImage`. The `otherSprites` image contains the pictures used for elements other than the player. It contains, from left to right, the wall tile, the lava tile, and the sprite for a coin.
+Las casillas que no están vacías se dibujan con `drawImage`. La imagen `otherSprites` contiene las imágenes utilizadas para elementos que no son el jugador. Contiene, de izquierda a derecha, la casilla de pared, la casilla de lava y el sprite de una moneda.
 
-{{figure {url: "img/sprites_big.png", alt: "Pixel art showing three sprites: a piece of wall, made out of small white stones, a square of orange lava, and a round coin.", width: "1.4cm"}}}
+{{figure {url: "img/sprites_big.png", alt: "Arte pixelado que muestra tres sprites: una pieza de pared, hecha de pequeñas piedras blancas, un cuadrado de lava naranja y una moneda redonda.", width: "1.4cm"}}}
 
-{{index scaling}}
+{{index escalado}}
 
-Background tiles are 20 by 20 pixels since we will use the same scale that we used in `DOMDisplay`. Thus, the offset for lava tiles is 20 (the value of the `scale` binding), and the offset for walls is 0.
+Las casillas de fondo son de 20 por 20 píxeles ya que usaremos la misma escala que en `DOMDisplay`. Por lo tanto, el desplazamiento para las casillas de lava es 20 (el valor del enlace `scale`), y el desplazamiento para las paredes es 0.
 
-{{index drawing, "load event", "drawImage method"}}
+{{index dibujo, "evento load", "método drawImage"}}
 
-We don't bother waiting for the sprite image to load. Calling `drawImage` with an image that hasn't been loaded yet will simply do nothing. Thus, we might fail to draw the game properly for the first few ((frame))s, while the image is still loading, but that is not a serious problem. Since we keep updating the screen, the correct scene will appear as soon as the loading finishes.
+No nos molesta esperar a que se cargue la imagen del sprite. Llamar a `drawImage` con una imagen que aún no se ha cargado simplemente no hará nada. Por lo tanto, podríamos no dibujar correctamente el juego durante los primeros ((cuadro))s, mientras la imagen aún se está cargando, pero eso no es un problema grave. Dado que seguimos actualizando la pantalla, la escena correcta aparecerá tan pronto como termine la carga.
 
-{{index "player", [animation, "platform game"], drawing}}
+{{index "jugador", [animación, "juego de plataformas"], dibujo}}
 
-The ((walking)) character shown earlier will be used to represent the player. The code that draws it needs to pick the right ((sprite)) and direction based on the player's current motion. The first eight sprites contain a walking animation. When the player is moving along a floor, we cycle through them based on the current time. We want to switch frames every 60 milliseconds, so the ((time)) is divided by 60 first. When the player is standing still, we draw the ninth sprite. During jumps, which are recognized by the fact that the vertical speed is not zero, we use the tenth, rightmost sprite.
+El personaje de movimiento que se mostró anteriormente se utilizará para representar al jugador. El código que lo dibuja necesita seleccionar el ((sprite)) adecuado y la dirección basándose en el movimiento actual del jugador. Los primeros ocho sprites contienen una animación de caminar. Cuando el jugador se está moviendo a lo largo de una superficie, los recorremos según el tiempo actual. Queremos cambiar de fotogramas cada 60 milisegundos, por lo que primero dividimos el ((tiempo)) por 60. Cuando el jugador está quieto, dibujamos el noveno sprite. Durante los saltos, que se reconocen por el hecho de que la velocidad vertical no es cero, usamos el décimo sprite de la derecha.
 
-{{index "flipHorizontally function", "CanvasDisplay class"}}
+{{index "función flipHorizontally", "clase CanvasDisplay"}}
 
-Because the ((sprite))s are slightly wider than the player object—24 instead of 16 pixels to allow some space for feet and arms—the method has to adjust the x-coordinate and width by a given amount (`playerXOverlap`).
+Dado que los ((sprite))s son ligeramente más anchos que el objeto del jugador—24 en lugar de 16 píxeles para permitir algo de espacio para los pies y los brazos—el método debe ajustar la coordenada x y el ancho por una cantidad dada (`playerXOverlap`).
 
-```{sandbox: "game", includeCode: true}
+```{sandbox: "juego", includeCode: true}
 let playerSprites = document.createElement("img");
 playerSprites.src = "img/player.png";
 const playerXOverlap = 4;
@@ -781,19 +765,19 @@ CanvasDisplay.prototype.drawPlayer = function(player, x, y,
   } else if (player.speed.x != 0) {
     tile = Math.floor(Date.now() / 60) % 8;
   }
-
-  this.cx.save();
-  if (this.flipPlayer) {
-    flipHorizontally(this.cx, x + width / 2);
-  }
-  let tileX = tile * width;
-  this.cx.drawImage(playerSprites, tileX, 0, width, height,
-                                   x,     y, width, height);
-  this.cx.restore();
+``````js
+this.cx.save();
+if (this.flipPlayer) {
+  flipHorizontally(this.cx, x + width / 2);
+}
+let tileX = tile * width;
+this.cx.drawImage(playerSprites, tileX, 0, width, height,
+                                 x,     y, width, height);
+this.cx.restore();
 };
 ```
 
-The `drawPlayer` method is called by `drawActors`, which is responsible for drawing all the actors in the game.
+El método `drawPlayer` es llamado por `drawActors`, el cual es responsable de dibujar todos los actores en el juego.
 
 ```{sandbox: "game", includeCode: true}
 CanvasDisplay.prototype.drawActors = function(actors) {
@@ -814,15 +798,15 @@ CanvasDisplay.prototype.drawActors = function(actors) {
 };
 ```
 
-When ((drawing)) something that is not the ((player)), we look at its type to find the offset of the correct sprite. The ((lava)) tile is found at offset 20, and the ((coin)) sprite is found at 40 (two times `scale`).
+Cuando se está dibujando algo que no es el jugador, miramos su tipo para encontrar el desplazamiento del sprite correcto. El tile de lava se encuentra en el desplazamiento 20, y el sprite de la moneda se encuentra en 40 (dos veces `scale`).
 
 {{index viewport}}
 
-We have to subtract the viewport's position when computing the actor's position since (0,0) on our ((canvas)) corresponds to the top left of the viewport, not the top left of the level. We could also have used `translate` for this. Either way works.
+Tenemos que restar la posición del viewport al calcular la posición del actor, ya que (0,0) en nuestro ((canvas)) corresponde a la esquina superior izquierda del viewport, no a la esquina superior izquierda del nivel. También podríamos haber usado `translate` para esto. De ambas maneras funciona.
 
 {{if interactive
 
-This document plugs the new display into `runGame`:
+Este documento conecta el nuevo display a `runGame`:
 
 ```{lang: html, sandbox: game, focus: yes, startCode: true}
 <body>
@@ -838,91 +822,89 @@ if}}
 
 {{index [game, screenshot], [game, "with canvas"]}}
 
-That concludes the new ((display)) system. The resulting game looks something like this:
+Eso concluye el nuevo sistema de ((display)). El juego resultante se ve algo así:
 
-{{figure {url: "img/canvas_game.png", alt: "Screenshot of the game as shown on canvas", width: "8cm"}}}
+{{figure {url: "img/canvas_game.png", alt: "Captura de pantalla del juego mostrado en canvas", width: "8cm"}}}
 
 if}}
 
 {{id graphics_tradeoffs}}
 
-## Choosing a graphics interface
+## Elección de una interfaz gráfica
 
-Thus, when you need to generate graphics in the browser, you can choose between plain HTML, ((SVG)), and ((canvas)). There is no single _best_ approach that works in all situations. Each option has strengths and weaknesses.
+Por lo tanto, cuando necesitas generar gráficos en el navegador, puedes elegir entre HTML simple, ((SVG)) y ((canvas)). No hay un enfoque único _mejor_ que funcione en todas las situaciones. Cada opción tiene sus fortalezas y debilidades.
 
 {{index "text wrapping"}}
 
-Plain HTML has the advantage of being simple. It also integrates well with ((text)). Both SVG and canvas allow you to draw text, but they won't help you position that text or wrap it when it takes up more than one line. In an HTML-based picture, it is much easier to include blocks of text.
+HTML simple tiene la ventaja de ser simple. También se integra bien con ((texto)). Tanto SVG como canvas te permiten dibujar texto, pero no te ayudarán a posicionar ese texto o envolverlo cuando ocupa más de una línea. En una imagen basada en HTML, es mucho más fácil incluir bloques de texto.
 
 {{index zooming, SVG}}
 
-SVG can be used to produce ((crisp)) ((graphics)) that look good at any zoom level. Unlike HTML, it is designed for drawing and is thus more suitable for that purpose.
+SVG se puede utilizar para producir ((gráficos)) ((nítidos)) que se ven bien en cualquier nivel de zoom. A diferencia de HTML, está diseñado para dibujar y, por lo tanto, es más adecuado para ese propósito.
 
 {{index [DOM, graphics], SVG, "event handling", ["data structure", tree]}}
 
-Both SVG and HTML build up a data structure (the DOM) that represents your picture. This makes it possible to modify elements after they are drawn. If you need to repeatedly change a small part of a big ((picture)) in response to what the user is doing or as part of an ((animation)), doing it in a canvas can be needlessly expensive. The DOM also allows us to register mouse event handlers on every element in the picture (even on shapes drawn with SVG). You can't do that with canvas.
+Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que está haciendo el usuario o como parte de una ((animación)), hacerlo en un canvas puede ser innecesariamente costoso. El DOM también nos permite registrar manipuladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con canvas.{{index rendimiento, optimización}}
 
-{{index performance, optimization}}
-
-But ((canvas))'s ((pixel))-oriented approach can be an advantage when drawing a huge number of tiny elements. The fact that it does not build up a data structure but only repeatedly draws onto the same pixel surface gives canvas a lower cost per shape.
+Pero el enfoque orientado a píxeles de ((canvas)) puede ser una ventaja al dibujar una gran cantidad de elementos pequeños. El hecho de que no construye una estructura de datos, sino que solo dibuja repetidamente sobre la misma superficie de píxeles, hace que canvas tenga un menor costo por forma.
 
 {{index "ray tracer"}}
 
-There are also effects, such as rendering a scene one ((pixel)) at a time (for example, using a ray tracer) or postprocessing an image with JavaScript (blurring or distorting it), that are only practical with a canvas element.
+También hay efectos, como renderizar una escena píxel por píxel (por ejemplo, usando un ray tracer) o procesar una imagen con JavaScript (desenfocarla o distorsionarla), que solo son prácticos con un elemento canvas.
 
-In some cases, you may want to combine several of these techniques. For example, you might draw a ((graph)) with ((SVG)) or ((canvas)) but show ((text))ual information by positioning an HTML element on top of the picture.
+En algunos casos, puede que desees combinar varias de estas técnicas. Por ejemplo, podrías dibujar un ((gráfico)) con ((SVG)) o ((canvas)) pero mostrar información ((text))ual posicionando un elemento HTML encima de la imagen.
 
-{{index display}}
+{{index visualización}}
 
-For nondemanding applications, it really doesn't matter much which interface you choose. The display we built for our game in this chapter could have been implemented using any of these three ((graphics)) technologies since it does not need to draw text, handle mouse interaction, or work with an extraordinarily large number of elements.
+Para aplicaciones poco exigentes, realmente no importa mucho qué interfaz elijas. La visualización que construimos para nuestro juego en este capítulo podría haber sido implementada utilizando cualquiera de estas tres tecnologías ((gráficas)) ya que no necesita dibujar texto, manejar interacción del mouse o trabajar con una cantidad extraordinariamente grande de elementos.
 
-## Summary
+## Resumen
 
-In this chapter we discussed techniques for drawing graphics in the browser, focusing on the `<canvas>` element.
+En este capítulo discutimos técnicas para dibujar gráficos en el navegador, centrándonos en el elemento `<canvas>`.
 
-A canvas node represents an area in a document that our program may draw on. This drawing is done through a drawing context object, created with the `getContext` method.
+Un nodo canvas representa un área en un documento en la que nuestro programa puede dibujar. Este dibujo se realiza a través de un objeto de contexto de dibujo, creado con el método `getContext`.
 
-The 2D drawing interface allows us to fill and stroke various shapes. The context's `fillStyle` property determines how shapes are filled. The `strokeStyle` and `lineWidth` properties control the way lines are drawn.
+La interfaz de dibujo 2D nos permite rellenar y trazar varias formas. La propiedad `fillStyle` del contexto determina cómo se rellenan las formas. Las propiedades `strokeStyle` y `lineWidth` controlan la forma en que se dibujan las líneas.
 
-Rectangles and pieces of text can be drawn with a single method call. The `fillRect` and `strokeRect` methods draw rectangles, and the `fillText` and `strokeText` methods draw text. To create custom shapes, we must first build up a path.
+Los rectángulos y trozos de texto se pueden dibujar con una sola llamada a método. Los métodos `fillRect` y `strokeRect` dibujan rectángulos, y los métodos `fillText` y `strokeText` dibujan texto. Para crear formas personalizadas, primero debemos construir un camino.
 
-{{index stroking, filling}}
+{{index trazado, relleno}}
 
-Calling `beginPath` starts a new path. A number of other methods add lines and curves to the current path. For example, `lineTo` can add a straight line. When a path is finished, it can be filled with the `fill` method or stroked with the `stroke` method.
+Llamar a `beginPath` inicia un nuevo camino. Varios otros métodos agregan líneas y curvas al camino actual. Por ejemplo, `lineTo` puede agregar una línea recta. Cuando un camino está terminado, se puede rellenar con el método `fill` o trazarse con el método `stroke`.
 
-Moving pixels from an image or another canvas onto our canvas is done with the `drawImage` method. By default, this method draws the whole source image, but by giving it more parameters, you can copy a specific area of the image. We used this for our game by copying individual poses of the game character out of an image that contained many such poses.
+Mover píxeles desde una imagen u otro canvas a nuestro canvas se hace con el método `drawImage`. Por defecto, este método dibuja toda la imagen fuente, pero al darle más parámetros, puedes copiar un área específica de la imagen. Utilizamos esto para nuestro juego copiando poses individuales del personaje del juego de una imagen que contenía muchas poses.
 
-Transformations allow you to draw a shape in multiple orientations. A 2D drawing context has a current transformation that can be changed with the `translate`, `scale`, and `rotate` methods. These will affect all subsequent drawing operations. A transformation state can be saved with the `save` method and restored with the `restore` method.
+Las transformaciones te permiten dibujar una forma en múltiples orientaciones. Un contexto de dibujo 2D tiene una transformación actual que se puede cambiar con los métodos `translate`, `scale` y `rotate`. Estos afectarán todas las operaciones de dibujo subsiguientes. Un estado de transformación se puede guardar con el método `save` y restaurar con el método `restore`.
 
-When showing an animation on a canvas, the `clearRect` method can be used to clear part of the canvas before redrawing it.
+Al mostrar una animación en un canvas, se puede usar el método `clearRect` para borrar parte del canvas antes de volver a dibujarlo.
 
-## Exercises
+## Ejercicios
 
-### Shapes
+### Formas
 
-{{index "shapes (exercise)"}}
+{{index "formas (ejercicio)"}}
 
-Write a program that draws the following ((shape))s on a ((canvas)):
+Escribe un programa que dibuje las siguientes ((formas)) en un lienzo ((canvas)):
 
-{{index rotation}}
+{{index rotación}}
 
-1. A ((trapezoid)) (a ((rectangle)) that is wider on one side)
+1. Un ((trapecio)) (un ((rectángulo)) que es más ancho en un lado)
 
-2. A red ((diamond)) (a rectangle rotated 45 degrees or ¼π radians)
+2. Un diamante rojo ((diamond)) (un rectángulo rotado 45 grados o ¼π radianes)
 
-3. A zigzagging ((line))
+3. Una línea en zigzag 
 
-4. A ((spiral)) made up of 100 straight line segments
+4. Un ((espiral)) compuesta por 100 segmentos de línea recta
 
-5. A yellow ((star))
+5. Una estrella amarilla ((star))
 
-{{figure {url: "img/exercise_shapes.png", alt: "Picture showing the shapes you are asked to draw", width: "8cm"}}}
+{{figure {url: "img/exercise_shapes.png", alt: "Imagen que muestra las formas que se te pide dibujar", width: "8cm"}}}
 
-When drawing the last two, you may want to refer to the explanation of `Math.cos` and `Math.sin` in [Chapter ?](dom#sin_cos), which describes how to get coordinates on a circle using these functions.
+Cuando dibujes las dos últimas, es posible que quieras consultar la explicación de `Math.cos` y `Math.sin` en [Capítulo ?](dom#sin_cos), que describe cómo obtener coordenadas en un círculo utilizando estas funciones.
 
-{{index readability, "hard-coding"}}
+{{index legibilidad, "codificación en duro"}}
 
-I recommend creating a function for each shape. Pass the position, and optionally other properties such as the size or the number of points, as parameters. The alternative, which is to hard-code numbers all over your code, tends to make the code needlessly hard to read and modify.
+Recomiendo crear una función para cada forma. Pasa la posición y opcionalmente otras propiedades como el tamaño o el número de puntos, como parámetros. La alternativa, que es codificar números en todo tu código, tiende a hacer que el código sea innecesariamente difícil de leer y modificar.
 
 {{if interactive
 
@@ -931,7 +913,7 @@ I recommend creating a function for each shape. Pass the position, and optionall
 <script>
   let cx = document.querySelector("canvas").getContext("2d");
 
-  // Your code here.
+  // Tu código aquí.
 </script>
 ```
 
@@ -939,37 +921,37 @@ if}}
 
 {{hint
 
-{{index [path, canvas], "shapes (exercise)"}}
+{{index [ruta, lienzo], "formas (ejercicio)"}}
 
-The ((trapezoid)) (1) is easiest to draw using a path. Pick suitable center coordinates and add each of the four corners around the center.
+El ((trapecio)) (1) es más fácil de dibujar usando un recorrido. Elige coordenadas centrales adecuadas y agrega cada una de las cuatro esquinas alrededor del centro.
 
-{{index "flipHorizontally function", rotation}}
+{{index "función flipHorizontally", rotación}}
 
-The ((diamond)) (2) can be drawn the straightforward way, with a path, or the interesting way, with a `rotate` ((transformation)). To use rotation, you will have to apply a trick similar to what we did in the `flipHorizontally` function. Because you want to rotate around the center of your rectangle and not around the point (0,0), you must first `translate` to there, then rotate, and then translate back.
+El diamante ((diamond)) (2) se puede dibujar de forma directa, con un recorrido, o de forma interesante, con una ((transformación)) de `rotación`. Para usar la rotación, tendrás que aplicar un truco similar al que hicimos en la función `flipHorizontally`. Debido a que quieres rotar alrededor del centro de tu rectángulo y no alrededor del punto (0,0), primero debes `translate` allí, luego rotar, y luego volver a trasladar.
 
-Make sure you reset the transformation after drawing any shape that creates one.
+Asegúrate de restablecer la transformación después de dibujar cualquier forma que la cree.
 
-{{index "remainder operator", "% operator"}}
+{{index "operador de resto", "operador %"}}
 
-For the ((zigzag)) (3) it becomes impractical to write a new call to `lineTo` for each line segment. Instead, you should use a ((loop)). You can have each iteration draw either two ((line)) segments (right and then left again) or one, in which case you must use the evenness (`% 2`) of the loop index to determine whether to go left or right.
+Para el zigzag (3) se vuelve impráctico escribir una nueva llamada a `lineTo` para cada segmento de línea. En su lugar, deberías usar un ((bucle)). En cada iteración, puedes hacer que dibuje dos segmentos de línea (derecha y luego izquierda nuevamente) o uno, en cuyo caso debes usar la paridad (`% 2`) del índice del bucle para determinar si ir a la izquierda o a la derecha.
 
-You'll also need a loop for the ((spiral)) (4). If you draw a series of points, with each point moving further along a circle around the spiral's center, you get a circle. If, during the loop, you vary the radius of the circle on which you are putting the current point and go around more than once, the result is a spiral.
+También necesitarás un bucle para la espiral (4). Si dibujas una serie de puntos, con cada punto moviéndose más lejos a lo largo de un círculo alrededor del centro de la espiral, obtienes un círculo. Si, durante el bucle, varías el radio del círculo en el que estás poniendo el punto actual y das más de una vuelta, el resultado es una espiral.
 
-{{index "quadraticCurveTo method"}}
+{{index "método quadraticCurveTo"}}
 
-The ((star)) (5) depicted is built out of `quadraticCurveTo` lines. You could also draw one with straight lines. Divide a circle into eight pieces for a star with eight points, or however many pieces you want. Draw lines between these points, making them curve toward the center of the star. With `quadraticCurveTo`, you can use the center as the control point.
+La estrella (5) representada está construida con líneas `quadraticCurveTo`. También podrías dibujar una con líneas rectas. Divide un círculo en ocho piezas para una estrella con ocho puntas, o cuantas piezas desees. Dibuja líneas entre estos puntos, haciéndolas curvar hacia el centro de la estrella. Con `quadraticCurveTo`, puedes usar el centro como punto de control.
 
 hint}}
 
 {{id exercise_pie_chart}}
 
-### The pie chart
+### El gráfico circular
 
-{{index label, text, "pie chart example"}}
+Anteriormente en este capítulo, vimos un programa de ejemplo que dibujaba un gráfico circular. Modifica este programa para que el nombre de cada categoría se muestre junto a la porción que la representa. Intenta encontrar una forma agradable de posicionar automáticamente este texto que funcione también para otros conjuntos de datos. Puedes asumir que las categorías son lo suficientemente grandes como para dejar espacio suficiente para sus etiquetas.
 
-[Earlier](canvas#pie_chart) in the chapter, we saw an example program that drew a pie chart. Modify this program so that the name of each category is shown next to the slice that represents it. Try to find a pleasing-looking way to automatically position this text that would work for other data sets as well. You may assume that categories are big enough to leave enough room for their labels.
+Podrías necesitar `Math.sin` y `Math.cos` de nuevo, que se describen en [Capítulo ?](dom#sin_cos).
 
-You might need `Math.sin` and `Math.cos` again, which are described in [Chapter ?](dom#sin_cos).
+{{if interactive
 
 {{if interactive
 
@@ -1002,11 +984,11 @@ if}}
 
 {{index "fillText method", "textAlign property", "textBaseline property", "pie chart example"}}
 
-You will need to call `fillText` and set the context's `textAlign` and `textBaseline` properties in such a way that the text ends up where you want it.
+Necesitarás llamar a `fillText` y establecer las propiedades `textAlign` y `textBaseline` del contexto de manera que el texto termine donde quieras.
 
-A sensible way to position the labels would be to put the text on the line going from the center of the pie through the middle of the slice. You don't want to put the text directly against the side of the pie but rather move the text out to the side of the pie by a given number of pixels.
+Una forma sensata de posicionar las etiquetas sería poner el texto en la línea que va desde el centro del círculo a través del medio de la porción. No quieres poner el texto directamente contra el lado del círculo, sino mover el texto hacia afuera del círculo por un número determinado de píxeles.
 
-The ((angle)) of this line is `currentAngle + 0.5 * sliceAngle`. The following code finds a position on this line 120 pixels from the center:
+El ángulo de esta línea es `currentAngle + 0.5 * sliceAngle`. El siguiente código encuentra una posición en esta línea a 120 píxeles del centro:
 
 ```{test: no}
 let middleAngle = currentAngle + 0.5 * sliceAngle;
@@ -1014,19 +996,17 @@ let textX = Math.cos(middleAngle) * 120 + centerX;
 let textY = Math.sin(middleAngle) * 120 + centerY;
 ```
 
-For `textBaseline`, the value `"middle"` is probably appropriate when using this approach. What to use for `textAlign` depends on which side of the circle we are on. On the left, it should be `"right"`, and on the right, it should be `"left"`, so that the text is positioned away from the pie.
+Para `textBaseline`, el valor `"middle"` probablemente sea apropiado al usar este enfoque. Lo que se debe usar para `textAlign` depende de en qué lado del círculo nos encontremos. En el lado izquierdo, debería ser `"right"`, y en el lado derecho, debería ser `"left"`, de manera que el texto se posicione lejos del círculo.
 
 {{index "Math.cos function"}}
 
-If you are not sure how to find out which side of the circle a given angle is on, look to the explanation of `Math.cos` in [Chapter ?](dom#sin_cos). The cosine of an angle tells us which x-coordinate it corresponds to, which in turn tells us exactly which side of the circle we are on.
+Si no estás seguro de cómo averiguar en qué lado del círculo se encuentra un ángulo dado, consulta la explicación de `Math.cos` en [Capítulo ?](dom#sin_cos). El coseno de un ángulo nos indica qué coordenada x le corresponde, lo que a su vez nos dice exactamente en qué lado del círculo estamos.
 
 hint}}
 
-### A bouncing ball
+### Una pelota rebotando
 
-{{index [animation, "bouncing ball"], "requestAnimationFrame function", bouncing}}
-
-Use the `requestAnimationFrame` technique that we saw in [Chapter ?](dom#animationFrame) and [Chapter ?](game#runAnimation) to draw a ((box)) with a bouncing ((ball)) in it. The ball moves at a constant ((speed)) and bounces off the box's sides when it hits them.
+Utiliza la técnica de `requestAnimationFrame` que vimos en [Capítulo ?](dom#animationFrame) y [Capítulo ?](game#runAnimation) para dibujar una caja con una pelota rebotando dentro. La pelota se mueve a una velocidad constante y rebota en los lados de la caja cuando los alcanza.{{if interactive
 
 {{if interactive
 
@@ -1046,7 +1026,7 @@ Use the `requestAnimationFrame` technique that we saw in [Chapter ?](dom#animati
   requestAnimationFrame(frame);
 
   function updateAnimation(step) {
-    // Your code here.
+    // Tu código aquí.
   }
 </script>
 ```
@@ -1055,39 +1035,38 @@ if}}
 
 {{hint
 
-{{index "strokeRect method", animation, "arc method"}}
+{{index "método strokeRect", animación, "método arc"}}
 
-A ((box)) is easy to draw with `strokeRect`. Define a binding that holds its size or define two bindings if your box's width and height differ. To create a round ((ball)), start a path and call `arc(x, y, radius, 0, 7)`, which creates an arc going from zero to more than a whole circle. Then fill the path.
+Un ((cuadro)) es fácil de dibujar con `strokeRect`. Define una variable que contenga su tamaño o define dos variables si el ancho y alto de tu cuadro difieren. Para crear una ((pelota)) redonda, comienza un camino y llama a `arc(x, y, radio, 0, 7)`, que crea un arco que va desde cero a más de un círculo completo. Luego rellena el camino.
 
-{{index "collision detection", "Vec class"}}
+{{index "detección de colisiones", "clase Vec"}}
 
-To model the ball's position and ((speed)), you can use the `Vec` class from [Chapter ?](game#vector)[ (which is available on this page)]{if interactive}. Give it a starting speed, preferably one that is not purely vertical or horizontal, and for every ((frame)) multiply that speed by the amount of time that elapsed. When the ball gets too close to a vertical wall, invert the x component in its speed. Likewise, invert the y component when it hits a horizontal wall.
+Para modelar la posición y la ((velocidad)) de la pelota, puedes usar la clase `Vec` del [Capítulo ?](game#vector) (que está disponible en esta página){if interactive}. Dale una velocidad inicial, preferiblemente una que no sea puramente vertical u horizontal, y en cada ((cuadro)) multiplica esa velocidad por la cantidad de tiempo transcurrido. Cuando la pelota se acerca demasiado a una pared vertical, invierte el componente x en su velocidad. De manera similar, invierte el componente y cuando golpea una pared horizontal.
 
-{{index "clearRect method", clearing}}
+{{index "método clearRect", limpieza}}
 
-After finding the ball's new position and speed, use `clearRect` to delete the scene and redraw it using the new position.
+Después de encontrar la nueva posición y velocidad de la pelota, usa `clearRect` para borrar la escena y vuélvela a dibujar usando la nueva posición.
 
 hint}}
 
-### Precomputed mirroring
+### Reflejo precalculado
 
-{{index optimization, "bitmap graphics", mirror}}
+{{index optimización, "gráficos de mapa de bits", espejo}}
 
-One unfortunate thing about ((transformation))s is that they slow down the drawing of bitmaps. The position and size of each ((pixel)) has to be transformed, and though it is possible that ((browser))s will get cleverer about transformation in the ((future)), they currently cause a measurable increase in the time it takes to draw a bitmap.
+Una desventaja de las ((transformaciones)) es que ralentizan el dibujo de mapas de bits. La posición y el tamaño de cada ((píxel)) deben ser transformados, y aunque es posible que los ((navegadores)) se vuelvan más inteligentes sobre las transformaciones en el ((futuro)), actualmente causan un aumento medible en el tiempo que lleva dibujar un mapa de bits.
 
-In a game like ours, where we are drawing only a single transformed sprite, this is a nonissue. But imagine that we need to draw hundreds of characters or thousands of rotating particles from an explosion.
+En un juego como el nuestro, en el que solo estamos dibujando un sprite transformado, esto no es un problema. Pero imagina que necesitamos dibujar cientos de personajes o miles de partículas giratorias de una explosión.
 
-Think of a way to allow us to draw an inverted character without loading additional image files and without having to make transformed `drawImage` calls every frame.
+Piensa en una forma de permitirnos dibujar un personaje invertido sin cargar archivos de imagen adicionales y sin tener que hacer llamadas transformadas de `drawImage` en cada cuadro.
 
 {{hint
 
-{{index mirror, scaling, "drawImage method"}}
+{{index espejo, escalado, "método drawImage"}}
 
-The key to the solution is the fact that we can use a ((canvas)) element as a source image when using `drawImage`. It is possible to create an extra `<canvas>` element, without adding it to the document, and draw our inverted sprites to it, once. When drawing an actual frame, we just copy the already inverted sprites to the main canvas.
+La clave para la solución está en el hecho de que podemos usar un elemento ((canvas)) como imagen de origen al usar `drawImage`. Es posible crear un elemento `<canvas>` adicional, sin agregarlo al documento, y dibujar nuestros sprites invertidos en él, una vez. Al dibujar un cuadro real, simplemente copiamos los sprites ya invertidos al lienzo principal.
 
-{{index "load event"}}
+{{index "evento de carga"}}
 
-Some care would be required because images do not load instantly. We do the inverted drawing only once, and if we do it before the image loads, it won't draw anything. A `"load"` handler on the image can be used to draw the inverted images to the extra canvas. This canvas can be used as a drawing source immediately (it'll simply be blank until we draw the character onto it).
+Se requeriría cierto cuidado porque las imágenes no se cargan instantáneamente. Hacemos el dibujo invertido solo una vez y, si lo hacemos antes de que la imagen se cargue, no dibujará nada. Se puede usar un controlador de `"load"` en la imagen para dibujar las imágenes invertidas en el lienzo adicional. Este lienzo se puede usar como fuente de dibujo inmediatamente (simplemente estará en blanco hasta que dibujemos el personaje en él).
 
 hint}}
-

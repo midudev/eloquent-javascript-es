@@ -1,161 +1,159 @@
-# Handling Events
+# Manejo de Eventos
 
-{{quote {author: "Marcus Aurelius", title: Meditations, chapter: true}
+{{quote {author: "Marco Aurelio", title: Meditaciones, chapter: true}
 
-You have power over your mind—not outside events. Realize this, and you will find strength.
+Tienes poder sobre tu mente, no sobre los eventos externos. Date cuenta de esto y encontrarás fuerza.
 
 quote}}
 
-{{index stoicism, "Marcus Aurelius", input, timeline}}
+{{index estoicismo, "Marco Aurelio", input, cronología}}
 
-{{figure {url: "img/chapter_picture_15.jpg", alt: "Illustration showing a Rube Goldberg machine involving a ball, a see-saw, a pair of scissors, and a hammer, which affect each other in a chain reaction that turns on a lightbulb.", chapter: "framed"}}}
+{{figure {url: "img/chapter_picture_15.jpg", alt: "Ilustración que muestra una máquina de Rube Goldberg que involucra una pelota, una balanza, un par de tijeras y un martillo, los cuales se afectan en una reacción en cadena que enciende una bombilla.", chapter: "framed"}}}
 
-Some programs work with direct user input, such as mouse and keyboard actions. That kind of input isn't available ahead of time, as a well-organized data structure—it comes in piece by piece, in real time, and the program must respond to it as it happens.
+Algunos programas trabajan con la entrada directa del usuario, como acciones del ratón y del teclado. Ese tipo de entrada no está disponible de antemano, como una estructura de datos bien organizada, llega pieza por pieza, en tiempo real, y el programa debe responder a medida que sucede.
 
-## Event handlers
+## Controladores de Eventos
 
-{{index polling, button, "real-time"}}
+{{index sondeo, botón, "tiempo real"}}
 
-Imagine an interface where the only way to find out whether a key on the ((keyboard)) is being pressed is to read the current state of that key. To be able to react to keypresses, you would have to constantly read the key's state so that you'd catch it before it's released again. It would be dangerous to perform other time-intensive computations since you might miss a keypress.
+Imagina una interfaz donde la única forma de saber si una tecla en el ((teclado)) está siendo presionada es leyendo el estado actual de esa tecla. Para poder reaccionar a las pulsaciones de teclas, tendrías que leer constantemente el estado de la tecla para capturarla antes de que se libere nuevamente. Sería peligroso realizar otras computaciones intensivas en tiempo, ya que podrías perder una pulsación de tecla.
 
-Some primitive machines do handle input like that. A step up from this would be for the hardware or operating system to notice the keypress and put it in a queue. A program can then periodically check the queue for new events and react to what it finds there.
+Algunas máquinas primitivas manejan la entrada de esa manera. Un paso adelante sería que el hardware o el sistema operativo noten la pulsación de tecla y la pongan en una cola. Un programa puede luego verificar periódicamente la cola en busca de nuevos eventos y reaccionar a lo que encuentre allí.
 
-{{index responsiveness, "user experience"}}
+{{index capacidad de respuesta, "experiencia de usuario"}}
 
-Of course, it has to remember to look at the queue, and to do it often, because any time between the key being pressed and the program noticing the event will cause the software to feel unresponsive. This approach is called _((polling))_. Most programmers prefer to avoid it.
+Por supuesto, tiene que recordar mirar la cola y hacerlo a menudo, porque cualquier tiempo transcurrido entre la presión de la tecla y la notificación del evento por parte del programa hará que el software se sienta sin respuesta. Este enfoque se llama _((sondeo))_. La mayoría de los programadores prefieren evitarlo.
 
-{{index "callback function", "event handling"}}
+{{index "función de devolución de llamada", "manejo de eventos"}}
 
-A better mechanism is for the system to actively notify our code when an event occurs. Browsers do this by allowing us to register functions as _handlers_ for specific events.
+Un mecanismo mejor es que el sistema notifique activamente a nuestro código cuando ocurre un evento. Los navegadores hacen esto al permitirnos registrar funciones como _manejadores_ para eventos específicos.
 
 ```{lang: html}
-<p>Click this document to activate the handler.</p>
+<p>Haz clic en este documento para activar el manejador.</p>
 <script>
   window.addEventListener("click", () => {
-    console.log("You knocked?");
+    console.log("¿Llamaste?");
   });
 </script>
 ```
 
-{{index "click event", "addEventListener method", "window object", [browser, window]}}
+{{index "evento de clic", "método addEventListener", "objeto window", [navegador, ventana]}}
 
-The `window` binding refers to a built-in object provided by the browser. It represents the browser window that contains the document. Calling its `addEventListener` method registers the second argument to be called whenever the event described by its first argument occurs.
+La asignación `window` se refiere a un objeto integrado proporcionado por el navegador. Representa la ventana del navegador que contiene el documento. Llamar a su método `addEventListener` registra el segundo argumento para que se llame cada vez que ocurra el evento descrito por su primer argumento.
 
-## Events and DOM nodes
+## Eventos y nodos DOM
 
-{{index "addEventListener method", "event handling", "window object", browser, [DOM, events]}}
+{{index "método addEventListener", "manejo de eventos", "objeto window", navegador, [DOM, eventos]}}
 
-Each browser event handler is registered in a context. In the previous example we called `addEventListener` on the `window` object to register a handler for the whole window. Such a method can also be found on DOM elements and some other types of objects. Event listeners are called only when the event happens in the context of the object they are registered on.
+Cada controlador de eventos del navegador se registra en un contexto. En el ejemplo anterior llamamos a `addEventListener` en el objeto `window` para registrar un controlador para toda la ventana. Un método similar también se encuentra en elementos del DOM y algunos otros tipos de objetos. Los escuchas de eventos solo se llaman cuando el evento ocurre en el contexto del objeto en el que están registrados.
 
 ```{lang: html}
-<button>Click me</button>
-<p>No handler here.</p>
+<button>Haz clic</button>
+<p>No hay manejador aquí.</p>
 <script>
   let button = document.querySelector("button");
   button.addEventListener("click", () => {
-    console.log("Button clicked.");
+    console.log("Botón clickeado.");
   });
 </script>
 ```
 
-{{index "click event", "button (HTML tag)"}}
+{{index "evento de clic", "botón (etiqueta HTML)"}}
 
-That example attaches a handler to the button node. Clicks on the button cause that handler to run, but clicks on the rest of the document do not.
+Ese ejemplo adjunta un manejador al nodo del botón. Los clics en el botón hacen que se ejecute ese manejador, pero los clics en el resto del documento no lo hacen.
 
-{{index "onclick attribute", encapsulation}}
+{{index "atributo onclick", encapsulamiento}}
 
-Giving a node an `onclick` attribute has a similar effect. This works for most types of events—you can attach a handler through the attribute whose name is the event name with `on` in front of it.
+Darle a un nodo un atributo `onclick` tiene un efecto similar. Esto funciona para la mayoría de tipos de eventos: puedes adjuntar un manejador a través del atributo cuyo nombre es el nombre del evento con `on` al inicio.
 
-But a node can have only one `onclick` attribute, so you can register only one handler per node that way. The `addEventListener` method allows you to add any number of handlers so that it is safe to add handlers even if there is already another handler on the element.
+Pero un nodo solo puede tener un atributo `onclick`, por lo que solo puedes registrar un manejador por nodo de esa manera. El método `addEventListener` te permite agregar cualquier cantidad de manejadores, por lo que es seguro agregar manejadores incluso si ya hay otro manejador en el elemento.
 
-{{index "removeEventListener method"}}
+{{index "método removeEventListener"}}
 
-The `removeEventListener` method, called with arguments similar to `addEventListener`, removes a handler.
+El método `removeEventListener`, llamado con argumentos similares a `addEventListener`, remueve un manejador.
 
 ```{lang: html}
-<button>Act-once button</button>
+<button>Botón de acción única</button>
 <script>
   let button = document.querySelector("button");
-  function once() {
-    console.log("Done.");
-    button.removeEventListener("click", once);
+  function unaVez() {
+    console.log("¡Hecho!");
+    button.removeEventListener("click", unaVez);
   }
-  button.addEventListener("click", once);
+  button.addEventListener("click", unaVez);
 </script>
 ```
 
-{{index [function, "as value"]}}
+{{index [función, "como valor"]}}
 
-The function given to `removeEventListener` has to be the same function value that was given to `addEventListener`. So, to unregister a handler, you'll want to give the function a name (`once`, in the example) to be able to pass the same function value to both methods.
+La función proporcionada a `removeEventListener` debe ser el mismo valor de función que se proporcionó a `addEventListener`. Por lo tanto, para anular el registro de un manejador, querrás darle un nombre a la función (`unaVez`, en el ejemplo) para poder pasar el mismo valor de función a ambos métodos.
 
-## Event objects
+## Objetos de eventos
 
-{{index "button property", "event handling"}}
+{{index "propiedad de botón", "manejo de eventos"}}
 
-Though we have ignored it so far, event handler functions are passed an argument: the _((event object))_. This object holds additional information about the event. For example, if we want to know _which_ ((mouse button)) was pressed, we can look at the event object's `button` property.
+Aunque lo hemos ignorado hasta ahora, las funciones de manejadores de eventos reciben un argumento: el _((objeto de evento))_. Este objeto contiene información adicional sobre el evento. Por ejemplo, si queremos saber _cuál_ ((botón del mouse)) se presionó, podemos mirar la propiedad `button` del objeto de evento.
 
 ```{lang: html}
-<button>Click me any way you want</button>
+<button>Haz clic como quieras</button>
 <script>
   let button = document.querySelector("button");
   button.addEventListener("mousedown", event => {
     if (event.button == 0) {
-      console.log("Left button");
+      console.log("Botón izquierdo");
     } else if (event.button == 1) {
-      console.log("Middle button");
+      console.log("Botón del medio");
     } else if (event.button == 2) {
-      console.log("Right button");
+      console.log("Botón derecho");
     }
   });
 </script>
 ```
 
-{{index "event type", "type property"}}
+{{index "tipo de evento", "propiedad type"}}
 
-The information stored in an event object differs per type of event. We'll discuss different types later in the chapter. The object's `type` property always holds a string identifying the event (such as `"click"` or `"mousedown"`).
+La información almacenada en un objeto de evento difiere según el tipo de evento. Discutiremos diferentes tipos más adelante en el capítulo. La propiedad `type` del objeto siempre contiene una cadena que identifica el evento (como `"click"` o `"mousedown"`).
 
-## Propagation
+## Propagación
 
-{{index "event propagation", "parent node"}}
+{{index "propagación de evento", "nodo padre"}}
 
-{{indexsee bubbling, "event propagation"}}
+{{indexsee burbujeo, "propagación de evento"}}
 
-{{indexsee propagation, "event propagation"}}
+{{indexsee propagación, "propagación de evento"}}
 
-For most event types, handlers registered on nodes with children will also receive events that happen in the children. If a button inside a paragraph is clicked, event handlers on the paragraph will also see the click event.
+Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.{{index "manejo de eventos"}}
 
-{{index "event handling"}}
+Pero si tanto el párrafo como el botón tienen un controlador, el controlador más específico —el del botón— tiene prioridad para ejecutarse primero. Se dice que el evento *se propaga* hacia afuera, desde el nodo donde ocurrió hacia el nodo padre de ese nodo y hasta la raíz del documento. Finalmente, después de que todos los controladores registrados en un nodo específico hayan tenido su turno, los controladores registrados en toda la ((ventana)) tienen la oportunidad de responder al evento.
 
-But if both the paragraph and the button have a handler, the more specific handler—the one on the button—gets to go first. The event is said to _propagate_ outward, from the node where it happened to that node's parent node and on to the root of the document. Finally, after all handlers registered on a specific node have had their turn, handlers registered on the whole ((window)) get a chance to respond to the event.
+{{index "método stopPropagation", "evento click"}}
 
-{{index "stopPropagation method", "click event"}}
+En cualquier momento, un controlador de eventos puede llamar al método `stopPropagation` en el objeto de evento para evitar que los controladores superiores reciban el evento. Esto puede ser útil cuando, por ejemplo, tienes un botón dentro de otro elemento clickeable y no quieres que los clics en el botón activen el comportamiento de click del elemento externo.
 
-At any point, an event handler can call the `stopPropagation` method on the event object to prevent handlers further up from receiving the event. This can be useful when, for example, you have a button inside another clickable element and you don't want clicks on the button to activate the outer element's click behavior.
+{{index "evento mousedown", "evento de puntero"}}
 
-{{index "mousedown event", "pointer event"}}
-
-The following example registers `"mousedown"` handlers on both a button and the paragraph around it. When clicked with the right mouse button, the handler for the button calls `stopPropagation`, which will prevent the handler on the paragraph from running. When the button is clicked with another ((mouse button)), both handlers will run.
+El siguiente ejemplo registra controladores de `"mousedown"` tanto en un botón como en el párrafo que lo rodea. Cuando se hace clic con el botón derecho del ratón, el controlador del botón llama a `stopPropagation`, lo que evitará que se ejecute el controlador en el párrafo. Cuando el botón se hace clic con otro ((botón del ratón)), ambos controladores se ejecutarán.
 
 ```{lang: html}
-<p>A paragraph with a <button>button</button>.</p>
+<p>Un párrafo con un <button>botón</button>.</p>
 <script>
   let para = document.querySelector("p");
   let button = document.querySelector("button");
   para.addEventListener("mousedown", () => {
-    console.log("Handler for paragraph.");
+    console.log("Controlador para el párrafo.");
   });
   button.addEventListener("mousedown", event => {
-    console.log("Handler for button.");
+    console.log("Controlador para el botón.");
     if (event.button == 2) event.stopPropagation();
   });
 </script>
 ```
 
-{{index "event propagation", "target property"}}
+{{index "propagación de eventos", "propiedad target"}}
 
-Most event objects have a `target` property that refers to the node where they originated. You can use this property to ensure that you're not accidentally handling something that propagated up from a node you do not want to handle.
+La mayoría de los objetos de eventos tienen una propiedad `target` que se refiere al nodo donde se originaron. Puedes usar esta propiedad para asegurarte de que no estás manejando accidentalmente algo que se propagó desde un nodo que no deseas manejar.
 
-It is also possible to use the `target` property to cast a wide net for a specific type of event. For example, if you have a node containing a long list of buttons, it may be more convenient to register a single click handler on the outer node and have it use the `target` property to figure out whether a button was clicked, rather than register individual handlers on all of the buttons.
+También es posible usar la propiedad `target` para abarcar un amplio rango para un tipo específico de evento. Por ejemplo, si tienes un nodo que contiene una larga lista de botones, puede ser más conveniente registrar un único controlador de clic en el nodo externo y hacer que utilice la propiedad `target` para averiguar si se hizo clic en un botón, en lugar de registrar controladores individuales en todos los botones.
 
 ```{lang: html}
 <button>A</button>
@@ -164,51 +162,49 @@ It is also possible to use the `target` property to cast a wide net for a specif
 <script>
   document.body.addEventListener("click", event => {
     if (event.target.nodeName == "BUTTON") {
-      console.log("Clicked", event.target.textContent);
+      console.log("Clic en", event.target.textContent);
     }
   });
 </script>
 ```
 
-## Default actions
+## Acciones predeterminadas
 
-{{index scrolling, "default behavior", "event handling"}}
+{{index scrolling, "comportamiento predeterminado", "manejo de eventos"}}
 
-Many events have a default action associated with them. If you click a ((link)), you will be taken to the link's target. If you press the down arrow, the browser will scroll the page down. If you right-click, you'll get a context menu. And so on.
+Muchos eventos tienen una acción predeterminada asociada a ellos. Si haces clic en un ((enlace)), serás llevado al destino del enlace. Si presionas la flecha hacia abajo, el navegador desplazará la página hacia abajo. Si haces clic derecho, obtendrás un menú contextual. Y así sucesivamente.
 
-{{index "preventDefault method"}}
+{{index "método preventDefault"}}
 
-For most types of events, the JavaScript event handlers are called _before_ the default behavior takes place. If the handler doesn't want this normal behavior to happen, typically because it has already taken care of handling the event, it can call the `preventDefault` method on the event object.
+Para la mayoría de los tipos de eventos, los controladores de eventos de JavaScript se ejecutan _antes_ de que ocurra el comportamiento predeterminado. Si el controlador no desea que este comportamiento normal ocurra, típicamente porque ya se encargó de manejar el evento, puede llamar al método `preventDefault` en el objeto de evento.{{index de expectativas}}
 
-{{index expectation}}
-
-This can be used to implement your own ((keyboard)) shortcuts or ((context menu)). It can also be used to obnoxiously interfere with the behavior that users expect. For example, here is a link that cannot be followed:
+Esto se puede utilizar para implementar tus propios atajos de teclado o menús contextuales. También se puede usar para interferir de manera molesta con el comportamiento que los usuarios esperan. Por ejemplo, aquí hay un enlace que no se puede seguir:
 
 ```{lang: html}
 <a href="https://developer.mozilla.org/">MDN</a>
 <script>
   let link = document.querySelector("a");
   link.addEventListener("click", event => {
-    console.log("Nope.");
+    console.log("¡Incorrecto!");
     event.preventDefault();
   });
 </script>
 ```
 
-{{index usability}}
+{{index usabilidad}}
 
-Try not to do such things unless you have a really good reason to. It'll be unpleasant for people who use your page when expected behavior is broken.
+Trata de no hacer este tipo de cosas a menos que tengas una razón realmente válida. Será desagradable para las personas que utilicen tu página cuando se rompa el comportamiento esperado.
 
-Depending on the browser, some events can't be intercepted at all. On Chrome, for example, the ((keyboard)) shortcut to close the current tab ([control]{keyname}-W or [command]{keyname}-W) cannot be handled by JavaScript.
+Dependiendo del navegador, algunos eventos no se pueden interceptar en absoluto. En Chrome, por ejemplo, el atajo de teclado para cerrar la pestaña actual (control-W o command-W) no se puede manejar con JavaScript.
 
-## Key events
+## Eventos de teclado
 
-{{index keyboard, "keydown event", "keyup event", "event handling"}}
+{{index teclado, "evento keydown", "evento keyup", "manejo de eventos"}}
 
-When a key on the keyboard is pressed, your browser fires a `"keydown"` event. When it is released, you get a `"keyup"` event.
+Cuando se presiona una tecla en el teclado, tu navegador dispara un evento `"keydown"`. Cuando se suelta, obtienes un evento `"keyup"`.
 
 ```{lang: html, focus: true}
-<p>This page turns violet when you hold the V key.</p>
+<p>Esta página se vuelve violeta cuando mantienes presionada la tecla V.</p>
 <script>
   window.addEventListener("keydown", event => {
     if (event.key == "v") {
@@ -223,64 +219,60 @@ When a key on the keyboard is pressed, your browser fires a `"keydown"` event. W
 </script>
 ```
 
-{{index "repeating key"}}
+{{index "tecla repetitiva"}}
 
-Despite its name, `"keydown"` fires not only when the key is physically pushed down. When a key is pressed and held, the event fires again every time the key _repeats_. Sometimes you have to be careful about this. For example, if you add a button to the DOM when a key is pressed and remove it again when the key is released, you might accidentally add hundreds of buttons when the key is held down longer.
+A pesar de su nombre, `"keydown"` se dispara no solo cuando la tecla se presiona físicamente hacia abajo. Cuando se presiona y se mantiene una tecla, el evento se vuelve a disparar cada vez que la tecla _se repite_. A veces tienes que tener cuidado con esto. Por ejemplo, si agregas un botón al DOM cuando se presiona una tecla y lo eliminas de nuevo cuando se suelta la tecla, podrías agregar accidentalmente cientos de botones cuando se mantiene presionada la tecla durante más tiempo.
 
-{{index "key property"}}
+{{index "propiedad key"}}
 
-The example looked at the `key` property of the event object to see which key the event is about. This property holds a string that, for most keys, corresponds to the thing that pressing that key would type. For special keys such as [enter]{keyname}, it holds a string that names the key (`"Enter"`, in this case). If you hold [shift]{keyname} while pressing a key, that might also influence the name of the key—`"v"` becomes `"V"`, and `"1"` may become `"!"`, if that is what pressing [shift]{keyname}-1 produces on your keyboard.
+El ejemplo observó la propiedad `key` del objeto evento para ver sobre qué tecla es el evento. Esta propiedad contiene una cadena que, para la mayoría de las teclas, corresponde a lo que escribirías al presionar esa tecla. Para teclas especiales como [enter]{keyname}, contiene una cadena que nombra la tecla (`"Enter"`, en este caso). Si mantienes presionado [shift]{keyname} mientras presionas una tecla, eso también puede influir en el nombre de la tecla: `"v"` se convierte en `"V"`, y `"1"` puede convertirse en `"!"`, si eso es lo que produce al presionar [shift]{keyname}-1 en tu teclado.
 
-{{index "modifier key", "shift key", "control key", "alt key", "meta key", "command key", "ctrlKey property", "shiftKey property", "altKey property", "metaKey property"}}
+{{index "tecla modificadora", "tecla shift", "tecla control", "tecla alt", "tecla meta", "tecla command", "propiedad ctrlKey", "propiedad shiftKey", "propiedad altKey", "propiedad metaKey"}}
 
-Modifier keys such as [shift]{keyname}, [control]{keyname}, [alt]{keyname}, and [meta]{keyname} ([command]{keyname} on Mac) generate key events just like normal keys. But when looking for key combinations, you can also find out whether these keys are held down by looking at the `shiftKey`, `ctrlKey`, `altKey`, and `metaKey` properties of keyboard and mouse events.
+Las teclas modificadoras como [shift]{keyname}, [control]{keyname}, [alt]{keyname} y [meta]{keyname} (command en Mac) generan eventos de tecla igual que las teclas normales. Pero al buscar combinaciones de teclas, también puedes averiguar si estas teclas se mantienen presionadas mirando las propiedades `shiftKey`, `ctrlKey`, `altKey` y `metaKey` de los eventos de teclado y ratón.
 
 ```{lang: html, focus: true}
-<p>Press Control-Space to continue.</p>
+<p>Pulsa Control-Espacio para continuar.</p>
 <script>
   window.addEventListener("keydown", event => {
     if (event.key == " " && event.ctrlKey) {
-      console.log("Continuing!");
+      console.log("¡Continuando!");
     }
   });
 </script>
-```
+```{{index "button (etiqueta HTML)", "atributo tabindex", [DOM, eventos]}}
 
-{{index "button (HTML tag)", "tabindex attribute", [DOM, events]}}
+El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene ((foco)) cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo `tabindex`, pero cosas como los ((enlace))s, botones y campos de formulario pueden. Volveremos a los campos de formulario en [Capítulo ?](http#forms). Cuando nada en particular tiene foco, `document.body` actúa como el nodo objetivo de los eventos de teclado.
 
-The DOM node where a key event originates depends on the element that has ((focus)) when the key is pressed. Most nodes cannot have focus unless you give them a `tabindex` attribute, but things like ((link))s, buttons, and form fields can. We'll come back to form ((field))s in [Chapter ?](http#forms). When nothing in particular has focus, `document.body` acts as the target node of key events.
+Cuando el usuario está escribiendo texto, utilizar eventos de teclado para averiguar qué se está escribiendo es problemático. Algunas plataformas, especialmente el ((teclado virtual)) en teléfonos ((Android)), no disparan eventos de teclado. Pero incluso cuando se tiene un teclado tradicional, algunos tipos de entrada de texto no coinciden con las pulsaciones de teclas de manera directa, como el software de _editor de método de entrada_ (((IME))) utilizado por personas cuyos guiones no caben en un teclado, donde múltiples pulsaciones de teclas se combinan para crear caracteres.
 
-When the user is typing text, using key events to figure out what is being typed is problematic. Some platforms, most notably the ((virtual keyboard)) on ((Android)) ((phone))s, don't fire key events. But even when you have an old-fashioned keyboard, some types of text input don't match key presses in a straightforward way, such as _input method editor_ (((IME))) software used by people whose scripts don't fit on a keyboard, where multiple key strokes are combined to create characters.
+Para detectar cuando se ha escrito algo, los elementos en los que se puede escribir, como las etiquetas `<input>` y `<textarea>`, activan eventos `"input"` cada vez que el usuario cambia su contenido. Para obtener el contenido real que se ha escrito, lo mejor es leerlo directamente del campo enfocado. [Capítulo ?](http#forms) mostrará cómo hacerlo.
 
-To notice when something was typed, elements that you can type into, such as the `<input>` and `<textarea>` tags, fire `"input"` events whenever the user changes their content. To get the actual content that was typed, it is best to directly read it from the focused field. [Chapter ?](http#forms) will show how.
+## Eventos de puntero
 
-## Pointer events
+Actualmente existen dos formas ampliamente utilizadas de señalar cosas en una pantalla: los ratones (incluyendo dispositivos que actúan como ratones, como touchpads y trackballs) y las pantallas táctiles. Estas producen diferentes tipos de eventos.
 
-There are currently two widely used ways to point at things on a screen: mice (including devices that act like mice, such as touchpads and trackballs) and touchscreens. These produce different kinds of events.
+### Clics de ratón
 
-### Mouse clicks
+{{index "evento mousedown", "evento mouseup", "cursor de ratón"}}
 
-{{index "mousedown event", "mouseup event", "mouse cursor"}}
+Presionar un ((botón de ratón)) provoca que se disparen varios eventos. Los eventos `"mousedown"` y `"mouseup"` son similares a `"keydown"` y `"keyup"` y se activan cuando se presiona y se suelta el botón. Estos eventos ocurren en los nodos del DOM que están inmediatamente debajo del puntero del ratón cuando se produce el evento.
 
-Pressing a ((mouse button)) causes a number of events to fire. The `"mousedown"` and `"mouseup"` events are similar to `"keydown"` and `"keyup"` and fire when the button is pressed and released. These happen on the DOM nodes that are immediately below the mouse pointer when the event occurs.
+{{index "evento click"}}
 
-{{index "click event"}}
+Después del evento `"mouseup"`, se dispara un evento `"click"` en el nodo más específico que contenía tanto la pulsación como la liberación del botón. Por ejemplo, si presiono el botón del ratón en un párrafo y luego muevo el puntero a otro párrafo y suelto el botón, el evento `"click"` ocurrirá en el elemento que contiene ambos párrafos.
 
-After the `"mouseup"` event, a `"click"` event fires on the most specific node that contained both the press and the release of the button. For example, if I press down the mouse button on one paragraph and then move the pointer to another paragraph and release the button, the `"click"` event will happen on the element that contains both those paragraphs.
+{{index "evento dblclick", "doble clic"}}
 
-{{index "dblclick event", "double click"}}
+Si dos clics ocurren cerca uno del otro, también se dispara un evento `"dblclick"` (doble clic), después del segundo evento de clic.
 
-If two clicks happen close together, a `"dblclick"` (double-click) event also fires, after the second click event.
+{{index píxel, "propiedad clientX", "propiedad clientY", "propiedad pageX", "propiedad pageY", "objeto evento"}}
 
-{{index pixel, "clientX property", "clientY property", "pageX property", "pageY property", "event object"}}
+Para obtener información precisa sobre el lugar donde ocurrió un evento de ratón, puedes mirar sus propiedades `clientX` y `clientY`, que contienen las ((coordenadas)) del evento (en píxeles) relativas a la esquina superior izquierda de la ventana, o `pageX` y `pageY`, que son relativas a la esquina superior izquierda de todo el documento (lo cual puede ser diferente cuando la ventana ha sido desplazada).
 
-To get precise information about the place where a mouse event happened, you can look at its `clientX` and `clientY` properties, which contain the event's ((coordinates)) (in pixels) relative to the top-left corner of the window, or `pageX` and `pageY`, which are relative to the top-left corner of the whole document (which may be different when the window has been scrolled).
+{{index "border-radius (CSS)", "posicionamiento absoluto", "ejemplo de programa de dibujo"}}
 
-{{index "border-radius (CSS)", "absolute positioning", "drawing program example"}}
-
-{{id mouse_drawing}}
-
-The following program implements a primitive drawing application. Every time you click the document, it adds a dot under your mouse pointer. See [Chapter ?](paint) for a less primitive drawing application.
+{{id mouse_drawing}}El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver [Capítulo ?](paint) para una aplicación de dibujo menos primitiva.
 
 ```{lang: html}
 <style>
@@ -290,7 +282,7 @@ The following program implements a primitive drawing application. Every time you
   }
   .dot {
     height: 8px; width: 8px;
-    border-radius: 4px; /* rounds corners */
+    border-radius: 4px; /* redondea las esquinas */
     background: teal;
     position: absolute;
   }
@@ -306,28 +298,28 @@ The following program implements a primitive drawing application. Every time you
 </script>
 ```
 
-### Mouse motion
+### Movimiento del ratón
 
 {{index "mousemove event"}}
 
-Every time the mouse pointer moves, a `"mousemove"` event is fired. This event can be used to track the position of the mouse. A common situation in which this is useful is when implementing some form of mouse-((dragging)) functionality.
+Cada vez que el puntero del ratón se mueve, se dispara un evento `"mousemove"`. Este evento se puede usar para rastrear la posición del ratón. Una situación común en la que esto es útil es al implementar algún tipo de funcionalidad de arrastrar y soltar con el ratón.
 
 {{index "draggable bar example"}}
 
-As an example, the following program displays a bar and sets up event handlers so that dragging to the left or right on this bar makes it narrower or wider:
+Como ejemplo, el siguiente programa muestra una barra y configura controladores de eventos para que al arrastrar hacia la izquierda o hacia la derecha en esta barra, se haga más estrecha o más ancha:
 
 ```{lang: html, startCode: true}
-<p>Drag the bar to change its width:</p>
+<p>Arrastra la barra para cambiar su anchura:</p>
 <div style="background: orange; width: 60px; height: 20px">
 </div>
 <script>
-  let lastX; // Tracks the last observed mouse X position
+  let lastX; // Rastrea la última posición X del ratón observada
   let bar = document.querySelector("div");
   bar.addEventListener("mousedown", event => {
     if (event.button == 0) {
       lastX = event.clientX;
       window.addEventListener("mousemove", moved);
-      event.preventDefault(); // Prevent selection
+      event.preventDefault(); // Prevenir selección
     }
   });
 
@@ -346,41 +338,41 @@ As an example, the following program displays a bar and sets up event handlers s
 
 {{if book
 
-The resulting page looks like this:
+La página resultante se ve así:
 
-{{figure {url: "img/drag-bar.png", alt: "Picture of a draggable bar", width: "5.3cm"}}}
+{{figure {url: "img/drag-bar.png", alt: "Imagen de una barra arrastrable", width: "5.3cm"}}}
 
 if}}
 
 {{index "mouseup event", "mousemove event"}}
 
-Note that the `"mousemove"` handler is registered on the whole ((window)). Even if the mouse goes outside of the bar during resizing, as long as the button is held we still want to update its size.
+Ten en cuenta que el controlador `"mousemove"` está registrado en toda la ((window)). Incluso si el ratón sale de la barra durante el cambio de tamaño, mientras el botón se mantenga presionado todavía queremos actualizar su tamaño.
 
 {{index "buttons property", "button property", "bitfield"}}
 
-We must stop resizing the bar when the mouse button is released. For that, we can use the `buttons` property (note the plural), which tells us about the buttons that are currently held down. When this is zero, no buttons are down. When buttons are held, its value is the sum of the codes for those buttons—the left button has code 1, the right button 2, and the middle one 4. With the left and right buttons held, for example, the value of `buttons` will be 3.
+Debemos detener el cambio de tamaño de la barra cuando se libere el botón del ratón. Para eso, podemos usar la propiedad `buttons` (notar el plural), que nos indica qué botones están actualmente presionados. Cuando este valor es cero, ningún botón está presionado. Cuando se mantienen presionados botones, su valor es la suma de los códigos de esos botones—el botón izquierdo tiene el código 1, el derecho 2 y el central 4. Con el botón izquierdo y el derecho presionados, por ejemplo, el valor de `buttons` será 3.
 
-Note that the order of these codes is different from the one used by `button`, where the middle button came before the right one. As mentioned, consistency isn't really a strong point of the browser's programming interface.
+Es importante destacar que el orden de estos códigos es diferente al utilizado por `button`, donde el botón central venía antes que el derecho. Como se mencionó, la consistencia no es realmente un punto fuerte de la interfaz de programación del navegador.
 
-### Touch events
+### Eventos táctiles
 
-{{index touch, "mousedown event", "mouseup event", "click event"}}
+{{index touch, "evento mousedown", "evento mouseup", "evento click"}}
 
-The style of graphical browser that we use was designed with mouse interfaces in mind, at a time where touchscreens were rare. To make the Web "work" on early touchscreen phones, browsers for those devices pretended, to a certain extent, that touch events were mouse events. If you tap your screen, you'll get `"mousedown"`, `"mouseup"`, and `"click"` events.
+El estilo de navegador gráfico que usamos fue diseñado pensando en interfaces de ratón, en una época donde las pantallas táctiles eran raras. Para hacer que la web "funcione" en los primeros teléfonos con pantalla táctil, los navegadores de esos dispositivos fingían, hasta cierto punto, que los eventos táctiles eran eventos de ratón. Si tocas la pantalla, recibirás eventos de `"mousedown"`, `"mouseup"` y `"click"`.
 
-But this illusion isn't very robust. A touchscreen works differently from a mouse: it doesn't have multiple buttons, you can't track the finger when it isn't on the screen (to simulate `"mousemove"`), and it allows multiple fingers to be on the screen at the same time.
+Pero esta ilusión no es muy robusta. Una pantalla táctil funciona de manera diferente a un ratón: no tiene múltiples botones, no se puede rastrear el dedo cuando no está en la pantalla (para simular `"mousemove"`), y permite que varios dedos estén en la pantalla al mismo tiempo.
 
-Mouse events cover touch interaction only in straightforward cases—if you add a `"click"` handler to a button, touch users will still be able to use it. But something like the resizeable bar in the previous example does not work on a touchscreen.
+Los eventos de ratón solo cubren la interacción táctil en casos sencillos: si agregas un controlador de `"click"` a un botón, los usuarios táctiles aún podrán usarlo. Pero algo como la barra redimensionable del ejemplo anterior no funciona en una pantalla táctil.
 
-{{index "touchstart event", "touchmove event", "touchend event"}}
+{{index "evento touchstart", "evento touchmove", "evento touchend"}}
 
-There are specific event types fired by touch interaction. When a finger starts touching the screen, you get a `"touchstart"` event. When it is moved while touching, `"touchmove"` events fire.  Finally, when it stops touching the screen, you'll see a `"touchend"` event.
+Existen tipos específicos de eventos disparados por la interacción táctil. Cuando un dedo comienza a tocar la pantalla, se genera un evento `"touchstart"`. Cuando se mueve mientras toca, se generan eventos `"touchmove"`. Finalmente, cuando deja de tocar la pantalla, verás un evento `"touchend"`.
 
-{{index "touches property", "clientX property", "clientY property", "pageX property", "pageY property"}}
+{{index "propiedad touches", "propiedad clientX", "propiedad clientY", "propiedad pageX", "propiedad pageY"}}
 
-Because many touchscreens can detect multiple fingers at the same time, these events don't have a single set of coordinates associated with them. Rather, their ((event object))s have a `touches` property, which holds an ((array-like object)) of points, each of which has its own `clientX`, `clientY`, `pageX`, and `pageY` properties.
+Debido a que muchas pantallas táctiles pueden detectar varios dedos al mismo tiempo, estos eventos no tienen un único conjunto de coordenadas asociadas. Más bien, sus ((objetos de eventos)) tienen una propiedad `touches`, que contiene un ((objeto similar a un array)) de puntos, cada uno con sus propias propiedades `clientX`, `clientY`, `pageX` y `pageY`.
 
-You could do something like this to show red circles around every touching finger:
+Podrías hacer algo como esto para mostrar círculos rojos alrededor de cada dedo que toca:
 
 ```{lang: html}
 <style>
@@ -388,7 +380,7 @@ You could do something like this to show red circles around every touching finge
         border: 2px solid red; border-radius: 50px;
         height: 100px; width: 100px; }
 </style>
-<p>Touch this page</p>
+<p>Toca esta página</p>
 <script>
   function update(event) {
     for (let dot; dot = document.querySelector("dot");) {
@@ -408,17 +400,15 @@ You could do something like this to show red circles around every touching finge
 </script>
 ```
 
-{{index "preventDefault method"}}
+{{index "método preventDefault"}}
 
-You'll often want to call `preventDefault` in touch event handlers to override the browser's default behavior (which may include scrolling the page on swiping) and to prevent the mouse events from being fired, for which you may _also_ have a handler.
+A menudo querrás llamar a `preventDefault` en los controladores de eventos táctiles para anular el comportamiento predeterminado del navegador (que puede incluir desplazar la página al deslizar) y evitar que se generen eventos de ratón, para los cuales también puedes tener un controlador.
 
-## Scroll events
+## Eventos de desplazamiento
 
-{{index scrolling, "scroll event", "event handling"}}
+{{index scrolling, "evento scroll", "manejo de eventos"}}
 
-Whenever an element is scrolled, a `"scroll"` event is fired on it. This has various uses, such as knowing what the user is currently looking at (for disabling off-screen ((animation))s or sending ((spy)) reports to your evil headquarters) or showing some indication of progress (by highlighting part of a table of contents or showing a page number).
-
-The following example draws a ((progress bar)) above the document and updates it to fill up as you scroll down:
+Cada vez que un elemento se desplaza, se dispara un evento `"scroll"`. Esto tiene varios usos, como saber qué está viendo actualmente el usuario (para desactivar animaciones fuera de la pantalla o enviar informes de vigilancia a tu malvada sede) o mostrar alguna indicación de progreso (resaltando parte de una tabla de contenidos o mostrando un número de página).El siguiente ejemplo dibuja una barra de progreso sobre el documento y la actualiza para llenarla a medida que se desplaza hacia abajo:
 
 ```{lang: html}
 <style>
@@ -445,33 +435,33 @@ The following example draws a ((progress bar)) above the document and updates it
 
 {{index "unit (CSS)", scrolling, "position (CSS)", "fixed positioning", "absolute positioning", percentage, "repeat method"}}
 
-Giving an element a `position` of `fixed` acts much like an `absolute` position but also prevents it from scrolling along with the rest of the document. The effect is to make our progress bar stay at the top. Its width is changed to indicate the current progress. We use `%`, rather than `px`, as a unit when setting the width so that the element is sized relative to the page width.
+Darle a un elemento una `position` de `fixed` actúa de manera similar a una posición `absolute`, pero también evita que se desplace junto con el resto del documento. El efecto es hacer que nuestra barra de progreso permanezca en la parte superior. Su ancho se cambia para indicar el progreso actual. Usamos `%`, en lugar de `px`, como unidad al establecer el ancho para que el elemento tenga un tamaño relativo al ancho de la página.
 
 {{index "innerHeight property", "innerWidth property", "pageYOffset property"}}
 
-The global `innerHeight` binding gives us the height of the window, which we have to subtract from the total scrollable height—you can't keep scrolling when you hit the bottom of the document. There's also an `innerWidth` for the window width. By dividing `pageYOffset`, the current scroll position, by the maximum scroll position and multiplying by 100, we get the percentage for the progress bar.
+El enlace global `innerHeight` nos da la altura de la ventana, que debemos restar de la altura total desplazable, ya que no se puede seguir desplazando cuando se llega al final del documento. También existe un `innerWidth` para el ancho de la ventana. Al dividir `pageYOffset`, la posición actual de desplazamiento, por la posición máxima de desplazamiento y multiplicar por 100, obtenemos el porcentaje para la barra de progreso.
 
 {{index "preventDefault method"}}
 
-Calling `preventDefault` on a scroll event does not prevent the scrolling from happening. In fact, the event handler is called only _after_ the scrolling takes place.
+Llamar a `preventDefault` en un evento de desplazamiento no impide que ocurra el desplazamiento. De hecho, el controlador de eventos se llama solo _después_ de que ocurre el desplazamiento.
 
-## Focus events
+## Eventos de enfoque
 
 {{index "event handling", "focus event", "blur event"}}
 
-When an element gains ((focus)), the browser fires a `"focus"` event on it. When it loses focus, the element gets a `"blur"` event.
+Cuando un elemento recibe el ((enfoque)), el navegador dispara un evento `"focus"` en él. Cuando pierde el enfoque, el elemento recibe un evento `"blur"`.
 
 {{index "event propagation"}}
 
-Unlike the events discussed earlier, these two events do not propagate. A handler on a parent element is not notified when a child element gains or loses focus.
+A diferencia de los eventos discutidos anteriormente, estos dos eventos no se propagan. Un controlador en un elemento padre no recibe notificaciones cuando un elemento hijo recibe o pierde el enfoque.
 
 {{index "input (HTML tag)", "help text example"}}
 
-The following example displays help text for the ((text field)) that currently has focus:
+El siguiente ejemplo muestra texto de ayuda para el ((campo de texto)) que actualmente tiene el foco:
 
 ```{lang: html}
-<p>Name: <input type="text" data-help="Your full name"></p>
-<p>Age: <input type="text" data-help="Your age in years"></p>
+<p>Nombre: <input type="text" data-help="Tu nombre completo"></p>
+<p>Edad: <input type="text" data-help="Tu edad en años"></p>
 <p id="help"></p>
 
 <script>
@@ -491,43 +481,41 @@ The following example displays help text for the ((text field)) that currently h
 
 {{if book
 
-This screenshot shows the help text for the age field.
+Esta captura de pantalla muestra el texto de ayuda para el campo de edad.
 
-{{figure {url: "img/help-field.png", alt: "Screenshot of the help text below the age field", width: "4.4cm"}}}
+{{figure {url: "img/help-field.png", alt: "Captura de pantalla del texto de ayuda debajo del campo de edad", width: "4.4cm"}}}
 
-if}}
+{{index "evento de enfoque", "evento de desenfoque"}}
 
-{{index "focus event", "blur event"}}
+El objeto `((window))` recibirá eventos `"focus"` y `"blur"` cuando el usuario se mueva desde o hacia la pestaña o ventana del navegador en la que se muestra el documento.
 
-The ((window)) object will receive `"focus"` and `"blur"` events when the user moves from or to the browser tab or window in which the document is shown.
+## Evento de carga
 
-## Load event
+{{index "script (etiqueta HTML)", "evento de carga"}}
 
-{{index "script (HTML tag)", "load event"}}
+Cuando una página termina de cargarse, se dispara el evento `"load"` en los objetos ventana y cuerpo del documento. Esto se usa a menudo para programar acciones de ((inicialización)) que requieren que todo el ((documento)) haya sido construido. Recuerda que el contenido de las etiquetas `<script>` se ejecuta inmediatamente cuando se encuentra la etiqueta. Esto puede ser demasiado pronto, por ejemplo, cuando el script necesita hacer algo con partes del documento que aparecen después de la etiqueta `<script>`.
 
-When a page finishes loading, the `"load"` event fires on the window and the document body objects. This is often used to schedule ((initialization)) actions that require the whole ((document)) to have been built. Remember that the content of `<script>` tags is run immediately when the tag is encountered. This may be too soon, for example when the script needs to do something with parts of the document that appear after the `<script>` tag.
+{{index "propagación de eventos", "img (etiqueta HTML)"}}
 
-{{index "event propagation", "img (HTML tag)"}}
+Elementos como ((imágenes)) y etiquetas de script que cargan un archivo externo también tienen un evento `"load"` que indica que se cargaron los archivos a los que hacen referencia. Al igual que los eventos relacionados con el enfoque, los eventos de carga no se propagan.
 
-Elements such as ((image))s and script tags that load an external file also have a `"load"` event that indicates the files they reference were loaded. Like the focus-related events, loading events do not propagate.
+{{index "evento beforeunload", "recarga de página", "método preventDefault"}}
 
-{{index "beforeunload event", "page reload", "preventDefault method"}}
-
-When a page is closed or navigated away from (for example, by following a link), a `"beforeunload"` event fires. The main use of this event is to prevent the user from accidentally losing work by closing a document. If you prevent the default behavior on this event _and_ set the `returnValue` property on the event object to a string, the browser will show the user a dialog asking if they really want to leave the page. That dialog might include your string, but because some malicious sites try to use these dialogs to confuse people into staying on their page to look at dodgy weight loss ads, most browsers no longer display them.
+Cuando se cierra una página o se navega lejos de ella (por ejemplo, al seguir un enlace), se dispara un evento `"beforeunload"`. El uso principal de este evento es evitar que el usuario pierda accidentalmente su trabajo al cerrar un documento. Si previenes el comportamiento predeterminado en este evento _y_ estableces la propiedad `returnValue` en el objeto de evento a una cadena, el navegador mostrará al usuario un cuadro de diálogo preguntando si realmente desea abandonar la página. Ese cuadro de diálogo podría incluir tu cadena, pero debido a que algunos sitios maliciosos intentan usar estos cuadros de diálogo para confundir a las personas y hacer que se queden en su página para ver anuncios de pérdida de peso dudosos, la mayoría de los navegadores ya no los muestran.
 
 {{id timeline}}
 
-## Events and the event loop
+## Eventos y el bucle de eventos
 
-{{index "requestAnimationFrame function", "event handling", timeline, "script (HTML tag)"}}
+{{index "función requestAnimationFrame", "manejo de eventos", timeline, "script (etiqueta HTML)"}}
 
-In the context of the event loop, as discussed in [Chapter ?](async), browser event handlers behave like other asynchronous notifications. They are scheduled when the event occurs but must wait for other scripts that are running to finish before they get a chance to run.
+En el contexto del bucle de eventos, como se discutió en [Capítulo ?](async), los controladores de eventos del navegador se comportan como otras notificaciones asíncronas. Se programan cuando ocurre el evento pero deben esperar a que otros scripts que se estén ejecutando terminen antes de tener la oportunidad de ejecutarse.
 
-The fact that events can be processed only when nothing else is running means that, if the event loop is tied up with other work, any interaction with the page (which happens through events) will be delayed until there's time to process it. So if you schedule too much work, either with long-running event handlers or with lots of short-running ones, the page will become slow and cumbersome to use.
+El hecho de que los eventos solo se puedan procesar cuando no hay nada más en ejecución significa que, si el bucle de eventos está ocupado con otro trabajo, cualquier interacción con la página (que ocurre a través de eventos) se retrasará hasta que haya tiempo para procesarla. Entonces, si programas demasiado trabajo, ya sea con controladores de eventos de larga duración o con muchos que se ejecutan rápidamente, la página se volverá lenta y pesada de usar.
 
-For cases where you _really_ do want to do some time-consuming thing in the background without freezing the page, browsers provide something called _((web worker))s_. A worker is a JavaScript process that runs alongside the main script, on its own timeline.
+Para casos en los que _realmente_ quieres hacer algo que consume mucho tiempo en segundo plano sin congelar la página, los navegadores proporcionan algo llamado _((web worker))s_. Un worker es un proceso de JavaScript que se ejecuta junto al script principal, en su propia línea de tiempo.
 
-Imagine that squaring a number is a heavy, long-running computation that we want to perform in a separate ((thread)). We could write a file called `code/squareworker.js` that responds to messages by computing a square and sending a message back.
+Imagina que elevar al cuadrado un número es una computación pesada y de larga duración que queremos realizar en un ((hilo)) separado. Podríamos escribir un archivo llamado `code/squareworker.js` que responda a mensajes calculando un cuadrado y enviando un mensaje de vuelta.
 
 ```
 addEventListener("message", event => {
@@ -535,140 +523,136 @@ addEventListener("message", event => {
 });
 ```
 
-To avoid the problems of having multiple ((thread))s touching the same data, workers do not share their ((global scope)) or any other data with the main script's environment. Instead, you have to communicate with them by sending messages back and forth.
+Para evitar los problemas de tener múltiples hilos tocando los mismos datos, los workers no comparten su alcance global ni ningún otro dato con el entorno del script principal. En cambio, debes comunicarte con ellos enviando mensajes de ida y vuelta.
 
-This code spawns a worker running that script, sends it a few messages, and outputs the responses.
+Este código genera un worker que ejecuta ese script, le envía algunos mensajes y muestra las respuestas.
 
 ```{test: no}
 let squareWorker = new Worker("code/squareworker.js");
 squareWorker.addEventListener("message", event => {
-  console.log("The worker responded:", event.data);
+  console.log("El worker respondió:", event.data);
 });
 squareWorker.postMessage(10);
 squareWorker.postMessage(24);
 ```
 
-{{index "postMessage method", "message event"}}
+{{index "método postMessage", "evento message"}}
 
-The `postMessage` function sends a message, which will cause a `"message"` event to fire in the receiver. The script that created the worker sends and receives messages through the `Worker` object, whereas the worker talks to the script that created it by sending and listening directly on its ((global scope)). Only values that can be represented as JSON can be sent as messages—the other side will receive a _copy_ of them, rather than the value itself.
+La función `postMessage` envía un mensaje, lo que causará que se dispare un evento `"message"` en el receptor. El script que creó el worker envía y recibe mensajes a través del objeto `Worker`, mientras que el worker se comunica con el script que lo creó enviando y escuchando directamente en su alcance global. Solo se pueden enviar como mensajes valores que puedan representarse como JSON; el otro lado recibirá una _copia_ de ellos en lugar del valor en sí mismo.
 
-## Timers
+## Temporizadores
 
-{{index timeout, "setTimeout function"}}
+{{index timeout, "función setTimeout"}}
 
-We saw the `setTimeout` function in [Chapter ?](async). It schedules another function to be called later, after a given number of milliseconds.
+Vimos la función `setTimeout` en [Capítulo ?](async). Programa otra función para que se llame más tarde, después de un cierto número de milisegundos.
 
-{{index "clearTimeout function"}}
+{{index "función clearTimeout"}}
 
-Sometimes you need to cancel a function you have scheduled. This is done by storing the value returned by `setTimeout` and calling `clearTimeout` on it.
+A veces necesitas cancelar una función que has programado. Esto se hace almacenando el valor devuelto por `setTimeout` y llamando a `clearTimeout` sobre él.
 
 ```
 let bombTimer = setTimeout(() => {
-  console.log("BOOM!");
+  console.log("¡BOOM!");
 }, 500);
 
-if (Math.random() < 0.5) { // 50% chance
-  console.log("Defused.");
+if (Math.random() < 0.5) { // 50% de probabilidad
+  console.log("Desactivado.");
   clearTimeout(bombTimer);
 }
 ```
 
-{{index "cancelAnimationFrame function", "requestAnimationFrame function"}}
+{{index "función cancelAnimationFrame", "función requestAnimationFrame"}}
 
-The `cancelAnimationFrame` function works in the same way as `clearTimeout`—calling it on a value returned by `requestAnimationFrame` will cancel that frame (assuming it hasn't already been called).
+La función `cancelAnimationFrame` funciona de la misma manera que `clearTimeout`; llamarla en un valor devuelto por `requestAnimationFrame` cancelará ese fotograma (si no se ha llamado ya).
 
-{{index "setInterval function", "clearInterval function", repetition}}
+{{index "función setInterval", "función clearInterval", repetición}}
 
-A similar set of functions, `setInterval` and `clearInterval`, are used to set timers that should _repeat_ every _X_ milliseconds.
+Un conjunto similar de funciones, `setInterval` y `clearInterval`, se utilizan para programar temporizadores que deben _repetirse_ cada _X_ milisegundos.
 
 ```
 let ticks = 0;
-let clock = setInterval(() => {
-  console.log("tick", ticks++);
+let reloj = setInterval(() => {
+  console.log("tic", ticks++);
   if (ticks == 10) {
-    clearInterval(clock);
-    console.log("stop.");
+    clearInterval(reloj);
+    console.log("¡Detener!");
   }
 }, 200);
 ```
 
 ## Debouncing
 
-{{index optimization, "mousemove event", "scroll event", blocking}}
+{{index optimización, "evento mousemove", "evento scroll", bloqueo}}
 
-Some types of events have the potential to fire rapidly, many times in a row (the `"mousemove"` and `"scroll"` events, for example). When handling such events, you must be careful not to do anything too time-consuming or your handler will take up so much time that interaction with the document starts to feel slow.
+Algunos tipos de eventos pueden activarse rápidamente, muchas veces seguidas (como los eventos `"mousemove"` y `"scroll"`, por ejemplo). Al manejar tales eventos, debes tener cuidado de no hacer nada que consuma demasiado tiempo, ya que tu controlador tomará tanto tiempo que la interacción con el documento comenzará a sentirse lenta.
 
-{{index "setTimeout function"}}
+{{index "función setTimeout"}}
 
-If you do need to do something nontrivial in such a handler, you can use `setTimeout` to make sure you are not doing it too often. This is usually called _((debouncing))_ the event. There are several slightly different approaches to this.
+Si necesitas hacer algo importante en un controlador de este tipo, puedes usar `setTimeout` para asegurarte de que no lo estás haciendo con demasiada frecuencia. Esto suele llamarse _((debouncing))_ el evento. Hay varios enfoques ligeramente diferentes para esto.{{index "textarea (etiqueta HTML)", "función clearTimeout", "evento keydown"}}
 
-{{index "textarea (HTML tag)", "clearTimeout function", "keydown event"}}
-
-In the first example, we want to react when the user has typed something, but we don't want to do it immediately for every input event. When they are ((typing)) quickly, we just want to wait until a pause occurs. Instead of immediately performing an action in the event handler, we set a timeout. We also clear the previous timeout (if any) so that when events occur close together (closer than our timeout delay), the timeout from the previous event will be canceled.
+En el primer ejemplo, queremos reaccionar cuando el usuario ha escrito algo, pero no queremos hacerlo inmediatamente para cada evento de entrada. Cuando están escribiendo rápidamente, solo queremos esperar hasta que ocurra una pausa. En lugar de realizar inmediatamente una acción en el controlador de eventos, establecemos un tiempo de espera. También limpiamos el tiempo de espera anterior (si existe) para que cuando los eventos ocurran cerca uno del otro (más cerca de nuestro retraso de tiempo de espera), el tiempo de espera del evento anterior se cancele.
 
 ```{lang: html}
-<textarea>Type something here...</textarea>
+<textarea>Escribe algo aquí...</textarea>
 <script>
   let textarea = document.querySelector("textarea");
   let timeout;
   textarea.addEventListener("input", () => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => console.log("Typed!"), 500);
+    timeout = setTimeout(() => console.log("¡Escrito!"), 500);
   });
 </script>
 ```
 
-{{index "sloppy programming"}}
+{{index "programación descuidada"}}
 
-Giving an undefined value to `clearTimeout` or calling it on a timeout that has already fired has no effect. Thus, we don't have to be careful about when to call it, and we simply do so for every event.
+Dar un valor no definido a `clearTimeout` o llamarlo en un tiempo de espera que ya ha pasado no tiene efecto. Por lo tanto, no tenemos que tener cuidado de cuándo llamarlo, y simplemente lo hacemos para cada evento.
 
-{{index "mousemove event"}}
+{{index "evento mousemove"}}
 
-We can use a slightly different pattern if we want to space responses so that they're separated by at least a certain length of ((time)) but want to fire them _during_ a series of events, not just afterward. For example, we might want to respond to `"mousemove"` events by showing the current coordinates of the mouse but only every 250 milliseconds.
+Podemos usar un patrón ligeramente diferente si queremos espaciar las respuestas para que estén separadas por al menos una cierta longitud de tiempo, pero queremos activarlas _durante_ una serie de eventos, no solo después. Por ejemplo, podríamos querer responder a eventos `"mousemove"` mostrando las coordenadas actuales del mouse pero solo cada 250 milisegundos.
 
 ```{lang: html}
 <script>
-  let scheduled = null;
+  let programado = null;
   window.addEventListener("mousemove", event => {
-    if (!scheduled) {
+    if (!programado) {
       setTimeout(() => {
         document.body.textContent =
-          `Mouse at ${scheduled.pageX}, ${scheduled.pageY}`;
-        scheduled = null;
+          `Ratón en ${programado.pageX}, ${programado.pageY}`;
+        programado = null;
       }, 250);
     }
-    scheduled = event;
+    programado = event;
   });
 </script>
 ```
 
-## Summary
+## Resumen
 
-Event handlers make it possible to detect and react to events happening in our web page. The `addEventListener` method is used to register such a handler.
+Los controladores de eventos hacen posible detectar y reaccionar a eventos que ocurren en nuestra página web. El método `addEventListener` se utiliza para registrar dicho controlador.
 
-Each event has a type (`"keydown"`, `"focus"`, and so on) that identifies it. Most events are called on a specific DOM element and then _propagate_ to that element's ancestors, allowing handlers associated with those elements to handle them.
+Cada evento tiene un tipo (`"keydown"`, `"focus"`, y así sucesivamente) que lo identifica. La mayoría de los eventos se activan en un elemento DOM específico y luego se _propagan_ a los ancestros de ese elemento, lo que permite que los controladores asociados a esos elementos los manejen.
 
-When an event handler is called, it is passed an event object with additional information about the event. This object also has methods that allow us to stop further propagation (`stopPropagation`) and prevent the browser's default handling of the event (`preventDefault`).
+Cuando se llama a un controlador de eventos, se le pasa un objeto de evento con información adicional sobre el evento. Este objeto también tiene métodos que nos permiten detener una mayor propagación (`stopPropagation`) y evitar el manejo predeterminado del evento por parte del navegador (`preventDefault`).
 
-Pressing a key fires `"keydown"` and `"keyup"` events. Pressing a mouse button fires `"mousedown"`, `"mouseup"`, and `"click"` events. Moving the mouse fires `"mousemove"` events. Touchscreen interaction will result in `"touchstart"`, `"touchmove"`, and `"touchend"` events.
+Presionar una tecla dispara eventos `"keydown"` y `"keyup"`. Presionar un botón del mouse dispara eventos `"mousedown"`, `"mouseup"` y `"click"`. Mover el mouse dispara eventos `"mousemove"`. La interacción con pantallas táctiles dará lugar a eventos `"touchstart"`, `"touchmove"` y `"touchend"`.
 
-Scrolling can be detected with the `"scroll"` event, and focus changes can be detected with the `"focus"` and `"blur"` events. When the document finishes loading, a `"load"` event fires on the window.
+El desplazamiento se puede detectar con el evento `"scroll"`, y los cambios de enfoque se pueden detectar con los eventos `"focus"` y `"blur"`. Cuando el documento ha terminado de cargarse, se activa un evento `"load"` en la ventana.
 
-## Exercises
+## Ejercicios
 
-### Balloon
+### Globo
 
-{{index "balloon (exercise)", "arrow key"}}
-
-Write a page that displays a ((balloon)) (using the balloon ((emoji)), 🎈). When you press the up arrow, it should inflate (grow) 10 percent, and when you press the down arrow, it should deflate (shrink) 10 percent.
+{{index "globo (ejercicio)", "tecla de flecha"}}Escribe una página que muestre un ((globo)) (usando el ((emoji)) de globo, 🎈). Cuando presiones la flecha hacia arriba, debería inflarse (crecer) un 10 por ciento, y cuando presiones la flecha hacia abajo, debería desinflarse (encoger) un 10 por ciento.
 
 {{index "font-size (CSS)"}}
 
-You can control the size of text (emoji are text) by setting the `font-size` CSS property (`style.fontSize`) on its parent element. Remember to include a unit in the value—for example, pixels (`10px`).
+Puedes controlar el tamaño del texto (los emoji son texto) estableciendo la propiedad CSS `font-size` (`style.fontSize`) en su elemento padre. Recuerda incluir una unidad en el valor, por ejemplo, píxeles (`10px`).
 
-The key names of the arrow keys are `"ArrowUp"` and `"ArrowDown"`. Make sure the keys change only the balloon, without scrolling the page.
+Los nombres de las teclas de flecha son `"ArrowUp"` y `"ArrowDown"`. Asegúrate de que las teclas cambien solo el globo, sin hacer scroll en la página.
 
-When that works, add a feature where, if you blow up the balloon past a certain size, it explodes. In this case, exploding means that it is replaced with an 💥 emoji, and the event handler is removed (so that you can't inflate or deflate the explosion).
+Cuando eso funcione, añade una característica en la que, si inflas el globo más allá de un cierto tamaño, explote. En este caso, explotar significa que se reemplace con un emoji de 💥, y el manejador de eventos se elimine (para que no se pueda inflar o desinflar la explosión).
 
 {{if interactive
 
@@ -676,7 +660,7 @@ When that works, add a feature where, if you blow up the balloon past a certain 
 <p>🎈</p>
 
 <script>
-  // Your code here
+  // Tu código aquí
 </script>
 ```
 
@@ -684,39 +668,39 @@ if}}
 
 {{hint
 
-{{index "keydown event", "key property", "balloon (exercise)"}}
+{{index "evento keydown", "propiedad key", "globo (ejercicio)"}}
 
-You'll want to register a handler for the `"keydown"` event and look at `event.key` to figure out whether the up or down arrow key was pressed.
+Querrás registrar un manejador para el evento `"keydown"` y mirar `event.key` para saber si se presionó la tecla de flecha hacia arriba o hacia abajo.
 
-The current size can be kept in a binding so that you can base the new size on it. It'll be helpful to define a function that updates the size—both the binding and the style of the balloon in the DOM—so that you can call it from your event handler, and possibly also once when starting, to set the initial size.
+El tamaño actual se puede mantener en un enlace para que puedas basarte en él para el nuevo tamaño. Será útil definir una función que actualice el tamaño, tanto el enlace como el estilo del globo en el DOM, para que puedas llamarla desde tu manejador de eventos, y posiblemente también una vez al inicio, para establecer el tamaño inicial.
 
-{{index "replaceChild method", "textContent property"}}
+{{index "método replaceChild", "propiedad textContent"}}
 
-You can change the balloon to an explosion by replacing the text node with another one (using `replaceChild`) or by setting the `textContent` property of its parent node to a new string.
+Puedes cambiar el globo por una explosión reemplazando el nodo de texto por otro (usando `replaceChild`) o estableciendo la propiedad `textContent` de su nodo padre en una nueva cadena.
 
 hint}}
 
-### Mouse trail
+### Estela del ratón
 
-{{index animation, "mouse trail (exercise)"}}
+{{index animación, "estela del ratón (ejercicio)"}}
 
-In JavaScript's early days, which was the high time of ((gaudy home pages)) with lots of animated images, people came up with some truly inspiring ways to use the language.
+En los primeros días de JavaScript, que fue la época dorada de las ((páginas de inicio estridentes)) con un montón de imágenes animadas, la gente ideó formas verdaderamente inspiradoras de usar el lenguaje.
 
-One of these was the _mouse trail_—a series of elements that would follow the mouse pointer as you moved it across the page.
+Una de estas era la _estela del ratón_ —una serie de elementos que seguirían al puntero del ratón mientras lo movías por la página.
 
-{{index "absolute positioning", "background (CSS)"}}
+{{index "posicionamiento absoluto", "background (CSS)"}}
 
-In this exercise, I want you to implement a mouse trail. Use absolutely positioned `<div>` elements with a fixed size and background color (refer to the [code](event#mouse_drawing) in the "Mouse Clicks" section for an example). Create a bunch of such elements and, when the mouse moves, display them in the wake of the mouse pointer.
+En este ejercicio, quiero que implementes una estela del ratón. Utiliza elementos `<div>` con posición absoluta y un tamaño fijo y color de fondo (consulta el [código](event#mouse_drawing) en la sección de "Clics de ratón" para un ejemplo). Crea un montón de estos elementos y, al mover el ratón, muéstralos en la estela del puntero del ratón.
 
 {{index "mousemove event"}}
 
-There are various possible approaches here. You can make your solution as simple or as complex as you want. A simple solution to start with is to keep a fixed number of trail elements and cycle through them, moving the next one to the mouse's current position every time a `"mousemove"` event occurs.
+Hay varias aproximaciones posibles aquí. Puedes hacer tu solución tan simple o tan compleja como desees. Una solución simple para empezar es mantener un número fijo de elementos de estela y recorrerlos, moviendo el siguiente a la posición actual del ratón cada vez que ocurra un evento `"mousemove"`.
 
 {{if interactive
 
 ```{lang: html, test: no}
 <style>
-  .trail { /* className for the trail elements */
+  .trail { /* nombre de clase para los elementos de la estela */
     position: absolute;
     height: 6px; width: 6px;
     border-radius: 3px;
@@ -727,8 +711,9 @@ There are various possible approaches here. You can make your solution as simple
   }
 </style>
 
+```html
 <script>
-  // Your code here.
+  // Tu código aquí.
 </script>
 ```
 
@@ -738,41 +723,42 @@ if}}
 
 {{index "mouse trail (exercise)"}}
 
-Creating the elements is best done with a loop. Append them to the document to make them show up. To be able to access them later to change their position, you'll want to store the elements in an array.
+Crear los elementos es mejor hacerlo con un bucle. Adjúntalos al documento para que aparezcan. Para poder acceder a ellos más tarde y cambiar su posición, querrás almacenar los elementos en un array.
 
 {{index "mousemove event", [array, indexing], "remainder operator", "% operator"}}
 
-Cycling through them can be done by keeping a ((counter variable)) and adding 1 to it every time the `"mousemove"` event fires. The remainder operator (`% elements.length`) can then be used to get a valid array index to pick the element you want to position during a given event.
+Recorrerlos se puede hacer manteniendo una variable de contador y sumándole 1 cada vez que se dispare el evento `"mousemove"`. Luego se puede usar el operador de resto (`% elementos.length`) para obtener un índice de array válido para elegir el elemento que deseas posicionar durante un evento dado.
 
 {{index simulation, "requestAnimationFrame function"}}
 
-Another interesting effect can be achieved by modeling a simple ((physics)) system. Use the `"mousemove"` event only to update a pair of bindings that track the mouse position. Then use `requestAnimationFrame` to simulate the trailing elements being attracted to the position of the mouse pointer. At every animation step, update their position based on their position relative to the pointer (and, optionally, a speed that is stored for each element). Figuring out a good way to do this is up to you.
+Otro efecto interesante se puede lograr modelando un simple sistema de ((física)). Usa el evento `"mousemove"` solo para actualizar un par de enlaces que siguen la posición del ratón. Luego utiliza `requestAnimationFrame` para simular que los elementos rastreadores son atraídos a la posición del puntero del ratón. En cada paso de animación, actualiza su posición basándote en su posición relativa al puntero (y, opcionalmente, una velocidad que está almacenada para cada elemento). Descubrir una buena forma de hacer esto queda a tu cargo.
 
 hint}}
 
-### Tabs
+### Pestañas
 
 {{index "tabbed interface (exercise)"}}
 
-Tabbed panels are widely used in user interfaces. They allow you to select an interface panel by choosing from a number of tabs "sticking out" above an element.
+Los paneles con pestañas son ampliamente utilizados en interfaces de usuario. Te permiten seleccionar un panel de interfaz eligiendo entre varias pestañas que sobresalen por encima de un elemento.
 
 {{index "button (HTML tag)", "display (CSS)", "hidden element", "data attribute"}}
 
-In this exercise you must implement a simple tabbed interface. Write a function, `asTabs`, that takes a DOM node and creates a tabbed interface showing the child elements of that node. It should insert a list of `<button>` elements at the top of the node, one for each child element, containing text retrieved from the `data-tabname` attribute of the child. All but one of the original children should be hidden (given a `display` style of `none`). The currently visible node can be selected by clicking the buttons.
+En este ejercicio debes implementar una interfaz de pestañas simple. Escribe una función, `asTabs`, que tome un nodo DOM y cree una interfaz de pestañas que muestre los elementos secundarios de ese nodo. Debería insertar una lista de elementos `<button>` en la parte superior del nodo, uno por cada elemento secundario, conteniendo el texto recuperado del atributo `data-tabname` del hijo. Todos los hijos originales excepto uno deben estar ocultos (con un estilo `display` de `none`). El nodo actualmente visible se puede seleccionar haciendo clic en los botones.
 
-When that works, extend it to style the button for the currently selected tab differently so that it is obvious which tab is selected.
+Cuando funcione, extiéndelo para dar estilo al botón de la pestaña actualmente seleccionada de manera diferente para que sea obvio cuál pestaña está seleccionada.
 
 {{if interactive
 
 ```{lang: html, test: no}
 <tab-panel>
-  <div data-tabname="one">Tab one</div>
-  <div data-tabname="two">Tab two</div>
-  <div data-tabname="three">Tab three</div>
+  <div data-tabname="one">Pestaña uno</div>
+  <div data-tabname="two">Pestaña dos</div>
+  <div data-tabname="three">Pestaña tres</div>
 </tab-panel>
+
 <script>
   function asTabs(node) {
-    // Your code here.
+    // Tu código aquí.
   }
   asTabs(document.querySelector("tab-panel"));
 </script>
@@ -782,16 +768,14 @@ if}}
 
 {{hint
 
-{{index "text node", "childNodes property", "live data structure", "tabbed interface (exercise)", [whitespace, "in HTML"]}}
-
-One pitfall you might run into is that you can't directly use the node's `childNodes` property as a collection of tab nodes. For one thing, when you add the buttons, they will also become child nodes and end up in this object because it is a live data structure. For another, the text nodes created for the whitespace between the nodes are also in `childNodes` but should not get their own tabs. You can use `children` instead of `childNodes` to ignore text nodes.
+Un error en el que podrías caer es que no puedes usar directamente la propiedad `childNodes` del nodo como una colección de nodos de pestaña. Por un lado, cuando agregas los botones, también se convertirán en nodos secundarios y terminarán en este objeto porque es una estructura de datos en vivo. Por otro lado, los nodos de texto creados para el espacio en blanco entre los nodos también están en `childNodes` pero no deberían tener sus propias pestañas. Puedes usar `children` en lugar de `childNodes` para ignorar los nodos de texto.
 
 {{index "TEXT_NODE code", "nodeType property"}}
 
-You could start by building up an array of tabs so that you have easy access to them. To implement the styling of the buttons, you could store objects that contain both the tab panel and its button.
+Podrías empezar construyendo un array de pestañas para tener fácil acceso a ellas. Para implementar el estilo de los botones, podrías almacenar objetos que contengan tanto el panel de la pestaña como su botón.
 
-I recommend writing a separate function for changing tabs. You can either store the previously selected tab and change only the styles needed to hide that and show the new one, or you can just update the style of all tabs every time a new tab is selected.
+Recomiendo escribir una función separada para cambiar las pestañas. Puedes almacenar la pestaña seleccionada previamente y cambiar solo los estilos necesarios para ocultarla y mostrar la nueva, o puedes actualizar el estilo de todas las pestañas cada vez que se seleccione una nueva pestaña.
 
-You might want to call this function immediately to make the interface start with the first tab visible.
+Quizás quieras llamar a esta función inmediatamente para que la interfaz comience con la primera pestaña visible.
 
 hint}}
