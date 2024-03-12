@@ -241,7 +241,7 @@ console.log(<span class="tok-number">8</span>);
 console.log(<span class="tok-number">10</span>);
 console.log(<span class="tok-number">12</span>);</pre>
 
-<p><a class="p_ident" id="p-fT0ZO6wv9h" href="#p-fT0ZO6wv9h" tabindex="-1" role="presentation"></a>Eso funciona, pero la idea de escribir un programa es hacer algo <em>menos</em> trabajo, no más. Si necesitáramos todos los números pares menores que 1,000, este enfoque sería inviable. Lo que necesitamos es una manera de ejecutar un fragmento de código múltiples veces. Esta forma de control de flujo se llama un <em>bucle</em>.</p><figure><img src="img/controlflow-loop.svg" alt="Diagrama que muestra una flecha que apunta a un punto que tiene una flecha cíclica que regresa a sí mismo y otra flecha que continúa"></figure>
+<p><a class="p_ident" id="p-bG0ATAFQ8m" href="#p-bG0ATAFQ8m" tabindex="-1" role="presentation"></a>Eso funciona, pero la idea de escribir un programa es hacer <em>menos</em> trabajo, no más. Si necesitáramos todos los números pares menores que 1,000, este enfoque sería inviable. Lo que necesitamos es una manera de ejecutar un fragmento de código múltiples veces. Esta forma de control de flujo se llama <em>bucle</em>.</p><figure><img src="img/controlflow-loop.svg" alt="Diagrama que muestra una flecha que apunta a un punto que tiene una flecha cíclica que regresa a sí mismo y otra flecha que continúa"></figure>
 
 <p><a class="p_ident" id="p-2Ohb6yv25X" href="#p-2Ohb6yv25X" tabindex="-1" role="presentation"></a>El control de flujo mediante bucles nos permite regresar a algún punto en el programa donde estábamos antes y repetirlo con nuestro estado de programa actual. Si combinamos esto con una variable que cuente, podemos hacer algo como esto:</p>
 
@@ -256,11 +256,9 @@ console.log(<span class="tok-number">12</span>);</pre>
 
 <p><a class="p_ident" id="p-BNyKLTjTew" href="#p-BNyKLTjTew" tabindex="-1" role="presentation"></a>Un statement que comienza con la palabra clave <code>while</code> crea un bucle. La palabra <code>while</code> va seguida de una expresión entre paréntesis y luego un enunciado, similar a <code>if</code>. El bucle sigue ejecutando ese enunciado mientras la expresión produzca un valor que se convierta en <code>true</code> al convertirse a Booleano.</p>
 
-<p><a class="p_ident" id="p-ocMpFnC/Jj" href="#p-ocMpFnC/Jj" tabindex="-1" role="presentation"></a>{{índex [estado, en enlace], [enlace, como estado]}}</p>
-
 <p><a class="p_ident" id="p-5BzJ/xu0/2" href="#p-5BzJ/xu0/2" tabindex="-1" role="presentation"></a>El enlace ‘number’ demuestra la forma en que un enlace puede seguir el progreso de un programa. Cada vez que se repite el bucle, ‘number’ obtiene un valor que es 2 más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.</p>
 
-<p><a class="p_ident" id="p-IXKrmrgRwf" href="#p-IXKrmrgRwf" tabindex="-1" role="presentation"></a>{{índex exponenciación}}</p>
+<p><a class="p_ident" id="p-bXNehPJtjm" href="#p-bXNehPJtjm" tabindex="-1" role="presentation"></a>{{index exponenciación}}</p>
 
 <p><a class="p_ident" id="p-IhKlP4aMVK" href="#p-IhKlP4aMVK" tabindex="-1" role="presentation"></a>Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2<sup>10</sup> (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ha alcanzado 10 aún y, si no, actualiza ambos enlaces.</p>
 
@@ -275,11 +273,7 @@ console.log(result);
 
 <p><a class="p_ident" id="p-Ca1o09ICca" href="#p-Ca1o09ICca" tabindex="-1" role="presentation"></a>El contador también podría haber comenzado en <code>1</code> y haber comprobado si era <code>&lt;= 10</code>, pero por razones que se harán evidentes en <a href="04_data.html#array_indexing">Capítulo 4</a>, es buena idea acostumbrarse a contar desde 0.</p>
 
-<p><a class="p_ident" id="p-mER2X7opyr" href="#p-mER2X7opyr" tabindex="-1" role="presentation"></a>{{índex &quot;** operador”}}</p>
-
 <p><a class="p_ident" id="p-/WWtFe+R3M" href="#p-/WWtFe+R3M" tabindex="-1" role="presentation"></a>Ten en cuenta que JavaScript también tiene un operador para la exponenciación (<code>2 ** 10</code>), que usarías para calcular esto en un código real, pero eso habría arruinado el ejemplo.</p>
-
-<p><a class="p_ident" id="p-q5PIA6lacG" href="#p-q5PIA6lacG" tabindex="-1" role="presentation"></a>{{índex “cuerpo del bucle”, “bucle do”, [“flujo de control”, bucle]}}</p>
 
 <p><a class="p_ident" id="p-0oKajUiBua" href="#p-0oKajUiBua" tabindex="-1" role="presentation"></a>Un bucle <code>do</code> es una estructura de control similar a un bucle <code>while</code>. La única diferencia radica en que un bucle <code>do</code> siempre ejecuta su cuerpo al menos una vez, y comienza a probar si debe detenerse solo después de esa primera ejecución. Para reflejar esto, la prueba aparece después del cuerpo del bucle:</p>
 
@@ -289,13 +283,11 @@ console.log(result);
 } <span class="tok-keyword">while</span> (!tuNombre);
 console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 
-<p><a class="p_ident" id="p-SSNKYqaAmz" href="#p-SSNKYqaAmz" tabindex="-1" role="presentation"></a>{{índex [Booleano, “conversión a”], operador &quot;!”}}</p>
-
 <p><a class="p_ident" id="p-DuLfPxV3a1" href="#p-DuLfPxV3a1" tabindex="-1" role="presentation"></a>Este programa te obligará a ingresar un nombre. Preguntará una y otra vez hasta que obtenga algo que no sea una cadena vacía. Aplicar el operador <code>!</code> convertirá un valor al tipo Booleano antes de negarlo, y todas las cadenas excepto <code>&quot;&quot;</code> se convierten en <code>true</code>. Esto significa que el bucle continúa hasta que proporciones un nombre no vacío.</p>
 
 <h2><a class="h_ident" id="h-Ii0ETl2x9J" href="#h-Ii0ETl2x9J" tabindex="-1" role="presentation"></a>Sangrado de Código</h2>
 
-<p><a class="p_ident" id="p-NyBRb2ath2" href="#p-NyBRb2ath2" tabindex="-1" role="presentation"></a>{{índex [código, “estructura de”], [espacios en blanco, sangrado], “estilo de programación”}}</p>
+<p><a class="p_ident" id="p-2udXvbNCUY" href="#p-2udXvbNCUY" tabindex="-1" role="presentation"></a>{{index [código, “estructura de”], [espacios en blanco, sangrado], “estilo de programación”}}</p>
 
 <p><a class="p_ident" id="p-Xy21oyeH2U" href="#p-Xy21oyeH2U" tabindex="-1" role="presentation"></a>En los ejemplos, he estado agregando espacios delante de las sentencias que son parte de alguna otra sentencia más grande. Estos espacios no son necesarios: la computadora aceptará el programa perfectamente sin ellos. De hecho, incluso los saltos de línea en los programas son opcionales. Podrías escribir un programa como una sola línea larga si así lo deseas.</p>
 
@@ -331,7 +323,7 @@ console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 
 <p><a class="p_ident" id="p-9Dk5fa1UtV" href="#p-9Dk5fa1UtV" tabindex="-1" role="presentation"></a>Los paréntesis después de la palabra clave <code>for</code> deben contener dos punto y coma. La parte antes del primer punto y coma <em>inicializa</em> el bucle, generalmente definiendo una variable. La segunda parte es la expresión que <em>verifica</em> si el bucle debe continuar. La parte final <em>actualiza</em> el estado del bucle después de cada iteración. En la mayoría de los casos, esto es más corto y claro que un <code>while</code> tradicional.</p>
 
-<p><a class="p_ident" id="p-bXNehPJtjm" href="#p-bXNehPJtjm" tabindex="-1" role="presentation"></a>{{index exponenciación}}</p>
+<p><a class="p_ident" id="p-bXNehPJtjm_1" href="#p-bXNehPJtjm_1" tabindex="-1" role="presentation"></a>{{index exponenciación}}</p>
 
 <p><a class="p_ident" id="p-q5iPDIA0KE" href="#p-q5iPDIA0KE" tabindex="-1" role="presentation"></a>Este es el código que calcula 2<sup>10</sup> usando <code>for</code> en lugar de <code>while</code>:</p>
 
