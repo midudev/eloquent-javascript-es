@@ -56,7 +56,7 @@ Un programa es muchas cosas. Es un trozo de texto escrito por un programador, es
 
 Una ((computadora)) es una máquina física que actúa como anfitriona de estas máquinas inmateriales. Las computadoras mismas solo pueden hacer cosas increíblemente sencillas. La razón por la que son tan útiles es que hacen estas cosas a una velocidad increíblemente alta. Un programa puede combinar ingeniosamente un número enorme de estas acciones simples para hacer cosas muy complicadas.
 
-{{index [programación, "alegría de"]}}
+{{index ["programación", "alegría de"]}}
 
 Un programa es una construcción del pensamiento. Es gratuito de construir, es liviano y crece fácilmente bajo nuestras manos al teclear. Pero a medida que un programa crece, también lo hace su ((complejidad)). La habilidad de programar es la habilidad de construir programas que no te confundan a ti mismo. Los mejores programas son aquellos que logran hacer algo interesante mientras siguen siendo fáciles de entender.
 
@@ -84,7 +84,7 @@ Al principio, en los inicios de la informática, no existían los lenguajes de p
 01100010 00000000 00000000
 ```
 
-{{index [programación, "historia de"], "tarjeta perforada", complejidad}}
+{{index ["programación", "historia de"], "tarjeta perforada", complejidad}}
 
 Este es un programa para sumar los números del 1 al 10 y mostrar el resultado: `1 + 2 + ... + 10 = 55`. Podría ejecutarse en una máquina hipotética simple. Para programar los primeros ordenadores, era necesario configurar grandes conjuntos de interruptores en la posición correcta o perforar agujeros en tiras de cartón y alimentarlos al ordenador. Puedes imaginar lo tedioso y propenso a errores que era este procedimiento. Incluso escribir programas simples requería mucha astucia y disciplina. Los complejos eran casi inconcebibles.
 
@@ -92,7 +92,7 @@ Este es un programa para sumar los números del 1 al 10 y mostrar el resultado: 
 
 Por supuesto, introducir manualmente estos patrones arcanos de bits (los unos y ceros) hacía que el programador se sintiera como un mago poderoso. Y eso debe valer algo en términos de satisfacción laboral.
 
-{{index memoria, instrucción}}
+{{index memoria, "instrucción"}}
 
 Cada línea del programa anterior contiene una única instrucción. Podría escribirse en inglés de la siguiente manera:
 
@@ -146,7 +146,7 @@ Esta versión nos proporciona algunas mejoras. Lo más importante es que ya no e
 
 Al final del programa, después de que la construcción `while` haya terminado, se utiliza la operación `console.log` para escribir el resultado.
 
-{{index "función de suma", "función de rango", abstracción, función}}
+{{index "función de suma", "función de rango", "abstracción", "función"}}
 
 Finalmente, así es como podría verse el programa si tuviéramos a nuestra disposición las operaciones convenientes `rango` y `suma`, que respectivamente crean una colección de números dentro de un rango y calculan la suma de una colección de números:
 
@@ -179,7 +179,7 @@ Es importante tener en cuenta que JavaScript casi no tiene nada que ver con el l
 
 Después de su adopción fuera de Netscape, se escribió un ((documento estándar)) para describir la forma en que debería funcionar el lenguaje JavaScript para que las diversas piezas de software que afirmaban soportar JavaScript pudieran asegurarse de que realmente proporcionaban el mismo lenguaje. Esto se llama el estándar ECMAScript, según la organización Ecma International que llevó a cabo la estandarización. En la práctica, los términos ECMAScript y JavaScript se pueden usar indistintamente, son dos nombres para el mismo lenguaje.
 
-{{index JavaScript, "debilidades de", depuración}}
+{{index JavaScript, "debilidades de", "depuración"}}
 
 Hay quienes dirán cosas _terribles_ sobre JavaScript. Muchas de esas cosas son ciertas. Cuando me pidieron que escribiera algo en JavaScript por primera vez, rápidamente llegué a detestarlo. Aceptaba casi cualquier cosa que escribía pero lo interpretaba de una manera completamente diferente a lo que yo quería decir. Esto tenía mucho que ver con el hecho de que no tenía ni idea de lo que estaba haciendo, por supuesto, pero hay un problema real aquí: JavaScript es ridículamente liberal en lo que permite. La idea detrás de este diseño era que haría la programación en JavaScript más fácil para principiantes. En realidad, esto hace que encontrar problemas en tus programas sea más difícil porque el sistema no te los señalará.
 
@@ -201,7 +201,7 @@ Los navegadores web no son las únicas plataformas en las que se utiliza JavaScr
 
 El _código_ es el texto que constituye los programas. La mayoría de los capítulos en este libro contienen bastante código. Creo que leer código y escribir ((código)) son partes indispensables de ((aprender)) a programar. Intenta no solo echar un vistazo a los ejemplos, léelos atentamente y entiéndelos. Esto puede ser lento y confuso al principio, pero te prometo que pronto le tomarás la mano. Lo mismo ocurre con los ((ejercicios)). No des por sentado que los entiendes hasta que hayas escrito realmente una solución que funcione.
 
-{{index interpretación}}
+{{index "interpretación"}}
 
 Te recomiendo que pruebes tus soluciones a los ejercicios en un intérprete de JavaScript real. De esta manera, obtendrás comentarios inmediatos sobre si lo que estás haciendo funciona, y, espero, te tentarás a ((experimentar)) y a ir más allá de los ejercicios.
 
