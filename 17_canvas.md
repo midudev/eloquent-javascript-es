@@ -263,7 +263,9 @@ El método `bezierCurveTo` dibuja un tipo de curva similar. En lugar de un únic
 </script>
 ```
 
-Los dos puntos de control especifican la dirección en ambos extremos de la curva. Cuanto más separados estén de su punto correspondiente, más la curva "abultará" en esa dirección.{{if book
+Los dos puntos de control especifican la dirección en ambos extremos de la curva. Cuanto más separados estén de su punto correspondiente, más la curva "abultará" en esa dirección.
+
+{{if book
 
 {{figure {url: "img/canvas_beziercurve.png", alt: "Captura de pantalla de una curva de Bezier", width: "2.2cm"}}}
 
@@ -1016,7 +1018,7 @@ hint}}
 
 ### Una pelota rebotando
 
-Utiliza la técnica de `requestAnimationFrame` que vimos en [Capítulo ?](dom#animationFrame) y [Capítulo ?](game#runAnimation) para dibujar una caja con una pelota rebotando dentro. La pelota se mueve a una velocidad constante y rebota en los lados de la caja cuando los alcanza.{{if interactive
+Utiliza la técnica de `requestAnimationFrame` que vimos en [Capítulo ?](dom#animationFrame) y [Capítulo ?](game#runAnimation) para dibujar una caja con una pelota rebotando dentro. La pelota se mueve a una velocidad constante y rebota en los lados de la caja cuando los alcanza.
 
 {{if interactive
 

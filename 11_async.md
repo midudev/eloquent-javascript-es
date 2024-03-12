@@ -169,7 +169,9 @@ function jsonFile(nombreArchivo) {
 jsonFile("package.json").then(console.log);
 ```
 
-En general, es útil pensar en las promesas como un mecanismo que permite al código ignorar la pregunta de cuándo va a llegar un valor. Un valor normal tiene que existir realmente antes de que podamos hacer referencia a él. Un valor prometido es un valor que _puede_ estar allí o podría aparecer en algún momento en el futuro. Las operaciones definidas en términos de promesas, al conectarlas con llamadas `then`, se ejecutan de forma asíncrona a medida que sus entradas están disponibles.## Falla
+En general, es útil pensar en las promesas como un mecanismo que permite al código ignorar la pregunta de cuándo va a llegar un valor. Un valor normal tiene que existir realmente antes de que podamos hacer referencia a él. Un valor prometido es un valor que _puede_ estar allí o podría aparecer en algún momento en el futuro. Las operaciones definidas en términos de promesas, al conectarlas con llamadas `then`, se ejecutan de forma asíncrona a medida que sus entradas están disponibles.
+
+## Falla
 
 {{index "manejo de excepciones"}}
 
@@ -413,7 +415,9 @@ Tales expresiones `yield` solo pueden ocurrir directamente en la función genera
 
 {{index "await keyword"}}
 
-Una función `async` es un tipo especial de generador. Produce una promesa al llamarla, la cual se resuelve cuando retorna (termina) y se rechaza cuando arroja una excepción. Cada vez que hace un yield (awaits) una promesa, el resultado de esa promesa (valor o excepción generada) es el resultado de la expresión `await`.## Un Proyecto de Arte de Corvidos
+Una función `async` es un tipo especial de generador. Produce una promesa al llamarla, la cual se resuelve cuando retorna (termina) y se rechaza cuando arroja una excepción. Cada vez que hace un yield (awaits) una promesa, el resultado de esa promesa (valor o excepción generada) es el resultado de la expresión `await`.
+
+## Un Proyecto de Arte de Corvidos
 
 {{index "Carla la cuerva"}}
 
@@ -573,7 +577,9 @@ console.log("¡Yo primero!");
 // → Hecho
 ```
 
-En capítulos posteriores veremos varios tipos de eventos que se ejecutan en el bucle de eventos.## Errores asincrónicos
+En capítulos posteriores veremos varios tipos de eventos que se ejecutan en el bucle de eventos.
+
+## Errores asincrónicos
 
 {{index "programación asincrónica", [estado, transiciones]}}
 

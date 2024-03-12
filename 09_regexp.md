@@ -249,7 +249,9 @@ Los primeros y segundos caracteres `+` aplican solo al segundo _o_ en _boo_ y _h
 
 {{index "sensibilidad a mayúsculas", capitalización, ["expresión regular", banderas]}}
 
-La `i` al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la _B_ mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.## Coincidencias y grupos
+La `i` al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la _B_ mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.
+
+## Coincidencias y grupos
 
 {{index ["expresión regular", agrupación], "método exec", [array, "coincidencia de RegExp"]}}
 
@@ -576,7 +578,9 @@ console.log(stripComments("1 /* a */+/* b */ 1"));
 // → 1 + 1
 ```
 
-Muchos ((error))s en programas de ((expresión regular)) pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.## Creación dinámica de objetos RegExp
+Muchos ((error))s en programas de ((expresión regular)) pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.
+
+## Creación dinámica de objetos RegExp
 
 {{index ["expresión regular", creación], "carácter de subrayado", "clase RegExp"}}
 

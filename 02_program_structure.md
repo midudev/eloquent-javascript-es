@@ -43,7 +43,9 @@ Sin embargo, es un programa inútil. Una ((expresión)) puede conformarse con si
 
 {{index "estilo de programación", "inserción automática de punto y coma", punto y coma}}
 
-En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima ((línea)) se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.## Bindings
+En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima ((línea)) se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.
+
+## Bindings
 
 {{indexsee variable, binding}}
 

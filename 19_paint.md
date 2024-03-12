@@ -130,7 +130,9 @@ function updateState(state, action) {
 
 {{index "punto"}}
 
-Este patrón, en el que el operador de ((spread)) de objetos se utiliza primero para agregar las propiedades de un objeto existente y luego para anular algunas de ellas, es común en el código de JavaScript que utiliza objetos ((inmutables)).## Construcción del DOM
+Este patrón, en el que el operador de ((spread)) de objetos se utiliza primero para agregar las propiedades de un objeto existente y luego para anular algunas de ellas, es común en el código de JavaScript que utiliza objetos ((inmutables)).
+
+## Construcción del DOM
 
 {{index "método `createElement`", "función `elt`", [DOM, construcción]}}
 
