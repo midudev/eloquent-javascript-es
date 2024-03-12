@@ -495,6 +495,8 @@ Esta captura de pantalla muestra el texto de ayuda para el campo de edad.
 
 El objeto `((window))` recibirá eventos `"focus"` y `"blur"` cuando el usuario se mueva desde o hacia la pestaña o ventana del navegador en la que se muestra el documento.
 
+if}}
+
 ## Evento de carga
 
 {{index "script (etiqueta HTML)", "evento de carga"}}

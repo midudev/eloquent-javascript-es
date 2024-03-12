@@ -41,7 +41,9 @@ Este es un documento HTML con una sencilla imagen SVG en él:
 </svg>
 ```
 
-{{index "circle (etiqueta SVG)", "rect (etiqueta SVG)", "espacio de nombres XML", XML, "atributo xmlns"}}{{if book
+{{index "circle (etiqueta SVG)", "rect (etiqueta SVG)", "espacio de nombres XML", XML, "atributo xmlns"}}
+
+{{if book
 
 El documento se muestra de la siguiente manera:
 
