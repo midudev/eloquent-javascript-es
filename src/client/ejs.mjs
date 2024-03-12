@@ -30,13 +30,13 @@ function chapterInteraction() {
   function showHelp() {
     let popup = document.body.appendChild(document.createElement("div"))
     popup.className = "popup"
-    popup.appendChild(document.createElement("h2")).textContent = "Instructions"
-    popup.appendChild(document.createElement("p")).textContent = `Code on this page can be edited and run by clicking it or moving focus to it and pressing Enter. Code executed this way shares its environment with other code ran on the page, and some pre-defined code for the chapter. When inside the code editor, the following keyboard shortcuts are available.`
+    popup.appendChild(document.createElement("h2")).textContent = "Instrucciones"
+    popup.appendChild(document.createElement("p")).textContent = `El código de esta página se puede editar y ejecutar haciendo clic en él o moviendo el foco hacia él y presionando Enter. El código ejecutado de esta manera comparte su entorno con otro código ejecutado en la página y con algún código predefinido para el capítulo. Dentro del editor de código, los siguientes atajos de teclado están disponibles.`
     for (let [key, desc] of [
-      [modName + "Enter", "Run code"],
-      [modName + "j", "Revert code"],
-      [modName + "↓", "Deactivate editor"],
-      [modName + "Escape", "Reset environment"],
+      [modName + "Enter", "Ejecutar código"],
+      [modName + "j", "Revertir código"],
+      [modName + "↓", "Desactivar editor"],
+      [modName + "Escape", "Restablecer entorno"],
     ]) {
       let b = popup.appendChild(document.createElement("div"))
       b.appendChild(document.createElement("kbd")).textContent = key
