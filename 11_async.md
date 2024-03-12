@@ -45,7 +45,7 @@ En el siguiente diagrama, las líneas gruesas representan el tiempo que el progr
 
 {{figure {url: "img/control-io.svg", alt: "Diagrama que muestra el flujo de control en programas síncronos y asíncronos. La primera parte muestra un programa síncrono, donde las fases activas y de espera del programa ocurren en una única línea secuencial. La segunda parte muestra un programa síncrono multi-hilo, con dos líneas paralelas en las cuales las partes de espera suceden una al lado de la otra, haciendo que el programa termine más rápido. La última parte muestra un programa asíncrono, donde las múltiples acciones asíncronas se ramifican desde el programa principal, el cual se detiene en algún momento y luego continúa cuando la primera cosa por la que estaba esperando finaliza.", width: "8cm"}}}
 
-{{index ["flujo de control", asíncrono], "programación asíncrona", verbosidad, rendimiento}}
+{{index ["flujo de control", "asíncrono"], "programación asíncrona", verbosidad, rendimiento}}
 
 Otra forma de describir la diferencia es que esperar a que las acciones terminen es _implícito_ en el modelo síncrono, mientras que es _explícito_, bajo nuestro control, en el modelo asíncrono.
 
