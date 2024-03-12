@@ -32,7 +32,7 @@
 
 <p><a class="p_ident" id="p-LWCHgQ8jiK" href="#p-LWCHgQ8jiK" tabindex="-1" role="presentation"></a>La parte más inmediatamente visible de un lenguaje de programación es su <em>sintaxis</em>, o notación. Un <em>analizador sintáctico</em> es un programa que lee un fragmento de texto y produce una estructura de datos que refleja la estructura del programa contenido en ese texto. Si el texto no forma un programa válido, el analizador sintáctico debería señalar el error.</p>
 
-<p><a class="p_ident" id="p-g4dCM+i4JR" href="#p-g4dCM+i4JR" tabindex="-1" role="presentation"></a>{{index “forma especial”, [función, aplicación]}}</p>
+<p><a class="p_ident" id="p-g4dCM+i4JR" href="#p-g4dCM+i4JR" tabindex="-1" role="presentation"></a>{{index “forma especial”, [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-ZtGU+dhqC7" href="#p-ZtGU+dhqC7" tabindex="-1" role="presentation"></a>Nuestro lenguaje tendrá una sintaxis simple y uniforme. Todo en Egg es una expresión. Una expresión puede ser el nombre de una asignación, un número, una cadena o una <em>aplicación</em>. Las aplicaciones se utilizan para llamadas de funciones pero también para estructuras como <code>if</code> o <code>while</code>.</p>
 
@@ -187,7 +187,7 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
 
 <p><a class="p_ident" id="p-HWNpAazEel" href="#p-HWNpAazEel" tabindex="-1" role="presentation"></a>El evaluador tiene código para cada uno de los tipos de expresión. Una expresión de valor literal produce su valor. (Por ejemplo, la expresión <code>100</code> simplemente se evalúa como el número 100.) Para un enlace, debemos verificar si está realmente definido en el ámbito y, si lo está, obtener el valor del enlace.</p>
 
-<p><a class="p_ident" id="p-OkaJrgRDDs" href="#p-OkaJrgRDDs" tabindex="-1" role="presentation"></a>{{index [función, aplicación]}}</p>
+<p><a class="p_ident" id="p-OkaJrgRDDs" href="#p-OkaJrgRDDs" tabindex="-1" role="presentation"></a>{{index [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-NYz/C0Evfv" href="#p-NYz/C0Evfv" tabindex="-1" role="presentation"></a>Las aplicaciones son más complicadas. Si son una forma especial, como <code>if</code>, no evaluamos nada y pasamos las expresiones de argumento, junto con el ámbito, a la función que maneja esta forma. Si es una llamada normal, evaluamos el operador, verificamos que sea una función, y la llamamos con los argumentos evaluados.</p>
 
@@ -425,8 +425,6 @@ run(<span class="tok-string2">`</span>
 </div></details>
 
 <h3><a class="i_ident" id="i-KU8YojAGul" href="#i-KU8YojAGul" tabindex="-1" role="presentation"></a>Clausura</h3>
-
-<p><a class="p_ident" id="p-R4KFDn2Nek" href="#p-R4KFDn2Nek" tabindex="-1" role="presentation"></a>{{index closure, [función, &quot;ámbito”], “clausura en Egg (ejercicio)”}}</p>
 
 <p><a class="p_ident" id="p-fppmSSGuOO" href="#p-fppmSSGuOO" tabindex="-1" role="presentation"></a>La forma en que hemos definido <code>fun</code> permite que las funciones en Egg hagan referencia al ámbito circundante, lo que permite que el cuerpo de la función use valores locales que eran visibles en el momento en que se definió la función, al igual que lo hacen las funciones de JavaScript.</p>
 

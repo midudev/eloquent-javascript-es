@@ -28,8 +28,6 @@
 
 <h2><a class="h_ident" id="h-eHXd+T1Ezs" href="#h-eHXd+T1Ezs" tabindex="-1" role="presentation"></a>Definir una función</h2>
 
-<p><a class="p_ident" id="p-DbMIeY2pIS" href="#p-DbMIeY2pIS" tabindex="-1" role="presentation"></a>{{index “ejemplo de cuadrado”, [función, “definición”], [vinculación, “definición”]}}</p>
-
 <p><a class="p_ident" id="p-5jo0JygqfX" href="#p-5jo0JygqfX" tabindex="-1" role="presentation"></a>Una definición de función es una vinculación regular donde el valor de la vinculación es una función. Por ejemplo, este código define <code>square</code> para que se refiera a una función que produce el cuadrado de un número dado:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-JW7vLBZMWv" href="#c-JW7vLBZMWv" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">square</span> = <span class="tok-keyword">function</span>(<span class="tok-definition">x</span>) {
@@ -39,7 +37,7 @@
 console.log(square(<span class="tok-number">12</span>));
 <span class="tok-comment">// → 144</span></pre>
 
-<p><a class="p_ident" id="p-Cp1gUOkf3+" href="#p-Cp1gUOkf3+" tabindex="-1" role="presentation"></a>{{index [corchetes, “cuerpo de la “función”&quot;], bloque, [sintaxis, “función”], “palabra clave de “función”&quot;, [“función”, cuerpo], [“función”, “como valor”], [paréntesis, argumentos]}}</p>
+<p><a class="p_ident" id="p-Cp1gUOkf3+" href="#p-Cp1gUOkf3+" tabindex="-1" role="presentation"></a>{{index [corchetes, “cuerpo de la “función”], bloque, [sintaxis, “función”], “palabra clave de “función”, [“función”, cuerpo], [“función”, “como valor”], [“paréntesis”, argumentos]}}</p>
 
 <p><a class="p_ident" id="p-Wttl/7EpwM" href="#p-Wttl/7EpwM" tabindex="-1" role="presentation"></a>Una función se crea con una expresión que comienza con la palabra clave <code>function</code>. Las funciones tienen un conjunto de <em>parámetros</em> (en este caso, solo <code>x</code>) y un <em>cuerpo</em>, que contiene las declaraciones que se ejecutarán cuando se llame a la función. El cuerpo de una función creada de esta manera siempre debe estar envuelto entre llaves, incluso cuando consiste en una única declaración.</p>
 
@@ -61,8 +59,6 @@ console.log(roundTo(<span class="tok-number">23</span>, <span class="tok-number"
 <span class="tok-comment">// → 20</span></pre>
 
 <p><a class="p_ident" id="p-1DcRwWewzX" href="#p-1DcRwWewzX" tabindex="-1" role="presentation"></a>Algunas funciones, como <code>roundTo</code> y <code>square</code>, producen un valor, y otras no, como <code>makeNoise</code>, cuyo único resultado es un efecto secundario. Una instrucción <code>return</code> determina el valor que devuelve la función. Cuando el control llega a una instrucción de ese tipo, salta inmediatamente fuera de la función actual y le da el valor devuelto al código que llamó a la función. Una palabra clave <code>return</code> sin una expresión después de ella hará que la función devuelva <code>undefined</code>. Las funciones que no tienen ninguna instrucción <code>return</code> en absoluto, como <code>makeNoise</code>, devuelven igualmente <code>undefined</code>.</p>
-
-<p><a class="p_ident" id="p-0ZQToAYNZl" href="#p-0ZQToAYNZl" tabindex="-1" role="presentation"></a>{{index “parámetro”, [función, “aplicación”], [ligadura, “desde parámetro”]}}</p>
 
 <p><a class="p_ident" id="p-skIegUpOjB" href="#p-skIegUpOjB" tabindex="-1" role="presentation"></a>Los parámetros de una función se comportan como ligaduras regulares, pero sus valores iniciales son dados por el <em>llamador</em> de la función, no por el código en la función en sí misma.</p>
 
@@ -114,15 +110,13 @@ console.log(n);
   ingredient(<span class="tok-number">0.5</span>, <span class="tok-string">&quot;cucharadita&quot;</span>, <span class="tok-string">&quot;comino&quot;</span>);
 };</pre>
 
-<p><a class="p_ident" id="p-lryxHJ6W0W" href="#p-lryxHJ6W0W" tabindex="-1" role="presentation"></a>{{index [función, alcance], alcance}}</p>
-
 <p><a class="p_ident" id="p-Rmy1dhc5eP" href="#p-Rmy1dhc5eP" tabindex="-1" role="presentation"></a>El código dentro de la función <code>ingredient</code> puede ver el enlace <code>factor</code> desde la función exterior, pero sus enlaces locales, como <code>unit</code> o <code>ingredientAmount</code>, no son visibles en la función exterior.</p>
 
 <p><a class="p_ident" id="p-gxoZLvi3o1" href="#p-gxoZLvi3o1" tabindex="-1" role="presentation"></a>El conjunto de enlaces visibles dentro de un bloque está determinado por el lugar de ese bloque en el texto del programa. Cada bloque local también puede ver todos los bloques locales que lo contienen, y todos los bloques pueden ver el bloque global. Este enfoque de visibilidad de enlaces se llama <em>lexicografía</em>.</p>
 
 <h2><a class="h_ident" id="h-3mNEhIfF61" href="#h-3mNEhIfF61" tabindex="-1" role="presentation"></a>Funciones como valores</h2>
 
-<p><a class="p_ident" id="p-OczsHQA3Ys" href="#p-OczsHQA3Ys" tabindex="-1" role="presentation"></a>{{index [función, “como valor”], [enlace, definición]}}</p>
+<p><a class="p_ident" id="p-OczsHQA3Ys" href="#p-OczsHQA3Ys" tabindex="-1" role="presentation"></a>{{index [“función”, “como valor”], [enlace, definición]}}</p>
 
 <p><a class="p_ident" id="p-exs7Hvd+8O" href="#p-exs7Hvd+8O" tabindex="-1" role="presentation"></a>Un enlace de función generalmente simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.</p>
 
@@ -136,8 +130,6 @@ console.log(n);
 <span class="tok-keyword">if</span> (safeMode) {
   launchMissiles = <span class="tok-keyword">function</span>() {<span class="tok-comment">/* no hacer nada */</span>};
 }</pre>
-
-<p><a class="p_ident" id="p-6qG4TTJ3N8" href="#p-6qG4TTJ3N8" tabindex="-1" role="presentation"></a>{{index [función, “de orden superior”]}}</p>
 
 <p><a class="p_ident" id="p-Frk45di2F4" href="#p-Frk45di2F4" tabindex="-1" role="presentation"></a>En <a href="05_higher_order.html">Capítulo 5</a>, discutiremos las cosas interesantes que podemos hacer al pasar valores de función a otras funciones.</p>
 
@@ -191,7 +183,7 @@ console.log(n);
 
 <h2 id="pila"><a class="h_ident" id="h-nePB5S+L1Q" href="#h-nePB5S+L1Q" tabindex="-1" role="presentation"></a>La pila de llamadas</h2>
 
-<p><a class="p_ident" id="p-KpPYLVkGI7" href="#p-KpPYLVkGI7" tabindex="-1" role="presentation"></a>{{index “pila de llamadas”, [función, aplicación]}}</p>
+<p><a class="p_ident" id="p-KpPYLVkGI7" href="#p-KpPYLVkGI7" tabindex="-1" role="presentation"></a>{{index “pila de llamadas”, [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-aMmoKkJUw3" href="#p-aMmoKkJUw3" tabindex="-1" role="presentation"></a>La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:</p>
 
@@ -230,7 +222,7 @@ console.log(chicken() + <span class="tok-string">&quot; salió primero.&quot;</s
 
 <h2><a class="h_ident" id="h-jNCGCF3rFb" href="#h-jNCGCF3rFb" tabindex="-1" role="presentation"></a>Argumentos Opcionales</h2>
 
-<p><a class="p_ident" id="p-AYghzNL2vr" href="#p-AYghzNL2vr" tabindex="-1" role="presentation"></a>{{index argumento, [función, aplicación]}}</p>
+<p><a class="p_ident" id="p-AYghzNL2vr" href="#p-AYghzNL2vr" tabindex="-1" role="presentation"></a>{{index argumento, [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-H9TL95isqo" href="#p-H9TL95isqo" tabindex="-1" role="presentation"></a>El siguiente código está permitido y se ejecuta sin ningún problema:</p>
 
@@ -273,8 +265,6 @@ console.log(roundTo(<span class="tok-number">4.5</span>, <span class="tok-number
 
 <h2><a class="h_ident" id="h-KU8YojAGul" href="#h-KU8YojAGul" tabindex="-1" role="presentation"></a>Clausura</h2>
 
-<p><a class="p_ident" id="p-chtuugKl2L" href="#p-chtuugKl2L" tabindex="-1" role="presentation"></a>{{index “pila de llamadas”, “vinculación local”, [función, “como valor”], alcance}}</p>
-
 <p><a class="p_ident" id="p-0vHUI0m1Rs" href="#p-0vHUI0m1Rs" tabindex="-1" role="presentation"></a>La capacidad de tratar las funciones como valores, combinada con el hecho de que las vinculaciones locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con las vinculaciones locales cuando la llamada a la función que las creó ya no está activa?El siguiente código muestra un ejemplo de esto. Define una función, <code>wrapValue</code>, que crea un enlace local. Luego devuelve una función que accede y devuelve este enlace local:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-DF70h3opbx" href="#c-DF70h3opbx" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">wrapValue</span>(<span class="tok-definition">n</span>) {
@@ -305,15 +295,13 @@ console.log(twice(<span class="tok-number">5</span>));
 
 <p><a class="p_ident" id="p-W9UeLQ7s8n" href="#p-W9UeLQ7s8n" tabindex="-1" role="presentation"></a>El enlace explícito <code>local</code> del ejemplo <code>wrapValue</code> realmente no es necesario, ya que un parámetro es en sí mismo un enlace local.</p>
 
-<p><a class="p_ident" id="p-Jze1JimKAX" href="#p-Jze1JimKAX" tabindex="-1" role="presentation"></a>{{index [función, “modelo de”]}}</p>
-
 <p><a class="p_ident" id="p-xoKKzht2cB" href="#p-xoKKzht2cB" tabindex="-1" role="presentation"></a>Pensar en programas de esta manera requiere algo de práctica. Un buen modelo mental es pensar en los valores de función como que contienen tanto el código en su cuerpo como el entorno en el que fueron creados. Cuando se llama, el cuerpo de la función ve el entorno en el que fue creado, no el entorno en el que se llama.</p>
 
 <p><a class="p_ident" id="p-FbEnVK1PeW" href="#p-FbEnVK1PeW" tabindex="-1" role="presentation"></a>En el ejemplo anterior, se llama a <code>multiplier</code> y crea un entorno en el que su parámetro <code>factor</code> está vinculado a 2. El valor de función que devuelve, que se almacena en <code>twice</code>, recuerda este entorno para que cuando se llame, multiplique su argumento por 2.</p>
 
 <h2><a class="h_ident" id="h-ge3a45K3m3" href="#h-ge3a45K3m3" tabindex="-1" role="presentation"></a>Recursión</h2>
 
-<p><a class="p_ident" id="p-grDy9G1ky2" href="#p-grDy9G1ky2" tabindex="-1" role="presentation"></a>{{index “ejemplo de potencia”, “desbordamiento de pila”, “recursión”, [función, aplicación]}}</p>
+<p><a class="p_ident" id="p-grDy9G1ky2" href="#p-grDy9G1ky2" tabindex="-1" role="presentation"></a>{{index “ejemplo de potencia”, “desbordamiento de pila”, “recursión”, [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-A2M2+fm6Wx" href="#p-A2M2+fm6Wx" tabindex="-1" role="presentation"></a>Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama <em>recursiva</em>. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función <code>power</code>, que hace lo mismo que el operador <code>**</code> (exponenciación):</p>
 
@@ -331,8 +319,6 @@ console.log(power(<span class="tok-number">2</span>, <span class="tok-number">3<
 <p><a class="p_ident" id="p-eeADyLq72s" href="#p-eeADyLq72s" tabindex="-1" role="presentation"></a>{{index ciclo, legibilidad, matemáticas}}</p>
 
 <p><a class="p_ident" id="p-ZH6kc3lXYd" href="#p-ZH6kc3lXYd" tabindex="-1" role="presentation"></a>Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en <a href="estructura_programaci%C3%B3n">Capítulo ?</a>. La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.</p>
-
-<p><a class="p_ident" id="p-9XR8iJwJSn" href="#p-9XR8iJwJSn" tabindex="-1" role="presentation"></a>{{index [función, “aplicación”], eficiencia}}</p>
 
 <p><a class="p_ident" id="p-vuRF5znTGo" href="#p-vuRF5znTGo" tabindex="-1" role="presentation"></a>Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un <code>for</code> loop. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.</p>
 
@@ -395,7 +381,7 @@ console.log(findSolution(<span class="tok-number">24</span>));
 
 <h2><a class="h_ident" id="h-uZ0juDUWOs" href="#h-uZ0juDUWOs" tabindex="-1" role="presentation"></a>Crecimiento de funciones</h2>
 
-<p><a class="p_ident" id="p-xpCk2pMjoJ" href="#p-xpCk2pMjoJ" tabindex="-1" role="presentation"></a>{{index [función, definición]}}</p>
+<p><a class="p_ident" id="p-xpCk2pMjoJ" href="#p-xpCk2pMjoJ" tabindex="-1" role="presentation"></a>{{index [“función”, definición]}}</p>
 
 <p><a class="p_ident" id="p-n9cGqWi0db" href="#p-n9cGqWi0db" tabindex="-1" role="presentation"></a>Hay dos formas más o menos naturales de introducir funciones en los programas.</p>
 
@@ -404,8 +390,6 @@ console.log(findSolution(<span class="tok-number">24</span>));
 <p><a class="p_ident" id="p-B8XV+CLjOF" href="#p-B8XV+CLjOF" tabindex="-1" role="presentation"></a>La primera ocurre cuando te encuentras escribiendo código similar varias veces. Preferirías no hacer eso, ya que tener más código significa más espacio para que se escondan los errores y más material para que las personas que intentan entender el programa lo lean. Por lo tanto, tomas la funcionalidad repetida, encuentras un buen nombre para ella y la colocas en una función.</p>
 
 <p><a class="p_ident" id="p-cOAhBy6EBv" href="#p-cOAhBy6EBv" tabindex="-1" role="presentation"></a>La segunda forma es que te das cuenta de que necesitas alguna funcionalidad que aún no has escrito y que suena como si mereciera su propia función. Comienzas por nombrar la función, luego escribes su cuerpo. Incluso podrías comenzar a escribir código que use la función antes de definir la función en sí.</p>
-
-<p><a class="p_ident" id="p-QDYCx22+i3" href="#p-QDYCx22+i3" tabindex="-1" role="presentation"></a>{{index [función, nombramiento], [variable, nombramiento]}}</p>
 
 <p><a class="p_ident" id="p-YZ4JKo/kXS" href="#p-YZ4JKo/kXS" tabindex="-1" role="presentation"></a>Lo difícil que es encontrar un buen nombre para una función es una buena indicación de lo claro que es el concepto que estás tratando de envolver. Vamos a través de un ejemplo.</p>
 
@@ -452,8 +436,6 @@ imprimirInventarioGranja(<span class="tok-number">7</span>, <span class="tok-num
 
 imprimirInventarioGranja(<span class="tok-number">7</span>, <span class="tok-number">11</span>, <span class="tok-number">3</span>);</pre>
 
-<p><a class="p_ident" id="p-bYqRCi22JD" href="#p-bYqRCi22JD" tabindex="-1" role="presentation"></a>{{index [función, nombramiento]}}</p>
-
 <p><a class="p_ident" id="p-t15OmMTGO1" href="#p-t15OmMTGO1" tabindex="-1" role="presentation"></a>¡Funciona! Pero ese nombre, <code>imprimirConRellenoYEtiqueta</code>, es un poco incómodo. Confluye tres cosas: imprimir, rellenar con ceros y añadir una etiqueta, en una sola función.</p>
 
 <p><a class="p_ident" id="p-86HqtiCBvL" href="#p-86HqtiCBvL" tabindex="-1" role="presentation"></a>En lugar de sacar la parte repetida de nuestro programa completamente, intentemos sacar un solo <em>concepto</em>:</p>
@@ -483,8 +465,6 @@ imprimirInventarioGranja(<span class="tok-number">7</span>, <span class="tok-num
 <p><a class="p_ident" id="p-YDmdVKuy2l" href="#p-YDmdVKuy2l" tabindex="-1" role="presentation"></a>Un principio útil es abstenerse de agregar ingenio a menos que estés absolutamente seguro de que lo vas a necesitar. Puede ser tentador escribir “marcos de trabajo” generales para cada trozo de funcionalidad que te encuentres. Resiste esa tentación. No lograrás hacer ningún trabajo real: estarás demasiado ocupado escribiendo código que nunca usas.</p>
 
 <h2 id="puro"><a class="h_ident" id="h-FYE5dPFb4a" href="#h-FYE5dPFb4a" tabindex="-1" role="presentation"></a>Funciones y efectos secundarios</h2>
-
-<p><a class="p_ident" id="p-qBWMBh5h7C" href="#p-qBWMBh5h7C" tabindex="-1" role="presentation"></a>{{index “efecto secundario”, “función pura”, [función, pureza]}}</p>
 
 <p><a class="p_ident" id="p-WDphrqGwmP" href="#p-WDphrqGwmP" tabindex="-1" role="presentation"></a>Las funciones pueden dividirse aproximadamente en aquellas que se llaman por sus efectos secundarios y aquellas que se llaman por su valor de retorno (aunque también es posible tener efectos secundarios y devolver un valor).</p>
 
