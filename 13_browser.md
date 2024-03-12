@@ -8,11 +8,11 @@ quote}}
 
 {{index "Berners-Lee, Tim", "World Wide Web", HTTP, [JavaScript, "historia de"], "World Wide Web"}}
 
-{{figure {url: "img/chapter_picture_13.jpg", alt: "Ilustración que muestra una central telefónica", chapter: "enmarcada"}}}
+{{figure {url: "img/chapter_picture_13.jpg", alt: "Ilustración que muestra una central telefónica", chapter: "framed"}}}
 
 Los próximos capítulos de este libro hablarán sobre los navegadores web. Sin los navegadores web, no habría JavaScript. O incluso si existiera, nadie le habría prestado atención.
 
-{{index descentralización, compatibilidad}}
+{{index "descentralización", compatibilidad}}
 
 La tecnología web ha sido descentralizada desde el principio, no solo técnicamente, sino también en la forma en que evolucionó. Varios fabricantes de navegadores han añadido nueva funcionalidad de manera ad hoc y a veces sin mucho sentido, que luego, a veces, terminaba siendo adoptada por otros, y finalmente establecida como en los ((estándares)).
 

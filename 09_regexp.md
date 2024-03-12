@@ -18,7 +18,7 @@ quote}}
 
 if}}
 
-{{figure {url: "img/chapter_picture_9.jpg", alt: "Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares", chapter: "enmarcado en cuadrado"}}}
+{{figure {url: "img/chapter_picture_9.jpg", alt: "Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares", chapter: framed}}}
 
 {{index "evolución", "adopción", "integración"}}
 
@@ -467,7 +467,9 @@ El retroceso también ocurre para los operadores de repetición como + y `*`. Si
 
 {{index rendimiento, complejidad}}
 
-Es posible escribir expresiones regulares que realizarán _mucho_ retroceso. Este problema ocurre cuando un patrón puede coincidir con una parte de la entrada de muchas formas diferentes. Por ejemplo, si nos confundimos al escribir una expresión regular para los números binarios, podríamos escribir accidentalmente algo como `/([01]+)+b/`.{{figure {url: "img/re_slow.svg", alt: "Diagrama de ferrocarril para la expresión regular '([01]+)+b'", width: "6cm"}}}
+Es posible escribir expresiones regulares que realizarán _mucho_ retroceso. Este problema ocurre cuando un patrón puede coincidir con una parte de la entrada de muchas formas diferentes. Por ejemplo, si nos confundimos al escribir una expresión regular para los números binarios, podríamos escribir accidentalmente algo como `/([01]+)+b/`.
+
+{{figure {url: "img/re_slow.svg", alt: "Diagrama de ferrocarril para la expresión regular '([01]+)+b'", width: "6cm"}}}
 
 {{index "bucle interno", [anidamiento, "en expresiones regulares"]}}
 

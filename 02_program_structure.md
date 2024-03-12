@@ -8,7 +8,7 @@ quote}}
 
 {{index why, "Guía Conmovedora"}}
 
-{{figure {url: "img/chapter_picture_2.jpg", alt: "Ilustración que muestra varios tentáculos sujetando piezas de ajedrez", chapter: enmarcado}}}
+{{figure {url: "img/chapter_picture_2.jpg", alt: "Ilustración que muestra varios tentáculos sujetando piezas de ajedrez", chapter: framed}}}
 
 En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas _programación_. Ampliaremos nuestro dominio del lenguaje JavaScript más allá de los sustantivos y fragmentos de oraciones que hemos visto hasta ahora, hasta el punto en que podamos expresar prosa significativa.
 
