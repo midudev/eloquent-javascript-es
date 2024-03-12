@@ -36,8 +36,8 @@ console.log(square(12));
 ```
 
 {{indexsee "llaves", corchetes}}
+{{index ["corchetes", "cuerpo de la función"], "bloque", ["sintaxis", "función"], "palabra clave de función", ["función", "cuerpo"], ["función", "como valor"], ["paréntesis", "argumentos"]}}
 
-{{index [corchetes, "cuerpo de la "función"], bloque, [sintaxis, "función"], "palabra clave de "función", ["función", cuerpo], ["función", "como valor"], ["paréntesis", argumentos]}}
 
 Una función se crea con una expresión que comienza con la palabra clave `function`. Las funciones tienen un conjunto de _((parámetro))s_ (en este caso, solo `x`) y un _cuerpo_, que contiene las declaraciones que se ejecutarán cuando se llame a la función. El cuerpo de una función creada de esta manera siempre debe estar envuelto entre llaves, incluso cuando consiste en una única ((declaración)).
 
@@ -151,7 +151,7 @@ El conjunto de enlaces visibles dentro de un bloque está determinado por el lug
 
 Un enlace de función generalmente simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.
 
-{{index [enlace, asignación]}}
+{{index [enlace, "asignación"]}}
 
 Pero los dos son diferentes. Un valor de función puede hacer todas las cosas que pueden hacer otros valores: se puede utilizar en expresiones arbitrarias, no solo llamarlo. Es posible almacenar un valor de función en un nuevo enlace, pasarlo como argumento a una función, etc. De manera similar, un enlace que contiene una función sigue siendo solo un enlace regular y, si no es constante, se le puede asignar un nuevo valor, así:
 
@@ -423,7 +423,7 @@ Esto se asemeja bastante a la forma en que los matemáticos definen la exponenci
 
 Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un `for` loop. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.
 
-{{index optimización}}
+{{index "optimización"}}
 
 El dilema de velocidad versus ((elegancia)) es interesante. Se puede ver como una especie de continuo entre amigabilidad humana y amigabilidad de máquina. Casi cualquier programa puede ser acelerado haciendo que sea más extenso y complicado. El programador debe encontrar un equilibrio apropiado.
 
@@ -503,7 +503,7 @@ La sangría indica la profundidad de la pila de llamadas. La primera vez que se 
 
 Hay dos formas más o menos naturales de introducir funciones en los programas.
 
-{{index repetición}}
+{{index "repetición"}}
 
 La primera ocurre cuando te encuentras escribiendo código similar varias veces. Preferirías no hacer eso, ya que tener más código significa más espacio para que se escondan los errores y más material para que las personas que intentan entender el programa lo lean. Por lo tanto, tomas la funcionalidad repetida, encuentras un buen nombre para ella y la colocas en una función.
 
@@ -598,7 +598,7 @@ imprimirInventarioGranja(7, 16, 3);
 
 Una función con un nombre claro y obvio como `rellenarConCeros` hace que sea más fácil para alguien que lee el código entender qué hace. Además, una función así es útil en más situaciones que solo este programa específico. Por ejemplo, podrías usarla para ayudar a imprimir tablas de números alineadas correctamente.
 
-{{index [interfaz, diseño]}}
+{{index [interfaz, "diseño"]}}
 
 ¿Qué tan inteligente y versátil _debería_ ser nuestra función? Podríamos escribir cualquier cosa, desde una función terriblemente simple que solo puede rellenar un número para que tenga tres caracteres de ancho hasta un sistema de formato de números generalizado complicado que maneje números fraccionarios, números negativos, alineación de puntos decimales, relleno con diferentes caracteres, y más.
 
@@ -612,11 +612,11 @@ Un principio útil es abstenerse de agregar ingenio a menos que estés absolutam
 
 Las funciones pueden dividirse aproximadamente en aquellas que se llaman por sus efectos secundarios y aquellas que se llaman por su valor de retorno (aunque también es posible tener efectos secundarios y devolver un valor).
 
-{{index reutilización}}
+{{index "reutilización"}}
 
 La primera función auxiliar en el ((ejemplo de la granja)), `imprimirRellenadoConEtiqueta`, se llama por su efecto secundario: imprime una línea. La segunda versión, `rellenarConCero`, se llama por su valor de retorno. No es casualidad que la segunda sea útil en más situaciones que la primera. Las funciones que crean valores son más fáciles de combinar de nuevas formas que las funciones que realizan efectos secundarios directamente.
 
-{{index sustitución}}
+{{index "sustitución"}}
 
 Una función _pura_ es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de que una función pura esté funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.
 
