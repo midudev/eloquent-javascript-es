@@ -22,7 +22,7 @@ Los hablantes de inglés adultos típicos tienen alrededor de 20,000 palabras en
 
 ## Definir una función
 
-{{index "ejemplo de cuadrado", [función, "definición"], [vinculación, "definición"]}}
+{{index "ejemplo de cuadrado", ["función", "definición"], ["vinculación", "definición"]}}
 
 Una definición de función es una vinculación regular donde el valor de la vinculación es una función. Por ejemplo, este código define `square` para que se refiera a una función que produce el cuadrado de un número dado:
 
@@ -36,7 +36,8 @@ console.log(square(12));
 ```
 
 {{indexsee "llaves", corchetes}}
-{{index [corchetes, "cuerpo de la "función""], bloque, [sintaxis, "función"], "palabra clave de "función"", ["función", cuerpo], ["función", "como valor"], [paréntesis, argumentos]}}
+{{index ["corchetes", "cuerpo de la función"], "bloque", ["sintaxis", "función"], "palabra clave de función", ["función", "cuerpo"], ["función", "como valor"], ["paréntesis", "argumentos"]}}
+
 
 Una función se crea con una expresión que comienza con la palabra clave `function`. Las funciones tienen un conjunto de _((parámetro))s_ (en este caso, solo `x`) y un _cuerpo_, que contiene las declaraciones que se ejecutarán cuando se llame a la función. El cuerpo de una función creada de esta manera siempre debe estar envuelto entre llaves, incluso cuando consiste en una única ((declaración)).
 
@@ -65,7 +66,7 @@ console.log(roundTo(23, 10));
 
 Algunas funciones, como `roundTo` y `square`, producen un valor, y otras no, como `makeNoise`, cuyo único resultado es un ((efecto secundario)). Una instrucción `return` determina el valor que devuelve la función. Cuando el control llega a una instrucción de ese tipo, salta inmediatamente fuera de la función actual y le da el valor devuelto al código que llamó a la función. Una palabra clave `return` sin una expresión después de ella hará que la función devuelva `undefined`. Las funciones que no tienen ninguna instrucción `return` en absoluto, como `makeNoise`, devuelven igualmente `undefined`.
 
-{{index "parámetro", [función, "aplicación"], [ligadura, "desde parámetro"]}}
+{{index "parámetro", ["función", "aplicación"], [ligadura, "desde parámetro"]}}
 
 Los parámetros de una función se comportan como ligaduras regulares, pero sus valores iniciales son dados por el _llamador_ de la función, no por el código en la función en sí misma.
 
@@ -138,7 +139,7 @@ const hummus = function(factor) {
 };
 ```
 
-{{index [función, alcance], alcance}}
+{{index ["función", alcance], alcance}}
 
 El código dentro de la función `ingredient` puede ver el enlace `factor` desde la función exterior, pero sus enlaces locales, como `unit` o `ingredientAmount`, no son visibles en la función exterior.
 
@@ -146,11 +147,11 @@ El conjunto de enlaces visibles dentro de un bloque está determinado por el lug
 
 ## Funciones como valores
 
-{{index [función, "como valor"], [enlace, definición]}}
+{{index ["función", "como valor"], [enlace, "definición"]}}
 
 Un enlace de función generalmente simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.
 
-{{index [enlace, asignación]}}
+{{index [enlace, "asignación"]}}
 
 Pero los dos son diferentes. Un valor de función puede hacer todas las cosas que pueden hacer otros valores: se puede utilizar en expresiones arbitrarias, no solo llamarlo. Es posible almacenar un valor de función en un nuevo enlace, pasarlo como argumento a una función, etc. De manera similar, un enlace que contiene una función sigue siendo solo un enlace regular y, si no es constante, se le puede asignar un nuevo valor, así:
 
@@ -163,7 +164,7 @@ if (safeMode) {
 }
 ```
 
-{{index [función, "de orden superior"]}}
+{{index ["función", "de orden superior"]}}
 
 En [Capítulo ?](higher_order), discutiremos las cosas interesantes que podemos hacer al pasar valores de función a otras funciones.
 
@@ -212,7 +213,7 @@ const roundTo = (n, step) => {
 
 La flecha viene _después_ de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como "esta entrada (los ((parámetros))s) produce este resultado (el cuerpo)".
 
-{{index [braces, "function body"], "ejemplo de exponente", [paréntesis, argumentos]}}
+{{index [braces, "function body"], "ejemplo de exponente", ["paréntesis", argumentos]}}
 
 Cuando solo hay un nombre de parámetro, puedes omitir los paréntesis alrededor de la lista de parámetros. Si el cuerpo es una sola expresión, en lugar de un ((bloque)) entre llaves, esa expresión será devuelta por la función. Por lo tanto, estas dos definiciones de `exponente` hacen lo mismo:
 
@@ -221,7 +222,7 @@ const exponente1 = (x) => { return x * x; };
 const exponente2 = x => x * x;
 ```
 
-{{index [paréntesis, argumentos]}}
+{{index ["paréntesis", argumentos]}}
 
 Cuando una función de flecha no tiene parámetros en absoluto, su lista de parámetros es simplemente un conjunto vacío de paréntesis.
 
@@ -240,7 +241,7 @@ No hay una razón profunda para tener tanto funciones de flecha como expresiones
 ## La pila de llamadas
 
 {{indexsee pila, "pila de llamadas"}}
-{{index "pila de llamadas", [función, aplicación]}}
+{{index "pila de llamadas", ["función", "aplicación"]}}
 
 La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:
 
@@ -291,7 +292,7 @@ console.log(chicken() + " salió primero.");
 
 ## Argumentos Opcionales
 
-{{index argumento, [función, aplicación]}}
+{{index argumento, ["función", "aplicación"]}}
 
 El siguiente código está permitido y se ejecuta sin ningún problema:
 
@@ -349,7 +350,7 @@ console.log("C", "O", 2);
 
 ## Clausura
 
-{{index "pila de llamadas", "vinculación local", [función, "como valor"], alcance}}
+{{index "pila de llamadas", "vinculación local", ["función", "como valor"], alcance}}
 
 La capacidad de tratar las funciones como valores, combinada con el hecho de que las vinculaciones locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con las vinculaciones locales cuando la llamada a la función que las creó ya no está activa?El siguiente código muestra un ejemplo de esto. Define una función, `wrapValue`, que crea un enlace local. Luego devuelve una función que accede y devuelve este enlace local:
 
@@ -389,7 +390,7 @@ console.log(twice(5));
 
 El enlace explícito `local` del ejemplo `wrapValue` realmente no es necesario, ya que un parámetro es en sí mismo un enlace local.
 
-{{index [función, "modelo de"]}}
+{{index ["función", "modelo de"]}}
 
 Pensar en programas de esta manera requiere algo de práctica. Un buen modelo mental es pensar en los valores de función como que contienen tanto el código en su cuerpo como el entorno en el que fueron creados. Cuando se llama, el cuerpo de la función ve el entorno en el que fue creado, no el entorno en el que se llama.
 
@@ -397,7 +398,7 @@ En el ejemplo anterior, se llama a `multiplier` y crea un entorno en el que su p
 
 ## Recursión
 
-{{index "ejemplo de potencia", "desbordamiento de pila", "recursión", [función, aplicación]}}
+{{index "ejemplo de potencia", "desbordamiento de pila", "recursión", ["función", "aplicación"]}}
 
 Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama _recursiva_. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función `power`, que hace lo mismo que el operador `**` (exponenciación):
 
@@ -414,15 +415,15 @@ console.log(power(2, 3));
 // → 8
 ```
 
-{{index ciclo, legibilidad, matemáticas}}
+{{index ciclo, legibilidad, "matemáticas"}}
 
 Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en [Capítulo ?](estructura_programación). La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.
 
-{{index [función, "aplicación"], eficiencia}}
+{{index ["función", "aplicación"], eficiencia}}
 
 Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un `for` loop. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.
 
-{{index optimización}}
+{{index "optimización"}}
 
 El dilema de velocidad versus ((elegancia)) es interesante. Se puede ver como una especie de continuo entre amigabilidad humana y amigabilidad de máquina. Casi cualquier programa puede ser acelerado haciendo que sea más extenso y complicado. El programador debe encontrar un equilibrio apropiado.
 
@@ -498,17 +499,17 @@ La sangría indica la profundidad de la pila de llamadas. La primera vez que se 
 
 ## Crecimiento de funciones
 
-{{index [función, definición]}}
+{{index ["función", "definición"]}}
 
 Hay dos formas más o menos naturales de introducir funciones en los programas.
 
-{{index repetición}}
+{{index "repetición"}}
 
 La primera ocurre cuando te encuentras escribiendo código similar varias veces. Preferirías no hacer eso, ya que tener más código significa más espacio para que se escondan los errores y más material para que las personas que intentan entender el programa lo lean. Por lo tanto, tomas la funcionalidad repetida, encuentras un buen nombre para ella y la colocas en una función.
 
 La segunda forma es que te das cuenta de que necesitas alguna funcionalidad que aún no has escrito y que suena como si mereciera su propia función. Comienzas por nombrar la función, luego escribes su cuerpo. Incluso podrías comenzar a escribir código que use la función antes de definir la función en sí.
 
-{{index [función, nombramiento], [variable, nombramiento]}}
+{{index ["función", nombramiento], [variable, nombramiento]}}
 
 Lo difícil que es encontrar un buen nombre para una función es una buena indicación de lo claro que es el concepto que estás tratando de envolver. Vamos a través de un ejemplo.
 
@@ -567,7 +568,7 @@ function imprimirInventarioGranja(vacas, pollos, cerdos) {
 imprimirInventarioGranja(7, 11, 3);
 ```
 
-{{index [función, nombramiento]}}
+{{index ["función", nombramiento]}}
 
 ¡Funciona! Pero ese nombre, `imprimirConRellenoYEtiqueta`, es un poco incómodo. Confluye tres cosas: imprimir, rellenar con ceros y añadir una etiqueta, en una sola función.
 
@@ -597,7 +598,7 @@ imprimirInventarioGranja(7, 16, 3);
 
 Una función con un nombre claro y obvio como `rellenarConCeros` hace que sea más fácil para alguien que lee el código entender qué hace. Además, una función así es útil en más situaciones que solo este programa específico. Por ejemplo, podrías usarla para ayudar a imprimir tablas de números alineadas correctamente.
 
-{{index [interfaz, diseño]}}
+{{index [interfaz, "diseño"]}}
 
 ¿Qué tan inteligente y versátil _debería_ ser nuestra función? Podríamos escribir cualquier cosa, desde una función terriblemente simple que solo puede rellenar un número para que tenga tres caracteres de ancho hasta un sistema de formato de números generalizado complicado que maneje números fraccionarios, números negativos, alineación de puntos decimales, relleno con diferentes caracteres, y más.
 
@@ -607,15 +608,15 @@ Un principio útil es abstenerse de agregar ingenio a menos que estés absolutam
 
 ## Funciones y efectos secundarios
 
-{{index "efecto secundario", "función pura", [función, pureza]}}
+{{index "efecto secundario", "función pura", ["función", pureza]}}
 
 Las funciones pueden dividirse aproximadamente en aquellas que se llaman por sus efectos secundarios y aquellas que se llaman por su valor de retorno (aunque también es posible tener efectos secundarios y devolver un valor).
 
-{{index reutilización}}
+{{index "reutilización"}}
 
 La primera función auxiliar en el ((ejemplo de la granja)), `imprimirRellenadoConEtiqueta`, se llama por su efecto secundario: imprime una línea. La segunda versión, `rellenarConCero`, se llama por su valor de retorno. No es casualidad que la segunda sea útil en más situaciones que la primera. Las funciones que crean valores son más fáciles de combinar de nuevas formas que las funciones que realizan efectos secundarios directamente.
 
-{{index sustitución}}
+{{index "sustitución"}}
 
 Una función _pura_ es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de que una función pura esté funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.
 
