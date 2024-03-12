@@ -122,7 +122,9 @@ La información almacenada en un objeto de evento difiere según el tipo de even
 
 {{indexsee propagación, "propagación de evento"}}
 
-Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.{{index "manejo de eventos"}}
+Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.
+
+{{index "manejo de eventos"}}
 
 Pero si tanto el párrafo como el botón tienen un controlador, el controlador más específico —el del botón— tiene prioridad para ejecutarse primero. Se dice que el evento *se propaga* hacia afuera, desde el nodo donde ocurrió hacia el nodo padre de ese nodo y hasta la raíz del documento. Finalmente, después de que todos los controladores registrados en un nodo específico hayan tenido su turno, los controladores registrados en toda la ((ventana)) tienen la oportunidad de responder al evento.
 
@@ -176,7 +178,9 @@ Muchos eventos tienen una acción predeterminada asociada a ellos. Si haces clic
 
 {{index "método preventDefault"}}
 
-Para la mayoría de los tipos de eventos, los controladores de eventos de JavaScript se ejecutan _antes_ de que ocurra el comportamiento predeterminado. Si el controlador no desea que este comportamiento normal ocurra, típicamente porque ya se encargó de manejar el evento, puede llamar al método `preventDefault` en el objeto de evento.{{index de expectativas}}
+Para la mayoría de los tipos de eventos, los controladores de eventos de JavaScript se ejecutan _antes_ de que ocurra el comportamiento predeterminado. Si el controlador no desea que este comportamiento normal ocurra, típicamente porque ya se encargó de manejar el evento, puede llamar al método `preventDefault` en el objeto de evento.
+
+{{index expectativas}}
 
 Esto se puede utilizar para implementar tus propios atajos de teclado o menús contextuales. También se puede usar para interferir de manera molesta con el comportamiento que los usuarios esperan. Por ejemplo, aquí hay un enlace que no se puede seguir:
 
@@ -590,7 +594,9 @@ Algunos tipos de eventos pueden activarse rápidamente, muchas veces seguidas (c
 
 {{index "función setTimeout"}}
 
-Si necesitas hacer algo importante en un controlador de este tipo, puedes usar `setTimeout` para asegurarte de que no lo estás haciendo con demasiada frecuencia. Esto suele llamarse _((debouncing))_ el evento. Hay varios enfoques ligeramente diferentes para esto.{{index "textarea (etiqueta HTML)", "función clearTimeout", "evento keydown"}}
+Si necesitas hacer algo importante en un controlador de este tipo, puedes usar `setTimeout` para asegurarte de que no lo estás haciendo con demasiada frecuencia. Esto suele llamarse _((debouncing))_ el evento. Hay varios enfoques ligeramente diferentes para esto.
+
+{{index "textarea (etiqueta HTML)", "función clearTimeout", "evento keydown"}}
 
 En el primer ejemplo, queremos reaccionar cuando el usuario ha escrito algo, pero no queremos hacerlo inmediatamente para cada evento de entrada. Cuando están escribiendo rápidamente, solo queremos esperar hasta que ocurra una pausa. En lugar de realizar inmediatamente una acción en el controlador de eventos, establecemos un tiempo de espera. También limpiamos el tiempo de espera anterior (si existe) para que cuando los eventos ocurran cerca uno del otro (más cerca de nuestro retraso de tiempo de espera), el tiempo de espera del evento anterior se cancele.
 

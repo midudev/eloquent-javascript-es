@@ -185,13 +185,15 @@ El ejemplo del ((conjunto de datos)) contiene algunas piezas de información sob
 }
 ```
 
-Tal objeto nos informa sobre el nombre del script, los rangos Unicode asignados a él, la dirección en la que se escribe, el tiempo de origen (aproximado), si todavía se utiliza, y un enlace a más información. La dirección puede ser `"ltr"` para izquierda a derecha, `"rtl"` para derecha a izquierda (como se escribe el texto en árabe y hebreo) o `"ttb"` para arriba hacia abajo (como en la escritura mongola).{{index "método de segmento"}}
+Tal objeto nos informa sobre el nombre del script, los rangos Unicode asignados a él, la dirección en la que se escribe, el tiempo de origen (aproximado), si todavía se utiliza, y un enlace a más información. La dirección puede ser `"ltr"` para izquierda a derecha, `"rtl"` para derecha a izquierda (como se escribe el texto en árabe y hebreo) o `"ttb"` para arriba hacia abajo (como en la escritura mongola).
+
+{{index "método de segmento"}}
 
 La propiedad `ranges` contiene una matriz de ((rangos)) de caracteres Unicode, cada uno de los cuales es una matriz de dos elementos que contiene un límite inferior y un límite superior. Todos los códigos de caracteres dentro de estos rangos se asignan al guion. El límite inferior es inclusivo (el código 994 es un carácter copto) y el límite superior no es inclusivo (el código 1008 no lo es).
 
 ## Filtrado de arrays
 
-{{index [array, métodos], [array, filtrado], "método de filtrado", [función, "de orden superior"], "función de predicado"}}
+{{index [array, "métodos"], [array, filtrado], "método de filtrado", ["función", "de orden superior"], "función de predicado"}}
 
 Si queremos encontrar los guiones en el conjunto de datos que todavía se utilizan, la siguiente función puede ser útil. Filtra los elementos de una matriz que no pasan una prueba.
 
@@ -466,7 +468,9 @@ console.log(countBy([1, 2, 3, 4, 5], n => n > 2));
 // → [{name: false, count: 2}, {name: true, count: 3}]
 ```
 
-La función `countBy` espera una colección (cualquier cosa por la que podamos iterar con `for`/`of`) y una función que calcule un nombre de grupo para un elemento dado. Devuelve una matriz de objetos, cada uno de los cuales nombra un grupo y te dice el número de elementos que se encontraron en ese grupo.{{index "método find"}}
+La función `countBy` espera una colección (cualquier cosa por la que podamos iterar con `for`/`of`) y una función que calcule un nombre de grupo para un elemento dado. Devuelve una matriz de objetos, cada uno de los cuales nombra un grupo y te dice el número de elementos que se encontraron en ese grupo.
+
+{{index "método find"}}
 
 Utiliza otro método de array, `find`, que recorre los elementos en el array y devuelve el primero para el cual una función devuelve true. Devuelve `undefined` cuando no se encuentra dicho elemento.
 

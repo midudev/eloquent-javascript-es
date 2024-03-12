@@ -198,7 +198,9 @@ Si implementamos nuestro propio cargador de módulos, podemos hacerlo mejor. El 
 
 {{index "función require", [interfaz, módulo], "objeto exports"}}
 
-Un módulo CommonJS se ve como un script regular, pero tiene acceso a dos enlaces que utiliza para interactuar con otros módulos. El primero es una función llamada `require`. Cuando llamas a esto con el nombre del módulo de tu dependencia, se asegura de que el módulo esté cargado y devuelve su interfaz. El segundo es un objeto llamado `exports`, que es el objeto de interfaz para el módulo. Comienza vacío y agregas propiedades para definir los valores exportados.{{index "formatDate module", "Date class", "ordinal package", "date-names package"}}
+Un módulo CommonJS se ve como un script regular, pero tiene acceso a dos enlaces que utiliza para interactuar con otros módulos. El primero es una función llamada `require`. Cuando llamas a esto con el nombre del módulo de tu dependencia, se asegura de que el módulo esté cargado y devuelve su interfaz. El segundo es un objeto llamado `exports`, que es el objeto de interfaz para el módulo. Comienza vacío y agregas propiedades para definir los valores exportados.
+
+{{index "formatDate module", "Date class", "ordinal package", "date-names package"}}
 
 Este módulo de ejemplo CommonJS proporciona una función de formateo de fechas. Utiliza dos ((package))s de NPM: `ordinal` para convertir números en strings como `"1st"` y `"2nd"`, y `date-names` para obtener los nombres en inglés de los días de la semana y los meses. Exporta una única función, `formatDate`, que recibe un objeto `Date` y una cadena ((template)).
 
@@ -259,7 +261,9 @@ require.cache = Object.create(null);
 
 {{index "Function constructor", eval, security}}
 
-`Function` es una función interna de JavaScript que recibe una lista de argumentos (como una cadena separada por comas) y una cadena que contiene el cuerpo de la función, devolviendo un valor de función con esos argumentos y ese cuerpo. Este es un concepto interesante, ya que permite que un programa cree nuevas partes del programa a partir de datos de cadena, pero también es peligroso, ya que si alguien logra engañar a tu programa para que introduzca una cadena que ellos proporcionan en `Function`, pueden hacer que el programa haga cualquier cosa que quieran.{{index [archivo, acceso]}}
+`Function` es una función interna de JavaScript que recibe una lista de argumentos (como una cadena separada por comas) y una cadena que contiene el cuerpo de la función, devolviendo un valor de función con esos argumentos y ese cuerpo. Este es un concepto interesante, ya que permite que un programa cree nuevas partes del programa a partir de datos de cadena, pero también es peligroso, ya que si alguien logra engañar a tu programa para que introduzca una cadena que ellos proporcionan en `Function`, pueden hacer que el programa haga cualquier cosa que quieran.
+
+{{index [archivo, acceso]}}
 
 JavaScript estándar no proporciona una función como `readFile`, pero diferentes entornos de JavaScript, como el navegador y Node.js, proporcionan sus propias formas de acceder a los archivos. El ejemplo simplemente simula que `readFile` existe.
 
@@ -313,7 +317,9 @@ Incluso si no hay una función estándar o paquete ampliamente utilizado para im
 
 {{index "función pura"}}
 
-Esto señala otro aspecto útil del diseño de módulos—la facilidad con la que algo puede ser compuesto con otro código. Los módulos enfocados en calcular valores son aplicables en una gama más amplia de programas que los módulos más grandes que realizan acciones complicadas con efectos secundarios. Un lector de archivos INI que insiste en leer el archivo desde el disco es inútil en un escenario donde el contenido del archivo proviene de otra fuente.{{index "programación orientada a objetos"}}
+Esto señala otro aspecto útil del diseño de módulos—la facilidad con la que algo puede ser compuesto con otro código. Los módulos enfocados en calcular valores son aplicables en una gama más amplia de programas que los módulos más grandes que realizan acciones complicadas con efectos secundarios. Un lector de archivos INI que insiste en leer el archivo desde el disco es inútil en un escenario donde el contenido del archivo proviene de otra fuente.
+
+{{index "programación orientada a objetos"}}
 
 Relacionado con esto, a veces los objetos con estado son útiles o incluso necesarios, pero si algo se puede hacer con una función, utiliza una función. Varios de los lectores de archivos INI en NPM proporcionan un estilo de interfaz que requiere que primero crees un objeto, luego cargues el archivo en tu objeto, y finalmente uses métodos especializados para acceder a los resultados. Este tipo de enfoque es común en la tradición orientada a objetos, y es terrible. En lugar de hacer una sola llamada a función y continuar, debes realizar el ritual de mover tu objeto a través de sus diversos estados. Y debido a que los datos están envueltos en un tipo de objeto especializado, todo el código que interactúa con él debe conocer ese tipo, creando interdependencias innecesarias.
 

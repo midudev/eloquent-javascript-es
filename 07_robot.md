@@ -165,7 +165,9 @@ Desafortunadamente, aunque entender un sistema construido sobre estructuras de d
 
 {{index simulación, "mundo virtual"}}
 
-Un ((robot)) de entrega observa el mundo y decide en qué dirección quiere moverse. Como tal, podríamos decir que un robot es una función que toma un objeto `VillageState` y devuelve el nombre de un lugar cercano.{{index "función runRobot"}}
+Un ((robot)) de entrega observa el mundo y decide en qué dirección quiere moverse. Como tal, podríamos decir que un robot es una función que toma un objeto `VillageState` y devuelve el nombre de un lugar cercano.
+
+{{index "función runRobot"}}
 
 Dado que queremos que los robots puedan recordar cosas, para que puedan hacer y ejecutar planes, también les pasamos su memoria y les permitimos devolver una nueva memoria. Por lo tanto, lo que un robot devuelve es un objeto que contiene tanto la dirección en la que quiere moverse como un valor de memoria que se le dará la próxima vez que se llame.
 

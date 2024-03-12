@@ -103,7 +103,9 @@ Node comenzó utilizando el sistema de módulos CommonJS, basado en la función 
 
 {{index "palabra clave import", "módulos ES"}}
 
-Pero también soporta el sistema de módulos ES más moderno. Cuando el nombre de un script termina en `.mjs`, se considera que es un módulo de este tipo, y puedes usar `import` y `export` en él (pero no `require`). Utilizaremos módulos ES en este capítulo.{{index [path, "sistema de archivos"], "ruta relativa", resolución}}
+Pero también soporta el sistema de módulos ES más moderno. Cuando el nombre de un script termina en `.mjs`, se considera que es un módulo de este tipo, y puedes usar `import` y `export` en él (pero no `require`). Utilizaremos módulos ES en este capítulo.
+
+{{index [path, "sistema de archivos"], "ruta relativa", resolución}}
 
 Cuando se importa un módulo, ya sea con `require` o `import`, Node debe resolver la cadena proporcionada a un ((archivo)) real que pueda cargar. Los nombres que comienzan con `/`, `./` o `../` se resuelven como archivos, relativos a la ruta del módulo actual. Aquí, `.` representa el directorio actual, `../` para un directorio arriba, y `/` para la raíz del sistema de archivos. Por lo tanto, si solicitas `"./graph.mjs"` desde el archivo `/tmp/robot/robot.mjs`, Node intentará cargar el archivo `/tmp/robot/graph.mjs`.
 
@@ -267,7 +269,9 @@ El módulo `node:fs` contiene muchas otras funciones útiles: `readdir` te dará
 
 {{index ["programación asíncrona", "en Node.js"], "Node.js", "manejo de errores", "función de devolución de llamada"}}
 
-La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en [Capítulo ?](async), hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.{{index "Clase Promise", "paquete node:fs/promises"}}
+La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en [Capítulo ?](async), hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.
+
+{{index "Clase Promise", "paquete node:fs/promises"}}
 
 El módulo `node:fs/promises` exporta la mayoría de las mismas funciones que el antiguo módulo `node:fs`, pero utiliza promesas en lugar de funciones de devolución de llamada.
 
@@ -326,7 +330,9 @@ Así que, cuando abres esa página en tu navegador, envía una solicitud a tu pr
 
 {{index "200 (código de estado HTTP)", "encabezado Content-Type", "método writeHead"}}
 
-Para enviar algo al cliente, llamas a métodos en el objeto `respuesta`. El primero, `writeHead`, escribirá los ((encabezados de respuesta)) (ver [Capítulo ?](http#encabezados)). Le das el código de estado (200 para "OK" en este caso) y un objeto que contiene valores de encabezado. El ejemplo establece el encabezado `Content-Type` para informar al cliente que estaremos enviando de vuelta un documento HTML.{{index "flujo de escritura", "cuerpo (HTTP)", stream, "método write", "método end"}}
+Para enviar algo al cliente, llamas a métodos en el objeto `respuesta`. El primero, `writeHead`, escribirá los ((encabezados de respuesta)) (ver [Capítulo ?](http#encabezados)). Le das el código de estado (200 para "OK" en este caso) y un objeto que contiene valores de encabezado. El ejemplo establece el encabezado `Content-Type` para informar al cliente que estaremos enviando de vuelta un documento HTML.
+
+{{index "flujo de escritura", "cuerpo (HTTP)", stream, "método write", "método end"}}
 
 A continuación, el cuerpo real de la respuesta (el documento en sí) se envía con `response.write`. Se permite llamar a este método varias veces si deseas enviar la respuesta pieza por pieza, por ejemplo para transmitir datos al cliente a medida que estén disponibles. Por último, `response.end` señala el fin de la respuesta.
 
@@ -358,7 +364,9 @@ Es posible crear un flujo de escritura que apunte a un archivo con la función `
 
 {{index "createServer function", "función request", "manejo de eventos", "flujo legible"}}
 
-Los _flujos legibles_ son un poco más complejos. El argumento `request` para la devolución de llamada del servidor HTTP es un flujo legible. Leer de un flujo se hace utilizando manejadores de eventos, en lugar de métodos.{{index "método on", "método addEventListener"}}
+Los _flujos legibles_ son un poco más complejos. El argumento `request` para la devolución de llamada del servidor HTTP es un flujo legible. Leer de un flujo se hace utilizando manejadores de eventos, en lugar de métodos.
+
+{{index "método on", "método addEventListener"}}
 
 Los objetos que emiten eventos en Node tienen un método llamado `on` que es similar al método `addEventListener` en el navegador. Le das un nombre de evento y luego una función, y registrará esa función para que se llame cada vez que ocurra el evento dado.
 
@@ -667,7 +675,9 @@ hint}}
 
 {{index "ejemplo de servidor de archivos", "creación de directorios (ejercicio)", "función rmdir"}} 
 
-Aunque el método `DELETE` en nuestro servidor de archivos es capaz de eliminar directorios (usando `rmdir`), actualmente el servidor no proporciona ninguna forma de _crear_ un ((directorio)).{{index "MKCOL method", "mkdir function"}}
+Aunque el método `DELETE` en nuestro servidor de archivos es capaz de eliminar directorios (usando `rmdir`), actualmente el servidor no proporciona ninguna forma de _crear_ un ((directorio)).
+
+{{index "MKCOL method", "mkdir function"}}
 
 Añade soporte para el método `MKCOL` ("make collection"), que debería crear un directorio llamando a `mkdir` desde el módulo `node:fs`. `MKCOL` no es un método HTTP ampliamente utilizado, pero sí existe con este mismo propósito en el estándar _((WebDAV))_, el cual especifica un conjunto de convenciones sobre ((HTTP)) que lo hacen adecuado para crear documentos.
 

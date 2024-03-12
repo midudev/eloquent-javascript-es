@@ -546,7 +546,9 @@ Antes de mover al ((jugador)) o un bloque de ((lava)), probamos si el movimiento
 
 {{index discretización}}
 
-Este enfoque requiere que nuestros pasos de ((tiempo)) sean bastante pequeños, ya que hará que el movimiento se detenga antes de que los objetos realmente se toquen. Si los pasos de tiempo (y por lo tanto los pasos de movimiento) son demasiado grandes, el jugador terminaría elevándose a una distancia notable sobre el suelo. Otro enfoque, argumentablemente mejor pero más complicado, sería encontrar el punto exacto de colisión y moverse allí. Tomaremos el enfoque simple y ocultaremos sus problemas asegurando que la animación avance en pasos pequeños.{{index "obstacle", "método touches", "detección de colisiones"}}
+Este enfoque requiere que nuestros pasos de ((tiempo)) sean bastante pequeños, ya que hará que el movimiento se detenga antes de que los objetos realmente se toquen. Si los pasos de tiempo (y por lo tanto los pasos de movimiento) son demasiado grandes, el jugador terminaría elevándose a una distancia notable sobre el suelo. Otro enfoque, argumentablemente mejor pero más complicado, sería encontrar el punto exacto de colisión y moverse allí. Tomaremos el enfoque simple y ocultaremos sus problemas asegurando que la animación avance en pasos pequeños.
+
+{{index "obstáculo", "método touches", "detección de colisiones"}}
 
 {{id touches}}
 

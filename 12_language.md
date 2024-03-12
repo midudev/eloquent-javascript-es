@@ -49,7 +49,9 @@ do(define(x, 10),
 
 {{index bloque, [sintaxis, "de Egg"]}}
 
-La ((uniformidad)) del ((lenguaje Egg)) significa que las cosas que son ((operador))es en JavaScript (como `>`) son asignaciones normales en este lenguaje, aplicadas de la misma manera que otras ((funciones)). Y dado que la sintaxis no tiene concepto de bloque, necesitamos un constructo `do` para representar la realización de múltiples tareas en secuencia.{{index "propiedad tipo", análisis sintáctico, ["estructura de datos", árbol]}}
+La ((uniformidad)) del ((lenguaje Egg)) significa que las cosas que son ((operador))es en JavaScript (como `>`) son asignaciones normales en este lenguaje, aplicadas de la misma manera que otras ((funciones)). Y dado que la sintaxis no tiene concepto de bloque, necesitamos un constructo `do` para representar la realización de múltiples tareas en secuencia.
+
+{{index "propiedad tipo", "análisis sintáctico", ["estructura de datos", "árbol"]}}
 
 La estructura de datos que el analizador sintáctico utilizará para describir un programa consiste en objetos ((expresión)), cada uno de los cuales tiene una propiedad `type` que indica el tipo de expresión que es y otras propiedades para describir su contenido.
 
@@ -159,7 +161,9 @@ Si el próximo carácter en el programa no es un paréntesis de apertura, esto n
 
 De lo contrario, se salta el paréntesis de apertura y crea el objeto ((árbol sintáctico)) para esta expresión de aplicación. Luego llama recursivamente a `parseExpression` para analizar cada argumento hasta encontrar un paréntesis de cierre. La recursión es indirecta, a través de `parseApply` y `parseExpression` llamándose mutuamente.
 
-Dado que una expresión de aplicación puede a su vez ser aplicada (como en `multiplicador(2)(1)`), `parseApply` debe, después de analizar una aplicación, llamarse a sí misma nuevamente para verificar si sigue otro par de paréntesis.{{index "árbol de sintaxis", "lenguaje Egg", "función de análisis"}}
+Dado que una expresión de aplicación puede a su vez ser aplicada (como en `multiplicador(2)(1)`), `parseApply` debe, después de analizar una aplicación, llamarse a sí misma nuevamente para verificar si sigue otro par de paréntesis.
+
+{{index "árbol de sintaxis", "lenguaje Egg", "función de análisis"}}
 
 Esto es todo lo que necesitamos para analizar Egg. Lo envolvemos en una conveniente `parse` función que verifica que ha llegado al final de la cadena de entrada después de analizar la expresión (un programa Egg es una sola expresión), y que nos da la estructura de datos del programa.
 
@@ -227,7 +231,9 @@ El evaluador tiene código para cada uno de los tipos de expresión. Una expresi
 
 Las aplicaciones son más complicadas. Si son una ((forma especial)), como `if`, no evaluamos nada y pasamos las expresiones de argumento, junto con el ámbito, a la función que maneja esta forma. Si es una llamada normal, evaluamos el operador, verificamos que sea una función, y la llamamos con los argumentos evaluados.
 
-Usamos valores de función JavaScript simples para representar los valores de función de Egg. Volveremos a esto [más tarde](language#egg_fun), cuando se defina la forma especial llamada `fun`.{{index legibilidad, "función de evaluación", recursión, análisis sintáctico}}
+Usamos valores de función JavaScript simples para representar los valores de función de Egg. Volveremos a esto [más tarde](language#egg_fun), cuando se defina la forma especial llamada `fun`.
+
+{{index legibilidad, "función de evaluación", "recursión", "análisis sintáctico"}}
 
 La estructura recursiva de `evaluate` se asemeja a la estructura similar del analizador sintáctico, y ambos reflejan la estructura del lenguaje en sí. También sería posible combinar el analizador sintáctico y el evaluador en una sola función, y evaluar durante el análisis sintáctico. Pero dividirlos de esta manera hace que el programa sea más claro y flexible.
 
@@ -610,7 +616,9 @@ Esta ((ambigüedad)) causa un problema. Cuando intentas darle un nuevo valor a u
 
 {{index "tipo Error de Referencia"}}
 
-Agrega una forma especial `set`, similar a `define`, que da un nuevo valor a un enlace, actualizando el enlace en un ámbito exterior si aún no existe en el ámbito interior. Si el enlace no está definido en absoluto, lanza un `ReferenceError` (otro tipo de error estándar).{{index "hasOwn function", prototype, "getPrototypeOf function"}}
+Agrega una forma especial `set`, similar a `define`, que da un nuevo valor a un enlace, actualizando el enlace en un ámbito exterior si aún no existe en el ámbito interior. Si el enlace no está definido en absoluto, lanza un `ReferenceError` (otro tipo de error estándar).
+
+{{index "hasOwn function", prototype, "getPrototypeOf function"}}
 
 La técnica de representar los ámbitos como objetos simples, que hasta ahora ha sido conveniente, te causará un pequeño problema en este punto. Es posible que desees usar la función `Object.getPrototypeOf`, la cual devuelve el prototipo de un objeto. También recuerda que puedes utilizar `Object.hasOwn` para verificar si un objeto dado tiene una propiedad.
 

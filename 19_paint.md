@@ -38,7 +38,9 @@ El estado de la aplicación consiste en la imagen actual, la herramienta selecci
 
 Para entender por qué esto es importante, consideremos la alternativa: distribuir piezas de estado a lo largo de la interfaz. Hasta cierto punto, esto es más fácil de programar. Podemos simplemente agregar un ((campo de color)) y leer su valor cuando necesitemos saber el color actual.
 
-Pero luego agregamos el ((selector de colores)) —una herramienta que te permite hacer clic en la imagen para seleccionar el color de un píxel determinado. Para mantener el campo de color mostrando el color correcto, esa herramienta tendría que saber que el campo de color existe y actualizarlo cada vez que elige un nuevo color. Si alguna vez añades otro lugar que muestre el color (quizás el cursor del ratón podría mostrarlo), tendrías que actualizar tu código de cambio de color para mantener eso sincronizado también.{{index modularidad}}
+Pero luego agregamos el ((selector de colores)) —una herramienta que te permite hacer clic en la imagen para seleccionar el color de un píxel determinado. Para mantener el campo de color mostrando el color correcto, esa herramienta tendría que saber que el campo de color existe y actualizarlo cada vez que elige un nuevo color. Si alguna vez añades otro lugar que muestre el color (quizás el cursor del ratón podría mostrarlo), tendrías que actualizar tu código de cambio de color para mantener eso sincronizado también.
+
+{{index modularidad}}
 
 De hecho, esto crea un problema en el que cada parte de la interfaz necesita saber acerca de todas las demás partes, lo cual no es muy modular. Para aplicaciones pequeñas como la de este capítulo, eso puede no ser un problema. Para proyectos más grandes, puede convertirse en una verdadera pesadilla.
 
@@ -586,7 +588,9 @@ Para poder deshacer cambios, necesitamos almacenar versiones anteriores de la im
 
 {{index "propiedad done"}}
 
-Agregaremos una matriz `done` para mantener versiones anteriores de la ((imagen)). Mantener esta propiedad requiere una función de actualización de estado más complicada que añade imágenes a la matriz.{{index "propiedad doneAt", "función historyUpdateState", "función Date.now"}}
+Agregaremos una matriz `done` para mantener versiones anteriores de la ((imagen)). Mantener esta propiedad requiere una función de actualización de estado más complicada que añade imágenes a la matriz.
+
+{{index "propiedad doneAt", "función historyUpdateState", "función Date.now"}}
 
 Pero no queremos almacenar _cada_ cambio, solo los cambios que ocurran en un determinado espacio de ((tiempo)). Para poder hacer eso, necesitaremos una segunda propiedad, `doneAt`, que rastree la hora en la que almacenamos por última vez una imagen en el historial.
 
@@ -720,7 +724,9 @@ Agrega atajos de teclado a la aplicación. La primera letra del nombre de una he
 
 {{index "clase PixelEditor", "atributo tabindex", "función elt", "evento keydown"}}
 
-Haz esto modificando el componente `PixelEditor`. Agrega una propiedad `tabIndex` de 0 al elemento `<div>` envolvente para que pueda recibir el ((enfoque)) del teclado. Ten en cuenta que la _propiedad_ correspondiente al atributo `tabindex` se llama `tabIndex`, con una I mayúscula, y nuestra función `elt` espera nombres de propiedades. Registra los manejadores de eventos de teclas directamente en ese elemento. Esto significa que debes hacer clic, tocar o moverte al tabulador en la aplicación antes de poder interactuar con el teclado.{{index "propiedad ctrlKey", "propiedad metaKey", "tecla de control", "tecla de comando"}}
+Haz esto modificando el componente `PixelEditor`. Agrega una propiedad `tabIndex` de 0 al elemento `<div>` envolvente para que pueda recibir el ((enfoque)) del teclado. Ten en cuenta que la _propiedad_ correspondiente al atributo `tabindex` se llama `tabIndex`, con una I mayúscula, y nuestra función `elt` espera nombres de propiedades. Registra los manejadores de eventos de teclas directamente en ese elemento. Esto significa que debes hacer clic, tocar o moverte al tabulador en la aplicación antes de poder interactuar con el teclado.
+
+{{index "propiedad ctrlKey", "propiedad metaKey", "tecla de control", "tecla de comando"}}
 
 Recuerda que los eventos de teclado tienen las propiedades `ctrlKey` y `metaKey` (para la tecla [command]{keyname} en Mac) que puedes utilizar para ver si esas teclas están presionadas.
 

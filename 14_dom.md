@@ -53,7 +53,9 @@ El enlace global `document` nos da acceso a estos objetos. Su propiedad `documen
 
 {{index [anidamiento, "de objetos"]}}
 
-Piensa en los ((árbol sintáctico))s del [Capítulo ?](language#parsing) por un momento. Sus estructuras son sorprendentemente similares a la estructura de un documento de un navegador. Cada _((nodo))_ puede referirse a otros nodos, _hijos_, que a su vez pueden tener sus propios hijos. Esta forma es típica de estructuras anidadas donde los elementos pueden contener subelementos que son similares a ellos mismos.{{index "propiedad documentElement", [DOM, árbol]}}
+Piensa en los ((árbol sintáctico))s del [Capítulo ?](language#parsing) por un momento. Sus estructuras son sorprendentemente similares a la estructura de un documento de un navegador. Cada _((nodo))_ puede referirse a otros nodos, _hijos_, que a su vez pueden tener sus propios hijos. Esta forma es típica de estructuras anidadas donde los elementos pueden contener subelementos que son similares a ellos mismos.
+
+{{index "propiedad documentElement", [DOM, "árbol"]}}
 
 Llamamos a una estructura de datos un _((árbol))_ cuando tiene una estructura de ramificación, no tiene ((ciclo))s (un nodo no puede contenerse a sí mismo, directa o indirectamente), y tiene un _((raíz))_ única y bien definida. En el caso del DOM, `document.documentElement` sirve como la raíz.
 
@@ -119,7 +121,9 @@ En teoría, podrías moverte por todo el árbol utilizando solo estos enlaces pa
 
 {{index "children property", "text node", element}}
 
-También está la propiedad `children`, que es como `childNodes` pero contiene solo hijos de elementos (tipo 1), no otros tipos de nodos hijos. Esto puede ser útil cuando no estás interesado en nodos de texto.{{index "función talksAbout", recursión, [anidamiento, "de objetos"]}}
+También está la propiedad `children`, que es como `childNodes` pero contiene solo hijos de elementos (tipo 1), no otros tipos de nodos hijos. Esto puede ser útil cuando no estás interesado en nodos de texto.
+
+{{index "función talksAbout", "recursión", [anidamiento, "de objetos"]}}
 
 Cuando se trabaja con una estructura de datos anidada como esta, las funciones recursivas son frecuentemente útiles. La siguiente función examina un documento en busca de nodos de texto que contengan una cadena específica y devuelve `true` cuando ha encontrado uno:
 
@@ -241,7 +245,9 @@ Dada una cadena, `createTextNode` nos da un nodo de texto que podemos insertar e
 
 {{index "live data structure", "getElementsByTagName method", "childNodes property"}}
 
-El bucle que recorre las imágenes comienza al final de la lista. Esto es necesario porque la lista de nodos devuelta por un método como `getElementsByTagName` (o una propiedad como `childNodes`) es _dinámica_. Es decir, se actualiza a medida que el documento cambia. Si comenzáramos desde el principio, al quitar la primera imagen haría que la lista perdiera su primer elemento, por lo que la segunda vez que se repita el bucle, cuando `i` es 1, se detendría porque la longitud de la colección ahora también es 1.{{index "método slice"}}
+El bucle que recorre las imágenes comienza al final de la lista. Esto es necesario porque la lista de nodos devuelta por un método como `getElementsByTagName` (o una propiedad como `childNodes`) es _dinámica_. Es decir, se actualiza a medida que el documento cambia. Si comenzáramos desde el principio, al quitar la primera imagen haría que la lista perdiera su primer elemento, por lo que la segunda vez que se repita el bucle, cuando `i` es 1, se detendría porque la longitud de la colección ahora también es 1.
+
+{{index "método slice"}}
 
 Si quieres tener una colección _sólida_ de nodos, en lugar de una en vivo, puedes convertir la colección en un array real llamando a `Array.from`.
 
@@ -369,7 +375,9 @@ La manera más efectiva de encontrar la posición precisa de un elemento en la p
 
 {{index "propiedad `offsetHeight`", "método `getBoundingClientRect`", dibujo, pereza, rendimiento, eficiencia}}
 
-Diseñar un documento puede ser bastante trabajo. En aras de la rapidez, los motores de los navegadores no vuelven a diseñar inmediatamente un documento cada vez que se modifica, sino que esperan tanto como pueden. Cuando un programa de JavaScript que ha modificado el documento finaliza su ejecución, el navegador tendrá que calcular un nuevo diseño para dibujar el documento modificado en la pantalla. Cuando un programa _pide_ la posición o tamaño de algo leyendo propiedades como `offsetHeight` o llamando a `getBoundingClientRect`, proporcionar esa información también requiere calcular un ((diseño)).{{index "side effect", optimization, benchmark}}
+Diseñar un documento puede ser bastante trabajo. En aras de la rapidez, los motores de los navegadores no vuelven a diseñar inmediatamente un documento cada vez que se modifica, sino que esperan tanto como pueden. Cuando un programa de JavaScript que ha modificado el documento finaliza su ejecución, el navegador tendrá que calcular un nuevo diseño para dibujar el documento modificado en la pantalla. Cuando un programa _pide_ la posición o tamaño de algo leyendo propiedades como `offsetHeight` o llamando a `getBoundingClientRect`, proporcionar esa información también requiere calcular un ((diseño)).
+
+{{index "side effect", "optimización", benchmark}}
 
 Un programa que alterna repetidamente entre la lectura de información de diseño del DOM y el cambio del DOM provoca que se realicen muchas computaciones de diseño y, en consecuencia, se ejecute muy lentamente. El siguiente código es un ejemplo de esto. Contiene dos programas diferentes que construyen una línea de caracteres _X_ de 2,000 píxeles de ancho y mide el tiempo que lleva cada uno.
 
@@ -515,7 +523,9 @@ p#main.a.b {
 
 {{index "regla (CSS)"}}
 
-La regla de ((precedencia)) que favorece a la regla más recientemente definida se aplica solo cuando las reglas tienen la misma _((especificidad))_. La especificidad de una regla es una medida de qué tan precisamente describe los elementos que coinciden, determinada por el número y tipo (etiqueta, clase o ID) de aspectos de elementos que requiere. Por ejemplo, una regla que apunta a `p.a` es más específica que las reglas que apuntan a `p` o simplemente `.a` y, por lo tanto, tendría precedencia sobre ellas.{{index "direct child node"}}
+La regla de ((precedencia)) que favorece a la regla más recientemente definida se aplica solo cuando las reglas tienen la misma _((especificidad))_. La especificidad de una regla es una medida de qué tan precisamente describe los elementos que coinciden, determinada por el número y tipo (etiqueta, clase o ID) de aspectos de elementos que requiere. Por ejemplo, una regla que apunta a `p.a` es más específica que las reglas que apuntan a `p` o simplemente `.a` y, por lo tanto, tendría precedencia sobre ellas.
+
+{{index "direct child node"}}
 
 La notación `p > a {…}` aplica los estilos dados a todas las etiquetas `<a>` que son hijos directos de etiquetas `<p>`. De manera similar, `p a {…}` se aplica a todas las etiquetas `<a>` dentro de las etiquetas `<p>`, ya sean hijos directos o indirectos.
 
@@ -570,7 +580,9 @@ El método `querySelector` (sin la parte `All`) funciona de manera similar. Este
 
 {{index "position (CSS)", "relative positioning", "top (CSS)", "left (CSS)", "absolute positioning"}}
 
-La propiedad de estilo `position` influye en el diseño de una manera poderosa. De forma predeterminada, tiene un valor de `static`, lo que significa que el elemento se sitúa en su lugar normal en el documento. Cuando se establece en `relative`, el elemento sigue ocupando espacio en el documento, pero ahora las propiedades de estilo `top` y `left` se pueden usar para moverlo con respecto a ese lugar normal. Cuando `position` se establece en `absolute`, el elemento se elimina del flujo normal del documento, es decir, ya no ocupa espacio y puede superponerse con otros elementos. Además, sus propiedades de `top` y `left` se pueden usar para posicionarlo absolutamente con respecto a la esquina superior izquierda del elemento contenedor más cercano cuya propiedad de `position` no sea `static`, o con respecto al documento si no existe tal elemento contenedor.{{index [animación, "gato giratorio"]}}
+La propiedad de estilo `position` influye en el diseño de una manera poderosa. De forma predeterminada, tiene un valor de `static`, lo que significa que el elemento se sitúa en su lugar normal en el documento. Cuando se establece en `relative`, el elemento sigue ocupando espacio en el documento, pero ahora las propiedades de estilo `top` y `left` se pueden usar para moverlo con respecto a ese lugar normal. Cuando `position` se establece en `absolute`, el elemento se elimina del flujo normal del documento, es decir, ya no ocupa espacio y puede superponerse con otros elementos. Además, sus propiedades de `top` y `left` se pueden usar para posicionarlo absolutamente con respecto a la esquina superior izquierda del elemento contenedor más cercano cuya propiedad de `position` no sea `static`, o con respecto al documento si no existe tal elemento contenedor.
+
+{{index ["animación", "gato giratorio"]}}
 
 Podemos usar esto para crear una animación. El siguiente documento muestra una imagen de un gato que se mueve en una ((elipse)):
 
@@ -627,7 +639,9 @@ Moverse en ((círculos)) se hace utilizando las funciones trigonométricas `Math
 
 {{index coordenadas, pi}}
 
-`Math.cos` y `Math.sin` son útiles para encontrar puntos que se encuentran en un círculo alrededor del punto (0,0) con un radio de uno. Ambas funciones interpretan su argumento como la posición en este círculo, con cero denotando el punto en el extremo derecho del círculo, avanzando en el sentido de las agujas del reloj hasta que 2π (aproximadamente 6,28) nos ha llevado alrededor de todo el círculo. `Math.cos` te indica la coordenada x del punto que corresponde a la posición dada, y `Math.sin` devuelve la coordenada y. Las posiciones (o ángulos) mayores que 2π o menores que 0 son válidos, la rotación se repite de manera que _a_+2π se refiere al mismo ((ángulo)) que _a_.{{index "constante PI"}}
+`Math.cos` y `Math.sin` son útiles para encontrar puntos que se encuentran en un círculo alrededor del punto (0,0) con un radio de uno. Ambas funciones interpretan su argumento como la posición en este círculo, con cero denotando el punto en el extremo derecho del círculo, avanzando en el sentido de las agujas del reloj hasta que 2π (aproximadamente 6,28) nos ha llevado alrededor de todo el círculo. `Math.cos` te indica la coordenada x del punto que corresponde a la posición dada, y `Math.sin` devuelve la coordenada y. Las posiciones (o ángulos) mayores que 2π o menores que 0 son válidos, la rotación se repite de manera que _a_+2π se refiere al mismo ((ángulo)) que _a_.
+
+{{index "constante PI"}}
 
 Esta unidad para medir ángulos se llama ((radianes)) — un círculo completo son 2π radianes, similar a cómo son 360 grados al medir en grados. La constante π está disponible como `Math.PI` en JavaScript.
 

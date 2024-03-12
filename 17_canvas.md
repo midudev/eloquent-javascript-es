@@ -108,7 +108,9 @@ Al igual que en HTML (y SVG), el sistema de coordenadas que utiliza el lienzo si
 
 {{index relleno, trazado, dibujo, SVG}}
 
-En la interfaz de ((lienzo)), una forma puede ser _rellenada_, lo que significa que su área recibe un color o patrón determinado, o puede ser _trazada_, lo que significa que se dibuja una ((línea)) a lo largo de su borde. La misma terminología se utiliza en SVG.{{index "fillRect method", "strokeRect method"}}
+En la interfaz de ((lienzo)), una forma puede ser _rellenada_, lo que significa que su área recibe un color o patrón determinado, o puede ser _trazada_, lo que significa que se dibuja una ((línea)) a lo largo de su borde. La misma terminología se utiliza en SVG.
+
+{{index "fillRect method", "strokeRect method"}}
 
 El método `fillRect` rellena un ((rectángulo)). Primero toma las ((coordenadas)) x e y de la esquina superior izquierda del rectángulo, luego su ancho y finalmente su altura. Un método similar llamado `strokeRect` dibuja el ((contorno)) de un rectángulo.
 
@@ -850,7 +852,9 @@ SVG se puede utilizar para producir ((gráficos)) ((nítidos)) que se ven bien e
 
 {{index [DOM, graphics], SVG, "event handling", ["data structure", tree]}}
 
-Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que está haciendo el usuario o como parte de una ((animación)), hacerlo en un canvas puede ser innecesariamente costoso. El DOM también nos permite registrar manipuladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con canvas.{{index rendimiento, optimización}}
+Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que está haciendo el usuario o como parte de una ((animación)), hacerlo en un canvas puede ser innecesariamente costoso. El DOM también nos permite registrar manipuladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con canvas.
+
+{{index rendimiento, optimización}}
 
 Pero el enfoque orientado a píxeles de ((canvas)) puede ser una ventaja al dibujar una gran cantidad de elementos pequeños. El hecho de que no construye una estructura de datos, sino que solo dibuja repetidamente sobre la misma superficie de píxeles, hace que canvas tenga un menor costo por forma.
 

@@ -39,7 +39,9 @@ En un entorno sincrónico, donde la función de solicitud devuelve solo después
 
 {{index paralelismo}}
 
-La solución a este problema, en un sistema sincrónico, es iniciar ((hebra))s de control adicionales. Una _hebra_ es otro programa en ejecución cuya ejecución puede ser intercalada con otros programas por el sistema operativo, ya que la mayoría de las computadoras modernas contienen múltiples procesadores, múltiples hebras incluso podrían ejecutarse al mismo tiempo, en diferentes procesadores. Una segunda hebra podría iniciar la segunda solicitud, y luego ambas hebras esperan que sus resultados regresen, después de lo cual se resincronizan para combinar sus resultados.{{index CPU, bloqueo, "programación asíncrona", línea de tiempo, "función de devolución de llamada"}}
+La solución a este problema, en un sistema sincrónico, es iniciar ((hebra))s de control adicionales. Una _hebra_ es otro programa en ejecución cuya ejecución puede ser intercalada con otros programas por el sistema operativo, ya que la mayoría de las computadoras modernas contienen múltiples procesadores, múltiples hebras incluso podrían ejecutarse al mismo tiempo, en diferentes procesadores. Una segunda hebra podría iniciar la segunda solicitud, y luego ambas hebras esperan que sus resultados regresen, después de lo cual se resincronizan para combinar sus resultados.
+
+{{index CPU, bloqueo, "programación asíncrona", "línea de tiempo", "función de devolución de llamada"}}
 
 En el siguiente diagrama, las líneas gruesas representan el tiempo que el programa pasa funcionando normalmente, y las líneas delgadas representan el tiempo gastado esperando a la red. En el modelo síncrono, el tiempo tomado por la red es _parte_ de la línea de tiempo para un hilo de control dado. En el modelo asíncrono, iniciar una acción en la red permite que el programa continúe ejecutándose mientras la comunicación en la red sucede junto a él, notificando al programa cuando haya terminado.
 
@@ -67,7 +69,9 @@ Como ejemplo, la función `setTimeout`, disponible tanto en Node.js como en los 
 setTimeout(() => console.log("Tick"), 500);
 ```
 
-Esperar no suele ser un tipo de trabajo muy importante, pero puede ser muy útil cuando necesitas organizar que algo suceda en un momento determinado o verificar si alguna otra acción está tomando más tiempo del esperado.{{index "función readTextFile"}}
+Esperar no suele ser un tipo de trabajo muy importante, pero puede ser muy útil cuando necesitas organizar que algo suceda en un momento determinado o verificar si alguna otra acción está tomando más tiempo del esperado.
+
+{{index "función readTextFile"}}
 
 Otro ejemplo de una operación asincrónica común es leer un archivo desde el almacenamiento de un dispositivo. Imagina que tienes una función `readTextFile`, la cual lee el contenido de un archivo como una cadena y lo pasa a una función de devolución de llamada.
 
@@ -342,7 +346,9 @@ Esta versión muestra de manera más clara la estructura de doble bucle de la fu
 
 {{index "async function", "return keyword", "exception handling"}}
 
-Una función `async` está marcada con la palabra `async` antes de la palabra clave `function`. Los métodos también pueden ser marcados como `async` escribiendo `async` antes de su nombre. Cuando se llama a una función o método de esta manera, devuelve una promesa. Tan pronto como la función devuelve algo, esa promesa se resuelve. Si el cuerpo genera una excepción, la promesa es rechazada.{{index "await keyword", ["control flow", asynchronous]}}
+Una función `async` está marcada con la palabra `async` antes de la palabra clave `function`. Los métodos también pueden ser marcados como `async` escribiendo `async` antes de su nombre. Cuando se llama a una función o método de esta manera, devuelve una promesa. Tan pronto como la función devuelve algo, esa promesa se resuelve. Si el cuerpo genera una excepción, la promesa es rechazada.
+
+{{index "await keyword", ["control flow", "asincronía"]}}
 
 Dentro de una función `async`, la palabra `await` puede colocarse delante de una expresión para esperar a que una promesa se resuelva y luego continuar con la ejecución de la función. Si la promesa es rechazada, se genera una excepción en el punto del `await`.
 
@@ -687,7 +693,9 @@ if}}
 
 Necesitarás convertir el contenido de estos archivos en un array. La forma más fácil de hacerlo es utilizando el método `split` en la cadena producida por `textFile`. Ten en cuenta que para los archivos de registro, eso seguirá dándote un array de cadenas, que debes convertir a números antes de pasarlos a `new Date`.
 
-Resumir todos los puntos temporales en una tabla de horas se puede hacer creando una tabla (array) que contenga un número para cada hora del día. Luego puedes recorrer todos los marca de tiempos (sobre los archivos de registro y los números en cada archivo de registro) y, para cada uno, si sucedió en el día correcto, toma la hora en que ocurrió y suma uno al número correspondiente en la tabla.{{index "función async", "palabra clave await", "clase Promise"}}
+Resumir todos los puntos temporales en una tabla de horas se puede hacer creando una tabla (array) que contenga un número para cada hora del día. Luego puedes recorrer todos los marca de tiempos (sobre los archivos de registro y los números en cada archivo de registro) y, para cada uno, si sucedió en el día correcto, toma la hora en que ocurrió y suma uno al número correspondiente en la tabla.
+
+{{index "función async", "palabra clave await", "clase Promise"}}
 
 Asegúrate de usar `await` en el resultado de las funciones asíncronas antes de hacer cualquier cosa con él, o terminarás con una `Promise` donde esperabas un string.
 
@@ -758,7 +766,9 @@ function activityTable(día) {
 
 {{index "palabra clave await", programación de planificación}}
 
-Lo que muestra que la forma en que estructuras tus promesas puede tener un efecto real en la forma en que se programa el trabajo. Un simple bucle con `await` hará que el proceso sea completamente lineal: espera a que se cargue cada archivo antes de continuar. `Promise.all` hace posible que varias tareas sean trabajadas conceptualmente al mismo tiempo, permitiéndoles progresar mientras los archivos aún se están cargando. Esto puede ser más rápido, pero también hace que el orden en que sucederán las cosas sea menos predecible. En este caso, donde solo vamos a estar incrementando números en una tabla, eso no es difícil de hacer de manera segura. Para otros tipos de problemas, puede ser mucho más difícil.{{index "rechazar (una promesa)", "método then"}}
+Lo que muestra que la forma en que estructuras tus promesas puede tener un efecto real en la forma en que se programa el trabajo. Un simple bucle con `await` hará que el proceso sea completamente lineal: espera a que se cargue cada archivo antes de continuar. `Promise.all` hace posible que varias tareas sean trabajadas conceptualmente al mismo tiempo, permitiéndoles progresar mientras los archivos aún se están cargando. Esto puede ser más rápido, pero también hace que el orden en que sucederán las cosas sea menos predecible. En este caso, donde solo vamos a estar incrementando números en una tabla, eso no es difícil de hacer de manera segura. Para otros tipos de problemas, puede ser mucho más difícil.
+
+{{index "rechazar (una promesa)", "método then"}}
 
 Cuando un archivo en la lista no existe, la promesa devuelta por `textFile` será rechazada. Debido a que `Promise.all` se rechaza si alguna de las promesas que se le pasan falla, el valor de retorno de la devolución de llamada dada al primer `then` también será una promesa rechazada. Esto hace que la promesa devuelta por `then` falle, por lo que la devolución de llamada dada al segundo `then` ni siquiera se llama, y se devuelve una promesa rechazada desde la función.
 

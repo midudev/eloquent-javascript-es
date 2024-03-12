@@ -70,7 +70,9 @@ Antes de comenzar a diseñar el servidor o el cliente, pensemos en el punto dond
 
 {{index [ruta, URL], [método, HTTP]}}
 
-Utilizaremos ((JSON)) como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del [Capítulo ?](node#file_server), intentaremos hacer un buen uso de los métodos y ((cabecera))s HTTP. La interfaz se centra en la ruta `/talks`. Las rutas que no comienzan con `/talks` se utilizarán para servir ((archivos estáticos))—el código HTML y JavaScript para el sistema del lado del cliente.{{index "Método GET"}}
+Utilizaremos ((JSON)) como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del [Capítulo ?](node#file_server), intentaremos hacer un buen uso de los métodos y ((cabecera))s HTTP. La interfaz se centra en la ruta `/talks`. Las rutas que no comienzan con `/talks` se utilizarán para servir ((archivos estáticos))—el código HTML y JavaScript para el sistema del lado del cliente.
+
+{{index "Método GET"}}
 
 Una solicitud `GET` a `/talks` devuelve un documento JSON como este:
 
@@ -684,7 +686,9 @@ async function pollTalks(update) {
 
 {{index "función asincrónica"}}
 
-Esta es una función `async` para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.{{index "manejo de errores", "clase Promise", "función setTimeout"}}
+Esta es una función `async` para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.
+
+{{index "manejo de errores", "clase Promise", "función setTimeout"}}
 
 Cuando una solicitud falla, la función espera un momento y luego intenta nuevamente. De esta manera, si tu conexión de red se interrumpe por un tiempo y luego vuelve, la aplicación puede recuperarse y continuar actualizándose. La promesa resuelta a través de `setTimeout` es una forma de forzar a la función `async` a esperar.
 

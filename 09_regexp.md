@@ -127,7 +127,9 @@ console.log(dateTime.test("30-ene-2003 15:20"));
 
 {{index [escape, "en regexps"], "expresión regular", conjunto}}
 
-Estos códigos de barra invertida también se pueden usar dentro de ((corchetes)). Por ejemplo, `[\d.]` significa cualquier dígito o un carácter de punto. Pero el punto en sí, entre corchetes, pierde su significado especial. Lo mismo ocurre con otros caracteres especiales, como `+`.{{index "corchetes cuadrados", inversión, "carácter circunflejo"}}
+Estos códigos de barra invertida también se pueden usar dentro de ((corchetes)). Por ejemplo, `[\d.]` significa cualquier dígito o un carácter de punto. Pero el punto en sí, entre corchetes, pierde su significado especial. Lo mismo ocurre con otros caracteres especiales, como `+`.
+
+{{index "corchetes cuadrados", "inversión", "carácter circunflejo"}}
 
 Para _invertir_ un conjunto de caracteres, es decir, expresar que deseas hacer coincidir cualquier carácter _excepto_ los que están en el conjunto, puedes escribir un carácter circunflejo (`^`) después del corchete de apertura.
 
@@ -382,7 +384,9 @@ Desafortunadamente, `getDate` también extraerá felizmente una fecha de la cade
 
 {{index límite, "carácter circunflejo", "signo de dólar"}}
 
-Si queremos asegurar que la coincidencia abarque toda la cadena, podemos agregar los marcadores `^` y `$`. El circunflejo coincide con el inicio de la cadena de entrada, mientras que el signo de dólar coincide con el final. Por lo tanto, `/^\d+$/` coincide con una cadena que consiste completamente de uno o más dígitos, `/^!/` coincide con cualquier cadena que comience con un signo de exclamación y `/x^/` no coincide con ninguna cadena (no puede haber una _x_ antes del inicio de la cadena).{{index "límite de palabra", "carácter de palabra"}}
+Si queremos asegurar que la coincidencia abarque toda la cadena, podemos agregar los marcadores `^` y `$`. El circunflejo coincide con el inicio de la cadena de entrada, mientras que el signo de dólar coincide con el final. Por lo tanto, `/^\d+$/` coincide con una cadena que consiste completamente de uno o más dígitos, `/^!/` coincide con cualquier cadena que comience con un signo de exclamación y `/x^/` no coincide con ninguna cadena (no puede haber una _x_ antes del inicio de la cadena).
+
+{{index "límite de palabra", "carácter de palabra"}}
 
 También existe un marcador `\b`, que coincide con los "límites de palabra", posiciones que tienen un carácter de palabra a un lado y un carácter que no es de palabra al otro. Desafortunadamente, estos utilizan el mismo concepto simplista de caracteres de palabra que `\w`, por lo que no son muy confiables.
 

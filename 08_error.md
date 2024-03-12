@@ -149,7 +149,9 @@ test("no convertir caracteres sin caso", () => {
 
 {{index "lenguaje específico de dominio"}}
 
-Escribir pruebas de esta forma tiende a producir código bastante repetitivo y torpe. Afortunadamente, existen software que te ayudan a construir y ejecutar colecciones de pruebas (_((suites de pruebas))_) al proporcionar un lenguaje (en forma de funciones y métodos) adecuado para expresar pruebas y al producir información informativa cuando una prueba falla. Estos suelen llamarse _((corredores de pruebas))_.{{index "estructura de datos persistente"}}
+Escribir pruebas de esta forma tiende a producir código bastante repetitivo y torpe. Afortunadamente, existen software que te ayudan a construir y ejecutar colecciones de pruebas (_((suites de pruebas))_) al proporcionar un lenguaje (en forma de funciones y métodos) adecuado para expresar pruebas y al producir información informativa cuando una prueba falla. Estos suelen llamarse _((corredores de pruebas))_.
+
+{{index "estructura de datos persistente"}}
 
 Alguno código es más fácil de probar que otro código. Generalmente, cuantos más objetos externos interactúan con el código, más difícil es configurar el contexto para probarlo. El estilo de programación mostrado en el [capítulo anterior](robot), que utiliza valores persistentes autocontenidos en lugar de objetos cambiantes, tiende a ser fácil de probar.
 
@@ -309,7 +311,9 @@ La palabra clave `throw` se utiliza para lanzar una excepción. La captura de un
 
 {{index depuración, "pila de llamadas", "Tipo de error"}}
 
-En este caso, utilizamos el ((constructor)) `Error` para crear nuestro valor de excepción. Este es un constructor de JavaScript ((estándar)) que crea un objeto con una propiedad `message`. Las instancias de `Error` también recopilan información sobre la pila de llamadas que existía cuando se creó la excepción, una llamada _((traza de pila))_. Esta información se almacena en la propiedad `stack` y puede ser útil al intentar depurar un problema: nos indica la función donde ocurrió el problema y qué funciones realizaron la llamada fallida.{{index "manejo de excepciones"}}
+En este caso, utilizamos el ((constructor)) `Error` para crear nuestro valor de excepción. Este es un constructor de JavaScript ((estándar)) que crea un objeto con una propiedad `message`. Las instancias de `Error` también recopilan información sobre la pila de llamadas que existía cuando se creó la excepción, una llamada _((traza de pila))_. Esta información se almacena en la propiedad `stack` y puede ser útil al intentar depurar un problema: nos indica la función donde ocurrió el problema y qué funciones realizaron la llamada fallida.
+
+{{index "manejo de excepciones"}}
 
 Ten en cuenta que la función `look` ignora por completo la posibilidad de que `promptDirection` pueda fallar. Esta es la gran ventaja de las excepciones: el código de manejo de errores solo es necesario en el punto donde ocurre el error y en el punto donde se maneja. Las funciones intermedias pueden olvidarse por completo de ello.
 

@@ -134,7 +134,9 @@ El documento comienza con `<!doctype html>`, lo que indica al navegador interpre
 
 {{index "head (etiqueta HTML)", "body (etiqueta HTML)", "title (etiqueta HTML)", "h1 (etiqueta HTML)", "p (etiqueta HTML)"}}
 
-Los documentos HTML tienen una cabecera y un cuerpo. La cabecera contiene información _sobre_ el documento, y el cuerpo contiene el documento en sí. En este caso, la cabecera declara que el título de este documento es "Mi página de inicio" y que utiliza la codificación UTF-8, que es una forma de codificar texto Unicode como datos binarios. El cuerpo del documento contiene un encabezado (`<h1>`, que significa "encabezado 1" —`<h2>` a `<h6>` producen subencabezados) y dos ((párrafo))s (`<p>`).{{index "atributo href", "a (etiqueta HTML)"}}
+Los documentos HTML tienen una cabecera y un cuerpo. La cabecera contiene información _sobre_ el documento, y el cuerpo contiene el documento en sí. En este caso, la cabecera declara que el título de este documento es "Mi página de inicio" y que utiliza la codificación UTF-8, que es una forma de codificar texto Unicode como datos binarios. El cuerpo del documento contiene un encabezado (`<h1>`, que significa "encabezado 1" —`<h2>` a `<h6>` producen subencabezados) y dos ((párrafo))s (`<p>`).
+
+{{index "atributo href", "a (etiqueta HTML)"}}
 
 Las etiquetas vienen en varias formas. Un ((elemento)), como el cuerpo, un párrafo o un enlace, comienza con una _((etiqueta de apertura))_ como `<p>` y finaliza con una _((etiqueta de cierre))_ como `</p>`. Algunas etiquetas de apertura, como la de ((enlace)) (`<a>`), contienen información adicional en forma de pares `nombre="valor"`. Estos se llaman _((atributo))s_. En este caso, el destino del enlace se indica con `href="http://eloquentjavascript.net"`, donde `href` significa "hipervínculo de referencia".
 
