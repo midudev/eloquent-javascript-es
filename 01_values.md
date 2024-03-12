@@ -22,7 +22,7 @@ Imagina una mar de bits—un océano de ellos. Una computadora moderna típica t
 
 Para poder trabajar con tales cantidades de bits sin perderse, los separamos en trozos que representan piezas de información. En un entorno de JavaScript, esos trozos se llaman _((valor))es_. Aunque todos los valores están hechos de bits, desempeñan roles diferentes. Cada valor tiene un ((tipo)) que determina su función. Algunos valores son números, otros son fragmentos de texto, otros son funciones, y así sucesivamente.
 
-Para crear un valor, simplemente debes invocar su nombre. Esto es conveniente. No tienes que recolectar material de construcción para tus valores ni pagar por ellos. Solo solicitas uno, y ¡zas!, lo tienes. Por supuesto, los valores no se crean realmente de la nada. Cada uno tiene que almacenarse en algún lugar, y si deseas usar gigantescas cantidades de ellos al mismo tiempo, podrías quedarte sin memoria de computadora. Afortunadamente, este es un problema solo si los necesitas todos simultáneamente. Tan pronto como dejes de usar un valor, se disipará, dejando atrás sus bits para ser reciclados como material de construcción para la próxima generación de valores.El resto de este capítulo presenta los elementos atómicos de los programas de JavaScript, es decir, los tipos de valores simples y los operadores que pueden actuar sobre dichos valores.
+Para crear un valor, simplemente debes invocar su nombre. Esto es conveniente. No tienes que recolectar material de construcción para tus valores ni pagar por ellos. Solo solicitas uno, y ¡zas!, lo tienes. Por supuesto, los valores no se crean realmente de la nada. Cada uno tiene que almacenarse en algún lugar, y si deseas usar gigantescas cantidades de ellos al mismo tiempo, podrías quedarte sin memoria de computadora. Afortunadamente, este es un problema solo si los necesitas todos simultáneamente. Tan pronto como dejes de usar un valor, se disipará, dejando atrás sus bits para ser reciclados como material de construcción para la próxima generación de valores. El resto de este capítulo presenta los elementos atómicos de los programas de JavaScript, es decir, los tipos de valores simples y los operadores que pueden actuar sobre dichos valores.
 
 ## Números
 
@@ -163,7 +163,7 @@ Las cadenas también deben ser modeladas como una serie de bits para poder exist
 
 {{index "UTF-16", emoji}}
 
-Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?] (higher_order#code_units).
+Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?](higher_order#code_units).
 
 {{index "operador +", "concatenación"}}
 
@@ -326,7 +326,7 @@ Este se llama el operador _condicional_ (o a veces simplemente _el operador tern
 
 {{index indefinido, nulo}}
 
-Hay dos valores especiales, escritos `null` y `undefined`, que se utilizan para denotar la ausencia de un valor _significativo_. Son valores en sí mismos, pero no llevan ninguna información.Muchas operaciones en el lenguaje que no producen un valor significativo devuelven `undefined` simplemente porque tienen que devolver _algún_ valor.
+Hay dos valores especiales, escritos `null` y `undefined`, que se utilizan para denotar la ausencia de un valor _significativo_. Son valores en sí mismos, pero no llevan ninguna información. Muchas operaciones en el lenguaje que no producen un valor significativo devuelven `undefined` simplemente porque tienen que devolver _algún_ valor.
 
 La diferencia en el significado entre `undefined` y `null` es un accidente del diseño de JavaScript, y la mayoría de las veces no importa. En casos en los que realmente tienes que preocuparte por estos valores, recomiendo tratarlos como en su mayoría intercambiables.
 
@@ -372,7 +372,7 @@ Ese comportamiento a menudo es útil. Cuando quieres probar si un valor tiene un
 
 {{index "coerción de tipos", [Boolean, "conversión a"], "=== operador", "!== operador", "comparación"}}
 
-¿Qué sucede si quieres probar si algo se refiere al valor preciso `false`? Expresiones como `0 == false` y `"" == false` también son verdaderas debido a la conversión automática de tipos. Cuando _no_ deseas que ocurran conversiones de tipo, hay dos operadores adicionales: `===` y `!==`. El primero prueba si un valor es _precisamente_ igual al otro, y el segundo prueba si no es precisamente igual. Por lo tanto, `"" === false` es falso como se espera.Recomiendo usar los operadores de comparación de tres caracteres defensivamente para evitar conversiones de tipo inesperadas que puedan complicarte las cosas. Pero cuando estés seguro de que los tipos en ambos lados serán los mismos, no hay problema en usar los operadores más cortos.
+¿Qué sucede si quieres probar si algo se refiere al valor preciso `false`? Expresiones como `0 == false` y `"" == false` también son verdaderas debido a la conversión automática de tipos. Cuando _no_ deseas que ocurran conversiones de tipo, hay dos operadores adicionales: `===` y `!==`. El primero prueba si un valor es _precisamente_ igual al otro, y el segundo prueba si no es precisamente igual. Por lo tanto, `"" === false` es falso como se espera. Recomiendo usar los operadores de comparación de tres caracteres defensivamente para evitar conversiones de tipo inesperadas que puedan complicarte las cosas. Pero cuando estés seguro de que los tipos en ambos lados serán los mismos, no hay problema en usar los operadores más cortos.
 
 ### Cortocircuito de operadores lógicos
 
@@ -420,6 +420,6 @@ El operador condicional funciona de manera similar. De los valores segundo y ter
 
 ## Resumen
 
-En este capítulo examinamos cuatro tipos de valores en JavaScript: números, cadenas, Booleanos y valores indefinidos. Tales valores son creados escribiendo su nombre (`true`, `null`) o valor (`13`, `"abc"`).Puedes combinar y transformar valores con operadores. Vimos operadores binarios para aritmética (`+`, `-`, `*`, `/` y `%`), concatenación de cadenas (`+`), comparación (`==`, `!=`, `===`, `!==`, `<`, `>`, `<=`, `>=`) y lógica (`&&`, `||`, `??`), así como varios operadores unarios (`-` para negar un número, `!` para negar lógicamente, y `typeof` para encontrar el tipo de un valor) y un operador ternario (`?:`) para elegir uno de dos valores basado en un tercer valor.
+En este capítulo examinamos cuatro tipos de valores en JavaScript: números, cadenas, Booleanos y valores indefinidos. Tales valores son creados escribiendo su nombre (`true`, `null`) o valor (`13`, `"abc"`). Puedes combinar y transformar valores con operadores. Vimos operadores binarios para aritmética (`+`, `-`, `*`, `/` y `%`), concatenación de cadenas (`+`), comparación (`==`, `!=`, `===`, `!==`, `<`, `>`, `<=`, `>=`) y lógica (`&&`, `||`, `??`), así como varios operadores unarios (`-` para negar un número, `!` para negar lógicamente, y `typeof` para encontrar el tipo de un valor) y un operador ternario (`?:`) para elegir uno de dos valores basado en un tercer valor.
 
 Esto te proporciona suficiente información para usar JavaScript como una calculadora de bolsillo, pero no mucho más. El [próximo capítulo](program_structure) comenzará a unir estas expresiones en programas básicos.

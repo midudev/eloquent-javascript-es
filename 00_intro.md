@@ -195,7 +195,9 @@ El hecho de que JavaScript esté evolucionando significa que los navegadores tie
 
 {{index [JavaScript, "usos de"]}}
 
-Los navegadores web no son las únicas plataformas en las que se utiliza JavaScript. Algunas bases de datos, como MongoDB y CouchDB, utilizan JavaScript como su lenguaje de secuencias de comandos y consulta. Varias plataformas para programación de escritorio y servidores, especialmente el proyecto ((Node.js)) (el tema del [Capítulo ?](node)), proporcionan un entorno para programar en JavaScript fuera del navegador.## Código y qué hacer con él
+Los navegadores web no son las únicas plataformas en las que se utiliza JavaScript. Algunas bases de datos, como MongoDB y CouchDB, utilizan JavaScript como su lenguaje de secuencias de comandos y consulta. Varias plataformas para programación de escritorio y servidores, especialmente el proyecto ((Node.js)) (el tema del [Capítulo ?](node)), proporcionan un entorno para programar en JavaScript fuera del navegador.
+
+## Código y qué hacer con él
 
 {{index "leer código", "escribir código"}}
 
