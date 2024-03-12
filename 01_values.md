@@ -114,9 +114,11 @@ Hay tres valores especiales en JavaScript que se consideran números pero no se 
 
 ## Cadenas
 
-{{indexsee "acento grave", comilla invertida}}
+{{indexsee "acento grave", "comilla invertida"}}
 
-{{index [sintaxis, cadena], texto, carácter, [cadena, notación], "comilla simple", "comilla doble", comillas, comilla invertida}}El siguiente tipo de dato básico es la _((cadena))_. Las cadenas se utilizan para representar texto. Se escriben encerrando su contenido entre comillas.
+{{index [sintaxis, cadena], texto, "carácter", [cadena, notación], "comilla simple", "comilla doble", comillas, comilla invertida}}
+
+El siguiente tipo de dato básico es la _((cadena))_. Las cadenas se utilizan para representar texto. Se escriben encerrando su contenido entre comillas.
 
 ```
 `En el mar`
@@ -153,7 +155,7 @@ Por supuesto, hay situaciones en las que deseas que una barra invertida en una c
 
 {{id unicode}}
 
-{{index [cadena, representación], Unicode, carácter}}
+{{index [cadena, "representación"], Unicode, "carácter"}}
 
 Las cadenas también deben ser modeladas como una serie de bits para poder existir dentro de la computadora. La forma en que JavaScript lo hace se basa en el estándar _((Unicode))_. Este estándar asigna un número a prácticamente cada carácter que puedas necesitar, incluidos los caracteres griegos, árabes, japoneses, armenios, y así sucesivamente. Si tenemos un número para cada carácter, una cadena puede ser descrita por una secuencia de números. Y eso es lo que hace JavaScript.
 
@@ -161,7 +163,7 @@ Las cadenas también deben ser modeladas como una serie de bits para poder exist
 
 Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?] (higher_order#code_units).
 
-{{index "operador +", concatenación}}
+{{index "operador +", "concatenación"}}
 
 Las cadenas no se pueden dividir, multiplicar o restar. El operador `+` se puede usar en ellas, no para sumar, sino para _concatenar_ —unir dos cadenas. La siguiente línea producirá la cadena `"concatenar"`:
 
@@ -171,7 +173,7 @@ Las cadenas no se pueden dividir, multiplicar o restar. El operador `+` se puede
 
 Los valores de cadena tienen una serie de funciones asociadas (_métodos_) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en [Capítulo ?](data#methods).
 
-{{index interpolación, acento grave}}
+{{index "interpolación", acento grave}}
 
 Las cadenas escritas con comillas simples o dobles se comportan de manera muy similar, la única diferencia radica en qué tipo de comilla necesitas escapar dentro de ellas. Las cadenas entre acentos graves, generalmente llamadas _((template literals))_, pueden hacer algunas cosas más. Aparte de poder abarcar varias líneas, también pueden incrustar otros valores.
 
@@ -200,7 +202,7 @@ console.log(typeof "x")
 
 Utilizaremos `console.log` en ejemplos de código para indicar que queremos ver el resultado de evaluar algo. Más sobre eso en el [próximo capítulo](program_structure).
 
-{{index negación, "- operador", "operador binario", "operador unario"}}
+{{index "negación", "- operador", "operador binario", "operador unario"}}
 
 Los otros operadores mostrados hasta ahora en este capítulo operaron sobre dos valores, pero `typeof` toma solo uno. Los operadores que utilizan dos valores se llaman operadores _binarios_, mientras que aquellos que toman uno se llaman operadores _unarios_. El operador menos se puede usar tanto como un operador binario como un operador unario.
 
@@ -217,7 +219,7 @@ A menudo es útil tener un valor que distinga solo entre dos posibilidades, como
 
 ### Comparación
 
-{{index comparación}}
+{{index "comparación"}}
 
 Aquí hay una forma de producir valores booleanos:
 
@@ -228,7 +230,7 @@ console.log(3 < 2)
 // → false
 ```
 
-{{index [comparación, "de números"], "> operador", "< operador", "más grande que", "menos que"}}
+{{index ["comparación", "de números"], "> operador", "< operador", "más grande que", "menos que"}}
 
 Los signos `>` y `<` son símbolos tradicionales para "es mayor que" y "es menor que", respectivamente. Son operadores binarios. Aplicarlos da como resultado un valor booleano que indica si son verdaderos en este caso.
 
@@ -239,7 +241,7 @@ console.log("Aardvark" < "Zoroaster")
 // → true
 ```
 
-{{index [comparación, "de cadenas"]}}
+{{index ["comparación", "de cadenas"]}}
 
 La forma en que se ordenan las cadenas es aproximadamente alfabética pero no es realmente lo que esperarías ver en un diccionario: las letras mayúsculas son siempre "menores" que las minúsculas, por lo que `"Z" < "a"`, y los caracteres no alfabéticos (!, -, y así sucesivamente) también se incluyen en la ordenación. Al comparar cadenas, JavaScript recorre los caracteres de izquierda a derecha, comparando los códigos ((Unicode)) uno por uno.
 
@@ -254,7 +256,7 @@ console.log("Perla" == "Amatista")
 // → false
 ```
 
-{{index [comparación, "de NaN"], NaN}}
+{{index ["comparación", "de NaN"], NaN}}
 
 Solo hay un valor en JavaScript que no es igual a sí mismo, y ese es `NaN` ("no es un número").
 
@@ -293,7 +295,7 @@ console.log(false || false)
 // → false
 ```
 
-{{index negación, "! operador"}}
+{{index "negación", "! operador"}}
 
 _Not_ se escribe con un signo de exclamación (`!`). Es un operador unario que invierte el valor dado; `!true` produce `false` y `!false` produce `true`.
 
@@ -345,15 +347,15 @@ console.log(false == 0)
 // → true
 ```
 
-{{index "+ operator", aritmética, "* operator", "- operator"}}
+{{index "+ operator", "aritmética", "* operator", "- operator"}}
 
 Cuando se aplica un operador al tipo de valor "incorrecto", JavaScript convertirá silenciosamente ese valor al tipo que necesita, utilizando un conjunto de reglas que a menudo no son las que deseas o esperas. Esto se llama _((coerción de tipos))_. El `null` en la primera expresión se convierte en `0` y el `"5"` en la segunda expresión se convierte en `5` (de cadena a número). Sin embargo, en la tercera expresión, `+` intenta la concatenación de cadenas antes que la suma numérica, por lo que el `1` se convierte en `"1"` (de número a cadena).
 
-{{index "coerción de tipos", [número, "conversión a"]}}
+{{index "coerción de tipos", ["número", "conversión a"]}}
 
 Cuando algo que no se corresponde con un número de manera obvia (como `"five"` o `undefined`) se convierte en un número, obtienes el valor `NaN`. Más operaciones aritméticas en `NaN` siguen produciendo `NaN`, así que si te encuentras con uno de estos en un lugar inesperado, busca conversiones de tipo accidentales.
 
-{{index null, undefined, [comparación, "de valores undefined"], "== operador"}}
+{{index null, undefined, ["comparación", "de valores undefined"], "== operador"}}
 
 Cuando se comparan valores del mismo tipo usando el operador `==`, el resultado es fácil de predecir: deberías obtener verdadero cuando ambos valores son iguales, excepto en el caso de `NaN`. Pero cuando los tipos difieren, JavaScript utiliza un conjunto de reglas complicado y confuso para determinar qué hacer. En la mayoría de los casos, simplemente intenta convertir uno de los valores al tipo del otro valor. Sin embargo, cuando `null` o `undefined` aparece en cualquiera de los lados del operador, produce verdadero solo si ambos lados son uno de `null` o `undefined`.
 
@@ -366,7 +368,7 @@ console.log(null == 0);
 
 Ese comportamiento a menudo es útil. Cuando quieres probar si un valor tiene un valor real en lugar de `null` o `undefined`, puedes compararlo con `null` usando el operador `==` o `!=`.
 
-{{index "coerción de tipos", [Boolean, "conversión a"], "=== operador", "!== operador", comparación}}
+{{index "coerción de tipos", [Boolean, "conversión a"], "=== operador", "!== operador", "comparación"}}
 
 ¿Qué sucede si quieres probar si algo se refiere al valor preciso `false`? Expresiones como `0 == false` y `"" == false` también son verdaderas debido a la conversión automática de tipos. Cuando _no_ deseas que ocurran conversiones de tipo, hay dos operadores adicionales: `===` y `!==`. El primero prueba si un valor es _precisamente_ igual al otro, y el segundo prueba si no es precisamente igual. Por lo tanto, `"" === false` es falso como se espera.Recomiendo usar los operadores de comparación de tres caracteres defensivamente para evitar conversiones de tipo inesperadas que puedan complicarte las cosas. Pero cuando estés seguro de que los tipos en ambos lados serán los mismos, no hay problema en usar los operadores más cortos.
 
