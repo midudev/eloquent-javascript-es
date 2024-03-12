@@ -26,7 +26,7 @@ Para crear un valor, simplemente debes invocar su nombre. Esto es conveniente. N
 
 ## Números
 
-{{index [sintaxis, "número"], "número", ["número", notación]}}
+{{index [sintaxis, "número"], "número", ["número", "notación"]}}
 
 Los valores del tipo _number_ son, como era de esperar, valores numéricos. En un programa de JavaScript, se escriben de la siguiente manera:
 
@@ -72,7 +72,9 @@ Los cálculos con números enteros (también llamados _((enteros))_) que son má
 
 ### Aritmética
 
-{{index [sintaxis, operador], operador, "operador binario", aritmética, suma, multiplicación}}Lo principal que se puede hacer con los números es la aritmética. Operaciones aritméticas como la suma o la multiplicación toman dos valores numéricos y producen un nuevo número a partir de ellos. Así es como se ven en JavaScript:
+{{index [sintaxis, operador], operador, "operador binario", aritmética, suma, multiplicación}}
+
+Lo principal que se puede hacer con los números es la aritmética. Operaciones aritméticas como la suma o la multiplicación toman dos valores numéricos y producen un nuevo número a partir de ellos. Así es como se ven en JavaScript:
 
 ```{meta: "expr"}
 100 + 4 * 11
@@ -90,7 +92,7 @@ Los símbolos `+` y `*` se llaman _operadores_. El primero representa la suma y 
 (100 + 4) * 11
 ```
 
-{{index "carácter de resta", "carácter de división", división, resta, "-", "/ operator"}}
+{{index "carácter de resta", "carácter de división", "división", resta, "-", "/ operator"}}
 
 Para la resta, está el operador `-`. La división se puede hacer con el operador `/`.
 
@@ -116,7 +118,7 @@ Hay tres valores especiales en JavaScript que se consideran números pero no se 
 
 {{indexsee "acento grave", "comilla invertida"}}
 
-{{index [sintaxis, cadena], texto, "carácter", [cadena, notación], "comilla simple", "comilla doble", comillas, comilla invertida}}
+{{index [sintaxis, cadena], texto, "carácter", [cadena, "notación"], "comilla simple", "comilla doble", comillas, comilla invertida}}
 
 El siguiente tipo de dato básico es la _((cadena))_. Las cadenas se utilizan para representar texto. Se escriben encerrando su contenido entre comillas.
 
