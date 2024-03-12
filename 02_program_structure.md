@@ -14,7 +14,7 @@ En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas 
 
 ## Expresiones y declaraciones
 
-{{index grammar, [sintaxis, "expresión"], [código, "estructura de"], "gramática", [JavaScript, sintaxis]}}
+{{index grammar, [sintaxis, "expresión"], ["código", "estructura de"], "gramática", [JavaScript, sintaxis]}}
 
 En [Capítulo ?](valores), creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
 
@@ -418,7 +418,7 @@ La mayoría de los programas de edición (incluido el de este libro) ayudarán a
 
 ## bucles for
 
-{{index [sintaxis, declaración], "bucle while", "variable de contador"}}
+{{index [sintaxis, "declaración"], "bucle while", "variable de contador"}}
 
 Muchos bucles siguen el patrón mostrado en los ejemplos de `while`. Primero se crea una variable de "contador" para rastrear el progreso del bucle. Luego viene un bucle `while`, generalmente con una expresión de prueba que verifica si el contador ha alcanzado su valor final. Al final del cuerpo del bucle, el contador se actualiza para rastrear el progreso.
 
@@ -439,11 +439,11 @@ for (let numero = 0; numero <= 12; numero = numero + 2) {
 
 Este programa es exactamente equivalente al [anterior](program_structure#loops) ejemplo de impresión de números pares. La única diferencia es que todas las ((declaraciones)) relacionadas con el "estado" del bucle están agrupadas después de `for`.
 
-{{index [variable, como estado], [paréntesis, declaración]}}
+{{index [variable, como estado], ["paréntesis", "declaración"]}}
 
 Los paréntesis después de la palabra clave `for` deben contener dos ((punto y coma)). La parte antes del primer punto y coma _inicializa_ el bucle, generalmente definiendo una variable. La segunda parte es la ((expresión)) que _verifica_ si el bucle debe continuar. La parte final _actualiza_ el estado del bucle después de cada iteración. En la mayoría de los casos, esto es más corto y claro que un `while` tradicional.
 
-{{index exponenciación}}
+{{index "exponenciación"}}
 
 Este es el código que calcula 2^10^ usando `for` en lugar de `while`:
 
@@ -561,7 +561,7 @@ Puedes colocar cualquier cantidad de etiquetas `case` dentro del bloque abierto 
 
 ## Capitalización
 
-{{index capitalización, [binding, nombrar], [espacios en blanco, sintaxis]}}
+{{index "capitalización", [binding, nombrar], [espacios en blanco, sintaxis]}}
 
 Los nombres de los enlaces no pueden contener espacios, sin embargo, a menudo es útil usar varias palabras para describir claramente lo que representa el enlace. Estas son básicamente tus opciones para escribir un nombre de enlace con varias palabras:
 
