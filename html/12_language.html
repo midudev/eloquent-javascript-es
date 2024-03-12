@@ -428,7 +428,7 @@ run(<span class="tok-string2">`</span>
 <span class="tok-string2">`</span>);
 <span class="tok-comment">// → 6</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-V6CA9sjtEY" href="#p-V6CA9sjtEY" tabindex="-1" role="presentation"></a>La forma más sencilla de hacer esto es representar los arrays de Egg con arrays de JavaScript.</p>
 
@@ -483,7 +483,7 @@ console.log(parse(<span class="tok-string">&quot;a # uno</span><span class="tok-
 <span class="tok-comment">//    operator: {type: &quot;word&quot;, name: &quot;a&quot;},</span>
 <span class="tok-comment">//    args: []}</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-4pQ2RIUDPS" href="#p-4pQ2RIUDPS" tabindex="-1" role="presentation"></a>Asegúrate de que tu solución maneje múltiples comentarios seguidos, con posiblemente espacios en blanco entre ellos o después de ellos.</p>
 
@@ -517,7 +517,7 @@ run(<span class="tok-string2">`</span>
 run(<span class="tok-string2">`set(quux, true)`</span>);
 <span class="tok-comment">// → Algún tipo de ReferenceError</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-3GnB2HNK88" href="#p-3GnB2HNK88" tabindex="-1" role="presentation"></a>Tendrás que iterar a través de un scope a la vez, utilizando <code>Object.<wbr>getPrototypeOf</code> para ir al siguiente ámbito exterior. Para cada ámbito, utiliza <code>Object.hasOwn</code> para determinar si el enlace, indicado por la propiedad <code>name</code> del primer argumento de <code>set</code>, existe en ese ámbito. Si existe, establécelo en el resultado de evaluar el segundo argumento de <code>set</code> y luego devuelve ese valor.</p>
 

@@ -473,7 +473,7 @@ Archivo no encontrado</pre>
 
 <p><a class="p_ident" id="p-qnRKogZMPC" href="#p-qnRKogZMPC" tabindex="-1" role="presentation"></a>Utiliza funciones asíncronas o síncronas del sistema de archivos según consideres adecuado. Configurar las cosas para que se soliciten múltiples acciones asíncronas al mismo tiempo podría acelerar un poco las cosas, pero no demasiado, ya que la mayoría de los sistemas de archivos solo pueden leer una cosa a la vez.</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-HJCQsGtLBH" href="#p-HJCQsGtLBH" tabindex="-1" role="presentation"></a>Tu primer argumento de línea de comandos, la expresión regular, se puede encontrar en <code>process.argv[2]</code>. Los archivos de entrada vienen después de eso. Puedes usar el constructor <code>RegExp</code> para convertir una cadena en un objeto de expresión regular.</p>
 
@@ -493,7 +493,7 @@ Archivo no encontrado</pre>
 
 <p><a class="p_ident" id="p-t0vs3VLgD4" href="#p-t0vs3VLgD4" tabindex="-1" role="presentation"></a>Añade soporte para el método <code>MKCOL</code> (“make collection”), que debería crear un directorio llamando a <code>mkdir</code> desde el módulo <code>node:fs</code>. <code>MKCOL</code> no es un método HTTP ampliamente utilizado, pero sí existe con este mismo propósito en el estándar <em>WebDAV</em>, el cual especifica un conjunto de convenciones sobre HTTP que lo hacen adecuado para crear documentos.</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-AVf93pz/4b" href="#p-AVf93pz/4b" tabindex="-1" role="presentation"></a>Puedes usar la función que implementa el método <code>DELETE</code> como base para el método <code>MKCOL</code>. Cuando no se encuentra ningún archivo, intenta crear un directorio con <code>mkdir</code>. Cuando existe un directorio en esa ruta, puedes devolver una respuesta 204 para que las solicitudes de creación de directorios sean idempotentes. Si existe un archivo que no es un directorio en esta ruta, devuelve un código de error. El código 400 (“solicitud incorrecta”) sería apropiado.</p>
 
@@ -513,7 +513,7 @@ Archivo no encontrado</pre>
 
 <p><a class="p_ident" id="p-PII294GUqX" href="#p-PII294GUqX" tabindex="-1" role="presentation"></a>No trabajes directamente en el código expuesto por el servidor de archivos ya que si cometes un error, es probable que dañes los archivos allí. En su lugar, mantén tu trabajo fuera del directorio accesible al público y cópialo allí al hacer pruebas.</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-cMkx7R4x8e" href="#p-cMkx7R4x8e" tabindex="-1" role="presentation"></a>Puedes crear un elemento <code>&lt;textarea&gt;</code> para contener el contenido del archivo que se está editando. Una solicitud <code>GET</code>, utilizando <code>fetch</code>, puede recuperar el contenido actual del archivo. Puedes usar URLs relativas como <em>index.html</em>, en lugar de <a href="http://localhost:8000/index.html"><em>http://localhost:8000/index.html</em></a>, para hacer referencia a archivos en el mismo servidor que el script en ejecución.</p>
 

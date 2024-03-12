@@ -470,7 +470,7 @@ console.log(every([<span class="tok-number">2</span>, <span class="tok-number">4
 console.log(every([], <span class="tok-definition">n</span> =&gt; n &lt; <span class="tok-number">10</span>));
 <span class="tok-comment">// → true</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-3C1WcJRJ3U" href="#p-3C1WcJRJ3U" tabindex="-1" role="presentation"></a>Como el operador <code>&amp;&amp;</code>, el método <code>every</code> puede dejar de evaluar más elementos tan pronto como encuentre uno que no coincida. Por lo tanto, la versión basada en bucle puede salir del bucle—con <code>break</code> o `return—tan pronto como encuentre un elemento para el que la función de predicado devuelva false. Si el bucle se ejecuta hasta el final sin encontrar dicho elemento, sabemos que todos los elementos coincidieron y deberíamos devolver true.</p>
 
@@ -491,7 +491,7 @@ console.log(dominantDirection(<span class="tok-string">&quot;Hello!&quot;</span>
 console.log(dominantDirection(<span class="tok-string">&quot;Hey, مساء الخير&quot;</span>));
 <span class="tok-comment">// → rtl</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-1vPjppobMm" href="#p-1vPjppobMm" tabindex="-1" role="presentation"></a>Tu solución podría parecerse mucho a la primera mitad del ejemplo de <code>textScripts</code>. De nuevo, debes contar caracteres según un criterio basado en <code>characterScript</code> y luego filtrar la parte del resultado que se refiere a caracteres no interesantes (sin script).</p>
 

@@ -306,7 +306,7 @@ goalOrientedRobot</pre>
 
 <p><a class="p_ident" id="p-uQ57ddB3lJ" href="#p-uQ57ddB3lJ" tabindex="-1" role="presentation"></a>¿Qué piezas es probable que estén disponibles preescritas en NPM? ¿Preferirías usar un paquete de NPM o escribirlos tú mismo?</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-2jVU/smvtt" href="#p-2jVU/smvtt" tabindex="-1" role="presentation"></a>Esto es lo que habría hecho (pero de nuevo, no hay una única forma <em>correcta</em> de diseñar un módulo dado):</p>
 
@@ -349,7 +349,7 @@ goalOrientedRobot</pre>
   <span class="tok-string">&quot;Tienda-Ayuntamiento&quot;</span>
 ];</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-L9cRUPvKkw" href="#p-L9cRUPvKkw" tabindex="-1" role="presentation"></a>Dado que este es un módulo ES, debes usar <code>import</code> para acceder al módulo de gráfico. Esto se describió como exportando una función de <code>buildGraph</code>, la cual puedes seleccionar de su objeto de interfaz con una declaración de desestructuración <code>const</code>.</p>
 
@@ -365,7 +365,7 @@ goalOrientedRobot</pre>
 
 <p><a class="p_ident" id="p-pEgnu0OIuf" href="#p-pEgnu0OIuf" tabindex="-1" role="presentation"></a>La función <code>require</code> proporcionada <a href="10_modules.html#require">anteriormente en este capítulo</a> admite este tipo de ciclo de dependencia. ¿Puedes ver cómo maneja los ciclos?</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-oUZrcVxvQi" href="#p-oUZrcVxvQi" tabindex="-1" role="presentation"></a>El truco es que <code>require</code> añade el objeto de interfaz de un módulo a su caché <em>antes</em> de comenzar a cargar el módulo. De esta manera, si se hace alguna llamada a <code>require</code> mientras se está ejecutando tratando de cargarlo, ya se conoce, y se devolverá la interfaz actual, en lugar de comenzar a cargar el módulo nuevamente (lo que eventualmente desbordaría la pila).</p>
 

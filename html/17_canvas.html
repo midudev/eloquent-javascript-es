@@ -667,7 +667,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
   <span class="tok-comment">// Tu código aquí.</span>
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-hImc7Tohvp" href="#p-hImc7Tohvp" tabindex="-1" role="presentation"></a>El trapecio (1) es más fácil de dibujar usando un recorrido. Elige coordenadas centrales adecuadas y agrega cada una de las cuatro esquinas alrededor del centro.</p>
 
@@ -712,7 +712,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
   }
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-K+C2avvWfz" href="#p-K+C2avvWfz" tabindex="-1" role="presentation"></a>Necesitarás llamar a <code>fillText</code> y establecer las propiedades <code>textAlign</code> y <code>textBaseline</code> del contexto de manera que el texto termine donde quieras.</p>
 
@@ -753,7 +753,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
   }
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-n1BIPXLtoZ" href="#p-n1BIPXLtoZ" tabindex="-1" role="presentation"></a>{{index “método strokeRect”, animación, “método arc”}}</p>
 
@@ -775,7 +775,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-/D9ug4jUKG" href="#p-/D9ug4jUKG" tabindex="-1" role="presentation"></a>Piensa en una forma de permitirnos dibujar un personaje invertido sin cargar archivos de imagen adicionales y sin tener que hacer llamadas transformadas de <code>drawImage</code> en cada cuadro.</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-hHgQtZU0jT" href="#p-hHgQtZU0jT" tabindex="-1" role="presentation"></a>La clave para la solución está en el hecho de que podemos usar un elemento canvas como imagen de origen al usar <code>drawImage</code>. Es posible crear un elemento <code>&lt;canvas&gt;</code> adicional, sin agregarlo al documento, y dibujar nuestros sprites invertidos en él, una vez. Al dibujar un cuadro real, simplemente copiamos los sprites ya invertidos al lienzo principal.</p>
 

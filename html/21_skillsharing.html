@@ -610,7 +610,7 @@ runApp();</pre>
 
 <p><a class="p_ident" id="p-vXZfoI1M8e" href="#p-vXZfoI1M8e" tabindex="-1" role="presentation"></a>Extiende el servidor para que almacene los datos de las charlas en disco y vuelva a cargar automáticamente los datos cuando se reinicie. No te preocupes por la eficiencia, haz lo más simple que funcione.</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-sZqaaJ9i56" href="#p-sZqaaJ9i56" tabindex="-1" role="presentation"></a>La solución más simple que se me ocurre es codificar todo el objeto <code>talks</code> como JSON y volcarlo en un archivo con <code>writeFile</code>. Ya existe un método (<code>updated</code>) que se llama cada vez que cambian los datos del servidor. Se puede ampliar para escribir los nuevos datos en el disco.</p>
 
@@ -624,7 +624,7 @@ runApp();</pre>
 
 <p><a class="p_ident" id="p-/CzcYyU2Wd" href="#p-/CzcYyU2Wd" tabindex="-1" role="presentation"></a>Cuando varias personas están añadiendo comentarios al mismo tiempo, esto podría resultar molesto. ¿Puedes idear una manera de resolverlo?</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-iM6BTo7lMH" href="#p-iM6BTo7lMH" tabindex="-1" role="presentation"></a>{{index “restablecimiento del campo de comentarios (ejercicio)”, plantilla, método “syncState”}}</p>
 

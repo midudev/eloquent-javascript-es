@@ -290,7 +290,7 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 
 <p><a class="p_ident" id="p-7MIgFxyQWl" href="#p-7MIgFxyQWl" tabindex="-1" role="presentation"></a>Pero eso no siempre es práctico. Por eso existe otra característica que tienen las instrucciones <code>try</code>. Pueden estar seguidas de un bloque <code>finally</code> en lugar o además de un bloque <code>catch</code>. Un bloque <code>finally</code> dice “sin importar <em>qué</em> suceda, ejecuta este código después de intentar ejecutar el código en el bloque <code>try</code>.”</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-YI1EDwJBY5" href="#c-YI1EDwJBY5" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">transfer</span>(<span class="tok-definition">from</span>, <span class="tok-definition">amount</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-brWpzDAy4+" href="#c-brWpzDAy4+" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">transfer</span>(<span class="tok-definition">from</span>, <span class="tok-definition">amount</span>) {
   <span class="tok-keyword">if</span> (accounts[from] &lt; amount) <span class="tok-keyword">return</span>;
   <span class="tok-keyword">let</span> <span class="tok-definition">progress</span> = <span class="tok-number">0</span>;
   <span class="tok-keyword">try</span> {
@@ -303,47 +303,33 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
       accounts[from] += amount;
     }
   }
-}
-<span class="tok-string2">``</span><span class="tok-string2">`Esta versión de la función rastrea su progreso y, si al salir nota que fue abortada en un punto donde había creado un estado del programa inconsistente, repara el daño causado. </span>
+}</pre>
 
-<span class="tok-string2">Cabe destacar que aunque el código `</span><span class="tok-keyword">finally</span><span class="tok-string2">` se ejecuta cuando se lanza una excepción en el bloque `</span><span class="tok-keyword">try</span><span class="tok-string2">`, no interfiere con la excepción. Después de que se ejecuta el bloque `</span><span class="tok-keyword">finally</span><span class="tok-string2">`, la pila continúa desenrollándose.</span>
+<p><a class="p_ident" id="p-BUFc2zwQBC" href="#p-BUFc2zwQBC" tabindex="-1" role="presentation"></a>Esta versión de la función rastrea su progreso y, si al salir nota que fue abortada en un punto donde había creado un estado del programa inconsistente, repara el daño causado.</p>
 
-<span class="tok-string2">{{index &quot;excepción de seguridad&quot;}}</span>
+<p><a class="p_ident" id="p-J7xmEOV61W" href="#p-J7xmEOV61W" tabindex="-1" role="presentation"></a>Cabe destacar que aunque el código <code>finally</code> se ejecuta cuando se lanza una excepción en el bloque <code>try</code>, no interfiere con la excepción. Después de que se ejecuta el bloque <code>finally</code>, la pila continúa desenrollándose.</p>
 
-<span class="tok-string2">Escribir programas que funcionen de manera confiable incluso cuando surgen excepciones en lugares inesperados es difícil. Muchas personas simplemente no se preocupan, y debido a que las excepciones suelen reservarse para circunstancias excepcionales, el problema puede ocurrir tan raramente que ni siquiera se note. Si eso es algo bueno o realmente malo depende de cuánto daño causará el software cuando falle.</span>
+<p><a class="p_ident" id="p-mNFQ5eg1AO" href="#p-mNFQ5eg1AO" tabindex="-1" role="presentation"></a>Escribir programas que funcionen de manera confiable incluso cuando surgen excepciones en lugares inesperados es difícil. Muchas personas simplemente no se preocupan, y debido a que las excepciones suelen reservarse para circunstancias excepcionales, el problema puede ocurrir tan raramente que ni siquiera se note. Si eso es algo bueno o realmente malo depende de cuánto daño causará el software cuando falle.</p>
 
-<span class="tok-string2">## Captura selectiva</span>
+<h2><a class="h_ident" id="h-PIKTwL5/C0" href="#h-PIKTwL5/C0" tabindex="-1" role="presentation"></a>Captura selectiva</h2>
 
-<span class="tok-string2">{{index &quot;excepción no capturada&quot;, &quot;manejo de excepciones&quot;, &quot;consola de JavaScript&quot;, &quot;herramientas para desarrolladores&quot;, &quot;pila de llamadas&quot;, error}}</span>
+<p><a class="p_ident" id="p-7iG4YNRvEv" href="#p-7iG4YNRvEv" tabindex="-1" role="presentation"></a>Cuando una excepción llega hasta el final de la pila sin ser capturada, es manejada por el entorno. Lo que esto significa difiere según los entornos. En los navegadores, generalmente se escribe una descripción del error en la consola de JavaScript (accesible a través del menú Herramientas o Desarrollador del navegador). Node.js, el entorno de JavaScript sin navegador del que hablaremos en <a href="20_node.html">Capítulo 20</a>, es más cuidadoso con la corrupción de datos. Abortará todo el proceso cuando ocurra una excepción no manejada.</p>
 
-<span class="tok-string2">Cuando una excepción llega hasta el final de la pila sin ser capturada, es manejada por el entorno. Lo que esto significa difiere según los entornos. En los navegadores, generalmente se escribe una descripción del error en la consola de JavaScript (accesible a través del menú Herramientas o Desarrollador del navegador). Node.js, el entorno de JavaScript sin navegador del que hablaremos en [Capítulo ?](node), es más cuidadoso con la corrupción de datos. Abortará todo el proceso cuando ocurra una excepción no manejada.</span>
+<p><a class="p_ident" id="p-UCYUVC0KwK" href="#p-UCYUVC0KwK" tabindex="-1" role="presentation"></a>Para errores de programación, a menudo dejar que el error siga su curso es lo mejor que se puede hacer. Una excepción no manejada es una forma razonable de señalar un programa defectuoso, y la consola de JavaScript proporcionará, en navegadores modernos, información sobre qué llamadas a funciones estaban en la pila cuando ocurrió el problema.</p>
 
-<span class="tok-string2">{{index crash, &quot;manejo de errores&quot;}}</span>
+<p><a class="p_ident" id="p-igAOH/6YWz" href="#p-igAOH/6YWz" tabindex="-1" role="presentation"></a>Para problemas que se <em>espera</em> que ocurran durante el uso rutinario, fallar con una excepción no manejada es una estrategia terrible.</p>
 
-<span class="tok-string2">Para errores de programación, a menudo dejar que el error siga su curso es lo mejor que se puede hacer. Una excepción no manejada es una forma razonable de señalar un programa defectuoso, y la consola de JavaScript proporcionará, en navegadores modernos, información sobre qué llamadas a funciones estaban en la pila cuando ocurrió el problema.</span>
+<p><a class="p_ident" id="p-M4SYHIUS6U" href="#p-M4SYHIUS6U" tabindex="-1" role="presentation"></a>{{index [función, aplicación], “manejo de excepciones”, “tipo de error”, [enlace, indefinido]}}</p>
 
-<span class="tok-string2">{{index &quot;interfaz de usuario&quot;}}</span>
+<p><a class="p_ident" id="p-WgcUeDPSV4" href="#p-WgcUeDPSV4" tabindex="-1" role="presentation"></a>Usos incorrectos del lenguaje, como hacer referencia a un enlace inexistente, buscar una propiedad en <code>null</code> o llamar a algo que no es una función, también provocarán que se lancen excepciones. Estas excepciones también pueden ser capturadas.</p>
 
-<span class="tok-string2">Para problemas que se _espera_ que ocurran durante el uso rutinario, fallar con una excepción no manejada es una estrategia terrible.</span>
+<p><a class="p_ident" id="p-OgoTGGt/RP" href="#p-OgoTGGt/RP" tabindex="-1" role="presentation"></a>Cuando se entra en un cuerpo <code>catch</code>, todo lo que sabemos es que <em>algo</em> en nuestro cuerpo <code>try</code> causó una excepción. Pero no sabemos <em>qué</em> lo hizo ni <em>qué</em> excepción causó.</p>
 
-<span class="tok-string2">{{index [función, aplicación], &quot;manejo de excepciones&quot;, &quot;tipo de error&quot;, [enlace, indefinido]}}</span>
+<p><a class="p_ident" id="p-Y7D20P1igb" href="#p-Y7D20P1igb" tabindex="-1" role="presentation"></a>JavaScript (en una omisión bastante llamativa) no proporciona un soporte directo para capturar excepciones selectivamente: o las capturas todas o no capturas ninguna. Esto hace que sea tentador <em>asumir</em> que la excepción que obtienes es la que tenías en mente cuando escribiste el bloque <code>catch</code>.</p>
 
-<span class="tok-string2">Usos incorrectos del lenguaje, como hacer referencia a un enlace inexistente, buscar una propiedad en `</span><span class="tok-keyword">null</span><span class="tok-string2">` o llamar a algo que no es una función, también provocarán que se lancen excepciones. Estas excepciones también pueden ser capturadas.</span>
+<p><a class="p_ident" id="p-UqZdrEXvRM" href="#p-UqZdrEXvRM" tabindex="-1" role="presentation"></a>Pero podría no serlo. Alguno otra asunción podría estar violada, o podrías haber introducido un error que está causando una excepción. Aquí tienes un ejemplo que <em>intenta</em> seguir llamando a <code>promptDirection</code> hasta obtener una respuesta válida:</p>
 
-<span class="tok-string2">{{index &quot;palabra clave catch&quot;}}</span>
-
-<span class="tok-string2">Cuando se entra en un cuerpo `</span><span class="tok-keyword">catch</span><span class="tok-string2">`, todo lo que sabemos es que _algo_ en nuestro cuerpo `</span><span class="tok-keyword">try</span><span class="tok-string2">` causó una excepción. Pero no sabemos _qué_ lo hizo ni _qué_ excepción causó.</span>
-
-<span class="tok-string2">{{index &quot;manejo de excepciones&quot;}}</span>
-
-<span class="tok-string2">JavaScript (en una omisión bastante llamativa) no proporciona un soporte directo para capturar excepciones selectivamente: o las capturas todas o no capturas ninguna. Esto hace que sea tentador _asumir_ que la excepción que obtienes es la que tenías en mente cuando escribiste el bloque `</span><span class="tok-keyword">catch</span><span class="tok-string2">`.</span>
-
-<span class="tok-string2">{{index &quot;función promptDirection&quot;}}</span>
-
-<span class="tok-string2">Pero podría no serlo. Alguno otra ((asunción)) podría estar violada, o podrías haber introducido un error que está causando una excepción. Aquí tienes un ejemplo que _intenta_ seguir llamando a `</span>promptDirection<span class="tok-string2">` hasta obtener una respuesta válida:</span>
-
-<span class="tok-string2">`</span><span class="tok-string2">``</span>{test: no}
-<span class="tok-keyword">for</span> (;;) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NOeU9RGWf4" href="#c-NOeU9RGWf4" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (;;) {
   <span class="tok-keyword">try</span> {
     <span class="tok-keyword">let</span> <span class="tok-definition">dir</span> = promptDirection(<span class="tok-string">&quot;¿Dónde?&quot;</span>); <span class="tok-comment">// ← ¡Error de tipeo!</span>
     console.log(<span class="tok-string">&quot;Elegiste &quot;</span>, dir);
@@ -448,7 +434,7 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 console.log(reliableMultiply(<span class="tok-number">8</span>, <span class="tok-number">8</span>));
 <span class="tok-comment">// → 64</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-b3OXNxCriW" href="#p-b3OXNxCriW" tabindex="-1" role="presentation"></a>{{index “primitiveMultiply (exercise)”, “palabra clave try”, “palabra clave catch”, “palabra clave throw”}}La llamada a <code>primitiveMultiply</code> definitivamente debería ocurrir en un bloque <code>try</code>. El bloque <code>catch</code> correspondiente debería relanzar la excepción cuando no sea una instancia de <code>MultiplicatorUnitFailure</code> y asegurarse de que la llamada se reintente cuando lo sea.</p>
 
@@ -508,7 +494,7 @@ console.log(box.locked);
 
 <p><a class="p_ident" id="p-UCwwvERdRK" href="#p-UCwwvERdRK" tabindex="-1" role="presentation"></a>Para puntos adicionales, asegúrate de que si llamas a <code>withBoxUnlocked</code> cuando la caja ya está desbloqueada, la caja permanezca desbloqueada.</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-4//OlMF9n9" href="#p-4//OlMF9n9" tabindex="-1" role="presentation"></a>En este ejercicio, es posible que desees usar <code>try</code> y <code>finally</code> juntos. Tu función debería desbloquear la caja y luego llamar a la función de argumento desde dentro de un bloque <code>try</code>. El bloque <code>finally</code> después de él debería volver a bloquear la caja.</p>
 

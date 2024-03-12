@@ -28,19 +28,13 @@
 
 </blockquote><figure class="chapter enmarcado en cuadrado"><img src="img/chapter_picture_9.jpg" alt="Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares"></figure>
 
-<p><a class="p_ident" id="p-N3gC19Cd9Z" href="#p-N3gC19Cd9Z" tabindex="-1" role="presentation"></a>{{index evolución, adopción, integración}}</p>
-
 <p><a class="p_ident" id="p-cUW+3W7fmu" href="#p-cUW+3W7fmu" tabindex="-1" role="presentation"></a>Las herramientas y técnicas de programación sobreviven y se propagan de manera caótica y evolutiva. No siempre ganan las mejores o brillantes, sino aquellas que funcionan lo suficientemente bien dentro del nicho correcto o que se integran con otra pieza exitosa de tecnología.</p>
 
 <p><a class="p_ident" id="p-DXsuW+HRzs" href="#p-DXsuW+HRzs" tabindex="-1" role="presentation"></a>En este capítulo, discutiré una de esas herramientas, <em>expresiones regulares</em>. Las expresiones regulares son una forma de describir patrónes en datos de cadena. Forman un pequeño lenguaje separado que es parte de JavaScript y muchos otros lenguajes y sistemas.</p>
 
-<p><a class="p_ident" id="p-kWpY5hOt4M" href="#p-kWpY5hOt4M" tabindex="-1" role="presentation"></a>{{index [interfaz, diseño]}}</p>
-
 <p><a class="p_ident" id="p-7XhIkGJNrR" href="#p-7XhIkGJNrR" tabindex="-1" role="presentation"></a>Las expresiones regulares son tanto terriblemente incómodas como extremadamente útiles. Su sintaxis es críptica y la interfaz de programación que JavaScript proporciona para ellas es torpe. Pero son una herramienta poderosa para inspeccionar y procesar cadenas. Comprender adecuadamente las expresiones regulares te hará un programador más efectivo.</p>
 
 <h2><a class="h_ident" id="h-SxIVkReIo1" href="#h-SxIVkReIo1" tabindex="-1" role="presentation"></a>Creando una expresión regular</h2>
-
-<p><a class="p_ident" id="p-GsWPUzJpTw" href="#p-GsWPUzJpTw" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, creación], “clase RegExp”, “expresión literal”, “carácter de barra diagonal”}}</p>
 
 <p><a class="p_ident" id="p-Xg1xoCrnF5" href="#p-Xg1xoCrnF5" tabindex="-1" role="presentation"></a>Una expresión regular es un tipo de objeto. Puede ser construido con el constructor <code>RegExp</code> o escrito como un valor literal al encerrar un patrón entre caracteres de barra diagonal (<code>/</code>).</p>
 
@@ -65,8 +59,6 @@
 <span class="tok-comment">// → true</span>
 console.log(<span class="tok-string2">/abc/</span>.test(<span class="tok-string">&quot;abxde&quot;</span>));
 <span class="tok-comment">// → false</span></pre>
-
-<p><a class="p_ident" id="p-d4mza4/tx2" href="#p-d4mza4/tx2" tabindex="-1" role="presentation"></a>{{index patrón}}</p>
 
 <p><a class="p_ident" id="p-I9d7+CqxO+" href="#p-I9d7+CqxO+" tabindex="-1" role="presentation"></a>Una expresión regular que consiste solo en caracteres no especiales simplemente representa esa secuencia de caracteres. Si <em>abc</em> aparece en cualquier parte de la cadena contra la cual estamos probando (no solo al principio), <code>test</code> devolverá <code>true</code>.</p>
 
@@ -126,8 +118,6 @@ console.log(dateTime.test(<span class="tok-string">&quot;01-30-2003 15:20&quot;<
 <span class="tok-comment">// → true</span>
 console.log(dateTime.test(<span class="tok-string">&quot;30-ene-2003 15:20&quot;</span>));
 <span class="tok-comment">// → false</span></pre>
-
-<p><a class="p_ident" id="p-LVHvE+3Y5l" href="#p-LVHvE+3Y5l" tabindex="-1" role="presentation"></a>{{index [carácter de barra invertida, “en expresiones regulares”]}}</p>
 
 <p><a class="p_ident" id="p-1mBi7vFTKu" href="#p-1mBi7vFTKu" tabindex="-1" role="presentation"></a>¡Eso se ve completamente horrible, ¿verdad? La mitad son barras invertidas, produciendo un ruido de fondo que dificulta identificar el patrón expresado. Veremos una versión ligeramente mejorada de esta expresión <a href="09_regexp.html#date_regexp_counted">más adelante</a>.</p>
 
@@ -869,7 +859,7 @@ verify(<span class="tok-string2">/.../</span>,
 console.log(text.replace(<span class="tok-string2">/A/g</span>, <span class="tok-string">&quot;B&quot;</span>));
 <span class="tok-comment">// → &quot;I'm the cook,&quot; he said, &quot;it's my job.&quot;</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-F9p3rrsc74" href="#p-F9p3rrsc74" tabindex="-1" role="presentation"></a>La solución más obvia es reemplazar solo las comillas que tienen un carácter que no sea una letra en al menos un lado, algo como <code>/\P{L}'|'\P{L}/</code>. Pero también debes tener en cuenta el inicio y el final de la línea.</p>
 
@@ -881,7 +871,7 @@ console.log(text.replace(<span class="tok-string2">/A/g</span>, <span class="tok
 
 <p><a class="p_ident" id="p-oeGH9sXraQ" href="#p-oeGH9sXraQ" tabindex="-1" role="presentation"></a>Escribe una expresión que coincida solo con los números al estilo de JavaScript. Debe admitir un signo menos <em>o</em> más opcional delante del número, el punto decimal y la notación de exponente—<code>5e-3</code> o <code>1E10</code>—de nuevo con un signo opcional delante del exponente. También ten en cuenta que no es necesario que haya dígitos delante o después del punto, pero el número no puede ser solo un punto. Es decir, <code>.5</code> y <code>5.</code> son números de JavaScript válidos, pero un punto solitario <em>no</em> lo es.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-0YfxA4ebjL" href="#c-0YfxA4ebjL" tabindex="-1" role="presentation"></a><span class="tok-comment">// Completa esta expresión regular.</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-gXUEPT1mXR" href="#c-gXUEPT1mXR" tabindex="-1" role="presentation"></a><span class="tok-comment">// Completa esta expresión regular.</span>
 <span class="tok-keyword">let</span> <span class="tok-definition">number</span> = <span class="tok-string2">/^...$/</span>;
 
 <span class="tok-comment">// Pruebas:</span>
@@ -896,26 +886,19 @@ console.log(text.replace(<span class="tok-string2">/A/g</span>, <span class="tok
   <span class="tok-keyword">if</span> (number.test(str)) {
     console.log(<span class="tok-string2">`Incorrectly accepted '</span>${str}<span class="tok-string2">'`</span>);
   }
-}
-<span class="tok-string2">``</span><span class="tok-string2">`if}}</span>
+}</pre>
 
-<span class="tok-string2">{{hint</span>
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<span class="tok-string2">{{index [&quot;expresión regular&quot;, escapar], [&quot;carácter de barra invertida&quot;, &quot;en expresiones regulares&quot;]}}</span>
+<p><a class="p_ident" id="p-4VDCgxohNU" href="#p-4VDCgxohNU" tabindex="-1" role="presentation"></a>Primero, no olvides la barra invertida delante del punto.</p>
 
-<span class="tok-string2">Primero, no olvides la barra invertida delante del punto.</span>
+<p><a class="p_ident" id="p-aGz24Obe10" href="#p-aGz24Obe10" tabindex="-1" role="presentation"></a>Para hacer coincidir el signo opcional delante del número, así como delante del exponente, se puede hacer con <code>[+\-]?</code> o <code>(\+|-|)</code> (más, menos, o nada).</p>
 
-<span class="tok-string2">Para hacer coincidir el ((signo)) opcional delante del ((número)), así como delante del ((exponente)), se puede hacer con `</span>[+\-]?<span class="tok-string2">` o `</span>(\+|-|)<span class="tok-string2">` (más, menos, o nada).</span>
+<p><a class="p_ident" id="p-+Tjzh9qDET" href="#p-+Tjzh9qDET" tabindex="-1" role="presentation"></a>La parte más complicada del ejercicio es el problema de hacer coincidir tanto <code>&quot;5.&quot;</code> como <code>&quot;.5&quot;</code> sin hacer coincidir también <code>&quot;.&quot;</code>. Para esto, una buena solución es usar el operador <code>|</code> para separar los dos casos: uno o más dígitos seguidos opcionalmente por un punto y cero o más dígitos <em>o</em> un punto seguido por uno o más dígitos.</p>
 
-<span class="tok-string2">{{index &quot;carácter de tubería&quot;}}</span>
+<p><a class="p_ident" id="p-6x0vWl69bT" href="#p-6x0vWl69bT" tabindex="-1" role="presentation"></a>Finalmente, para hacer que el caso de la <em>e</em> sea insensible a mayúsculas y minúsculas, añade una opción <code>i</code> a la expresión regular o usa <code>[eE]</code>.</p>
 
-<span class="tok-string2">La parte más complicada del ejercicio es el problema de hacer coincidir tanto `</span><span class="tok-string">&quot;5.&quot;</span><span class="tok-string2">` como `</span><span class="tok-string">&quot;.5&quot;</span><span class="tok-string2">` sin hacer coincidir también `</span><span class="tok-string">&quot;.&quot;</span><span class="tok-string2">`. Para esto, una buena solución es usar el operador `</span>|<span class="tok-string2">` para separar los dos casos: uno o más dígitos seguidos opcionalmente por un punto y cero o más dígitos _o_ un punto seguido por uno o más dígitos.</span>
-
-<span class="tok-string2">{{index exponente, &quot;sensibilidad a mayúsculas y minúsculas&quot;, [&quot;expresión regular&quot;, flags]}}</span>
-
-<span class="tok-string2">Finalmente, para hacer que el caso de la _e_ sea insensible a mayúsculas y minúsculas, añade una opción `</span>i<span class="tok-string2">` a la expresión regular o usa `</span>[eE]<span class="tok-string2">`.</span>
-
-<span class="tok-string2">hint}}</span></pre><nav><a href="08_error.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="10_modules.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</div></details><nav><a href="08_error.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="10_modules.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
 </nav>
 </article>
 

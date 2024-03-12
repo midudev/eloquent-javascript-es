@@ -606,7 +606,7 @@
     .appendChild(startPixelEditor({}));
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-AOQvTyAAcm" href="#p-AOQvTyAAcm" tabindex="-1" role="presentation"></a>La propiedad <code>key</code> de los eventos de teclas de letras será la letra en minúscula en sí misma, si no se mantiene presionada la tecla <span class="keyname">shift</span>. No nos interesan los eventos de teclas con <span class="keyname">shift</span> aquí.</p>
 
@@ -653,7 +653,7 @@
     .appendChild(startPixelEditor({}));
   &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-cxDGJEHfg1" href="#p-cxDGJEHfg1" tabindex="-1" role="presentation"></a>Este ejercicio es un buen ejemplo de cómo las estructuras de datos inmutables pueden hacer que el código sea <em>más rápido</em>. Debido a que tenemos tanto la imagen antigua como la nueva, podemos compararlas y volver a dibujar solo los píxeles que cambiaron de color, ahorrando más del 99 por ciento del trabajo de dibujo en la mayoría de los casos.</p>
 
@@ -679,7 +679,7 @@
   document.querySelector(<span class="tok-string">&quot;div&quot;</span>).appendChild(dom);
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-ambKM8Owb6" href="#p-ambKM8Owb6" tabindex="-1" role="presentation"></a>Puedes inspirarte en la herramienta <code>rectangle</code>. Como esa herramienta, querrás seguir dibujando en la imagen <em>inicial</em>, en lugar de la imagen actual, cuando el puntero se mueva.</p>
 
@@ -725,7 +725,7 @@
   document.querySelector(<span class="tok-string">&quot;div&quot;</span>).appendChild(dom);
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-5TCx3EV1Na" href="#p-5TCx3EV1Na" tabindex="-1" role="presentation"></a>El problema de dibujar una línea pixelada es que en realidad son cuatro problemas similares pero ligeramente diferentes. Dibujar una línea horizontal de izquierda a derecha es fácil: recorres las coordenadas <em>x</em> y coloreas un píxel en cada paso. Si la línea tiene una ligera pendiente (menos de 45 grados o ¼π radianes), puedes interpolar la coordenada <em>y</em> a lo largo de la pendiente. Aún necesitas un píxel por posición <em>x</em>, con la posición <em>y</em> de esos píxeles determinada por la pendiente.</p>
 

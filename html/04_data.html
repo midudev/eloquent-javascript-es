@@ -716,7 +716,7 @@ console.log(range(<span class="tok-number">5</span>, <span class="tok-number">2<
 console.log(sum(range(<span class="tok-number">1</span>, <span class="tok-number">10</span>)));
 <span class="tok-comment">// → 55</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-kmt90zSB4K" href="#p-kmt90zSB4K" tabindex="-1" role="presentation"></a>La construcción de un array se hace más fácilmente inicializando primero un enlace a <code>[]</code> (un array vacío nuevo) y llamando repetidamente a su método <code>push</code> para agregar un valor. No olvides devolver el array al final de la función.</p>
 
@@ -750,7 +750,7 @@ reverseArrayInPlace(arrayValue);
 console.log(arrayValue);
 <span class="tok-comment">// → [5, 4, 3, 2, 1]</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-wFwjKkG+fd" href="#p-wFwjKkG+fd" tabindex="-1" role="presentation"></a>Hay dos formas obvias de implementar <code>reverseArray</code>. La primera es simplemente recorrer el array de entrada de principio a fin y usar el método <code>unshift</code> en el nuevo array para insertar cada elemento en su inicio. La segunda es recorrer el array de entrada hacia atrás y utilizar el método <code>push</code>. Iterar sobre un array hacia atrás requiere una especificación de bucle (algo incómoda), como <code>(let i = array.<wbr>length - 1; i &gt;= 0; i--)</code>.</p>
 
@@ -796,7 +796,7 @@ console.log(prepend(<span class="tok-number">10</span>, prepend(<span class="tok
 console.log(nth(arrayToList([<span class="tok-number">10</span>, <span class="tok-number">20</span>, <span class="tok-number">30</span>]), <span class="tok-number">1</span>));
 <span class="tok-comment">// → 20</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-Yv5/kokF70" href="#p-Yv5/kokF70" tabindex="-1" role="presentation"></a>Construir una lista es más fácil cuando se hace de atrás hacia adelante. Por lo tanto, <code>arrayToList</code> podría iterar sobre el array en reversa (ver ejercicio anterior) y, para cada elemento, agregar un objeto a la lista. Puedes usar un enlace local para mantener la parte de la lista que se ha construido hasta el momento y usar una asignación como <code>lista = {value: X, rest: lista}</code> para añadir un elemento.</p>
 
@@ -830,7 +830,7 @@ console.log(deepEqual(obj, {<span class="tok-definition">here</span>: <span clas
 console.log(deepEqual(obj, {<span class="tok-definition">here</span>: {<span class="tok-definition">is</span>: <span class="tok-string">&quot;an&quot;</span>}, <span class="tok-definition">object</span>: <span class="tok-number">2</span>}));
 <span class="tok-comment">// → true</span></pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-7mOFXJ3b9x" href="#p-7mOFXJ3b9x" tabindex="-1" role="presentation"></a>La prueba para determinar si estás tratando con un objeto real se verá algo así: <code>typeof x == &quot;object&quot; &amp;&amp; x != null</code>. Ten cuidado de comparar propiedades solo cuando <em>ambos</em> argumentos sean objetos. En todos los demás casos, simplemente puedes devolver inmediatamente el resultado de aplicar <code>===</code>.</p>
 

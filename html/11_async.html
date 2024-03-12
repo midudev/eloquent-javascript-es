@@ -42,8 +42,6 @@
 
 <p><a class="p_ident" id="p-Wkrmfutpwr" href="#p-Wkrmfutpwr" tabindex="-1" role="presentation"></a>En el siguiente diagrama, las líneas gruesas representan el tiempo que el programa pasa funcionando normalmente, y las líneas delgadas representan el tiempo gastado esperando a la red. En el modelo síncrono, el tiempo tomado por la red es <em>parte</em> de la línea de tiempo para un hilo de control dado. En el modelo asíncrono, iniciar una acción en la red permite que el programa continúe ejecutándose mientras la comunicación en la red sucede junto a él, notificando al programa cuando haya terminado.</p><figure><img src="img/control-io.svg" alt="Diagrama que muestra el flujo de control en programas síncronos y asíncronos. La primera parte muestra un programa síncrono, donde las fases activas y de espera del programa ocurren en una única línea secuencial. La segunda parte muestra un programa síncrono multi-hilo, con dos líneas paralelas en las cuales las partes de espera suceden una al lado de la otra, haciendo que el programa termine más rápido. La última parte muestra un programa asíncrono, donde las múltiples acciones asíncronas se ramifican desde el programa principal, el cual se detiene en algún momento y luego continúa cuando la primera cosa por la que estaba esperando finaliza."></figure>
 
-<p><a class="p_ident" id="p-TpvRIq40Yj" href="#p-TpvRIq40Yj" tabindex="-1" role="presentation"></a>{{index [“flujo de control”, asíncrono], “programación asíncrona”, verbosidad, rendimiento}}</p>
-
 <p><a class="p_ident" id="p-m0bMwsi7Hj" href="#p-m0bMwsi7Hj" tabindex="-1" role="presentation"></a>Otra forma de describir la diferencia es que esperar a que las acciones terminen es <em>implícito</em> en el modelo síncrono, mientras que es <em>explícito</em>, bajo nuestro control, en el modelo asíncrono.</p>
 
 <p><a class="p_ident" id="p-Gt0CDXTJDZ" href="#p-Gt0CDXTJDZ" tabindex="-1" role="presentation"></a>La asincronía tiene sus pros y sus contras. Facilita la expresión de programas que no encajan en el modelo de control de línea recta, pero también puede hacer que expresar programas que siguen una línea recta sea más complicado. Veremos algunas formas de reducir esta dificultad más adelante en el capítulo.</p>
@@ -525,7 +523,7 @@ console.log(<span class="tok-string">&quot;¡Yo primero!&quot;</span>);
 activityTable(<span class="tok-number">1</span>)
   .then(<span class="tok-definition">table</span> =&gt; console.log(activityGraph(table)));</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-jZ7OykMDrT" href="#p-jZ7OykMDrT" tabindex="-1" role="presentation"></a>Necesitarás convertir el contenido de estos archivos en un array. La forma más fácil de hacerlo es utilizando el método <code>split</code> en la cadena producida por <code>textFile</code>. Ten en cuenta que para los archivos de registro, eso seguirá dándote un array de cadenas, que debes convertir a números antes de pasarlos a <code>new Date</code>.</p>
 
@@ -550,7 +548,7 @@ activityTable(<span class="tok-number">6</span>)
 
 <p><a class="p_ident" id="p-EBStIx8OmH" href="#p-EBStIx8OmH" tabindex="-1" role="presentation"></a>Si uno de los archivos listados en la lista de archivos tiene un error tipográfico, y falla al leerlo, ¿cómo termina ese fallo en el objeto <code>Promise</code> que retorna tu función?</p>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-aw5MLt4jxJ" href="#p-aw5MLt4jxJ" tabindex="-1" role="presentation"></a>El enfoque más directo para escribir esta función es usar una cadena de llamadas <code>then</code>. La primera promesa se produce al leer la lista de archivos de registro. El primer callback puede dividir esta lista y mapear <code>textFile</code> sobre ella para obtener una matriz de promesas para pasar a <code>Promise.all</code>. Puede devolver el objeto devuelto por <code>Promise.all</code>, para que lo que sea que eso devuelva se convierta en el resultado del valor de retorno de este primer <code>then</code>.</p>
 
@@ -621,7 +619,7 @@ Promise_all([pronto(<span class="tok-number">1</span>), Promise.reject(<span cla
     }
   });</pre>
 
-<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-jsnP1W7uln" href="#p-jsnP1W7uln" tabindex="-1" role="presentation"></a>La función pasada al constructor <code>Promise</code> tendrá que llamar a <code>then</code> en cada una de las promesas en el array dado. Cuando una de ellas tiene éxito, dos cosas deben suceder. El valor resultante debe ser almacenado en la posición correcta de un array de resultados, y debemos verificar si esta era la última promesa pendiente y finalizar nuestra propia promesa si lo era.</p>
 
