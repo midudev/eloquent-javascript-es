@@ -331,7 +331,7 @@ console.log(12);
 
 {{index ["control flow", loop]}}
 
-Eso funciona, pero la idea de escribir un programa es hacer algo _menos_ trabajo, no más. Si necesitáramos todos los números pares menores que 1,000, este enfoque sería inviable. Lo que necesitamos es una manera de ejecutar un fragmento de código múltiples veces. Esta forma de control de flujo se llama un _((bucle))_.
+Eso funciona, pero la idea de escribir un programa es hacer _menos_ trabajo, no más. Si necesitáramos todos los números pares menores que 1,000, este enfoque sería inviable. Lo que necesitamos es una manera de ejecutar un fragmento de código múltiples veces. Esta forma de control de flujo se llama _((bucle))_.
 
 {{figure {url: "img/controlflow-loop.svg", alt: "Diagrama que muestra una flecha que apunta a un punto que tiene una flecha cíclica que regresa a sí mismo y otra flecha que continúa", width: "4cm"}}}
 
@@ -354,11 +354,11 @@ while (numero <= 12) {
 
 Un ((statement)) que comienza con la palabra clave `while` crea un bucle. La palabra `while` va seguida de una ((expresión)) entre paréntesis y luego un enunciado, similar a `if`. El bucle sigue ejecutando ese enunciado mientras la expresión produzca un valor que se convierta en `true` al convertirse a Booleano.
 
-{{índex [estado, en enlace], [enlace, como estado]}}
+{{index [estado, en enlace], [enlace, como estado]}}
 
 El enlace 'number' demuestra la forma en que un ((enlace)) puede seguir el progreso de un programa. Cada vez que se repite el bucle, 'number' obtiene un valor que es 2 más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.
 
-{{índex exponenciación}}
+{{index exponenciación}}
 
 Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2^10^ (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ha alcanzado 10 aún y, si no, actualiza ambos enlaces.
 
@@ -375,11 +375,11 @@ console.log(result);
 
 El contador también podría haber comenzado en `1` y haber comprobado si era `<= 10`, pero por razones que se harán evidentes en [Capítulo ?](data#array_indexing), es buena idea acostumbrarse a contar desde 0.
 
-{{índex "** operador"}}
+{{index "** operador"}}
 
 Ten en cuenta que JavaScript también tiene un operador para la exponenciación (`2 ** 10`), que usarías para calcular esto en un código real, pero eso habría arruinado el ejemplo.
 
-{{índex "cuerpo del bucle", "bucle do", ["flujo de control", bucle]}}
+{{index "cuerpo del bucle", "bucle do", ["flujo de control", bucle]}}
 
 Un bucle `do` es una estructura de control similar a un bucle `while`. La única diferencia radica en que un bucle `do` siempre ejecuta su cuerpo al menos una vez, y comienza a probar si debe detenerse solo después de esa primera ejecución. Para reflejar esto, la prueba aparece después del cuerpo del bucle:
 
@@ -391,13 +391,13 @@ do {
 console.log("Hola " + tuNombre);
 ```
 
-{{índex [Booleano, "conversión a"], operador "!"}}
+{{index [Booleano, "conversión a"], operador "!"}}
 
 Este programa te obligará a ingresar un nombre. Preguntará una y otra vez hasta que obtenga algo que no sea una cadena vacía. Aplicar el operador `!` convertirá un valor al tipo Booleano antes de negarlo, y todas las cadenas excepto `""` se convierten en `true`. Esto significa que el bucle continúa hasta que proporciones un nombre no vacío.
 
 ## Sangrado de Código
 
-{{índex [código, "estructura de"], [espacios en blanco, sangrado], "estilo de programación"}}
+{{index [código, "estructura de"], [espacios en blanco, sangrado], "estilo de programación"}}
 
 En los ejemplos, he estado agregando espacios delante de las sentencias que son parte de alguna otra sentencia más grande. Estos espacios no son necesarios: la computadora aceptará el programa perfectamente sin ellos. De hecho, incluso los ((saltos)) de línea en los programas son opcionales. Podrías escribir un programa como una sola línea larga si así lo deseas.
 
