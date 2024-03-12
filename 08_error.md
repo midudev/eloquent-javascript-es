@@ -376,7 +376,9 @@ function transfer(from, amount) {
     }
   }
 }
-```Esta versión de la función rastrea su progreso y, si al salir nota que fue abortada en un punto donde había creado un estado del programa inconsistente, repara el daño causado. 
+```
+
+Esta versión de la función rastrea su progreso y, si al salir nota que fue abortada en un punto donde había creado un estado del programa inconsistente, repara el daño causado. 
 
 Cabe destacar que aunque el código `finally` se ejecuta cuando se lanza una excepción en el bloque `try`, no interfiere con la excepción. Después de que se ejecuta el bloque `finally`, la pila continúa desenrollándose.
 
