@@ -42,7 +42,7 @@ Habrá momentos en los que leer este libro resulte terriblemente frustrante. Si 
 
 Depende de ti hacer el esfuerzo necesario. Cuando te cueste seguir el libro, no saques conclusiones precipitadas sobre tus propias capacidades. Estás bien, simplemente necesitas seguir adelante. Tómate un descanso, vuelve a leer algo de material y asegúrate de leer y comprender los programas de ejemplo y los ((ejercicios)). Aprender es un trabajo duro, pero todo lo que aprendas será tuyo y facilitará aún más el aprendizaje futuro.
 
-{{quote {autor: "Ursula K. Le Guin", título: "La mano izquierda de la oscuridad"}
+{{quote {autor: "Ursula K. Le Guin", title: "La mano izquierda de la oscuridad"}
 
 {{index "Le Guin, Ursula K."}}
 
