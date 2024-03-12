@@ -8,7 +8,7 @@ quote}}
 
 {{index "Berners-Lee, Tim", "World Wide Web", HTTP, [JavaScript, "historia de"], "World Wide Web"}}
 
-{{figure {url: "img/chapter_picture_13.jpg", alt: "Ilustración que muestra una central telefónica", chapter: "enmarcada"}}}
+{{figure {url: "img/chapter_picture_13.jpg", alt: "Ilustración que muestra una central telefónica", chapter: "framed"}}}
 
 Los próximos capítulos de este libro hablarán sobre los navegadores web. Sin los navegadores web, no habría JavaScript. O incluso si existiera, nadie le habría prestado atención.
 
@@ -178,7 +178,9 @@ Este libro generalmente omitirá las etiquetas `<html>`, `<head>` y `<body>` en 
 
 {{index navegador}}
 
-También generalmente omitiré el ((doctype)) y la declaración `charset`. Esto no debe interpretarse como una recomendación para omitirlos de documentos HTML. Los navegadores a menudo hacen cosas ridículas cuando los olvidas. Deberías considerar que el doctype y los metadatos del `charset` están implícitamente presentes en los ejemplos, incluso cuando no se muestran realmente en el texto.{{id script_tag}}
+También generalmente omitiré el ((doctype)) y la declaración `charset`. Esto no debe interpretarse como una recomendación para omitirlos de documentos HTML. Los navegadores a menudo hacen cosas ridículas cuando los olvidas. Deberías considerar que el doctype y los metadatos del `charset` están implícitamente presentes en los ejemplos, incluso cuando no se muestran realmente en el texto.
+
+{{id script_tag}}
 
 ## HTML y JavaScript
 

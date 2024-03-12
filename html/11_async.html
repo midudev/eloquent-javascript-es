@@ -18,9 +18,7 @@
 
 <footer>Laozi, <cite>Tao Te Ching</cite></footer>
 
-</blockquote>
-
-<p><a class="p_ident" id="p-dLUrYLnJml" href="#p-dLUrYLnJml" tabindex="-1" role="presentation"></a>{{figure {url: “img/chapter_picture_11.jpg”, alt: “Ilustración que muestra dos cuervos en una rama de árbol”, capítulo: enmarcado}}}</p>
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_11.jpg" alt="Ilustración que muestra dos cuervos en una rama de árbol"></figure>
 
 <p><a class="p_ident" id="p-VOCX31yYLX" href="#p-VOCX31yYLX" tabindex="-1" role="presentation"></a>La parte central de una computadora, la parte que lleva a cabo los pasos individuales que componen nuestros programas, se llama el <em>procesador</em>. Los programas que hemos visto hasta ahora mantendrán ocupado al procesador hasta que hayan terminado su trabajo. La velocidad a la cual algo como un bucle que manipula números puede ser ejecutado depende casi enteramente de la velocidad del procesador y la memoria de la computadora.</p>
 
@@ -132,7 +130,9 @@ textFile(<span class="tok-string">&quot;planes.txt&quot;</span>).then(console.lo
 
 jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.log);</pre>
 
-<p><a class="p_ident" id="p-lXBankL5QR" href="#p-lXBankL5QR" tabindex="-1" role="presentation"></a>En general, es útil pensar en las promesas como un mecanismo que permite al código ignorar la pregunta de cuándo va a llegar un valor. Un valor normal tiene que existir realmente antes de que podamos hacer referencia a él. Un valor prometido es un valor que <em>puede</em> estar allí o podría aparecer en algún momento en el futuro. Las operaciones definidas en términos de promesas, al conectarlas con llamadas <code>then</code>, se ejecutan de forma asíncrona a medida que sus entradas están disponibles.## Falla</p>
+<p><a class="p_ident" id="p-YrcahdlIgs" href="#p-YrcahdlIgs" tabindex="-1" role="presentation"></a>En general, es útil pensar en las promesas como un mecanismo que permite al código ignorar la pregunta de cuándo va a llegar un valor. Un valor normal tiene que existir realmente antes de que podamos hacer referencia a él. Un valor prometido es un valor que <em>puede</em> estar allí o podría aparecer en algún momento en el futuro. Las operaciones definidas en términos de promesas, al conectarlas con llamadas <code>then</code>, se ejecutan de forma asíncrona a medida que sus entradas están disponibles.</p>
+
+<h2><a class="h_ident" id="h-itgMGyRo24" href="#h-itgMGyRo24" tabindex="-1" role="presentation"></a>Falla</h2>
 
 <p><a class="p_ident" id="p-+fxovQGwNA" href="#p-+fxovQGwNA" tabindex="-1" role="presentation"></a>Las computaciones regulares de JavaScript pueden fallar al lanzar una excepción. Las computaciones asíncronas a menudo necesitan algo así. Una solicitud de red puede fallar, un archivo puede no existir, o algún código que forma parte de la computación asíncrona puede lanzar una excepción.</p>
 
@@ -313,7 +313,9 @@ jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.
 
 <p><a class="p_ident" id="p-C276cu76si" href="#p-C276cu76si" tabindex="-1" role="presentation"></a>Tales expresiones <code>yield</code> solo pueden ocurrir directamente en la función generadora misma y no en una función interna que definas dentro de ella. El estado que un generador guarda, al hacer yield, es solo su entorno <em>local</em> y la posición donde hizo el yield.</p>
 
-<p><a class="p_ident" id="p-pzLWf0oAA3" href="#p-pzLWf0oAA3" tabindex="-1" role="presentation"></a>Una función <code>async</code> es un tipo especial de generador. Produce una promesa al llamarla, la cual se resuelve cuando retorna (termina) y se rechaza cuando arroja una excepción. Cada vez que hace un yield (awaits) una promesa, el resultado de esa promesa (valor o excepción generada) es el resultado de la expresión <code>await</code>.## Un Proyecto de Arte de Corvidos</p>
+<p><a class="p_ident" id="p-+kfgMm93qQ" href="#p-+kfgMm93qQ" tabindex="-1" role="presentation"></a>Una función <code>async</code> es un tipo especial de generador. Produce una promesa al llamarla, la cual se resuelve cuando retorna (termina) y se rechaza cuando arroja una excepción. Cada vez que hace un yield (awaits) una promesa, el resultado de esa promesa (valor o excepción generada) es el resultado de la expresión <code>await</code>.</p>
+
+<h2><a class="h_ident" id="h-0q8YSKeCAX" href="#h-0q8YSKeCAX" tabindex="-1" role="presentation"></a>Un Proyecto de Arte de Corvidos</h2>
 
 <p><a class="p_ident" id="p-EIAKJkXc8j" href="#p-EIAKJkXc8j" tabindex="-1" role="presentation"></a>Esta mañana, Carla se despertó con un ruido desconocido en la pista de aterrizaje fuera de su hangar. Saltando al borde del techo, ve que los humanos están preparando algo. Hay muchos cables eléctricos, un escenario y una especie de gran pared negra que están construyendo.</p>
 
@@ -447,7 +449,9 @@ console.log(<span class="tok-string">&quot;¡Yo primero!&quot;</span>);
 <span class="tok-comment">// → ¡Yo primero!</span>
 <span class="tok-comment">// → Hecho</span></pre>
 
-<p><a class="p_ident" id="p-43H0li0kuu" href="#p-43H0li0kuu" tabindex="-1" role="presentation"></a>En capítulos posteriores veremos varios tipos de eventos que se ejecutan en el bucle de eventos.## Errores asincrónicos</p>
+<p><a class="p_ident" id="p-qwnR1hGJw8" href="#p-qwnR1hGJw8" tabindex="-1" role="presentation"></a>En capítulos posteriores veremos varios tipos de eventos que se ejecutan en el bucle de eventos.</p>
+
+<h2><a class="h_ident" id="h-5F87Tj7sc7" href="#h-5F87Tj7sc7" tabindex="-1" role="presentation"></a>Errores asincrónicos</h2>
 
 <p><a class="p_ident" id="p-DJqLCQdudP" href="#p-DJqLCQdudP" tabindex="-1" role="presentation"></a>Cuando tu programa se ejecuta de forma síncrona, de una sola vez, no hay cambios de estado ocurriendo excepto aquellos que el programa mismo realiza. Para programas asíncronos esto es diferente, pueden tener <em>brechas</em> en su ejecución durante las cuales otro código puede correr.</p>
 

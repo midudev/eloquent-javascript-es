@@ -485,7 +485,9 @@ for (;;) {
 
 {{index depuración}}
 
-Esto capturará solo instancias de `InputError` y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.## Afirmaciones
+Esto capturará solo instancias de `InputError` y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.
+
+## Afirmaciones
 
 {{index "función assert", "afirmación", depuración}}
 

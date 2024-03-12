@@ -8,7 +8,7 @@ quote}}
 
 {{index why, "Guía Conmovedora"}}
 
-{{figure {url: "img/chapter_picture_2.jpg", alt: "Ilustración que muestra varios tentáculos sujetando piezas de ajedrez", chapter: enmarcado}}}
+{{figure {url: "img/chapter_picture_2.jpg", alt: "Ilustración que muestra varios tentáculos sujetando piezas de ajedrez", chapter: framed}}}
 
 En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas _programación_. Ampliaremos nuestro dominio del lenguaje JavaScript más allá de los sustantivos y fragmentos de oraciones que hemos visto hasta ahora, hasta el punto en que podamos expresar prosa significativa.
 
@@ -43,7 +43,9 @@ Sin embargo, es un programa inútil. Una ((expresión)) puede conformarse con si
 
 {{index "estilo de programación", "inserción automática de punto y coma", punto y coma}}
 
-En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima ((línea)) se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.## Bindings
+En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima ((línea)) se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.
+
+## Bindings
 
 {{indexsee variable, binding}}
 

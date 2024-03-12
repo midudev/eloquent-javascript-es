@@ -18,7 +18,7 @@ quote}}
 
 if}}
 
-{{figure {url: "img/chapter_picture_9.jpg", alt: "Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares", chapter: "enmarcado en cuadrado"}}}
+{{figure {url: "img/chapter_picture_9.jpg", alt: "Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares", chapter: framed}}}
 
 {{index "evolución", "adopción", "integración"}}
 
@@ -249,7 +249,9 @@ Los primeros y segundos caracteres `+` aplican solo al segundo _o_ en _boo_ y _h
 
 {{index "sensibilidad a mayúsculas", "capitalización", ["expresión regular", banderas]}}
 
-La `i` al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la _B_ mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.## Coincidencias y grupos
+La `i` al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la _B_ mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.
+
+## Coincidencias y grupos
 
 {{index ["expresión regular", "agrupación"], "método exec", [array, "coincidencia de RegExp"]}}
 
@@ -467,7 +469,9 @@ El retroceso también ocurre para los operadores de repetición como + y `*`. Si
 
 {{index rendimiento, complejidad}}
 
-Es posible escribir expresiones regulares que realizarán _mucho_ retroceso. Este problema ocurre cuando un patrón puede coincidir con una parte de la entrada de muchas formas diferentes. Por ejemplo, si nos confundimos al escribir una expresión regular para los números binarios, podríamos escribir accidentalmente algo como `/([01]+)+b/`.{{figure {url: "img/re_slow.svg", alt: "Diagrama de ferrocarril para la expresión regular '([01]+)+b'", width: "6cm"}}}
+Es posible escribir expresiones regulares que realizarán _mucho_ retroceso. Este problema ocurre cuando un patrón puede coincidir con una parte de la entrada de muchas formas diferentes. Por ejemplo, si nos confundimos al escribir una expresión regular para los números binarios, podríamos escribir accidentalmente algo como `/([01]+)+b/`.
+
+{{figure {url: "img/re_slow.svg", alt: "Diagrama de ferrocarril para la expresión regular '([01]+)+b'", width: "6cm"}}}
 
 {{index "bucle interno", [anidamiento, "en expresiones regulares"]}}
 
@@ -574,7 +578,9 @@ console.log(stripComments("1 /* a */+/* b */ 1"));
 // → 1 + 1
 ```
 
-Muchos ((error))s en programas de ((expresión regular)) pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.## Creación dinámica de objetos RegExp
+Muchos ((error))s en programas de ((expresión regular)) pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.
+
+## Creación dinámica de objetos RegExp
 
 {{index ["expresión regular", "creación"], "carácter de subrayado", "clase RegExp"}}
 

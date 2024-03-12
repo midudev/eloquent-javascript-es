@@ -18,13 +18,11 @@
 
 <footer>_why, <cite>Guía (conmovedora) de Ruby de Why</cite></footer>
 
-</blockquote><figure class="chapter enmarcado"><img src="img/chapter_picture_2.jpg" alt="Ilustración que muestra varios tentáculos sujetando piezas de ajedrez"></figure>
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_2.jpg" alt="Ilustración que muestra varios tentáculos sujetando piezas de ajedrez"></figure>
 
 <p><a class="p_ident" id="p-uqRM4ZM/cN" href="#p-uqRM4ZM/cN" tabindex="-1" role="presentation"></a>En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas <em>programación</em>. Ampliaremos nuestro dominio del lenguaje JavaScript más allá de los sustantivos y fragmentos de oraciones que hemos visto hasta ahora, hasta el punto en que podamos expresar prosa significativa.</p>
 
 <h2><a class="h_ident" id="h-oqfl+ptPGG" href="#h-oqfl+ptPGG" tabindex="-1" role="presentation"></a>Expresiones y declaraciones</h2>
-
-<p><a class="p_ident" id="p-gDMlPM3ttt" href="#p-gDMlPM3ttt" tabindex="-1" role="presentation"></a>{{index grammar, [sintaxis, “expresión”], [código, “estructura de”], “gramática”, [JavaScript, sintaxis]}}</p>
 
 <p><a class="p_ident" id="p-Te9W0P2dd7" href="#p-Te9W0P2dd7" tabindex="-1" role="presentation"></a>En <a href="valores">Capítulo ?</a>, creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.</p>
 
@@ -41,7 +39,9 @@
 
 <p><a class="p_ident" id="p-tnSc/zEyIA" href="#p-tnSc/zEyIA" tabindex="-1" role="presentation"></a>Sin embargo, es un programa inútil. Una expresión puede conformarse con simplemente producir un valor, que luego puede ser utilizado por el código que la contiene. Sin embargo, una declaración se mantiene por sí misma, por lo que si no afecta al mundo, es inútil. Puede mostrar algo en la pantalla, como con <code>console.log</code>, o cambiar el estado de la máquina de una manera que afectará a las declaraciones que vienen después de ella. Estos cambios se llaman <em>efectos secundarios</em>. Las declaraciones en el ejemplo anterior simplemente producen los valores <code>1</code> y <code>verdadero</code>, y luego los desechan inmediatamente. Esto no deja ninguna impresión en el mundo en absoluto. Cuando ejecutas este programa, no sucede nada observable.</p>
 
-<p><a class="p_ident" id="p-YW5DY4MHOf" href="#p-YW5DY4MHOf" tabindex="-1" role="presentation"></a>En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima línea se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.## Bindings</p>
+<p><a class="p_ident" id="p-w7JKZ0bVTt" href="#p-w7JKZ0bVTt" tabindex="-1" role="presentation"></a>En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima línea se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.</p>
+
+<h2><a class="h_ident" id="h-lnOC+GBEtu" href="#h-lnOC+GBEtu" tabindex="-1" role="presentation"></a>Bindings</h2>
 
 <p><a class="p_ident" id="p-38bl8CNA5y" href="#p-38bl8CNA5y" tabindex="-1" role="presentation"></a>¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no cambia los valores antiguos, y el nuevo valor debe utilizarse inmediatamente o se disipará nuevamente. Para atrapar y retener valores, JavaScript proporciona una cosa llamada un <em>enlace</em>, o <em>variable</em>:</p>
 
@@ -280,8 +280,6 @@ console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 
 <h2><a class="h_ident" id="h-k4AXnmqH4l" href="#h-k4AXnmqH4l" tabindex="-1" role="presentation"></a>bucles for</h2>
 
-<p><a class="p_ident" id="p-Y9AWaZmvnV" href="#p-Y9AWaZmvnV" tabindex="-1" role="presentation"></a>{{index [sintaxis, declaración], “bucle while”, “variable de contador”}}</p>
-
 <p><a class="p_ident" id="p-b/v1NpkLGq" href="#p-b/v1NpkLGq" tabindex="-1" role="presentation"></a>Muchos bucles siguen el patrón mostrado en los ejemplos de <code>while</code>. Primero se crea una variable de “contador” para rastrear el progreso del bucle. Luego viene un bucle <code>while</code>, generalmente con una expresión de prueba que verifica si el contador ha alcanzado su valor final. Al final del cuerpo del bucle, el contador se actualiza para rastrear el progreso.</p>
 
 <p><a class="p_ident" id="p-087KFJUF4R" href="#p-087KFJUF4R" tabindex="-1" role="presentation"></a>Debido a que este patrón es tan común, JavaScript y lenguajes similares proporcionan una forma ligeramente más corta y completa, el bucle <code>for</code>:</p>
@@ -295,11 +293,7 @@ console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 
 <p><a class="p_ident" id="p-fN0Wqpo2bS" href="#p-fN0Wqpo2bS" tabindex="-1" role="presentation"></a>Este programa es exactamente equivalente al <a href="02_program_structure.html#loops">anterior</a> ejemplo de impresión de números pares. La única diferencia es que todas las declaraciones relacionadas con el “estado” del bucle están agrupadas después de <code>for</code>.</p>
 
-<p><a class="p_ident" id="p-tLWyHiyo17" href="#p-tLWyHiyo17" tabindex="-1" role="presentation"></a>{{index [variable, como estado], [paréntesis, declaración]}}</p>
-
 <p><a class="p_ident" id="p-9Dk5fa1UtV" href="#p-9Dk5fa1UtV" tabindex="-1" role="presentation"></a>Los paréntesis después de la palabra clave <code>for</code> deben contener dos punto y coma. La parte antes del primer punto y coma <em>inicializa</em> el bucle, generalmente definiendo una variable. La segunda parte es la expresión que <em>verifica</em> si el bucle debe continuar. La parte final <em>actualiza</em> el estado del bucle después de cada iteración. En la mayoría de los casos, esto es más corto y claro que un <code>while</code> tradicional.</p>
-
-<p><a class="p_ident" id="p-bXNehPJtjm" href="#p-bXNehPJtjm" tabindex="-1" role="presentation"></a>{{index exponenciación}}</p>
 
 <p><a class="p_ident" id="p-q5iPDIA0KE" href="#p-q5iPDIA0KE" tabindex="-1" role="presentation"></a>Este es el código que calcula 2<sup>10</sup> usando <code>for</code> en lugar de <code>while</code>:</p>
 
@@ -380,8 +374,6 @@ console.log(resultado);
 <p><a class="p_ident" id="p-Ebda3Pwhl6" href="#p-Ebda3Pwhl6" tabindex="-1" role="presentation"></a>Puedes colocar cualquier cantidad de etiquetas <code>case</code> dentro del bloque abierto por <code>switch</code>. El programa comenzará a ejecutarse en la etiqueta que corresponda al valor que se le dio a <code>switch</code>, o en <code>default</code> si no se encuentra ningún valor coincidente. Continuará ejecutándose, incluso a través de otras etiquetas, hasta que alcance una declaración <code>break</code>. En algunos casos, como el caso <code>&quot;soleado&quot;</code> en el ejemplo, esto se puede usar para compartir algo de código entre casos (recomienda salir al exterior tanto para el clima soleado como para el nublado). Sin embargo, ten cuidado, es fácil olvidar un <code>break</code> de este tipo, lo que hará que el programa ejecute código que no deseas ejecutar.</p>
 
 <h2><a class="h_ident" id="h-AIetW23qbx" href="#h-AIetW23qbx" tabindex="-1" role="presentation"></a>Capitalización</h2>
-
-<p><a class="p_ident" id="p-acV89u7fwR" href="#p-acV89u7fwR" tabindex="-1" role="presentation"></a>{{index capitalización, [binding, nombrar], [espacios en blanco, sintaxis]}}</p>
 
 <p><a class="p_ident" id="p-LPEByvMVpz" href="#p-LPEByvMVpz" tabindex="-1" role="presentation"></a>Los nombres de los enlaces no pueden contener espacios, sin embargo, a menudo es útil usar varias palabras para describir claramente lo que representa el enlace. Estas son básicamente tus opciones para escribir un nombre de enlace con varias palabras:</p>
 

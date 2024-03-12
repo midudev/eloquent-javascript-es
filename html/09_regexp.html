@@ -26,7 +26,7 @@
 
 <footer>Master Yuan-Ma, <cite>El Libro de la Programación</cite></footer>
 
-</blockquote><figure class="chapter enmarcado en cuadrado"><img src="img/chapter_picture_9.jpg" alt="Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares"></figure>
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_9.jpg" alt="Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares"></figure>
 
 <p><a class="p_ident" id="p-cUW+3W7fmu" href="#p-cUW+3W7fmu" tabindex="-1" role="presentation"></a>Las herramientas y técnicas de programación sobreviven y se propagan de manera caótica y evolutiva. No siempre ganan las mejores o brillantes, sino aquellas que funcionan lo suficientemente bien dentro del nicho correcto o que se integran con otra pieza exitosa de tecnología.</p>
 
@@ -231,7 +231,9 @@ console.log(cartoonCrying.test(<span class="tok-string">&quot;Boohoooohoohooo&qu
 
 <p><a class="p_ident" id="p-S1/QTkNDfs" href="#p-S1/QTkNDfs" tabindex="-1" role="presentation"></a>{{index “sensibilidad a mayúsculas”, capitalización, [“expresión regular”, banderas]}}</p>
 
-<p><a class="p_ident" id="p-30jgTw/nrn" href="#p-30jgTw/nrn" tabindex="-1" role="presentation"></a>La <code>i</code> al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la <em>B</em> mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.## Coincidencias y grupos</p>
+<p><a class="p_ident" id="p-uBIcF0MS0l" href="#p-uBIcF0MS0l" tabindex="-1" role="presentation"></a>La <code>i</code> al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la <em>B</em> mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.</p>
+
+<h2><a class="h_ident" id="h-G8LUB/KGbs" href="#h-G8LUB/KGbs" tabindex="-1" role="presentation"></a>Coincidencias y grupos</h2>
 
 <p><a class="p_ident" id="p-Pd1YZ8sXPG" href="#p-Pd1YZ8sXPG" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, agrupación], “método exec”, [array, “coincidencia de RegExp”]}}</p>
 
@@ -388,7 +390,7 @@ console.log(animalCount.test(<span class="tok-string">&quot;15 pugs&quot;</span>
 
 <p><a class="p_ident" id="p-G1JkUqppfY" href="#p-G1JkUqppfY" tabindex="-1" role="presentation"></a>El retroceso también ocurre para los operadores de repetición como + y <code>*</code>. Si coincide con <code>/^.*x/</code> contra <code>&quot;abcxe&quot;</code>, la parte <code>.*</code> intentará primero consumir toda la cadena. Luego el motor se dará cuenta de que necesita una <em>x</em> para que coincida con el patrón. Dado que no hay una <em>x</em> más allá del final de la cadena, el operador estrella intentará coincidir con un carácter menos. Pero el coincidente no encuentra una <em>x</em> después de <code>abcx</code> tampoco, por lo que retrocede nuevamente, coincidiendo con el operador estrella solo con <code>abc</code>. <em>Ahora</em> encuentra una <em>x</em> donde la necesita y reporta una coincidencia exitosa desde las posiciones 0 a 4.</p>
 
-<p><a class="p_ident" id="p-64uzCw+r5+" href="#p-64uzCw+r5+" tabindex="-1" role="presentation"></a>Es posible escribir expresiones regulares que realizarán <em>mucho</em> retroceso. Este problema ocurre cuando un patrón puede coincidir con una parte de la entrada de muchas formas diferentes. Por ejemplo, si nos confundimos al escribir una expresión regular para los números binarios, podríamos escribir accidentalmente algo como <code>/([01]+)+b/</code>.{{figure {url: “img/re_slow.svg”, alt: “Diagrama de ferrocarril para la expresión regular '([01]+)+b’&quot;, width: “6cm”}}}</p>
+<p><a class="p_ident" id="p-PFas9MdMqI" href="#p-PFas9MdMqI" tabindex="-1" role="presentation"></a>Es posible escribir expresiones regulares que realizarán <em>mucho</em> retroceso. Este problema ocurre cuando un patrón puede coincidir con una parte de la entrada de muchas formas diferentes. Por ejemplo, si nos confundimos al escribir una expresión regular para los números binarios, podríamos escribir accidentalmente algo como <code>/([01]+)+b/</code>.</p><figure><img src="img/re_slow.svg" alt="Diagrama de ferrocarril para la expresión regular '([01]+)+b'"></figure>
 
 <p><a class="p_ident" id="p-jqlLoLqI3m" href="#p-jqlLoLqI3m" tabindex="-1" role="presentation"></a>Si intenta hacer coincidir una serie larga de ceros y unos sin un caracter <em>b</em> al final, el analizador primero pasa por el bucle interno hasta que se queda sin dígitos. Luego se da cuenta de que no hay <em>b</em>, por lo que retrocede una posición, pasa por el bucle externo una vez y vuelve a darse por vencido, intentando retroceder nuevamente fuera del bucle interno. Continuará intentando todas las rutas posibles a través de estos dos bucles. Esto significa que la cantidad de trabajo se <em>duplica</em> con cada carácter adicional. Incluso con apenas unas pocas docenas de caracteres, la coincidencia resultante tomará prácticamente para siempre.</p>
 
@@ -472,7 +474,9 @@ console.log(stripComments(<span class="tok-string">&quot;1 /* a */+/* b */ 1&quo
 console.log(stripComments(<span class="tok-string">&quot;1 /* a */+/* b */ 1&quot;</span>));
 <span class="tok-comment">// → 1 + 1</span></pre>
 
-<p><a class="p_ident" id="p-MBkU6rPo30" href="#p-MBkU6rPo30" tabindex="-1" role="presentation"></a>Muchos errors en programas de expresión regular pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.## Creación dinámica de objetos RegExp</p>
+<p><a class="p_ident" id="p-ALsLlfRqmw" href="#p-ALsLlfRqmw" tabindex="-1" role="presentation"></a>Muchos errors en programas de expresión regular pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.</p>
+
+<h2><a class="h_ident" id="h-iuSjEFI6BB" href="#h-iuSjEFI6BB" tabindex="-1" role="presentation"></a>Creación dinámica de objetos RegExp</h2>
 
 <p><a class="p_ident" id="p-FsCpU66Mcq" href="#p-FsCpU66Mcq" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, creación], “carácter de subrayado”, “clase RegExp”}}</p>
 

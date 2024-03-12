@@ -36,7 +36,9 @@ El jugador puede moverse con las teclas de flecha izquierda y derecha y puede sa
 
 {{index "número fraccionario", "discretización", "vida artificial", "vida electrónica"}}
 
-El ((juego)) consiste en un ((fondo)) estático, dispuesto como una ((rejilla)), con los elementos móviles superpuestos en ese fondo. Cada campo en la rejilla está vacío, sólido o es ((lava)). Los elementos móviles son el jugador, las monedas y ciertas piezas de lava. Las posiciones de estos elementos no están restringidas a la rejilla: sus coordenadas pueden ser fraccionarias, permitiendo un ((movimiento)) suave.## La tecnología
+El ((juego)) consiste en un ((fondo)) estático, dispuesto como una ((rejilla)), con los elementos móviles superpuestos en ese fondo. Cada campo en la rejilla está vacío, sólido o es ((lava)). Los elementos móviles son el jugador, las monedas y ciertas piezas de lava. Las posiciones de estos elementos no están restringidas a la rejilla: sus coordenadas pueden ser fraccionarias, permitiendo un ((movimiento)) suave.
+
+## La tecnología
 
 {{index "manejo de eventos", teclado, [DOM, gráficos]}}
 

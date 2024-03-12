@@ -354,7 +354,9 @@ Esto puede ser una barrera para la composición: cuando varios paquetes están u
 
 {{index diseño}}
 
-Diseñar una estructura de módulo adecuada para un programa puede ser difícil. En la fase en la que aún estás explorando el problema, probando diferentes cosas para ver qué funciona, es posible que no quieras preocuparte demasiado por esto, ya que mantener todo organizado puede ser una gran distracción. Una vez que tengas algo que se sienta sólido, es un buen momento para dar un paso atrás y organizarlo.## Resumen
+Diseñar una estructura de módulo adecuada para un programa puede ser difícil. En la fase en la que aún estás explorando el problema, probando diferentes cosas para ver qué funciona, es posible que no quieras preocuparte demasiado por esto, ya que mantener todo organizado puede ser una gran distracción. Una vez que tengas algo que se sienta sólido, es un buen momento para dar un paso atrás y organizarlo.
+
+## Resumen
 
 Los módulos proporcionan estructura a programas más grandes al separar el código en piezas con interfaces claras y dependencias. La interfaz es la parte del módulo que es visible para otros módulos, y las dependencias son los otros módulos que se utilizan.
 

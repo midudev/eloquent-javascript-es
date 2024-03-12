@@ -329,9 +329,11 @@ Se recomienda prefijar los nombres de estos atributos inventados con `data-` par
 
 {{index "método getAttribute", "método setAttribute", "propiedad className", "atributo class"}}
 
-Existe un atributo comúnmente usado, `class`, que es una ((palabra clave)) en el lenguaje JavaScript. Por razones históricas—algunas implementaciones antiguas de JavaScript no podían manejar nombres de propiedades que coincidieran con palabras clave—la propiedad utilizada para acceder a este atributo se llama `className`. También puedes acceder a él con su nombre real, `"class"`, utilizando los métodos `getAttribute` y `setAttribute`.## Diseño
+Existe un atributo comúnmente usado, `class`, que es una ((palabra clave)) en el lenguaje JavaScript. Por razones históricas—algunas implementaciones antiguas de JavaScript no podían manejar nombres de propiedades que coincidieran con palabras clave—la propiedad utilizada para acceder a este atributo se llama `className`. También puedes acceder a él con su nombre real, `"class"`, utilizando los métodos `getAttribute` y `setAttribute`.
 
-{{index diseño, "elemento de bloque", "elemento en línea", "etiqueta `p` (HTML)", "etiqueta `h1` (HTML)", "etiqueta `a` (HTML)", "etiqueta `strong` (HTML)"}}
+## Diseño
+
+{{index "diseño", "elemento de bloque", "elemento en línea", "etiqueta `p` (HTML)", "etiqueta `h1` (HTML)", "etiqueta `a` (HTML)", "etiqueta `strong` (HTML)"}}
 
 Puede que hayas notado que diferentes tipos de elementos se disponen de manera diferente. Algunos, como párrafos (`<p>`) o encabezados (`<h1>`), ocupan todo el ancho del documento y se muestran en líneas separadas. Estos se llaman elementos de _bloque_. Otros, como enlaces (`<a>`) o el elemento `<strong>`, se muestran en la misma línea que el texto que los rodea. A estos elementos se les llama elementos _en línea_.
 
@@ -339,7 +341,7 @@ Puede que hayas notado que diferentes tipos de elementos se disponen de manera d
 
 Para cualquier documento dado, los navegadores son capaces de calcular un diseño, que le da a cada elemento un tamaño y posición basados en su tipo y contenido. Luego, este diseño se usa para dibujar el documento realmente.
 
-{{index "borde (CSS)", propiedad `offsetWidth`, propiedad `offsetHeight`, propiedad `clientWidth`, propiedad `clientHeight`, dimensiones}}
+{{index "borde (CSS)", "propiedad `offsetWidth`", "propiedad `offsetHeight`", "propiedad `clientWidth`", "propiedad `clientHeight`", dimensiones}}
 
 El tamaño y posición de un elemento pueden ser accedidos desde JavaScript. Las propiedades `offsetWidth` y `offsetHeight` te dan el espacio que el elemento ocupa en _((píxeles))_. Un píxel es la unidad básica de medida en el navegador. Tradicionalmente corresponde al punto más pequeño que la pantalla puede dibujar, pero en pantallas modernas, que pueden dibujar puntos _muy_ pequeños, eso puede que ya no sea cierto, y un píxel del navegador puede abarcar múltiples puntos de la pantalla.
 
@@ -449,7 +451,9 @@ Este texto se muestra de forma <strong>en línea</strong>,
 
 {{index "elemento oculto"}}
 
-La etiqueta `block` terminará en su propia línea ya que los ((elementos de bloque)) no se muestran en línea con el texto que los rodea. La última etiqueta no se muestra en absoluto: `display: none` evita que un elemento aparezca en la pantalla. Esta es una forma de ocultar elementos. A menudo es preferible a eliminarlos completamente del documento porque facilita revelarlos nuevamente más tarde.{{if book
+La etiqueta `block` terminará en su propia línea ya que los ((elementos de bloque)) no se muestran en línea con el texto que los rodea. La última etiqueta no se muestra en absoluto: `display: none` evita que un elemento aparezca en la pantalla. Esta es una forma de ocultar elementos. A menudo es preferible a eliminarlos completamente del documento porque facilita revelarlos nuevamente más tarde.
+
+{{if book
 
 {{figure {url: "img/display.png", alt: "Diferentes estilos de visualización", width: "4cm"}}}
 

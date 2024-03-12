@@ -10,7 +10,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_3.jpg", alt: "Ilustración de hojas de helecho con una forma fractal, abejas en el fondo", chapter: framed}}}
 
-{{index function, [code, "estructura de"]}}
+{{index "función", [code, "estructura de"]}}
 
 Las funciones son una de las herramientas más centrales en la programación en JavaScript. El concepto de envolver un fragmento de programa en un valor tiene muchos usos. Nos proporciona una manera de estructurar programas más grandes, de reducir la repetición, de asociar nombres con subprogramas y de aislar estos subprogramas entre sí.
 
