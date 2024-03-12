@@ -244,8 +244,6 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 
 <p><a class="p_ident" id="p-9Kt5Hil9tT" href="#p-9Kt5Hil9tT" tabindex="-1" role="presentation"></a>La palabra clave <code>throw</code> se utiliza para lanzar una excepción. La captura de una excepción se realiza envolviendo un trozo de código en un bloque <code>try</code>, seguido de la palabra clave <code>catch</code>. Cuando el código en el bloque <code>try</code> provoca que se lance una excepción, se evalúa el bloque <code>catch</code>, con el nombre entre paréntesis vinculado al valor de la excepción. Después de que el bloque <code>catch</code> finalice, o si el bloque <code>try</code> finaliza sin problemas, el programa continúa debajo de toda la instrucción <code>try/catch</code>.</p>
 
-<p><a class="p_ident" id="p-LtvcmUOtGr" href="#p-LtvcmUOtGr" tabindex="-1" role="presentation"></a>{{index depuración, “pila de llamadas”, “Tipo de error”}}</p>
-
 <p><a class="p_ident" id="p-q0ChDezAsm" href="#p-q0ChDezAsm" tabindex="-1" role="presentation"></a>En este caso, utilizamos el constructor <code>Error</code> para crear nuestro valor de excepción. Este es un constructor de JavaScript estándar que crea un objeto con una propiedad <code>message</code>. Las instancias de <code>Error</code> también recopilan información sobre la pila de llamadas que existía cuando se creó la excepción, una llamada <em>traza de pila</em>. Esta información se almacena en la propiedad <code>stack</code> y puede ser útil al intentar depurar un problema: nos indica la función donde ocurrió el problema y qué funciones realizaron la llamada fallida.</p>
 
 <p><a class="p_ident" id="p-T1aoVSKCOg" href="#p-T1aoVSKCOg" tabindex="-1" role="presentation"></a>Ten en cuenta que la función <code>look</code> ignora por completo la posibilidad de que <code>promptDirection</code> pueda fallar. Esta es la gran ventaja de las excepciones: el código de manejo de errores solo es necesario en el punto donde ocurre el error y en el punto donde se maneja. Las funciones intermedias pueden olvidarse por completo de ello.</p>
@@ -380,7 +378,9 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 
 <p><a class="p_ident" id="p-xRDMWHaGme" href="#p-xRDMWHaGme" tabindex="-1" role="presentation"></a>{{index depuración}}</p>
 
-<p><a class="p_ident" id="p-ORWtTrydNu" href="#p-ORWtTrydNu" tabindex="-1" role="presentation"></a>Esto capturará solo instancias de <code>InputError</code> y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.## Afirmaciones</p>
+<p><a class="p_ident" id="p-1HdJVWn4X+" href="#p-1HdJVWn4X+" tabindex="-1" role="presentation"></a>Esto capturará solo instancias de <code>InputError</code> y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.</p>
+
+<h2><a class="h_ident" id="h-cLlvsxFcXB" href="#h-cLlvsxFcXB" tabindex="-1" role="presentation"></a>Afirmaciones</h2>
 
 <p><a class="p_ident" id="p-OQr5ZjOQ8p" href="#p-OQr5ZjOQ8p" tabindex="-1" role="presentation"></a>{{index “función assert”, afirmación, depuración}}</p>
 
