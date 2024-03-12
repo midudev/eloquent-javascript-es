@@ -240,7 +240,9 @@ runRobot(VillageState.random(), randomRobot);
 // → Movido a Ayuntamiento
 // → …
 // → Terminado en 63 turnos
-```Al robot le lleva muchas vueltas entregar los paquetes porque no está planificando muy bien. Abordaremos eso pronto.
+```
+
+Al robot le lleva muchas vueltas entregar los paquetes porque no está planificando muy bien. Abordaremos eso pronto.
 
 {{if interactive
 
@@ -351,7 +353,9 @@ function goalOrientedRobot({place, parcels}, route) {
 }
 ```
 
-{{index "goalOrientedRobot function"}}Este robot utiliza el valor de su memoria como una lista de direcciones en las que moverse, al igual que el robot que sigue la ruta. Cuando esa lista está vacía, debe averiguar qué hacer a continuación. Toma el primer paquete no entregado del conjunto y, si ese paquete aún no ha sido recogido, traza una ruta hacia él. Si el paquete ya ha sido recogido, todavía necesita ser entregado, por lo que el robot crea una ruta hacia la dirección de entrega.
+{{index "goalOrientedRobot function"}}
+
+Este robot utiliza el valor de su memoria como una lista de direcciones en las que moverse, al igual que el robot que sigue la ruta. Cuando esa lista está vacía, debe averiguar qué hacer a continuación. Toma el primer paquete no entregado del conjunto y, si ese paquete aún no ha sido recogido, traza una ruta hacia él. Si el paquete ya ha sido recogido, todavía necesita ser entregado, por lo que el robot crea una ruta hacia la dirección de entrega.
 
 {{if interactive
 

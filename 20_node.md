@@ -36,7 +36,7 @@ Cuando se construyen sistemas que se comunican a través de la red, la forma en 
 
 En tales programas, la programación asincrónica a menudo es útil. Permite que el programa envíe y reciba datos desde y hacia múltiples dispositivos al mismo tiempo sin una complicada gestión de hilos y sincronización.
 
-{{index "lenguaje de programación", "Node.js", estándar}}
+{{index "lenguaje de programación", "Node.js", "estándar"}}
 
 Node fue concebido inicialmente con el propósito de hacer que la programación asincrónica sea fácil y conveniente. JavaScript se presta bien a un sistema como Node. Es uno de los pocos lenguajes de programación que no tiene una forma incorporada de manejar la entrada y salida. Por lo tanto, JavaScript podría adaptarse al enfoque algo excéntrico de Node para la programación de red y sistemas de archivos sin terminar con dos interfaces inconsistentes. En 2009, cuando se diseñaba Node, la gente ya estaba realizando programación basada en callbacks en el navegador, por lo que la ((comunidad)) alrededor del lenguaje estaba acostumbrada a un estilo de programación asincrónica.
 

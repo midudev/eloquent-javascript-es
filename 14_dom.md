@@ -81,7 +81,7 @@ Otra forma de visualizar nuestro ((árbol)) de documento es la siguiente:
 
 Las hojas son nodos de texto, y las flechas indican las relaciones padre-hijo entre nodos.
 
-{{id estándar}}
+{{id "estándar"}}
 
 ## El estándar
 

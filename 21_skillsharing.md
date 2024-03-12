@@ -268,7 +268,9 @@ async function serveFromRouter(server, request,
   response.writeHead(status, headers);
   response.end(body);
 }
-```### Charlas como recursos
+```
+
+### Charlas como recursos
 
 Las ((charlas)) que se han propuesto se almacenan en la propiedad `talks` del servidor, un objeto cuyas propiedades son los títulos de las charlas. Agregaremos algunos controladores a nuestro enrutador que expongan estos como ((recursos)) HTTP bajo `/charlas/[título]`.
 

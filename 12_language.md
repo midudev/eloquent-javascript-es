@@ -554,7 +554,9 @@ do(define(f, fun(a, fun(b, +(a, b)))),
 
 Vuelve a la definición del formulario `fun` y explica qué mecanismo hace que esto funcione.
 
-{{hint{{index cierre, "cierre en Egg (ejercicio)"}}
+{{hint
+
+{{index cierre, "cierre en Egg (ejercicio)"}}
 
 Una vez más, estamos montando un mecanismo en JavaScript para obtener la característica equivalente en Egg. Los formularios especiales reciben el ámbito local en el que se evalúan para que puedan evaluar sus subformas en ese ámbito. La función devuelta por `fun` tiene acceso al argumento `scope` dado a su función contenedora y lo utiliza para crear el ámbito ((local)) de la función cuando se llama.
 

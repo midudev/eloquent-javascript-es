@@ -432,7 +432,7 @@ for (;;) {
 }
 ```
 
-{{index "bucle infinito", "bucle for", "palabra clave catch", depuración}}
+{{index "bucle infinito", "bucle for", "palabra clave catch", "depuración"}}
 
 La construcción `for (;;)` es una forma de crear intencionalmente un bucle que no se termina por sí mismo. Salimos del bucle solo cuando se proporciona una dirección válida. _Pero_ escribimos mal `promptDirection`, lo que resultará en un error de "variable no definida". Debido a que el bloque `catch` ignora por completo el valor de la excepción (`e`), asumiendo que sabe cuál es el problema, trata erróneamente el error de enlace mal escrito como indicativo de una entrada incorrecta. Esto no solo causa un bucle infinito, sino que también "entorpece" el útil mensaje de error sobre el enlace mal escrito.
 
@@ -483,13 +483,13 @@ for (;;) {
 }
 ```
 
-{{index depuración}}
+{{index "depuración"}}
 
 Esto capturará solo instancias de `InputError` y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.
 
 ## Afirmaciones
 
-{{index "función assert", "afirmación", depuración}}
+{{index "función assert", "afirmación", "depuración"}}
 
 Las _afirmaciones_ son verificaciones dentro de un programa que aseguran que algo es como se supone que debe ser. Se utilizan no para manejar situaciones que pueden surgir en la operación normal, sino para encontrar errores de programación.
 

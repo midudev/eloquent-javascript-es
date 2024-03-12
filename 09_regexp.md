@@ -437,7 +437,7 @@ Conceptualmente, cuando utilizas `exec` o `test`, el motor de expresiones regula
 
 Para hacer la coincidencia real, el motor trata a una expresión regular algo así como un ((diagrama de flujo)). Este es el diagrama para la expresión de ganado en el ejemplo anterior:
 
-{{figure {url: "img/re_pigchickens.svg", alt: "Diagrama de ferrocarril que primero pasa por un recuadro etiquetado 'dígito', que tiene un bucle que regresa desde después de él a antes de él, y luego un recuadro para un carácter de espacio. Después de eso, el ferrocarril se divide en tres, pasando por cuadros para 'pig', 'cow' y 'chicken'. Después de estos, se reúne de nuevo y pasa por un cuadro etiquetado 's', que, al ser opcional, también tiene un ferrocarril que lo pasa por alto. Finalmente, la línea llega al estado de aceptación."}}
+{{figure {url: "img/re_pigchickens.svg", alt: "Diagrama de ferrocarril que primero pasa por un recuadro etiquetado 'dígito', que tiene un bucle que regresa desde después de él a antes de él, y luego un recuadro para un carácter de espacio. Después de eso, el ferrocarril se divide en tres, pasando por cuadros para 'pig', 'cow' y 'chicken'. Después de estos, se reúne de nuevo y pasa por un cuadro etiquetado 's', que, al ser opcional, también tiene un ferrocarril que lo pasa por alto. Finalmente, la línea llega al estado de aceptación."}}}
 
 {{index ["expresión regular", diagrama de flujo]}}
 
