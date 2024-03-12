@@ -26,8 +26,6 @@
 
 <h2><a class="h_ident" id="h-FRSr58jqPG" href="#h-FRSr58jqPG" tabindex="-1" role="presentation"></a>Controladores de Eventos</h2>
 
-<p><a class="p_ident" id="p-sW4fXgmH1n" href="#p-sW4fXgmH1n" tabindex="-1" role="presentation"></a>{{index sondeo, botón, “tiempo real”}}</p>
-
 <p><a class="p_ident" id="p-8Rhq4iuO+f" href="#p-8Rhq4iuO+f" tabindex="-1" role="presentation"></a>Imagina una interfaz donde la única forma de saber si una tecla en el teclado está siendo presionada es leyendo el estado actual de esa tecla. Para poder reaccionar a las pulsaciones de teclas, tendrías que leer constantemente el estado de la tecla para capturarla antes de que se libere nuevamente. Sería peligroso realizar otras computaciones intensivas en tiempo, ya que podrías perder una pulsación de tecla.</p>
 
 <p><a class="p_ident" id="p-VP41tPOvsN" href="#p-VP41tPOvsN" tabindex="-1" role="presentation"></a>Algunas máquinas primitivas manejan la entrada de esa manera. Un paso adelante sería que el hardware o el sistema operativo noten la pulsación de tecla y la pongan en una cola. Un programa puede luego verificar periódicamente la cola en busca de nuevos eventos y reaccionar a lo que encuentre allí.</p>
@@ -101,8 +99,6 @@
 <p><a class="p_ident" id="p-HlzOSkQJuU" href="#p-HlzOSkQJuU" tabindex="-1" role="presentation"></a>La información almacenada en un objeto de evento difiere según el tipo de evento. Discutiremos diferentes tipos más adelante en el capítulo. La propiedad <code>type</code> del objeto siempre contiene una cadena que identifica el evento (como <code>&quot;click&quot;</code> o <code>&quot;mousedown&quot;</code>).</p>
 
 <h2><a class="h_ident" id="h-4NLRTYLmHH" href="#h-4NLRTYLmHH" tabindex="-1" role="presentation"></a>Propagación</h2>
-
-<p><a class="p_ident" id="p-EjYgC1f8EP" href="#p-EjYgC1f8EP" tabindex="-1" role="presentation"></a>{{indexsee propagación, “propagación de evento”}}</p>
 
 <p><a class="p_ident" id="p-eiMQVYI0Vr" href="#p-eiMQVYI0Vr" tabindex="-1" role="presentation"></a>Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.</p>
 
@@ -211,8 +207,6 @@
 <p><a class="p_ident" id="p-gHgOyxznTg" href="#p-gHgOyxznTg" tabindex="-1" role="presentation"></a>Después del evento <code>&quot;mouseup&quot;</code>, se dispara un evento <code>&quot;click&quot;</code> en el nodo más específico que contenía tanto la pulsación como la liberación del botón. Por ejemplo, si presiono el botón del ratón en un párrafo y luego muevo el puntero a otro párrafo y suelto el botón, el evento <code>&quot;click&quot;</code> ocurrirá en el elemento que contiene ambos párrafos.</p>
 
 <p><a class="p_ident" id="p-VTiFjJPIru" href="#p-VTiFjJPIru" tabindex="-1" role="presentation"></a>Si dos clics ocurren cerca uno del otro, también se dispara un evento <code>&quot;dblclick&quot;</code> (doble clic), después del segundo evento de clic.</p>
-
-<p><a class="p_ident" id="p-viNCIq1h+G" href="#p-viNCIq1h+G" tabindex="-1" role="presentation"></a>{{index píxel, “propiedad clientX”, “propiedad clientY”, “propiedad pageX”, “propiedad pageY”, “objeto evento”}}</p>
 
 <p><a class="p_ident" id="p-bCo6gVY4HL" href="#p-bCo6gVY4HL" tabindex="-1" role="presentation"></a>Para obtener información precisa sobre el lugar donde ocurrió un evento de ratón, puedes mirar sus propiedades <code>clientX</code> y <code>clientY</code>, que contienen las coordenadas del evento (en píxeles) relativas a la esquina superior izquierda de la ventana, o <code>pageX</code> y <code>pageY</code>, que son relativas a la esquina superior izquierda de todo el documento (lo cual puede ser diferente cuando la ventana ha sido desplazada).</p>
 

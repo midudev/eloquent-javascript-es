@@ -412,8 +412,6 @@ setTimeout(() =&gt; video.stop(), <span class="tok-number">15000</span>);</pre>
 
 <h2><a class="h_ident" id="h-iSkjGslyNf" href="#h-iSkjGslyNf" tabindex="-1" role="presentation"></a>El bucle de eventos</h2>
 
-<p><a class="p_ident" id="p-dEurinIBnY" href="#p-dEurinIBnY" tabindex="-1" role="presentation"></a>{{index “programación asincrónica”, programación, “bucle de eventos”, línea de tiempo}}</p>
-
 <p><a class="p_ident" id="p-uqFuigR5hW" href="#p-uqFuigR5hW" tabindex="-1" role="presentation"></a>Un programa asincrónico comienza ejecutando su script principal, que a menudo configurará devoluciones de llamada para ser llamadas más tarde. Ese script principal, así como las devoluciones de llamada, se ejecutan por completo de una vez, sin interrupciones. Pero entre ellos, el programa puede estar inactivo, esperando a que ocurra algo.</p>
 
 <p><a class="p_ident" id="p-RRuVVhfUCF" href="#p-RRuVVhfUCF" tabindex="-1" role="presentation"></a>Por lo tanto, las devoluciones de llamada no son llamadas directamente por el código que las programó. Si llamo a <code>setTimeout</code> desde dentro de una función, esa función ya habrá retornado en el momento en que se llame a la función de devolución de llamada. Y cuando la devolución de llamada regresa, el control no vuelve a la función que lo programó.</p>
@@ -577,7 +575,7 @@ activityTable(<span class="tok-number">6</span>)
   }).then(() =&gt; tabla);
 }</pre>
 
-<p><a class="p_ident" id="p-kss/RZ3ia7" href="#p-kss/RZ3ia7" tabindex="-1" role="presentation"></a>{{index “palabra clave await”, programación de planificación}}</p>
+<p><a class="p_ident" id="p-kss/RZ3ia7" href="#p-kss/RZ3ia7" tabindex="-1" role="presentation"></a>{{index “palabra clave await”, “programación” de planificación}}</p>
 
 <p><a class="p_ident" id="p-ZHUmUZs29f" href="#p-ZHUmUZs29f" tabindex="-1" role="presentation"></a>Lo que muestra que la forma en que estructuras tus promesas puede tener un efecto real en la forma en que se programa el trabajo. Un simple bucle con <code>await</code> hará que el proceso sea completamente lineal: espera a que se cargue cada archivo antes de continuar. <code>Promise.all</code> hace posible que varias tareas sean trabajadas conceptualmente al mismo tiempo, permitiéndoles progresar mientras los archivos aún se están cargando. Esto puede ser más rápido, pero también hace que el orden en que sucederán las cosas sea menos predecible. En este caso, donde solo vamos a estar incrementando números en una tabla, eso no es difícil de hacer de manera segura. Para otros tipos de problemas, puede ser mucho más difícil.</p>
 

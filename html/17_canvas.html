@@ -70,8 +70,6 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-zuEJbhu4U0" href="#p-zuEJbhu4U0" tabindex="-1" role="presentation"></a>La etiqueta <code>&lt;canvas&gt;</code> está destinada a permitir diferentes estilos de dibujo. Para acceder a una interfaz de dibujo real, primero necesitamos crear un <em>contexto</em>, un objeto cuyos métodos proporcionan la interfaz de dibujo. Actualmente existen tres estilos de dibujo ampliamente compatibles: <code>&quot;2d&quot;</code> para gráficos bidimensionales, <code>&quot;webgl&quot;</code> para gráficos tridimensionales a través de la interfaz OpenGL, y <code>&quot;webgpu&quot;</code>, una alternativa más moderna y flexible a WebGL.</p>
 
-<p><a class="p_ident" id="p-X82+t62+Dd" href="#p-X82+t62+Dd" tabindex="-1" role="presentation"></a>{{index renderizado, gráficos, eficiencia}}</p>
-
 <p><a class="p_ident" id="p-s3Qi60Vb/g" href="#p-s3Qi60Vb/g" tabindex="-1" role="presentation"></a>Este libro no discutirá WebGL ni WebGPU—nos mantendremos en dos dimensiones. Pero si estás interesado en gráficos tridimensionales, te animo a investigar sobre WebGPU. Proporciona una interfaz directa al hardware gráfico y te permite renderizar escenas incluso complicadas de manera eficiente, utilizando JavaScript.</p>
 
 <p><a class="p_ident" id="p-MEgOg5Mvt7" href="#p-MEgOg5Mvt7" tabindex="-1" role="presentation"></a>Creas un contexto con el método <code>getContext</code> en el elemento DOM <code>&lt;canvas&gt;</code>.</p>
@@ -316,8 +314,6 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <h2><a class="h_ident" id="h-rW64MvxCiy" href="#h-rW64MvxCiy" tabindex="-1" role="presentation"></a>Transformación</h2>
 
-<p><a class="p_ident" id="p-6xZ2S7LaW8" href="#p-6xZ2S7LaW8" tabindex="-1" role="presentation"></a>{{index transformación, espejado}}</p>
-
 <p><a class="p_ident" id="p-IDnpmjkIIi" href="#p-IDnpmjkIIi" tabindex="-1" role="presentation"></a>Pero, ¿qué pasa si queremos que nuestro personaje camine hacia la izquierda en lugar de hacia la derecha? Podríamos dibujar otro conjunto de sprites, por supuesto. Pero también podemos instruir al lienzo para que dibuje la imagen en sentido contrario.</p>
 
 <p><a class="p_ident" id="p-k/kT+1q0Jm" href="#p-k/kT+1q0Jm" tabindex="-1" role="presentation"></a>Llamar al método <code>scale</code> hará que todo lo que se dibuje después de él se escale. Este método toma dos parámetros, uno para establecer una escala horizontal y otro para establecer una escala vertical.</p>
@@ -351,8 +347,6 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 }</pre>
 
 <p><a class="p_ident" id="p-vp1fsWT2Uu" href="#p-vp1fsWT2Uu" tabindex="-1" role="presentation"></a>Movemos el eje y a donde queremos que esté nuestro espejo, aplicamos el efecto de espejo y finalmente devolvemos el eje y a su lugar adecuado en el universo espejado. La siguiente imagen explica por qué esto funciona:</p><figure><img src="img/mirror.svg" alt="Diagrama que muestra el efecto de trasladar y espejar un triángulo"></figure>
-
-<p><a class="p_ident" id="p-29oXuyFjKw" href="#p-29oXuyFjKw" tabindex="-1" role="presentation"></a>{{index “método translate”, “método scale”, transformación, lienzo}}</p>
 
 <p><a class="p_ident" id="p-iQ7XKEQztk" href="#p-iQ7XKEQztk" tabindex="-1" role="presentation"></a>Esto muestra los sistemas de coordenadas antes y después del espejo a través de la línea central. Los triángulos están numerados para ilustrar cada paso. Si dibujamos un triángulo en una posición x positiva, por defecto estaría en el lugar donde se encuentra el triángulo 1. Una llamada a <code>flipHorizontally</code> primero realiza una traslación a la derecha, lo que nos lleva al triángulo 2. Luego escala, volteando el triángulo a la posición 3. Esto no es donde debería estar, si estuviera reflejado en la línea dada. La segunda llamada a <code>translate</code> corrige esto, “cancela” la traslación inicial y hace que el triángulo 4 aparezca exactamente donde debería.</p>
 
@@ -468,8 +462,6 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   }
 };</pre>
 
-<p><a class="p_ident" id="p-i20kNeIwoF" href="#p-i20kNeIwoF" tabindex="-1" role="presentation"></a>{{index límite, “Función Math.max”, “Función Math.min”, recorte}}</p>
-
 <p><a class="p_ident" id="p-LTvt7zghYT" href="#p-LTvt7zghYT" tabindex="-1" role="presentation"></a>Las llamadas a <code>Math.max</code> y <code>Math.min</code> aseguran que el <strong>viewport</strong> no termine mostrando espacio fuera del nivel. <code>Math.max(x, 0)</code> se asegura de que el número resultante no sea menor que cero. <code>Math.min</code> garantiza de manera similar que un valor se mantenga por debajo de un límite dado.</p>
 
 <p><a class="p_ident" id="p-ciYesmCNwa" href="#p-ciYesmCNwa" tabindex="-1" role="presentation"></a>Al <strong>limpiar</strong> la visualización, usaremos un color ligeramente diferente según si el juego se ha ganado (más brillante) o perdido (más oscuro).</p>
@@ -488,7 +480,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-yjX+YUKb2N" href="#p-yjX+YUKb2N" tabindex="-1" role="presentation"></a>Para dibujar el fondo, recorremos los mosaicos que son visibles en el <strong>viewport</strong> actual, utilizando el mismo truco usado en el método <code>touches</code> del <a href="16_game.html#touches">capítulo anterior</a>.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c-dWDjMaEKZ3" href="#c-dWDjMaEKZ3" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">otherSprites</span> = document.createElement(<span class="tok-string">&quot;img&quot;</span>);
+<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c-UYqDAMiEp6" href="#c-UYqDAMiEp6" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">otherSprites</span> = document.createElement(<span class="tok-string">&quot;img&quot;</span>);
 otherSprites.src = <span class="tok-string">&quot;img/sprites.png&quot;</span>;
 
 CanvasDisplay.prototype.drawBackground = <span class="tok-keyword">function</span>(<span class="tok-definition">level</span>) {
@@ -497,8 +489,8 @@ CanvasDisplay.prototype.drawBackground = <span class="tok-keyword">function</spa
   <span class="tok-keyword">let</span> <span class="tok-definition">xEnd</span> = Math.ceil(left + width);
   <span class="tok-keyword">let</span> <span class="tok-definition">yStart</span> = Math.floor(top);
   <span class="tok-keyword">let</span> <span class="tok-definition">yEnd</span> = Math.ceil(top + height);
-<span class="tok-string2">``</span><span class="tok-string2">``</span><span class="tok-string2">``</span>js
-<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">y</span> = yStart; y &lt; yEnd; y++) {
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">y</span> = yStart; y &lt; yEnd; y++) {
     <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">x</span> = xStart; x &lt; xEnd; x++) {
       <span class="tok-keyword">let</span> <span class="tok-definition">tile</span> = level.rows[y][x];
       <span class="tok-keyword">if</span> (tile == <span class="tok-string">&quot;empty&quot;</span>) <span class="tok-keyword">continue</span>;
@@ -524,7 +516,7 @@ CanvasDisplay.prototype.drawBackground = <span class="tok-keyword">function</spa
 
 <p><a class="p_ident" id="p-0A/X02lHnK" href="#p-0A/X02lHnK" tabindex="-1" role="presentation"></a>Dado que los sprites son ligeramente más anchos que el objeto del jugador—24 en lugar de 16 píxeles para permitir algo de espacio para los pies y los brazos—el método debe ajustar la coordenada x y el ancho por una cantidad dada (<code>playerXOverlap</code>).</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="juego"><a class="c_ident" id="c-A/VaxdR4Cv" href="#c-A/VaxdR4Cv" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">playerSprites</span> = document.createElement(<span class="tok-string">&quot;img&quot;</span>);
+<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c-T61uCWX04T" href="#c-T61uCWX04T" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">playerSprites</span> = document.createElement(<span class="tok-string">&quot;img&quot;</span>);
 playerSprites.src = <span class="tok-string">&quot;img/player.png&quot;</span>;
 <span class="tok-keyword">const</span> <span class="tok-definition">playerXOverlap</span> = <span class="tok-number">4</span>;
 
@@ -542,15 +534,15 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
   } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (player.speed.x != <span class="tok-number">0</span>) {
     tile = Math.floor(Date.now() / <span class="tok-number">60</span>) % <span class="tok-number">8</span>;
   }
-<span class="tok-string2">``</span><span class="tok-string2">``</span><span class="tok-string2">``</span>js
-<span class="tok-keyword">this</span>.cx.save();
-<span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.flipPlayer) {
-  flipHorizontally(<span class="tok-keyword">this</span>.cx, x + width / <span class="tok-number">2</span>);
-}
-<span class="tok-keyword">let</span> <span class="tok-definition">tileX</span> = tile * width;
-<span class="tok-keyword">this</span>.cx.drawImage(playerSprites, tileX, <span class="tok-number">0</span>, width, height,
-                                 x,     y, width, height);
-<span class="tok-keyword">this</span>.cx.restore();
+
+  <span class="tok-keyword">this</span>.cx.save();
+  <span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.flipPlayer) {
+    flipHorizontally(<span class="tok-keyword">this</span>.cx, x + width / <span class="tok-number">2</span>);
+  }
+  <span class="tok-keyword">let</span> <span class="tok-definition">tileX</span> = tile * width;
+  <span class="tok-keyword">this</span>.cx.drawImage(playerSprites, tileX, <span class="tok-number">0</span>, width, height,
+                                   x,     y, width, height);
+  <span class="tok-keyword">this</span>.cx.restore();
 };</pre>
 
 <p><a class="p_ident" id="p-OseNNDx2yk" href="#p-OseNNDx2yk" tabindex="-1" role="presentation"></a>El método <code>drawPlayer</code> es llamado por <code>drawActors</code>, el cual es responsable de dibujar todos los actores en el juego.</p>
@@ -755,8 +747,6 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-n1BIPXLtoZ" href="#p-n1BIPXLtoZ" tabindex="-1" role="presentation"></a>{{index “método strokeRect”, animación, “método arc”}}</p>
-
 <p><a class="p_ident" id="p-Q3e575eaiY" href="#p-Q3e575eaiY" tabindex="-1" role="presentation"></a>Un cuadro es fácil de dibujar con <code>strokeRect</code>. Define una variable que contenga su tamaño o define dos variables si el ancho y alto de tu cuadro difieren. Para crear una pelota redonda, comienza un camino y llama a <code>arc(x, y, radio, 0, 7)</code>, que crea un arco que va desde cero a más de un círculo completo. Luego rellena el camino.</p>
 
 <p><a class="p_ident" id="p-wCWbSjfD5D" href="#p-wCWbSjfD5D" tabindex="-1" role="presentation"></a>Para modelar la posición y la velocidad de la pelota, puedes usar la clase <code>Vec</code> del <a href="16_game.html#vector">Capítulo 16</a> (que está disponible en esta página){if interactive}. Dale una velocidad inicial, preferiblemente una que no sea puramente vertical u horizontal, y en cada cuadro multiplica esa velocidad por la cantidad de tiempo transcurrido. Cuando la pelota se acerca demasiado a una pared vertical, invierte el componente x en su velocidad. De manera similar, invierte el componente y cuando golpea una pared horizontal.</p>
@@ -766,8 +756,6 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 </div></details>
 
 <h3><a class="i_ident" id="i-bWN6DLs80w" href="#i-bWN6DLs80w" tabindex="-1" role="presentation"></a>Reflejo precalculado</h3>
-
-<p><a class="p_ident" id="p-tdAOkNUQi2" href="#p-tdAOkNUQi2" tabindex="-1" role="presentation"></a>{{index optimización, “gráficos de mapa de bits”, espejo}}</p>
 
 <p><a class="p_ident" id="p-kI8Y5v6gUy" href="#p-kI8Y5v6gUy" tabindex="-1" role="presentation"></a>Una desventaja de las transformaciones es que ralentizan el dibujo de mapas de bits. La posición y el tamaño de cada píxel deben ser transformados, y aunque es posible que los navegadores se vuelvan más inteligentes sobre las transformaciones en el futuro, actualmente causan un aumento medible en el tiempo que lleva dibujar un mapa de bits.</p>
 

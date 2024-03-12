@@ -167,8 +167,6 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p-2vqlKxMwbk" href="#p-2vqlKxMwbk" tabindex="-1" role="presentation"></a>Cuando se construye un sistema que requiere comunicación entre un programa JavaScript que se ejecuta en el navegador (lado del cliente) y un programa en un servidor (lado del servidor), hay varias formas diferentes de modelar esta comunicación.</p>
 
-<p><a class="p_ident" id="p-cZvDJaH4zy" href="#p-cZvDJaH4zy" tabindex="-1" role="presentation"></a>{{index [red, abstracción], abstracción}}</p>
-
 <p><a class="p_ident" id="p-nl4mMNMIQt" href="#p-nl4mMNMIQt" tabindex="-1" role="presentation"></a>Un modelo comúnmente utilizado es el de las <em>llamadas de procedimiento remoto</em>. En este modelo, la comunicación sigue los patrones de llamadas de función normales, excepto que la función en realidad se está ejecutando en otra máquina. Llamarla implica hacer una solicitud al servidor que incluye el nombre de la función y sus argumentos. La respuesta a esa solicitud contiene el valor devuelto.</p>
 
 <p><a class="p_ident" id="p-j+WIcLxQ4Y" href="#p-j+WIcLxQ4Y" tabindex="-1" role="presentation"></a>Cuando se piensa en términos de llamadas de procedimiento remoto, HTTP es simplemente un vehículo de comunicación, y es muy probable que escribas una capa de abstracción que lo oculte por completo.</p>
@@ -184,8 +182,6 @@ name=Jean&amp;message=Yes%3F</pre>
 <p><a class="p_ident" id="p-uYazI/itdp" href="#p-uYazI/itdp" tabindex="-1" role="presentation"></a>{{index manipulación}}</p>
 
 <p><a class="p_ident" id="p-b21n8u5IbZ" href="#p-b21n8u5IbZ" tabindex="-1" role="presentation"></a>Si es importante que algo se mantenga en secreto, como la contraseña de tu cuenta de correo electrónico, o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, HTTP simple no es suficiente.</p>
-
-<p><a class="p_ident" id="p-1E7cHI6ZJX" href="#p-1E7cHI6ZJX" tabindex="-1" role="presentation"></a>{{index criptografía, cifrado}}</p>
 
 <p><a class="p_ident" id="p-q6s/2UXNiF" href="#p-q6s/2UXNiF" tabindex="-1" role="presentation"></a>El protocolo seguro HTTP, utilizado para URLs que comienzan con <em>https://</em>, envuelve el tráfico HTTP de una manera que dificulta su lectura y manipulación. Antes de intercambiar datos, el cliente verifica que el servidor sea quien dice ser, solicitándole que demuestre que tiene un certificado criptográfico emitido por una autoridad de certificación que el navegador reconoce. Luego, todos los datos que pasan por la conexión están encriptados de una manera que debería evitar el espionaje y la manipulación.</p>
 
@@ -582,8 +578,6 @@ localStorage.removeItem(<span class="tok-string">&quot;nombre de usuario&quot;</
 <p><a class="p_ident" id="p-j38aAM3IQT" href="#p-j38aAM3IQT" tabindex="-1" role="presentation"></a>El script obtiene su estado inicial del valor <code>&quot;Notas&quot;</code> almacenado en <code>localStorage</code> o, si está ausente, crea un estado de ejemplo que solo contiene una lista de compras. Leer un campo que no existe en <code>localStorage</code> devolverá <code>null</code>. Pasar <code>null</code> a <code>JSON.parse</code> hará que analice la cadena <code>&quot;null&quot;</code> y devuelva <code>null</code>. Por tanto, en una situación como esta se puede utilizar el operador <code>??</code> para proporcionar un valor predeterminado.</p>
 
 <p><a class="p_ident" id="p-P4AyBp+4Wu" href="#p-P4AyBp+4Wu" tabindex="-1" role="presentation"></a>El método <code>setState</code> se asegura de que el DOM muestre un estado dado y almacena el nuevo estado en <code>localStorage</code>. Los controladores de eventos llaman a esta función para moverse a un nuevo estado.</p>
-
-<p><a class="p_ident" id="p-6OWUKoOpng" href="#p-6OWUKoOpng" tabindex="-1" role="presentation"></a>{{index [objeto, creación], propiedad, “propiedad computada”}}</p>
 
 <p><a class="p_ident" id="p-d73ikDmnEL" href="#p-d73ikDmnEL" tabindex="-1" role="presentation"></a>La sintaxis <code>...</code> en el ejemplo se utiliza para crear un nuevo objeto que es un clon del antiguo <code>state.notes</code>, pero con una propiedad añadida o sobrescrita. Utiliza la sintaxis spread para primero añadir las propiedades del objeto antiguo y luego establecer una nueva propiedad. La notación de corchetes cuadrados en el literal del objeto se utiliza para crear una propiedad cuyo nombre se basa en algún valor dinámico.</p>
 

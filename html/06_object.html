@@ -40,8 +40,6 @@
 
 <h2 id="obj_methods"><a class="h_ident" id="h-OYddlNFqr1" href="#h-OYddlNFqr1" tabindex="-1" role="presentation"></a>Métodos</h2>
 
-<p><a class="p_ident" id="p-K5ba6iRGsP" href="#p-K5ba6iRGsP" tabindex="-1" role="presentation"></a>{{index “ejemplo de conejo”, método, [propiedad, acceso]}}</p>
-
 <p><a class="p_ident" id="p-1j3GckeW7z" href="#p-1j3GckeW7z" tabindex="-1" role="presentation"></a>En JavaScript, los métodos no son más que propiedades que contienen valores de función. Este es un método simple:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ozl3eO/Ubk" href="#c-ozl3eO/Ubk" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">speak</span>(<span class="tok-definition">line</span>) {
@@ -297,35 +295,41 @@ console.log(<span class="tok-string">&quot;¿Se conoce la edad de toString?&quot
 
 <p><a class="p_ident" id="p-pzAIVt130A" href="#p-pzAIVt130A" tabindex="-1" role="presentation"></a>Los nombres de las propiedades de los objetos deben ser cadenas. Si necesitas un mapa cuyas claves no puedan convertirse fácilmente en cadenas—como objetos—no puedes usar un objeto como tu mapa.</p>
 
-<p><a class="p_ident" id="p-PtliyEVMuM" href="#p-PtliyEVMuM" tabindex="-1" role="presentation"></a>Afortunadamente, JavaScript viene con una clase llamada <code>Map</code> que está escrita para este propósito exacto. Almacena un mapeo y permite cualquier tipo de claves.```` let ages = new Map(); ages.set(“Boris”, 39); ages.set(“Liang”, 22); ages.set(“Júlia”, 62);</p>
+<p><a class="p_ident" id="p-HaYZV/H0va" href="#p-HaYZV/H0va" tabindex="-1" role="presentation"></a>Afortunadamente, JavaScript viene con una clase llamada <code>Map</code> que está escrita para este propósito exacto. Almacena un mapeo y permite cualquier tipo de claves.</p>
 
-<p><a class="p_ident" id="p-F/2F3dMX6n" href="#p-F/2F3dMX6n" tabindex="-1" role="presentation"></a>console.log(<code>Júlia tiene ${ages.<wbr>get(&quot;Júlia&quot;)}</code>); // → Júlia tiene 62 console.log(&quot;¿Se conoce la edad de Jack?”, ages.has(“Jack”)); // → ¿Se conoce la edad de Jack? false console.log(ages.has(“toString”)); // → false</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Rx9LUaRTVZ" href="#c-Rx9LUaRTVZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">ages</span> = <span class="tok-keyword">new</span> Map();
+ages.set(<span class="tok-string">&quot;Boris&quot;</span>, <span class="tok-number">39</span>);
+ages.set(<span class="tok-string">&quot;Liang&quot;</span>, <span class="tok-number">22</span>);
+ages.set(<span class="tok-string">&quot;Júlia&quot;</span>, <span class="tok-number">62</span>);
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qVRwJ4jLf2" href="#c-qVRwJ4jLf2" tabindex="-1" role="presentation"></a>
-{{index [interfaz, objeto], <span class="tok-string">&quot;método set&quot;</span>, <span class="tok-string">&quot;método get&quot;</span>, <span class="tok-string">&quot;método has&quot;</span>, encapsulación}}
+console.log(<span class="tok-string2">`Júlia tiene </span>${ages.get(<span class="tok-string">&quot;Júlia&quot;</span>)}<span class="tok-string2">`</span>);
+<span class="tok-comment">// → Júlia tiene 62</span>
+console.log(<span class="tok-string">&quot;¿Se conoce la edad de Jack?&quot;</span>, ages.has(<span class="tok-string">&quot;Jack&quot;</span>));
+<span class="tok-comment">// → ¿Se conoce la edad de Jack? false</span>
+console.log(ages.has(<span class="tok-string">&quot;toString&quot;</span>));
+<span class="tok-comment">// → false</span></pre>
 
-Los métodos <span class="tok-string2">`set`</span>, <span class="tok-string2">`get`</span> y <span class="tok-string2">`has`</span> forman parte de la interfaz del objeto <span class="tok-string2">`Map`</span>. Escribir una estructura de datos que pueda actualizar y buscar rápidamente un gran conjunto de valores no es fácil, pero no tenemos que preocuparnos por eso. Alguien más lo hizo por nosotros, y podemos utilizar su trabajo a través de esta interfaz sencilla.
+<p><a class="p_ident" id="p-0rTjfJ2VFm" href="#p-0rTjfJ2VFm" tabindex="-1" role="presentation"></a>{{index [interfaz, objeto], “método set”, “método get”, “método has”, encapsulación}}</p>
 
-{{index <span class="tok-string">&quot;función hasOwn&quot;</span>, <span class="tok-string">&quot;operador in&quot;</span>}}
+<p><a class="p_ident" id="p-Nt985eLvDi" href="#p-Nt985eLvDi" tabindex="-1" role="presentation"></a>Los métodos <code>set</code>, <code>get</code> y <code>has</code> forman parte de la interfaz del objeto <code>Map</code>. Escribir una estructura de datos que pueda actualizar y buscar rápidamente un gran conjunto de valores no es fácil, pero no tenemos que preocuparnos por eso. Alguien más lo hizo por nosotros, y podemos utilizar su trabajo a través de esta interfaz sencilla.</p>
 
-Si tienes un objeto simple que necesitas tratar como un mapa por alguna razón, es útil saber que <span class="tok-string2">`Object.keys`</span> devuelve solo las claves _propias_ de un objeto, no las del prototipo. Como alternativa al operador <span class="tok-string2">`in`</span>, puedes utilizar la función <span class="tok-string2">`Object.hasOwn`</span>, que ignora el prototipo del objeto.</pre>
+<p><a class="p_ident" id="p-ImkM3PaOoc" href="#p-ImkM3PaOoc" tabindex="-1" role="presentation"></a>Si tienes un objeto simple que necesitas tratar como un mapa por alguna razón, es útil saber que <code>Object.keys</code> devuelve solo las claves <em>propias</em> de un objeto, no las del prototipo. Como alternativa al operador <code>in</code>, puedes utilizar la función <code>Object.hasOwn</code>, que ignora el prototipo del objeto.</p>
 
-<p><a class="p_ident" id="p-6fy8Sfpyft" href="#p-6fy8Sfpyft" tabindex="-1" role="presentation"></a>console.log(Object.hasOwn({x: 1}, “x”)); // → true console.log(Object.hasOwn({x: 1}, “toString”)); // → false</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KF6ERT9sZf" href="#c-KF6ERT9sZf" tabindex="-1" role="presentation"></a>console.log(Object.hasOwn({<span class="tok-definition">x</span>: <span class="tok-number">1</span>}, <span class="tok-string">&quot;x&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(Object.hasOwn({<span class="tok-definition">x</span>: <span class="tok-number">1</span>}, <span class="tok-string">&quot;toString&quot;</span>));
+<span class="tok-comment">// → false</span></pre>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-bZE4s1euz6" href="#c-bZE4s1euz6" tabindex="-1" role="presentation"></a>
-## Polimorfismo
+<h2><a class="h_ident" id="h-D9SQL+5hu2" href="#h-D9SQL+5hu2" tabindex="-1" role="presentation"></a>Polimorfismo</h2>
 
-{{index <span class="tok-string">&quot;método toString&quot;</span>, <span class="tok-string">&quot;función String&quot;</span>, polimorfismo, anulación, <span class="tok-string">&quot;programación orientada a objetos&quot;</span>}}
+<p><a class="p_ident" id="p-Ak3g9CFweG" href="#p-Ak3g9CFweG" tabindex="-1" role="presentation"></a>Cuando llamas a la función <code>String</code> (que convierte un valor a una cadena) en un objeto, llamará al método <code>toString</code> en ese objeto para intentar crear una cadena significativa a partir de él. Mencioné que algunos de los prototipos estándar definen su propia versión de <code>toString</code> para poder crear una cadena que contenga información más útil que <code>&quot;[object Object]&quot;</code>. También puedes hacerlo tú mismo.</p>
 
-Cuando llamas a la función <span class="tok-string2">`String`</span> (que convierte un valor a una cadena) en un objeto, llamará al método <span class="tok-string2">`toString`</span> en ese objeto para intentar crear una cadena significativa a partir de él. Mencioné que algunos de los prototipos estándar definen su propia versión de <span class="tok-string2">`toString`</span> para poder crear una cadena que contenga información más útil que <span class="tok-string2">`&quot;[object Object]&quot;`</span>. También puedes hacerlo tú mismo.
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VFopw5ZAnI" href="#c-VFopw5ZAnI" tabindex="-1" role="presentation"></a>Rabbit.prototype.toString = <span class="tok-keyword">function</span>() {
+  <span class="tok-keyword">return</span> <span class="tok-string2">`un conejo </span>${<span class="tok-keyword">this</span>.type}<span class="tok-string2">`</span>;
+};
 
-<span class="tok-string2">``</span><span class="tok-string2">`{includeCode: &quot;top_lines: 3&quot;}</span>
-<span class="tok-string2">Rabbit.prototype.toString = function() {</span>
-<span class="tok-string2">  return `</span>un conejo ${<span class="tok-keyword">this</span>.type}<span class="tok-string2">`;</span>
-<span class="tok-string2">};</span>
-
-<span class="tok-string2">console.log(String(conejoAsesino));</span>
-<span class="tok-string2">// → un conejo asesino</span></pre>
+console.log(String(conejoAsesino));
+<span class="tok-comment">// → un conejo asesino</span></pre>
 
 <p><a class="p_ident" id="p-jc1Gz6pFUo" href="#p-jc1Gz6pFUo" tabindex="-1" role="presentation"></a>Este es un ejemplo simple de una idea poderosa. Cuando se escribe un código para trabajar con objetos que tienen una determinada interfaz, en este caso, un método <code>toString</code>, cualquier tipo de objeto que accidentalmente admita esta interfaz puede ser enchufado en el código, y este podrá funcionar con él.</p>
 
@@ -342,8 +346,6 @@ Cuando llamas a la función <span class="tok-string2">`String`</span> (que convi
 <span class="tok-comment">// → B</span></pre>
 
 <h2><a class="h_ident" id="h-m7QR5dYMZ9" href="#h-m7QR5dYMZ9" tabindex="-1" role="presentation"></a>Getters, setters y estáticos</h2>
-
-<p><a class="p_ident" id="p-FcI0w97oqn" href="#p-FcI0w97oqn" tabindex="-1" role="presentation"></a>{{index [interfaz, objeto], [propiedad, definición], “clase Map”}}</p>
 
 <p><a class="p_ident" id="p-o1yLQEv1u3" href="#p-o1yLQEv1u3" tabindex="-1" role="presentation"></a>Las interfaces a menudo contienen propiedades simples, no solo métodos. Por ejemplo, los objetos <code>Map</code> tienen una propiedad <code>size</code> que te dice cuántas claves están almacenadas en ellos.</p>
 
@@ -541,8 +543,6 @@ console.log(LengthList.fromArray([<span class="tok-number">1</span>, <span class
 
 <p><a class="p_ident" id="p-hSr/UaPC9M" href="#p-hSr/UaPC9M" tabindex="-1" role="presentation"></a>La herencia nos permite construir tipos de datos ligeramente diferentes a partir de tipos de datos existentes con relativamente poco trabajo. Es una parte fundamental de la tradición orientada a objetos, junto con la encapsulación y la polimorfismo. Pero, mientras que los dos últimos se consideran generalmente ideas maravillosas, la herencia es más controvertida.</p>
 
-<p><a class="p_ident" id="p-oAUucriSzK" href="#p-oAUucriSzK" tabindex="-1" role="presentation"></a>{{index complejidad, reutilización, “jerarquía de clases”}}</p>
-
 <p><a class="p_ident" id="p-vq1pcEddDz" href="#p-vq1pcEddDz" tabindex="-1" role="presentation"></a>Mientras que encapsulación y polimorfismo se pueden utilizar para <em>separar</em> las piezas de código unas de otras, reduciendo el enredo del programa en general, herencia fundamentalmente ata clases juntas, creando <em>más</em> enredo. Al heredar de una clase, generalmente tienes que saber más sobre cómo funciona que cuando simplemente la usas. La herencia puede ser una herramienta útil para hacer que algunos tipos de programas sean más concisos, pero no debería ser la primera herramienta a la que recurras, y probablemente no deberías buscar activamente oportunidades para construir jerarquías de clases (árboles genealógicos de clases).</p>
 
 <h2><a class="h_ident" id="h-bPUPRLPX+i" href="#h-bPUPRLPX+i" tabindex="-1" role="presentation"></a>El operador instanceof</h2>
@@ -583,7 +583,7 @@ console.log([<span class="tok-number">1</span>] <span class="tok-keyword">instan
 
 <p><a class="p_ident" id="p-F9C1LVy+Xt" href="#p-F9C1LVy+Xt" tabindex="-1" role="presentation"></a>Escribe una clase <code>Vec</code> que represente un vector en el espacio bidimensional. Toma los parámetros <code>x</code> e <code>y</code> (números), que debería guardar en propiedades del mismo nombre.</p>
 
-<p><a class="p_ident" id="p-KksDhuOeXI" href="#p-KksDhuOeXI" tabindex="-1" role="presentation"></a>{{index adición, sustracción}}</p>
+<p><a class="p_ident" id="p-KksDhuOeXI" href="#p-KksDhuOeXI" tabindex="-1" role="presentation"></a>{{index “adición”, sustracción}}</p>
 
 <p><a class="p_ident" id="p-O2b2V/Nzyc" href="#p-O2b2V/Nzyc" tabindex="-1" role="presentation"></a>Dale a la clase <code>Vec</code> dos métodos en su prototipo, <code>plus</code> y <code>minus</code>, que tomen otro vector como parámetro y devuelvan un nuevo vector que tenga la suma o la diferencia de los valores <em>x</em> e <em>y</em> de los dos vectores (<code>this</code> y el parámetro).</p>
 
@@ -601,8 +601,6 @@ console.log(<span class="tok-keyword">new</span> Vec(<span class="tok-number">3<
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-yPiKiyo2sU" href="#p-yPiKiyo2sU" tabindex="-1" role="presentation"></a>Mira de nuevo el ejemplo de la clase <code>Rabbit</code> si no estás seguro de cómo se ven las declaraciones de <code>class</code>.</p>
-
-<p><a class="p_ident" id="p-jmER4Tsq4v" href="#p-jmER4Tsq4v" tabindex="-1" role="presentation"></a>{{index Pitágoras, “defineProperty function”, “raíz cuadrada”, “Math.sqrt function”}}</p>
 
 <p><a class="p_ident" id="p-t2AaqFHh1u" href="#p-t2AaqFHh1u" tabindex="-1" role="presentation"></a>Agregar una propiedad getter al constructor se puede hacer poniendo la palabra <code>get</code> antes del nombre del método. Para calcular la distancia desde (0, 0) hasta (x, y), puedes usar el teorema de Pitágoras, que dice que el cuadrado de la distancia que estamos buscando es igual al cuadrado de la coordenada x más el cuadrado de la coordenada y. Por lo tanto, √(x<sup>2</sup> + y<sup>2</sup>) es el número que buscas. <code>Math.sqrt</code> es la forma de calcular una raíz cuadrada en JavaScript y <code>x ** 2</code> se puede usar para elevar al cuadrado un número.</p>
 

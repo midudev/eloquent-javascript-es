@@ -40,13 +40,11 @@
 
 <h2><a class="h_ident" id="h-7lZW6LyfA5" href="#h-7lZW6LyfA5" tabindex="-1" role="presentation"></a>Conjuntos de datos</h2>
 
-<p><a class="p_ident" id="p-KMug6L1qG5" href="#p-KMug6L1qG5" tabindex="-1" role="presentation"></a>{{index [“estructura de datos”, colección], [memoria, organización]}}</p>
+<p><a class="p_ident" id="p-KMug6L1qG5" href="#p-KMug6L1qG5" tabindex="-1" role="presentation"></a>{{index [“estructura de datos”, “colección”], [memoria, organización]}}</p>
 
 <p><a class="p_ident" id="p-970mNfCcKX" href="#p-970mNfCcKX" tabindex="-1" role="presentation"></a>Para trabajar con un conjunto de datos digitales, primero tenemos que encontrar una forma de representarlo en la memoria de nuestra máquina. Digamos, por ejemplo, que queremos representar una colección de los números 2, 3, 5, 7 y 11.</p>
 
 <p><a class="p_ident" id="p-Q4HkJG7NqQ" href="#p-Q4HkJG7NqQ" tabindex="-1" role="presentation"></a>Podríamos ser creativos con las cadenas, después de todo, las cadenas pueden tener cualquier longitud, por lo que podemos poner muchos datos en ellas, y usar <code>&quot;2 3 5 7 11&quot;</code> como nuestra representación. Pero esto es incómodo. Tendríamos que extraer de alguna manera los dígitos y convertirlos de vuelta a números para acceder a ellos.</p>
-
-<p><a class="p_ident" id="p-qwuX5JH9g0" href="#p-qwuX5JH9g0" tabindex="-1" role="presentation"></a>{{index [array, creación], &quot;[] (arreglo)”}}</p>
 
 <p><a class="p_ident" id="p-n7TWkKijww" href="#p-n7TWkKijww" tabindex="-1" role="presentation"></a>Afortunadamente, JavaScript proporciona un tipo de dato específicamente para almacenar secuencias de valores. Se llama un <em>array</em> y se escribe como una lista de valores entre corchetes, separados por comas:</p>
 
@@ -83,7 +81,7 @@ console.log(listaDeNumeros[<span class="tok-number">2</span> - <span class="tok-
 
 <h2><a class="h_ident" id="h-OYddlNFqr1" href="#h-OYddlNFqr1" tabindex="-1" role="presentation"></a>Métodos</h2>
 
-<p><a class="p_ident" id="p-J9MzjtbRhc" href="#p-J9MzjtbRhc" tabindex="-1" role="presentation"></a>{{index [función, “como propiedad”], método, cadena}}</p>
+<p><a class="p_ident" id="p-J9MzjtbRhc" href="#p-J9MzjtbRhc" tabindex="-1" role="presentation"></a>{{index [función, “como propiedad”], “método”, cadena}}</p>
 
 <p><a class="p_ident" id="p-6tlYp26MGo" href="#p-6tlYp26MGo" tabindex="-1" role="presentation"></a>Tanto los valores de cadena como los de array contienen, además de la propiedad <code>length</code>, varias propiedades que contienen valores de función.</p>
 
@@ -112,8 +110,6 @@ console.log(secuencia.pop());
 <span class="tok-comment">// → 5</span>
 console.log(secuencia);
 <span class="tok-comment">// → [1, 2, 3, 4]</span></pre>
-
-<p><a class="p_ident" id="p-xLw3KQKJ1G" href="#p-xLw3KQKJ1G" tabindex="-1" role="presentation"></a>{{index colección, array, “método push”, “método pop”}}</p>
 
 <p><a class="p_ident" id="p-2CKsdnwOqg" href="#p-2CKsdnwOqg" tabindex="-1" role="presentation"></a>El método <code>push</code> agrega valores al final de un array. El método <code>pop</code> hace lo opuesto, eliminando el último valor en el array y devolviéndolo.</p>
 
@@ -202,8 +198,6 @@ console.log(objetoA);
 
 <p><a class="p_ident" id="p-Geqnk1YpW9" href="#p-Geqnk1YpW9" tabindex="-1" role="presentation"></a>Pronto llegaremos a la programación real, pero primero, hay una pieza más de teoría para entender.</p>
 
-<p><a class="p_ident" id="p-8hQ1yh3n/x" href="#p-8hQ1yh3n/x" tabindex="-1" role="presentation"></a>{{index mutabilidad, “efecto secundario”, número, cadena, booleano, [objeto, mutabilidad]}}</p>
-
 <p><a class="p_ident" id="p-oZnjXQEJ5O" href="#p-oZnjXQEJ5O" tabindex="-1" role="presentation"></a>Vimos que los valores de objetos pueden modificarse. Los tipos de valores discutidos en capítulos anteriores, como números, cadenas y booleanos, son todos <em>inmutables</em>—es imposible cambiar valores de esos tipos. Puedes combinarlos y derivar nuevos valores de ellos, pero al tomar un valor específico de cadena, ese valor siempre permanecerá igual. El texto dentro de él no puede ser cambiado. Si tienes una cadena que contiene <code>&quot;gato&quot;</code>, no es posible que otro código cambie un carácter en tu cadena para que diga <code>&quot;rata&quot;</code>.</p>
 
 <p><a class="p_ident" id="p-qBpnB+cTrk" href="#p-qBpnB+cTrk" tabindex="-1" role="presentation"></a>Los objetos funcionan de manera diferente. <em>Puedes</em> cambiar sus propiedades, lo que hace que un valor de objeto tenga un contenido diferente en momentos diferentes.</p>
@@ -276,8 +270,6 @@ addEntry([<span class="tok-string">&quot;weekend&quot;</span>, <span class="tok-
 <p><a class="p_ident" id="p-8WAx00BPWT" href="#p-8WAx00BPWT" tabindex="-1" role="presentation"></a>(Si en este punto estás dejando el libro para concentrarte en un terrible flashback a la clase de matemáticas de décimo grado, ¡espera! No pretendo torturarte con interminables páginas de notación críptica, solo es esta fórmula por ahora. Y incluso con esta, todo lo que haremos es convertirla en JavaScript).</p>
 
 <p><a class="p_ident" id="p-oaZqmzwWNd" href="#p-oaZqmzwWNd" tabindex="-1" role="presentation"></a>La notación <em>n</em><sub>01</sub> indica la cantidad de mediciones donde la primera variable (ardillez) es falsa (0) y la segunda variable (pizza) es verdadera (1). En la tabla de pizza, <em>n</em><sub>01</sub> es 9.El valor <em>n</em><sub>1•</sub> se refiere a la suma de todas las mediciones donde la primera variable es verdadera, que es 5 en el ejemplo de la tabla. De manera similar, <em>n</em><sub>•0</sub> se refiere a la suma de las mediciones donde la segunda variable es falsa.</p>
-
-<p><a class="p_ident" id="p-/nzVf++yt7" href="#p-/nzVf++yt7" tabindex="-1" role="presentation"></a>{{index correlación, “coeficiente phi”}}</p>
 
 <p><a class="p_ident" id="p-sqPMROtj1n" href="#p-sqPMROtj1n" tabindex="-1" role="presentation"></a>Entonces para la tabla de pizza, la parte encima de la línea de división (el dividendo) sería 1×76−4×9 = 40, y la parte debajo de ella (el divisor) sería la raíz cuadrada de 5×85×10×80, o √340,000. Esto da un valor de <em>ϕ</em> ≈ 0.069, que es muy pequeño. Comer pizza no parece tener influencia en las transformaciones.</p>
 
@@ -415,7 +407,7 @@ console.log(phi(tableFor(<span class="tok-string">&quot;dientes de cacahuate&quo
 
 <h2><a class="h_ident" id="h-P+h+US14Fn" href="#h-P+h+US14Fn" tabindex="-1" role="presentation"></a>Más arreología</h2>
 
-<p><a class="p_ident" id="p-m5KUGhJHYF" href="#p-m5KUGhJHYF" tabindex="-1" role="presentation"></a>{{index [array, métodos], [método, array]}}</p>
+<p><a class="p_ident" id="p-m5KUGhJHYF" href="#p-m5KUGhJHYF" tabindex="-1" role="presentation"></a>{{index [array, “métodos”], [método, array]}}</p>
 
 <p><a class="p_ident" id="p-GGlGmQORfd" href="#p-GGlGmQORfd" tabindex="-1" role="presentation"></a>Antes de terminar el capítulo, quiero presentarte algunos conceptos más relacionados con objetos. Comenzaré presentando algunos métodos de array generalmente útiles.</p>
 
@@ -557,8 +549,6 @@ console.log({...coordenadas, <span class="tok-definition">y</span>: <span class=
 <span class="tok-comment">// → {x: 10, y: 5, z: 1}</span></pre>
 
 <h2><a class="h_ident" id="h-WWC//uRjoK" href="#h-WWC//uRjoK" tabindex="-1" role="presentation"></a>El objeto Math</h2>
-
-<p><a class="p_ident" id="p-5cRAPqhPxN" href="#p-5cRAPqhPxN" tabindex="-1" role="presentation"></a>{{index “Objeto Math”, “Función Math.min”, “Función Math.max”, “Función Math.sqrt”, mínimo, máximo, “raíz cuadrada”}}</p>
 
 <p><a class="p_ident" id="p-cHCP2HN+mo" href="#p-cHCP2HN+mo" tabindex="-1" role="presentation"></a>Como hemos visto, <code>Math</code> es una bolsa de funciones de utilidad relacionadas con números, tales como <code>Math.max</code> (máximo), <code>Math.min</code> (mínimo) y <code>Math.sqrt</code> (raíz cuadrada).</p>
 

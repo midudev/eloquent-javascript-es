@@ -24,13 +24,11 @@
 
 <p><a class="p_ident" id="p-5S1r7LDeWB" href="#p-5S1r7LDeWB" tabindex="-1" role="presentation"></a>La aplicación más evidente de las funciones es definir nuevos vocabulario. Crear nuevas palabras en prosa suele ser de mal estilo, pero en la programación es indispensable.</p>
 
-<p><a class="p_ident" id="p-zGUTCx6L8q" href="#p-zGUTCx6L8q" tabindex="-1" role="presentation"></a>{{index abstracción, vocabulario}}</p>
-
 <p><a class="p_ident" id="p-9hTHeO/PZx" href="#p-9hTHeO/PZx" tabindex="-1" role="presentation"></a>Los hablantes de inglés adultos típicos tienen alrededor de 20,000 palabras en su vocabulario. Pocas lenguajes de programación vienen con 20,000 comandos incorporados. Y el vocabulario que <em>está</em> disponible tiende a estar más precisamente definido, y por lo tanto menos flexible, que en el lenguaje humano. Por lo tanto, <em>tenemos</em> que introducir nuevas palabras para evitar la verbosidad excesiva.</p>
 
 <h2><a class="h_ident" id="h-eHXd+T1Ezs" href="#h-eHXd+T1Ezs" tabindex="-1" role="presentation"></a>Definir una función</h2>
 
-<p><a class="p_ident" id="p-DbMIeY2pIS" href="#p-DbMIeY2pIS" tabindex="-1" role="presentation"></a>{{index “ejemplo de cuadrado”, [función, definición], [vinculación, definición]}}</p>
+<p><a class="p_ident" id="p-DbMIeY2pIS" href="#p-DbMIeY2pIS" tabindex="-1" role="presentation"></a>{{index “ejemplo de cuadrado”, [función, “definición”], [vinculación, “definición”]}}</p>
 
 <p><a class="p_ident" id="p-5jo0JygqfX" href="#p-5jo0JygqfX" tabindex="-1" role="presentation"></a>Una definición de función es una vinculación regular donde el valor de la vinculación es una función. Por ejemplo, este código define <code>square</code> para que se refiera a una función que produce el cuadrado de un número dado:</p>
 
@@ -41,7 +39,7 @@
 console.log(square(<span class="tok-number">12</span>));
 <span class="tok-comment">// → 144</span></pre>
 
-<p><a class="p_ident" id="p-Cp1gUOkf3+" href="#p-Cp1gUOkf3+" tabindex="-1" role="presentation"></a>{{index [corchetes, “cuerpo de la función”], bloque, [sintaxis, función], “palabra clave de función”, [función, cuerpo], [función, “como valor”], [paréntesis, argumentos]}}</p>
+<p><a class="p_ident" id="p-Cp1gUOkf3+" href="#p-Cp1gUOkf3+" tabindex="-1" role="presentation"></a>{{index [corchetes, “cuerpo de la “función”&quot;], bloque, [sintaxis, “función”], “palabra clave de “función”&quot;, [“función”, cuerpo], [“función”, “como valor”], [paréntesis, argumentos]}}</p>
 
 <p><a class="p_ident" id="p-Wttl/7EpwM" href="#p-Wttl/7EpwM" tabindex="-1" role="presentation"></a>Una función se crea con una expresión que comienza con la palabra clave <code>function</code>. Las funciones tienen un conjunto de <em>parámetros</em> (en este caso, solo <code>x</code>) y un <em>cuerpo</em>, que contiene las declaraciones que se ejecutarán cuando se llame a la función. El cuerpo de una función creada de esta manera siempre debe estar envuelto entre llaves, incluso cuando consiste en una única declaración.</p>
 
@@ -64,7 +62,7 @@ console.log(roundTo(<span class="tok-number">23</span>, <span class="tok-number"
 
 <p><a class="p_ident" id="p-1DcRwWewzX" href="#p-1DcRwWewzX" tabindex="-1" role="presentation"></a>Algunas funciones, como <code>roundTo</code> y <code>square</code>, producen un valor, y otras no, como <code>makeNoise</code>, cuyo único resultado es un efecto secundario. Una instrucción <code>return</code> determina el valor que devuelve la función. Cuando el control llega a una instrucción de ese tipo, salta inmediatamente fuera de la función actual y le da el valor devuelto al código que llamó a la función. Una palabra clave <code>return</code> sin una expresión después de ella hará que la función devuelva <code>undefined</code>. Las funciones que no tienen ninguna instrucción <code>return</code> en absoluto, como <code>makeNoise</code>, devuelven igualmente <code>undefined</code>.</p>
 
-<p><a class="p_ident" id="p-0ZQToAYNZl" href="#p-0ZQToAYNZl" tabindex="-1" role="presentation"></a>{{index parámetro, [función, aplicación], [ligadura, “desde parámetro”]}}</p>
+<p><a class="p_ident" id="p-0ZQToAYNZl" href="#p-0ZQToAYNZl" tabindex="-1" role="presentation"></a>{{index “parámetro”, [función, “aplicación”], [ligadura, “desde parámetro”]}}</p>
 
 <p><a class="p_ident" id="p-skIegUpOjB" href="#p-skIegUpOjB" tabindex="-1" role="presentation"></a>Los parámetros de una función se comportan como ligaduras regulares, pero sus valores iniciales son dados por el <em>llamador</em> de la función, no por el código en la función en sí misma.</p>
 
@@ -95,8 +93,6 @@ console.log(n);
 <span class="tok-comment">// → 10</span></pre>
 
 <h2 id="alcance"><a class="h_ident" id="h-Bb1XV2UFNf" href="#h-Bb1XV2UFNf" tabindex="-1" role="presentation"></a>Ámbito anidado</h2>
-
-<p><a class="p_ident" id="p-zddY34mGBo" href="#p-zddY34mGBo" tabindex="-1" role="presentation"></a>{{index [anidamiento, “de funciones”], [anidamiento, “de ámbito”], ámbito, “función interna”, &quot;ámbito léxico”}}</p>
 
 <p><a class="p_ident" id="p-WQPriPynnr" href="#p-WQPriPynnr" tabindex="-1" role="presentation"></a>JavaScript distingue no solo entre ligaduras globales y locales. Bloques y funciones pueden ser creados dentro de otros bloques y funciones, produciendo múltiples grados de localidad.</p>
 
@@ -147,8 +143,6 @@ console.log(n);
 
 <h2><a class="h_ident" id="h-tewMxJao9I" href="#h-tewMxJao9I" tabindex="-1" role="presentation"></a>Notación de declaración</h2>
 
-<p><a class="p_ident" id="p-o15b/cbhZR" href="#p-o15b/cbhZR" tabindex="-1" role="presentation"></a>{{index [sintaxis, función], “palabra clave función”, “ejemplo cuadrado”, [función, definición], [función, declaración]}}</p>
-
 <p><a class="p_ident" id="p-8B3Xt7iB35" href="#p-8B3Xt7iB35" tabindex="-1" role="presentation"></a>Hay una manera ligeramente más corta de crear un enlace de función. Cuando se utiliza la palabra clave <code>function</code> al inicio de una declaración, funciona de manera diferente:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-4uHhsg+h7S" href="#c-4uHhsg+h7S" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">square</span>(<span class="tok-definition">x</span>) {
@@ -168,8 +162,6 @@ console.log(n);
 <p><a class="p_ident" id="p-4dZZ8ocV0I" href="#p-4dZZ8ocV0I" tabindex="-1" role="presentation"></a>El código anterior funciona, incluso aunque la función esté definida <em>debajo</em> del código que la usa. Las declaraciones de función no forman parte del flujo de control regular de arriba hacia abajo. Conceptualmente se mueven al principio de su alcance y pueden ser utilizadas por todo el código en ese alcance. A veces esto es útil porque ofrece la libertad de ordenar el código de una manera que parezca más clara, sin tener que preocuparse por definir todas las funciones antes de que se utilicen.</p>
 
 <h2><a class="h_ident" id="h-7gP0M6nUCF" href="#h-7gP0M6nUCF" tabindex="-1" role="presentation"></a>Funciones de flecha</h2>
-
-<p><a class="p_ident" id="p-Yjvk4I+wXH" href="#p-Yjvk4I+wXH" tabindex="-1" role="presentation"></a>{{index función, “función de flecha”}}</p>
 
 <p><a class="p_ident" id="p-qp+SShPV+r" href="#p-qp+SShPV+r" tabindex="-1" role="presentation"></a>Hay una tercera notación para funciones, que se ve muy diferente de las otras. En lugar de la palabra clave <code>function</code>, utiliza una flecha (<code>=&gt;</code>) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe <code>&gt;=</code>):</p>
 
@@ -262,9 +254,7 @@ console.log(minus(<span class="tok-number">10</span>));
 console.log(minus(<span class="tok-number">10</span>, <span class="tok-number">5</span>));
 <span class="tok-comment">// → 5</span></pre>
 
-<p id="roundTo"><a class="p_ident" id="p-qmcudOZP3k" href="#p-qmcudOZP3k" tabindex="-1" role="presentation"></a>{{index “argumento opcional”, “valor por defecto”, parámetro, [“operador =&quot;, “para valor por defecto”], “ejemplo de redondeo”}}</p>
-
-<p><a class="p_ident" id="p-tcju9YOu56" href="#p-tcju9YOu56" tabindex="-1" role="presentation"></a>Si escribes un operador <code>=</code> después de un parámetro, seguido de una expresión, el valor de esa expresión reemplazará al argumento cuando no se le dé. Por ejemplo, esta versión de <code>roundTo</code> hace que su segundo argumento sea opcional. Si no lo proporcionas o pasas el valor <code>undefined</code>, por defecto será uno:</p>
+<p id="roundTo"><a class="p_ident" id="p-tcju9YOu56" href="#p-tcju9YOu56" tabindex="-1" role="presentation"></a>Si escribes un operador <code>=</code> después de un parámetro, seguido de una expresión, el valor de esa expresión reemplazará al argumento cuando no se le dé. Por ejemplo, esta versión de <code>roundTo</code> hace que su segundo argumento sea opcional. Si no lo proporcionas o pasas el valor <code>undefined</code>, por defecto será uno:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-lf5l9+817Y" href="#c-lf5l9+817Y" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">roundTo</span>(<span class="tok-definition">n</span>, <span class="tok-definition">step</span> = <span class="tok-number">1</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">remainder</span> = n % step;
@@ -323,7 +313,7 @@ console.log(twice(<span class="tok-number">5</span>));
 
 <h2><a class="h_ident" id="h-ge3a45K3m3" href="#h-ge3a45K3m3" tabindex="-1" role="presentation"></a>Recursión</h2>
 
-<p><a class="p_ident" id="p-grDy9G1ky2" href="#p-grDy9G1ky2" tabindex="-1" role="presentation"></a>{{index “ejemplo de potencia”, “desbordamiento de pila”, recursión, [función, aplicación]}}</p>
+<p><a class="p_ident" id="p-grDy9G1ky2" href="#p-grDy9G1ky2" tabindex="-1" role="presentation"></a>{{index “ejemplo de potencia”, “desbordamiento de pila”, “recursión”, [función, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-A2M2+fm6Wx" href="#p-A2M2+fm6Wx" tabindex="-1" role="presentation"></a>Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama <em>recursiva</em>. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función <code>power</code>, que hace lo mismo que el operador <code>**</code> (exponenciación):</p>
 
@@ -342,7 +332,7 @@ console.log(power(<span class="tok-number">2</span>, <span class="tok-number">3<
 
 <p><a class="p_ident" id="p-ZH6kc3lXYd" href="#p-ZH6kc3lXYd" tabindex="-1" role="presentation"></a>Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en <a href="estructura_programaci%C3%B3n">Capítulo ?</a>. La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.</p>
 
-<p><a class="p_ident" id="p-9XR8iJwJSn" href="#p-9XR8iJwJSn" tabindex="-1" role="presentation"></a>{{index [función, aplicación], eficiencia}}</p>
+<p><a class="p_ident" id="p-9XR8iJwJSn" href="#p-9XR8iJwJSn" tabindex="-1" role="presentation"></a>{{index [función, “aplicación”], eficiencia}}</p>
 
 <p><a class="p_ident" id="p-vuRF5znTGo" href="#p-vuRF5znTGo" tabindex="-1" role="presentation"></a>Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un <code>for</code> loop. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.</p>
 
@@ -358,9 +348,7 @@ console.log(power(<span class="tok-number">2</span>, <span class="tok-number">3<
 
 <p><a class="p_ident" id="p-oNzYWF+2hF" href="#p-oNzYWF+2hF" tabindex="-1" role="presentation"></a>La recursión no siempre es simplemente una alternativa ineficiente a los bucles. Algunos problemas realmente son más fáciles de resolver con recursión que con bucles. Con mayor frecuencia, estos son problemas que requieren explorar o procesar varias “ramas”, cada una de las cuales podría ramificarse nuevamente en aún más ramas.</p>
 
-<p id="rompecabezas_recursivo"><a class="p_ident" id="p-0kYUgBM7Md" href="#p-0kYUgBM7Md" tabindex="-1" role="presentation"></a>{{index recursión, “ejemplo de rompecabezas numérico”}}</p>
-
-<p><a class="p_ident" id="p-z8AgKvwZXc" href="#p-z8AgKvwZXc" tabindex="-1" role="presentation"></a>Considera este rompecabezas: al comenzar desde el número 1 y repetidamente sumar 5 o multiplicar por 3, se puede producir un conjunto infinito de números. ¿Cómo escribirías una función que, dado un número, intente encontrar una secuencia de tales sumas y multiplicaciones que produzcan ese número? Por ejemplo, el número 13 podría alcanzarse al multiplicar por 3 y luego sumar 5 dos veces, mientras que el número 15 no podría alcanzarse en absoluto.</p>
+<p id="rompecabezas_recursivo"><a class="p_ident" id="p-z8AgKvwZXc" href="#p-z8AgKvwZXc" tabindex="-1" role="presentation"></a>Considera este rompecabezas: al comenzar desde el número 1 y repetidamente sumar 5 o multiplicar por 3, se puede producir un conjunto infinito de números. ¿Cómo escribirías una función que, dado un número, intente encontrar una secuencia de tales sumas y multiplicaciones que produzcan ese número? Por ejemplo, el número 13 podría alcanzarse al multiplicar por 3 y luego sumar 5 dos veces, mientras que el número 15 no podría alcanzarse en absoluto.</p>
 
 <p><a class="p_ident" id="p-HOoTgs7o63" href="#p-HOoTgs7o63" tabindex="-1" role="presentation"></a>Aquí tienes una solución recursiva:</p>
 
@@ -507,8 +495,6 @@ imprimirInventarioGranja(<span class="tok-number">7</span>, <span class="tok-num
 <p><a class="p_ident" id="p-uZwYjlANQc" href="#p-uZwYjlANQc" tabindex="-1" role="presentation"></a>{{index sustitución}}</p>
 
 <p><a class="p_ident" id="p-ZQPtksrZZc" href="#p-ZQPtksrZZc" tabindex="-1" role="presentation"></a>Una función <em>pura</em> es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de que una función pura esté funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.</p>
-
-<p><a class="p_ident" id="p-SZNdntwjB+" href="#p-SZNdntwjB+" tabindex="-1" role="presentation"></a>{{index optimización, “console.log”}}</p>
 
 <p><a class="p_ident" id="p-3s9sqQnXFN" href="#p-3s9sqQnXFN" tabindex="-1" role="presentation"></a>Aún así, no hay necesidad de sentirse mal al escribir funciones que no son puras. Los efectos secundarios a menudo son útiles. No hay forma de escribir una versión pura de <code>console.log</code>, por ejemplo, y es bueno tener <code>console.log</code>. Algunas operaciones también son más fáciles de expresar de manera eficiente cuando usamos efectos secundarios.</p>
 

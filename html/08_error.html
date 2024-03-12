@@ -20,15 +20,11 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_8.jpg" alt="Ilustración mostrando varios insectos y un ciempiés"></figure>
 
-<p><a class="p_ident" id="p-LuwVEeiZvp" href="#p-LuwVEeiZvp" tabindex="-1" role="presentation"></a>{{index “Kernighan, Brian”, “Plauger, P.J.”, depuración, “manejo de errores”}}</p>
-
 <p><a class="p_ident" id="p-A/LLrFO0lg" href="#p-A/LLrFO0lg" tabindex="-1" role="presentation"></a>Las fallas en los programas de computadora generalmente se llaman <em>bugs</em>. Hace que los programadores se sientan bien imaginarlos como pequeñas cosas que simplemente se meten en nuestro trabajo. En realidad, por supuesto, nosotros mismos los colocamos allí.</p>
 
 <p><a class="p_ident" id="p-DretlFLrRR" href="#p-DretlFLrRR" tabindex="-1" role="presentation"></a>Si un programa es pensamiento cristalizado, puedes clasificar aproximadamente los errores en aquellos causados por pensamientos confusos y aquellos causados por errores introducidos al convertir un pensamiento en código. El primer tipo generalmente es más difícil de diagnosticar y arreglar que el último.</p>
 
 <h2><a class="h_ident" id="h-EWyEuXUxbG" href="#h-EWyEuXUxbG" tabindex="-1" role="presentation"></a>Lenguaje</h2>
-
-<p><a class="p_ident" id="p-YQAApHLAKk" href="#p-YQAApHLAKk" tabindex="-1" role="presentation"></a>{{index análisis, parsing}}</p>
 
 <p><a class="p_ident" id="p-76p39k7Awv" href="#p-76p39k7Awv" tabindex="-1" role="presentation"></a>Muchos errores podrían ser señalados automáticamente por la computadora, si supiera lo suficiente sobre lo que estamos intentando hacer. Pero la laxitud de JavaScript es un obstáculo aquí. Su concepto de enlaces y propiedades es lo suficientemente vago como para rara vez atrapar typos antes de ejecutar realmente el programa. E incluso entonces, te permite hacer algunas cosas claramente absurdas sin quejarse, como calcular <code>true * &quot;monkey&quot;</code>.</p>
 
@@ -101,8 +97,6 @@ console.log(name);
 
 <h2><a class="h_ident" id="h-q7sv+LnNdr" href="#h-q7sv+LnNdr" tabindex="-1" role="presentation"></a>Pruebas</h2>
 
-<p><a class="p_ident" id="p-8+ClNm8zsB" href="#p-8+ClNm8zsB" tabindex="-1" role="presentation"></a>{{index “suite de pruebas”, “error en tiempo de ejecución”, automatización, pruebas}}</p>
-
 <p><a class="p_ident" id="p-Mh0wNpH7/y" href="#p-Mh0wNpH7/y" tabindex="-1" role="presentation"></a>Si el lenguaje no nos va a ayudar mucho a encontrar errores, tendremos que encontrarlos a la antigua: ejecutando el programa y viendo si hace lo correcto.</p>
 
 <p><a class="p_ident" id="p-oYkmD38AMe" href="#p-oYkmD38AMe" tabindex="-1" role="presentation"></a>Hacer esto manualmente, una y otra vez, es una idea muy mala. No solo es molesto, también tiende a ser ineficaz, ya que lleva demasiado tiempo probar exhaustivamente todo cada vez que haces un cambio.</p>
@@ -158,8 +152,6 @@ console.log(numberToString(<span class="tok-number">13</span>, <span class="tok-
 
 <p><a class="p_ident" id="p-coTKqI9MYU" href="#p-coTKqI9MYU" tabindex="-1" role="presentation"></a>Aquí es donde debes resistir la tentación de empezar a hacer cambios aleatorios en el código para ver si eso lo mejora. En cambio, <em>piensa</em>. Analiza lo que está sucediendo y elabora una teoría sobre por qué podría estar ocurriendo. Luego, realiza observaciones adicionales para probar esta teoría, o si aún no tienes una teoría, realiza observaciones adicionales para ayudarte a crear una.</p>
 
-<p><a class="p_ident" id="p-NnK4hfvMRs" href="#p-NnK4hfvMRs" tabindex="-1" role="presentation"></a>{{index “console.log”, salida, depuración, registro}}</p>
-
 <p><a class="p_ident" id="p-CJZqnlaGs3" href="#p-CJZqnlaGs3" tabindex="-1" role="presentation"></a>Colocar algunas llamadas <code>console.log</code> estratégicas en el programa es una buena manera de obtener información adicional sobre lo que está haciendo el programa. En este caso, queremos que <code>n</code> tome los valores <code>13</code>, <code>1</code> y luego <code>0</code>. Vamos a escribir su valor al inicio del ciclo.</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-nB/OeL8UNa" href="#c-nB/OeL8UNa" tabindex="-1" role="presentation"></a>13
@@ -214,8 +206,6 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 <p><a class="p_ident" id="p-8kL59rmzNL" href="#p-8kL59rmzNL" tabindex="-1" role="presentation"></a>Cuando una función no puede proceder normalmente, lo que a menudo <em>queremos</em> hacer es simplemente detener lo que estamos haciendo e ir directamente a un lugar que sepa cómo manejar el problema. Esto es lo que hace el <em>manejo de excepciones</em>.</p>
 
 <p><a class="p_ident" id="p-8kP1DbEOE1" href="#p-8kP1DbEOE1" tabindex="-1" role="presentation"></a>Las excepciones son un mecanismo que hace posible que el código que se encuentra con un problema <em>lanze</em> (o <em>emita</em>) una excepción. Una excepción puede ser cualquier valor. Lanzar una se asemeja de alguna manera a un retorno super potenciado de una función: sale no solo de la función actual sino también de sus llamadores, hasta llegar a la primera llamada que inició la ejecución actual. Esto se llama <em>desenrollar la pila</em>. Puede recordar la pila de llamadas a funciones que se mencionó en el <a href="03_functions.html#stack">Capítulo 3</a>. Una excepción recorre esta pila, descartando todos los contextos de llamada que encuentra.</p>
-
-<p><a class="p_ident" id="p-K5fVoMta8J" href="#p-K5fVoMta8J" tabindex="-1" role="presentation"></a>{{index “manejo de errores”, [sintaxis, declaración], “palabra clave catch”}}</p>
 
 <p><a class="p_ident" id="p-YezykK0rip" href="#p-YezykK0rip" tabindex="-1" role="presentation"></a>Si las excepciones siempre fueran directamente hasta el final de la pila, no serían de mucha utilidad. Simplemente proporcionarían una forma novedosa de hacer que su programa falle. Su poder radica en el hecho de que puede colocar “obstáculos” a lo largo de la pila para <em>capturar</em> la excepción mientras viaja hacia abajo. Una vez que ha capturado una excepción, puede hacer algo con ella para resolver el problema y luego continuar ejecutando el programa.</p>
 
@@ -317,7 +307,7 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 
 <p><a class="p_ident" id="p-igAOH/6YWz" href="#p-igAOH/6YWz" tabindex="-1" role="presentation"></a>Para problemas que se <em>espera</em> que ocurran durante el uso rutinario, fallar con una excepción no manejada es una estrategia terrible.</p>
 
-<p><a class="p_ident" id="p-M4SYHIUS6U" href="#p-M4SYHIUS6U" tabindex="-1" role="presentation"></a>{{index [función, aplicación], “manejo de excepciones”, “tipo de error”, [enlace, indefinido]}}</p>
+<p><a class="p_ident" id="p-M4SYHIUS6U" href="#p-M4SYHIUS6U" tabindex="-1" role="presentation"></a>{{index [función, “aplicación”], “manejo de excepciones”, “tipo de error”, [enlace, indefinido]}}</p>
 
 <p><a class="p_ident" id="p-WgcUeDPSV4" href="#p-WgcUeDPSV4" tabindex="-1" role="presentation"></a>Usos incorrectos del lenguaje, como hacer referencia a un enlace inexistente, buscar una propiedad en <code>null</code> o llamar a algo que no es una función, también provocarán que se lancen excepciones. Estas excepciones también pueden ser capturadas.</p>
 
@@ -382,7 +372,7 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 
 <h2><a class="h_ident" id="h-cLlvsxFcXB" href="#h-cLlvsxFcXB" tabindex="-1" role="presentation"></a>Afirmaciones</h2>
 
-<p><a class="p_ident" id="p-OQr5ZjOQ8p" href="#p-OQr5ZjOQ8p" tabindex="-1" role="presentation"></a>{{index “función assert”, afirmación, depuración}}</p>
+<p><a class="p_ident" id="p-OQr5ZjOQ8p" href="#p-OQr5ZjOQ8p" tabindex="-1" role="presentation"></a>{{index “función assert”, “afirmación”, depuración}}</p>
 
 <p><a class="p_ident" id="p-ETMuysY1G8" href="#p-ETMuysY1G8" tabindex="-1" role="presentation"></a>Las <em>afirmaciones</em> son verificaciones dentro de un programa que aseguran que algo es como se supone que debe ser. Se utilizan no para manejar situaciones que pueden surgir en la operación normal, sino para encontrar errores de programación.</p>
 
@@ -395,7 +385,7 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
   <span class="tok-keyword">return</span> array[<span class="tok-number">0</span>];
 }</pre>
 
-<p><a class="p_ident" id="p-eS4NJSGD8Q" href="#p-eS4NJSGD8Q" tabindex="-1" role="presentation"></a>{{index validación, “error en tiempo de ejecución”, fallo, suposición}}</p>
+<p><a class="p_ident" id="p-eS4NJSGD8Q" href="#p-eS4NJSGD8Q" tabindex="-1" role="presentation"></a>{{index “validación”, “error en tiempo de ejecución”, fallo, suposición}}</p>
 
 <p><a class="p_ident" id="p-d/otm+M+EY" href="#p-d/otm+M+EY" tabindex="-1" role="presentation"></a>Ahora, en lugar de devolver silenciosamente <code>undefined</code> (que es lo que obtienes al leer una propiedad de un array que no existe), esto hará que tu programa falle ruidosamente tan pronto como lo uses incorrectamente. Esto hace que sea menos probable que tales errores pasen desapercibidos y más fácil encontrar su causa cuando ocurran.</p>
 

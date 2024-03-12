@@ -40,8 +40,6 @@
 
 <h2><a class="h_ident" id="h-Yxu7U155Cs" href="#h-Yxu7U155Cs" tabindex="-1" role="presentation"></a>Long polling</h2>
 
-<p><a class="p_ident" id="p-Ck9kwV0HSj" href="#p-Ck9kwV0HSj" tabindex="-1" role="presentation"></a>{{index firewall, notificación, “long polling”, red, [navegador, seguridad]}}</p>
-
 <p><a class="p_ident" id="p-+gpJ1YoH6p" href="#p-+gpJ1YoH6p" tabindex="-1" role="presentation"></a>Para poder notificar inmediatamente a un cliente que algo ha cambiado, necesitamos una conexión con ese cliente. Dado que los navegadores web tradicionalmente no aceptan conexiones y los clientes a menudo están detrás de routers que bloquearían tales conexiones de todos modos, no es práctico que sea el servidor quien inicie esta conexión.</p>
 
 <p><a class="p_ident" id="p-XeGPkQ0uyB" href="#p-XeGPkQ0uyB" tabindex="-1" role="presentation"></a>Podemos hacer que el cliente abra la conexión y la mantenga activa para que el servidor pueda usarla para enviar información cuando sea necesario.</p>
@@ -248,8 +246,6 @@ router.add(<span class="tok-string">&quot;GET&quot;</span>, talkPath, <span clas
 });</pre>
 
 <p><a class="p_ident" id="p-pjcjDMRuxA" href="#p-pjcjDMRuxA" tabindex="-1" role="presentation"></a>El método <code>updated</code>, que definiremos <a href="21_skillsharing.html#updated">más adelante</a>, notifica a las solicitudes de espera larga sobre el cambio.</p>
-
-<p><a class="p_ident" id="p-6VhbaiLoZm" href="#p-6VhbaiLoZm" tabindex="-1" role="presentation"></a>{{index validación, entrada, “método PUT”}}</p>
 
 <p><a class="p_ident" id="p-e83CFc66FM" href="#p-e83CFc66FM" tabindex="-1" role="presentation"></a>Un controlador que necesita leer cuerpos de solicitud es el controlador <code>PUT</code>, que se utiliza para crear nuevas charlas. Debe verificar si los datos que se le proporcionaron tienen propiedades <code>presentador</code> y <code>resumen</code>, que son cadenas de texto. Cualquier dato que provenga de fuera del sistema podría ser un sinsentido y no queremos corromper nuestro modelo de datos interno o fallar cuando lleguen solicitudes incorrectas.</p>
 
@@ -571,8 +567,6 @@ router.add(<span class="tok-string">&quot;POST&quot;</span>, <span class="tok-st
   }
 }</pre>
 
-<p><a class="p_ident" id="p-KSf/hiErMk" href="#p-KSf/hiErMk" tabindex="-1" role="presentation"></a>{{index sincronización, “vista en vivo”}}</p>
-
 <p><a class="p_ident" id="p-Q8LoG2UUP1" href="#p-Q8LoG2UUP1" tabindex="-1" role="presentation"></a>Cuando las charlas cambian, este componente las vuelve a dibujar todas. Esto es simple pero también derrochador. Hablaremos sobre eso en los ejercicios.</p>
 
 <p><a class="p_ident" id="p-CNi4dF2DTL" href="#p-CNi4dF2DTL" tabindex="-1" role="presentation"></a>Podemos iniciar la aplicación de esta manera:</p>
@@ -626,13 +620,9 @@ runApp();</pre>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-iM6BTo7lMH" href="#p-iM6BTo7lMH" tabindex="-1" role="presentation"></a>{{index “restablecimiento del campo de comentarios (ejercicio)”, plantilla, método “syncState”}}</p>
-
 <p><a class="p_ident" id="p-DtiTOgpCkK" href="#p-DtiTOgpCkK" tabindex="-1" role="presentation"></a>La mejor manera de hacerlo probablemente sea convertir el componente de la charla en un objeto, con un método <code>syncState</code>, para que se puedan actualizar para mostrar una versión modificada de la charla. Durante el funcionamiento normal, la única forma en que una charla puede cambiar es añadiendo más comentarios, por lo que el método <code>syncState</code> puede ser relativamente sencillo.</p>
 
 <p><a class="p_ident" id="p-LNba5pl/wP" href="#p-LNba5pl/wP" tabindex="-1" role="presentation"></a>La parte difícil es que, cuando llega una lista modificada de charlas, tenemos que conciliar la lista existente de componentes de DOM con las charlas de la nueva lista: eliminar los componentes cuya charla fue eliminada y actualizar los componentes cuya charla cambió.</p>
-
-<p><a class="p_ident" id="p-KSf/hiErMk_1" href="#p-KSf/hiErMk_1" tabindex="-1" role="presentation"></a>{{index sincronización, “vista en vivo”}}</p>
 
 <p><a class="p_ident" id="p-Weztd66azd" href="#p-Weztd66azd" tabindex="-1" role="presentation"></a>Para hacer esto, podría ser útil mantener una estructura de datos que almacene los componentes de las charlas bajo los títulos de las charlas para que puedas averiguar fácilmente si existe un componente para una charla dada. Luego puedes recorrer la nueva matriz de charlas y, para cada una de ellas, sincronizar un componente existente o crear uno nuevo. Para eliminar los componentes de charlas eliminadas, también tendrás que recorrer los componentes y comprobar si las charlas correspondientes aún existen.</p>
 

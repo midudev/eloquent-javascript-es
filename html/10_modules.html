@@ -20,8 +20,6 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_10.jpg" alt="Ilustración de un edificio complicado construido a partir de piezas modulares"></figure>
 
-<p><a class="p_ident" id="p-iESKsl3sc9" href="#p-iESKsl3sc9" tabindex="-1" role="presentation"></a>{{index organización, [código, estructura de]}}</p>
-
 <p><a class="p_ident" id="p-EX80tfve2c" href="#p-EX80tfve2c" tabindex="-1" role="presentation"></a>Idealmente, un programa tiene una estructura clara y directa. La forma en que funciona es fácil de explicar, y cada parte desempeña un papel bien definido.</p>
 
 <p><a class="p_ident" id="p-yilY+En/5q" href="#p-yilY+En/5q" tabindex="-1" role="presentation"></a>En la práctica, los programas crecen de forma orgánica. Se añaden piezas de funcionalidad a medida que el programador identifica nuevas necesidades. Mantener un programa de esta manera bien estructurado requiere atención y trabajo constantes. Este es un trabajo que solo dará sus frutos en el futuro, la próxima vez que alguien trabaje en el programa. Por lo tanto, es tentador descuidarlo y permitir que las diversas partes del programa se enreden profundamente.</p>
@@ -71,7 +69,7 @@ console.log(<span class="tok-string2">`Hoy es </span>${dayName(ahora.getDay())}<
 
 <p><a class="p_ident" id="p-/pMtoDSh3q" href="#p-/pMtoDSh3q" tabindex="-1" role="presentation"></a>La palabra clave <code>import</code>, seguida de una lista de nombres de vinculación entre llaves, hace que las vinculaciones de otro módulo estén disponibles en el módulo actual. Los módulos se identifican por cadenas entre comillas.</p>
 
-<p><a class="p_ident" id="p-rjAKVjehT4" href="#p-rjAKVjehT4" tabindex="-1" role="presentation"></a>{{index [módulo, resolución], resolución}}</p>
+<p><a class="p_ident" id="p-rjAKVjehT4" href="#p-rjAKVjehT4" tabindex="-1" role="presentation"></a>{{index [módulo, “resolución”], “resolución”}}</p>
 
 <p><a class="p_ident" id="p-bC1R/meysi" href="#p-bC1R/meysi" tabindex="-1" role="presentation"></a>Cómo se resuelve un nombre de módulo a un programa real difiere según la plataforma. El navegador los trata como direcciones web, mientras que Node.js los resuelve a archivos. Para ejecutar un módulo, se cargan todos los demás módulos en los que depende, y las vinculaciones exportadas se ponen a disposición de los módulos que las importan.</p>
 
@@ -130,7 +128,7 @@ console.log(parse(<span class="tok-string">&quot;x = 10</span><span class="tok-s
 
 <p><a class="p_ident" id="p-gL2Y0VXAPv" href="#p-gL2Y0VXAPv" tabindex="-1" role="presentation"></a>Antes de 2015, cuando el lenguaje de JavaScript no tenía un sistema de módulos integrado real, las personas ya estaban construyendo sistemas grandes en JavaScript. Para que funcionara, ellos <em>necesitaban</em> módulos.</p>
 
-<p><a class="p_ident" id="p-CrhsjH/EkF" href="#p-CrhsjH/EkF" tabindex="-1" role="presentation"></a>{{index [función, alcance], [interfaz, módulo], [objeto, como módulo]}}</p>
+<p><a class="p_ident" id="p-CrhsjH/EkF" href="#p-CrhsjH/EkF" tabindex="-1" role="presentation"></a>{{index [función, alcance], [interfaz, “módulo”], [objeto, como “módulo”]}}</p>
 
 <p><a class="p_ident" id="p-wJ8IhSNMb2" href="#p-wJ8IhSNMb2" tabindex="-1" role="presentation"></a>La comunidad diseñó sus propios sistemas de módulos improvisados sobre el lenguaje. Estos utilizan funciones para crear un alcance local para los módulos y objetos regulares para representar interfaces de módulos.</p>
 
@@ -153,8 +151,6 @@ console.log(semana.nombre(semana.numero(<span class="tok-string">&quot;Domingo&q
 <p><a class="p_ident" id="p-1Nis/4GWsb" href="#p-1Nis/4GWsb" tabindex="-1" role="presentation"></a>Este estilo de módulos proporciona aislamiento, hasta cierto punto, pero no declara dependencias. En cambio, simplemente coloca su interfaz en el ámbito global y espera que sus dependencias, si las tiene, hagan lo mismo. Esto no es ideal.</p>
 
 <p><a class="p_ident" id="p-6mhHLUjbEJ" href="#p-6mhHLUjbEJ" tabindex="-1" role="presentation"></a>Si implementamos nuestro propio cargador de módulos, podemos hacerlo mejor. El enfoque más ampliamente utilizado para los módulos de JavaScript agregados se llama <em>Módulos CommonJS</em>. Node.js lo utilizaba desde el principio (aunque ahora también sabe cómo cargar módulos ES) y es el sistema de módulos utilizado por muchos paquetes en NPM.</p>
-
-<p><a class="p_ident" id="p-tHs+TEsX8W" href="#p-tHs+TEsX8W" tabindex="-1" role="presentation"></a>{{index “función require”, [interfaz, módulo], “objeto exports”}}</p>
 
 <p><a class="p_ident" id="p-4CiiEAoKta" href="#p-4CiiEAoKta" tabindex="-1" role="presentation"></a>Un módulo CommonJS se ve como un script regular, pero tiene acceso a dos enlaces que utiliza para interactuar con otros módulos. El primero es una función llamada <code>require</code>. Cuando llamas a esto con el nombre del módulo de tu dependencia, se asegura de que el módulo esté cargado y devuelve su interfaz. El segundo es un objeto llamado <code>exports</code>, que es el objeto de interfaz para el módulo. Comienza vacío y agregas propiedades para definir los valores exportados.</p>
 
@@ -217,8 +213,6 @@ require.cache = Object.create(<span class="tok-keyword">null</span>);</pre>
 
 <h2><a class="h_ident" id="h-MTtaNNMhF9" href="#h-MTtaNNMhF9" tabindex="-1" role="presentation"></a>Compilación y empaquetado</h2>
 
-<p><a class="p_ident" id="p-gegZGLQXIc" href="#p-gegZGLQXIc" tabindex="-1" role="presentation"></a>{{index compilación, “verificación de tipos”}}</p>
-
 <p><a class="p_ident" id="p-yzlMlomsVd" href="#p-yzlMlomsVd" tabindex="-1" role="presentation"></a>Muchos paquetes de JavaScript no están, técnicamente, escritos en JavaScript. Hay extensiones, como TypeScript, el dialecto de verificación de tipos mencionado en el <a href="08_error.html#typing">Capítulo 8</a>, que se utilizan ampliamente. A menudo, las personas también comienzan a usar extensiones planeadas para el lenguaje mucho antes de que se agreguen a las plataformas que realmente ejecutan JavaScript.</p>
 
 <p><a class="p_ident" id="p-WF1sdYjiV8" href="#p-WF1sdYjiV8" tabindex="-1" role="presentation"></a>Para hacer esto posible, <em>compilan</em> su código, traduciéndolo desde su dialecto de JavaScript elegido a JavaScript antiguo, e incluso a una versión anterior de JavaScript, para que los navegadores puedan ejecutarlo.</p>
@@ -230,8 +224,6 @@ require.cache = Object.create(<span class="tok-keyword">null</span>);</pre>
 <p><a class="p_ident" id="p-vTIW0dWF7B" href="#p-vTIW0dWF7B" tabindex="-1" role="presentation"></a>Por lo tanto, no es raro que el código que encuentres en un paquete de NPM o que se ejecute en una página web haya pasado por <em>múltiples</em> etapas de transformación, convirtiéndose desde JavaScript moderno a JavaScript histórico, luego combinando los módulos en un solo archivo, y minimizando el código. No entraremos en detalles sobre estas herramientas en este libro ya que hay muchas de ellas, y cuál es popular cambia regularmente. Simplemente ten en cuenta que tales cosas existen, y búscalas cuando las necesites.</p>
 
 <h2><a class="h_ident" id="h-1WDZH0cb8f" href="#h-1WDZH0cb8f" tabindex="-1" role="presentation"></a>Diseño de módulos</h2>
-
-<p><a class="p_ident" id="p-zTTk8RK4jC" href="#p-zTTk8RK4jC" tabindex="-1" role="presentation"></a>{{index [módulo, diseño], [interfaz, módulo], [código, “estructura de”]}}</p>
 
 <p><a class="p_ident" id="p-R7pz6CLzKn" href="#p-R7pz6CLzKn" tabindex="-1" role="presentation"></a>Estructurar programas es uno de los aspectos más sutiles de la programación. Cualquier funcionalidad no trivial puede ser organizada de diversas formas.</p>
 

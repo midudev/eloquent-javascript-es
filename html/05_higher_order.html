@@ -139,8 +139,6 @@ repetir(<span class="tok-number">3</span>, <span class="tok-definition">n</span>
 <span class="tok-comment">// → 0 es par</span>
 <span class="tok-comment">// → 2 es par</span></pre>
 
-<p><a class="p_ident" id="p-pzMLS35lRh" href="#p-pzMLS35lRh" tabindex="-1" role="presentation"></a>{{index [array, métodos], [array, iteración], “método forEach”}}</p>
-
 <p><a class="p_ident" id="p-Zjga2rFofq" href="#p-Zjga2rFofq" tabindex="-1" role="presentation"></a>Existe un método incorporado de arrays, <code>forEach</code>, que proporciona algo similar a un bucle <code>for</code>/<code>of</code> como una función de orden superior:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-v9jL6NafRj" href="#c-v9jL6NafRj" tabindex="-1" role="presentation"></a>[<span class="tok-string">&quot;A&quot;</span>, <span class="tok-string">&quot;B&quot;</span>].forEach(<span class="tok-definition">l</span> =&gt; console.log(l));
@@ -200,8 +198,6 @@ console.log(filter(SCRIPTS, <span class="tok-definition">script</span> =&gt; scr
 
 <h2 id="map"><a class="h_ident" id="h-S3rmMrmWka" href="#h-S3rmMrmWka" tabindex="-1" role="presentation"></a>Transformación con map</h2>
 
-<p><a class="p_ident" id="p-gYa8Olp5V+" href="#p-gYa8Olp5V+" tabindex="-1" role="presentation"></a>{{index [array, métodos], “método de mapeo”}}</p>
-
 <p><a class="p_ident" id="p-ydEMpih2aw" href="#p-ydEMpih2aw" tabindex="-1" role="presentation"></a>Digamos que tenemos una matriz de objetos que representan guiones, producida al filtrar la matriz <code>SCRIPTS</code> de alguna manera. Queremos una matriz de nombres en su lugar, que es más fácil de inspeccionar.</p>
 
 <p><a class="p_ident" id="p-6qG4TTJ3N8" href="#p-6qG4TTJ3N8" tabindex="-1" role="presentation"></a>{{index [función, “de orden superior”]}}</p>
@@ -224,8 +220,6 @@ console.log(map(rtlScripts, <span class="tok-definition">s</span> =&gt; s.name))
 
 <h2><a class="h_ident" id="h-PT5vUNRTlZ" href="#h-PT5vUNRTlZ" tabindex="-1" role="presentation"></a>Resumen con reduce</h2>
 
-<p><a class="p_ident" id="p-1Le3zUwJhk" href="#p-1Le3zUwJhk" tabindex="-1" role="presentation"></a>{{index [array, métodos], “ejemplo de suma”, “método de reducción”}}</p>
-
 <p><a class="p_ident" id="p-0sSdjIXjkE" href="#p-0sSdjIXjkE" tabindex="-1" role="presentation"></a>Otra cosa común que hacer con matrices es calcular un único valor a partir de ellas. Nuestro ejemplo recurrente, sumar una colección de números, es una instancia de esto. Otro ejemplo es encontrar el guion con más caracteres.</p>
 
 <p><a class="p_ident" id="p-saI2d9pHc9" href="#p-saI2d9pHc9" tabindex="-1" role="presentation"></a>{{index [función, “de orden superior”], “método de reducción”}}La operación de orden superior que representa este patrón se llama <em>reduce</em> (a veces también llamada <em>fold</em>). Construye un valor tomando repetidamente un único elemento del array y combinándolo con el valor actual. Al sumar números, comenzarías con el número cero y, para cada elemento, lo sumarías al total.</p>
@@ -247,8 +241,6 @@ console.log(reduce([<span class="tok-number">1</span>, <span class="tok-number">
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Dxn7muuMkk" href="#c-Dxn7muuMkk" tabindex="-1" role="presentation"></a>console.log([<span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>, <span class="tok-number">4</span>].reduce((<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) =&gt; a + b));
 <span class="tok-comment">// → 10</span></pre>
-
-<p><a class="p_ident" id="p-Gtv8MJxIiY" href="#p-Gtv8MJxIiY" tabindex="-1" role="presentation"></a>{{index máximo, “función characterCount”}}</p>
 
 <p><a class="p_ident" id="p-aq58LUBIxu" href="#p-aq58LUBIxu" tabindex="-1" role="presentation"></a>Para usar <code>reduce</code> (dos veces) y encontrar el script con más caracteres, podemos escribir algo así:</p>
 
@@ -345,8 +337,6 @@ console.log(characterScript(<span class="tok-number">121</span>));
 <p><a class="p_ident" id="p-d3EBXodI+B" href="#p-d3EBXodI+B" tabindex="-1" role="presentation"></a>En <a href="01_values.html">Chapter 1</a> mencioné que las cadenas de JavaScript están codificadas como una secuencia de números de 16 bits. Estos se llaman <em>unidades de código</em>. Un código de carácter Unicode inicialmente se suponía que cabía dentro de tal unidad (lo que te da un poco más de 65,000 caracteres). Cuando quedó claro que eso no iba a ser suficiente, muchas personas se mostraron reacias a la necesidad de usar más memoria por carácter. Para abordar estas preocupaciones, se inventó UTF-16, el formato también utilizado por las cadenas de JavaScript. Describe la mayoría de los caracteres comunes usando una única unidad de código de 16 bits, pero usa un par de dos unidades de dicho tipo para otros.</p>
 
 <p><a class="p_ident" id="p-MP7gPIVpo8" href="#p-MP7gPIVpo8" tabindex="-1" role="presentation"></a>UTF-16 generalmente se considera una mala idea hoy en día. Parece casi diseñado intencionalmente para invitar a errores. Es fácil escribir programas que pretendan que las unidades de código y los caracteres son lo mismo. Y si tu lenguaje no utiliza caracteres de dos unidades, eso parecerá funcionar perfectamente. Pero tan pronto como alguien intente usar dicho programa con algunos caracteres chinos menos comunes, fallará. Afortunadamente, con la llegada de los emoji, todo el mundo ha comenzado a usar caracteres de dos unidades, y la carga de tratar con tales problemas está más equitativamente distribuida.</p>
-
-<p><a class="p_ident" id="p-e3/p4JA+I8" href="#p-e3/p4JA+I8" tabindex="-1" role="presentation"></a>{{index [cadena, longitud], [cadena, indexación], “método charCodeAt”}}</p>
 
 <p><a class="p_ident" id="p-cIimdGgzlf" href="#p-cIimdGgzlf" tabindex="-1" role="presentation"></a>Lamentablemente, las operaciones obvias en las cadenas de JavaScript, como obtener su longitud a través de la propiedad <code>length</code> y acceder a su contenido usando corchetes cuadrados, tratan solo con unidades de código.</p>
 

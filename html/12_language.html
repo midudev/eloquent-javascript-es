@@ -30,8 +30,6 @@
 
 <h2 id="parsing"><a class="h_ident" id="h-Ri8DEsFixT" href="#h-Ri8DEsFixT" tabindex="-1" role="presentation"></a>Análisis Sintáctico</h2>
 
-<p><a class="p_ident" id="p-FjEZMpJcyL" href="#p-FjEZMpJcyL" tabindex="-1" role="presentation"></a>{{index parsing, validación, [sintaxis, “de Egg”]}}</p>
-
 <p><a class="p_ident" id="p-LWCHgQ8jiK" href="#p-LWCHgQ8jiK" tabindex="-1" role="presentation"></a>La parte más inmediatamente visible de un lenguaje de programación es su <em>sintaxis</em>, o notación. Un <em>analizador sintáctico</em> es un programa que lee un fragmento de texto y produce una estructura de datos que refleja la estructura del programa contenido en ese texto. Si el texto no forma un programa válido, el analizador sintáctico debería señalar el error.</p>
 
 <p><a class="p_ident" id="p-g4dCM+i4JR" href="#p-g4dCM+i4JR" tabindex="-1" role="presentation"></a>{{index “forma especial”, [función, aplicación]}}</p>
@@ -70,11 +68,9 @@
 
 <p><a class="p_ident" id="p-xa+b6R6Gzl" href="#p-xa+b6R6Gzl" tabindex="-1" role="presentation"></a>Esta estructura de datos se llama un <em>árbol de sintaxis</em>. Si te imaginas los objetos como puntos y los enlaces entre ellos como líneas entre esos puntos, tiene una forma similar a un árbol. El hecho de que las expresiones contienen otras expresiones, que a su vez pueden contener más expresiones, es similar a la forma en que las ramas de un árbol se dividen y vuelven a dividir.</p><figure><img src="img/syntax_tree.svg" alt="Un diagrama que muestra la estructura del árbol de sintaxis del programa de ejemplo. La raíz está etiquetada como 'do' y tiene dos hijos, uno etiquetado como 'define' y otro como 'if'. A su vez, estos tienen más hijos que describen su contenido."></figure>
 
-<p><a class="p_ident" id="p-/T+pMy2lr/" href="#p-/T+pMy2lr/" tabindex="-1" role="presentation"></a>{{index análisis sintáctico}}</p>
+<p><a class="p_ident" id="p-/T+pMy2lr/" href="#p-/T+pMy2lr/" tabindex="-1" role="presentation"></a>{{index “análisis” sintáctico}}</p>
 
 <p><a class="p_ident" id="p-oWghglriRc" href="#p-oWghglriRc" tabindex="-1" role="presentation"></a>Contrasta esto con el analizador que escribimos para el formato de archivo de configuración en <a href="09_regexp.html#ini">Capítulo 9</a>, que tenía una estructura simple: dividía la entrada en líneas y manejaba esas líneas una a la vez. Solo había algunas formas simples que una línea podía tener.</p>
-
-<p><a class="p_ident" id="p-IAXNFD4zEE" href="#p-IAXNFD4zEE" tabindex="-1" role="presentation"></a>{{index recursión, [anidamiento, “de expresiones”]}}</p>
 
 <p><a class="p_ident" id="p-6Mz6uGItWm" href="#p-6Mz6uGItWm" tabindex="-1" role="presentation"></a>Aquí debemos encontrar un enfoque diferente. Las expresiones no están separadas en líneas, y tienen una estructura recursiva. Las expresiones de aplicación <em>contienen</em> otras expresiones.</p>
 
@@ -156,8 +152,6 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
 <p><a class="p_ident" id="p-l7ELJeshJs" href="#p-l7ELJeshJs" tabindex="-1" role="presentation"></a>¡Funciona! No nos da información muy útil cuando falla y no almacena la línea y la columna en las que comienza cada expresión, lo cual podría ser útil al informar errores más tarde, pero es suficiente para nuestros propósitos.</p>
 
 <h2><a class="h_ident" id="h-lI3Fc6r+GN" href="#h-lI3Fc6r+GN" tabindex="-1" role="presentation"></a>El evaluador</h2>
-
-<p><a class="p_ident" id="p-2DwFFoQHaQ" href="#p-2DwFFoQHaQ" tabindex="-1" role="presentation"></a>{{index “función de evaluación”, evaluación, interpretación, &quot;árbol de sintaxis”, “lenguaje Egg”}}</p>
 
 <p><a class="p_ident" id="p-dhdWhScWHm" href="#p-dhdWhScWHm" tabindex="-1" role="presentation"></a>¿Qué podemos hacer con el árbol de sintaxis de un programa? ¡Ejecutarlo, por supuesto! Y eso es lo que hace el evaluador. Le das un árbol de sintaxis y un objeto de ámbito que asocia nombres con valores, y evaluará la expresión que representa el árbol y devolverá el valor que esto produce.</p>
 
@@ -280,8 +274,6 @@ topScope.false = false;</pre>
 console.log(evaluate(prog, topScope));
 <span class="tok-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p-UUFPrY5r8L" href="#p-UUFPrY5r8L" tabindex="-1" role="presentation"></a>{{index aritmética, “Constructor de funciones”}}</p>
-
 <p><a class="p_ident" id="p-bkglU4hrcr" href="#p-bkglU4hrcr" tabindex="-1" role="presentation"></a>Para suministrar operadores básicos de aritmética y comparación, también agregaremos algunas funciones al scope. En aras de mantener el código corto, usaremos <code>Function</code> para sintetizar un conjunto de funciones de operadores en un bucle, en lugar de definirlas individualmente.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-OTgmEw/s8v" href="#c-OTgmEw/s8v" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">op</span> <span class="tok-keyword">of</span> [<span class="tok-string">&quot;+&quot;</span>, <span class="tok-string">&quot;-&quot;</span>, <span class="tok-string">&quot;*&quot;</span>, <span class="tok-string">&quot;/&quot;</span>, <span class="tok-string">&quot;==&quot;</span>, <span class="tok-string">&quot;&lt;&quot;</span>, <span class="tok-string">&quot;&gt;&quot;</span>]) {
@@ -316,8 +308,6 @@ console.log(evaluate(prog, topScope));
 <p><a class="p_ident" id="p-xNJMDZFJNP" href="#p-xNJMDZFJNP" tabindex="-1" role="presentation"></a>Este es el programa que hemos visto varias veces antes, que calcula la suma de los números del 1 al 10, expresado en Egg. Es claramente más feo que el equivalente programa en JavaScript, pero no está mal para un lenguaje implementado en menos de 150 líneas de código.</p>
 
 <h2 id="egg_fun"><a class="h_ident" id="h-H0l5He7QIh" href="#h-H0l5He7QIh" tabindex="-1" role="presentation"></a>Funciones</h2>
-
-<p><a class="p_ident" id="p-hPeP06Sjvr" href="#p-hPeP06Sjvr" tabindex="-1" role="presentation"></a>{{index función, “Lenguaje Egg”}}</p>
 
 <p><a class="p_ident" id="p-pxhz3ZokU1" href="#p-pxhz3ZokU1" tabindex="-1" role="presentation"></a>Un lenguaje de programación sin funciones es un pobre lenguaje de programación.</p>
 
@@ -366,11 +356,9 @@ run(<span class="tok-string2">`</span>
 
 <h2><a class="h_ident" id="h-QZp+1BKgLP" href="#h-QZp+1BKgLP" tabindex="-1" role="presentation"></a>Compilación</h2>
 
-<p><a class="p_ident" id="p-o4645TAlcf" href="#p-o4645TAlcf" tabindex="-1" role="presentation"></a>{{index interpretación, compilación}}</p>
+<p><a class="p_ident" id="p-o4645TAlcf" href="#p-o4645TAlcf" tabindex="-1" role="presentation"></a>{{index “interpretación”, compilación}}</p>
 
 <p><a class="p_ident" id="p-pYpmnQkmEE" href="#p-pYpmnQkmEE" tabindex="-1" role="presentation"></a>Lo que hemos construido es un intérprete. Durante la evaluación, actúa directamente sobre la representación del programa producido por el analizador sintáctico.</p>
-
-<p><a class="p_ident" id="p-IX7aTbUl3L" href="#p-IX7aTbUl3L" tabindex="-1" role="presentation"></a>{{index eficiencia, rendimiento, [enlace, definición], [memoria, velocidad]}}</p>
 
 <p><a class="p_ident" id="p-TqdaU5OIYq" href="#p-TqdaU5OIYq" tabindex="-1" role="presentation"></a><em>La compilación</em> es el proceso de agregar otro paso entre el análisis sintáctico y la ejecución de un programa, que transforma el programa en algo que puede ser evaluado de manera más eficiente al hacer la mayor cantidad de trabajo posible por adelantado. Por ejemplo, en lenguajes bien diseñados, es obvio, para cada uso de un enlace, a qué enlace se hace referencia, sin ejecutar realmente el programa. Esto se puede utilizar para evitar buscar el enlace por nombre cada vez que se accede, en su lugar, recuperándolo directamente desde una ubicación de memoria predeterminada.</p>
 
@@ -438,7 +426,7 @@ run(<span class="tok-string2">`</span>
 
 <h3><a class="i_ident" id="i-KU8YojAGul" href="#i-KU8YojAGul" tabindex="-1" role="presentation"></a>Clausura</h3>
 
-<p><a class="p_ident" id="p-R4KFDn2Nek" href="#p-R4KFDn2Nek" tabindex="-1" role="presentation"></a>{{index closure, [función, ámbito], “clausura en Egg (ejercicio)”}}</p>
+<p><a class="p_ident" id="p-R4KFDn2Nek" href="#p-R4KFDn2Nek" tabindex="-1" role="presentation"></a>{{index closure, [función, &quot;ámbito”], “clausura en Egg (ejercicio)”}}</p>
 
 <p><a class="p_ident" id="p-fppmSSGuOO" href="#p-fppmSSGuOO" tabindex="-1" role="presentation"></a>La forma en que hemos definido <code>fun</code> permite que las funciones en Egg hagan referencia al ámbito circundante, lo que permite que el cuerpo de la función use valores locales que eran visibles en el momento en que se definió la función, al igual que lo hacen las funciones de JavaScript.</p>
 
@@ -492,8 +480,6 @@ console.log(parse(<span class="tok-string">&quot;a # uno</span><span class="tok-
 </div></details>
 
 <h3><a class="i_ident" id="i-TJ4IOq9YIj" href="#i-TJ4IOq9YIj" tabindex="-1" role="presentation"></a>Corrigiendo el ámbito</h3>
-
-<p><a class="p_ident" id="p-u0Ry6EwCmy" href="#p-u0Ry6EwCmy" tabindex="-1" role="presentation"></a>{{index [enlace, definición], asignación, “corrección de ámbito (ejercicio)”}}</p>
 
 <p><a class="p_ident" id="p-OLjh9e6hGE" href="#p-OLjh9e6hGE" tabindex="-1" role="presentation"></a>Actualmente, la única forma de asignar un enlace un valor es <code>define</code>. Esta construcción actúa como una forma tanto de definir nuevos enlaces como de dar un nuevo valor a los existentes.</p>
 

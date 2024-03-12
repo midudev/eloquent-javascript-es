@@ -70,8 +70,6 @@
 
 <p><a class="p_ident" id="p-Qlp0SuVjri" href="#p-Qlp0SuVjri" tabindex="-1" role="presentation"></a>El autómata debe decidir, en cada punto, hacia dónde ir a continuación. Habrá terminado su tarea cuando todos los paquetes hayan sido entregados.</p>
 
-<p><a class="p_ident" id="p-rdMEL3SZ4l" href="#p-rdMEL3SZ4l" tabindex="-1" role="presentation"></a>{{index simulación, “mundo virtual”}}</p>
-
 <p><a class="p_ident" id="p-KwKhwC7IzT" href="#p-KwKhwC7IzT" tabindex="-1" role="presentation"></a>Para poder simular este proceso, debemos definir un mundo virtual que pueda describirlo. Este modelo nos dice dónde está el robot y dónde están los paquetes. Cuando el robot decide moverse a algún lugar, necesitamos actualizar el modelo para reflejar la nueva situación.</p>
 
 <p><a class="p_ident" id="p-ImUqv6bngP" href="#p-ImUqv6bngP" tabindex="-1" role="presentation"></a>Si estás pensando en términos de programación orientada a objetos, tu primer impulso podría ser empezar a definir objetos para los diferentes elementos en el mundo: una clase para el robot, una para un paquete, tal vez una para lugares. Estos podrían tener propiedades que describen su estado actual, como la pila de paquetes en un lugar, que podríamos cambiar al actualizar el mundo.</p>
@@ -144,8 +142,6 @@ console.log(object.value);
 <p><a class="p_ident" id="p-T1HGdD5GjP" href="#p-T1HGdD5GjP" tabindex="-1" role="presentation"></a>Desafortunadamente, aunque entender un sistema construido sobre estructuras de datos persistentes es más fácil, <em>diseñar</em> uno, especialmente cuando tu lenguaje de programación no ayuda, puede ser un poco más difícil. Buscaremos oportunidades para usar estructuras de datos persistentes en este libro, pero también usaremos aquellas que pueden cambiar.</p>
 
 <h2><a class="h_ident" id="h-NngWObDYaj" href="#h-NngWObDYaj" tabindex="-1" role="presentation"></a>Simulación</h2>
-
-<p><a class="p_ident" id="p-rdMEL3SZ4l_1" href="#p-rdMEL3SZ4l_1" tabindex="-1" role="presentation"></a>{{index simulación, “mundo virtual”}}</p>
 
 <p><a class="p_ident" id="p-Lt1p8txGDL" href="#p-Lt1p8txGDL" tabindex="-1" role="presentation"></a>Un robot de entrega observa el mundo y decide en qué dirección quiere moverse. Como tal, podríamos decir que un robot es una función que toma un objeto <code>VillageState</code> y devuelve el nombre de un lugar cercano.</p>
 
@@ -372,8 +368,6 @@ console.log(b.has(<span class="tok-string">&quot;a&quot;</span>));
 <span class="tok-comment">// → false</span></pre>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
-
-<p><a class="p_ident" id="p-TYZxWM8K+Y" href="#p-TYZxWM8K+Y" tabindex="-1" role="presentation"></a>{{index “mapa persistente (ejercicio)”, “clase Set”, [array, creación], “clase PGroup”}}</p>
 
 <p><a class="p_ident" id="p-8KXK9HpVPD" href="#p-8KXK9HpVPD" tabindex="-1" role="presentation"></a>La forma más conveniente de representar el conjunto de valores miembro sigue siendo como un array, ya que los arrays son fáciles de copiar.</p>
 

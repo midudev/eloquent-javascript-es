@@ -133,8 +133,6 @@ console.log(nonBinary.test(<span class="tok-string">&quot;0111010112101001&quot;
 
 <h2><a class="h_ident" id="h-z2+P4EyKss" href="#h-z2+P4EyKss" tabindex="-1" role="presentation"></a>Caracteres internacionales</h2>
 
-<p><a class="p_ident" id="p-k158+8Ftan" href="#p-k158+8Ftan" tabindex="-1" role="presentation"></a>{{index internacionalización, Unicode, [“expresión regular”, internacionalización]}}</p>
-
 <p><a class="p_ident" id="p-vKYjSGxrpB" href="#p-vKYjSGxrpB" tabindex="-1" role="presentation"></a>Debido a la implementación simplista inicial de JavaScript y al hecho de que este enfoque simplista luego se estableció como comportamiento estándar, las expresiones regulares de JavaScript son bastante simples en lo que respecta a los caracteres que no aparecen en el idioma inglés. Por ejemplo, según las expresiones regulares de JavaScript, un “carácter de palabra” es solo uno de los 26 caracteres del alfabeto latino (mayúsculas o minúsculas), dígitos decimales y, por alguna razón, el guion bajo. Cosas como <em>é</em> o <em>β</em>, que definitivamente son caracteres de palabra, no coincidirán con <code>\w</code> (y <em>sí</em> coincidirán con <code>\W</code> en mayúsculas, la categoría de no palabras).</p>
 
 <p><a class="p_ident" id="p-1RUMuhSGvB" href="#p-1RUMuhSGvB" tabindex="-1" role="presentation"></a>Por un extraño accidente histórico, <code>\s</code> (espacio en blanco) no tiene este problema y coincide con todos los caracteres que el estándar Unicode considera espacios en blanco, incluidos elementos como el espacio sin ruptura y el separador de vocal mongol.</p>
@@ -182,8 +180,6 @@ console.log(<span class="tok-string2">/\p{Script=Arabic}/u</span>.test(<span cla
 
 <p><a class="p_ident" id="p-7JOkzZOdrA" href="#p-7JOkzZOdrA" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, repetición]}}Ahora sabemos cómo hacer coincidir un solo dígito. ¿Qué tal si queremos hacer coincidir un número entero, una secuencia de uno o más dígitos?</p>
 
-<p><a class="p_ident" id="p-i0LVID05Mm" href="#p-i0LVID05Mm" tabindex="-1" role="presentation"></a>{{index “carácter de suma”, repetición, “operador +&quot;}}</p>
-
 <p><a class="p_ident" id="p-wGrdJKTgSN" href="#p-wGrdJKTgSN" tabindex="-1" role="presentation"></a>Cuando colocas un signo más (<code>+</code>) después de algo en una expresión regular, indica que el elemento puede repetirse más de una vez. Así, <code>/\d+/</code> hace coincidir uno o más caracteres de dígitos.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9/5mFF4Ih4" href="#c-9/5mFF4Ih4" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/'\d+'/</span>.test(<span class="tok-string">&quot;'123'&quot;</span>));
@@ -205,8 +201,6 @@ console.log(neighbor.test(<span class="tok-string">&quot;neighbour&quot;</span>)
 console.log(neighbor.test(<span class="tok-string">&quot;neighbor&quot;</span>));
 <span class="tok-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p-qsg1d+rkQF" href="#p-qsg1d+rkQF" tabindex="-1" role="presentation"></a>{{index repetición, [llaves, “en expresión regular”]}}</p>
-
 <p><a class="p_ident" id="p-pQrIOoMzrK" href="#p-pQrIOoMzrK" tabindex="-1" role="presentation"></a>Para indicar que un patrón debe ocurrir un número preciso de veces, utiliza llaves. Colocar <code>{4}</code> después de un elemento, por ejemplo, requiere que ocurra exactamente cuatro veces. También es posible especificar un rango de esta manera: <code>{2,4}</code> significa que el elemento debe ocurrir al menos dos veces y como máximo cuatro veces.</p>
 
 <p id="date_regexp_counted"><a class="p_ident" id="p-lup45v+KG+" href="#p-lup45v+KG+" tabindex="-1" role="presentation"></a>Aquí tienes otra versión del patrón de fecha y hora que permite días, meses y horas de uno o dos dígitos. También es un poco más fácil de entender.</p>
@@ -219,7 +213,7 @@ console.log(dateTime.test(<span class="tok-string">&quot;1-30-2003 8:45&quot;</s
 
 <h2><a class="h_ident" id="h-ajNAW/IU6r" href="#h-ajNAW/IU6r" tabindex="-1" role="presentation"></a>Agrupación de subexpresiones</h2>
 
-<p><a class="p_ident" id="p-TKgx7oPQQ3" href="#p-TKgx7oPQQ3" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, agrupación], agrupación, [paréntesis, “en expresiones regulares”]}}</p>
+<p><a class="p_ident" id="p-TKgx7oPQQ3" href="#p-TKgx7oPQQ3" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, &quot;“agrupación”&quot;], &quot;“agrupación”&quot;, [paréntesis, “en expresiones regulares”]}}</p>
 
 <p><a class="p_ident" id="p-v3uf4iDeF4" href="#p-v3uf4iDeF4" tabindex="-1" role="presentation"></a>Para usar un operador como <code>*</code> o <code>+</code> en más de un elemento a la vez, debes utilizar paréntesis. Una parte de una expresión regular que está encerrada entre paréntesis cuenta como un solo elemento en lo que respecta a los operadores que le siguen.</p>
 
@@ -229,13 +223,9 @@ console.log(cartoonCrying.test(<span class="tok-string">&quot;Boohoooohoohooo&qu
 
 <p><a class="p_ident" id="p-1LZtgULsIM" href="#p-1LZtgULsIM" tabindex="-1" role="presentation"></a>Los primeros y segundos caracteres <code>+</code> aplican solo al segundo <em>o</em> en <em>boo</em> y <em>hoo</em>, respectivamente. El tercer <code>+</code> se aplica a todo el grupo <code>(hoo+)</code>, haciendo coincidir una o más secuencias como esa.</p>
 
-<p><a class="p_ident" id="p-S1/QTkNDfs" href="#p-S1/QTkNDfs" tabindex="-1" role="presentation"></a>{{index “sensibilidad a mayúsculas”, capitalización, [“expresión regular”, banderas]}}</p>
-
 <p><a class="p_ident" id="p-uBIcF0MS0l" href="#p-uBIcF0MS0l" tabindex="-1" role="presentation"></a>La <code>i</code> al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la <em>B</em> mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.</p>
 
 <h2><a class="h_ident" id="h-G8LUB/KGbs" href="#h-G8LUB/KGbs" tabindex="-1" role="presentation"></a>Coincidencias y grupos</h2>
-
-<p><a class="p_ident" id="p-Pd1YZ8sXPG" href="#p-Pd1YZ8sXPG" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, agrupación], “método exec”, [array, “coincidencia de RegExp”]}}</p>
 
 <p><a class="p_ident" id="p-4/Ykf8h2Ls" href="#p-4/Ykf8h2Ls" tabindex="-1" role="presentation"></a>El método <code>test</code> es la forma más simple de hacer coincidir una expresión regular. Solo te indica si hubo coincidencia y nada más. Las expresiones regulares también tienen un método <code>exec</code> (ejecutar) que devolverá <code>null</code> si no se encontró ninguna coincidencia y devolverá un objeto con información sobre la coincidencia en caso contrario.</p>
 
@@ -249,14 +239,10 @@ console.log(coincidencia.index);
 
 <p><a class="p_ident" id="p-MEyBiymd+J" href="#p-MEyBiymd+J" tabindex="-1" role="presentation"></a>Un objeto devuelto por <code>exec</code> tiene una propiedad de <code>index</code> que nos dice <em>dónde</em> en la cadena comienza la coincidencia exitosa. Aparte de eso, el objeto parece (y de hecho es) un array de strings, cuyo primer elemento es la cadena que coincidió. En el ejemplo anterior, esta es la secuencia de dígitos que estábamos buscando.</p>
 
-<p><a class="p_ident" id="p-bdrKIKpht8" href="#p-bdrKIKpht8" tabindex="-1" role="presentation"></a>{{index [string, métodos], “método match”}}</p>
-
 <p><a class="p_ident" id="p-e2o3R6JZyN" href="#p-e2o3R6JZyN" tabindex="-1" role="presentation"></a>Los valores de tipo string tienen un método <code>match</code> que se comporta de manera similar.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KCEzXI85eI" href="#c-KCEzXI85eI" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;uno dos 100&quot;</span>.match(<span class="tok-string2">/\d+/</span>));
 <span class="tok-comment">// → [&quot;100&quot;]</span></pre>
-
-<p><a class="p_ident" id="p-O2lQmrJjUB" href="#p-O2lQmrJjUB" tabindex="-1" role="presentation"></a>{{index agrupación, “grupo de captura”, “método exec”}}</p>
 
 <p><a class="p_ident" id="p-mvGBAzey4W" href="#p-mvGBAzey4W" tabindex="-1" role="presentation"></a>Cuando la expresión regular contiene subexpresiones agrupadas con paréntesis, el texto que coincidió con esos grupos también aparecerá en el array. La coincidencia completa es siempre el primer elemento. El siguiente elemento es la parte coincidente con el primer grupo (el que tiene el paréntesis de apertura primero en la expresión), luego el segundo grupo, y así sucesivamente.</p>
 
@@ -276,7 +262,7 @@ console.log(<span class="tok-string2">/(\d)+/</span>.exec(<span class="tok-strin
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-JYRtOm6gNP" href="#c-JYRtOm6gNP" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/(?:na)+/</span>.exec(<span class="tok-string">&quot;banana&quot;</span>));
 <span class="tok-comment">// → [&quot;nana&quot;]</span></pre>
 
-<p><a class="p_ident" id="p-SCv+lT1Tn0" href="#p-SCv+lT1Tn0" tabindex="-1" role="presentation"></a>{{index “método exec”, [“expresión regular”, métodos], extracción}}</p>
+<p><a class="p_ident" id="p-SCv+lT1Tn0" href="#p-SCv+lT1Tn0" tabindex="-1" role="presentation"></a>{{index “método exec”, [“expresión regular”, “métodos”], extracción}}</p>
 
 <p><a class="p_ident" id="p-kh0zXCIbfV" href="#p-kh0zXCIbfV" tabindex="-1" role="presentation"></a>Los grupos pueden ser útiles para extraer partes de una cadena. Si no solo queremos verificar si una cadena contiene una fecha sino también extraerla y construir un objeto que la represente, podemos envolver paréntesis alrededor de los patrones de dígitos y seleccionar directamente la fecha del resultado de <code>exec</code>.</p>
 
@@ -332,8 +318,6 @@ console.log(getDate(<span class="tok-string">&quot;1-30-2003&quot;</span>));
 <p><a class="p_ident" id="p-XPEoZ2d0NT" href="#p-XPEoZ2d0NT" tabindex="-1" role="presentation"></a>{{index matching, [“expresión regular”, límite]}}</p>
 
 <p><a class="p_ident" id="p-qbV1DRyGh9" href="#p-qbV1DRyGh9" tabindex="-1" role="presentation"></a>Desafortunadamente, <code>getDate</code> también extraerá felizmente una fecha de la cadena <code>&quot;100-1-30000&quot;</code>. Una coincidencia puede ocurrir en cualquier parte de la cadena, por lo que en este caso, simplemente empezará en el segundo carácter y terminará en el antepenúltimo carácter.</p>
-
-<p><a class="p_ident" id="p-Relwj7LTb5" href="#p-Relwj7LTb5" tabindex="-1" role="presentation"></a>{{index límite, “carácter circunflejo”, “signo de dólar”}}</p>
 
 <p><a class="p_ident" id="p-Mynhxs9BJv" href="#p-Mynhxs9BJv" tabindex="-1" role="presentation"></a>Si queremos asegurar que la coincidencia abarque toda la cadena, podemos agregar los marcadores <code>^</code> y <code>$</code>. El circunflejo coincide con el inicio de la cadena de entrada, mientras que el signo de dólar coincide con el final. Por lo tanto, <code>/^\d+$/</code> coincide con una cadena que consiste completamente de uno o más dígitos, <code>/^!/</code> coincide con cualquier cadena que comience con un signo de exclamación y <code>/x^/</code> no coincide con ninguna cadena (no puede haber una <em>x</em> antes del inicio de la cadena).</p>
 
@@ -408,8 +392,6 @@ console.log(animalCount.test(<span class="tok-string">&quot;15 pugs&quot;</span>
 console.log(<span class="tok-string">&quot;Borobudur&quot;</span>.replace(<span class="tok-string2">/[ou]/g</span>, <span class="tok-string">&quot;a&quot;</span>));
 <span class="tok-comment">// → Barabadar</span></pre>
 
-<p><a class="p_ident" id="p-u/kfgHrS6D" href="#p-u/kfgHrS6D" tabindex="-1" role="presentation"></a>{{index agrupación, “grupo de captura”, “signo de dólar”, “método replace”, [“expresión regular”, agrupación]}}</p>
-
 <p><a class="p_ident" id="p-mDtLRf/Jcr" href="#p-mDtLRf/Jcr" tabindex="-1" role="presentation"></a>El verdadero poder de usar expresiones regulares con <code>replace</code> proviene del hecho de que podemos hacer referencia a grupos coincidentes en la cadena de reemplazo. Por ejemplo, digamos que tenemos una cadena larga que contiene los nombres de personas, un nombre por línea, en el formato <code>Apellido, Nombre</code>. Si queremos intercambiar estos nombres y eliminar la coma para obtener un formato <code>Nombre Apellido</code>, podemos usar el siguiente código:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Kb7uk2ah9L" href="#c-Kb7uk2ah9L" tabindex="-1" role="presentation"></a>console.log(
@@ -421,7 +403,7 @@ console.log(<span class="tok-string">&quot;Borobudur&quot;</span>.replace(<span 
 
 <p><a class="p_ident" id="p-p2f8BR4+jy" href="#p-p2f8BR4+jy" tabindex="-1" role="presentation"></a>Los <code>$1</code> y <code>$2</code> en la cadena de reemplazo se refieren a los grupos entre paréntesis en el patrón. <code>$1</code> es reemplazado por el texto que coincidió con el primer grupo, <code>$2</code> por el segundo, y así sucesivamente, hasta <code>$9</code>. Toda la coincidencia se puede referenciar con <code>$&amp;</code>.</p>
 
-<p><a class="p_ident" id="p-JH2XhU7+vU" href="#p-JH2XhU7+vU" tabindex="-1" role="presentation"></a>{{index [función, “de orden superior”], agrupación, “grupo de captura”}}</p>
+<p><a class="p_ident" id="p-JH2XhU7+vU" href="#p-JH2XhU7+vU" tabindex="-1" role="presentation"></a>{{index [función, “de orden superior”], “agrupación”, “grupo de captura”}}</p>
 
 <p><a class="p_ident" id="p-7Dj3BhD29k" href="#p-7Dj3BhD29k" tabindex="-1" role="presentation"></a>Es posible pasar una función, en lugar de una cadena, como segundo argumento a <code>replace</code>. Para cada reemplazo, la función se llamará con los grupos coincidentes (así como la coincidencia completa) como argumentos, y su valor de retorno se insertará en la nueva cadena.</p>
 
@@ -478,8 +460,6 @@ console.log(stripComments(<span class="tok-string">&quot;1 /* a */+/* b */ 1&quo
 
 <h2><a class="h_ident" id="h-iuSjEFI6BB" href="#h-iuSjEFI6BB" tabindex="-1" role="presentation"></a>Creación dinámica de objetos RegExp</h2>
 
-<p><a class="p_ident" id="p-FsCpU66Mcq" href="#p-FsCpU66Mcq" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, creación], “carácter de subrayado”, “clase RegExp”}}</p>
-
 <p><a class="p_ident" id="p-VeBLJxBP+2" href="#p-VeBLJxBP+2" tabindex="-1" role="presentation"></a>Hay casos en los que es posible que no sepas el patrón exacto que necesitas para hacer coincidir cuando estás escribiendo tu código. Digamos que quieres probar el nombre de usuario en un fragmento de texto. Puedes construir una cadena y usar el <code>constructor</code> <code>RegExp</code> en ello. Aquí tienes un ejemplo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-WfHBCcn+gy" href="#c-WfHBCcn+gy" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">name</span> = <span class="tok-string">&quot;harry&quot;</span>;
@@ -502,8 +482,6 @@ console.log(regexp.test(text));
 <span class="tok-comment">// → true</span></pre>
 
 <h2><a class="h_ident" id="h-uCPhVoLsMf" href="#h-uCPhVoLsMf" tabindex="-1" role="presentation"></a>El método search</h2>
-
-<p><a class="p_ident" id="p-aaXtAV6WUI" href="#p-aaXtAV6WUI" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, métodos], “método indexOf”, “método search”}}</p>
 
 <p><a class="p_ident" id="p-3qxpU8WQEB" href="#p-3qxpU8WQEB" tabindex="-1" role="presentation"></a>El método <code>indexOf</code> en las cadenas no puede ser llamado con una expresión regular. Pero hay otro método, <code>search</code>, que espera una expresión regular. Al igual que <code>indexOf</code>, devuelve el primer índice en el que se encontró la expresión, o -1 cuando no se encontró.</p>
 
@@ -577,10 +555,9 @@ console.log(digit.exec(<span class="tok-string">&quot;ahora: 1&quot;</span>));
 
 <p><a class="p_ident" id="p-sGp7Jxx2uG" href="#p-sGp7Jxx2uG" tabindex="-1" role="presentation"></a>Para concluir el capítulo, analizaremos un problema que requiere expresiones regulares. Imagina que estamos escribiendo un programa para recopilar automáticamente información sobre nuestros enemigos desde Internet. (En realidad, no escribiremos ese programa aquí, solo la parte que lee el archivo de configuración. Lo siento.) El archivo de configuración se ve así:</p>
 
-<pre class="snippet" data-language="null" ><a class="c_ident" id="c-UqWNJS/fmo" href="#c-UqWNJS/fmo" tabindex="-1" role="presentation"></a>motorbusqueda=https://duckduckgo.com/?q=$1
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-sNjz/ec/W5" href="#c-sNjz/ec/W5" tabindex="-1" role="presentation"></a>motorbusqueda=https://duckduckgo.com/?q=$1
 rencor=9.7
 
-``````markdown
 ; comentarios precedidos por un punto y coma...
 ; cada sección se refiere a un enemigo individual
 [larry]
@@ -592,8 +569,6 @@ website=http://www.geocities.com/CapeCanaveral/11451
 fullname=Davaeorn
 type=mago malvado
 outputdir=/home/marijn/enemies/davaeorn</pre>
-
-<p><a class="p_ident" id="p-WAurbu6Lod" href="#p-WAurbu6Lod" tabindex="-1" role="presentation"></a>{{index gramática}}</p>
 
 <p><a class="p_ident" id="p-2XRX7atQld" href="#p-2XRX7atQld" tabindex="-1" role="presentation"></a>Las reglas exactas para este formato (que es un formato ampliamente utilizado, generalmente llamado un archivo <em>INI</em>) son las siguientes:</p>
 
@@ -652,7 +627,7 @@ console.log(parseINI(<span class="tok-string2">`</span>
 
 <p><a class="p_ident" id="p-WRi9IuRJQq" href="#p-WRi9IuRJQq" tabindex="-1" role="presentation"></a>Observa el uso recurrente de <code>^</code> y <code>$</code> para asegurarse de que la expresión coincida con toda la línea, no solo parte de ella. Dejarlos fuera resulta en un código que funciona en su mayor parte pero se comporta de manera extraña para algunas entradas, lo que puede ser un error difícil de rastrear.</p>
 
-<p><a class="p_ident" id="p-X9Akkm89/F" href="#p-X9Akkm89/F" tabindex="-1" role="presentation"></a>{{index “instrucción if”, asignación, [“operador =&quot;, “como expresión”]}} ```El patrón <code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code> hace uso del hecho de que el valor de una expresión de asignación (<code>=</code>) es el valor asignado. A menudo no estás seguro de que tu llamada a <code>match</code> tendrá éxito, por lo que solo puedes acceder al objeto resultante dentro de una declaración <code>if</code> que comprueba esto. Para no romper la agradable cadena de formas de <code>else if</code>, asignamos el resultado de la coincidencia a un enlace y usamos inmediatamente esa asignación como la prueba para la declaración <code>if</code>.</p>
+<p><a class="p_ident" id="p-w+p65GaQlw" href="#p-w+p65GaQlw" tabindex="-1" role="presentation"></a>```El patrón <code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code> hace uso del hecho de que el valor de una expresión de asignación (<code>=</code>) es el valor asignado. A menudo no estás seguro de que tu llamada a <code>match</code> tendrá éxito, por lo que solo puedes acceder al objeto resultante dentro de una declaración <code>if</code> que comprueba esto. Para no romper la agradable cadena de formas de <code>else if</code>, asignamos el resultado de la coincidencia a un enlace y usamos inmediatamente esa asignación como la prueba para la declaración <code>if</code>.</p>
 
 <p><a class="p_ident" id="p-1ax3XRGkJ7_1" href="#p-1ax3XRGkJ7_1" tabindex="-1" role="presentation"></a>{{index [paréntesis, “en expresiones regulares”]}}</p>
 

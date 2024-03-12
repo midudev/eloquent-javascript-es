@@ -192,8 +192,6 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
 
 <p><a class="p_ident" id="p-iG9fNNpI8L" href="#p-iG9fNNpI8L" tabindex="-1" role="presentation"></a>Para crear nodos elemento, puedes utilizar el método <code>document.<wbr>createElement</code>. Este método toma un nombre de etiqueta y devuelve un nuevo nodo vacío del tipo dado.</p>
 
-<p><a class="p_ident" id="p-IFS7YoQXHT" href="#p-IFS7YoQXHT" tabindex="-1" role="presentation"></a>{{index “Popper, Karl”, [DOM, construcción], “función elt”}}</p>
-
 <p id="elt"><a class="p_ident" id="p-a4L1nizZRc" href="#p-a4L1nizZRc" tabindex="-1" role="presentation"></a>El siguiente ejemplo define una utilidad <code>elt</code>, que crea un nodo de elemento y trata el resto de sus argumentos como hijos de ese nodo. Luego, esta función se utiliza para agregar una atribución a una cita.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-aBeAygY96j" href="#c-aBeAygY96j" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">blockquote</span> id=<span class="tok-string">&quot;quote&quot;</span>&gt;
@@ -263,7 +261,7 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
   <span class="tok-comment">// → 25</span>
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-EsRBOwDy8L" href="#p-EsRBOwDy8L" tabindex="-1" role="presentation"></a>{{index “método <code>getBoundingClientRect</code>”, posición, propiedad <code>pageXOffset</code>, propiedad <code>pageYOffset</code>}}</p>
+<p><a class="p_ident" id="p-EsRBOwDy8L" href="#p-EsRBOwDy8L" tabindex="-1" role="presentation"></a>{{index “método <code>getBoundingClientRect</code>”, “posición”, propiedad <code>pageXOffset</code>, propiedad <code>pageYOffset</code>}}</p>
 
 <p><a class="p_ident" id="p-JaJZBGphMj" href="#p-JaJZBGphMj" tabindex="-1" role="presentation"></a>{{id rectánguloDelimitador}}</p>
 
@@ -332,8 +330,6 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
   console.log(para.style.color);
   para.style.color = <span class="tok-string">&quot;magenta&quot;</span>;
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
-
-<p><a class="p_ident" id="p-UCC4T5rZsa" href="#p-UCC4T5rZsa" tabindex="-1" role="presentation"></a>{{index “camel case”, capitalización, “carácter guion”, “font-family (CSS)”}}</p>
 
 <p><a class="p_ident" id="p-YruEPufhyn" href="#p-YruEPufhyn" tabindex="-1" role="presentation"></a>Algunos nombres de propiedades de estilo contienen guiones, como <code>font-family</code>. Debido a que trabajar con estos nombres de propiedades en JavaScript es incómodo (tendrías que decir <code>style[&quot;font-family&quot;]</code>), los nombres de las propiedades en el objeto <code>style</code> para tales propiedades tienen los guiones eliminados y las letras posterior a ellos en mayúscula (<code>style.fontFamily</code>).</p>
 
@@ -434,8 +430,6 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
 
 <p id="animationFrame"><a class="p_ident" id="p-RqVeyWHVNp" href="#p-RqVeyWHVNp" tabindex="-1" role="presentation"></a>El script utiliza <code>requestAnimationFrame</code> para programar la ejecución de la función <code>animar</code> siempre que el navegador esté listo para repintar la pantalla. La función <code>animar</code> a su vez vuelve a llamar a <code>requestAnimationFrame</code> para programar la siguiente actualización. Cuando la ventana del navegador (o pestaña) está activa, esto provocará que las actualizaciones ocurran a una velocidad de aproximadamente 60 por segundo, lo que suele producir una animación atractiva.</p>
 
-<p><a class="p_ident" id="p-6GIB3E/t08" href="#p-6GIB3E/t08" tabindex="-1" role="presentation"></a>{{index línea de tiempo, bloqueo}}</p>
-
 <p><a class="p_ident" id="p-pmgnq2fRkz" href="#p-pmgnq2fRkz" tabindex="-1" role="presentation"></a>Si simplemente actualizáramos el DOM en un bucle, la página se congelaría y nada aparecería en la pantalla. Los navegadores no actualizan su pantalla mientras se ejecuta un programa JavaScript, ni permiten ninguna interacción con la página. Por eso necesitamos <code>requestAnimationFrame</code> — le indica al navegador que hemos terminado por ahora, y puede continuar haciendo las cosas que hacen los navegadores, como actualizar la pantalla y responder a las acciones del usuario.</p>
 
 <p><a class="p_ident" id="p-jsGXLKizvY" href="#p-jsGXLKizvY" tabindex="-1" role="presentation"></a>La función de animación recibe el tiempo actual como argumento. Para asegurar que el movimiento del gato por milisegundo sea estable, basa la velocidad a la que cambia el ángulo en la diferencia entre el tiempo actual y el último tiempo en que se ejecutó la función. Si simplemente moviera el ángulo por una cantidad fija por paso, el movimiento se interrumpiría si, por ejemplo, otra tarea pesada que se está ejecutando en la misma computadora impidiera que la función se ejecutara durante una fracción de segundo.</p>
@@ -518,8 +512,6 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
 <h3><a class="i_ident" id="i-2EZh9/DLl/" href="#i-2EZh9/DLl/" tabindex="-1" role="presentation"></a>Elementos por nombre de etiqueta</h3>
 
 <p><a class="p_ident" id="p-DX+MfJcvET" href="#p-DX+MfJcvET" tabindex="-1" role="presentation"></a>El método <code>document.<wbr>getElementsByTagName</code> devuelve todos los elementos hijos con un nombre de etiqueta dado. Implementa tu propia versión de esto como una función que tome un nodo y un string (el nombre de la etiqueta) como argumentos y devuelva un array que contenga todos los nodos de elementos descendientes con el nombre de etiqueta dado. Tu función debe recorrer el documento en sí. No puede usar un método como <code>querySelectorAll</code> para hacer el trabajo.</p>
-
-<p><a class="p_ident" id="p-nJ+U7TWOwA" href="#p-nJ+U7TWOwA" tabindex="-1" role="presentation"></a>{{index “propiedad nodeName”, capitalización, “método toLowerCase”, “método toUpperCase”}}</p>
 
 <p><a class="p_ident" id="p-H4FD81KH7y" href="#p-H4FD81KH7y" tabindex="-1" role="presentation"></a>Para encontrar el nombre de etiqueta de un elemento, usa su propiedad <code>nodeName</code>. Pero ten en cuenta que esto devolverá el nombre de la etiqueta en mayúsculas. Usa los métodos de string <code>toLowerCase</code> o <code>toUpperCase</code> para compensar esto.</p>
 

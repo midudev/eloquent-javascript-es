@@ -94,8 +94,6 @@ $</pre>
 
 console.log(reverse(argument));</pre>
 
-<p><a class="p_ident" id="p-GxZL+OflbE" href="#p-GxZL+OflbE" tabindex="-1" role="presentation"></a>{{index reutilización, “función Array.from”, “método join”}}</p>
-
 <p><a class="p_ident" id="p-XA7d0ksImw" href="#p-XA7d0ksImw" tabindex="-1" role="presentation"></a>El archivo <code>reverse.mjs</code> define una biblioteca para revertir cadenas, que puede ser utilizada tanto por esta herramienta de línea de comandos como por otros scripts que necesiten acceso directo a una función para revertir cadenas.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-p8FJa0H1D4" href="#c-p8FJa0H1D4" tabindex="-1" role="presentation"></a><span class="tok-keyword">export</span> <span class="tok-keyword">function</span> <span class="tok-definition">reverse</span>(<span class="tok-definition">string</span>) {
@@ -162,8 +160,6 @@ $ node
 
 <p><a class="p_ident" id="p-C+k/JVrGOf" href="#p-C+k/JVrGOf" tabindex="-1" role="presentation"></a>Uno de los módulos integrados más utilizados en Node es el módulo <code>node:fs</code>, que significa <em>sistema de archivos</em>. Exporta funciones para trabajar con archivos y directorios.</p>
 
-<p><a class="p_ident" id="p-dt+lHWnPRf" href="#p-dt+lHWnPRf" tabindex="-1" role="presentation"></a>{{index función “readFile”, “función de devolución de llamada”}}</p>
-
 <p><a class="p_ident" id="p-0fez9kQsMK" href="#p-0fez9kQsMK" tabindex="-1" role="presentation"></a>Por ejemplo, la función llamada <code>readFile</code> lee un archivo y luego llama a una función de devolución de llamada con el contenido del archivo.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VsqkE3ANgm" href="#c-VsqkE3ANgm" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">readFile</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;node:fs&quot;</span>;
@@ -181,8 +177,6 @@ readFile(<span class="tok-string">&quot;archivo.txt&quot;</span>, (<span class="
               <span class="tok-string">&quot;El primer byte es:&quot;</span>, buffer[<span class="tok-number">0</span>]);
 });</pre>
 
-<p><a class="p_ident" id="p-MMM0Baqfxv" href="#p-MMM0Baqfxv" tabindex="-1" role="presentation"></a>{{index función “writeFile”, “sistema de archivos”, [archivo, acceso]}}</p>
-
 <p><a class="p_ident" id="p-om2+u0JXVt" href="#p-om2+u0JXVt" tabindex="-1" role="presentation"></a>Una función similar, <code>writeFile</code>, se utiliza para escribir un archivo en el disco.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-eMus/6Pliv" href="#c-eMus/6Pliv" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">writeFile</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;node:fs&quot;</span>;
@@ -193,7 +187,7 @@ writeFile(<span class="tok-string">&quot;graffiti.txt&quot;</span>, <span class=
 
 <p><a class="p_ident" id="p-gUnVPgRs1A" href="#p-gUnVPgRs1A" tabindex="-1" role="presentation"></a>Aquí no fue necesario especificar la codificación: <code>writeFile</code> asumirá que cuando se le da una cadena para escribir, en lugar de un objeto <code>Buffer</code>, debe escribirla como texto utilizando su codificación de caracteres predeterminada, que es UTF-8.</p>
 
-<p><a class="p_ident" id="p-6hCq6AXauT" href="#p-6hCq6AXauT" tabindex="-1" role="presentation"></a>{{index “node:fs”, función “readdir”, función “stat”, función “rename”, función “unlink”}}</p>
+<p><a class="p_ident" id="p-6hCq6AXauT" href="#p-6hCq6AXauT" tabindex="-1" role="presentation"></a>{{index “node:fs”, &quot;&quot;&quot;“función”&quot;&quot;&quot; “readdir”, &quot;&quot;&quot;“función”&quot;&quot;&quot; “stat”, &quot;&quot;&quot;“función”&quot;&quot;&quot; “rename”, &quot;&quot;&quot;“función”&quot;&quot;&quot; “unlink”}}</p>
 
 <p><a class="p_ident" id="p-2Dle5H5be+" href="#p-2Dle5H5be+" tabindex="-1" role="presentation"></a>El módulo <code>node:fs</code> contiene muchas otras funciones útiles: <code>readdir</code> te dará los archivos en un directorio como un array de cadenas, <code>stat</code> recuperará información sobre un archivo, <code>rename</code> cambiará el nombre de un archivo, <code>unlink</code> lo eliminará, entre otros. Consulta la documentación en <a href="https://nodejs.org"><em>https://nodejs.org</em></a> para obtener detalles específicos.</p>
 
@@ -210,8 +204,6 @@ readFile(<span class="tok-string">&quot;file.txt&quot;</span>, <span class="tok-
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-F1N+amKpIz" href="#c-F1N+amKpIz" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">readFileSync</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;node:fs&quot;</span>;
 console.log(<span class="tok-string">&quot;El archivo contiene:&quot;</span>,
             readFileSync(<span class="tok-string">&quot;file.txt&quot;</span>, <span class="tok-string">&quot;utf8&quot;</span>));</pre>
-
-<p><a class="p_ident" id="p-MnGIQPUgUW" href="#p-MnGIQPUgUW" tabindex="-1" role="presentation"></a>{{index optimización, rendimiento, bloqueo}}</p>
 
 <p><a class="p_ident" id="p-UBT8FAnlTu" href="#p-UBT8FAnlTu" tabindex="-1" role="presentation"></a>Cabe destacar que mientras se realiza una operación síncrona de este tipo, tu programa se detiene por completo. Si debería estar respondiendo al usuario o a otras máquinas en la red, quedarse atrapado en una acción síncrona podría producir retrasos molestos.</p>
 
@@ -263,8 +255,6 @@ console.log(<span class="tok-string">&quot;¡Escuchando! (puerto 8000)&quot;</sp
 <p><a class="p_ident" id="p-o2U33sZhdp" href="#p-o2U33sZhdp" tabindex="-1" role="presentation"></a>Los objetos que emiten eventos en Node tienen un método llamado <code>on</code> que es similar al método <code>addEventListener</code> en el navegador. Le das un nombre de evento y luego una función, y registrará esa función para que se llame cada vez que ocurra el evento dado.</p>
 
 <p><a class="p_ident" id="p-bu65djE2o6" href="#p-bu65djE2o6" tabindex="-1" role="presentation"></a>Los streams legibles tienen eventos <code>&quot;data&quot;</code> y <code>&quot;end&quot;</code>. El primero se dispara cada vez que llegan datos, y el segundo se llama cuando el flujo llega a su fin. Este modelo es más adecuado para datos de <em>streaming</em> que pueden procesarse de inmediato, incluso cuando todo el documento aún no está disponible. Un archivo se puede leer como un flujo legible utilizando la función <code>createReadStream</code> de <code>node:fs</code>.</p>
-
-<p><a class="p_ident" id="p-o7qy/ZwQY9" href="#p-o7qy/ZwQY9" tabindex="-1" role="presentation"></a>{{index “ejemplo de servidor de mayúsculas”, capitalización, “método toUpperCase”}}</p>
 
 <p><a class="p_ident" id="p-KSoYRgbMl2" href="#p-KSoYRgbMl2" tabindex="-1" role="presentation"></a>Este código crea un servidor que lee los cuerpos de las solicitudes y los reenvía al cliente como texto en mayúsculas:</p>
 
@@ -326,8 +316,6 @@ createServer((<span class="tok-definition">request</span>, <span class="tok-defi
 <p><a class="p_ident" id="p-1mh3Zz7i88" href="#p-1mh3Zz7i88" tabindex="-1" role="presentation"></a>El campo <code>status</code> de la descripción de la respuesta puede omitirse, en cuyo caso se establece en 200 (OK) por defecto. El tipo de contenido, en la propiedad <code>type</code>, también puede omitirse, en cuyo caso se asume que la respuesta es texto plano.</p>
 
 <p><a class="p_ident" id="p-Lrm7n6XIp1" href="#p-Lrm7n6XIp1" tabindex="-1" role="presentation"></a>Cuando el valor de <code>body</code> es un readable stream, este tendrá un método <code>pipe</code> que se utiliza para reenviar todo el contenido de un flujo de lectura a un writable stream. Si no es así, se asume que es <code>null</code> (sin cuerpo), una cadena o un búfer, y se pasa directamente al método <code>end</code> del response.</p>
-
-<p><a class="p_ident" id="p-VUJ0iLt8OX" href="#p-VUJ0iLt8OX" tabindex="-1" role="presentation"></a>{{index [ruta, URL], “función urlPath”, “clase URL”, análisis, [escape, “en las URL”], “función decodeURIComponent”, “método startsWith”}}</p>
 
 <p><a class="p_ident" id="p-dslBfnWhvL" href="#p-dslBfnWhvL" tabindex="-1" role="presentation"></a>Para determinar qué ruta de archivo corresponde a una URL de solicitud, la función <code>urlPath</code> utiliza la clase integrada <code>URL</code> (que también existe en el navegador) para analizar la URL. Este constructor espera una URL completa, no solo la parte que comienza con la barra diagonal que obtenemos de <code>request.url</code>, por lo que le proporcionamos un nombre de dominio falso para completar. Extrae su ruta, que será algo como <code>&quot;/<wbr>archivo.<wbr>txt&quot;</code>, la decodifica para eliminar los códigos de escape estilo <code>%20</code>, y la resuelve en relación con el directorio de trabajo del programa.</p>
 
