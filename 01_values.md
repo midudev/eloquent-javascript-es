@@ -26,7 +26,7 @@ Para crear un valor, simplemente debes invocar su nombre. Esto es conveniente. N
 
 ## Números
 
-{{index [sintaxis, número], número, [número, notación]}}
+{{index [sintaxis, "número"], "número", ["número", notación]}}
 
 Los valores del tipo _number_ son, como era de esperar, valores numéricos. En un programa de JavaScript, se escriben de la siguiente manera:
 
@@ -38,7 +38,7 @@ Los valores del tipo _number_ son, como era de esperar, valores numéricos. En u
 
 Usar esto en un programa hará que el patrón de bits para el número 13 exista en la memoria del ordenador.
 
-{{index [número, representación], bit}}
+{{index ["número", "representación"], bit}}
 
 JavaScript utiliza un número fijo de bits, 64 de ellos, para almacenar un único valor numérico. Solo hay tantos patrones que puedes hacer con 64 bits, lo que limita la cantidad de números diferentes que se pueden representar. Con _N_ ((dígitos)) decimales, puedes representar 10^N^ números. De manera similar, dada una cifra de 64 dígitos binarios, puedes representar 2^64^ números diferentes, que son alrededor de 18 mil trillones (un 18 seguido de 18 ceros). Eso es mucho.
 
@@ -48,7 +48,7 @@ La memoria de la computadora solía ser mucho más pequeña, y la gente solía u
 
 Sin embargo, no todos los números enteros menores que 18 mil trillones encajan en un número de JavaScript. Esos bits también almacenan números negativos, por lo que un bit indica el signo del número. Un problema más grande es representar números no enteros. Para hacer esto, algunos de los bits se utilizan para almacenar la posición del punto decimal. El número entero máximo real que se puede almacenar está más en el rango de 9 cuatrillones (15 ceros), que sigue siendo increíblemente grande.
 
-{{index [número, notación], "número fraccionario"}}
+{{index ["número", "notación"], "número fraccionario"}}
 
 Los números fraccionarios se escriben usando un punto:
 
@@ -56,7 +56,7 @@ Los números fraccionarios se escriben usando un punto:
 9.81
 ```
 
-{{index exponente, "notación científica", [número, notación]}}
+{{index exponente, "notación científica", ["número", "notación"]}}
 
 Para números muy grandes o muy pequeños, también puedes usar notación científica agregando una _e_ (de _exponente_), seguida del exponente del número:
 
@@ -66,7 +66,7 @@ Para números muy grandes o muy pequeños, también puedes usar notación cient�
 
 Eso es 2.998 × 10^8^ = 299,800,000.
 
-{{index pi, [número, "precisión de"], "número de punto flotante"}}
+{{index pi, ["número", "precisión de"], "número de punto flotante"}}
 
 Los cálculos con números enteros (también llamados _((enteros))_) que son más pequeños que los mencionados 9 cuatrillones siempre serán precisos. Desafortunadamente, los cálculos con números fraccionarios generalmente no lo son. Así como π (pi) no puede expresarse con precisión mediante un número finito de dígitos decimales, muchos números pierden algo de precisión cuando solo están disponibles 64 bits para almacenarlos. Es una lástima, pero solo causa problemas prácticos en situaciones específicas. Lo importante es ser consciente de esto y tratar los números digitales fraccionarios como aproximaciones, no como valores precisos.
 
@@ -78,11 +78,11 @@ Los cálculos con números enteros (también llamados _((enteros))_) que son má
 100 + 4 * 11
 ```
 
-{{index [operador, aplicación], asterisco, "carácter de suma", "operador *", "operador +"}}
+{{index [operador, "aplicación"], asterisco, "carácter de suma", "operador *", "operador +"}}
 
 Los símbolos `+` y `*` se llaman _operadores_. El primero representa la suma y el segundo representa la multiplicación. Colocar un operador entre dos valores aplicará ese operador a esos valores y producirá un nuevo valor.
 
-{{index agrupación, paréntesis, precedencia}}
+{{index "agrupación", "paréntesis", precedencia}}
 
 ¿Significa este ejemplo "Sumar 4 y 100, y luego multiplicar el resultado por 11", o se realiza primero la multiplicación antes de la suma? Como habrás adivinado, la multiplicación se realiza primero. Como en matemáticas, puedes cambiar esto envolviendo la suma entre paréntesis:
 
@@ -98,13 +98,13 @@ Cuando los operadores aparecen juntos sin paréntesis, el orden en que se aplica
 
 No te preocupes demasiado por estas reglas de precedencia. Cuando tengas dudas, simplemente agrega paréntesis.
 
-{{index "operador de módulo", división, "operador de residuo", "% operator"}}
+{{index "operador de módulo", "división", "operador de residuo", "% operator"}}
 
 Hay un operador aritmético más, que quizás no reconozcas de inmediato. El símbolo `%` se utiliza para representar la operación de _residuo_. `X % Y` es el residuo de dividir `X` por `Y`. Por ejemplo, `314 % 100` produce `14`, y `144 % 12` da `0`. La precedencia del operador de residuo es la misma que la de multiplicación y división. También verás a menudo a este operador referido como _módulo_.
 
 ### Números especiales
 
-{{index [número, "valores especiales"], infinito}}
+{{index ["número", "valores especiales"], infinito}}
 
 Hay tres valores especiales en JavaScript que se consideran números pero no se comportan como números normales. Los dos primeros son `Infinity` y `-Infinity`, que representan el infinito positivo y negativo. `Infinity - 1` sigue siendo `Infinity`, y así sucesivamente. Sin embargo, no confíes demasiado en los cálculos basados en infinito. No es matemáticamente sólido y rápidamente te llevará al siguiente número especial: `NaN`.
 
