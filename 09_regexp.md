@@ -722,7 +722,6 @@ Para concluir el capítulo, analizaremos un problema que requiere ((expresiones 
 motorbusqueda=https://duckduckgo.com/?q=$1
 rencor=9.7
 
-``````markdown
 ; comentarios precedidos por un punto y coma...
 ; cada sección se refiere a un enemigo individual
 [larry]
@@ -736,7 +735,7 @@ type=mago malvado
 outputdir=/home/marijn/enemies/davaeorn
 ```
 
-{{index gramática}}
+{{index "gramática"}}
 
 Las reglas exactas para este formato (que es un formato ampliamente utilizado, generalmente llamado un archivo _INI_) son las siguientes:
 

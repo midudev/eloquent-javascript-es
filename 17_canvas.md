@@ -718,8 +718,8 @@ CanvasDisplay.prototype.drawBackground = function(level) {
   let xEnd = Math.ceil(left + width);
   let yStart = Math.floor(top);
   let yEnd = Math.ceil(top + height);
-``````js
-for (let y = yStart; y < yEnd; y++) {
+
+  for (let y = yStart; y < yEnd; y++) {
     for (let x = xStart; x < xEnd; x++) {
       let tile = level.rows[y][x];
       if (tile == "empty") continue;
@@ -756,7 +756,7 @@ El personaje de movimiento que se mostró anteriormente se utilizará para repre
 
 Dado que los ((sprite))s son ligeramente más anchos que el objeto del jugador—24 en lugar de 16 píxeles para permitir algo de espacio para los pies y los brazos—el método debe ajustar la coordenada x y el ancho por una cantidad dada (`playerXOverlap`).
 
-```{sandbox: "juego", includeCode: true}
+```{sandbox: "game", includeCode: true}
 let playerSprites = document.createElement("img");
 playerSprites.src = "img/player.png";
 const playerXOverlap = 4;
@@ -775,15 +775,15 @@ CanvasDisplay.prototype.drawPlayer = function(player, x, y,
   } else if (player.speed.x != 0) {
     tile = Math.floor(Date.now() / 60) % 8;
   }
-``````js
-this.cx.save();
-if (this.flipPlayer) {
-  flipHorizontally(this.cx, x + width / 2);
-}
-let tileX = tile * width;
-this.cx.drawImage(playerSprites, tileX, 0, width, height,
-                                 x,     y, width, height);
-this.cx.restore();
+
+  this.cx.save();
+  if (this.flipPlayer) {
+    flipHorizontally(this.cx, x + width / 2);
+  }
+  let tileX = tile * width;
+  this.cx.drawImage(playerSprites, tileX, 0, width, height,
+                                   x,     y, width, height);
+  this.cx.restore();
 };
 ```
 

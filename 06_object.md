@@ -409,7 +409,9 @@ Los nombres de las propiedades de los objetos deben ser cadenas. Si necesitas un
 
 {{index "clase Map"}}
 
-Afortunadamente, JavaScript viene con una clase llamada `Map` que está escrita para este propósito exacto. Almacena un mapeo y permite cualquier tipo de claves.````
+Afortunadamente, JavaScript viene con una clase llamada `Map` que está escrita para este propósito exacto. Almacena un mapeo y permite cualquier tipo de claves.
+
+```
 let ages = new Map();
 ages.set("Boris", 39);
 ages.set("Liang", 22);
@@ -421,7 +423,7 @@ console.log("¿Se conoce la edad de Jack?", ages.has("Jack"));
 // → ¿Se conoce la edad de Jack? false
 console.log(ages.has("toString"));
 // → false
-````
+```
 
 {{index [interfaz, objeto], "método set", "método get", "método has", encapsulación}}
 
@@ -431,12 +433,12 @@ Los métodos `set`, `get` y `has` forman parte de la interfaz del objeto `Map`. 
 
 Si tienes un objeto simple que necesitas tratar como un mapa por alguna razón, es útil saber que `Object.keys` devuelve solo las claves _propias_ de un objeto, no las del prototipo. Como alternativa al operador `in`, puedes utilizar la función `Object.hasOwn`, que ignora el prototipo del objeto.
 
-````
+```
 console.log(Object.hasOwn({x: 1}, "x"));
 // → true
 console.log(Object.hasOwn({x: 1}, "toString"));
 // → false
-````
+```
 
 ## Polimorfismo
 
@@ -451,7 +453,7 @@ Rabbit.prototype.toString = function() {
 
 console.log(String(conejoAsesino));
 // → un conejo asesino
-````
+```
 
 {{index "programación orientada a objetos", [interfaz, objeto]}}
 
@@ -463,7 +465,7 @@ Esta técnica se llama _polimorfismo_. El código polimórfico puede trabajar co
 
 Un ejemplo de una interfaz ampliamente utilizada es la de los ((objeto similar a un array)) que tiene una propiedad `length` que contiene un número, y propiedades numeradas para cada uno de sus elementos. Tanto los arreglos como las cadenas admiten esta interfaz, al igual que varios otros objetos, algunos de los cuales veremos más adelante en los capítulos sobre el navegador. Nuestra implementación de `forEach` en el [Capítulo ?](higher_order) funciona en cualquier cosa que proporcione esta interfaz. De hecho, también lo hace `Array.prototype.forEach`.
 
-````
+```
 Array.prototype.forEach.call({
   length: 2,
   0: "A",
@@ -471,7 +473,7 @@ Array.prototype.forEach.call({
 }, elt => console.log(elt));
 // → A
 // → B
-````
+```
 
 ## Getters, setters y estáticos
 
