@@ -32,7 +32,9 @@ Un _protocolo de red_ describe un estilo de comunicación sobre una ((red)). Hay
 
 {{indexsee "Protocolo de Transferencia de Hipertexto", HTTP}}
 
-El _Protocolo de Transferencia de Hipertexto_ (((HTTP))) es un protocolo para recuperar ((recursos)) nombrados (trozos de información, como páginas web o imágenes). Especifica que el lado que realiza la solicitud debe comenzar con una línea como esta, nombrando el recurso y la versión del protocolo que está intentando usar:```{lang: http}
+El _Protocolo de Transferencia de Hipertexto_ (((HTTP))) es un protocolo para recuperar ((recursos)) nombrados (trozos de información, como páginas web o imágenes). Especifica que el lado que realiza la solicitud debe comenzar con una línea como esta, nombrando el recurso y la versión del protocolo que está intentando usar:
+
+```{lang: http}
 GET /index.html HTTP/1.1
 ```
 

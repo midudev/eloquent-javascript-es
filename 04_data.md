@@ -260,7 +260,9 @@ Los objetos funcionan de manera diferente. _Puedes_ cambiar sus propiedades, lo 
 
 {{index [objeto, identidad], identidad, [organización, memoria], mutabilidad}}
 
-Cuando tenemos dos números, 120 y 120, podemos considerarlos precisamente el mismo número, tanto si se refieren a los mismos bits físicos como si no. Con los objetos, hay una diferencia entre tener dos referencias al mismo objeto y tener dos objetos diferentes que contienen las mismas propiedades. Considera el siguiente código:```
+Cuando tenemos dos números, 120 y 120, podemos considerarlos precisamente el mismo número, tanto si se refieren a los mismos bits físicos como si no. Con los objetos, hay una diferencia entre tener dos referencias al mismo objeto y tener dos objetos diferentes que contienen las mismas propiedades. Considera el siguiente código:
+
+```
 let object1 = {value: 10};
 let object2 = object1;
 let object3 = {value: 10};
@@ -397,7 +399,9 @@ Jacques mantiene su diario por tres meses. El ((conjunto de datos)) resultante e
 
 {{index "función tableFor"}}
 
-Para extraer una tabla dos por dos para un evento específico del diario, debemos recorrer todas las entradas y contar cuántas veces ocurre el evento en relación con las transformaciones de ardilla:```{includeCode: strip_log}
+Para extraer una tabla dos por dos para un evento específico del diario, debemos recorrer todas las entradas y contar cuántas veces ocurre el evento en relación con las transformaciones de ardilla:
+
+```{includeCode: strip_log}
 function tableFor(event, journal) {
   let table = [0, 0, 0, 0];
   for (let i = 0; i < journal.length; i++) {

@@ -440,7 +440,9 @@ for (let addr = 1; addr < 256; addr++) {
 
 Dado que la mayoría de estas direcciones no existirán o no aceptarán tales mensajes, la llamada a `catch` se asegura de que los errores de red no hagan que el programa falle. Las solicitudes se envían todas inmediatamente, sin esperar a que otras solicitudes terminen, para no perder tiempo cuando algunas de las máquinas no respondan.
 
-Después de haber iniciado su exploración de red, Carla regresa afuera para ver el resultado. Para su deleite, todas las pantallas ahora muestran una franja de luz en sus esquinas superiores izquierdas. Están en la red local y sí aceptan comandos. Rápidamente toma nota de los números mostrados en cada pantalla. Hay 9 pantallas, dispuestas tres en alto y tres en ancho. Tienen las siguientes direcciones de red:```{includeCode: true}
+Después de haber iniciado su exploración de red, Carla regresa afuera para ver el resultado. Para su deleite, todas las pantallas ahora muestran una franja de luz en sus esquinas superiores izquierdas. Están en la red local y sí aceptan comandos. Rápidamente toma nota de los números mostrados en cada pantalla. Hay 9 pantallas, dispuestas tres en alto y tres en ancho. Tienen las siguientes direcciones de red:
+
+```{includeCode: true}
 const screenAddresses = [
   "10.0.0.44", "10.0.0.45", "10.0.0.41",
   "10.0.0.31", "10.0.0.40", "10.0.0.42",

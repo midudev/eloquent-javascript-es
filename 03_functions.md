@@ -199,7 +199,9 @@ El código anterior funciona, incluso aunque la función esté definida _debajo_
 
 {{index función, "función de flecha"}}
 
-Hay una tercera notación para funciones, que se ve muy diferente de las otras. En lugar de la palabra clave `function`, utiliza una flecha (`=>`) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe `>=`):```{test: wrap}
+Hay una tercera notación para funciones, que se ve muy diferente de las otras. En lugar de la palabra clave `function`, utiliza una flecha (`=>`) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe `>=`):
+
+```{test: wrap}
 const roundTo = (n, step) => {
   let remainder = n % step;
   return n - remainder + (remainder < step / 2 ? 0 : step);

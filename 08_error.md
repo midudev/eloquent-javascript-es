@@ -412,7 +412,9 @@ JavaScript (en una omisión bastante llamativa) no proporciona un soporte direct
 
 {{index "función promptDirection"}}
 
-Pero podría no serlo. Alguno otra ((asunción)) podría estar violada, o podrías haber introducido un error que está causando una excepción. Aquí tienes un ejemplo que _intenta_ seguir llamando a `promptDirection` hasta obtener una respuesta válida:```{test: no}
+Pero podría no serlo. Alguno otra ((asunción)) podría estar violada, o podrías haber introducido un error que está causando una excepción. Aquí tienes un ejemplo que _intenta_ seguir llamando a `promptDirection` hasta obtener una respuesta válida:
+
+```{test: no}
 for (;;) {
   try {
     let dir = promptDirection("¿Dónde?"); // ← ¡Error de tipeo!
