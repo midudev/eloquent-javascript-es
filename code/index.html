@@ -1,4 +1,5 @@
 <!doctype html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -7,26 +8,29 @@
   <link rel=stylesheet href="../css/ejs.css">
   <script src="./chapter_info.js"></script>
   <script>
-    var page = {type: "code"}
+    var page = { type: "code" }
   </script>
 
   <style>
-    .control { font-size: 15px }
+    .control {
+      font-size: 15px
+    }
   </style>
 </head>
 
 <article style="max-width: 50em;">
-  <h1>Code Sandbox<div style="font-size: 70%"><a class="subtlelink" href="../index.html">Eloquent JavaScript</a></div></h2>
+  <h1>Caja de Arena de Código<div style="font-size: 70%"><a class="subtlelink" href="../index.html">Eloquent
+        JavaScript</a></div>
+  </h1>
 
-  <p>You can use this page to download source code and solutions to
-  exercises for the book Eloquent JavaScript, and to directly run code
-  in the context of chapters from that book, either to solve exercises
-  to simply play around.</p>
+  <p>Puedes usar esta página para descargar el código fuente y soluciones a
+    ejercicios para el libro Eloquent JavaScript, y para ejecutar código directamente
+    en el contexto de los capítulos de ese libro, ya sea para resolver ejercicios o simplemente para experimentar.</p>
 
   <p>
-    Chapter: <select id="chapters" class=control></select>
+    Capítulo: <select id="chapters" class=control></select>
     <select id="per_chapter" class=control></select>
-    <button id="run" class=control>run code</button>
+    <button id="run" class=control>ejecutar código</button>
   </p>
 
   <div class="editor-wrap">
@@ -35,25 +39,26 @@
   </div>
 
   <div id="runLocally">
-    To run this chapter's code locally, use these files:
+    Para ejecutar el código de este capítulo localmente, utiliza estos archivos:
     <ul id="local-files" style="font-family: 'PT Mono', monospace; margin-top: 0"></ul>
   </div>
 
   <div id="fileInfo">
-    These files contain this chapter’s project code:
+    Estos archivos contienen el código del proyecto de este capítulo:
     <ul id="files" style="font-family: 'PT Mono', monospace; margin-top: 0"></ul>
   </div>
 
-  <p id="exercise_info">If you've solved the exercise and want to compare your code with
-  mine, or you <em>really</em> tried, but can't get your code to work,
-  you can <button id="solution" style="color: #c22;" class=control>look at the
-  solution</button> (or <a id="download">download it</a>).</p>
+  <p id="exercise_info">Si has resuelto el ejercicio y quieres comparar tu código con
+    el mío, o si <em>realmente</em> lo intentaste, pero no puedes hacer que tu código funcione,
+    puedes <button id="solution" style="color: #c22;" class=control>ver la
+      solución</button> (o <a id="download">descargarla</a>).</p>
 
   <p id="box_info">
-    The base environment for this chapter (if any) is available in the
-    sandbox above, allowing you to run the chapter's examples by
-    simply pasting them into the editor.
+    El entorno base para este capítulo (si existe) está disponible en la
+    caja de arena arriba, permitiéndote ejecutar los ejemplos del capítulo simplemente
+    pegándolos en el editor.
   </p>
 </article>
+
 
 <script src="../ejs.js"></script>
