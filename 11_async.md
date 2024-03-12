@@ -11,7 +11,7 @@ quote}}
 
 {{index "Laozi"}}
 
-{{figure {url: "img/chapter_picture_11.jpg", alt: "Ilustración que muestra dos cuervos en una rama de árbol", capítulo: enmarcado}}
+{{figure {url: "img/chapter_picture_11.jpg", alt: "Ilustración que muestra dos cuervos en una rama de árbol", capítulo: enmarcado}}}
 
 La parte central de una computadora, la parte que lleva a cabo los pasos individuales que componen nuestros programas, se llama el _((procesador))_. Los programas que hemos visto hasta ahora mantendrán ocupado al procesador hasta que hayan terminado su trabajo. La velocidad a la cual algo como un bucle que manipula números puede ser ejecutado depende casi enteramente de la velocidad del procesador y la memoria de la computadora.
 

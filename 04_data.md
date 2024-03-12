@@ -10,7 +10,7 @@ quote}}
 
 {{index "Babbage, Charles"}}
 
-{{figure {url: "img/chapter_picture_4.jpg", alt: "Ilustración de una ardilla junto a un montón de libros y un par de gafas. Se pueden ver la luna y las estrellas en el fondo.", chapter: framed}}
+{{figure {url: "img/chapter_picture_4.jpg", alt: "Ilustración de una ardilla junto a un montón de libros y un par de gafas. Se pueden ver la luna y las estrellas en el fondo.", chapter: framed}}}
 
 {{index objeto, "estructura de datos"}}
 

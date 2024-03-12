@@ -8,7 +8,7 @@ quote}}
 
 {{index "inteligencia artificial", "Dijkstra, Edsger"}}
 
-{{figure {url: "img/chapter_picture_7.jpg", alt: "Ilustración de un robot sosteniendo una pila de paquetes", chapter: framed}}
+{{figure {url: "img/chapter_picture_7.jpg", alt: "Ilustración de un robot sosteniendo una pila de paquetes", chapter: framed}}}
 
 {{index "capítulo del proyecto", "leyendo código", "escribiendo código"}}
 

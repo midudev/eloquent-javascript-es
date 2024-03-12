@@ -8,7 +8,7 @@ Depurar es el doble de difícil que escribir el código en primer lugar. Por lo 
 
 quote}}
 
-{{figure {url: "img/chapter_picture_8.jpg", alt: "Ilustración mostrando varios insectos y un ciempiés", chapter: framed}}
+{{figure {url: "img/chapter_picture_8.jpg", alt: "Ilustración mostrando varios insectos y un ciempiés", chapter: framed}}}
 
 {{index "Kernighan, Brian", "Plauger, P.J.", depuración, "manejo de errores"}}
 

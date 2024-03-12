@@ -10,7 +10,7 @@ quote}}
 
 {{index "Escher, M.C."}}
 
-{{figure {url: "img/chapter_picture_17.jpg", alt: "Ilustración que muestra un brazo robótico con aspecto industrial dibujando una ciudad en un trozo de papel", chapter: "framed"}}
+{{figure {url: "img/chapter_picture_17.jpg", alt: "Ilustración que muestra un brazo robótico con aspecto industrial dibujando una ciudad en un trozo de papel", chapter: "framed"}}}
 
 {{index CSS, "transform (CSS)", [DOM, gráficos]}}
 

@@ -10,7 +10,7 @@ quote}}
 
 {{index "Abelson, Hal", "Sussman, Gerald", SICP, "capítulo del proyecto"}}
 
-{{figure {url: "img/chapter_picture_12.jpg", alt: "Ilustración que muestra un huevo con agujeros, mostrando huevos más pequeños dentro, que a su vez tienen huevos aún más pequeños dentro de ellos, y así sucesivamente", chapter: "framed"}}
+{{figure {url: "img/chapter_picture_12.jpg", alt: "Ilustración que muestra un huevo con agujeros, mostrando huevos más pequeños dentro, que a su vez tienen huevos aún más pequeños dentro de ellos, y así sucesivamente", chapter: "framed"}}}
 
 Crear tu propio ((lenguaje de programación)) es sorprendentemente fácil (si no apuntas muy alto) y muy esclarecedor.
 

@@ -8,7 +8,7 @@ quote}}
 
 {{index "Banks, Ian", "capítulo del proyecto", simulación}}
 
-{{figure {url: "img/chapter_picture_16.jpg", alt: "Ilustración que muestra un personaje de un juego de computadora saltando sobre lava en un mundo bidimensional", chapter: "framed"}}
+{{figure {url: "img/chapter_picture_16.jpg", alt: "Ilustración que muestra un personaje de un juego de computadora saltando sobre lava en un mundo bidimensional", chapter: "framed"}}}
 
 Gran parte de mi fascinación inicial con las computadoras, al igual que la de muchos niños nerds, tenía que ver con los ((juegos)) de computadora. Me sentía atraído por los diminutos ((mundos)) simulados que podía manipular y en los que se desarrollaban historias (más o menos), supongo, debido a la forma en que proyectaba mi ((imaginación)) en ellos más que por las posibilidades que realmente ofrecían.
 

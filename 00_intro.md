@@ -8,7 +8,7 @@ Creemos que estamos creando el sistema para nuestros propios propósitos. Creemo
 
 quote}}
 
-{{figure {url: "img/chapter_picture_00.jpg", alt: "Ilustración de un destornillador junto a una placa de circuitos de aproximadamente el mismo tamaño", chapter: "framed"}}
+{{figure {url: "img/chapter_picture_00.jpg", alt: "Ilustración de un destornillador junto a una placa de circuitos de aproximadamente el mismo tamaño", chapter: "framed"}}}
 
 Este es un libro sobre cómo instruir a ((computadora))s. Las computadoras son tan comunes como los destornilladores hoy en día, pero son bastante más complejas, y hacer que hagan lo que quieres que hagan no siempre es fácil.
 
