@@ -138,7 +138,7 @@ export function reverse(string) {
 }
 ```
 
-{{index "palabra clave export", "módulos ES", [interfaz, módulo]}}
+{{index "palabra clave export", "módulos ES", [interfaz, "módulo"]}}
 
 Recuerda que `export` se utiliza para declarar que un enlace es parte de la interfaz del módulo. Eso permite que `main.mjs` importe y utilice la función.
 

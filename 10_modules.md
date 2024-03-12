@@ -26,7 +26,7 @@ La frase "((gran bola de barro))" se usa a menudo para tales programas grandes y
 
 ## Programas modulares
 
-{{index dependencia, [interfaz, módulo]}}
+{{index dependencia, [interfaz, "módulo"]}}
 
 Los _módulos_ son un intento de evitar estos problemas. Un ((módulo)) es una parte de un programa que especifica en qué otras piezas se basa y qué funcionalidad proporciona para que otros módulos la utilicen (su _interfaz_).
 
@@ -188,7 +188,7 @@ console.log(semana.nombre(semana.numero("Domingo")));
 // → Domingo
 ```
 
-{{index dependencia, [interfaz, módulo]}}
+{{index dependencia, [interfaz, "módulo"]}}
 
 Este estilo de módulos proporciona ((aislamiento)), hasta cierto punto, pero no declara dependencias. En cambio, simplemente coloca su interfaz en el ((ámbito global)) y espera que sus dependencias, si las tiene, hagan lo mismo. Esto no es ideal.
 
@@ -269,7 +269,7 @@ JavaScript estándar no proporciona una función como `readFile`, pero diferente
 
 Para evitar cargar el mismo módulo múltiples veces, `require` mantiene una tienda (caché) de módulos ya cargados. Cuando se llama, primero comprueba si el módulo solicitado ha sido cargado y, si no, lo carga. Esto implica leer el código del módulo, envolverlo en una función y llamarlo.
 
-{{index "paquete ordinal", "objeto exports", "objeto module", [interfaz, módulo]}}
+{{index "paquete ordinal", "objeto exports", "objeto module", [interfaz, "módulo"]}}
 
 Al definir `require`, `exports` como parámetros para la función de envoltura generada (y pasar los valores apropiados al llamarla), el cargador se asegura de que estos enlaces estén disponibles en el ámbito del módulo.
 
@@ -303,7 +303,7 @@ Estructurar programas es uno de los aspectos más sutiles de la programación. C
 
 Un buen diseño de programa es subjetivo—hay compensaciones implicadas y cuestiones de gusto. La mejor manera de aprender el valor de un diseño bien estructurado es leer o trabajar en muchos programas y notar qué funciona y qué no. No asumas que un desorden doloroso es “simplemente así”. Puedes mejorar la estructura de casi todo pensando más detenidamente en ello.
 
-{{index [interfaz, módulo]}}
+{{index [interfaz, "módulo"]}}
 
 Un aspecto del diseño de módulos es la facilidad de uso. Si estás diseñando algo que se supone será utilizado por varias personas—o incluso por ti mismo, dentro de tres meses cuando ya no recuerdes los detalles de lo que hiciste—es útil que tu interfaz sea simple y predecible.
 

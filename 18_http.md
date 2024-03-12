@@ -143,7 +143,7 @@ Las solicitudes `GET` deben utilizarse para solicitudes que no tengan efectos se
 
 ## Fetch
 
-{{index "función fetch", "clase Promise", [interfaz, módulo]}}
+{{index "función fetch", "clase Promise", [interfaz, "módulo"]}}
 
 La interfaz a través de la cual JavaScript del navegador puede hacer solicitudes HTTP se llama `fetch`.
 
