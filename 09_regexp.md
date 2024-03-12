@@ -514,7 +514,7 @@ console.log(
 
 Los `$1` y `$2` en la cadena de reemplazo se refieren a los grupos entre paréntesis en el patrón. `$1` es reemplazado por el texto que coincidió con el primer grupo, `$2` por el segundo, y así sucesivamente, hasta `$9`. Toda la coincidencia se puede referenciar con `$&`.
 
-{{index [función, "de orden superior"], "agrupación", "grupo de captura"}}
+{{index ["función", "de orden superior"], "agrupación", "grupo de captura"}}
 
 Es posible pasar una función, en lugar de una cadena, como segundo argumento a `replace`. Para cada reemplazo, la función se llamará con los grupos coincidentes (así como la coincidencia completa) como argumentos, y su valor de retorno se insertará en la nueva cadena.
 

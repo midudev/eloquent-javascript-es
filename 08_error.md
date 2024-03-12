@@ -404,7 +404,7 @@ Para errores de programación, a menudo dejar que el error siga su curso es lo m
 
 Para problemas que se _espera_ que ocurran durante el uso rutinario, fallar con una excepción no manejada es una estrategia terrible.
 
-{{index [función, "aplicación"], "manejo de excepciones", "tipo de error", [enlace, indefinido]}}
+{{index ["función", "aplicación"], "manejo de excepciones", "tipo de error", [enlace, indefinido]}}
 
 Usos incorrectos del lenguaje, como hacer referencia a un enlace inexistente, buscar una propiedad en `null` o llamar a algo que no es una función, también provocarán que se lancen excepciones. Estas excepciones también pueden ser capturadas.
 

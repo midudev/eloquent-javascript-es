@@ -105,7 +105,7 @@ Al igual que las cadenas de texto, los arrays tienen una propiedad `length` que 
 
 ## Métodos
 
-{{index [función, "como propiedad"], "método", cadena}}
+{{index ["función", "como propiedad"], "método", cadena}}
 
 Tanto los valores de cadena como los de array contienen, además de la propiedad `length`, varias propiedades que contienen valores de función.
 

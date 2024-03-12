@@ -168,7 +168,7 @@ console.log(parse("x = 10\ny = 20"));
 
 Antes de 2015, cuando el lenguaje de JavaScript no tenía un sistema de módulos integrado real, las personas ya estaban construyendo sistemas grandes en JavaScript. Para que funcionara, ellos _necesitaban_ ((módulos)).
 
-{{index [función, alcance], [interfaz, "módulo"], [objeto, como "módulo"]}}
+{{index ["función", alcance], [interfaz, "módulo"], [objeto, como "módulo"]}}
 
 La comunidad diseñó sus propios ((sistemas de módulos)) improvisados sobre el lenguaje. Estos utilizan funciones para crear un alcance local para los módulos y objetos regulares para representar interfaces de módulos.
 
