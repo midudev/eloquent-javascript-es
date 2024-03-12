@@ -166,13 +166,11 @@ repetir(<span class="tok-number">3</span>, <span class="tok-definition">n</span>
   <span class="tok-definition">enlace</span>: <span class="tok-string">&quot;https://es.wikipedia.org/wiki/Alfabeto_copto&quot;</span>
 }</pre>
 
-<p><a class="p_ident" id="p-u70zW96/Ip" href="#p-u70zW96/Ip" tabindex="-1" role="presentation"></a>Tal objeto nos informa sobre el nombre del script, los rangos Unicode asignados a él, la dirección en la que se escribe, el tiempo de origen (aproximado), si todavía se utiliza, y un enlace a más información. La dirección puede ser <code>&quot;ltr&quot;</code> para izquierda a derecha, <code>&quot;rtl&quot;</code> para derecha a izquierda (como se escribe el texto en árabe y hebreo) o <code>&quot;ttb&quot;</code> para arriba hacia abajo (como en la escritura mongola).{{index “método de segmento”}}</p>
+<p><a class="p_ident" id="p-ua08rL6DL0" href="#p-ua08rL6DL0" tabindex="-1" role="presentation"></a>Tal objeto nos informa sobre el nombre del script, los rangos Unicode asignados a él, la dirección en la que se escribe, el tiempo de origen (aproximado), si todavía se utiliza, y un enlace a más información. La dirección puede ser <code>&quot;ltr&quot;</code> para izquierda a derecha, <code>&quot;rtl&quot;</code> para derecha a izquierda (como se escribe el texto en árabe y hebreo) o <code>&quot;ttb&quot;</code> para arriba hacia abajo (como en la escritura mongola).</p>
 
 <p><a class="p_ident" id="p-DoOVtob5DG" href="#p-DoOVtob5DG" tabindex="-1" role="presentation"></a>La propiedad <code>ranges</code> contiene una matriz de rangos de caracteres Unicode, cada uno de los cuales es una matriz de dos elementos que contiene un límite inferior y un límite superior. Todos los códigos de caracteres dentro de estos rangos se asignan al guion. El límite inferior es inclusivo (el código 994 es un carácter copto) y el límite superior no es inclusivo (el código 1008 no lo es).</p>
 
 <h2><a class="h_ident" id="h-MtcnrMCox6" href="#h-MtcnrMCox6" tabindex="-1" role="presentation"></a>Filtrado de arrays</h2>
-
-<p><a class="p_ident" id="p-8ukCGPGlBl" href="#p-8ukCGPGlBl" tabindex="-1" role="presentation"></a>{{index [array, métodos], [array, filtrado], “método de filtrado”, [función, “de orden superior”], “función de predicado”}}</p>
 
 <p><a class="p_ident" id="p-HjjeDvBqja" href="#p-HjjeDvBqja" tabindex="-1" role="presentation"></a>Si queremos encontrar los guiones en el conjunto de datos que todavía se utilizan, la siguiente función puede ser útil. Filtra los elementos de una matriz que no pasan una prueba.</p>
 
@@ -397,7 +395,7 @@ console.log(horseShoe.codePointAt(<span class="tok-number">0</span>));
 console.log(countBy([<span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>, <span class="tok-number">4</span>, <span class="tok-number">5</span>], <span class="tok-definition">n</span> =&gt; n &gt; <span class="tok-number">2</span>));
 <span class="tok-comment">// → [{name: false, count: 2}, {name: true, count: 3}]</span></pre>
 
-<p><a class="p_ident" id="p-d/Pf1LO+BO" href="#p-d/Pf1LO+BO" tabindex="-1" role="presentation"></a>La función <code>countBy</code> espera una colección (cualquier cosa por la que podamos iterar con <code>for</code>/<code>of</code>) y una función que calcule un nombre de grupo para un elemento dado. Devuelve una matriz de objetos, cada uno de los cuales nombra un grupo y te dice el número de elementos que se encontraron en ese grupo.{{index “método find”}}</p>
+<p><a class="p_ident" id="p-BkGEda/6+p" href="#p-BkGEda/6+p" tabindex="-1" role="presentation"></a>La función <code>countBy</code> espera una colección (cualquier cosa por la que podamos iterar con <code>for</code>/<code>of</code>) y una función que calcule un nombre de grupo para un elemento dado. Devuelve una matriz de objetos, cada uno de los cuales nombra un grupo y te dice el número de elementos que se encontraron en ese grupo.</p>
 
 <p><a class="p_ident" id="p-3D6sEDfZSV" href="#p-3D6sEDfZSV" tabindex="-1" role="presentation"></a>Utiliza otro método de array, <code>find</code>, que recorre los elementos en el array y devuelve el primero para el cual una función devuelve true. Devuelve <code>undefined</code> cuando no se encuentra dicho elemento.</p>
 

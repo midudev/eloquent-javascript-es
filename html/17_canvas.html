@@ -92,7 +92,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <h2 id="fill_stroke"><a class="h_ident" id="h-pjhQhwBlI5" href="#h-pjhQhwBlI5" tabindex="-1" role="presentation"></a>Líneas y superficies</h2>
 
-<p><a class="p_ident" id="p-DvtT4JorNi" href="#p-DvtT4JorNi" tabindex="-1" role="presentation"></a>En la interfaz de lienzo, una forma puede ser <em>rellenada</em>, lo que significa que su área recibe un color o patrón determinado, o puede ser <em>trazada</em>, lo que significa que se dibuja una línea a lo largo de su borde. La misma terminología se utiliza en SVG.{{index “fillRect method”, “strokeRect method”}}</p>
+<p><a class="p_ident" id="p-O6DYJslVdE" href="#p-O6DYJslVdE" tabindex="-1" role="presentation"></a>En la interfaz de lienzo, una forma puede ser <em>rellenada</em>, lo que significa que su área recibe un color o patrón determinado, o puede ser <em>trazada</em>, lo que significa que se dibuja una línea a lo largo de su borde. La misma terminología se utiliza en SVG.</p>
 
 <p><a class="p_ident" id="p-0VT8ruNYTo" href="#p-0VT8ruNYTo" tabindex="-1" role="presentation"></a>El método <code>fillRect</code> rellena un rectángulo. Primero toma las coordenadas x e y de la esquina superior izquierda del rectángulo, luego su ancho y finalmente su altura. Un método similar llamado <code>strokeRect</code> dibuja el contorno de un rectángulo.</p>
 
@@ -594,7 +594,9 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-3iAwjt81PX" href="#p-3iAwjt81PX" tabindex="-1" role="presentation"></a>SVG se puede utilizar para producir gráficos nítidos que se ven bien en cualquier nivel de zoom. A diferencia de HTML, está diseñado para dibujar y, por lo tanto, es más adecuado para ese propósito.</p>
 
-<p><a class="p_ident" id="p-8Ne/yar6LY" href="#p-8Ne/yar6LY" tabindex="-1" role="presentation"></a>Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que está haciendo el usuario o como parte de una animación, hacerlo en un canvas puede ser innecesariamente costoso. El DOM también nos permite registrar manipuladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con canvas.{{index rendimiento, optimización}}</p>
+<p><a class="p_ident" id="p-KKqtQMD1GU" href="#p-KKqtQMD1GU" tabindex="-1" role="presentation"></a>Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que está haciendo el usuario o como parte de una animación, hacerlo en un canvas puede ser innecesariamente costoso. El DOM también nos permite registrar manipuladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con canvas.</p>
+
+<p><a class="p_ident" id="p-cmJbWQ8fDG" href="#p-cmJbWQ8fDG" tabindex="-1" role="presentation"></a>{{index rendimiento, optimización}}</p>
 
 <p><a class="p_ident" id="p-RRzI6Zv0v1" href="#p-RRzI6Zv0v1" tabindex="-1" role="presentation"></a>Pero el enfoque orientado a píxeles de canvas puede ser una ventaja al dibujar una gran cantidad de elementos pequeños. El hecho de que no construye una estructura de datos, sino que solo dibuja repetidamente sobre la misma superficie de píxeles, hace que canvas tenga un menor costo por forma.</p>
 

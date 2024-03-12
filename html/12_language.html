@@ -49,7 +49,7 @@
       print(&quot;grande&quot;),
       print(&quot;pequeño&quot;)))</pre>
 
-<p><a class="p_ident" id="p-DOnNbgZ2gp" href="#p-DOnNbgZ2gp" tabindex="-1" role="presentation"></a>La uniformidad del lenguaje Egg significa que las cosas que son operadores en JavaScript (como <code>&gt;</code>) son asignaciones normales en este lenguaje, aplicadas de la misma manera que otras funciones. Y dado que la sintaxis no tiene concepto de bloque, necesitamos un constructo <code>do</code> para representar la realización de múltiples tareas en secuencia.{{index “propiedad tipo”, análisis sintáctico, [“estructura de datos”, árbol]}}</p>
+<p><a class="p_ident" id="p-C/tUY61w0R" href="#p-C/tUY61w0R" tabindex="-1" role="presentation"></a>La uniformidad del lenguaje Egg significa que las cosas que son operadores en JavaScript (como <code>&gt;</code>) son asignaciones normales en este lenguaje, aplicadas de la misma manera que otras funciones. Y dado que la sintaxis no tiene concepto de bloque, necesitamos un constructo <code>do</code> para representar la realización de múltiples tareas en secuencia.</p>
 
 <p><a class="p_ident" id="p-U5mB4GWXLX" href="#p-U5mB4GWXLX" tabindex="-1" role="presentation"></a>La estructura de datos que el analizador sintáctico utilizará para describir un programa consiste en objetos expresión, cada uno de los cuales tiene una propiedad <code>type</code> que indica el tipo de expresión que es y otras propiedades para describir su contenido.</p>
 
@@ -135,7 +135,7 @@
 
 <p><a class="p_ident" id="p-gyKfAj64fa" href="#p-gyKfAj64fa" tabindex="-1" role="presentation"></a>De lo contrario, se salta el paréntesis de apertura y crea el objeto árbol sintáctico para esta expresión de aplicación. Luego llama recursivamente a <code>parseExpression</code> para analizar cada argumento hasta encontrar un paréntesis de cierre. La recursión es indirecta, a través de <code>parseApply</code> y <code>parseExpression</code> llamándose mutuamente.</p>
 
-<p><a class="p_ident" id="p-++4YGbdlTZ" href="#p-++4YGbdlTZ" tabindex="-1" role="presentation"></a>Dado que una expresión de aplicación puede a su vez ser aplicada (como en <code>multiplicador(2)(1)</code>), <code>parseApply</code> debe, después de analizar una aplicación, llamarse a sí misma nuevamente para verificar si sigue otro par de paréntesis.{{index &quot;árbol de sintaxis”, “lenguaje Egg”, “función de análisis”}}</p>
+<p><a class="p_ident" id="p-lwTBl+PY0V" href="#p-lwTBl+PY0V" tabindex="-1" role="presentation"></a>Dado que una expresión de aplicación puede a su vez ser aplicada (como en <code>multiplicador(2)(1)</code>), <code>parseApply</code> debe, después de analizar una aplicación, llamarse a sí misma nuevamente para verificar si sigue otro par de paréntesis.</p>
 
 <p><a class="p_ident" id="p-89g4z+3rO6" href="#p-89g4z+3rO6" tabindex="-1" role="presentation"></a>Esto es todo lo que necesitamos para analizar Egg. Lo envolvemos en una conveniente <code>parse</code> función que verifica que ha llegado al final de la cadena de entrada después de analizar la expresión (un programa Egg es una sola expresión), y que nos da la estructura de datos del programa.</p>
 
@@ -197,7 +197,7 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
 
 <p><a class="p_ident" id="p-NYz/C0Evfv" href="#p-NYz/C0Evfv" tabindex="-1" role="presentation"></a>Las aplicaciones son más complicadas. Si son una forma especial, como <code>if</code>, no evaluamos nada y pasamos las expresiones de argumento, junto con el ámbito, a la función que maneja esta forma. Si es una llamada normal, evaluamos el operador, verificamos que sea una función, y la llamamos con los argumentos evaluados.</p>
 
-<p><a class="p_ident" id="p-UhQj4bgm9i" href="#p-UhQj4bgm9i" tabindex="-1" role="presentation"></a>Usamos valores de función JavaScript simples para representar los valores de función de Egg. Volveremos a esto <a href="12_language.html#egg_fun">más tarde</a>, cuando se defina la forma especial llamada <code>fun</code>.{{index legibilidad, “función de evaluación”, recursión, análisis sintáctico}}</p>
+<p><a class="p_ident" id="p-/VWFz5tzb5" href="#p-/VWFz5tzb5" tabindex="-1" role="presentation"></a>Usamos valores de función JavaScript simples para representar los valores de función de Egg. Volveremos a esto <a href="12_language.html#egg_fun">más tarde</a>, cuando se defina la forma especial llamada <code>fun</code>.</p>
 
 <p><a class="p_ident" id="p-yBQx2/sKQH" href="#p-yBQx2/sKQH" tabindex="-1" role="presentation"></a>La estructura recursiva de <code>evaluate</code> se asemeja a la estructura similar del analizador sintáctico, y ambos reflejan la estructura del lenguaje en sí. También sería posible combinar el analizador sintáctico y el evaluador en una sola función, y evaluar durante el análisis sintáctico. Pero dividirlos de esta manera hace que el programa sea más claro y flexible.</p>
 
@@ -499,7 +499,7 @@ console.log(parse(<span class="tok-string">&quot;a # uno</span><span class="tok-
 
 <p><a class="p_ident" id="p-ssqoqtZ2fc" href="#p-ssqoqtZ2fc" tabindex="-1" role="presentation"></a>Esta ambigüedad causa un problema. Cuando intentas darle un nuevo valor a un enlace no local, terminarás definiendo uno local con el mismo nombre en su lugar. Algunos lenguajes funcionan de esta manera por diseño, pero siempre he encontrado que es una forma incómoda de manejar el ámbito.</p>
 
-<p><a class="p_ident" id="p-ryWI6Ic/LB" href="#p-ryWI6Ic/LB" tabindex="-1" role="presentation"></a>Agrega una forma especial <code>set</code>, similar a <code>define</code>, que da un nuevo valor a un enlace, actualizando el enlace en un ámbito exterior si aún no existe en el ámbito interior. Si el enlace no está definido en absoluto, lanza un <code>ReferenceError</code> (otro tipo de error estándar).{{index “hasOwn function”, prototype, “getPrototypeOf function”}}</p>
+<p><a class="p_ident" id="p-bmER/dL8WQ" href="#p-bmER/dL8WQ" tabindex="-1" role="presentation"></a>Agrega una forma especial <code>set</code>, similar a <code>define</code>, que da un nuevo valor a un enlace, actualizando el enlace en un ámbito exterior si aún no existe en el ámbito interior. Si el enlace no está definido en absoluto, lanza un <code>ReferenceError</code> (otro tipo de error estándar).</p>
 
 <p><a class="p_ident" id="p-sX9Cu8BPn/" href="#p-sX9Cu8BPn/" tabindex="-1" role="presentation"></a>La técnica de representar los ámbitos como objetos simples, que hasta ahora ha sido conveniente, te causará un pequeño problema en este punto. Es posible que desees usar la función <code>Object.<wbr>getPrototypeOf</code>, la cual devuelve el prototipo de un objeto. También recuerda que puedes utilizar <code>Object.hasOwn</code> para verificar si un objeto dado tiene una propiedad.</p>
 

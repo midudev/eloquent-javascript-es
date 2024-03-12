@@ -75,7 +75,9 @@ $</pre>
 
 <p><a class="p_ident" id="p-f49RycnPOb" href="#p-f49RycnPOb" tabindex="-1" role="presentation"></a>Node comenzó utilizando el sistema de módulos CommonJS, basado en la función <code>require</code>, que vimos en <a href="10_modules.html#commonjs">Capítulo 10</a>. Aún utilizará este sistema de forma predeterminada cuando cargues un archivo <code>.js</code>.</p>
 
-<p><a class="p_ident" id="p-JXfnK+3SHG" href="#p-JXfnK+3SHG" tabindex="-1" role="presentation"></a>Pero también soporta el sistema de módulos ES más moderno. Cuando el nombre de un script termina en <code>.mjs</code>, se considera que es un módulo de este tipo, y puedes usar <code>import</code> y <code>export</code> en él (pero no <code>require</code>). Utilizaremos módulos ES en este capítulo.{{index [path, “sistema de archivos”], “ruta relativa”, resolución}}</p>
+<p><a class="p_ident" id="p-JOqjzoG84a" href="#p-JOqjzoG84a" tabindex="-1" role="presentation"></a>Pero también soporta el sistema de módulos ES más moderno. Cuando el nombre de un script termina en <code>.mjs</code>, se considera que es un módulo de este tipo, y puedes usar <code>import</code> y <code>export</code> en él (pero no <code>require</code>). Utilizaremos módulos ES en este capítulo.</p>
+
+<p><a class="p_ident" id="p-sU2tEkNbu/" href="#p-sU2tEkNbu/" tabindex="-1" role="presentation"></a>{{index [path, “sistema de archivos”], “ruta relativa”, resolución}}</p>
 
 <p><a class="p_ident" id="p-cp71LSk3dO" href="#p-cp71LSk3dO" tabindex="-1" role="presentation"></a>Cuando se importa un módulo, ya sea con <code>require</code> o <code>import</code>, Node debe resolver la cadena proporcionada a un archivo real que pueda cargar. Los nombres que comienzan con <code>/</code>, <code>./</code> o <code>../</code> se resuelven como archivos, relativos a la ruta del módulo actual. Aquí, <code>.</code> representa el directorio actual, <code>../</code> para un directorio arriba, y <code>/</code> para la raíz del sistema de archivos. Por lo tanto, si solicitas <code>&quot;./<wbr>graph.<wbr>mjs&quot;</code> desde el archivo <code>/<wbr>tmp/<wbr>robot/<wbr>robot.<wbr>mjs</code>, Node intentará cargar el archivo <code>/<wbr>tmp/<wbr>robot/<wbr>graph.<wbr>mjs</code>.</p>
 
@@ -193,7 +195,7 @@ writeFile(<span class="tok-string">&quot;graffiti.txt&quot;</span>, <span class=
 
 <p><a class="p_ident" id="p-2Dle5H5be+" href="#p-2Dle5H5be+" tabindex="-1" role="presentation"></a>El módulo <code>node:fs</code> contiene muchas otras funciones útiles: <code>readdir</code> te dará los archivos en un directorio como un array de cadenas, <code>stat</code> recuperará información sobre un archivo, <code>rename</code> cambiará el nombre de un archivo, <code>unlink</code> lo eliminará, entre otros. Consulta la documentación en <a href="https://nodejs.org"><em>https://nodejs.org</em></a> para obtener detalles específicos.</p>
 
-<p><a class="p_ident" id="p-wjBSv7euy1" href="#p-wjBSv7euy1" tabindex="-1" role="presentation"></a>La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en <a href="11_async.html">Capítulo 11</a>, hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.{{index “Clase Promise”, “paquete node:fs/promises”}}</p>
+<p><a class="p_ident" id="p-kpvwRcuKUy" href="#p-kpvwRcuKUy" tabindex="-1" role="presentation"></a>La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en <a href="11_async.html">Capítulo 11</a>, hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.</p>
 
 <p><a class="p_ident" id="p-5PK4VupJIX" href="#p-5PK4VupJIX" tabindex="-1" role="presentation"></a>El módulo <code>node:fs/promises</code> exporta la mayoría de las mismas funciones que el antiguo módulo <code>node:fs</code>, pero utiliza promesas en lugar de funciones de devolución de llamada.</p>
 
@@ -234,7 +236,7 @@ console.log(<span class="tok-string">&quot;¡Escuchando! (puerto 8000)&quot;</sp
 
 <p><a class="p_ident" id="p-9kr8owkFll" href="#p-9kr8owkFll" tabindex="-1" role="presentation"></a>Así que, cuando abres esa página en tu navegador, envía una solicitud a tu propia computadora. Esto hace que la función del servidor se ejecute y envíe una respuesta, que luego puedes ver en el navegador.</p>
 
-<p><a class="p_ident" id="p-SfOGZCdQCH" href="#p-SfOGZCdQCH" tabindex="-1" role="presentation"></a>Para enviar algo al cliente, llamas a métodos en el objeto <code>respuesta</code>. El primero, <code>writeHead</code>, escribirá los encabezados de respuesta (ver <a href="18_http.html#encabezados">Capítulo 18</a>). Le das el código de estado (200 para “OK” en este caso) y un objeto que contiene valores de encabezado. El ejemplo establece el encabezado <code>Content-Type</code> para informar al cliente que estaremos enviando de vuelta un documento HTML.{{index “flujo de escritura”, “cuerpo (HTTP)”, stream, “método write”, “método end”}}</p>
+<p><a class="p_ident" id="p-pM6WTnWBJW" href="#p-pM6WTnWBJW" tabindex="-1" role="presentation"></a>Para enviar algo al cliente, llamas a métodos en el objeto <code>respuesta</code>. El primero, <code>writeHead</code>, escribirá los encabezados de respuesta (ver <a href="18_http.html#encabezados">Capítulo 18</a>). Le das el código de estado (200 para “OK” en este caso) y un objeto que contiene valores de encabezado. El ejemplo establece el encabezado <code>Content-Type</code> para informar al cliente que estaremos enviando de vuelta un documento HTML.</p>
 
 <p><a class="p_ident" id="p-8ynV8UjqtW" href="#p-8ynV8UjqtW" tabindex="-1" role="presentation"></a>A continuación, el cuerpo real de la respuesta (el documento en sí) se envía con <code>response.write</code>. Se permite llamar a este método varias veces si deseas enviar la respuesta pieza por pieza, por ejemplo para transmitir datos al cliente a medida que estén disponibles. Por último, <code>response.end</code> señala el fin de la respuesta.</p>
 
@@ -254,7 +256,7 @@ console.log(<span class="tok-string">&quot;¡Escuchando! (puerto 8000)&quot;</sp
 
 <p><a class="p_ident" id="p-3tXq6zb5kH" href="#p-3tXq6zb5kH" tabindex="-1" role="presentation"></a>Es posible crear un flujo de escritura que apunte a un archivo con la función <code>createWriteStream</code> del módulo <code>node:fs</code>. Luego puedes usar el método <code>write</code> en el objeto resultante para escribir el archivo pieza por pieza, en lugar de hacerlo de una sola vez como con <code>writeFile</code>.</p>
 
-<p><a class="p_ident" id="p-oY4Bc5Lpge" href="#p-oY4Bc5Lpge" tabindex="-1" role="presentation"></a>Los <em>flujos legibles</em> son un poco más complejos. El argumento <code>request</code> para la devolución de llamada del servidor HTTP es un flujo legible. Leer de un flujo se hace utilizando manejadores de eventos, en lugar de métodos.{{index “método on”, “método addEventListener”}}</p>
+<p><a class="p_ident" id="p-agbkP1opi0" href="#p-agbkP1opi0" tabindex="-1" role="presentation"></a>Los <em>flujos legibles</em> son un poco más complejos. El argumento <code>request</code> para la devolución de llamada del servidor HTTP es un flujo legible. Leer de un flujo se hace utilizando manejadores de eventos, en lugar de métodos.</p>
 
 <p><a class="p_ident" id="p-o2U33sZhdp" href="#p-o2U33sZhdp" tabindex="-1" role="presentation"></a>Los objetos que emiten eventos en Node tienen un método llamado <code>on</code> que es similar al método <code>addEventListener</code> en el navegador. Le das un nombre de evento y luego una función, y registrará esa función para que se llame cada vez que ocurra el evento dado.</p>
 
@@ -489,7 +491,7 @@ Archivo no encontrado</pre>
 
 <h3><a class="i_ident" id="i-o/SovGzlc3" href="#i-o/SovGzlc3" tabindex="-1" role="presentation"></a>Creación de directorios</h3>
 
-<p><a class="p_ident" id="p-vRyiKlvYKl" href="#p-vRyiKlvYKl" tabindex="-1" role="presentation"></a>Aunque el método <code>DELETE</code> en nuestro servidor de archivos es capaz de eliminar directorios (usando <code>rmdir</code>), actualmente el servidor no proporciona ninguna forma de <em>crear</em> un directorio.{{index “MKCOL method”, “mkdir function”}}</p>
+<p><a class="p_ident" id="p-noPcKPskXH" href="#p-noPcKPskXH" tabindex="-1" role="presentation"></a>Aunque el método <code>DELETE</code> en nuestro servidor de archivos es capaz de eliminar directorios (usando <code>rmdir</code>), actualmente el servidor no proporciona ninguna forma de <em>crear</em> un directorio.</p>
 
 <p><a class="p_ident" id="p-t0vs3VLgD4" href="#p-t0vs3VLgD4" tabindex="-1" role="presentation"></a>Añade soporte para el método <code>MKCOL</code> (“make collection”), que debería crear un directorio llamando a <code>mkdir</code> desde el módulo <code>node:fs</code>. <code>MKCOL</code> no es un método HTTP ampliamente utilizado, pero sí existe con este mismo propósito en el estándar <em>WebDAV</em>, el cual especifica un conjunto de convenciones sobre HTTP que lo hacen adecuado para crear documentos.</p>
 

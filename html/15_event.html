@@ -104,7 +104,7 @@
 
 <p><a class="p_ident" id="p-EjYgC1f8EP" href="#p-EjYgC1f8EP" tabindex="-1" role="presentation"></a>{{indexsee propagación, “propagación de evento”}}</p>
 
-<p><a class="p_ident" id="p-ohUtevAra1" href="#p-ohUtevAra1" tabindex="-1" role="presentation"></a>Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.{{index “manejo de eventos”}}</p>
+<p><a class="p_ident" id="p-eiMQVYI0Vr" href="#p-eiMQVYI0Vr" tabindex="-1" role="presentation"></a>Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.</p>
 
 <p><a class="p_ident" id="p-LrSHxLbszG" href="#p-LrSHxLbszG" tabindex="-1" role="presentation"></a>Pero si tanto el párrafo como el botón tienen un controlador, el controlador más específico —el del botón— tiene prioridad para ejecutarse primero. Se dice que el evento <em>se propaga</em> hacia afuera, desde el nodo donde ocurrió hacia el nodo padre de ese nodo y hasta la raíz del documento. Finalmente, después de que todos los controladores registrados en un nodo específico hayan tenido su turno, los controladores registrados en toda la ventana tienen la oportunidad de responder al evento.</p>
 
@@ -144,7 +144,7 @@
 
 <p><a class="p_ident" id="p-R2pr2N9dn+" href="#p-R2pr2N9dn+" tabindex="-1" role="presentation"></a>Muchos eventos tienen una acción predeterminada asociada a ellos. Si haces clic en un enlace, serás llevado al destino del enlace. Si presionas la flecha hacia abajo, el navegador desplazará la página hacia abajo. Si haces clic derecho, obtendrás un menú contextual. Y así sucesivamente.</p>
 
-<p><a class="p_ident" id="p-uzajWzfoay" href="#p-uzajWzfoay" tabindex="-1" role="presentation"></a>Para la mayoría de los tipos de eventos, los controladores de eventos de JavaScript se ejecutan <em>antes</em> de que ocurra el comportamiento predeterminado. Si el controlador no desea que este comportamiento normal ocurra, típicamente porque ya se encargó de manejar el evento, puede llamar al método <code>preventDefault</code> en el objeto de evento.{{index de expectativas}}</p>
+<p><a class="p_ident" id="p-eCArhCpoYq" href="#p-eCArhCpoYq" tabindex="-1" role="presentation"></a>Para la mayoría de los tipos de eventos, los controladores de eventos de JavaScript se ejecutan <em>antes</em> de que ocurra el comportamiento predeterminado. Si el controlador no desea que este comportamiento normal ocurra, típicamente porque ya se encargó de manejar el evento, puede llamar al método <code>preventDefault</code> en el objeto de evento.</p>
 
 <p><a class="p_ident" id="p-RY97vdby+n" href="#p-RY97vdby+n" tabindex="-1" role="presentation"></a>Esto se puede utilizar para implementar tus propios atajos de teclado o menús contextuales. También se puede usar para interferir de manera molesta con el comportamiento que los usuarios esperan. Por ejemplo, aquí hay un enlace que no se puede seguir:</p>
 

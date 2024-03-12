@@ -62,7 +62,7 @@
 
 <p><a class="p_ident" id="p-FMtwUSWpS0" href="#p-FMtwUSWpS0" tabindex="-1" role="presentation"></a>{{index [ruta, URL], [método, HTTP]}}</p>
 
-<p><a class="p_ident" id="p-/KsGHFrTlj" href="#p-/KsGHFrTlj" tabindex="-1" role="presentation"></a>Utilizaremos JSON como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del <a href="20_node.html#file_server">Capítulo 20</a>, intentaremos hacer un buen uso de los métodos y cabeceras HTTP. La interfaz se centra en la ruta <code>/talks</code>. Las rutas que no comienzan con <code>/talks</code> se utilizarán para servir archivos estáticos—el código HTML y JavaScript para el sistema del lado del cliente.{{index “Método GET”}}</p>
+<p><a class="p_ident" id="p-NRA737W3IG" href="#p-NRA737W3IG" tabindex="-1" role="presentation"></a>Utilizaremos JSON como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del <a href="20_node.html#file_server">Capítulo 20</a>, intentaremos hacer un buen uso de los métodos y cabeceras HTTP. La interfaz se centra en la ruta <code>/talks</code>. Las rutas que no comienzan con <code>/talks</code> se utilizarán para servir archivos estáticos—el código HTML y JavaScript para el sistema del lado del cliente.</p>
 
 <p><a class="p_ident" id="p-z2nHTSSYsb" href="#p-z2nHTSSYsb" tabindex="-1" role="presentation"></a>Una solicitud <code>GET</code> a <code>/talks</code> devuelve un documento JSON como este:</p>
 
@@ -538,7 +538,7 @@ router.add(<span class="tok-string">&quot;POST&quot;</span>, <span class="tok-st
   }
 }</pre>
 
-<p><a class="p_ident" id="p-5NRA4g5yOT" href="#p-5NRA4g5yOT" tabindex="-1" role="presentation"></a>Esta es una función <code>async</code> para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.{{index “manejo de errores”, “clase Promise”, “función setTimeout”}}</p>
+<p><a class="p_ident" id="p-iXkxvTCO59" href="#p-iXkxvTCO59" tabindex="-1" role="presentation"></a>Esta es una función <code>async</code> para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.</p>
 
 <p><a class="p_ident" id="p-2TjP6xQV7g" href="#p-2TjP6xQV7g" tabindex="-1" role="presentation"></a>Cuando una solicitud falla, la función espera un momento y luego intenta nuevamente. De esta manera, si tu conexión de red se interrumpe por un tiempo y luego vuelve, la aplicación puede recuperarse y continuar actualizándose. La promesa resuelta a través de <code>setTimeout</code> es una forma de forzar a la función <code>async</code> a esperar.</p>
 
