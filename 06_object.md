@@ -1,4 +1,4 @@
-{{meta {load_files: ["code/chapter/06_object.js"], zip: "node/html"}}
+{{meta {load_files: ["code/chapter/06_object.js"], zip: "node/html"}}}
 
 # La Vida Secreta de los Objetos
 

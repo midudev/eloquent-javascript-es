@@ -1,4 +1,4 @@
-{{meta {load_files: ["code/journal.js", "code/chapter/04_data.js"], zip: "node/html"}}
+{{meta {load_files: ["code/journal.js", "code/chapter/04_data.js"], zip: "node/html"}}}
 
 # Estructuras de datos: Objetos y Arrays
 
