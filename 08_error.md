@@ -554,7 +554,9 @@ if}}
 
 {{hint
 
-{{index "primitiveMultiply (exercise)", "palabra clave try", "palabra clave catch", "palabra clave throw"}}La llamada a `primitiveMultiply` definitivamente debería ocurrir en un bloque `try`. El bloque `catch` correspondiente debería relanzar la excepción cuando no sea una instancia de `MultiplicatorUnitFailure` y asegurarse de que la llamada se reintente cuando lo sea.
+{{index "primitiveMultiply (exercise)", "palabra clave try", "palabra clave catch", "palabra clave throw"}}
+
+La llamada a `primitiveMultiply` definitivamente debería ocurrir en un bloque `try`. El bloque `catch` correspondiente debería relanzar la excepción cuando no sea una instancia de `MultiplicatorUnitFailure` y asegurarse de que la llamada se reintente cuando lo sea.
 
 Para hacer el reintentamiento, puedes usar un bucle que se detenga solo cuando una llamada tiene éxito, como en el ejemplo de [`look`](error#look) anterior en este capítulo, o usar la ((recursión)) y esperar que no tengas una cadena tan larga de fallos que colapse la pila (lo cual es bastante improbable).
 

@@ -30,8 +30,6 @@
 
 <h2><a class="h_ident" id="h-U7RnowObxe" href="#h-U7RnowObxe" tabindex="-1" role="presentation"></a>Programas modulares</h2>
 
-<p><a class="p_ident" id="p-8vhyN/BG3m" href="#p-8vhyN/BG3m" tabindex="-1" role="presentation"></a>{{index dependencia, [interfaz, módulo]}}</p>
-
 <p><a class="p_ident" id="p-yGNt7m0TYo" href="#p-yGNt7m0TYo" tabindex="-1" role="presentation"></a>Los <em>módulos</em> son un intento de evitar estos problemas. Un módulo es una parte de un programa que especifica en qué otras piezas se basa y qué funcionalidad proporciona para que otros módulos la utilicen (su <em>interfaz</em>).</p>
 
 <p><a class="p_ident" id="p-625KdRW5dL" href="#p-625KdRW5dL" tabindex="-1" role="presentation"></a>Las interfaces de los módulos tienen mucho en común con las interfaces de objetos, como las vimos en <a href="06_object.html#interface">Capítulo 6</a>. Permiten que una parte del módulo esté disponible para el mundo exterior y mantienen el resto privado.</p>
@@ -146,8 +144,6 @@ console.log(parse(<span class="tok-string">&quot;x = 10</span><span class="tok-s
 console.log(semana.nombre(semana.numero(<span class="tok-string">&quot;Domingo&quot;</span>)));
 <span class="tok-comment">// → Domingo</span></pre>
 
-<p><a class="p_ident" id="p-8vhyN/BG3m_1" href="#p-8vhyN/BG3m_1" tabindex="-1" role="presentation"></a>{{index dependencia, [interfaz, módulo]}}</p>
-
 <p><a class="p_ident" id="p-1Nis/4GWsb" href="#p-1Nis/4GWsb" tabindex="-1" role="presentation"></a>Este estilo de módulos proporciona aislamiento, hasta cierto punto, pero no declara dependencias. En cambio, simplemente coloca su interfaz en el ámbito global y espera que sus dependencias, si las tiene, hagan lo mismo. Esto no es ideal.</p>
 
 <p><a class="p_ident" id="p-6mhHLUjbEJ" href="#p-6mhHLUjbEJ" tabindex="-1" role="presentation"></a>Si implementamos nuestro propio cargador de módulos, podemos hacerlo mejor. El enfoque más ampliamente utilizado para los módulos de JavaScript agregados se llama <em>Módulos CommonJS</em>. Node.js lo utilizaba desde el principio (aunque ahora también sabe cómo cargar módulos ES) y es el sistema de módulos utilizado por muchos paquetes en NPM.</p>
@@ -203,8 +199,6 @@ require.cache = Object.create(<span class="tok-keyword">null</span>);</pre>
 
 <p><a class="p_ident" id="p-DdUC56tlYx" href="#p-DdUC56tlYx" tabindex="-1" role="presentation"></a>Para evitar cargar el mismo módulo múltiples veces, <code>require</code> mantiene una tienda (caché) de módulos ya cargados. Cuando se llama, primero comprueba si el módulo solicitado ha sido cargado y, si no, lo carga. Esto implica leer el código del módulo, envolverlo en una función y llamarlo.</p>
 
-<p><a class="p_ident" id="p-bb9mdDKkhb" href="#p-bb9mdDKkhb" tabindex="-1" role="presentation"></a>{{index “paquete ordinal”, “objeto exports”, “objeto module”, [interfaz, módulo]}}</p>
-
 <p><a class="p_ident" id="p-SN2EFHIPHc" href="#p-SN2EFHIPHc" tabindex="-1" role="presentation"></a>Al definir <code>require</code>, <code>exports</code> como parámetros para la función de envoltura generada (y pasar los valores apropiados al llamarla), el cargador se asegura de que estos enlaces estén disponibles en el ámbito del módulo.</p>
 
 <p><a class="p_ident" id="p-2Efp/NfTnP" href="#p-2Efp/NfTnP" tabindex="-1" role="presentation"></a>Una diferencia importante entre este sistema y los módulos ES es que las importaciones de módulos ES suceden antes de que comience a ejecutarse el script de un módulo, mientras que <code>require</code> es una función normal, invocada cuando el módulo ya está en ejecución. A diferencia de las declaraciones <code>import</code>, las llamadas a <code>require</code> <em>pueden</em> aparecer dentro de funciones, y el nombre de la dependencia puede ser cualquier expresión que se evalúe a una cadena, mientras que <code>import</code> solo permite cadenas simples entre comillas.</p>
@@ -228,8 +222,6 @@ require.cache = Object.create(<span class="tok-keyword">null</span>);</pre>
 <p><a class="p_ident" id="p-R7pz6CLzKn" href="#p-R7pz6CLzKn" tabindex="-1" role="presentation"></a>Estructurar programas es uno de los aspectos más sutiles de la programación. Cualquier funcionalidad no trivial puede ser organizada de diversas formas.</p>
 
 <p><a class="p_ident" id="p-gQbZwhLBAU" href="#p-gQbZwhLBAU" tabindex="-1" role="presentation"></a>Un buen diseño de programa es subjetivo—hay compensaciones implicadas y cuestiones de gusto. La mejor manera de aprender el valor de un diseño bien estructurado es leer o trabajar en muchos programas y notar qué funciona y qué no. No asumas que un desorden doloroso es “simplemente así”. Puedes mejorar la estructura de casi todo pensando más detenidamente en ello.</p>
-
-<p><a class="p_ident" id="p-ToP1InZ+8E" href="#p-ToP1InZ+8E" tabindex="-1" role="presentation"></a>{{index [interfaz, módulo]}}</p>
 
 <p><a class="p_ident" id="p-42LbB+uOK4" href="#p-42LbB+uOK4" tabindex="-1" role="presentation"></a>Un aspecto del diseño de módulos es la facilidad de uso. Si estás diseñando algo que se supone será utilizado por varias personas—o incluso por ti mismo, dentro de tres meses cuando ya no recuerdes los detalles de lo que hiciste—es útil que tu interfaz sea simple y predecible.</p>
 

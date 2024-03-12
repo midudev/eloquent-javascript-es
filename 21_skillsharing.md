@@ -68,7 +68,7 @@ Un servidor ocupado que utiliza long polling puede tener miles de solicitudes en
 
 Antes de comenzar a diseñar el servidor o el cliente, pensemos en el punto donde se conectan: la interfaz ((HTTP)) a través de la cual se comunican.
 
-{{index [ruta, URL], [método, HTTP]}}
+{{index [ruta, URL], ["método", HTTP]}}
 
 Utilizaremos ((JSON)) como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del [Capítulo ?](node#file_server), intentaremos hacer un buen uso de los métodos y ((cabecera))s HTTP. La interfaz se centra en la ruta `/talks`. Las rutas que no comienzan con `/talks` se utilizarán para servir ((archivos estáticos))—el código HTML y JavaScript para el sistema del lado del cliente.
 
@@ -161,7 +161,7 @@ Comencemos construyendo la parte del programa del lado del ((servidor)). El cód
 
 ### Enrutamiento
 
-{{index "función createServer", [ruta, URL], [método, HTTP]}}
+{{index "función createServer", [ruta, URL], ["método", HTTP]}}
 
 Nuestro servidor utilizará `createServer` de Node para iniciar un servidor HTTP. En la función que maneja una nueva solicitud, debemos distinguir entre los diferentes tipos de solicitudes (como se determina por el método y la ruta) que soportamos. Esto se puede hacer con una larga cadena de declaraciones `if`, pero hay una manera más elegante.
 

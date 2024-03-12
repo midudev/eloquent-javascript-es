@@ -237,7 +237,7 @@ Un modelo comúnmente utilizado es el de las _llamadas de procedimiento remoto_.
 
 Cuando se piensa en términos de llamadas de procedimiento remoto, HTTP es simplemente un vehículo de comunicación, y es muy probable que escribas una capa de abstracción que lo oculte por completo.
 
-{{index "tipo de medio", "formato del documento", [método, HTTP]}}
+{{index "tipo de medio", "formato del documento", ["método", HTTP]}}
 
 Otro enfoque es construir tu comunicación en torno al concepto de ((recurso))s y métodos ((HTTP)). En lugar de un procedimiento remoto llamado `addUser`, usas una solicitud `PUT` a `/usuarios/larry`. En lugar de codificar las propiedades de ese usuario en argumentos de función, defines un formato de documento JSON (o utilizas un formato existente) que represente a un usuario. El cuerpo de la solicitud `PUT` para crear un nuevo recurso es entonces dicho documento. Se obtiene un recurso realizando una solicitud `GET` a la URL del recurso (por ejemplo, `/usuario/larry`), que de nuevo devuelve el documento que representa al recurso.Este segundo enfoque facilita el uso de algunas de las características que proporciona HTTP, como el soporte para la caché de recursos (mantener una copia de un recurso en el cliente para un acceso rápido). Los conceptos utilizados en HTTP, que están bien diseñados, pueden proporcionar un conjunto útil de principios para diseñar la interfaz de tu servidor.
 

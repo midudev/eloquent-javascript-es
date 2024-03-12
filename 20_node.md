@@ -346,7 +346,7 @@ La llamada a `server.listen` hace que el ((servidor)) comience a esperar conexio
 
 Cuando ejecutas este script, el proceso se queda esperando. Cuando un script está escuchando eventos —en este caso, conexiones de red—, `node` no se cerrará automáticamente al llegar al final del script. Para cerrarlo, presiona [control]{keyname}-C.
 
-{{index [método, HTTP]}}
+{{index ["método", HTTP]}}
 
 Un verdadero servidor web ((server)) usualmente hace más cosas que el ejemplo; examina el ((método)) de la solicitud (la propiedad `method`) para ver qué acción está intentando realizar el cliente y mira el ((URL)) de la solicitud para descubrir sobre qué recurso se está realizando esta acción. Veremos un servidor más avanzado [más adelante en este capítulo](node#file_server).
 

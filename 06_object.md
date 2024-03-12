@@ -281,7 +281,7 @@ console.log(object.getWord());
 
 Es común que las clases definan algunas propiedades y métodos para uso interno, que no forman parte de su ((interfaz)). Estas se llaman propiedades _privadas_, en contraposición a las públicas, que son parte de la interfaz externa del objeto.
 
-{{index [método, privado]}}
+{{index ["método", privado]}}
 
 Para declarar un método privado, coloca un signo `#` delante de su nombre. Estos métodos solo pueden ser llamados desde dentro de la declaración de la `class` que los define.
 

@@ -540,7 +540,7 @@ Pero solo pasan unos pocos meses antes de que se dé cuenta de que algo falta en
 
 ## Más arreología
 
-{{index [array, "métodos"], [método, array]}}
+{{index [array, "métodos"], ["método", array]}}
 
 Antes de terminar el capítulo, quiero presentarte algunos conceptos más relacionados con objetos. Comenzaré presentando algunos métodos de array generalmente útiles.
 
