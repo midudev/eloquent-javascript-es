@@ -35,7 +35,7 @@
 
 <h2><a class="h_ident" id="h-2eDSr4FTTr" href="#h-2eDSr4FTTr" tabindex="-1" role="presentation"></a>Números</h2>
 
-<p><a class="p_ident" id="p-FxC0bT4JSN" href="#p-FxC0bT4JSN" tabindex="-1" role="presentation"></a>{{index [sintaxis, número], número, [número, notación]}}</p>
+<p><a class="p_ident" id="p-FxC0bT4JSN" href="#p-FxC0bT4JSN" tabindex="-1" role="presentation"></a>{{index [sintaxis, “número”], “número”, [“número”, notación]}}</p>
 
 <p><a class="p_ident" id="p-bOZDjE7yem" href="#p-bOZDjE7yem" tabindex="-1" role="presentation"></a>Los valores del tipo <em>number</em> son, como era de esperar, valores numéricos. En un programa de JavaScript, se escriben de la siguiente manera:</p>
 
@@ -43,29 +43,21 @@
 
 <p><a class="p_ident" id="p-2b0WdUMWiY" href="#p-2b0WdUMWiY" tabindex="-1" role="presentation"></a>Usar esto en un programa hará que el patrón de bits para el número 13 exista en la memoria del ordenador.</p>
 
-<p><a class="p_ident" id="p-2DYIDeZRdZ" href="#p-2DYIDeZRdZ" tabindex="-1" role="presentation"></a>{{index [número, representación], bit}}</p>
-
 <p><a class="p_ident" id="p-iNSri5YZBd" href="#p-iNSri5YZBd" tabindex="-1" role="presentation"></a>JavaScript utiliza un número fijo de bits, 64 de ellos, para almacenar un único valor numérico. Solo hay tantos patrones que puedes hacer con 64 bits, lo que limita la cantidad de números diferentes que se pueden representar. Con <em>N</em> dígitos decimales, puedes representar 10<sup>N</sup> números. De manera similar, dada una cifra de 64 dígitos binarios, puedes representar 2<sup>64</sup> números diferentes, que son alrededor de 18 mil trillones (un 18 seguido de 18 ceros). Eso es mucho.</p>
 
 <p><a class="p_ident" id="p-zoQfMGsjpS" href="#p-zoQfMGsjpS" tabindex="-1" role="presentation"></a>La memoria de la computadora solía ser mucho más pequeña, y la gente solía utilizar grupos de 8 o 16 bits para representar sus números. Era fácil tener un <em>desbordamiento</em> accidental con números tan pequeños, terminando con un número que no encajaba en la cantidad dada de bits. Hoy en día, incluso las computadoras que caben en tu bolsillo tienen mucha memoria, por lo que puedes utilizar trozos de 64 bits y solo necesitas preocuparte por el desbordamiento cuando lidias con números realmente astronómicos.</p>
 
 <p><a class="p_ident" id="p-g9ZdolZbnN" href="#p-g9ZdolZbnN" tabindex="-1" role="presentation"></a>Sin embargo, no todos los números enteros menores que 18 mil trillones encajan en un número de JavaScript. Esos bits también almacenan números negativos, por lo que un bit indica el signo del número. Un problema más grande es representar números no enteros. Para hacer esto, algunos de los bits se utilizan para almacenar la posición del punto decimal. El número entero máximo real que se puede almacenar está más en el rango de 9 cuatrillones (15 ceros), que sigue siendo increíblemente grande.</p>
 
-<p><a class="p_ident" id="p-hstYPAycsg" href="#p-hstYPAycsg" tabindex="-1" role="presentation"></a>{{index [número, notación], “número fraccionario”}}</p>
-
 <p><a class="p_ident" id="p-QuaxCY0XYg" href="#p-QuaxCY0XYg" tabindex="-1" role="presentation"></a>Los números fraccionarios se escriben usando un punto:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-tM8nqv41Gp" href="#c-tM8nqv41Gp" tabindex="-1" role="presentation"></a><span class="tok-number">9.81</span></pre>
-
-<p><a class="p_ident" id="p-kwgMEx56lv" href="#p-kwgMEx56lv" tabindex="-1" role="presentation"></a>{{index exponente, “notación científica”, [número, notación]}}</p>
 
 <p><a class="p_ident" id="p-swGkw2BgKN" href="#p-swGkw2BgKN" tabindex="-1" role="presentation"></a>Para números muy grandes o muy pequeños, también puedes usar notación científica agregando una <em>e</em> (de <em>exponente</em>), seguida del exponente del número:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-6ew5w+VhSM" href="#c-6ew5w+VhSM" tabindex="-1" role="presentation"></a><span class="tok-number">2.998e8</span></pre>
 
 <p><a class="p_ident" id="p-vx7ox7vlBw" href="#p-vx7ox7vlBw" tabindex="-1" role="presentation"></a>Eso es 2.998 × 10<sup>8</sup> = 299,800,000.</p>
-
-<p><a class="p_ident" id="p-y3YPiGXSki" href="#p-y3YPiGXSki" tabindex="-1" role="presentation"></a>{{index pi, [número, “precisión de”], “número de punto flotante”}}</p>
 
 <p><a class="p_ident" id="p-At4IfW0/+5" href="#p-At4IfW0/+5" tabindex="-1" role="presentation"></a>Los cálculos con números enteros (también llamados <em>enteros</em>) que son más pequeños que los mencionados 9 cuatrillones siempre serán precisos. Desafortunadamente, los cálculos con números fraccionarios generalmente no lo son. Así como π (pi) no puede expresarse con precisión mediante un número finito de dígitos decimales, muchos números pierden algo de precisión cuando solo están disponibles 64 bits para almacenarlos. Es una lástima, pero solo causa problemas prácticos en situaciones específicas. Lo importante es ser consciente de esto y tratar los números digitales fraccionarios como aproximaciones, no como valores precisos.</p>
 
@@ -75,11 +67,7 @@
 
 <pre tabindex="0" class="snippet" data-language="javascript"  data-meta="expr"><a class="c_ident" id="c-bSU4Vtv/mt" href="#c-bSU4Vtv/mt" tabindex="-1" role="presentation"></a><span class="tok-number">100</span> + <span class="tok-number">4</span> * <span class="tok-number">11</span></pre>
 
-<p><a class="p_ident" id="p-7UtExkBiqB" href="#p-7UtExkBiqB" tabindex="-1" role="presentation"></a>{{index [operador, aplicación], asterisco, “carácter de suma”, “operador *&quot;, “operador +&quot;}}</p>
-
 <p><a class="p_ident" id="p-PNPKgKWrHK" href="#p-PNPKgKWrHK" tabindex="-1" role="presentation"></a>Los símbolos <code>+</code> y <code>*</code> se llaman <em>operadores</em>. El primero representa la suma y el segundo representa la multiplicación. Colocar un operador entre dos valores aplicará ese operador a esos valores y producirá un nuevo valor.</p>
-
-<p><a class="p_ident" id="p-28/up+ncxZ" href="#p-28/up+ncxZ" tabindex="-1" role="presentation"></a>{{index agrupación, paréntesis, precedencia}}</p>
 
 <p><a class="p_ident" id="p-rbQOL3GnYq" href="#p-rbQOL3GnYq" tabindex="-1" role="presentation"></a>¿Significa este ejemplo “Sumar 4 y 100, y luego multiplicar el resultado por 11”, o se realiza primero la multiplicación antes de la suma? Como habrás adivinado, la multiplicación se realiza primero. Como en matemáticas, puedes cambiar esto envolviendo la suma entre paréntesis:</p>
 
@@ -93,13 +81,9 @@
 
 <p><a class="p_ident" id="p-icq/wIw6Tp" href="#p-icq/wIw6Tp" tabindex="-1" role="presentation"></a>No te preocupes demasiado por estas reglas de precedencia. Cuando tengas dudas, simplemente agrega paréntesis.</p>
 
-<p><a class="p_ident" id="p-naqWkcme+E" href="#p-naqWkcme+E" tabindex="-1" role="presentation"></a>{{index “operador de módulo”, división, “operador de residuo”, &quot;% operator”}}</p>
-
 <p><a class="p_ident" id="p-6mDQ8afNaM" href="#p-6mDQ8afNaM" tabindex="-1" role="presentation"></a>Hay un operador aritmético más, que quizás no reconozcas de inmediato. El símbolo <code>%</code> se utiliza para representar la operación de <em>residuo</em>. <code>X % Y</code> es el residuo de dividir <code>X</code> por <code>Y</code>. Por ejemplo, <code>314 % 100</code> produce <code>14</code>, y <code>144 % 12</code> da <code>0</code>. La precedencia del operador de residuo es la misma que la de multiplicación y división. También verás a menudo a este operador referido como <em>módulo</em>.</p>
 
 <h3><a class="i_ident" id="i-zFIgofBZed" href="#i-zFIgofBZed" tabindex="-1" role="presentation"></a>Números especiales</h3>
-
-<p><a class="p_ident" id="p-ntpn9bU720" href="#p-ntpn9bU720" tabindex="-1" role="presentation"></a>{{index [número, “valores especiales”], infinito}}</p>
 
 <p><a class="p_ident" id="p-Yzdmqjc9np" href="#p-Yzdmqjc9np" tabindex="-1" role="presentation"></a>Hay tres valores especiales en JavaScript que se consideran números pero no se comportan como números normales. Los dos primeros son <code>Infinity</code> y <code>-Infinity</code>, que representan el infinito positivo y negativo. <code>Infinity - 1</code> sigue siendo <code>Infinity</code>, y así sucesivamente. Sin embargo, no confíes demasiado en los cálculos basados en infinito. No es matemáticamente sólido y rápidamente te llevará al siguiente número especial: <code>NaN</code>.</p>
 
@@ -107,7 +91,9 @@
 
 <h2><a class="h_ident" id="h-J4o1MED4vw" href="#h-J4o1MED4vw" tabindex="-1" role="presentation"></a>Cadenas</h2>
 
-<p><a class="p_ident" id="p-tbZSLIWfYo" href="#p-tbZSLIWfYo" tabindex="-1" role="presentation"></a>{{index [sintaxis, cadena], texto, carácter, [cadena, notación], “comilla simple”, “comilla doble”, comillas, comilla invertida}}El siguiente tipo de dato básico es la <em>cadena</em>. Las cadenas se utilizan para representar texto. Se escriben encerrando su contenido entre comillas.</p>
+<p><a class="p_ident" id="p-Dz5CZXBxxz" href="#p-Dz5CZXBxxz" tabindex="-1" role="presentation"></a>{{index [sintaxis, cadena], texto, “carácter”, [cadena, notación], “comilla simple”, “comilla doble”, comillas, comilla invertida}}</p>
+
+<p><a class="p_ident" id="p-LSngdQYH80" href="#p-LSngdQYH80" tabindex="-1" role="presentation"></a>El siguiente tipo de dato básico es la <em>cadena</em>. Las cadenas se utilizan para representar texto. Se escriben encerrando su contenido entre comillas.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qjwe3Dgr5R" href="#c-qjwe3Dgr5R" tabindex="-1" role="presentation"></a><span class="tok-string2">`En el mar`</span>
 <span class="tok-string">&quot;Acostado en el océano&quot;</span>
@@ -130,21 +116,15 @@ Y esta es la segunda</pre>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-vqlaw2tox2" href="#c-vqlaw2tox2" tabindex="-1" role="presentation"></a><span class="tok-string">&quot;Un carácter de nueva línea se escribe como </span><span class="tok-string2">\&quot;</span><span class="tok-string2">\\</span><span class="tok-string">n</span><span class="tok-string2">\&quot;</span><span class="tok-string">.&quot;</span></pre>
 
-<p id="unicode"><a class="p_ident" id="p-tMHGzIw4Xf" href="#p-tMHGzIw4Xf" tabindex="-1" role="presentation"></a>{{index [cadena, representación], Unicode, carácter}}</p>
-
-<p><a class="p_ident" id="p-mbzJaYAs/g" href="#p-mbzJaYAs/g" tabindex="-1" role="presentation"></a>Las cadenas también deben ser modeladas como una serie de bits para poder existir dentro de la computadora. La forma en que JavaScript lo hace se basa en el estándar <em>Unicode</em>. Este estándar asigna un número a prácticamente cada carácter que puedas necesitar, incluidos los caracteres griegos, árabes, japoneses, armenios, y así sucesivamente. Si tenemos un número para cada carácter, una cadena puede ser descrita por una secuencia de números. Y eso es lo que hace JavaScript.</p>
+<p id="unicode"><a class="p_ident" id="p-mbzJaYAs/g" href="#p-mbzJaYAs/g" tabindex="-1" role="presentation"></a>Las cadenas también deben ser modeladas como una serie de bits para poder existir dentro de la computadora. La forma en que JavaScript lo hace se basa en el estándar <em>Unicode</em>. Este estándar asigna un número a prácticamente cada carácter que puedas necesitar, incluidos los caracteres griegos, árabes, japoneses, armenios, y así sucesivamente. Si tenemos un número para cada carácter, una cadena puede ser descrita por una secuencia de números. Y eso es lo que hace JavaScript.</p>
 
 <p><a class="p_ident" id="p-KFiTtRshm2" href="#p-KFiTtRshm2" tabindex="-1" role="presentation"></a>Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2<sup>16</sup> caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos “posiciones de caracteres” en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?] (higher_order#code_units).</p>
-
-<p><a class="p_ident" id="p-Hhgu1LorgP" href="#p-Hhgu1LorgP" tabindex="-1" role="presentation"></a>{{index “operador +&quot;, concatenación}}</p>
 
 <p><a class="p_ident" id="p-yVQTjTfX8O" href="#p-yVQTjTfX8O" tabindex="-1" role="presentation"></a>Las cadenas no se pueden dividir, multiplicar o restar. El operador <code>+</code> se puede usar en ellas, no para sumar, sino para <em>concatenar</em> —unir dos cadenas. La siguiente línea producirá la cadena <code>&quot;concatenar&quot;</code>:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript"  data-meta="expr"><a class="c_ident" id="c-eCO7oekmP9" href="#c-eCO7oekmP9" tabindex="-1" role="presentation"></a><span class="tok-string">&quot;con&quot;</span> + <span class="tok-string">&quot;cat&quot;</span> + <span class="tok-string">&quot;e&quot;</span> + <span class="tok-string">&quot;nate&quot;</span></pre>
 
 <p><a class="p_ident" id="p-T3iEY8dvWU" href="#p-T3iEY8dvWU" tabindex="-1" role="presentation"></a>Los valores de cadena tienen una serie de funciones asociadas (<em>métodos</em>) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en <a href="04_data.html#methods">Capítulo 4</a>.</p>
-
-<p><a class="p_ident" id="p-5FiP7hkQ3P" href="#p-5FiP7hkQ3P" tabindex="-1" role="presentation"></a>{{index interpolación, acento grave}}</p>
 
 <p><a class="p_ident" id="p-ihSs5peL7s" href="#p-ihSs5peL7s" tabindex="-1" role="presentation"></a>Las cadenas escritas con comillas simples o dobles se comportan de manera muy similar, la única diferencia radica en qué tipo de comilla necesitas escapar dentro de ellas. Las cadenas entre acentos graves, generalmente llamadas <em>template literals</em>, pueden hacer algunas cosas más. Aparte de poder abarcar varias líneas, también pueden incrustar otros valores.</p>
 
@@ -163,8 +143,6 @@ console.log(<span class="tok-keyword">typeof</span> <span class="tok-string">&qu
 
 <p id="console.log"><a class="p_ident" id="p-8bF6kfCQe4" href="#p-8bF6kfCQe4" tabindex="-1" role="presentation"></a>Utilizaremos <code>console.log</code> en ejemplos de código para indicar que queremos ver el resultado de evaluar algo. Más sobre eso en el <a href="02_program_structure.html">próximo capítulo</a>.</p>
 
-<p><a class="p_ident" id="p-e2YUK5357I" href="#p-e2YUK5357I" tabindex="-1" role="presentation"></a>{{index negación, &quot;- operador”, “operador binario”, “operador unario”}}</p>
-
 <p><a class="p_ident" id="p-IOtfkjfLvQ" href="#p-IOtfkjfLvQ" tabindex="-1" role="presentation"></a>Los otros operadores mostrados hasta ahora en este capítulo operaron sobre dos valores, pero <code>typeof</code> toma solo uno. Los operadores que utilizan dos valores se llaman operadores <em>binarios</em>, mientras que aquellos que toman uno se llaman operadores <em>unarios</em>. El operador menos se puede usar tanto como un operador binario como un operador unario.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VpL89RFAPj" href="#c-VpL89RFAPj" tabindex="-1" role="presentation"></a>console.log(- (<span class="tok-number">10</span> - <span class="tok-number">2</span>))
@@ -176,8 +154,6 @@ console.log(<span class="tok-keyword">typeof</span> <span class="tok-string">&qu
 
 <h3><a class="i_ident" id="i-j8pkHXp4wK" href="#i-j8pkHXp4wK" tabindex="-1" role="presentation"></a>Comparación</h3>
 
-<p><a class="p_ident" id="p-ZIZw9cWyXa" href="#p-ZIZw9cWyXa" tabindex="-1" role="presentation"></a>{{index comparación}}</p>
-
 <p><a class="p_ident" id="p-9jdGN2oSxe" href="#p-9jdGN2oSxe" tabindex="-1" role="presentation"></a>Aquí hay una forma de producir valores booleanos:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-GaxnXrIPwC" href="#c-GaxnXrIPwC" tabindex="-1" role="presentation"></a>console.log(<span class="tok-number">3</span> &gt; <span class="tok-number">2</span>)
@@ -185,16 +161,12 @@ console.log(<span class="tok-keyword">typeof</span> <span class="tok-string">&qu
 console.log(<span class="tok-number">3</span> &lt; <span class="tok-number">2</span>)
 <span class="tok-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p-U0/mcmX8K9" href="#p-U0/mcmX8K9" tabindex="-1" role="presentation"></a>{{index [comparación, “de números”], &quot;&gt; operador”, &quot;&lt; operador”, “más grande que”, “menos que”}}</p>
-
 <p><a class="p_ident" id="p-RXzYYl/NBh" href="#p-RXzYYl/NBh" tabindex="-1" role="presentation"></a>Los signos <code>&gt;</code> y <code>&lt;</code> son símbolos tradicionales para “es mayor que” y “es menor que”, respectivamente. Son operadores binarios. Aplicarlos da como resultado un valor booleano que indica si son verdaderos en este caso.</p>
 
 <p><a class="p_ident" id="p-Ch4A0mWDGs" href="#p-Ch4A0mWDGs" tabindex="-1" role="presentation"></a>Las cadenas se pueden comparar de la misma manera:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Qud5plnVuV" href="#c-Qud5plnVuV" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;Aardvark&quot;</span> &lt; <span class="tok-string">&quot;Zoroaster&quot;</span>)
 <span class="tok-comment">// → true</span></pre>
-
-<p><a class="p_ident" id="p-fkjsXYIJqa" href="#p-fkjsXYIJqa" tabindex="-1" role="presentation"></a>{{index [comparación, “de cadenas”]}}</p>
 
 <p><a class="p_ident" id="p-D+mD6K0/Wd" href="#p-D+mD6K0/Wd" tabindex="-1" role="presentation"></a>La forma en que se ordenan las cadenas es aproximadamente alfabética pero no es realmente lo que esperarías ver en un diccionario: las letras mayúsculas son siempre “menores” que las minúsculas, por lo que <code>&quot;Z&quot; &lt; &quot;a&quot;</code>, y los caracteres no alfabéticos (!, -, y así sucesivamente) también se incluyen en la ordenación. Al comparar cadenas, JavaScript recorre los caracteres de izquierda a derecha, comparando los códigos Unicode uno por uno.</p>
 
@@ -204,8 +176,6 @@ console.log(<span class="tok-number">3</span> &lt; <span class="tok-number">2</s
 <span class="tok-comment">// → true</span>
 console.log(<span class="tok-string">&quot;Perla&quot;</span> == <span class="tok-string">&quot;Amatista&quot;</span>)
 <span class="tok-comment">// → false</span></pre>
-
-<p><a class="p_ident" id="p-XZ71IrjT5y" href="#p-XZ71IrjT5y" tabindex="-1" role="presentation"></a>{{index [comparación, “de NaN”], NaN}}</p>
 
 <p><a class="p_ident" id="p-qeF5rEgoVg" href="#p-qeF5rEgoVg" tabindex="-1" role="presentation"></a>Solo hay un valor en JavaScript que no es igual a sí mismo, y ese es <code>NaN</code> (“no es un número”).</p>
 
@@ -231,8 +201,6 @@ console.log(true &amp;&amp; true)
 <span class="tok-comment">// → true</span>
 console.log(false || false)
 <span class="tok-comment">// → false</span></pre>
-
-<p><a class="p_ident" id="p-sNRGBV6VpT" href="#p-sNRGBV6VpT" tabindex="-1" role="presentation"></a>{{index negación, &quot;! operador”}}</p>
 
 <p><a class="p_ident" id="p-yd+g1Em++r" href="#p-yd+g1Em++r" tabindex="-1" role="presentation"></a><em>Not</em> se escribe con un signo de exclamación (<code>!</code>). Es un operador unario que invierte el valor dado; <code>!true</code> produce <code>false</code> y <code>!false</code> produce <code>true</code>.</p>
 
@@ -270,15 +238,9 @@ console.log(<span class="tok-string">&quot;five&quot;</span> * <span class="tok-
 console.log(false == <span class="tok-number">0</span>)
 <span class="tok-comment">// → true</span></pre>
 
-<p><a class="p_ident" id="p-1clOqO+CN1" href="#p-1clOqO+CN1" tabindex="-1" role="presentation"></a>{{index &quot;+ operator”, aritmética, &quot;* operator”, &quot;- operator”}}</p>
-
 <p><a class="p_ident" id="p-kB8tbSpJvt" href="#p-kB8tbSpJvt" tabindex="-1" role="presentation"></a>Cuando se aplica un operador al tipo de valor “incorrecto”, JavaScript convertirá silenciosamente ese valor al tipo que necesita, utilizando un conjunto de reglas que a menudo no son las que deseas o esperas. Esto se llama <em>coerción de tipos</em>. El <code>null</code> en la primera expresión se convierte en <code>0</code> y el <code>&quot;5&quot;</code> en la segunda expresión se convierte en <code>5</code> (de cadena a número). Sin embargo, en la tercera expresión, <code>+</code> intenta la concatenación de cadenas antes que la suma numérica, por lo que el <code>1</code> se convierte en <code>&quot;1&quot;</code> (de número a cadena).</p>
 
-<p><a class="p_ident" id="p-GO6g12MsYJ" href="#p-GO6g12MsYJ" tabindex="-1" role="presentation"></a>{{index “coerción de tipos”, [número, “conversión a”]}}</p>
-
 <p><a class="p_ident" id="p-jcnJfAvvp6" href="#p-jcnJfAvvp6" tabindex="-1" role="presentation"></a>Cuando algo que no se corresponde con un número de manera obvia (como <code>&quot;five&quot;</code> o <code>undefined</code>) se convierte en un número, obtienes el valor <code>NaN</code>. Más operaciones aritméticas en <code>NaN</code> siguen produciendo <code>NaN</code>, así que si te encuentras con uno de estos en un lugar inesperado, busca conversiones de tipo accidentales.</p>
-
-<p><a class="p_ident" id="p-GCwviAAkm5" href="#p-GCwviAAkm5" tabindex="-1" role="presentation"></a>{{index null, undefined, [comparación, “de valores undefined”], &quot;== operador”}}</p>
 
 <p><a class="p_ident" id="p-qunwSNidbj" href="#p-qunwSNidbj" tabindex="-1" role="presentation"></a>Cuando se comparan valores del mismo tipo usando el operador <code>==</code>, el resultado es fácil de predecir: deberías obtener verdadero cuando ambos valores son iguales, excepto en el caso de <code>NaN</code>. Pero cuando los tipos difieren, JavaScript utiliza un conjunto de reglas complicado y confuso para determinar qué hacer. En la mayoría de los casos, simplemente intenta convertir uno de los valores al tipo del otro valor. Sin embargo, cuando <code>null</code> o <code>undefined</code> aparece en cualquiera de los lados del operador, produce verdadero solo si ambos lados son uno de <code>null</code> o <code>undefined</code>.</p>
 
@@ -288,8 +250,6 @@ console.log(<span class="tok-keyword">null</span> == <span class="tok-number">0<
 <span class="tok-comment">// → false</span></pre>
 
 <p><a class="p_ident" id="p-Xtu7tKxIxD" href="#p-Xtu7tKxIxD" tabindex="-1" role="presentation"></a>Ese comportamiento a menudo es útil. Cuando quieres probar si un valor tiene un valor real en lugar de <code>null</code> o <code>undefined</code>, puedes compararlo con <code>null</code> usando el operador <code>==</code> o <code>!=</code>.</p>
-
-<p><a class="p_ident" id="p-lwBV+IZkIb" href="#p-lwBV+IZkIb" tabindex="-1" role="presentation"></a>{{index “coerción de tipos”, [Boolean, “conversión a”], &quot;=== operador”, &quot;!== operador”, comparación}}</p>
 
 <p><a class="p_ident" id="p-ov1vMdqygq" href="#p-ov1vMdqygq" tabindex="-1" role="presentation"></a>¿Qué sucede si quieres probar si algo se refiere al valor preciso <code>false</code>? Expresiones como <code>0 == false</code> y <code>&quot;&quot; == false</code> también son verdaderas debido a la conversión automática de tipos. Cuando <em>no</em> deseas que ocurran conversiones de tipo, hay dos operadores adicionales: <code>===</code> y <code>!==</code>. El primero prueba si un valor es <em>precisamente</em> igual al otro, y el segundo prueba si no es precisamente igual. Por lo tanto, <code>&quot;&quot; === false</code> es falso como se espera.Recomiendo usar los operadores de comparación de tres caracteres defensivamente para evitar conversiones de tipo inesperadas que puedan complicarte las cosas. Pero cuando estés seguro de que los tipos en ambos lados serán los mismos, no hay problema en usar los operadores más cortos.</p>
 
