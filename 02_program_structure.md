@@ -170,7 +170,7 @@ prompt("Ingrese el código de acceso");
 
 {{figure {url: "img/prompt.png", alt: "Un cuadro de diálogo que dice 'ingrese el código de acceso'", width: "8cm"}}}
 
-{{index parámetro, ["función", "aplicación"], ["paréntesis", argumentos]}}
+{{index "parámetro", ["función", "aplicación"], ["paréntesis", argumentos]}}
 
 Ejecutar una función se llama _invocar_, _llamar_, o _aplicar_ la función. Puedes llamar una función poniendo paréntesis después de una expresión que produce un valor de función. Usualmente usarás directamente el nombre del enlace que contiene la función. Los valores entre paréntesis se le pasan al programa dentro de la función. En el ejemplo, la función `prompt` utiliza la cadena que le pasamos como el texto a mostrar en el cuadro de diálogo. Los valores dados a las funciones se llaman _((argumento))s_. Diferentes funciones pueden necesitar un número diferente o diferentes tipos de argumentos.
 
@@ -201,7 +201,7 @@ Aunque los nombres de enlaces no pueden contener ((puntos)), `console.log` tiene
 {{id valores_retorno}}
 ## Valores de retorno
 
-{{index [comparación, "de números"], "valor de retorno", función "Math.max", máximo}}
+{{index ["comparación", "de números"], "valor de retorno", "función Math.max", "máximo"}}
 
 Mostrar un cuadro de diálogo o escribir texto en la pantalla es un ((efecto secundario)). Muchas funciones son útiles debido a los efectos secundarios que producen. Las funciones también pueden producir valores, en cuyo caso no necesitan tener un efecto secundario para ser útiles. Por ejemplo, la función `Math.max` toma cualquier cantidad de argumentos numéricos y devuelve el mayor:
 
@@ -233,7 +233,7 @@ console.log("Tu número es la raíz cuadrada de " +
             elNumero * elNumero);
 ```
 
-{{index [número, "conversión a"], "coerción de tipo", "función Number", "función String", "función Boolean", [Boolean, "conversión a"]}}
+{{index ["número", "conversión a"], "coerción de tipo", "función Number", "función String", "función Boolean", [Boolean, "conversión a"]}}
 
 La función `Number` convierte un valor a un número. Necesitamos esa conversión porque el resultado de `prompt` es un valor de tipo string, y queremos un número. Hay funciones similares llamadas `String` y `Boolean` que convierten valores a esos tipos.
 
@@ -263,7 +263,7 @@ if (!Number.isNaN(elNumero)) {
 
 Con esta modificación, si introduces "loro", no se mostrará ninguna salida.
 
-{{index [paréntesis, sentencia]}}
+{{index ["paréntesis", sentencia]}}
 
 La palabra clave `if` ejecuta o salta una sentencia dependiendo del valor de una expresión booleana. La expresión de decisión se escribe después de la palabra clave, entre paréntesis, seguida de la sentencia a ejecutar.
 
@@ -271,7 +271,7 @@ La palabra clave `if` ejecuta o salta una sentencia dependiendo del valor de una
 
 La función `Number.isNaN` es una función estándar de JavaScript que devuelve `true` solo si el argumento que se le pasa es `NaN`. La función `Number` devuelve `NaN` cuando le das una cadena que no representa un número válido. Por lo tanto, la condición se traduce a "a menos que `elNumero` no sea un número, haz esto".
 
-{{index agrupación, "{} (bloque)", [llaves, "bloque"]}}
+{{index "agrupación", "{} (bloque)", [llaves, "bloque"]}}
 
 La sentencia después del `if` está envuelta entre llaves (`{` y `}`) en este ejemplo. Las llaves se pueden usar para agrupar cualquier cantidad de sentencias en una sola sentencia, llamada un _((bloque))_. También podrías haber omitido en este caso, ya que contienen solo una sentencia, pero para evitar tener que pensar si son necesarias, la mayoría de los programadores de JavaScript las usan en cada sentencia envuelta de esta manera. Seguiremos principalmente esa convención en este libro, excepto por los casos ocasionales de una sola línea.
 
@@ -356,11 +356,11 @@ while (numero <= 12) {
 
 Un ((statement)) que comienza con la palabra clave `while` crea un bucle. La palabra `while` va seguida de una ((expresión)) entre paréntesis y luego un enunciado, similar a `if`. El bucle sigue ejecutando ese enunciado mientras la expresión produzca un valor que se convierta en `true` al convertirse a Booleano.
 
-{{index [estado, en enlace], [enlace, como estado]}}
+{{index [estado, "en enlace"], [enlace, "como estado"]}}
 
 El enlace 'number' demuestra la forma en que un ((enlace)) puede seguir el progreso de un programa. Cada vez que se repite el bucle, 'number' obtiene un valor que es 2 más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.
 
-{{index exponenciación}}
+{{index "exponenciación"}}
 
 Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2^10^ (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ha alcanzado 10 aún y, si no, actualiza ambos enlaces.
 
@@ -399,7 +399,7 @@ Este programa te obligará a ingresar un nombre. Preguntará una y otra vez hast
 
 ## Sangrado de Código
 
-{{index [código, "estructura de"], [espacios en blanco, sangrado], "estilo de programación"}}
+{{index ["código", "estructura de"], [espacios en blanco, sangrado], "estilo de programación"}}
 
 En los ejemplos, he estado agregando espacios delante de las sentencias que son parte de alguna otra sentencia más grande. Estos espacios no son necesarios: la computadora aceptará el programa perfectamente sin ellos. De hecho, incluso los ((saltos)) de línea en los programas son opcionales. Podrías escribir un programa como una sola línea larga si así lo deseas.
 

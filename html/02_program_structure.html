@@ -118,8 +118,6 @@ switch this throw true try typeof var void while with yield</pre>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-bHK8mBbYwR" href="#c-bHK8mBbYwR" tabindex="-1" role="presentation"></a>prompt(<span class="tok-string">&quot;Ingrese el código de acceso&quot;</span>);</pre><figure><img src="img/prompt.png" alt="Un cuadro de diálogo que dice 'ingrese el código de acceso'"></figure>
 
-<p><a class="p_ident" id="p-Y+7LpvzMiV" href="#p-Y+7LpvzMiV" tabindex="-1" role="presentation"></a>{{index parámetro, [“función”, “aplicación”], [“paréntesis”, argumentos]}}</p>
-
 <p><a class="p_ident" id="p-ndYtFXmH+W" href="#p-ndYtFXmH+W" tabindex="-1" role="presentation"></a>Ejecutar una función se llama <em>invocar</em>, <em>llamar</em>, o <em>aplicar</em> la función. Puedes llamar una función poniendo paréntesis después de una expresión que produce un valor de función. Usualmente usarás directamente el nombre del enlace que contiene la función. Los valores entre paréntesis se le pasan al programa dentro de la función. En el ejemplo, la función <code>prompt</code> utiliza la cadena que le pasamos como el texto a mostrar en el cuadro de diálogo. Los valores dados a las funciones se llaman <em>argumentos</em>. Diferentes funciones pueden necesitar un número diferente o diferentes tipos de argumentos.</p>
 
 <p><a class="p_ident" id="p-ocgjHJ27CZ" href="#p-ocgjHJ27CZ" tabindex="-1" role="presentation"></a>La función <code>prompt</code> no se usa mucho en la programación web moderna, principalmente porque no tienes control sobre cómo se ve el cuadro de diálogo resultante, pero puede ser útil en programas simples y experimentos.</p>
@@ -137,8 +135,6 @@ console.log(<span class="tok-string">&quot;el valor de x es&quot;</span>, x);
 <p><a class="p_ident" id="p-E3PxdGOQsJ" href="#p-E3PxdGOQsJ" tabindex="-1" role="presentation"></a>Aunque los nombres de enlaces no pueden contener puntos, <code>console.log</code> tiene uno. Esto se debe a que <code>console.log</code> no es un simple enlace, sino una expresión que recupera la propiedad <code>log</code> del valor contenido por el enlace <code>console</code>. Descubriremos exactamente lo que esto significa en <a href="04_data.html#propiedades">Capítulo 4</a>.</p>
 
 <h2 id="valores_retorno"><a class="h_ident" id="h-xdOUAXPBXv" href="#h-xdOUAXPBXv" tabindex="-1" role="presentation"></a>Valores de retorno</h2>
-
-<p><a class="p_ident" id="p-JawhVq8WdA" href="#p-JawhVq8WdA" tabindex="-1" role="presentation"></a>{{index [comparación, “de números”], “valor de retorno”, función “Math.max”, máximo}}</p>
 
 <p><a class="p_ident" id="p-+t4lXUwK/u" href="#p-+t4lXUwK/u" tabindex="-1" role="presentation"></a>Mostrar un cuadro de diálogo o escribir texto en la pantalla es un efecto secundario. Muchas funciones son útiles debido a los efectos secundarios que producen. Las funciones también pueden producir valores, en cuyo caso no necesitan tener un efecto secundario para ser útiles. Por ejemplo, la función <code>Math.max</code> toma cualquier cantidad de argumentos numéricos y devuelve el mayor:</p>
 
@@ -160,8 +156,6 @@ console.log(<span class="tok-string">&quot;el valor de x es&quot;</span>, x);
 console.log(<span class="tok-string">&quot;Tu número es la raíz cuadrada de &quot;</span> +
             elNumero * elNumero);</pre>
 
-<p><a class="p_ident" id="p-W+lGwsgd74" href="#p-W+lGwsgd74" tabindex="-1" role="presentation"></a>{{index [número, “conversión a”], “coerción de tipo”, “función Number”, “función String”, “función Boolean”, [Boolean, “conversión a”]}}</p>
-
 <p><a class="p_ident" id="p-8DDMYXGv2v" href="#p-8DDMYXGv2v" tabindex="-1" role="presentation"></a>La función <code>Number</code> convierte un valor a un número. Necesitamos esa conversión porque el resultado de <code>prompt</code> es un valor de tipo string, y queremos un número. Hay funciones similares llamadas <code>String</code> y <code>Boolean</code> que convierten valores a esos tipos.</p>
 
 <p><a class="p_ident" id="p-Hmketh0qEs" href="#p-Hmketh0qEs" tabindex="-1" role="presentation"></a>Aquí está la representación esquemática bastante trivial del flujo de control en línea recta:</p><figure><img src="img/controlflow-straight.svg" alt="Diagrama mostrando una flecha recta"></figure>
@@ -180,13 +174,9 @@ console.log(<span class="tok-string">&quot;Tu número es la raíz cuadrada de &q
 
 <p><a class="p_ident" id="p-wm40Jh5aS8" href="#p-wm40Jh5aS8" tabindex="-1" role="presentation"></a>Con esta modificación, si introduces “loro”, no se mostrará ninguna salida.</p>
 
-<p><a class="p_ident" id="p-cxhzyTxQ2x" href="#p-cxhzyTxQ2x" tabindex="-1" role="presentation"></a>{{index [paréntesis, sentencia]}}</p>
-
 <p><a class="p_ident" id="p-qmGSztfyJW" href="#p-qmGSztfyJW" tabindex="-1" role="presentation"></a>La palabra clave <code>if</code> ejecuta o salta una sentencia dependiendo del valor de una expresión booleana. La expresión de decisión se escribe después de la palabra clave, entre paréntesis, seguida de la sentencia a ejecutar.</p>
 
 <p><a class="p_ident" id="p-76c1pNKDSl" href="#p-76c1pNKDSl" tabindex="-1" role="presentation"></a>La función <code>Number.isNaN</code> es una función estándar de JavaScript que devuelve <code>true</code> solo si el argumento que se le pasa es <code>NaN</code>. La función <code>Number</code> devuelve <code>NaN</code> cuando le das una cadena que no representa un número válido. Por lo tanto, la condición se traduce a “a menos que <code>elNumero</code> no sea un número, haz esto”.</p>
-
-<p><a class="p_ident" id="p-4k7mSBIuSq" href="#p-4k7mSBIuSq" tabindex="-1" role="presentation"></a>{{index agrupación, &quot;{} (bloque)”, [llaves, “bloque”]}}</p>
 
 <p><a class="p_ident" id="p-qWA8ZIJYjv" href="#p-qWA8ZIJYjv" tabindex="-1" role="presentation"></a>La sentencia después del <code>if</code> está envuelta entre llaves (<code>{</code> y <code>}</code>) en este ejemplo. Las llaves se pueden usar para agrupar cualquier cantidad de sentencias en una sola sentencia, llamada un <em>bloque</em>. También podrías haber omitido en este caso, ya que contienen solo una sentencia, pero para evitar tener que pensar si son necesarias, la mayoría de los programadores de JavaScript las usan en cada sentencia envuelta de esta manera. Seguiremos principalmente esa convención en este libro, excepto por los casos ocasionales de una sola línea.</p>
 
@@ -248,8 +238,6 @@ console.log(<span class="tok-number">12</span>);</pre>
 
 <p><a class="p_ident" id="p-5BzJ/xu0/2" href="#p-5BzJ/xu0/2" tabindex="-1" role="presentation"></a>El enlace ‘number’ demuestra la forma en que un enlace puede seguir el progreso de un programa. Cada vez que se repite el bucle, ‘number’ obtiene un valor que es 2 más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.</p>
 
-<p><a class="p_ident" id="p-bXNehPJtjm" href="#p-bXNehPJtjm" tabindex="-1" role="presentation"></a>{{index exponenciación}}</p>
-
 <p><a class="p_ident" id="p-IhKlP4aMVK" href="#p-IhKlP4aMVK" tabindex="-1" role="presentation"></a>Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2<sup>10</sup> (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ha alcanzado 10 aún y, si no, actualiza ambos enlaces.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9AxUm9n4M9" href="#c-9AxUm9n4M9" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">result</span> = <span class="tok-number">1</span>;
@@ -276,8 +264,6 @@ console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 <p><a class="p_ident" id="p-DuLfPxV3a1" href="#p-DuLfPxV3a1" tabindex="-1" role="presentation"></a>Este programa te obligará a ingresar un nombre. Preguntará una y otra vez hasta que obtenga algo que no sea una cadena vacía. Aplicar el operador <code>!</code> convertirá un valor al tipo Booleano antes de negarlo, y todas las cadenas excepto <code>&quot;&quot;</code> se convierten en <code>true</code>. Esto significa que el bucle continúa hasta que proporciones un nombre no vacío.</p>
 
 <h2><a class="h_ident" id="h-Ii0ETl2x9J" href="#h-Ii0ETl2x9J" tabindex="-1" role="presentation"></a>Sangrado de Código</h2>
-
-<p><a class="p_ident" id="p-2udXvbNCUY" href="#p-2udXvbNCUY" tabindex="-1" role="presentation"></a>{{index [código, “estructura de”], [espacios en blanco, sangrado], “estilo de programación”}}</p>
 
 <p><a class="p_ident" id="p-Xy21oyeH2U" href="#p-Xy21oyeH2U" tabindex="-1" role="presentation"></a>En los ejemplos, he estado agregando espacios delante de las sentencias que son parte de alguna otra sentencia más grande. Estos espacios no son necesarios: la computadora aceptará el programa perfectamente sin ellos. De hecho, incluso los saltos de línea en los programas son opcionales. Podrías escribir un programa como una sola línea larga si así lo deseas.</p>
 
@@ -313,7 +299,7 @@ console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 
 <p><a class="p_ident" id="p-9Dk5fa1UtV" href="#p-9Dk5fa1UtV" tabindex="-1" role="presentation"></a>Los paréntesis después de la palabra clave <code>for</code> deben contener dos punto y coma. La parte antes del primer punto y coma <em>inicializa</em> el bucle, generalmente definiendo una variable. La segunda parte es la expresión que <em>verifica</em> si el bucle debe continuar. La parte final <em>actualiza</em> el estado del bucle después de cada iteración. En la mayoría de los casos, esto es más corto y claro que un <code>while</code> tradicional.</p>
 
-<p><a class="p_ident" id="p-bXNehPJtjm_1" href="#p-bXNehPJtjm_1" tabindex="-1" role="presentation"></a>{{index exponenciación}}</p>
+<p><a class="p_ident" id="p-bXNehPJtjm" href="#p-bXNehPJtjm" tabindex="-1" role="presentation"></a>{{index exponenciación}}</p>
 
 <p><a class="p_ident" id="p-q5iPDIA0KE" href="#p-q5iPDIA0KE" tabindex="-1" role="presentation"></a>Este es el código que calcula 2<sup>10</sup> usando <code>for</code> en lugar de <code>while</code>:</p>
 
