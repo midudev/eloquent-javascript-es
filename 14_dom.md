@@ -75,7 +75,7 @@ Cada objeto de nodo del DOM tiene una propiedad `nodeType`, que contiene un cód
 
 Otra forma de visualizar nuestro ((árbol)) de documento es la siguiente:
 
-{{figure {url: "img/html-tree.svg", alt: "Diagrama que muestra el documento HTML como un árbol, con flechas de nodos padres a nodos hijos", ancho: "8cm"}}}
+{{figure {url: "img/html-tree.svg", alt: "Diagrama que muestra el documento HTML como un árbol, con flechas de nodos padres a nodos hijos", width: "8cm"}}}
 
 Las hojas son nodos de texto, y las flechas indican las relaciones padre-hijo entre nodos.
 
@@ -357,7 +357,7 @@ De manera similar, `clientWidth` y `clientHeight` te dan el tamaño del espacio 
 
 Darle a un párrafo un borde hace que se dibuje un rectángulo a su alrededor.
 
-{{figure {url: "img/boxed-in.png", alt: "Imagen renderizada de un párrafo con un borde", ancho: "8cm"}}}
+{{figure {url: "img/boxed-in.png", alt: "Imagen renderizada de un párrafo con un borde", width: "8cm"}}}
 
 if}}
 

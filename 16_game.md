@@ -520,7 +520,7 @@ Ahora podemos mostrar nuestro pequeño nivel.
   
 {{if book
 
-{{figure {url: "img/game_simpleLevel.png", alt: "Captura de pantalla del nivel renderizado", ancho: "7cm"}}}
+{{figure {url: "img/game_simpleLevel.png", alt: "Captura de pantalla del nivel renderizado", width: "7cm"}}}
 
 if}}
 

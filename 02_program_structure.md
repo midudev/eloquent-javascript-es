@@ -164,7 +164,9 @@ Muchos de los valores proporcionados en el entorno predeterminado tienen el tipo
 
 ```
 prompt("Ingrese el código de acceso");
-```{{figure {url: "img/prompt.png", alt: "Un cuadro de diálogo que dice 'ingrese el código de acceso'", ancho: "8cm"}}}
+```
+
+{{figure {url: "img/prompt.png", alt: "Un cuadro de diálogo que dice 'ingrese el código de acceso'", width: "8cm"}}}
 
 {{index parámetro, [función, aplicación], [paréntesis, argumentos]}}
 
@@ -553,7 +555,9 @@ switch (prompt("¿Cómo está el clima?")) {
 
 Puedes colocar cualquier cantidad de etiquetas `case` dentro del bloque abierto por `switch`. El programa comenzará a ejecutarse en la etiqueta que corresponda al valor que se le dio a `switch`, o en `default` si no se encuentra ningún valor coincidente. Continuará ejecutándose, incluso a través de otras etiquetas, hasta que alcance una declaración `break`. En algunos casos, como el caso `"soleado"` en el ejemplo, esto se puede usar para compartir algo de código entre casos (recomienda salir al exterior tanto para el clima soleado como para el nublado). Sin embargo, ten cuidado, es fácil olvidar un `break` de este tipo, lo que hará que el programa ejecute código que no deseas ejecutar.
 
-## Capitalización{{index capitalización, [binding, nombrar], [espacios en blanco, sintaxis]}}
+## Capitalización
+
+{{index capitalización, [binding, nombrar], [espacios en blanco, sintaxis]}}
 
 Los nombres de los enlaces no pueden contener espacios, sin embargo, a menudo es útil usar varias palabras para describir claramente lo que representa el enlace. Estas son básicamente tus opciones para escribir un nombre de enlace con varias palabras:
 

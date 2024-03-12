@@ -261,7 +261,9 @@ function lastElement(arreglo) {
 
 El segundo problema con retornar valores especiales es que puede llevar a un código incómodo. Si un fragmento de código llama a `promptNumber` 10 veces, tendrá que verificar 10 veces si se devolvió `null`. Y si su respuesta al encontrar `null` es simplemente devolver `null` en sí mismo, los llamantes de la función a su vez tendrán que comprobarlo, y así sucesivamente.
 
-## Excepciones{{index "manejo de errores"}}
+## Excepciones
+
+{{index "manejo de errores"}}
 
 Cuando una función no puede proceder normalmente, lo que a menudo _queremos_ hacer es simplemente detener lo que estamos haciendo e ir directamente a un lugar que sepa cómo manejar el problema. Esto es lo que hace el _((manejo de excepciones))_.
 

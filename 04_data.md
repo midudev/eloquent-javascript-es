@@ -336,7 +336,7 @@ Para calcular la medida de correlación entre dos variables booleanas, podemos u
 
 Podríamos tomar el evento de comer ((pizza)) y ponerlo en una tabla de frecuencias como esta, donde cada número indica la cantidad de veces que ocurrió esa combinación en nuestras mediciones.
 
-{{figure {url: "img/pizza-squirrel.svg", alt: "Una tabla de dos por dos que muestra la variable pizza en el eje horizontal y la variable ardilla en el eje vertical. Cada celda muestra cuántas veces ocurrió esa combinación. En 76 casos, ninguna ocurrió. En 9 casos, solo la pizza era verdadera. En 4 casos, solo la ardilla era verdadera. Y en un caso ambas ocurrieron.", ancho: "7cm"}}}
+{{figure {url: "img/pizza-squirrel.svg", alt: "Una tabla de dos por dos que muestra la variable pizza en el eje horizontal y la variable ardilla en el eje vertical. Cada celda muestra cuántas veces ocurrió esa combinación. En 76 casos, ninguna ocurrió. En 9 casos, solo la pizza era verdadera. En 4 casos, solo la ardilla era verdadera. Y en un caso ambas ocurrieron.", width: "7cm"}}}
 
 Si llamamos a esa tabla _n_, podemos calcular _ϕ_ utilizando la siguiente fórmula:
 

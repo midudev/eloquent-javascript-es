@@ -28,7 +28,7 @@ Este proyecto tiene una parte de _((servidor))_, escrita para ((Node.js)), y una
 
 El servidor mantiene la lista de ((charla))s propuestas para la próxima reunión, y el cliente muestra esta lista. Cada charla tiene un nombre de presentador, un título, un resumen y una matriz de ((comentario))s asociados. El cliente permite a los usuarios proponer nuevas charlas (agregándolas a la lista), eliminar charlas y comentar en charlas existentes. Cada vez que el usuario realiza un cambio de este tipo, el cliente realiza una solicitud HTTP para informar al servidor al respecto.
 
-{{figure {url: "img/skillsharing.png", alt: "Captura de pantalla del sitio web de intercambio de habilidades", ancho: "10cm"}}}
+{{figure {url: "img/skillsharing.png", alt: "Captura de pantalla del sitio web de intercambio de habilidades", width: "10cm"}}}
 
 {{index "vista en vivo", "experiencia del usuario", "envío de datos", conexión}}
 
