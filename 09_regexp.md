@@ -20,7 +20,7 @@ if}}
 
 {{figure {url: "img/chapter_picture_9.jpg", alt: "Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares", chapter: "enmarcado en cuadrado"}}}
 
-{{index evolución, adopción, integración}}
+{{index "evolución", "adopción", "integración"}}
 
 Las herramientas y técnicas de programación sobreviven y se propagan de manera caótica y evolutiva. No siempre ganan las mejores o brillantes, sino aquellas que funcionan lo suficientemente bien dentro del nicho correcto o que se integran con otra pieza exitosa de tecnología.
 
@@ -28,13 +28,13 @@ Las herramientas y técnicas de programación sobreviven y se propagan de manera
 
 En este capítulo, discutiré una de esas herramientas, _((expresiones regulares))_. Las expresiones regulares son una forma de describir ((patrón))es en datos de cadena. Forman un pequeño lenguaje separado que es parte de JavaScript y muchos otros lenguajes y sistemas.
 
-{{index [interfaz, diseño]}}
+{{index [interfaz, "diseño"]}}
 
 Las expresiones regulares son tanto terriblemente incómodas como extremadamente útiles. Su sintaxis es críptica y la interfaz de programación que JavaScript proporciona para ellas es torpe. Pero son una herramienta poderosa para inspeccionar y procesar cadenas. Comprender adecuadamente las expresiones regulares te hará un programador más efectivo.
 
 ## Creando una expresión regular
 
-{{index ["expresión regular", creación], "clase RegExp", "expresión literal", "carácter de barra diagonal"}}
+{{index ["expresión regular", "creación"], "clase RegExp", "expresión literal", "carácter de barra diagonal"}}
 
 Una expresión regular es un tipo de objeto. Puede ser construido con el constructor `RegExp` o escrito como un valor literal al encerrar un patrón entre caracteres de barra diagonal (`/`).
 
@@ -70,7 +70,7 @@ console.log(/abc/.test("abxde"));
 // → false
 ```
 
-{{index patrón}}
+{{index "patrón"}}
 
 Una ((expresión regular)) que consiste solo en caracteres no especiales simplemente representa esa secuencia de caracteres. Si _abc_ aparece en cualquier parte de la cadena contra la cual estamos probando (no solo al principio), `test` devolverá `true`.
 
@@ -95,11 +95,11 @@ console.log(/[0-9]/.test("in 1992"));
 
 Dentro de corchetes, un guion (`-`) entre dos caracteres se puede usar para indicar un rango de caracteres, donde el orden es determinado por el número del carácter en el ((Unicode)). Los caracteres del 0 al 9 están uno al lado del otro en este orden (códigos 48 a 57), por lo que `[0-9]` abarca todos ellos y coincide con cualquier ((dígito)).
 
-{{index [espacio en blanco, coincidencia], "caracter alfanumérico", "caracter de punto"}}
+{{index ["espacio en blanco", coincidencia], "caracter alfanumérico", "caracter de punto"}}
 
 Varios grupos comunes de caracteres tienen sus propias abreviaturas incorporadas. Los dígitos son uno de ellos: `\d` significa lo mismo que `[0-9]`.
 
-{{index "carácter de nueva línea", [espacio en blanco, coincidencia]}}
+{{index "carácter de nueva línea", ["espacio en blanco", coincidencia]}}
 
 {{table {cols: [1, 5]}}}
 
@@ -121,7 +121,7 @@ console.log(dateTime.test("30-ene-2003 15:20"));
 // → false
 ```
 
-{{index [carácter de barra invertida, "en expresiones regulares"]}}
+{{index ["carácter de barra invertida", "en expresiones regulares"]}}
 
 ¡Eso se ve completamente horrible, ¿verdad? La mitad son barras invertidas, produciendo un ruido de fondo que dificulta identificar el ((patrón)) expresado. Veremos una versión ligeramente mejorada de esta expresión [más adelante](regexp#date_regexp_counted).
 
