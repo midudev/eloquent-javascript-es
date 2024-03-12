@@ -163,7 +163,7 @@ Las cadenas también deben ser modeladas como una serie de bits para poder exist
 
 {{index "UTF-16", emoji}}
 
-Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?] (higher_order#code_units).
+Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?](higher_order#code_units).
 
 {{index "operador +", "concatenación"}}
 
@@ -326,7 +326,7 @@ Este se llama el operador _condicional_ (o a veces simplemente _el operador tern
 
 {{index indefinido, nulo}}
 
-Hay dos valores especiales, escritos `null` y `undefined`, que se utilizan para denotar la ausencia de un valor _significativo_. Son valores en sí mismos, pero no llevan ninguna información.Muchas operaciones en el lenguaje que no producen un valor significativo devuelven `undefined` simplemente porque tienen que devolver _algún_ valor.
+Hay dos valores especiales, escritos `null` y `undefined`, que se utilizan para denotar la ausencia de un valor _significativo_. Son valores en sí mismos, pero no llevan ninguna información. Muchas operaciones en el lenguaje que no producen un valor significativo devuelven `undefined` simplemente porque tienen que devolver _algún_ valor.
 
 La diferencia en el significado entre `undefined` y `null` es un accidente del diseño de JavaScript, y la mayoría de las veces no importa. En casos en los que realmente tienes que preocuparte por estos valores, recomiendo tratarlos como en su mayoría intercambiables.
 
