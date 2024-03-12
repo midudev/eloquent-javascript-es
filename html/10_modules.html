@@ -1,0 +1,376 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Módulos :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":10,"load_files":["code/packages_chapter_10.js","code/chapter/07_robot.js"]}</script></head>
+
+<article>
+<nav><a href="09_regexp.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="11_async.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+
+<h1>Módulos</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-WivTB15C7Z" href="#p-WivTB15C7Z" tabindex="-1" role="presentation"></a>Escribe código que sea fácil de borrar, no fácil de extender</p>
+
+<footer>Tef, <cite>La programación es terrible</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_10.jpg" alt="Ilustración de un edificio complicado construido a partir de piezas modulares"></figure>
+
+<p><a class="p_ident" id="p-iESKsl3sc9" href="#p-iESKsl3sc9" tabindex="-1" role="presentation"></a>{{index organización, [código, estructura de]}}</p>
+
+<p><a class="p_ident" id="p-EX80tfve2c" href="#p-EX80tfve2c" tabindex="-1" role="presentation"></a>Idealmente, un programa tiene una estructura clara y directa. La forma en que funciona es fácil de explicar, y cada parte desempeña un papel bien definido.</p>
+
+<p><a class="p_ident" id="p-yilY+En/5q" href="#p-yilY+En/5q" tabindex="-1" role="presentation"></a>En la práctica, los programas crecen de forma orgánica. Se añaden piezas de funcionalidad a medida que el programador identifica nuevas necesidades. Mantener un programa de esta manera bien estructurado requiere atención y trabajo constantes. Este es un trabajo que solo dará sus frutos en el futuro, la próxima vez que alguien trabaje en el programa. Por lo tanto, es tentador descuidarlo y permitir que las diversas partes del programa se enreden profundamente.</p>
+
+<p><a class="p_ident" id="p-NIf+VlR8cH" href="#p-NIf+VlR8cH" tabindex="-1" role="presentation"></a>Esto causa dos problemas prácticos. Primero, entender un sistema enredado es difícil. Si todo puede afectar a todo lo demás, es difícil ver cualquier pieza en aislamiento. Te ves obligado a construir una comprensión holística de todo el conjunto. Segundo, si deseas utilizar alguna funcionalidad de dicho programa en otra situación, puede ser más fácil reescribirla que intentar desenredarla de su contexto.</p>
+
+<p><a class="p_ident" id="p-dm9xK/uXlF" href="#p-dm9xK/uXlF" tabindex="-1" role="presentation"></a>La frase “gran bola de barro” se usa a menudo para tales programas grandes y sin estructura. Todo se une, y al intentar sacar una pieza, todo el conjunto se desintegra y solo logras hacer un desastre.</p>
+
+<h2><a class="h_ident" id="h-U7RnowObxe" href="#h-U7RnowObxe" tabindex="-1" role="presentation"></a>Programas modulares</h2>
+
+<p><a class="p_ident" id="p-8vhyN/BG3m" href="#p-8vhyN/BG3m" tabindex="-1" role="presentation"></a>{{index dependencia, [interfaz, módulo]}}</p>
+
+<p><a class="p_ident" id="p-yGNt7m0TYo" href="#p-yGNt7m0TYo" tabindex="-1" role="presentation"></a>Los <em>módulos</em> son un intento de evitar estos problemas. Un módulo es una parte de un programa que especifica en qué otras piezas se basa y qué funcionalidad proporciona para que otros módulos la utilicen (su <em>interfaz</em>).</p>
+
+<p><a class="p_ident" id="p-625KdRW5dL" href="#p-625KdRW5dL" tabindex="-1" role="presentation"></a>Las interfaces de los módulos tienen mucho en común con las interfaces de objetos, como las vimos en <a href="06_object.html#interface">Capítulo 6</a>. Permiten que una parte del módulo esté disponible para el mundo exterior y mantienen el resto privado.</p>
+
+<p><a class="p_ident" id="p-gChcqY1zpK" href="#p-gChcqY1zpK" tabindex="-1" role="presentation"></a>Pero la interfaz que un módulo proporciona para que otros la utilicen es solo la mitad de la historia. Un buen sistema de módulos también requiere que los módulos especifiquen qué código <em>ellos</em> utilizan de otros módulos. Estas relaciones se llaman <em>dependencias</em>. Si el módulo A utiliza funcionalidad del módulo B, se dice que <em>depende</em> de él. Cuando estas dependencias se especifican claramente en el propio módulo, se pueden utilizar para averiguar qué otros módulos deben estar presentes para poder utilizar un módulo dado y cargar las dependencias automáticamente.</p>
+
+<p><a class="p_ident" id="p-JTdQELjKXQ" href="#p-JTdQELjKXQ" tabindex="-1" role="presentation"></a>Cuando las formas en que los módulos interactúan entre sí son explícitas, un sistema se vuelve más como LEGO, donde las piezas interactúan a través de conectores bien definidos, y menos como barro, donde todo se mezcla con todo.</p>
+
+<h2><a class="h_ident" id="h-YC3EaTrkii" href="#h-YC3EaTrkii" tabindex="-1" role="presentation"></a>Módulos ES</h2>
+
+<p><a class="p_ident" id="p-1EAk5/9b46" href="#p-1EAk5/9b46" tabindex="-1" role="presentation"></a>{{index &quot;ámbito global”, [vinculación, global]}}El lenguaje original JavaScript no tenía ningún concepto de un módulo. Todos los scripts se ejecutaban en el mismo ámbito, y acceder a una función definida en otro script se hacía mediante la referencia a las vinculaciones globales creadas por ese script. Esto fomentaba activamente el enredo accidental y difícil de detectar del código e invitaba a problemas como scripts no relacionados que intentaban usar el mismo nombre de vinculación.</p>
+
+<p><a class="p_ident" id="p-/LwUigk9I1" href="#p-/LwUigk9I1" tabindex="-1" role="presentation"></a>Desde ECMAScript 2015, JavaScript admite dos tipos diferentes de programas. Los <em>scripts</em> se comportan de la manera antigua: sus vinculaciones se definen en el ámbito global y no tienen forma de referenciar directamente otros scripts. Los <em>módulos</em> obtienen su propio ámbito separado y admiten las palabras clave <code>import</code> y <code>export</code>, que no están disponibles en los scripts, para declarar sus dependencias e interfaz. Este sistema de módulos se suele llamar <em>módulos de ES</em> (donde “ES” significa “ECMAScript”).</p>
+
+<p><a class="p_ident" id="p-oP+GsCLjlM" href="#p-oP+GsCLjlM" tabindex="-1" role="presentation"></a>Un programa modular está compuesto por varios de estos módulos, conectados a través de sus importaciones y exportaciones.</p>
+
+<p><a class="p_ident" id="p-TTzOObeni+" href="#p-TTzOObeni+" tabindex="-1" role="presentation"></a>Este ejemplo de módulo convierte entre nombres de días y números (como los devueltos por el método <code>getDay</code> de <code>Date</code>). Define una constante que no forma parte de su interfaz y dos funciones que sí lo son. No tiene dependencias.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-8bQqoNLteX" href="#c-8bQqoNLteX" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">names</span> = [<span class="tok-string">&quot;Domingo&quot;</span>, <span class="tok-string">&quot;Lunes&quot;</span>, <span class="tok-string">&quot;Martes&quot;</span>, <span class="tok-string">&quot;Miércoles&quot;</span>,
+               <span class="tok-string">&quot;Jueves&quot;</span>, <span class="tok-string">&quot;Viernes&quot;</span>, <span class="tok-string">&quot;Sábado&quot;</span>];
+
+<span class="tok-keyword">export</span> <span class="tok-keyword">function</span> <span class="tok-definition">dayName</span>(<span class="tok-definition">number</span>) {
+  <span class="tok-keyword">return</span> names[number];
+}
+<span class="tok-keyword">export</span> <span class="tok-keyword">function</span> <span class="tok-definition">dayNumber</span>(<span class="tok-definition">name</span>) {
+  <span class="tok-keyword">return</span> names.indexOf(name);
+}</pre>
+
+<p><a class="p_ident" id="p-HBLfYi8Cx0" href="#p-HBLfYi8Cx0" tabindex="-1" role="presentation"></a>La palabra clave <code>export</code> se puede colocar delante de una función, clase o definición de vinculación para indicar que esa vinculación es parte de la interfaz del módulo. Esto permite que otros módulos utilicen esa vinculación importándola.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Sub1Ei6VzK" href="#c-Sub1Ei6VzK" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">dayName</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;./dayname.js&quot;</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">ahora</span> = <span class="tok-keyword">new</span> Date();
+console.log(<span class="tok-string2">`Hoy es </span>${dayName(ahora.getDay())}<span class="tok-string2">`</span>);
+<span class="tok-comment">// → Hoy es Lunes</span></pre>
+
+<p><a class="p_ident" id="p-/pMtoDSh3q" href="#p-/pMtoDSh3q" tabindex="-1" role="presentation"></a>La palabra clave <code>import</code>, seguida de una lista de nombres de vinculación entre llaves, hace que las vinculaciones de otro módulo estén disponibles en el módulo actual. Los módulos se identifican por cadenas entre comillas.</p>
+
+<p><a class="p_ident" id="p-rjAKVjehT4" href="#p-rjAKVjehT4" tabindex="-1" role="presentation"></a>{{index [módulo, resolución], resolución}}</p>
+
+<p><a class="p_ident" id="p-bC1R/meysi" href="#p-bC1R/meysi" tabindex="-1" role="presentation"></a>Cómo se resuelve un nombre de módulo a un programa real difiere según la plataforma. El navegador los trata como direcciones web, mientras que Node.js los resuelve a archivos. Para ejecutar un módulo, se cargan todos los demás módulos en los que depende, y las vinculaciones exportadas se ponen a disposición de los módulos que las importan.</p>
+
+<p><a class="p_ident" id="p-Ie1lG7aO5o" href="#p-Ie1lG7aO5o" tabindex="-1" role="presentation"></a>Las declaraciones de importación y exportación no pueden aparecer dentro de funciones, bucles u otros bloques. Se resuelven de inmediato cuando se carga el módulo, independientemente de cómo se ejecute el código en el módulo, y para reflejar esto, deben aparecer solo en el cuerpo del módulo externo.</p>
+
+<p><a class="p_ident" id="p-dP1OiguXg/" href="#p-dP1OiguXg/" tabindex="-1" role="presentation"></a>Así que la interfaz de un módulo consiste en una colección de vinculaciones con nombres, a las cuales tienen acceso otros módulos que dependen de ellas. Las vinculaciones importadas se pueden renombrar para darles un nuevo nombre local utilizando <code>as</code> después de su nombre.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-BDdYywvaeN" href="#c-BDdYywvaeN" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {dayName <span class="tok-keyword">as</span> <span class="tok-definition">nomDeJour</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;./dayname.js&quot;</span>;
+console.log(nomDeJour(<span class="tok-number">3</span>));
+<span class="tok-comment">// → Miércoles</span></pre>
+
+<p><a class="p_ident" id="p-S+JFe+/ZwS" href="#p-S+JFe+/ZwS" tabindex="-1" role="presentation"></a>También es posible que un módulo tenga una exportación especial llamada <code>default</code>, que a menudo se usa para módulos que solo exportan un único enlace. Para definir una exportación predeterminada, se escribe <code>export default</code> antes de una expresión, una declaración de función o una declaración de clase.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-X+WnaBkeaP" href="#c-X+WnaBkeaP" tabindex="-1" role="presentation"></a><span class="tok-keyword">export</span> <span class="tok-keyword">default</span> [<span class="tok-string">&quot;Invierno&quot;</span>, <span class="tok-string">&quot;Primavera&quot;</span>, <span class="tok-string">&quot;Verano&quot;</span>, <span class="tok-string">&quot;Otoño&quot;</span>];</pre>
+
+<p><a class="p_ident" id="p-9S8FRU/waO" href="#p-9S8FRU/waO" tabindex="-1" role="presentation"></a>Este enlace se importa omitiendo las llaves alrededor del nombre de la importación.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-+zRyOTSTAA" href="#c-+zRyOTSTAA" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> <span class="tok-definition">nombresEstaciones</span> <span class="tok-keyword">from</span> <span class="tok-string">&quot;./nombrsestaciones.js&quot;</span>;</pre>
+
+<h2><a class="h_ident" id="h-/mspf0oEoK" href="#h-/mspf0oEoK" tabindex="-1" role="presentation"></a>Paquetes</h2>
+
+<p><a class="p_ident" id="p-5s4XEpecqW" href="#p-5s4XEpecqW" tabindex="-1" role="presentation"></a>Una de las ventajas de construir un programa a partir de piezas separadas y poder ejecutar algunas de esas piezas por separado, es que puedes aplicar la misma pieza en diferentes programas.</p>
+
+<p><a class="p_ident" id="p-1YfLMLVIb+" href="#p-1YfLMLVIb+" tabindex="-1" role="presentation"></a>Pero, ¿cómo se configura esto? Digamos que quiero usar la función <code>parseINI</code> de <a href="09_regexp.html#ini">Capítulo 9</a> en otro programa. Si está claro de qué depende la función (en este caso, nada), puedo simplemente copiar ese módulo en mi nuevo proyecto y usarlo. Pero luego, si encuentro un error en el código, probablemente lo corrija en el programa con el que estoy trabajando en ese momento y olvide corregirlo también en el otro programa.</p>
+
+<p><a class="p_ident" id="p-vGdlRRXoCw" href="#p-vGdlRRXoCw" tabindex="-1" role="presentation"></a>Una vez que empieces a duplicar código, rápidamente te darás cuenta de que estás perdiendo tiempo y energía moviendo copias y manteniéndolas actualizadas.</p>
+
+<p><a class="p_ident" id="p-fQS8IzdsnB" href="#p-fQS8IzdsnB" tabindex="-1" role="presentation"></a>Ahí es donde entran los <em>paquetes</em>. Un paquete es un fragmento de código que se puede distribuir (copiar e instalar). Puede contener uno o más módulos y tiene información sobre en qué otros paquetes depende. Un paquete también suele venir con documentación que explica qué hace para que las personas que no lo escribieron aún puedan usarlo.</p>
+
+<p><a class="p_ident" id="p-xBz/AUEgrE" href="#p-xBz/AUEgrE" tabindex="-1" role="presentation"></a>Cuando se encuentra un problema en un paquete o se añade una nueva característica, se actualiza el paquete. Ahora los programas que dependen de él (que también pueden ser paquetes) pueden copiar la nueva versión para obtener las mejoras que se hicieron en el código.</p>
+
+<p id="modules_npm"><a class="p_ident" id="p-gLwdFzz5mL" href="#p-gLwdFzz5mL" tabindex="-1" role="presentation"></a>Trabajar de esta manera requiere infraestructura. Necesitamos un lugar para almacenar y encontrar paquetes y una forma conveniente de instalar y actualizarlos. En el mundo de JavaScript, esta infraestructura es provista por NPM (<a href="https://npmjs.org"><em>https://npmjs.org</em></a>).</p>
+
+<p><a class="p_ident" id="p-kkiTHcsTLq" href="#p-kkiTHcsTLq" tabindex="-1" role="presentation"></a>NPM es dos cosas: un servicio en línea donde puedes descargar (y subir) paquetes y un programa (incluido con Node.js) que te ayuda a instalar y gestionarlos.</p>
+
+<p><a class="p_ident" id="p-tOycnX3WYO" href="#p-tOycnX3WYO" tabindex="-1" role="presentation"></a>En el momento de la escritura, hay más de tres millones de paquetes diferentes disponibles en NPM. Una gran parte de ellos son basura, para ser honesto. Pero casi cada paquete de JavaScript útil y disponible públicamente se puede encontrar en NPM. Por ejemplo, un analizador de archivos INI, similar al que construimos en <a href="09_regexp.html">Capítulo 9</a>, está disponible bajo el nombre del paquete <code>ini</code>.</p>
+
+<p><a class="p_ident" id="p-yqgOfKlOJr" href="#p-yqgOfKlOJr" tabindex="-1" role="presentation"></a><a href="20_node.html">Capítulo 20</a> mostrará cómo instalar tales paquetes localmente usando el programa de línea de comandos <code>npm</code>.</p>
+
+<p><a class="p_ident" id="p-APTB7TqcHI" href="#p-APTB7TqcHI" tabindex="-1" role="presentation"></a>Tener paquetes de calidad disponibles para descargar es extremadamente valioso. Significa que a menudo podemos evitar reinventar un programa que 100 personas han escrito antes y obtener una implementación sólida y bien probada con solo presionar algunas teclas.</p>
+
+<p><a class="p_ident" id="p-WISEoIhSHx" href="#p-WISEoIhSHx" tabindex="-1" role="presentation"></a>El software es barato de copiar, por lo que una vez que alguien lo ha escrito, distribuirlo a otras personas es un proceso eficiente. Pero escribirlo en primer lugar <em>es</em> trabajo, y responder a las personas que han encontrado problemas en el código, o que desean proponer nuevas características, es incluso más trabajo.</p>
+
+<p><a class="p_ident" id="p-KBJ7XL1akK" href="#p-KBJ7XL1akK" tabindex="-1" role="presentation"></a>Por defecto, eres el propietario de los derechos de autor del código que escribes, y otras personas solo pueden usarlo con tu permiso. Pero porque algunas personas son amables y porque publicar buen software puede ayudarte a volverte un poco famoso entre los programadores, muchos paquetes se publican bajo una licencia que permite explícitamente a otras personas usarlo.</p>
+
+<p><a class="p_ident" id="p-qxh3ylw/2A" href="#p-qxh3ylw/2A" tabindex="-1" role="presentation"></a>La mayoría del código en NPM tiene esta licencia. Algunas licencias requieren que también publiques el código que construyes sobre el paquete bajo la misma licencia. Otros son menos exigentes, simplemente requiriendo que mantengas la licencia con el código al distribuirlo. La comunidad de JavaScript mayormente utiliza este último tipo de licencia. Al usar paquetes de otras personas, asegúrate de estar al tanto de su licencia.</p>
+
+<p id="modulos_ini"><a class="p_ident" id="p-jSx9hd0EOB" href="#p-jSx9hd0EOB" tabindex="-1" role="presentation"></a>Ahora, en lugar de escribir nuestro propio analizador de archivos INI, podemos usar uno de NPM.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-zTHcTC2U1Z" href="#c-zTHcTC2U1Z" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">parse</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;ini&quot;</span>;
+
+console.log(parse(<span class="tok-string">&quot;x = 10</span><span class="tok-string2">\n</span><span class="tok-string">y = 20&quot;</span>));
+<span class="tok-comment">// → {x: &quot;10&quot;, y: &quot;20&quot;}</span></pre>
+
+<h2 id="commonjs"><a class="h_ident" id="h-aoKuTQ1GvS" href="#h-aoKuTQ1GvS" tabindex="-1" role="presentation"></a>Módulos CommonJS</h2>
+
+<p><a class="p_ident" id="p-gL2Y0VXAPv" href="#p-gL2Y0VXAPv" tabindex="-1" role="presentation"></a>Antes de 2015, cuando el lenguaje de JavaScript no tenía un sistema de módulos integrado real, las personas ya estaban construyendo sistemas grandes en JavaScript. Para que funcionara, ellos <em>necesitaban</em> módulos.</p>
+
+<p><a class="p_ident" id="p-CrhsjH/EkF" href="#p-CrhsjH/EkF" tabindex="-1" role="presentation"></a>{{index [función, alcance], [interfaz, módulo], [objeto, como módulo]}}</p>
+
+<p><a class="p_ident" id="p-wJ8IhSNMb2" href="#p-wJ8IhSNMb2" tabindex="-1" role="presentation"></a>La comunidad diseñó sus propios sistemas de módulos improvisados sobre el lenguaje. Estos utilizan funciones para crear un alcance local para los módulos y objetos regulares para representar interfaces de módulos.</p>
+
+<p><a class="p_ident" id="p-38+Catnyuk" href="#p-38+Catnyuk" tabindex="-1" role="presentation"></a>Inicialmente, las personas simplemente envolvían manualmente todo su módulo en una “expresión de función invocada inmediatamente” para crear el alcance del módulo, y asignaban sus objetos de interfaz a una única variable global.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-tcyWCNmnRJ" href="#c-tcyWCNmnRJ" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">semana</span> = <span class="tok-keyword">function</span>() {
+  <span class="tok-keyword">const</span> <span class="tok-definition">nombres</span> = [<span class="tok-string">&quot;Domingo&quot;</span>, <span class="tok-string">&quot;Lunes&quot;</span>, <span class="tok-string">&quot;Martes&quot;</span>, <span class="tok-string">&quot;Miércoles&quot;</span>,
+                 <span class="tok-string">&quot;Jueves&quot;</span>, <span class="tok-string">&quot;Viernes&quot;</span>, <span class="tok-string">&quot;Sábado&quot;</span>];
+  <span class="tok-keyword">return</span> {
+    <span class="tok-definition">nombre</span>(<span class="tok-definition">numero</span>) { <span class="tok-keyword">return</span> nombres[numero]; },
+    <span class="tok-definition">numero</span>(<span class="tok-definition">nombre</span>) { <span class="tok-keyword">return</span> nombres.indexOf(nombre); }
+  };
+}();
+
+console.log(semana.nombre(semana.numero(<span class="tok-string">&quot;Domingo&quot;</span>)));
+<span class="tok-comment">// → Domingo</span></pre>
+
+<p><a class="p_ident" id="p-8vhyN/BG3m_1" href="#p-8vhyN/BG3m_1" tabindex="-1" role="presentation"></a>{{index dependencia, [interfaz, módulo]}}</p>
+
+<p><a class="p_ident" id="p-1Nis/4GWsb" href="#p-1Nis/4GWsb" tabindex="-1" role="presentation"></a>Este estilo de módulos proporciona aislamiento, hasta cierto punto, pero no declara dependencias. En cambio, simplemente coloca su interfaz en el ámbito global y espera que sus dependencias, si las tiene, hagan lo mismo. Esto no es ideal.</p>
+
+<p><a class="p_ident" id="p-6mhHLUjbEJ" href="#p-6mhHLUjbEJ" tabindex="-1" role="presentation"></a>Si implementamos nuestro propio cargador de módulos, podemos hacerlo mejor. El enfoque más ampliamente utilizado para los módulos de JavaScript agregados se llama <em>Módulos CommonJS</em>. Node.js lo utilizaba desde el principio (aunque ahora también sabe cómo cargar módulos ES) y es el sistema de módulos utilizado por muchos paquetes en NPM.</p>
+
+<p><a class="p_ident" id="p-tHs+TEsX8W" href="#p-tHs+TEsX8W" tabindex="-1" role="presentation"></a>{{index “función require”, [interfaz, módulo], “objeto exports”}}</p>
+
+<p><a class="p_ident" id="p-ObwMs1o2Y0" href="#p-ObwMs1o2Y0" tabindex="-1" role="presentation"></a>Un módulo CommonJS se ve como un script regular, pero tiene acceso a dos enlaces que utiliza para interactuar con otros módulos. El primero es una función llamada <code>require</code>. Cuando llamas a esto con el nombre del módulo de tu dependencia, se asegura de que el módulo esté cargado y devuelve su interfaz. El segundo es un objeto llamado <code>exports</code>, que es el objeto de interfaz para el módulo. Comienza vacío y agregas propiedades para definir los valores exportados.{{index “formatDate module”, “Date class”, “ordinal package”, “date-names package”}}</p>
+
+<p><a class="p_ident" id="p-T5/54GHTSi" href="#p-T5/54GHTSi" tabindex="-1" role="presentation"></a>Este módulo de ejemplo CommonJS proporciona una función de formateo de fechas. Utiliza dos packages de NPM: <code>ordinal</code> para convertir números en strings como <code>&quot;1st&quot;</code> y <code>&quot;2nd&quot;</code>, y <code>date-names</code> para obtener los nombres en inglés de los días de la semana y los meses. Exporta una única función, <code>formatDate</code>, que recibe un objeto <code>Date</code> y una cadena template.</p>
+
+<p><a class="p_ident" id="p-xUg6iYrQ1R" href="#p-xUg6iYrQ1R" tabindex="-1" role="presentation"></a>La cadena de template puede contener códigos que indican el formato, como <code>YYYY</code> para el año completo y <code>Do</code> para el día ordinal del mes. Puede pasársele una cadena como <code>&quot;MMMM Do YYYY&quot;</code> para obtener una salida como “22 de noviembre de 2017”.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hEFnba6fud" href="#c-hEFnba6fud" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">ordinal</span> = require(<span class="tok-string">&quot;ordinal&quot;</span>);
+<span class="tok-keyword">const</span> {days, months} = require(<span class="tok-string">&quot;date-names&quot;</span>);
+
+exports.formatDate = <span class="tok-keyword">function</span>(<span class="tok-definition">date</span>, <span class="tok-definition">format</span>) {
+  <span class="tok-keyword">return</span> format.replace(<span class="tok-string2">/YYYY|M(MMM)?|Do?|dddd/g</span>, <span class="tok-definition">tag</span> =&gt; {
+    <span class="tok-keyword">if</span> (tag == <span class="tok-string">&quot;YYYY&quot;</span>) <span class="tok-keyword">return</span> date.getFullYear();
+    <span class="tok-keyword">if</span> (tag == <span class="tok-string">&quot;M&quot;</span>) <span class="tok-keyword">return</span> date.getMonth();
+    <span class="tok-keyword">if</span> (tag == <span class="tok-string">&quot;MMMM&quot;</span>) <span class="tok-keyword">return</span> months[date.getMonth()];
+    <span class="tok-keyword">if</span> (tag == <span class="tok-string">&quot;D&quot;</span>) <span class="tok-keyword">return</span> date.getDate();
+    <span class="tok-keyword">if</span> (tag == <span class="tok-string">&quot;Do&quot;</span>) <span class="tok-keyword">return</span> ordinal(date.getDate());
+    <span class="tok-keyword">if</span> (tag == <span class="tok-string">&quot;dddd&quot;</span>) <span class="tok-keyword">return</span> days[date.getDay()];
+  });
+};</pre>
+
+<p><a class="p_ident" id="p-rSv7twJ8lD" href="#p-rSv7twJ8lD" tabindex="-1" role="presentation"></a>La interfaz de <code>ordinal</code> es una única función, mientras que <code>date-names</code> exporta un objeto que contiene múltiples cosas: <code>days</code> y <code>months</code> son arrays de nombres. La técnica de desestructuración es muy conveniente al crear enlaces para las interfaces importadas.</p>
+
+<p><a class="p_ident" id="p-GEs894RmkW" href="#p-GEs894RmkW" tabindex="-1" role="presentation"></a>El módulo añade su función de interfaz a <code>exports</code> para que los módulos que dependen de él tengan acceso a ella. Podemos usar el módulo de la siguiente manera:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-UjqCqg9xZu" href="#c-UjqCqg9xZu" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> {formatDate} = require(<span class="tok-string">&quot;./format-date.js&quot;</span>);
+
+console.log(formatDate(<span class="tok-keyword">new</span> Date(<span class="tok-number">2017</span>, <span class="tok-number">9</span>, <span class="tok-number">13</span>),
+                       <span class="tok-string">&quot;dddd the Do&quot;</span>));
+<span class="tok-comment">// → Viernes 13º</span></pre>
+
+<p><a class="p_ident" id="p-w8OOiotBia" href="#p-w8OOiotBia" tabindex="-1" role="presentation"></a>CommonJS se implementa con un cargador de módulos que, al cargar un módulo, envuelve su código en una función (dándole su propio ámbito local) y pasa los enlaces <code>require</code> y <code>exports</code> a esa función como argumentos.</p>
+
+<p id="require"><a class="p_ident" id="p-AI+ai+x54D" href="#p-AI+ai+x54D" tabindex="-1" role="presentation"></a>Si asumimos que tenemos acceso a una función <code>readFile</code> que lee un archivo por su nombre y nos da su contenido, podemos definir una forma simplificada de <code>require</code> de la siguiente manera:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="require"><a class="c_ident" id="c-t+bc73kgqw" href="#c-t+bc73kgqw" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">require</span>(<span class="tok-definition">name</span>) {
+  <span class="tok-keyword">if</span> (!(name <span class="tok-keyword">in</span> require.cache)) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">code</span> = readFile(name);
+    <span class="tok-keyword">let</span> <span class="tok-definition">exports</span> = require.cache[name] = {};
+    <span class="tok-keyword">let</span> <span class="tok-definition">wrapper</span> = Function(<span class="tok-string">&quot;require, exports&quot;</span>, code);
+    wrapper(require, exports);
+  }
+  <span class="tok-keyword">return</span> require.cache[name];
+}
+require.cache = Object.create(<span class="tok-keyword">null</span>);</pre>
+
+<p id="eval"><a class="p_ident" id="p-4bz4Uhc4uZ" href="#p-4bz4Uhc4uZ" tabindex="-1" role="presentation"></a><code>Function</code> es una función interna de JavaScript que recibe una lista de argumentos (como una cadena separada por comas) y una cadena que contiene el cuerpo de la función, devolviendo un valor de función con esos argumentos y ese cuerpo. Este es un concepto interesante, ya que permite que un programa cree nuevas partes del programa a partir de datos de cadena, pero también es peligroso, ya que si alguien logra engañar a tu programa para que introduzca una cadena que ellos proporcionan en <code>Function</code>, pueden hacer que el programa haga cualquier cosa que quieran.{{index [archivo, acceso]}}</p>
+
+<p><a class="p_ident" id="p-hzt+dyc2ak" href="#p-hzt+dyc2ak" tabindex="-1" role="presentation"></a>JavaScript estándar no proporciona una función como <code>readFile</code>, pero diferentes entornos de JavaScript, como el navegador y Node.js, proporcionan sus propias formas de acceder a los archivos. El ejemplo simplemente simula que <code>readFile</code> existe.</p>
+
+<p><a class="p_ident" id="p-DdUC56tlYx" href="#p-DdUC56tlYx" tabindex="-1" role="presentation"></a>Para evitar cargar el mismo módulo múltiples veces, <code>require</code> mantiene una tienda (caché) de módulos ya cargados. Cuando se llama, primero comprueba si el módulo solicitado ha sido cargado y, si no, lo carga. Esto implica leer el código del módulo, envolverlo en una función y llamarlo.</p>
+
+<p><a class="p_ident" id="p-bb9mdDKkhb" href="#p-bb9mdDKkhb" tabindex="-1" role="presentation"></a>{{index “paquete ordinal”, “objeto exports”, “objeto module”, [interfaz, módulo]}}</p>
+
+<p><a class="p_ident" id="p-SN2EFHIPHc" href="#p-SN2EFHIPHc" tabindex="-1" role="presentation"></a>Al definir <code>require</code>, <code>exports</code> como parámetros para la función de envoltura generada (y pasar los valores apropiados al llamarla), el cargador se asegura de que estos enlaces estén disponibles en el ámbito del módulo.</p>
+
+<p><a class="p_ident" id="p-2Efp/NfTnP" href="#p-2Efp/NfTnP" tabindex="-1" role="presentation"></a>Una diferencia importante entre este sistema y los módulos ES es que las importaciones de módulos ES suceden antes de que comience a ejecutarse el script de un módulo, mientras que <code>require</code> es una función normal, invocada cuando el módulo ya está en ejecución. A diferencia de las declaraciones <code>import</code>, las llamadas a <code>require</code> <em>pueden</em> aparecer dentro de funciones, y el nombre de la dependencia puede ser cualquier expresión que se evalúe a una cadena, mientras que <code>import</code> solo permite cadenas simples entre comillas.</p>
+
+<p><a class="p_ident" id="p-e5KpMKLZw3" href="#p-e5KpMKLZw3" tabindex="-1" role="presentation"></a>La transición de la comunidad de JavaScript desde el estilo CommonJS a los módulos ES ha sido lenta y algo complicada. Pero afortunadamente, ahora estamos en un punto en el que la mayoría de los paquetes populares en NPM proporcionan su código como módulos ES, y Node.js permite que los módulos ES importen desde módulos CommonJS. Por lo tanto, si bien el código CommonJS es algo con lo que te encontrarás, ya no hay una razón real para escribir nuevos programas en este estilo.</p>
+
+<h2><a class="h_ident" id="h-MTtaNNMhF9" href="#h-MTtaNNMhF9" tabindex="-1" role="presentation"></a>Compilación y empaquetado</h2>
+
+<p><a class="p_ident" id="p-gegZGLQXIc" href="#p-gegZGLQXIc" tabindex="-1" role="presentation"></a>{{index compilación, “verificación de tipos”}}</p>
+
+<p><a class="p_ident" id="p-yzlMlomsVd" href="#p-yzlMlomsVd" tabindex="-1" role="presentation"></a>Muchos paquetes de JavaScript no están, técnicamente, escritos en JavaScript. Hay extensiones, como TypeScript, el dialecto de verificación de tipos mencionado en el <a href="08_error.html#typing">Capítulo 8</a>, que se utilizan ampliamente. A menudo, las personas también comienzan a usar extensiones planeadas para el lenguaje mucho antes de que se agreguen a las plataformas que realmente ejecutan JavaScript.</p>
+
+<p><a class="p_ident" id="p-WF1sdYjiV8" href="#p-WF1sdYjiV8" tabindex="-1" role="presentation"></a>Para hacer esto posible, <em>compilan</em> su código, traduciéndolo desde su dialecto de JavaScript elegido a JavaScript antiguo, e incluso a una versión anterior de JavaScript, para que los navegadores puedan ejecutarlo.</p>
+
+<p><a class="p_ident" id="p-qcgO5h1rKl" href="#p-qcgO5h1rKl" tabindex="-1" role="presentation"></a>Incluir un programa modular que consta de 200 archivos diferentes en una página web produce sus propios problemas. Si recuperar un solo archivo a través de la red lleva 50 milisegundos, cargar todo el programa lleva 10 segundos, o quizás la mitad de eso si puedes cargar varios archivos simultáneamente. Eso es mucho tiempo desperdiciado. Como recuperar un solo archivo grande tiende a ser más rápido que recuperar muchos archivos pequeños, los programadores web han comenzado a usar herramientas que combinan sus programas (que dividieron minuciosamente en módulos) en un solo archivo grande antes de publicarlo en la Web. Estas herramientas se llaman <em>bundlers</em>.</p>
+
+<p><a class="p_ident" id="p-5AdRU+SGNt" href="#p-5AdRU+SGNt" tabindex="-1" role="presentation"></a>{{index “tamaño del archivo”}}Y podemos ir más allá. Aparte del número de archivos, el <em>tamaño</em> de los archivos también determina qué tan rápido pueden ser transferidos a través de la red. Por lo tanto, la comunidad de JavaScript ha inventado <em>minificadores</em>. Estas son herramientas que toman un programa de JavaScript y lo hacen más pequeño al eliminar automáticamente comentarios y espacios en blanco, renombrar enlaces y reemplazar fragmentos de código con código equivalente que ocupa menos espacio.</p>
+
+<p><a class="p_ident" id="p-vTIW0dWF7B" href="#p-vTIW0dWF7B" tabindex="-1" role="presentation"></a>Por lo tanto, no es raro que el código que encuentres en un paquete de NPM o que se ejecute en una página web haya pasado por <em>múltiples</em> etapas de transformación, convirtiéndose desde JavaScript moderno a JavaScript histórico, luego combinando los módulos en un solo archivo, y minimizando el código. No entraremos en detalles sobre estas herramientas en este libro ya que hay muchas de ellas, y cuál es popular cambia regularmente. Simplemente ten en cuenta que tales cosas existen, y búscalas cuando las necesites.</p>
+
+<h2><a class="h_ident" id="h-1WDZH0cb8f" href="#h-1WDZH0cb8f" tabindex="-1" role="presentation"></a>Diseño de módulos</h2>
+
+<p><a class="p_ident" id="p-zTTk8RK4jC" href="#p-zTTk8RK4jC" tabindex="-1" role="presentation"></a>{{index [módulo, diseño], [interfaz, módulo], [código, “estructura de”]}}</p>
+
+<p><a class="p_ident" id="p-R7pz6CLzKn" href="#p-R7pz6CLzKn" tabindex="-1" role="presentation"></a>Estructurar programas es uno de los aspectos más sutiles de la programación. Cualquier funcionalidad no trivial puede ser organizada de diversas formas.</p>
+
+<p><a class="p_ident" id="p-gQbZwhLBAU" href="#p-gQbZwhLBAU" tabindex="-1" role="presentation"></a>Un buen diseño de programa es subjetivo—hay compensaciones implicadas y cuestiones de gusto. La mejor manera de aprender el valor de un diseño bien estructurado es leer o trabajar en muchos programas y notar qué funciona y qué no. No asumas que un desorden doloroso es “simplemente así”. Puedes mejorar la estructura de casi todo pensando más detenidamente en ello.</p>
+
+<p><a class="p_ident" id="p-ToP1InZ+8E" href="#p-ToP1InZ+8E" tabindex="-1" role="presentation"></a>{{index [interfaz, módulo]}}</p>
+
+<p><a class="p_ident" id="p-42LbB+uOK4" href="#p-42LbB+uOK4" tabindex="-1" role="presentation"></a>Un aspecto del diseño de módulos es la facilidad de uso. Si estás diseñando algo que se supone será utilizado por varias personas—o incluso por ti mismo, dentro de tres meses cuando ya no recuerdes los detalles de lo que hiciste—es útil que tu interfaz sea simple y predecible.</p>
+
+<p><a class="p_ident" id="p-KeQc3IaY1/" href="#p-KeQc3IaY1/" tabindex="-1" role="presentation"></a>Eso puede significar seguir convenciones existentes. Un buen ejemplo es el paquete <code>ini</code>. Este módulo imita el objeto estándar <code>JSON</code> al proporcionar funciones <code>parse</code> y <code>stringify</code> (para escribir un archivo INI), y, como <code>JSON</code>, convierte entre cadenas y objetos simples. Por lo tanto, la interfaz es pequeña y familiar, y después de haber trabajado con ella una vez, es probable que recuerdes cómo usarla.</p>
+
+<p><a class="p_ident" id="p-T3tXk/ILoH" href="#p-T3tXk/ILoH" tabindex="-1" role="presentation"></a>Incluso si no hay una función estándar o paquete ampliamente utilizado para imitar, puedes mantener tus módulos predecibles utilizando estructuras de datos simples y haciendo una sola cosa enfocada. Muchos de los módulos de análisis de archivos INI en NPM proporcionan una función que lee directamente dicho archivo desde el disco duro y lo analiza, por ejemplo. Esto hace imposible usar dichos módulos en el navegador, donde no tenemos acceso directo al sistema de archivos, y añade complejidad que hubiera sido mejor abordada <em>componiendo</em> el módulo con alguna función de lectura de archivos.</p>
+
+<p><a class="p_ident" id="p-dUYHosX5jP" href="#p-dUYHosX5jP" tabindex="-1" role="presentation"></a>Esto señala otro aspecto útil del diseño de módulos—la facilidad con la que algo puede ser compuesto con otro código. Los módulos enfocados en calcular valores son aplicables en una gama más amplia de programas que los módulos más grandes que realizan acciones complicadas con efectos secundarios. Un lector de archivos INI que insiste en leer el archivo desde el disco es inútil en un escenario donde el contenido del archivo proviene de otra fuente.{{index “programación orientada a objetos”}}</p>
+
+<p><a class="p_ident" id="p-f+ylIT0L4/" href="#p-f+ylIT0L4/" tabindex="-1" role="presentation"></a>Relacionado con esto, a veces los objetos con estado son útiles o incluso necesarios, pero si algo se puede hacer con una función, utiliza una función. Varios de los lectores de archivos INI en NPM proporcionan un estilo de interfaz que requiere que primero crees un objeto, luego cargues el archivo en tu objeto, y finalmente uses métodos especializados para acceder a los resultados. Este tipo de enfoque es común en la tradición orientada a objetos, y es terrible. En lugar de hacer una sola llamada a función y continuar, debes realizar el ritual de mover tu objeto a través de sus diversos estados. Y debido a que los datos están envueltos en un tipo de objeto especializado, todo el código que interactúa con él debe conocer ese tipo, creando interdependencias innecesarias.</p>
+
+<p><a class="p_ident" id="p-JsFAJjYsmz" href="#p-JsFAJjYsmz" tabindex="-1" role="presentation"></a>A menudo, no se puede evitar definir nuevas estructuras de datos, ya que el estándar del lenguaje proporciona solo algunas básicas, y muchos tipos de datos deben ser más complejos que un array o un mapa. Pero cuando un array es suficiente, utiliza un array.</p>
+
+<p><a class="p_ident" id="p-lgijdltjB6" href="#p-lgijdltjB6" tabindex="-1" role="presentation"></a>Un ejemplo de una estructura de datos ligeramente más compleja es el grafo de <a href="07_robot.html">Capítulo 7</a>. No hay una forma única obvia de representar un grafo en JavaScript. En ese capítulo, utilizamos un objeto cuyas propiedades contienen arrays de strings: los otros nodos alcanzables desde ese nodo.</p>
+
+<p><a class="p_ident" id="p-ENslNQQZif" href="#p-ENslNQQZif" tabindex="-1" role="presentation"></a>Existen varios paquetes de búsqueda de rutas en NPM, pero ninguno de ellos utiliza este formato de grafo. Por lo general, permiten que las aristas del grafo tengan un peso, que es el costo o la distancia asociada a ellas. Eso no es posible en nuestra representación.</p>
+
+<p><a class="p_ident" id="p-Nyp7yR1Ls4" href="#p-Nyp7yR1Ls4" tabindex="-1" role="presentation"></a>Por ejemplo, está el paquete <code>dijkstrajs</code>. Un enfoque conocido para la búsqueda de rutas, bastante similar a nuestra función <code>findRoute</code>, se llama <em>algoritmo de Dijkstra</em>, en honor a Edsger Dijkstra, quien lo escribió por primera vez. A menudo se agrega el sufijo <code>js</code> a los nombres de los paquetes para indicar que están escritos en JavaScript. Este paquete <code>dijkstrajs</code> utiliza un formato de grafo similar al nuestro, pero en lugar de arrays, utiliza objetos cuyos valores de propiedad son números, los pesos de las aristas.</p>
+
+<p><a class="p_ident" id="p-yhx4gxUsUs" href="#p-yhx4gxUsUs" tabindex="-1" role="presentation"></a>Por lo tanto, si quisiéramos usar ese paquete, deberíamos asegurarnos de que nuestro grafo esté almacenado en el formato que espera. Todas las aristas tienen el mismo peso, ya que nuestro modelo simplificado trata cada camino como teniendo el mismo coste (una vuelta).</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qllW3k2edE" href="#c-qllW3k2edE" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> {find_path} = require(<span class="tok-string">&quot;dijkstrajs&quot;</span>);
+
+<span class="tok-keyword">let</span> <span class="tok-definition">graph</span> = {};
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">node</span> <span class="tok-keyword">of</span> Object.keys(roadGraph)) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">edges</span> = graph[node] = {};
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">dest</span> <span class="tok-keyword">of</span> roadGraph[node]) {
+    edges[dest] = <span class="tok-number">1</span>;
+  }
+}
+
+console.log(find_path(graph, <span class="tok-string">&quot;Oficina de Correos&quot;</span>, <span class="tok-string">&quot;Cabaña&quot;</span>));
+<span class="tok-comment">// → [&quot;Oficina de Correos&quot;, &quot;Casa de Alicia&quot;, &quot;Cabaña&quot;]</span></pre>
+
+<p><a class="p_ident" id="p-mvorll6y2z" href="#p-mvorll6y2z" tabindex="-1" role="presentation"></a>Esto puede ser una barrera para la composición: cuando varios paquetes están utilizando diferentes estructuras de datos para describir cosas similares, combinarlos es difícil. Por lo tanto, si deseas diseñar para la composabilidad, averigua qué estructuras de datos están utilizando otras personas y, cuando sea posible, sigue su ejemplo.</p>
+
+<p><a class="p_ident" id="p-m3mSugxkL/" href="#p-m3mSugxkL/" tabindex="-1" role="presentation"></a>{{index diseño}}</p>
+
+<p><a class="p_ident" id="p-IDgnEL9ZDX" href="#p-IDgnEL9ZDX" tabindex="-1" role="presentation"></a>Diseñar una estructura de módulo adecuada para un programa puede ser difícil. En la fase en la que aún estás explorando el problema, probando diferentes cosas para ver qué funciona, es posible que no quieras preocuparte demasiado por esto, ya que mantener todo organizado puede ser una gran distracción. Una vez que tengas algo que se sienta sólido, es un buen momento para dar un paso atrás y organizarlo.## Resumen</p>
+
+<p><a class="p_ident" id="p-XvXDONU/Vc" href="#p-XvXDONU/Vc" tabindex="-1" role="presentation"></a>Los módulos proporcionan estructura a programas más grandes al separar el código en piezas con interfaces claras y dependencias. La interfaz es la parte del módulo que es visible para otros módulos, y las dependencias son los otros módulos que se utilizan.</p>
+
+<p><a class="p_ident" id="p-6+U0N4+Lmm" href="#p-6+U0N4+Lmm" tabindex="-1" role="presentation"></a>Dado que JavaScript históricamente no proporcionaba un sistema de módulos, se construyó el sistema CommonJS sobre él. Luego, en algún momento <em>obtuvo</em> un sistema incorporado, que ahora coexiste incómodamente con el sistema CommonJS.</p>
+
+<p><a class="p_ident" id="p-V//HjvGu1k" href="#p-V//HjvGu1k" tabindex="-1" role="presentation"></a>Un paquete es un fragmento de código que se puede distribuir por sí solo. NPM es un repositorio de paquetes de JavaScript. Puedes descargar todo tipo de paquetes útiles (y inútiles) desde aquí.</p>
+
+<h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<h3><a class="i_ident" id="i-C94iKMHHsz" href="#i-C94iKMHHsz" tabindex="-1" role="presentation"></a>Un robot modular</h3>
+
+<p id="modular_robot"><a class="p_ident" id="p-KYRgkkdGWG" href="#p-KYRgkkdGWG" tabindex="-1" role="presentation"></a>Estos son los enlaces que crea el proyecto del <a href="07_robot.html">Capítulo 7</a>:</p>
+
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-/nxTd1W0Sy" href="#c-/nxTd1W0Sy" tabindex="-1" role="presentation"></a>roads
+buildGraph
+roadGraph
+VillageState
+runRobot
+randomPick
+randomRobot
+mailRoute
+routeRobot
+findRoute
+goalOrientedRobot</pre>
+
+<p><a class="p_ident" id="p-u0kzDYTb3k" href="#p-u0kzDYTb3k" tabindex="-1" role="presentation"></a>Si tuvieras que escribir ese proyecto como un programa modular, ¿qué módulos crearías? ¿Qué módulo dependería de qué otro módulo y cómo serían sus interfaces?</p>
+
+<p><a class="p_ident" id="p-uQ57ddB3lJ" href="#p-uQ57ddB3lJ" tabindex="-1" role="presentation"></a>¿Qué piezas es probable que estén disponibles preescritas en NPM? ¿Preferirías usar un paquete de NPM o escribirlos tú mismo?</p>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-2jVU/smvtt" href="#p-2jVU/smvtt" tabindex="-1" role="presentation"></a>Esto es lo que habría hecho (pero de nuevo, no hay una única forma <em>correcta</em> de diseñar un módulo dado):</p>
+
+<p><a class="p_ident" id="p-UjzpfJAtXv" href="#p-UjzpfJAtXv" tabindex="-1" role="presentation"></a>El código utilizado para construir el gráfico de carreteras se encuentra en el módulo <code>graph</code>. Como preferiría usar <code>dijkstrajs</code> de NPM en lugar de nuestro propio código de búsqueda de caminos, haremos que este construya el tipo de datos de gráfico que espera <code>dijkstrajs</code>. Este módulo exporta una única función, <code>buildGraph</code>. Haría que <code>buildGraph</code> aceptara un arreglo de arreglos de dos elementos, en lugar de cuerdas que contienen guiones, para hacer que el módulo dependa menos del formato de entrada.</p>
+
+<p><a class="p_ident" id="p-zidvnGHVmE" href="#p-zidvnGHVmE" tabindex="-1" role="presentation"></a>El módulo <code>roads</code> contiene los datos crudos de las carreteras (el arreglo <code>roads</code>) y el enlace <code>roadGraph</code>. Este módulo depende de <code>./graph.js</code> y exporta el grafo de carreteras.</p>
+
+<p><a class="p_ident" id="p-T1TF77/3do" href="#p-T1TF77/3do" tabindex="-1" role="presentation"></a>La clase <code>VillageState</code> se encuentra en el módulo <code>state</code>. Depende del módulo <code>./roads</code> porque necesita poder verificar que una carretera dada exista. También necesita <code>randomPick</code>. Dado que es una función de tres líneas, podríamos simplemente ponerla en el módulo <code>state</code> como una función auxiliar interna. Pero <code>randomRobot</code> también la necesita. Entonces tendríamos que duplicarla o ponerla en su propio módulo. Dado que esta función existe en NPM en el paquete <code>random-item</code>, una solución razonable es hacer que ambos módulos dependan de eso. También podemos agregar la función <code>runRobot</code> a este módulo, ya que es pequeña y está relacionada con la gestión del estado. El módulo exporta tanto la clase <code>VillageState</code> como la función <code>runRobot</code>.</p>
+
+<p><a class="p_ident" id="p-iXSO7deUX8" href="#p-iXSO7deUX8" tabindex="-1" role="presentation"></a>Finalmente, los robots, junto con los valores en los que dependen, como <code>mailRoute</code>, podrían ir en un módulo <code>example-robots</code>, que depende de <code>./roads</code> y exporta las funciones del robot. Para que <code>goalOrientedRobot</code> pueda realizar la búsqueda de rutas, este módulo también depende de <code>dijkstrajs</code>.Al externalizar cierto trabajo a módulos NPM, el código se volvió un poco más pequeño. Cada módulo individual hace algo bastante simple y se puede leer por sí solo. Dividir el código en módulos a menudo sugiere mejoras adicionales en el diseño del programa. En este caso, parece un poco extraño que el <code>VillageState</code> y los robots dependan de un gráfico de caminos específico. Podría ser una mejor idea hacer que el gráfico sea un argumento del constructor de estado y hacer que los robots lo lean desde el objeto de estado, esto reduce las dependencias (lo cual siempre es bueno) y hace posible ejecutar simulaciones en mapas diferentes (lo cual es aun mejor).</p>
+
+<p><a class="p_ident" id="p-5qAcyeu8nT" href="#p-5qAcyeu8nT" tabindex="-1" role="presentation"></a>¿Es una buena idea utilizar módulos de NPM para cosas que podríamos haber escrito nosotros mismos? En principio, sí, para cosas no triviales como la función de búsqueda de caminos es probable que cometas errores y pierdas tiempo escribiéndolas tú mismo. Para funciones pequeñas como <code>random-item</code>, escribirlas por ti mismo es bastante fácil. Pero añadirlas donde las necesitas tiende a saturar tus módulos.</p>
+
+<p><a class="p_ident" id="p-hBKwtogikk" href="#p-hBKwtogikk" tabindex="-1" role="presentation"></a>Sin embargo, tampoco debes subestimar el trabajo involucrado en <em>encontrar</em> un paquete de NPM apropiado. Y aunque encuentres uno, podría no funcionar bien o le podrían faltar alguna característica que necesitas. Además, depender de paquetes de NPM significa que debes asegurarte de que estén instalados, debes distribuirlos con tu programa y es posible que debas actualizarlos periódicamente.</p>
+
+<p><a class="p_ident" id="p-BSb1XGC70+" href="#p-BSb1XGC70+" tabindex="-1" role="presentation"></a>Así que de nuevo, esto es un compromiso, y puedes decidir de cualquier manera dependiendo de cuánto te ayude realmente un paquete dado.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-OksNSVKWEy" href="#i-OksNSVKWEy" tabindex="-1" role="presentation"></a>Módulo de caminos</h3>
+
+<p><a class="p_ident" id="p-To5WmsUN/B" href="#p-To5WmsUN/B" tabindex="-1" role="presentation"></a>Escribe un módulo ES, basado en el ejemplo del <a href="07_robot.html">Capítulo 7</a>, que contenga el array de caminos y exporte la estructura de datos de gráfico que los representa como <code>roadGraph</code>. Debería depender de un módulo <code>./graph.js</code>, que exporta una función <code>buildGraph</code> que se utiliza para construir el gráfico. Esta función espera un array de arrays de dos elementos (los puntos de inicio y fin de los caminos).</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-aUNoo52xRY" href="#c-aUNoo52xRY" tabindex="-1" role="presentation"></a><span class="tok-comment">// Añade dependencias y exportaciones</span>
+
+<span class="tok-keyword">const</span> <span class="tok-definition">roads</span> = [
+  <span class="tok-string">&quot;Casa de Alicia-Casa de Bob&quot;</span>,
+  <span class="tok-string">&quot;Casa de Alicia-Cabaña&quot;</span>,
+  <span class="tok-string">&quot;Casa de Alicia-Oficina de Correos&quot;</span>,
+  <span class="tok-string">&quot;Casa de Bob-Ayuntamiento&quot;</span>,
+  <span class="tok-string">&quot;Casa de Daría-Casa de Ernie&quot;</span>,
+  <span class="tok-string">&quot;Casa de Daría-Ayuntamiento&quot;</span>,
+  <span class="tok-string">&quot;Casa de Ernie-Casa de Grete&quot;</span>,
+  <span class="tok-string">&quot;Casa de Grete-Granja&quot;</span>,
+  <span class="tok-string">&quot;Casa de Grete-Tienda&quot;</span>,
+  <span class="tok-string">&quot;Plaza de Mercado-Granja&quot;</span>,
+  <span class="tok-string">&quot;Plaza de Mercado-Oficina de Correos&quot;</span>,
+  <span class="tok-string">&quot;Plaza de Mercado-Tienda&quot;</span>,
+  <span class="tok-string">&quot;Plaza de Mercado-Ayuntamiento&quot;</span>,
+  <span class="tok-string">&quot;Tienda-Ayuntamiento&quot;</span>
+];</pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-L9cRUPvKkw" href="#p-L9cRUPvKkw" tabindex="-1" role="presentation"></a>Dado que este es un módulo ES, debes usar <code>import</code> para acceder al módulo de gráfico. Esto se describió como exportando una función de <code>buildGraph</code>, la cual puedes seleccionar de su objeto de interfaz con una declaración de desestructuración <code>const</code>.</p>
+
+<p><a class="p_ident" id="p-XPWdEl/Mff" href="#p-XPWdEl/Mff" tabindex="-1" role="presentation"></a>Para exportar <code>roadGraph</code>, colocas la palabra clave <code>export</code> antes de su definición. Debido a que <code>buildGraph</code> toma una estructura de datos que no coincide exactamente con <code>roads</code>, la división de las cadenas de carretera debe ocurrir en tu módulo.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-bsfTSuURFj" href="#i-bsfTSuURFj" tabindex="-1" role="presentation"></a>Dependencias circulares</h3>
+
+<p><a class="p_ident" id="p-GjtArCyKNQ" href="#p-GjtArCyKNQ" tabindex="-1" role="presentation"></a>{{index dependency, “dependencia circular”, “función require”}}Una dependencia circular es una situación en la que el módulo A depende de B, y B también, directa o indirectamente, depende de A. Muchos sistemas de módulos simplemente prohíben esto porque, sin importar el orden que elijas para cargar dichos módulos, no puedes asegurarte de que las dependencias de cada módulo se hayan cargado antes de que se ejecute.</p>
+
+<p><a class="p_ident" id="p-oNX5VkmBpW" href="#p-oNX5VkmBpW" tabindex="-1" role="presentation"></a>Los módulos CommonJS permiten una forma limitada de dependencias cíclicas. Siempre y cuando los módulos no accedan a la interfaz de cada uno hasta después de que terminen de cargarse, las dependencias cíclicas están bien.</p>
+
+<p><a class="p_ident" id="p-pEgnu0OIuf" href="#p-pEgnu0OIuf" tabindex="-1" role="presentation"></a>La función <code>require</code> proporcionada <a href="10_modules.html#require">anteriormente en este capítulo</a> admite este tipo de ciclo de dependencia. ¿Puedes ver cómo maneja los ciclos?</p>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-oUZrcVxvQi" href="#p-oUZrcVxvQi" tabindex="-1" role="presentation"></a>El truco es que <code>require</code> añade el objeto de interfaz de un módulo a su caché <em>antes</em> de comenzar a cargar el módulo. De esta manera, si se hace alguna llamada a <code>require</code> mientras se está ejecutando tratando de cargarlo, ya se conoce, y se devolverá la interfaz actual, en lugar de comenzar a cargar el módulo nuevamente (lo que eventualmente desbordaría la pila).</p>
+
+</div></details><nav><a href="09_regexp.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="11_async.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+</article>
+
+<script src="ejs.js"></script>

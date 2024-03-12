@@ -1,0 +1,643 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proyecto: Sitio web de intercambio de habilidades :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":21}</script></head>
+
+<article>
+<nav><a href="20_node.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+
+<h1>Proyecto: Sitio web de intercambio de habilidades</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-poXcUSI7vO" href="#p-poXcUSI7vO" tabindex="-1" role="presentation"></a>Si tienes conocimiento, permite que otros enciendan sus velas en él.</p>
+
+<footer>Margaret Fuller</footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_21.jpg" alt="Ilustración que muestra dos monociclos apoyados en un buzón"></figure>
+
+<p><a class="p_ident" id="p-+g+6iPOOgI" href="#p-+g+6iPOOgI" tabindex="-1" role="presentation"></a>Una reunión de intercambio de habilidades es un evento en el que personas con un interés compartido se reúnen y dan pequeñas presentaciones informales sobre cosas que saben. En una reunión de intercambio de habilidades de jardinería, alguien podría explicar cómo cultivar apio. O en un grupo de intercambio de habilidades de programación, podrías pasar y contarles a la gente sobre Node.js.</p>
+
+<p><a class="p_ident" id="p-RGBud2T7DO" href="#p-RGBud2T7DO" tabindex="-1" role="presentation"></a>En este último capítulo del proyecto, nuestro objetivo es configurar un sitio web para gestionar las charlas impartidas en una reunión de intercambio de habilidades. Imagina un pequeño grupo de personas que se reúnen regularmente en la oficina de uno de los miembros para hablar sobre monociclos. El organizador anterior de las reuniones se mudó a otra ciudad y nadie se ofreció a asumir esta tarea. Queremos un sistema que permita a los participantes proponer y discutir charlas entre ellos, sin un organizador activo.</p>
+
+<p><a class="p_ident" id="p-OXFL+WFEZc" href="#p-OXFL+WFEZc" tabindex="-1" role="presentation"></a>Al igual que en el <a href="20_node.html">capítulo anterior</a>, parte del código en este capítulo está escrito para Node.js y es poco probable que funcione si se ejecuta directamente en la página HTML que estás viendo. El código completo del proyecto se puede descargar desde <a href="https://eloquentjavascript.net/code/skillsharing.zip"><em>https://eloquentjavascript.net/code/skillsharing.zip</em></a>.</p>
+
+<h2><a class="h_ident" id="h-3+hJ1EAoa5" href="#h-3+hJ1EAoa5" tabindex="-1" role="presentation"></a>Diseño</h2>
+
+<p><a class="p_ident" id="p-Jk7z/ajGt7" href="#p-Jk7z/ajGt7" tabindex="-1" role="presentation"></a>Este proyecto tiene una parte de <em>servidor</em>, escrita para Node.js, y una parte de <em>cliente</em>, escrita para el navegador. El servidor almacena los datos del sistema y los proporciona al cliente. También sirve los archivos que implementan el sistema del lado del cliente.</p>
+
+<p><a class="p_ident" id="p-jc0lnz5w+z" href="#p-jc0lnz5w+z" tabindex="-1" role="presentation"></a>El servidor mantiene la lista de charlas propuestas para la próxima reunión, y el cliente muestra esta lista. Cada charla tiene un nombre de presentador, un título, un resumen y una matriz de comentarios asociados. El cliente permite a los usuarios proponer nuevas charlas (agregándolas a la lista), eliminar charlas y comentar en charlas existentes. Cada vez que el usuario realiza un cambio de este tipo, el cliente realiza una solicitud HTTP para informar al servidor al respecto.</p><figure><img src="img/skillsharing.png" alt="Captura de pantalla del sitio web de intercambio de habilidades"></figure>
+
+<p><a class="p_ident" id="p-LjuGdRIE75" href="#p-LjuGdRIE75" tabindex="-1" role="presentation"></a>{{index “vista en vivo”, “experiencia del usuario”, “envío de datos”, conexión}}</p>
+
+<p><a class="p_ident" id="p-oateJBFpXz" href="#p-oateJBFpXz" tabindex="-1" role="presentation"></a>La aplicación se configurará para mostrar una vista <em>en vivo</em> de las charlas propuestas actuales y sus comentarios. Cada vez que alguien, en algún lugar, envíe una nueva charla o agregue un comentario, todas las personas que tengan la página abierta en sus navegadores deberían ver el cambio de inmediato. Esto plantea un desafío—no hay forma de que un servidor web abra una conexión a un cliente, ni hay una buena forma de saber qué clientes están viendo actualmente un sitio web dado.</p>
+
+<p><a class="p_ident" id="p-hgeOsffqux" href="#p-hgeOsffqux" tabindex="-1" role="presentation"></a>{{index “Node.js”}}Una solución común a este problema se llama <em>long polling</em>, que resulta ser una de las motivaciones del diseño de Node.</p>
+
+<h2><a class="h_ident" id="h-Yxu7U155Cs" href="#h-Yxu7U155Cs" tabindex="-1" role="presentation"></a>Long polling</h2>
+
+<p><a class="p_ident" id="p-Ck9kwV0HSj" href="#p-Ck9kwV0HSj" tabindex="-1" role="presentation"></a>{{index firewall, notificación, “long polling”, red, [navegador, seguridad]}}</p>
+
+<p><a class="p_ident" id="p-+gpJ1YoH6p" href="#p-+gpJ1YoH6p" tabindex="-1" role="presentation"></a>Para poder notificar inmediatamente a un cliente que algo ha cambiado, necesitamos una conexión con ese cliente. Dado que los navegadores web tradicionalmente no aceptan conexiones y los clientes a menudo están detrás de routers que bloquearían tales conexiones de todos modos, no es práctico que sea el servidor quien inicie esta conexión.</p>
+
+<p><a class="p_ident" id="p-XeGPkQ0uyB" href="#p-XeGPkQ0uyB" tabindex="-1" role="presentation"></a>Podemos hacer que el cliente abra la conexión y la mantenga activa para que el servidor pueda usarla para enviar información cuando sea necesario.</p>
+
+<p><a class="p_ident" id="p-5rJbNzHJV5" href="#p-5rJbNzHJV5" tabindex="-1" role="presentation"></a>Sin embargo, una solicitud HTTP permite solo un flujo simple de información: el cliente envía una solicitud, el servidor responde una sola vez, y eso es todo. Existe una tecnología llamada <em>WebSockets</em> que permite abrir conexiones para el intercambio arbitrario de datos. Pero usarlas adecuadamente es algo complicado.</p>
+
+<p><a class="p_ident" id="p-1TWbmtIAKU" href="#p-1TWbmtIAKU" tabindex="-1" role="presentation"></a>En este capítulo, utilizamos una técnica más sencilla—long polling—donde los clientes preguntan continuamente al servidor por nueva información mediante solicitudes HTTP regulares, y el servidor retiene su respuesta cuando no tiene nada nuevo que informar.</p>
+
+<p><a class="p_ident" id="p-t91Kzn6g95" href="#p-t91Kzn6g95" tabindex="-1" role="presentation"></a>Mientras el cliente se asegure de tener una solicitud de sondeo abierta constantemente, recibirá información del servidor rápidamente cuando esté disponible. Por ejemplo, si Fatma tiene nuestra aplicación de intercambio de habilidades abierta en su navegador, ese navegador habrá solicitado actualizaciones y estará esperando una respuesta a esa solicitud. Cuando Iman envía una charla sobre “Extreme Downhill Unicycling”, el servidor notará que Fatma está esperando actualizaciones y enviará una respuesta que contiene la nueva charla a su solicitud pendiente. El navegador de Fatma recibirá los datos y actualizará la pantalla para mostrar la charla.</p>
+
+<p><a class="p_ident" id="p-EqaPXn25K7" href="#p-EqaPXn25K7" tabindex="-1" role="presentation"></a>Para evitar que las conexiones se agoten por tiempo (se aborten debido a una falta de actividad), las técnicas de long polling suelen establecer un tiempo máximo para cada solicitud, tras el cual el servidor responderá de todos modos, aunque no tenga nada que informar. Entonces, el cliente puede iniciar una nueva solicitud. Reiniciar periódicamente la solicitud también hace que la técnica sea más robusta, permitiendo a los clientes recuperarse de fallos temporales de conexión o problemas de servidor.</p>
+
+<p><a class="p_ident" id="p-QyoyMuc05C" href="#p-QyoyMuc05C" tabindex="-1" role="presentation"></a>Un servidor ocupado que utiliza long polling puede tener miles de solicitudes en espera, y por lo tanto conexiones TCP abiertas. Node, que facilita la gestión de muchas conexiones sin crear un hilo de control separado para cada una, es ideal para este tipo de sistema.</p>
+
+<h2><a class="h_ident" id="h-zB2BkFIqom" href="#h-zB2BkFIqom" tabindex="-1" role="presentation"></a>Interfaz HTTP</h2>
+
+<p><a class="p_ident" id="p-GMlJy93L9x" href="#p-GMlJy93L9x" tabindex="-1" role="presentation"></a>Antes de comenzar a diseñar el servidor o el cliente, pensemos en el punto donde se conectan: la interfaz HTTP a través de la cual se comunican.</p>
+
+<p><a class="p_ident" id="p-FMtwUSWpS0" href="#p-FMtwUSWpS0" tabindex="-1" role="presentation"></a>{{index [ruta, URL], [método, HTTP]}}</p>
+
+<p><a class="p_ident" id="p-/KsGHFrTlj" href="#p-/KsGHFrTlj" tabindex="-1" role="presentation"></a>Utilizaremos JSON como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del <a href="20_node.html#file_server">Capítulo 20</a>, intentaremos hacer un buen uso de los métodos y cabeceras HTTP. La interfaz se centra en la ruta <code>/talks</code>. Las rutas que no comienzan con <code>/talks</code> se utilizarán para servir archivos estáticos—el código HTML y JavaScript para el sistema del lado del cliente.{{index “Método GET”}}</p>
+
+<p><a class="p_ident" id="p-z2nHTSSYsb" href="#p-z2nHTSSYsb" tabindex="-1" role="presentation"></a>Una solicitud <code>GET</code> a <code>/talks</code> devuelve un documento JSON como este:</p>
+
+<pre class="snippet" data-language="json" ><a class="c_ident" id="c-7u2gZXiBb3" href="#c-7u2gZXiBb3" tabindex="-1" role="presentation"></a>[{<span class="tok-string">&quot;title&quot;</span>: <span class="tok-string">&quot;Unituning&quot;</span>,
+  <span class="tok-string">&quot;presenter&quot;</span>: <span class="tok-string">&quot;Jamal&quot;</span>,
+  <span class="tok-string">&quot;summary&quot;</span>: <span class="tok-string">&quot;Modificando tu bicicleta para darle más estilo&quot;</span>,
+  <span class="tok-string">&quot;comments&quot;</span>: []}]</pre>
+
+<p><a class="p_ident" id="p-gjETc1D443" href="#p-gjETc1D443" tabindex="-1" role="presentation"></a>Crear una nueva charla se hace haciendo una solicitud <code>PUT</code> a una URL como <code>/talks/Unituning</code>, donde la parte después de la segunda barra es el título de la charla. El cuerpo de la solicitud <code>PUT</code> debe contener un objeto JSON que tenga propiedades <code>presenter</code> y <code>summary</code>.</p>
+
+<p><a class="p_ident" id="p-KimDuHu+7+" href="#p-KimDuHu+7+" tabindex="-1" role="presentation"></a>Dado que los títulos de las charlas pueden contener espacios y otros caracteres que normalmente no aparecen en una URL, las cadenas de título deben ser codificadas con la función <code>encodeURIComponent</code> al construir una URL de ese tipo.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-q6yi4iCtdj" href="#c-q6yi4iCtdj" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;/talks/&quot;</span> + encodeURIComponent(<span class="tok-string">&quot;Cómo hacer el caballito&quot;</span>));
+<span class="tok-comment">// → /talks/Cómo%20hacer%20el%20caballito</span></pre>
+
+<p><a class="p_ident" id="p-wTqsGckkEn" href="#p-wTqsGckkEn" tabindex="-1" role="presentation"></a>Una solicitud para crear una charla sobre hacer el caballito podría ser algo así:</p>
+
+<pre class="snippet" data-language="http" ><a class="c_ident" id="c-8jTK6TIW2A" href="#c-8jTK6TIW2A" tabindex="-1" role="presentation"></a><span class="tok-keyword">PUT</span> <span class="tok-string2">/talks/Cómo%20hacer%20el%20caballito</span> <span class="tok-keyword">HTTP/1.1</span>
+<span class="tok-atom">Content-Type:</span><span class="tok-string"> application/json</span>
+<span class="tok-atom">Content-Length:</span><span class="tok-string"> 92</span>
+
+{&quot;presenter&quot;: &quot;Maureen&quot;,
+ &quot;summary&quot;: &quot;Permanecer quieto sobre un monociclo&quot;}</pre>
+
+<p><a class="p_ident" id="p-N/i1a9WVQQ" href="#p-N/i1a9WVQQ" tabindex="-1" role="presentation"></a>Estas URLs también admiten solicitudes <code>GET</code> para recuperar la representación JSON de una charla y solicitudes <code>DELETE</code> para eliminar una charla.</p>
+
+<p><a class="p_ident" id="p-oXduuDcQBO" href="#p-oXduuDcQBO" tabindex="-1" role="presentation"></a>Agregar un comentario a una charla se hace con una solicitud <code>POST</code> a una URL como <code>/<wbr>talks/<wbr>Unituning/<wbr>comments</code>, con un cuerpo JSON que tiene propiedades <code>author</code> y <code>message</code>.</p>
+
+<pre class="snippet" data-language="http" ><a class="c_ident" id="c-FuvYZMKcwn" href="#c-FuvYZMKcwn" tabindex="-1" role="presentation"></a><span class="tok-keyword">POST</span> <span class="tok-string2">/talks/Unituning/comments</span> <span class="tok-keyword">HTTP/1.1</span>
+<span class="tok-atom">Content-Type:</span><span class="tok-string"> application/json</span>
+<span class="tok-atom">Content-Length:</span><span class="tok-string"> 72</span>
+
+{&quot;author&quot;: &quot;Iman&quot;,
+ &quot;message&quot;: &quot;¿Vas a hablar sobre cómo levantar una bicicleta?&quot;}</pre>
+
+<p><a class="p_ident" id="p-NgQyT9G11r" href="#p-NgQyT9G11r" tabindex="-1" role="presentation"></a>Para soportar encuestas prolongadas, las solicitudes <code>GET</code> a <code>/talks</code> pueden incluir encabezados adicionales que informen al servidor para retrasar la respuesta si no hay nueva información disponible. Usaremos un par de encabezados normalmente destinados a gestionar el almacenamiento en caché: <code>ETag</code> y <code>If-None-Match</code>.</p>
+
+<p><a class="p_ident" id="p-wI/PFtLZun" href="#p-wI/PFtLZun" tabindex="-1" role="presentation"></a>Los servidores pueden incluir un encabezado <code>ETag</code> (“etiqueta de entidad”) en una respuesta. Su valor es una cadena que identifica la versión actual del recurso. Los clientes, al solicitar posteriormente ese recurso de nuevo, pueden hacer una <em>solicitud condicional</em> incluyendo un encabezado <code>If-None-Match</code> cuyo valor contenga esa misma cadena. Si el recurso no ha cambiado, el servidor responderá con el código de estado 304, que significa “no modificado”, indicando al cliente que su versión en caché sigue siendo actual. Cuando la etiqueta no coincide, el servidor responde como de costumbre.</p>
+
+<p><a class="p_ident" id="p-Dah18ap9qG" href="#p-Dah18ap9qG" tabindex="-1" role="presentation"></a>Necesitamos algo como esto, donde el cliente puede decirle al servidor qué versión de la lista de charlas tiene, y el servidor responde solo cuando esa lista ha cambiado. Pero en lugar de devolver inmediatamente una respuesta 304, el servidor debería demorar la respuesta y devolverla solo cuando haya algo nuevo disponible o haya transcurrido una cantidad de tiempo determinada. Para distinguir las solicitudes de encuestas prolongadas de las solicitudes condicionales normales, les damos otro encabezado, <code>Prefer: wait=90</code>, que le indica al servidor que el cliente está dispuesto a esperar hasta 90 segundos por la respuesta.El servidor mantendrá un número de versión que actualiza cada vez que cambian las charlas y lo utilizará como valor <code>ETag</code>. Los clientes pueden hacer solicitudes como esta para ser notificados cuando las charlas cambien:</p>
+
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-MFF1bCg8y6" href="#c-MFF1bCg8y6" tabindex="-1" role="presentation"></a>GET /talks HTTP/1.1
+If-None-Match: &quot;4&quot;
+Prefer: wait=90
+
+(pasa el tiempo)
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+ETag: &quot;5&quot;
+Content-Length: 295
+
+[....]</pre>
+
+<p><a class="p_ident" id="p-Q/X5dgPjtl" href="#p-Q/X5dgPjtl" tabindex="-1" role="presentation"></a>El protocolo descrito aquí no realiza ningún control de acceso. Cualquiera puede comentar, modificar charlas e incluso eliminarlas. (Dado que Internet está lleno de matones, poner un sistema en línea sin una protección adicional probablemente no terminaría bien).</p>
+
+<h2><a class="h_ident" id="h-ws+ngSuF7H" href="#h-ws+ngSuF7H" tabindex="-1" role="presentation"></a>El servidor</h2>
+
+<p><a class="p_ident" id="p-2FUAACQEai" href="#p-2FUAACQEai" tabindex="-1" role="presentation"></a>Comencemos construyendo la parte del programa del lado del servidor. El código en esta sección se ejecuta en Node.js.</p>
+
+<h3><a class="i_ident" id="i-939KJHgV2o" href="#i-939KJHgV2o" tabindex="-1" role="presentation"></a>Enrutamiento</h3>
+
+<p><a class="p_ident" id="p-Wvpuzm93Zy" href="#p-Wvpuzm93Zy" tabindex="-1" role="presentation"></a>{{index “función createServer”, [ruta, URL], [método, HTTP]}}</p>
+
+<p><a class="p_ident" id="p-dOksxO97TB" href="#p-dOksxO97TB" tabindex="-1" role="presentation"></a>Nuestro servidor utilizará <code>createServer</code> de Node para iniciar un servidor HTTP. En la función que maneja una nueva solicitud, debemos distinguir entre los diferentes tipos de solicitudes (como se determina por el método y la ruta) que soportamos. Esto se puede hacer con una larga cadena de declaraciones <code>if</code>, pero hay una manera más elegante.</p>
+
+<p><a class="p_ident" id="p-zXEf+YLpW2" href="#p-zXEf+YLpW2" tabindex="-1" role="presentation"></a>Un <em>enrutador</em> es un componente que ayuda a despachar una solicitud a la función que puede manejarla. Puedes indicarle al enrutador, por ejemplo, que las solicitudes <code>PUT</code> con una ruta que coincida con la expresión regular <code>/<wbr>^\/<wbr>talks\/<wbr>([^\/<wbr>]+)$/<wbr></code> (<code>/talks/</code> seguido de un título de charla) pueden ser manejadas por una función dada. Además, puede ayudar a extraer las partes significativas de la ruta (en este caso el título de la charla), envueltas en paréntesis en la expresión regular, y pasarlas a la función manejadora.</p>
+
+<p><a class="p_ident" id="p-GRDOfoyc6J" href="#p-GRDOfoyc6J" tabindex="-1" role="presentation"></a>Hay varios paquetes de enrutadores buenos en NPM, pero aquí escribiremos uno nosotros mismos para ilustrar el principio.</p>
+
+<p><a class="p_ident" id="p-mn80X6/ZER" href="#p-mn80X6/ZER" tabindex="-1" role="presentation"></a>{{index “palabra clave import”, “clase Router”, módulo}}</p>
+
+<p><a class="p_ident" id="p-f+1c52SwUl" href="#p-f+1c52SwUl" tabindex="-1" role="presentation"></a>Este es <code>router.mjs</code>, que luego <code>importaremos</code> desde nuestro módulo del servidor:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-DdjroKRGYC" href="#c-DdjroKRGYC" tabindex="-1" role="presentation"></a><span class="tok-keyword">export</span> <span class="tok-keyword">class</span> Router {
+  <span class="tok-definition">constructor</span>() {
+    <span class="tok-keyword">this</span>.routes = [];
+  }
+  <span class="tok-definition">add</span>(<span class="tok-definition">method</span>, <span class="tok-definition">url</span>, <span class="tok-definition">handler</span>) {
+    <span class="tok-keyword">this</span>.routes.push({<span class="tok-definition">method</span>, <span class="tok-definition">url</span>, <span class="tok-definition">handler</span>});
+  }
+  <span class="tok-keyword">async</span> <span class="tok-definition">resolve</span>(<span class="tok-definition">request</span>, <span class="tok-definition">context</span>) {
+    <span class="tok-keyword">let</span> {pathname} = <span class="tok-keyword">new</span> URL(request.url, <span class="tok-string">&quot;http://d&quot;</span>);
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> {method, url, handler} <span class="tok-keyword">of</span> <span class="tok-keyword">this</span>.routes) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">match</span> = url.exec(pathname);
+      <span class="tok-keyword">if</span> (!match || request.method != method) <span class="tok-keyword">continue</span>;
+      <span class="tok-keyword">let</span> <span class="tok-definition">parts</span> = match.slice(<span class="tok-number">1</span>).map(decodeURIComponent);
+      <span class="tok-keyword">return</span> handler(context, ...parts, request);
+    }
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-/ptohdwIb9" href="#p-/ptohdwIb9" tabindex="-1" role="presentation"></a>El módulo exporta la clase <code>Router</code>. Un objeto de enrutador te permite registrar manejadores para métodos específicos y patrones de URL con su método <code>add</code>. Cuando una solicitud se resuelve con el método <code>resolve</code>, el enrutador llama al manejador cuyo método y URL coinciden con la solicitud y devuelve su resultado.</p>
+
+<p><a class="p_ident" id="p-MsWktv3ojr" href="#p-MsWktv3ojr" tabindex="-1" role="presentation"></a>Las funciones manejadoras se llaman con el valor <code>context</code> dado a <code>resolve</code>. Utilizaremos esto para darles acceso al estado de nuestro servidor. Además, reciben las cadenas coincidentes para cualquier grupo que hayan definido en su expresión regular, y el objeto de solicitud. Las cadenas deben ser decodificadas de la URL ya que la URL cruda puede contener códigos estilo <code>%20</code>.</p>
+
+<h3><a class="i_ident" id="i-ZUbq5VoJDs" href="#i-ZUbq5VoJDs" tabindex="-1" role="presentation"></a>Sirviendo archivos</h3>
+
+<p><a class="p_ident" id="p-Qfuyl7XyA7" href="#p-Qfuyl7XyA7" tabindex="-1" role="presentation"></a>Cuando una solicitud no coincide con ninguno de los tipos de solicitud definidos en nuestro enrutador, el servidor debe interpretarlo como una solicitud de un archivo en el directorio <code>public</code>. Sería posible usar el servidor de archivos definido en <a href="20_node.html#file_server">Capítulo 20</a> para servir dichos archivos, pero ni necesitamos ni queremos admitir solicitudes <code>PUT</code> y <code>DELETE</code> en archivos, y nos gustaría tener funciones avanzadas como el soporte para almacenamiento en caché. Así que usemos en cambio un servidor de archivos estático sólido y bien probado de NPM.</p>
+
+<p><a class="p_ident" id="p-RmKAuAnSZo" href="#p-RmKAuAnSZo" tabindex="-1" role="presentation"></a>Opté por <code>serve-static</code>. Este no es el único servidor de este tipo en NPM, pero funciona bien y se ajusta a nuestros propósitos. El paquete <code>serve-static</code> exporta una función que puede ser llamada con un directorio raíz para producir una función manipuladora de solicitudes. La función manipuladora acepta los argumentos <code>request</code> y <code>response</code> proporcionados por el servidor de <code>&quot;node:http&quot;</code>, y un tercer argumento, una función que se llamará si ningún archivo coincide con la solicitud. Queremos que nuestro servidor primero compruebe las solicitudes que deberíamos manejar de manera especial, según lo definido en el enrutador, por lo que lo envolvemos en otra función.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-lpYEW+IClx" href="#c-lpYEW+IClx" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">createServer</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;node:http&quot;</span>;
+<span class="tok-keyword">import</span> <span class="tok-definition">serveStatic</span> <span class="tok-keyword">from</span> <span class="tok-string">&quot;serve-static&quot;</span>;
+
+<span class="tok-keyword">function</span> <span class="tok-definition">notFound</span>(<span class="tok-definition">request</span>, <span class="tok-definition">response</span>) {
+  response.writeHead(<span class="tok-number">404</span>, <span class="tok-string">&quot;Not found&quot;</span>);
+  response.end(<span class="tok-string">&quot;&lt;h1&gt;Not found&lt;/h1&gt;&quot;</span>);
+}
+
+<span class="tok-keyword">class</span> SkillShareServer {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">talks</span>) {
+    <span class="tok-keyword">this</span>.talks = talks;
+    <span class="tok-keyword">this</span>.version = <span class="tok-number">0</span>;
+    <span class="tok-keyword">this</span>.waiting = [];
+
+    <span class="tok-keyword">let</span> <span class="tok-definition">fileServer</span> = serveStatic(<span class="tok-string">&quot;./public&quot;</span>);
+    <span class="tok-keyword">this</span>.server = createServer((<span class="tok-definition">request</span>, <span class="tok-definition">response</span>) =&gt; {
+      serveFromRouter(<span class="tok-keyword">this</span>, request, response, () =&gt; {
+        fileServer(request, response,
+                   () =&gt; notFound(request, response));
+      });
+    });
+  }
+  <span class="tok-definition">start</span>(<span class="tok-definition">port</span>) {
+    <span class="tok-keyword">this</span>.server.listen(port);
+  }
+  <span class="tok-definition">stop</span>() {
+    <span class="tok-keyword">this</span>.server.close();
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-WcsQxVDR10" href="#p-WcsQxVDR10" tabindex="-1" role="presentation"></a>La función <code>serveFromRouter</code> tiene la misma interfaz que <code>fileServer</code>, tomando los argumentos <code>(request, response, next)</code>. Esto nos permite “encadenar” varios manipuladores de solicitudes, permitiendo que cada uno maneje la solicitud o pase la responsabilidad de eso al siguiente manejador. El manejador final, <code>notFound</code>, simplemente responde con un error de “no encontrado”.</p>
+
+<p><a class="p_ident" id="p-HVx8AlKtha" href="#p-HVx8AlKtha" tabindex="-1" role="presentation"></a>Nuestra función <code>serveFromRouter</code> utiliza una convención similar a la del servidor de archivos del <a href="20_node.html">capítulo anterior</a> para las respuestas: los manejadores en el enrutador devuelven promesas que se resuelven en objetos que describen la respuesta.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-cH7BS4nzGw" href="#c-cH7BS4nzGw" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">Router</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;./router.mjs&quot;</span>;
+
+<span class="tok-keyword">const</span> <span class="tok-definition">router</span> = <span class="tok-keyword">new</span> Router();
+<span class="tok-keyword">const</span> <span class="tok-definition">defaultHeaders</span> = {<span class="tok-string">&quot;Content-Type&quot;</span>: <span class="tok-string">&quot;text/plain&quot;</span>};
+
+<span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">serveFromRouter</span>(<span class="tok-definition">server</span>, <span class="tok-definition">request</span>,
+                               <span class="tok-definition">response</span>, <span class="tok-definition">next</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">resolved</span> = <span class="tok-keyword">await</span> router.resolve(request, server)
+    .catch(<span class="tok-definition">error</span> =&gt; {
+      <span class="tok-keyword">if</span> (error.status != <span class="tok-keyword">null</span>) <span class="tok-keyword">return</span> error;
+      <span class="tok-keyword">return</span> {<span class="tok-definition">body</span>: String(error), <span class="tok-definition">status</span>: <span class="tok-number">500</span>};
+    });
+  <span class="tok-keyword">if</span> (!resolved) <span class="tok-keyword">return</span> next();
+  <span class="tok-keyword">let</span> {body, status = <span class="tok-number">200</span>, headers = defaultHeaders} =
+    <span class="tok-keyword">await</span> resolved;
+  response.writeHead(status, headers);
+  response.end(body);
+}
+<span class="tok-string2">``</span><span class="tok-string2">`### Charlas como recursos</span>
+
+<span class="tok-string2">Las ((charlas)) que se han propuesto se almacenan en la propiedad `</span>talks<span class="tok-string2">` del servidor, un objeto cuyas propiedades son los títulos de las charlas. Agregaremos algunos controladores a nuestro enrutador que expongan estos como ((recursos)) HTTP bajo `</span>/charlas/[título]<span class="tok-string2">`.</span>
+
+<span class="tok-string2">{{index &quot;método GET&quot;, &quot;404 (código de estado HTTP)&quot;, &quot;función hasOwn&quot;}}</span>
+
+<span class="tok-string2">El controlador para las solicitudes que `</span>GET<span class="tok-string2">` una sola charla debe buscar la charla y responder ya sea con los datos JSON de la charla o con una respuesta de error 404.</span>
+
+<span class="tok-string2">`</span><span class="tok-string2">``</span>{includeCode: <span class="tok-string">&quot;&gt;code/skillsharing/skillsharing_server.mjs&quot;</span>}
+<span class="tok-keyword">const</span> <span class="tok-definition">talkPath</span> = <span class="tok-string2">/^\/charlas\/([^\/]+)$/</span>;
+
+router.add(<span class="tok-string">&quot;GET&quot;</span>, talkPath, <span class="tok-keyword">async</span> (<span class="tok-definition">server</span>, <span class="tok-definition">title</span>) =&gt; {
+  <span class="tok-keyword">if</span> (Object.hasOwn(server.talks, title)) {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">body</span>: JSON.stringify(server.talks[title]),
+            <span class="tok-definition">headers</span>: {<span class="tok-string">&quot;Content-Type&quot;</span>: <span class="tok-string">&quot;application/json&quot;</span>}};
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">404</span>, <span class="tok-definition">body</span>: <span class="tok-string2">`No se encontró la charla '</span>${title}<span class="tok-string2">'`</span>};
+  }
+});</pre>
+
+<p><a class="p_ident" id="p-bJpProgQwk" href="#p-bJpProgQwk" tabindex="-1" role="presentation"></a>Eliminar una charla se hace eliminándola del objeto <code>talks</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hHVMqh7is7" href="#c-hHVMqh7is7" tabindex="-1" role="presentation"></a>router.add(<span class="tok-string">&quot;DELETE&quot;</span>, talkPath, <span class="tok-keyword">async</span> (<span class="tok-definition">server</span>, <span class="tok-definition">title</span>) =&gt; {
+  <span class="tok-keyword">if</span> (Object.hasOwn(server.talks, title)) {
+    <span class="tok-keyword">delete</span> server.talks[title];
+    server.updated();
+  }
+  <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">204</span>};
+});</pre>
+
+<p><a class="p_ident" id="p-pjcjDMRuxA" href="#p-pjcjDMRuxA" tabindex="-1" role="presentation"></a>El método <code>updated</code>, que definiremos <a href="21_skillsharing.html#updated">más adelante</a>, notifica a las solicitudes de espera larga sobre el cambio.</p>
+
+<p><a class="p_ident" id="p-6VhbaiLoZm" href="#p-6VhbaiLoZm" tabindex="-1" role="presentation"></a>{{index validación, entrada, “método PUT”}}</p>
+
+<p><a class="p_ident" id="p-e83CFc66FM" href="#p-e83CFc66FM" tabindex="-1" role="presentation"></a>Un controlador que necesita leer cuerpos de solicitud es el controlador <code>PUT</code>, que se utiliza para crear nuevas charlas. Debe verificar si los datos que se le proporcionaron tienen propiedades <code>presentador</code> y <code>resumen</code>, que son cadenas de texto. Cualquier dato que provenga de fuera del sistema podría ser un sinsentido y no queremos corromper nuestro modelo de datos interno o fallar cuando lleguen solicitudes incorrectas.</p>
+
+<p><a class="p_ident" id="p-staaYNoCZ/" href="#p-staaYNoCZ/" tabindex="-1" role="presentation"></a>Si los datos parecen válidos, el controlador almacena un objeto que representa la nueva charla en el objeto <code>talks</code>, posiblemente sobrescribiendo una charla existente con este título, y nuevamente llama a <code>updated</code>.</p>
+
+<p><a class="p_ident" id="p-+8INWPaDVV" href="#p-+8INWPaDVV" tabindex="-1" role="presentation"></a>Para leer el cuerpo del flujo de solicitud, utilizaremos la función <code>json</code> de <code>&quot;node:stream/<wbr>consumers&quot;</code>, que recopila los datos en el flujo y luego los analiza como JSON. Hay exportaciones similares llamadas <code>text</code> (para leer el contenido como una cadena) y <code>buffer</code> (para leerlo como datos binarios) en este paquete. Dado que <code>json</code> es un nombre genérico, la importación lo renombra a <code>readJSON</code> para evitar confusiones.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Ix+LWD1WCY" href="#c-Ix+LWD1WCY" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {json <span class="tok-keyword">as</span> <span class="tok-definition">readJSON</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;node:stream/consumers&quot;</span>
+
+router.add(<span class="tok-string">&quot;PUT&quot;</span>, talkPath,
+           <span class="tok-keyword">async</span> (<span class="tok-definition">server</span>, <span class="tok-definition">title</span>, <span class="tok-definition">request</span>) =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">talk</span> = <span class="tok-keyword">await</span> readJSON(request);
+  <span class="tok-keyword">if</span> (!talk ||
+      <span class="tok-keyword">typeof</span> talk.presenter != <span class="tok-string">&quot;string&quot;</span> ||
+      <span class="tok-keyword">typeof</span> talk.summary != <span class="tok-string">&quot;string&quot;</span>) {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">400</span>, <span class="tok-definition">body</span>: <span class="tok-string">&quot;Datos de charla incorrectos&quot;</span>};
+  }
+  server.talks[title] = {
+    <span class="tok-definition">title</span>,
+    <span class="tok-definition">presenter</span>: talk.presenter,
+    <span class="tok-definition">summary</span>: talk.summary,
+    <span class="tok-definition">comments</span>: []
+  };
+  server.updated();
+  <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">204</span>};
+});
+<span class="tok-string2">``</span><span class="tok-string2">`Agregar un ((comentario)) a una ((charla)) funciona de manera similar. Usamos `</span>readJSON<span class="tok-string2">` para obtener el contenido de la solicitud, validamos los datos resultantes y los almacenamos como un comentario cuando parecen válidos.</span>
+
+<span class="tok-string2">`</span><span class="tok-string2">``</span>{includeCode: <span class="tok-string">&quot;&gt;code/skillsharing/skillsharing_server.mjs&quot;</span>}
+router.add(<span class="tok-string">&quot;POST&quot;</span>, <span class="tok-string2">/^\/talks\/([^\/]+)\/comments$/</span>,
+           <span class="tok-keyword">async</span> (<span class="tok-definition">server</span>, <span class="tok-definition">title</span>, <span class="tok-definition">request</span>) =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">comment</span> = <span class="tok-keyword">await</span> readJSON(request);
+  <span class="tok-keyword">if</span> (!comment ||
+      <span class="tok-keyword">typeof</span> comment.author != <span class="tok-string">&quot;string&quot;</span> ||
+      <span class="tok-keyword">typeof</span> comment.message != <span class="tok-string">&quot;string&quot;</span>) {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">400</span>, <span class="tok-definition">body</span>: <span class="tok-string">&quot;Datos de comentario incorrectos&quot;</span>};
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (Object.hasOwn(server.talks, title)) {
+    server.talks[title].comments.push(comment);
+    server.updated();
+    <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">204</span>};
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">404</span>, <span class="tok-definition">body</span>: <span class="tok-string2">`No se encontró la charla '</span>${title}<span class="tok-string2">'`</span>};
+  }
+});</pre>
+
+<p><a class="p_ident" id="p-A4Y3JVemOr" href="#p-A4Y3JVemOr" tabindex="-1" role="presentation"></a>Intentar agregar un comentario a una charla inexistente devuelve un error 404.</p>
+
+<h3><a class="i_ident" id="i-uX0TYu9umo" href="#i-uX0TYu9umo" tabindex="-1" role="presentation"></a>Soporte para larga espera</h3>
+
+<p><a class="p_ident" id="p-laDMjH8FTx" href="#p-laDMjH8FTx" tabindex="-1" role="presentation"></a>El aspecto más interesante del servidor es la parte que maneja la larga espera. Cuando llega una solicitud <code>GET</code> para <code>/charlas</code>, puede ser una solicitud regular o una solicitud de larga espera.</p>
+
+<p><a class="p_ident" id="p-HOEdzyAw2w" href="#p-HOEdzyAw2w" tabindex="-1" role="presentation"></a>Habrá varios lugares en los que debamos enviar una matriz de charlas al cliente, por lo que primero definimos un método auxiliar que construya dicha matriz e incluya un encabezado <code>ETag</code> en la respuesta.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-XiOFQSm9fc" href="#c-XiOFQSm9fc" tabindex="-1" role="presentation"></a>SkillShareServer.prototype.talkResponse = <span class="tok-keyword">function</span>() {
+  <span class="tok-keyword">let</span> <span class="tok-definition">talks</span> = Object.keys(<span class="tok-keyword">this</span>.talks)
+    .map(<span class="tok-definition">title</span> =&gt; <span class="tok-keyword">this</span>.talks[title]);
+  <span class="tok-keyword">return</span> {
+    <span class="tok-definition">body</span>: JSON.stringify(talks),
+    <span class="tok-definition">headers</span>: {<span class="tok-string">&quot;Content-Type&quot;</span>: <span class="tok-string">&quot;application/json&quot;</span>,
+              <span class="tok-string">&quot;ETag&quot;</span>: <span class="tok-string2">`&quot;</span>${<span class="tok-keyword">this</span>.version}<span class="tok-string2">&quot;`</span>,
+              <span class="tok-string">&quot;Cache-Control&quot;</span>: <span class="tok-string">&quot;no-store&quot;</span>}
+  };
+};</pre>
+
+<p><a class="p_ident" id="p-ThLLzsQiQJ" href="#p-ThLLzsQiQJ" tabindex="-1" role="presentation"></a>{{index “cadena de consulta”, “paquete url”, análisis}}</p>
+
+<p><a class="p_ident" id="p-zS6RSzsTLW" href="#p-zS6RSzsTLW" tabindex="-1" role="presentation"></a>El controlador en sí mismo necesita examinar los encabezados de la solicitud para ver si están presentes los encabezados <code>If-None-Match</code> y <code>Prefer</code>. Node almacena los encabezados, cuyos nombres se especifican como insensibles a mayúsculas y minúsculas, bajo sus nombres en minúsculas.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/t9cPK34U3" href="#c-/t9cPK34U3" tabindex="-1" role="presentation"></a>router.add(<span class="tok-string">&quot;GET&quot;</span>, <span class="tok-string2">/^\/talks$/</span>, <span class="tok-keyword">async</span> (<span class="tok-definition">server</span>, <span class="tok-definition">request</span>) =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">tag</span> = <span class="tok-string2">/&quot;(.*)&quot;/</span>.exec(request.headers[<span class="tok-string">&quot;if-none-match&quot;</span>]);
+  <span class="tok-keyword">let</span> <span class="tok-definition">wait</span> = <span class="tok-string2">/\bwait=(\d+)/</span>.exec(request.headers[<span class="tok-string">&quot;prefer&quot;</span>]);
+  <span class="tok-keyword">if</span> (!tag || tag[<span class="tok-number">1</span>] != server.version) {
+    <span class="tok-keyword">return</span> server.talkResponse();
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (!wait) {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">status</span>: <span class="tok-number">304</span>};
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">return</span> server.waitForChanges(Number(wait[<span class="tok-number">1</span>]));
+  }
+});</pre>
+
+<p><a class="p_ident" id="p-pT8IDjdsPB" href="#p-pT8IDjdsPB" tabindex="-1" role="presentation"></a>Si no se proporcionó ninguna etiqueta o se proporcionó una etiqueta que no coincide con la versión actual del servidor, el controlador responde con la lista de charlas. Si la solicitud es condicional y las charlas no han cambiado, consultamos el encabezado <code>Prefer</code> para ver si debemos retrasar la respuesta o responder de inmediato.</p>
+
+<p><a class="p_ident" id="p-YGvJuvHlww" href="#p-YGvJuvHlww" tabindex="-1" role="presentation"></a>Las funciones de devolución de llamada para solicitudes retardadas se almacenan en la matriz <code>waiting</code> del servidor para que puedan ser notificadas cuando ocurra algo. El método <code>waitForChanges</code> también establece inmediatamente un temporizador para responder con un estado 304 cuando la solicitud haya esperado el tiempo suficiente.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-4a/A2U+gT3" href="#c-4a/A2U+gT3" tabindex="-1" role="presentation"></a>SkillShareServer.prototype.waitForChanges = <span class="tok-keyword">function</span>(<span class="tok-definition">time</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">resolve</span> =&gt; {
+    <span class="tok-keyword">this</span>.waiting.push(resolve);
+    setTimeout(() =&gt; {
+      <span class="tok-keyword">if</span> (!<span class="tok-keyword">this</span>.waiting.includes(resolve)) <span class="tok-keyword">return</span>;
+      <span class="tok-keyword">this</span>.waiting = <span class="tok-keyword">this</span>.waiting.filter(<span class="tok-definition">r</span> =&gt; r != resolve);
+      resolve({<span class="tok-definition">status</span>: <span class="tok-number">304</span>});
+    }, time * <span class="tok-number">1000</span>);
+  });
+};</pre>
+
+<p id="updated"><a class="p_ident" id="p-ytA6+142s8" href="#p-ytA6+142s8" tabindex="-1" role="presentation"></a>Registrar un cambio con <code>updated</code> incrementa la propiedad <code>versión</code> y despierta todas las solicitudes en espera.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-mZ7p2D8VNW" href="#c-mZ7p2D8VNW" tabindex="-1" role="presentation"></a>SkillShareServer.prototype.updated = <span class="tok-keyword">function</span>() {
+  <span class="tok-keyword">this</span>.version++;
+  <span class="tok-keyword">let</span> <span class="tok-definition">response</span> = <span class="tok-keyword">this</span>.talkResponse();
+  <span class="tok-keyword">this</span>.waiting.forEach(<span class="tok-definition">resolve</span> =&gt; resolve(response));
+  <span class="tok-keyword">this</span>.waiting = [];
+};</pre>
+
+<p><a class="p_ident" id="p-GETCDP1v5q" href="#p-GETCDP1v5q" tabindex="-1" role="presentation"></a>Eso concluye el código del servidor. Si creamos una instancia de <code>SkillShareServer</code> y la iniciamos en el puerto 8000, el servidor HTTP resultante servirá archivos desde el subdirectorio <code>public</code> junto con una interfaz para manejar charlas bajo la URL <code>/talks</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-aaqy/FYjqn" href="#c-aaqy/FYjqn" tabindex="-1" role="presentation"></a><span class="tok-keyword">new</span> SkillShareServer({}).start(<span class="tok-number">8000</span>);</pre>
+
+<h2><a class="h_ident" id="h-89YUl2IhC9" href="#h-89YUl2IhC9" tabindex="-1" role="presentation"></a>El cliente</h2>
+
+<p><a class="p_ident" id="p-wtw0eg9iUp" href="#p-wtw0eg9iUp" tabindex="-1" role="presentation"></a>La parte del cliente del sitio web de intercambio de habilidades consiste en tres archivos: una pequeña página HTML, una hoja de estilos y un archivo JavaScript.</p>
+
+<h3><a class="i_ident" id="i-n3OM6EV/KR" href="#i-n3OM6EV/KR" tabindex="-1" role="presentation"></a>HTML</h3>
+
+<p><a class="p_ident" id="p-rYuavmgG93" href="#p-rYuavmgG93" tabindex="-1" role="presentation"></a>Es una convención ampliamente utilizada para servidores web intentar servir un archivo llamado <code>index.html</code> cuando se realiza una solicitud directamente a una ruta que corresponde a un directorio. El módulo de servidor de archivos que utilizamos, <code>serve-static</code>, soporta esta convención. Cuando se realiza una solicitud a la ruta <code>/</code>, el servidor busca el archivo <code>./<wbr>public/<wbr>index.<wbr>html</code> (<code>./public</code> siendo la raíz que le dimos) y devuelve ese archivo si se encuentra.</p>
+
+<p><a class="p_ident" id="p-qrTeFznkLy" href="#p-qrTeFznkLy" tabindex="-1" role="presentation"></a>Por lo tanto, si queremos que una página aparezca cuando un navegador apunta a nuestro servidor, deberíamos colocarla en <code>public/<wbr>index.<wbr>html</code>. Este es nuestro archivo de índice:</p>
+
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-/r8K6Wm5bv" href="#c-/r8K6Wm5bv" tabindex="-1" role="presentation"></a><span class="tok-meta">&lt;!doctype html&gt;</span>
+&lt;<span class="tok-typeName">meta</span> charset=<span class="tok-string">&quot;utf-8&quot;</span>&gt;
+&lt;<span class="tok-typeName">title</span>&gt;Intercambio de habilidades&lt;/<span class="tok-typeName">title</span>&gt;
+&lt;<span class="tok-typeName">link</span> rel=<span class="tok-string">&quot;stylesheet&quot;</span> href=<span class="tok-string">&quot;skillsharing.css&quot;</span>&gt;
+
+&lt;<span class="tok-typeName">h1</span>&gt;Intercambio de habilidades&lt;/<span class="tok-typeName">h1</span>&gt;
+
+&lt;<span class="tok-typeName">script</span> src=<span class="tok-string">&quot;skillsharing_client.js&quot;</span>&gt;&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-LHLe/6F2Bj" href="#p-LHLe/6F2Bj" tabindex="-1" role="presentation"></a>Define el título del documento e incluye una hoja de estilos, que define algunos estilos para, entre otras cosas, asegurarse de que haya algo de espacio entre las charlas. Luego agrega un encabezado en la parte superior de la página y carga el script que contiene la aplicación del cliente.</p>
+
+<h3><a class="i_ident" id="i-eb0O2RLD25" href="#i-eb0O2RLD25" tabindex="-1" role="presentation"></a>Acciones</h3>
+
+<p><a class="p_ident" id="p-QVOaRxytMq" href="#p-QVOaRxytMq" tabindex="-1" role="presentation"></a>El estado de la aplicación consiste en la lista de charlas y el nombre del usuario, y lo almacenaremos en un objeto <code>{charlas, usuario}</code>. No permitimos que la interfaz de usuario manipule directamente el estado ni envíe solicitudes HTTP. En cambio, puede emitir <em>acciones</em> que describen lo que el usuario está intentando hacer.</p>
+
+<p><a class="p_ident" id="p-TAiYXUsGw+" href="#p-TAiYXUsGw+" tabindex="-1" role="presentation"></a>La función <code>handleAction</code> toma una acción de este tipo y la lleva a cabo. Debido a que nuestras actualizaciones de estado son tan simples, los cambios de estado se manejan en la misma función.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-TZfLAx6p12" href="#c-TZfLAx6p12" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">handleAction</span>(<span class="tok-definition">state</span>, <span class="tok-definition">action</span>) {
+  <span class="tok-keyword">if</span> (action.type == <span class="tok-string">&quot;setUser&quot;</span>) {
+    localStorage.setItem(<span class="tok-string">&quot;userName&quot;</span>, action.user);
+    <span class="tok-keyword">return</span> {...state, <span class="tok-definition">user</span>: action.user};
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (action.type == <span class="tok-string">&quot;setTalks&quot;</span>) {
+    <span class="tok-keyword">return</span> {...state, <span class="tok-definition">talks</span>: action.talks};
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (action.type == <span class="tok-string">&quot;newTalk&quot;</span>) {
+    fetchOK(talkURL(action.title), {
+      <span class="tok-definition">method</span>: <span class="tok-string">&quot;PUT&quot;</span>,
+      <span class="tok-definition">headers</span>: {<span class="tok-string">&quot;Content-Type&quot;</span>: <span class="tok-string">&quot;application/json&quot;</span>},
+      <span class="tok-definition">body</span>: JSON.stringify({
+        <span class="tok-definition">presenter</span>: state.user,
+        <span class="tok-definition">summary</span>: action.summary
+      })
+    }).catch(reportError);
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (action.type == <span class="tok-string">&quot;deleteTalk&quot;</span>) {
+    fetchOK(talkURL(action.talk), {<span class="tok-definition">method</span>: <span class="tok-string">&quot;DELETE&quot;</span>})
+      .catch(reportError);
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (action.type == <span class="tok-string">&quot;newComment&quot;</span>) {
+    fetchOK(talkURL(action.talk) + <span class="tok-string">&quot;/comments&quot;</span>, {
+      <span class="tok-definition">method</span>: <span class="tok-string">&quot;POST&quot;</span>,
+      <span class="tok-definition">headers</span>: {<span class="tok-string">&quot;Content-Type&quot;</span>: <span class="tok-string">&quot;application/json&quot;</span>},
+      <span class="tok-definition">body</span>: JSON.stringify({
+        <span class="tok-definition">author</span>: state.user,
+        <span class="tok-definition">message</span>: action.message
+      })
+    }).catch(reportError);
+  }
+  <span class="tok-keyword">return</span> state;
+}</pre>
+
+<p><a class="p_ident" id="p-Eqtvh6MDT4" href="#p-Eqtvh6MDT4" tabindex="-1" role="presentation"></a>Almacenaremos el nombre del usuario en <code>localStorage</code> para que pueda ser restaurado cuando se cargue la página.</p>
+
+<p><a class="p_ident" id="p-xZU8661i5R" href="#p-xZU8661i5R" tabindex="-1" role="presentation"></a>Las acciones que necesitan involucrar al servidor realizan peticiones a la red, utilizando <code>fetch</code>, a la interfaz HTTP descrita anteriormente. Utilizamos una función de envoltura, <code>fetchOK</code>, que se asegura de que la promesa devuelta sea rechazada cuando el servidor devuelve un código de error.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-IM58YE2b7h" href="#c-IM58YE2b7h" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">fetchOK</span>(<span class="tok-definition">url</span>, <span class="tok-definition">options</span>) {
+  <span class="tok-keyword">return</span> fetch(url, options).then(<span class="tok-definition">response</span> =&gt; {
+    <span class="tok-keyword">if</span> (response.status &lt; <span class="tok-number">400</span>) <span class="tok-keyword">return</span> response;
+    <span class="tok-keyword">else</span> <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(response.statusText);
+  });
+}</pre>
+
+<p><a class="p_ident" id="p-x0pviGUgx7" href="#p-x0pviGUgx7" tabindex="-1" role="presentation"></a>Esta función auxiliar se utiliza para construir una URL para una charla con un título dado.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KDfsRI9rOO" href="#c-KDfsRI9rOO" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">talkURL</span>(<span class="tok-definition">title</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-string">&quot;talks/&quot;</span> + encodeURIComponent(title);
+}</pre>
+
+<p><a class="p_ident" id="p-nE9YcWo4cI" href="#p-nE9YcWo4cI" tabindex="-1" role="presentation"></a>Cuando la petición falla, no queremos que nuestra página simplemente se quede ahí, sin hacer nada sin explicación. Así que definimos una función llamada <code>reportError</code>, que al menos muestra al usuario un cuadro de diálogo que le informa que algo salió mal.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-upWq63EA/j" href="#c-upWq63EA/j" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">reportError</span>(<span class="tok-definition">error</span>) {
+  alert(String(error));
+}</pre>
+
+<h3><a class="i_ident" id="i-Xb+LQLgwP6" href="#i-Xb+LQLgwP6" tabindex="-1" role="presentation"></a>Renderización de componentes</h3>
+
+<p><a class="p_ident" id="p-Q/3k0gUdfJ" href="#p-Q/3k0gUdfJ" tabindex="-1" role="presentation"></a>Utilizaremos un enfoque similar al que vimos en <a href="19_paint.html">Capítulo 19</a>, dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo DOM. Por ejemplo, aquí hay un componente que muestra el campo donde el usuario puede ingresar su nombre:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-whT+DkjYvZ" href="#c-whT+DkjYvZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">renderUserField</span>(<span class="tok-definition">name</span>, <span class="tok-definition">dispatch</span>) {
+  <span class="tok-keyword">return</span> elt(<span class="tok-string">&quot;label&quot;</span>, {}, <span class="tok-string">&quot;Tu nombre: &quot;</span>, elt(<span class="tok-string">&quot;input&quot;</span>, {
+    <span class="tok-definition">type</span>: <span class="tok-string">&quot;text&quot;</span>,
+    <span class="tok-definition">value</span>: name,
+    <span class="tok-definition">onchange</span>(<span class="tok-definition">event</span>) {
+      dispatch({<span class="tok-definition">type</span>: <span class="tok-string">&quot;setUser&quot;</span>, <span class="tok-definition">user</span>: event.target.value});
+    }
+  }));
+}</pre>
+
+<p><a class="p_ident" id="p-HFdFBvkVkQ" href="#p-HFdFBvkVkQ" tabindex="-1" role="presentation"></a>La función <code>elt</code> utilizada para construir elementos DOM es la misma que usamos en <a href="19_paint.html">Capítulo 19</a>.</p>
+
+<p><a class="p_ident" id="p-ANM2bG067I" href="#p-ANM2bG067I" tabindex="-1" role="presentation"></a>Se utiliza una función similar para renderizar charlas, que incluyen una lista de comentarios y un formulario para agregar un nuevo comentario.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-18QxMufj4p" href="#c-18QxMufj4p" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">renderTalk</span>(<span class="tok-definition">talk</span>, <span class="tok-definition">dispatch</span>) {
+  <span class="tok-keyword">return</span> elt(
+    <span class="tok-string">&quot;section&quot;</span>, {<span class="tok-definition">className</span>: <span class="tok-string">&quot;talk&quot;</span>},
+    elt(<span class="tok-string">&quot;h2&quot;</span>, <span class="tok-keyword">null</span>, talk.title, <span class="tok-string">&quot; &quot;</span>, elt(<span class="tok-string">&quot;button&quot;</span>, {
+      <span class="tok-definition">type</span>: <span class="tok-string">&quot;button&quot;</span>,
+      <span class="tok-definition">onclick</span>() {
+        dispatch({<span class="tok-definition">type</span>: <span class="tok-string">&quot;deleteTalk&quot;</span>, <span class="tok-definition">talk</span>: talk.title});
+      }
+    }, <span class="tok-string">&quot;Eliminar&quot;</span>)),
+    elt(<span class="tok-string">&quot;div&quot;</span>, <span class="tok-keyword">null</span>, <span class="tok-string">&quot;por &quot;</span>,
+        elt(<span class="tok-string">&quot;strong&quot;</span>, <span class="tok-keyword">null</span>, talk.presenter)),
+    elt(<span class="tok-string">&quot;p&quot;</span>, <span class="tok-keyword">null</span>, talk.summary),
+    ...talk.comments.map(renderComment),
+    elt(<span class="tok-string">&quot;form&quot;</span>, {
+      <span class="tok-definition">onsubmit</span>(<span class="tok-definition">event</span>) {
+        event.preventDefault();
+        <span class="tok-keyword">let</span> <span class="tok-definition">form</span> = event.target;
+        dispatch({<span class="tok-definition">type</span>: <span class="tok-string">&quot;newComment&quot;</span>,
+                  <span class="tok-definition">talk</span>: talk.title,
+                  <span class="tok-definition">message</span>: form.elements.comment.value});
+        form.reset();
+      }
+    }, elt(<span class="tok-string">&quot;input&quot;</span>, {<span class="tok-definition">type</span>: <span class="tok-string">&quot;text&quot;</span>, <span class="tok-definition">name</span>: <span class="tok-string">&quot;comment&quot;</span>}), <span class="tok-string">&quot; &quot;</span>,
+       elt(<span class="tok-string">&quot;button&quot;</span>, {<span class="tok-definition">type</span>: <span class="tok-string">&quot;submit&quot;</span>}, <span class="tok-string">&quot;Añadir comentario&quot;</span>)));
+}</pre>
+
+<p><a class="p_ident" id="p-zWBsJsWqrO" href="#p-zWBsJsWqrO" tabindex="-1" role="presentation"></a>El controlador de evento <code>&quot;submit&quot;</code> llama a <code>form.reset</code> para limpiar el contenido del formulario después de crear una acción <code>&quot;newComment&quot;</code>.</p>
+
+<p><a class="p_ident" id="p-ZbV8V68t7Z" href="#p-ZbV8V68t7Z" tabindex="-1" role="presentation"></a>Cuando se crean piezas moderadamente complejas del DOM, este estilo de programación comienza a verse bastante desordenado. Para evitar esto, a menudo la gente utiliza un <em>lenguaje de plantillas</em>, que permite escribir la interfaz como un archivo HTML con algunos marcadores especiales para indicar dónde van los elementos dinámicos. O utilizan <em>JSX</em>, un dialecto de JavaScript no estándar que te permite escribir algo muy parecido a etiquetas HTML en tu programa como si fueran expresiones JavaScript. Ambos enfoques utilizan herramientas adicionales para preprocesar el código antes de que pueda ser ejecutado, lo cual evitaremos en este capítulo.</p>
+
+<p><a class="p_ident" id="p-92uR7ZfPQ+" href="#p-92uR7ZfPQ+" tabindex="-1" role="presentation"></a>Los comentarios son simples de renderizar.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-N9+wrVgBuY" href="#c-N9+wrVgBuY" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">renderComment</span>(<span class="tok-definition">comment</span>) {
+  <span class="tok-keyword">return</span> elt(<span class="tok-string">&quot;p&quot;</span>, {<span class="tok-definition">className</span>: <span class="tok-string">&quot;comment&quot;</span>},
+             elt(<span class="tok-string">&quot;strong&quot;</span>, <span class="tok-keyword">null</span>, comment.author),
+             <span class="tok-string">&quot;: &quot;</span>, comment.message);
+}</pre>
+
+<p><a class="p_ident" id="p-ORWbCmi6gc" href="#p-ORWbCmi6gc" tabindex="-1" role="presentation"></a>Finalmente, el formulario que el usuario puede usar para crear una nueva charla se representa de la siguiente manera:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-wxCOfM4XMy" href="#c-wxCOfM4XMy" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">renderTalkForm</span>(<span class="tok-definition">dispatch</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">title</span> = elt(<span class="tok-string">&quot;input&quot;</span>, {<span class="tok-definition">type</span>: <span class="tok-string">&quot;text&quot;</span>});
+  <span class="tok-keyword">let</span> <span class="tok-definition">summary</span> = elt(<span class="tok-string">&quot;input&quot;</span>, {<span class="tok-definition">type</span>: <span class="tok-string">&quot;text&quot;</span>});
+  <span class="tok-keyword">return</span> elt(<span class="tok-string">&quot;form&quot;</span>, {
+    <span class="tok-definition">onsubmit</span>(<span class="tok-definition">event</span>) {
+      event.preventDefault();
+      dispatch({<span class="tok-definition">type</span>: <span class="tok-string">&quot;newTalk&quot;</span>,
+                <span class="tok-definition">title</span>: title.value,
+                <span class="tok-definition">summary</span>: summary.value});
+      event.target.reset();
+    }
+  }, elt(<span class="tok-string">&quot;h3&quot;</span>, <span class="tok-keyword">null</span>, <span class="tok-string">&quot;Enviar una charla&quot;</span>),
+     elt(<span class="tok-string">&quot;label&quot;</span>, <span class="tok-keyword">null</span>, <span class="tok-string">&quot;Título: &quot;</span>, title),
+     elt(<span class="tok-string">&quot;label&quot;</span>, <span class="tok-keyword">null</span>, <span class="tok-string">&quot;Resumen: &quot;</span>, summary),
+     elt(<span class="tok-string">&quot;button&quot;</span>, {<span class="tok-definition">type</span>: <span class="tok-string">&quot;submit&quot;</span>}, <span class="tok-string">&quot;Enviar&quot;</span>));
+}</pre>
+
+<h3><a class="i_ident" id="i-J1GeO6SRk6" href="#i-J1GeO6SRk6" tabindex="-1" role="presentation"></a>Sondeo</h3>
+
+<p><a class="p_ident" id="p-qSoi5wePE3" href="#p-qSoi5wePE3" tabindex="-1" role="presentation"></a>Para iniciar la aplicación necesitamos la lista actual de charlas. Dado que la carga inicial está estrechamente relacionada con el proceso de sondeo prolongado, el <code>ETag</code> de la carga debe ser utilizado al sondear, escribiremos una función que siga sondeando al servidor en busca de <code>/charlas</code> y llame a una función de devolución de llamada cuando un nuevo conjunto de charlas esté disponible.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-k+Yrvp6Xiy" href="#c-k+Yrvp6Xiy" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">pollTalks</span>(<span class="tok-definition">update</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">tag</span> = undefined;
+  <span class="tok-keyword">for</span> (;;) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">response</span>;
+    <span class="tok-keyword">try</span> {
+      response = <span class="tok-keyword">await</span> fetchOK(<span class="tok-string">&quot;/charlas&quot;</span>, {
+        <span class="tok-definition">headers</span>: tag &amp;&amp; {<span class="tok-string">&quot;If-None-Match&quot;</span>: tag,
+                         <span class="tok-string">&quot;Prefer&quot;</span>: <span class="tok-string">&quot;wait=90&quot;</span>}
+      });
+    } <span class="tok-keyword">catch</span> (<span class="tok-definition">e</span>) {
+      console.log(<span class="tok-string">&quot;La solicitud falló: &quot;</span> + e);
+      <span class="tok-keyword">await</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">resolve</span> =&gt; setTimeout(resolve, <span class="tok-number">500</span>));
+      <span class="tok-keyword">continue</span>;
+    }
+    <span class="tok-keyword">if</span> (response.status == <span class="tok-number">304</span>) <span class="tok-keyword">continue</span>;
+    tag = response.headers.get(<span class="tok-string">&quot;ETag&quot;</span>);
+    update(<span class="tok-keyword">await</span> response.json());
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-5NRA4g5yOT" href="#p-5NRA4g5yOT" tabindex="-1" role="presentation"></a>Esta es una función <code>async</code> para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.{{index “manejo de errores”, “clase Promise”, “función setTimeout”}}</p>
+
+<p><a class="p_ident" id="p-2TjP6xQV7g" href="#p-2TjP6xQV7g" tabindex="-1" role="presentation"></a>Cuando una solicitud falla, la función espera un momento y luego intenta nuevamente. De esta manera, si tu conexión de red se interrumpe por un tiempo y luego vuelve, la aplicación puede recuperarse y continuar actualizándose. La promesa resuelta a través de <code>setTimeout</code> es una forma de forzar a la función <code>async</code> a esperar.</p>
+
+<p><a class="p_ident" id="p-jL8JC5aQsh" href="#p-jL8JC5aQsh" tabindex="-1" role="presentation"></a>Cuando el servidor devuelve una respuesta 304, eso significa que una solicitud de intercambio de larga duración expiró, por lo que la función debería comenzar inmediatamente la siguiente solicitud. Si la respuesta es un estado 200 normal, su cuerpo se lee como JSON y se pasa a la devolución de llamada, y el valor del encabezado <code>ETag</code> se almacena para la próxima iteración.</p>
+
+<h3><a class="i_ident" id="i-dYAceDsj0Z" href="#i-dYAceDsj0Z" tabindex="-1" role="presentation"></a>La aplicación</h3>
+
+<p><a class="p_ident" id="p-LFDIQcKx5s" href="#p-LFDIQcKx5s" tabindex="-1" role="presentation"></a>El siguiente componente une toda la interfaz de usuario:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-PzYGJXojtl" href="#c-PzYGJXojtl" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> SkillShareApp {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, <span class="tok-definition">dispatch</span>) {
+    <span class="tok-keyword">this</span>.dispatch = dispatch;
+    <span class="tok-keyword">this</span>.talkDOM = elt(<span class="tok-string">&quot;div&quot;</span>, {<span class="tok-definition">className</span>: <span class="tok-string">&quot;talks&quot;</span>});
+    <span class="tok-keyword">this</span>.dom = elt(<span class="tok-string">&quot;div&quot;</span>, <span class="tok-keyword">null</span>,
+                   renderUserField(state.user, dispatch),
+                   <span class="tok-keyword">this</span>.talkDOM,
+                   renderTalkForm(dispatch));
+    <span class="tok-keyword">this</span>.syncState(state);
+  }
+
+  <span class="tok-definition">syncState</span>(<span class="tok-definition">state</span>) {
+    <span class="tok-keyword">if</span> (state.talks != <span class="tok-keyword">this</span>.talks) {
+      <span class="tok-keyword">this</span>.talkDOM.textContent = <span class="tok-string">&quot;&quot;</span>;
+      <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">talk</span> <span class="tok-keyword">of</span> state.talks) {
+        <span class="tok-keyword">this</span>.talkDOM.appendChild(
+          renderTalk(talk, <span class="tok-keyword">this</span>.dispatch));
+      }
+      <span class="tok-keyword">this</span>.talks = state.talks;
+    }
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-KSf/hiErMk" href="#p-KSf/hiErMk" tabindex="-1" role="presentation"></a>{{index sincronización, “vista en vivo”}}</p>
+
+<p><a class="p_ident" id="p-Q8LoG2UUP1" href="#p-Q8LoG2UUP1" tabindex="-1" role="presentation"></a>Cuando las charlas cambian, este componente las vuelve a dibujar todas. Esto es simple pero también derrochador. Hablaremos sobre eso en los ejercicios.</p>
+
+<p><a class="p_ident" id="p-CNi4dF2DTL" href="#p-CNi4dF2DTL" tabindex="-1" role="presentation"></a>Podemos iniciar la aplicación de esta manera:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-6Z6pm4dZOv" href="#c-6Z6pm4dZOv" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">runApp</span>() {
+  <span class="tok-keyword">let</span> <span class="tok-definition">user</span> = localStorage.getItem(<span class="tok-string">&quot;userName&quot;</span>) || <span class="tok-string">&quot;Anon&quot;</span>;
+  <span class="tok-keyword">let</span> <span class="tok-definition">state</span>, <span class="tok-definition">app</span>;
+  <span class="tok-keyword">function</span> <span class="tok-definition">dispatch</span>(<span class="tok-definition">action</span>) {
+    state = handleAction(state, action);
+    app.syncState(state);
+  }
+
+  pollTalks(<span class="tok-definition">talks</span> =&gt; {
+    <span class="tok-keyword">if</span> (!app) {
+      state = {<span class="tok-definition">user</span>, <span class="tok-definition">talks</span>};
+      app = <span class="tok-keyword">new</span> SkillShareApp(state, dispatch);
+      document.body.appendChild(app.dom);
+    } <span class="tok-keyword">else</span> {
+      dispatch({<span class="tok-definition">type</span>: <span class="tok-string">&quot;setTalks&quot;</span>, <span class="tok-definition">talks</span>});
+    }
+  }).catch(reportError);
+}
+
+runApp();</pre>
+
+<p><a class="p_ident" id="p-NkyF0QYQ6t" href="#p-NkyF0QYQ6t" tabindex="-1" role="presentation"></a>Si ejecutas el servidor y abres dos ventanas del navegador para <a href="http://localhost:8000/"><em>http://localhost:8000</em></a> una al lado de la otra, puedes ver que las acciones que realizas en una ventana son inmediatamente visibles en la otra.</p>
+
+<h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<p><a class="p_ident" id="p-t80LR1aRtP" href="#p-t80LR1aRtP" tabindex="-1" role="presentation"></a>Los siguientes ejercicios implicarán modificar el sistema definido en este capítulo. Para trabajar en ellos, asegúrate de descargar primero el código (<a href="https://eloquentjavascript.net/code/skillsharing.zip"><em>https://eloquentjavascript.net/code/skillsharing.zip</em></a>), tener Node instalado (<a href="https://nodejs.org"><em>https://nodejs.org</em></a>), e instalar la dependencia del proyecto con <code>npm install</code>.</p>
+
+<h3><a class="i_ident" id="i-Wzk4TuX1PT" href="#i-Wzk4TuX1PT" tabindex="-1" role="presentation"></a>Persistencia en disco</h3>
+
+<p><a class="p_ident" id="p-kDzBjOb+Wo" href="#p-kDzBjOb+Wo" tabindex="-1" role="presentation"></a>{{index “pérdida de datos”, persistencia, [memoria, persistencia]}}El servidor de intercambio de habilidades mantiene sus datos puramente en memoria. Esto significa que cuando se produce un fallo o se reinicia por cualquier motivo, se pierden todas las charlas y comentarios.</p>
+
+<p><a class="p_ident" id="p-vXZfoI1M8e" href="#p-vXZfoI1M8e" tabindex="-1" role="presentation"></a>Extiende el servidor para que almacene los datos de las charlas en disco y vuelva a cargar automáticamente los datos cuando se reinicie. No te preocupes por la eficiencia, haz lo más simple que funcione.</p>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-sZqaaJ9i56" href="#p-sZqaaJ9i56" tabindex="-1" role="presentation"></a>La solución más simple que se me ocurre es codificar todo el objeto <code>talks</code> como JSON y volcarlo en un archivo con <code>writeFile</code>. Ya existe un método (<code>updated</code>) que se llama cada vez que cambian los datos del servidor. Se puede ampliar para escribir los nuevos datos en el disco.</p>
+
+<p><a class="p_ident" id="p-UDrUMk3v6j" href="#p-UDrUMk3v6j" tabindex="-1" role="presentation"></a>Elige un nombre de archivo, por ejemplo <code>./talks.json</code>. Cuando el servidor se inicie, puede intentar leer ese archivo con <code>readFile</code>, y si tiene éxito, el servidor puede usar el contenido del archivo como sus datos iniciales.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-E0mEUMJc+G" href="#i-E0mEUMJc+G" tabindex="-1" role="presentation"></a>Restablecimiento del campo de comentarios</h3>
+
+<p><a class="p_ident" id="p-LMd9/ZyRfW" href="#p-LMd9/ZyRfW" tabindex="-1" role="presentation"></a>La remodelación completa de las charlas funciona bastante bien porque generalmente no se puede distinguir entre un nodo de DOM y su sustitución idéntica. Pero hay excepciones. Si empiezas a escribir algo en el campo de comentarios para una charla en una ventana del navegador y luego, en otra, añades un comentario a esa charla, el campo en la primera ventana se volverá a dibujar, eliminando tanto su contenido como su enfoque.</p>
+
+<p><a class="p_ident" id="p-/CzcYyU2Wd" href="#p-/CzcYyU2Wd" tabindex="-1" role="presentation"></a>Cuando varias personas están añadiendo comentarios al mismo tiempo, esto podría resultar molesto. ¿Puedes idear una manera de resolverlo?</p>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-iM6BTo7lMH" href="#p-iM6BTo7lMH" tabindex="-1" role="presentation"></a>{{index “restablecimiento del campo de comentarios (ejercicio)”, plantilla, método “syncState”}}</p>
+
+<p><a class="p_ident" id="p-DtiTOgpCkK" href="#p-DtiTOgpCkK" tabindex="-1" role="presentation"></a>La mejor manera de hacerlo probablemente sea convertir el componente de la charla en un objeto, con un método <code>syncState</code>, para que se puedan actualizar para mostrar una versión modificada de la charla. Durante el funcionamiento normal, la única forma en que una charla puede cambiar es añadiendo más comentarios, por lo que el método <code>syncState</code> puede ser relativamente sencillo.</p>
+
+<p><a class="p_ident" id="p-LNba5pl/wP" href="#p-LNba5pl/wP" tabindex="-1" role="presentation"></a>La parte difícil es que, cuando llega una lista modificada de charlas, tenemos que conciliar la lista existente de componentes de DOM con las charlas de la nueva lista: eliminar los componentes cuya charla fue eliminada y actualizar los componentes cuya charla cambió.</p>
+
+<p><a class="p_ident" id="p-KSf/hiErMk_1" href="#p-KSf/hiErMk_1" tabindex="-1" role="presentation"></a>{{index sincronización, “vista en vivo”}}</p>
+
+<p><a class="p_ident" id="p-Weztd66azd" href="#p-Weztd66azd" tabindex="-1" role="presentation"></a>Para hacer esto, podría ser útil mantener una estructura de datos que almacene los componentes de las charlas bajo los títulos de las charlas para que puedas averiguar fácilmente si existe un componente para una charla dada. Luego puedes recorrer la nueva matriz de charlas y, para cada una de ellas, sincronizar un componente existente o crear uno nuevo. Para eliminar los componentes de charlas eliminadas, también tendrás que recorrer los componentes y comprobar si las charlas correspondientes aún existen.</p>
+
+</div></details><nav><a href="20_node.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+</article>
+
+<script src="ejs.js"></script>

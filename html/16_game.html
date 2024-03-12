@@ -1,0 +1,825 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proyecto: Un juego de plataformas :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":16}</script></head>
+
+<article>
+<nav><a href="15_event.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="17_canvas.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+
+<h1>Proyecto: Un juego de plataformas</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-nzmd/7gwWg" href="#p-nzmd/7gwWg" tabindex="-1" role="presentation"></a>Toda la realidad es un juego.</p>
+
+<footer>Iain Banks, <cite>The Player of Games</cite></footer>
+
+</blockquote>
+
+<p><a class="p_ident" id="p-9ebjmgMVJa" href="#p-9ebjmgMVJa" tabindex="-1" role="presentation"></a>{{index “Banks, Ian”, “capítulo del proyecto”, simulación}}</p><figure class="chapter framed"><img src="img/chapter_picture_16.jpg" alt="Ilustración que muestra un personaje de un juego de computadora saltando sobre lava en un mundo bidimensional"></figure>
+
+<p><a class="p_ident" id="p-eMFkPMmXrs" href="#p-eMFkPMmXrs" tabindex="-1" role="presentation"></a>Gran parte de mi fascinación inicial con las computadoras, al igual que la de muchos niños nerds, tenía que ver con los juegos de computadora. Me sentía atraído por los diminutos mundos simulados que podía manipular y en los que se desarrollaban historias (más o menos), supongo, debido a la forma en que proyectaba mi imaginación en ellos más que por las posibilidades que realmente ofrecían.</p>
+
+<p><a class="p_ident" id="p-e6bpau+pGY" href="#p-e6bpau+pGY" tabindex="-1" role="presentation"></a>No le desearía a nadie una carrera en programación de juegos. Al igual que la industria de la música, la discrepancia entre la cantidad de jóvenes entusiastas que desean trabajar en ella y la demanda real de tales personas crea un entorno bastante insalubre. Pero escribir juegos por diversión resulta entretenido.</p>
+
+<p><a class="p_ident" id="p-19A8UIaJlv" href="#p-19A8UIaJlv" tabindex="-1" role="presentation"></a>Este capítulo guiará a través de la implementación de un pequeño juego de plataformas. Los juegos de plataformas (o juegos de “saltos y carreras”) son juegos que esperan que el jugador mueva una figura a través de un mundo, que generalmente es bidimensional y se ve desde el lado, mientras salta sobre y sobre cosas.</p>
+
+<h2><a class="h_ident" id="h-noMRsf7hSZ" href="#h-noMRsf7hSZ" tabindex="-1" role="presentation"></a>El juego</h2>
+
+<p><a class="p_ident" id="p-aQFPNr2XbS" href="#p-aQFPNr2XbS" tabindex="-1" role="presentation"></a>Nuestro juego estará basado aproximadamente en <a href="http://www.lessmilk.com/games/10">Dark Blue</a> de Thomas Palef. Elegí ese juego porque es entretenido, minimalista y se puede construir sin mucho código. Se ve así:</p><figure><img src="img/darkblue.png" alt="Captura de pantalla del juego 'Dark Blue', mostrando un mundo hecho de cajas de colores. Hay una caja negra que representa al jugador, de pie sobre líneas blancas en un fondo azul. Pequeñas monedas amarillas flotan en el aire, y algunas partes del fondo son rojas, representando lava."></figure>
+
+<p><a class="p_ident" id="p-8/e1QC4aYu" href="#p-8/e1QC4aYu" tabindex="-1" role="presentation"></a>La caja oscura representa al jugador, cuya tarea es recolectar las cajas amarillas (monedas) evitando las cosas rojas (lava). Un nivel se completa cuando se han recolectado todas las monedas.</p>
+
+<p><a class="p_ident" id="p-IfGxrEPdZA" href="#p-IfGxrEPdZA" tabindex="-1" role="presentation"></a>El jugador puede moverse con las teclas de flecha izquierda y derecha y puede saltar con la tecla de flecha hacia arriba. Saltar es una especialidad de este personaje del juego. Puede alcanzar varias veces su altura y puede cambiar de dirección en el aire. Esto puede no ser del todo realista, pero ayuda a darle al jugador la sensación de tener un control directo sobre el avatar en pantalla.</p>
+
+<p><a class="p_ident" id="p-Zb7oGD9ajn" href="#p-Zb7oGD9ajn" tabindex="-1" role="presentation"></a>{{index “número fraccionario”, discretización, “vida artificial”, “vida electrónica”}}</p>
+
+<p><a class="p_ident" id="p-Nod/FlAYDz" href="#p-Nod/FlAYDz" tabindex="-1" role="presentation"></a>El juego consiste en un fondo estático, dispuesto como una rejilla, con los elementos móviles superpuestos en ese fondo. Cada campo en la rejilla está vacío, sólido o es lava. Los elementos móviles son el jugador, las monedas y ciertas piezas de lava. Las posiciones de estos elementos no están restringidas a la rejilla: sus coordenadas pueden ser fraccionarias, permitiendo un movimiento suave.## La tecnología</p>
+
+<p><a class="p_ident" id="p-+veB6d/KdW" href="#p-+veB6d/KdW" tabindex="-1" role="presentation"></a>{{index “manejo de eventos”, teclado, [DOM, gráficos]}}</p>
+
+<p><a class="p_ident" id="p-02rkmELxyA" href="#p-02rkmELxyA" tabindex="-1" role="presentation"></a>Usaremos el DOM del navegador para mostrar el juego y leeremos la entrada del usuario manejando eventos de teclado.</p>
+
+<p><a class="p_ident" id="p-AQeAYtzocX" href="#p-AQeAYtzocX" tabindex="-1" role="presentation"></a>{{index rectángulo, “fondo (CSS)”, “posición (CSS)”, gráficos}}</p>
+
+<p><a class="p_ident" id="p-Fxtnet7a1k" href="#p-Fxtnet7a1k" tabindex="-1" role="presentation"></a>El código relacionado con la pantalla y el teclado es solo una pequeña parte del trabajo que necesitamos hacer para construir este juego. Dado que todo se ve como cajas de colores, dibujar es sencillo: creamos elementos del DOM y usamos estilos para darles un color de fondo, tamaño y posición.</p>
+
+<p><a class="p_ident" id="p-waStMtTsQB" href="#p-waStMtTsQB" tabindex="-1" role="presentation"></a>Podemos representar el fondo como una tabla ya que es una cuadrícula inmutable de cuadrados. Los elementos de movimiento libre se pueden superponer utilizando elementos posicionados absolutamente.</p>
+
+<p><a class="p_ident" id="p-6MErUv/bvP" href="#p-6MErUv/bvP" tabindex="-1" role="presentation"></a>{{index rendimiento, [DOM, gráficos]}}</p>
+
+<p><a class="p_ident" id="p-JT/4zQXp3g" href="#p-JT/4zQXp3g" tabindex="-1" role="presentation"></a>En juegos y otros programas que deben animar gráficos y responder a la entrada del usuario sin retrasos notables, la eficiencia es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas animaciones en <a href="14_dom.html#animacion">Capítulo 14</a>. En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la optimización.</p>
+
+<p><a class="p_ident" id="p-lNtMKc2CyK" href="#p-lNtMKc2CyK" tabindex="-1" role="presentation"></a>{{index lienzo, [DOM, gráficos]}}</p>
+
+<p><a class="p_ident" id="p-3byV0kYq/Y" href="#p-3byV0kYq/Y" tabindex="-1" role="presentation"></a>En el <a href="17_canvas.html">próximo capítulo</a>, exploraremos otra tecnología del navegador, la etiqueta <code>&lt;canvas&gt;</code>, que proporciona una forma más tradicional de dibujar gráficos, trabajando en términos de formas y píxeles en lugar de elementos del DOM.</p>
+
+<h2><a class="h_ident" id="h-4CgezmHavE" href="#h-4CgezmHavE" tabindex="-1" role="presentation"></a>Niveles</h2>
+
+<p><a class="p_ident" id="p-/+ZOt2KREj" href="#p-/+ZOt2KREj" tabindex="-1" role="presentation"></a>Queremos una forma legible y editable por humanos para especificar niveles. Dado que está bien que todo comience en una cuadrícula, podríamos usar cadenas grandes en las que cada carácter represente un elemento, ya sea una parte de la cuadrícula de fondo o un elemento móvil.</p>
+
+<p><a class="p_ident" id="p-4x/1Vbcecr" href="#p-4x/1Vbcecr" tabindex="-1" role="presentation"></a>El plan para un nivel pequeño podría verse así:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-txvY7tsNJp" href="#c-txvY7tsNJp" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">simpleLevelPlan</span> = <span class="tok-string2">`</span>
+<span class="tok-string2">......................</span>
+<span class="tok-string2">..#................#..</span>
+<span class="tok-string2">..#..............=.#..</span>
+<span class="tok-string2">..#.........o.o....#..</span>
+<span class="tok-string2">..#.@......#####...#..</span>
+<span class="tok-string2">..#####............#..</span>
+<span class="tok-string2">......#++++++++++++#..</span>
+<span class="tok-string2">......##############..</span>
+<span class="tok-string2">......................`</span>;</pre>
+
+<p><a class="p_ident" id="p-8FbavQg4n3" href="#p-8FbavQg4n3" tabindex="-1" role="presentation"></a>Los puntos representan un espacio vacío, los caracteres de almohadilla (<code>#</code>) son paredes y los signos más son lava. La posición inicial del jugador es el signo de arroba (<code>@</code>). Cada carácter O es una moneda, y el signo igual (<code>=</code>) en la parte superior es un bloque de lava que se mueve de un lado a otro horizontalmente.</p>
+
+<p><a class="p_ident" id="p-pLPPQRxNgn" href="#p-pLPPQRxNgn" tabindex="-1" role="presentation"></a>Además de las dos formas adicionales de lava en movimiento, el carácter de tubería (<code>|</code>) crea blobs que se mueven verticalmente, y <code>v</code> indica lava goteante: lava que se mueve verticalmente y no rebota de un lado a otro, solo se mueve hacia abajo, volviendo a su posición de inicio cuando golpea el suelo.</p>
+
+<p><a class="p_ident" id="p-6ZMi163FJ3" href="#p-6ZMi163FJ3" tabindex="-1" role="presentation"></a>Un juego completo consta de varios niveles que el jugador debe completar. Un nivel se completa cuando se han recolectado todas las monedas. Si el jugador toca la lava, el nivel actual se restablece a su posición inicial y el jugador puede intentarlo de nuevo.</p>
+
+<h2 id="nivel"><a class="h_ident" id="h-aY9E3hyvI1" href="#h-aY9E3hyvI1" tabindex="-1" role="presentation"></a>Leyendo un nivel</h2>
+
+<p><a class="p_ident" id="p-GSLhpHHv58" href="#p-GSLhpHHv58" tabindex="-1" role="presentation"></a>La siguiente clase almacena un objeto nivel. Su argumento debe ser la cadena que define el nivel.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-j5lRCt9B/2" href="#c-j5lRCt9B/2" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> Level {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">plan</span>) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">rows</span> = plan.trim().split(<span class="tok-string">&quot;</span><span class="tok-string2">\n</span><span class="tok-string">&quot;</span>).map(<span class="tok-definition">l</span> =&gt; [...l]);
+    <span class="tok-keyword">this</span>.height = rows.length;
+    <span class="tok-keyword">this</span>.width = rows[<span class="tok-number">0</span>].length;
+    <span class="tok-keyword">this</span>.startActors = [];
+
+    <span class="tok-keyword">this</span>.rows = rows.map((<span class="tok-definition">row</span>, <span class="tok-definition">y</span>) =&gt; {
+      <span class="tok-keyword">return</span> row.map((<span class="tok-definition">ch</span>, <span class="tok-definition">x</span>) =&gt; {
+        <span class="tok-keyword">let</span> <span class="tok-definition">type</span> = levelChars[ch];
+        <span class="tok-keyword">if</span> (<span class="tok-keyword">typeof</span> type != <span class="tok-string">&quot;string&quot;</span>) {
+          <span class="tok-keyword">let</span> <span class="tok-definition">pos</span> = <span class="tok-keyword">new</span> Vec(x, y);
+          <span class="tok-keyword">this</span>.startActors.push(type.create(pos, ch));
+          type = <span class="tok-string">&quot;empty&quot;</span>;
+        }
+        <span class="tok-keyword">return</span> type;
+      });
+    });
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-bHEi35XlvS" href="#p-bHEi35XlvS" tabindex="-1" role="presentation"></a>El método <code>trim</code> se utiliza para eliminar los espacios en blanco al principio y al final de la cadena de plan. Esto permite que nuestro plan de ejemplo comience con una nueva línea para que todas las líneas estén directamente debajo unas de otras. La cadena restante se divide en líneas en caracteres de nueva línea, y cada línea se convierte en un array, produciendo arrays de caracteres.</p>
+
+<p><a class="p_ident" id="p-gC0fY4wBQ3" href="#p-gC0fY4wBQ3" tabindex="-1" role="presentation"></a>Entonces, <code>rows</code> contiene un array de arrays de caracteres, las filas del plan. Podemos derivar el ancho y alto del nivel a partir de estos. Pero aún debemos separar los elementos móviles de la cuadrícula de fondo. Llamaremos a los elementos móviles <em>actores</em>. Se almacenarán en un array de objetos. El fondo será un array de arrays de cadenas, que contienen tipos de campo como <code>&quot;empty&quot;</code>, <code>&quot;wall&quot;</code>, o <code>&quot;lava&quot;</code>.</p>
+
+<p><a class="p_ident" id="p-G8nGNYqpQV" href="#p-G8nGNYqpQV" tabindex="-1" role="presentation"></a>Para crear estos arrays, mapeamos sobre las filas y luego sobre su contenido. Recuerda que <code>map</code> pasa el índice del array como segundo argumento a la función de mapeo, lo que nos indica las coordenadas x e y de un carácter dado. Las posiciones en el juego se almacenarán como pares de coordenadas, siendo la esquina superior izquierda 0,0 y cada cuadro de fondo siendo de 1 unidad de alto y ancho.</p>
+
+<p><a class="p_ident" id="p-KWx0pbfl2j" href="#p-KWx0pbfl2j" tabindex="-1" role="presentation"></a>Para interpretar los caracteres en el plan, el constructor de <code>Level</code> utiliza el objeto <code>levelChars</code>, que, para cada carácter utilizado en las descripciones de niveles, contiene una cadena si es un tipo de fondo, y una clase si produce un actor. Cuando <code>type</code> es una clase de actor, se utiliza su método estático <code>create</code> para crear un objeto, que se agrega a <code>startActors</code>, y la función de mapeo devuelve <code>&quot;empty&quot;</code> para este cuadro de fondo.</p>
+
+<p><a class="p_ident" id="p-/SJviHbZ8E" href="#p-/SJviHbZ8E" tabindex="-1" role="presentation"></a>La posición del actor se almacena como un objeto <code>Vec</code>. Este es un vector bidimensional, un objeto con propiedades <code>x</code> e <code>y</code>, como se ve en los ejercicios del <a href="06_object.html#exercise_vector">Capítulo 6</a>.</p>
+
+<p><a class="p_ident" id="p-LzJ6U586ND" href="#p-LzJ6U586ND" tabindex="-1" role="presentation"></a>A medida que el juego avanza, los actores terminarán en lugares diferentes o incluso desaparecerán por completo (como hacen las monedas cuando se recogen). Utilizaremos una clase <code>State</code> para seguir el estado de un juego en ejecución.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-8mXPZZkFTr" href="#c-8mXPZZkFTr" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> State {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">level</span>, <span class="tok-definition">actors</span>, <span class="tok-definition">status</span>) {
+    <span class="tok-keyword">this</span>.level = level;
+    <span class="tok-keyword">this</span>.actors = actors;
+    <span class="tok-keyword">this</span>.status = status;
+  }
+
+  <span class="tok-keyword">static</span> <span class="tok-definition">start</span>(<span class="tok-definition">level</span>) {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> State(level, level.startActors, <span class="tok-string">&quot;playing&quot;</span>);
+  }
+
+  <span class="tok-keyword">get</span> <span class="tok-definition">player</span>() {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">this</span>.actors.find(<span class="tok-definition">a</span> =&gt; a.type == <span class="tok-string">&quot;player&quot;</span>);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-MFfKVgJMtM" href="#p-MFfKVgJMtM" tabindex="-1" role="presentation"></a>La propiedad <code>status</code> cambiará a <code>&quot;lost&quot;</code> o <code>&quot;won&quot;</code> cuando el juego haya terminado.</p>
+
+<p><a class="p_ident" id="p-xgQhmPpOD6" href="#p-xgQhmPpOD6" tabindex="-1" role="presentation"></a>Este es nuevamente una estructura de datos persistente: actualizar el estado del juego crea un nuevo estado y deja intacto el anterior.</p>
+
+<h2><a class="h_ident" id="h-BJgWOoJ8JF" href="#h-BJgWOoJ8JF" tabindex="-1" role="presentation"></a>Actores</h2>
+
+<p><a class="p_ident" id="p-It0dyayPyv" href="#p-It0dyayPyv" tabindex="-1" role="presentation"></a>Los objetos de actores representan la posición actual y el estado de un elemento móvil dado en nuestro juego. Todos los objetos de actores se ajustan a la misma interfaz. Tienen las propiedades <code>size</code> y <code>pos</code> que contienen el tamaño y las coordenadas de la esquina superior izquierda del rectángulo que representa a este actor.</p>
+
+<p><a class="p_ident" id="p-BI73xqZ7wk" href="#p-BI73xqZ7wk" tabindex="-1" role="presentation"></a>Luego tienen un método <code>update</code>, que se utiliza para calcular su nuevo estado y posición después de un paso de tiempo dado. Simula la acción que realiza el actor: moverse en respuesta a las teclas de flecha para el jugador y rebotar de un lado a otro para la lava, y devuelve un nuevo objeto de actor actualizado.</p>
+
+<p><a class="p_ident" id="p-WHWxrM7zlL" href="#p-WHWxrM7zlL" tabindex="-1" role="presentation"></a>Una propiedad <code>type</code> contiene una cadena que identifica el tipo de actor: <code>&quot;player&quot;</code>, <code>&quot;coin&quot;</code> o <code>&quot;lava&quot;</code>. Esto es útil al dibujar el juego: la apariencia del rectángulo dibujado para un actor se basa en su tipo.</p>
+
+<p><a class="p_ident" id="p-Vmv4zCgngZ" href="#p-Vmv4zCgngZ" tabindex="-1" role="presentation"></a>Las clases de actores tienen un método estático <code>create</code> que es utilizado por el constructor <code>Level</code> para crear un actor a partir de un carácter en el plan de nivel. Recibe las coordenadas del carácter y el carácter en sí, que es necesario porque la clase <code>Lava</code> maneja varios caracteres diferentes.</p>
+
+<p id="vector"><a class="p_ident" id="p-dHFGq1u0qH" href="#p-dHFGq1u0qH" tabindex="-1" role="presentation"></a>Esta es la clase <code>Vec</code> que usaremos para nuestros valores bidimensionales, como la posición y tamaño de los actores.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Hb9lakixOM" href="#c-Hb9lakixOM" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> Vec {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">x</span>, <span class="tok-definition">y</span>) {
+    <span class="tok-keyword">this</span>.x = x; <span class="tok-keyword">this</span>.y = y;
+  }
+  <span class="tok-definition">plus</span>(<span class="tok-definition">other</span>) {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Vec(<span class="tok-keyword">this</span>.x + other.x, <span class="tok-keyword">this</span>.y + other.y);
+  }
+  <span class="tok-definition">times</span>(<span class="tok-definition">factor</span>) {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Vec(<span class="tok-keyword">this</span>.x * factor, <span class="tok-keyword">this</span>.y * factor);
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-XPbCDMU/A7" href="#p-XPbCDMU/A7" tabindex="-1" role="presentation"></a>{{index “times method”, multiplicación}}</p>
+
+<p><a class="p_ident" id="p-JL70N96Jzr" href="#p-JL70N96Jzr" tabindex="-1" role="presentation"></a>El método <code>times</code> escala un vector por un número dado. Será útil cuando necesitemos multiplicar un vector de velocidad por un intervalo de tiempo para obtener la distancia recorrida durante ese tiempo.</p>
+
+<p><a class="p_ident" id="p-u9VyjO+LsK" href="#p-u9VyjO+LsK" tabindex="-1" role="presentation"></a>Los diferentes tipos de actores tienen sus propias clases debido a que su comportamiento es muy diferente. Definamos estas clases. Llegaremos a sus métodos <code>update</code> más adelante.</p>
+
+<p><a class="p_ident" id="p-G4kysDGWXk" href="#p-G4kysDGWXk" tabindex="-1" role="presentation"></a>La clase <code>Player</code> tiene una propiedad <code>speed</code> que almacena su velocidad actual para simular el impulso y la gravedad.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-+Zda+gD/W/" href="#c-+Zda+gD/W/" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> Player {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">pos</span>, <span class="tok-definition">speed</span>) {
+    <span class="tok-keyword">this</span>.pos = pos;
+    <span class="tok-keyword">this</span>.speed = speed;
+  }
+
+  <span class="tok-keyword">get</span> <span class="tok-definition">type</span>() { <span class="tok-keyword">return</span> <span class="tok-string">&quot;player&quot;</span>; }
+
+  <span class="tok-keyword">static</span> <span class="tok-definition">create</span>(<span class="tok-definition">pos</span>) {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Player(pos.plus(<span class="tok-keyword">new</span> Vec(<span class="tok-number">0</span>, -<span class="tok-number">0.5</span>)),
+                      <span class="tok-keyword">new</span> Vec(<span class="tok-number">0</span>, <span class="tok-number">0</span>));
+  }
+}
+
+Player.prototype.size = <span class="tok-keyword">new</span> Vec(<span class="tok-number">0.8</span>, <span class="tok-number">1.5</span>);</pre>
+
+<p><a class="p_ident" id="p-VqrMRJ27m+" href="#p-VqrMRJ27m+" tabindex="-1" role="presentation"></a>Dado que un jugador tiene una altura de un cuadro y medio, su posición inicial se establece medio cuadro por encima de la posición donde apareció el carácter <code>@</code>. De esta manera, su parte inferior se alinea con la parte inferior del cuadro en el que apareció.</p>
+
+<p><a class="p_ident" id="p-U8jv7sOjLv" href="#p-U8jv7sOjLv" tabindex="-1" role="presentation"></a>La propiedad <code>size</code> es la misma para todas las instancias de <code>Player</code>, por lo que la almacenamos en el prototipo en lugar de en las propias instancias. Podríamos haber utilizado un getter como <code>type</code>, pero eso crearía y devolvería un nuevo objeto <code>Vec</code> cada vez que se lee la propiedad, lo cual sería derrochador. (Las cadenas, al ser inmutables, no tienen que ser recreadas cada vez que se evalúan).</p>
+
+<p><a class="p_ident" id="p-Aw/w1Z33Sz" href="#p-Aw/w1Z33Sz" tabindex="-1" role="presentation"></a>Al construir un actor <code>Lava</code>, necesitamos inicializar el objeto de manera diferente dependiendo del personaje en el que se base. La lava dinámica se mueve a lo largo de su velocidad actual hasta que choca con un obstáculo. En ese momento, si tiene una propiedad de <code>reset</code>, saltará de nuevo a su posición de inicio (goteando). Si no la tiene, invertirá su velocidad y continuará en la otra dirección (rebotando).</p>
+
+<p><a class="p_ident" id="p-f3ChfmWRLU" href="#p-f3ChfmWRLU" tabindex="-1" role="presentation"></a>El método <code>create</code> mira el carácter que pasa el constructor de <code>Level</code> y crea el actor de lava apropiado.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-OquWedN4L5" href="#c-OquWedN4L5" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> Lava {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">pos</span>, <span class="tok-definition">speed</span>, <span class="tok-definition">reset</span>) {
+    <span class="tok-keyword">this</span>.pos = pos;
+    <span class="tok-keyword">this</span>.speed = speed;
+    <span class="tok-keyword">this</span>.reset = reset;
+  }
+
+  <span class="tok-keyword">get</span> <span class="tok-definition">type</span>() { <span class="tok-keyword">return</span> <span class="tok-string">&quot;lava&quot;</span>; }
+
+  <span class="tok-keyword">static</span> <span class="tok-definition">create</span>(<span class="tok-definition">pos</span>, <span class="tok-definition">ch</span>) {
+    <span class="tok-keyword">if</span> (ch == <span class="tok-string">&quot;=&quot;</span>) {
+      <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Lava(pos, <span class="tok-keyword">new</span> Vec(<span class="tok-number">2</span>, <span class="tok-number">0</span>));
+    } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (ch == <span class="tok-string">&quot;|&quot;</span>) {
+      <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Lava(pos, <span class="tok-keyword">new</span> Vec(<span class="tok-number">0</span>, <span class="tok-number">2</span>));
+    } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (ch == <span class="tok-string">&quot;v&quot;</span>) {
+      <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Lava(pos, <span class="tok-keyword">new</span> Vec(<span class="tok-number">0</span>, <span class="tok-number">3</span>), pos);
+    }
+  }
+}
+
+Lava.prototype.size = <span class="tok-keyword">new</span> Vec(<span class="tok-number">1</span>, <span class="tok-number">1</span>);</pre>
+
+<p><a class="p_ident" id="p-Gb5zjFN21p" href="#p-Gb5zjFN21p" tabindex="-1" role="presentation"></a>Los actores <code>Coin</code> son relativamente simples. Mayoritariamente solo se quedan en su lugar. Pero para animar un poco el juego, se les da un “balanceo”, un ligero movimiento vertical de ida y vuelta. Para hacer un seguimiento de esto, un objeto moneda almacena una posición base y también una propiedad de <code>wobble</code> que sigue la fase del movimiento de balanceo. Juntos, estos determinan la posición real de la moneda (almacenada en la propiedad <code>pos</code>).</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-f2L1vFl5w5" href="#c-f2L1vFl5w5" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> Coin {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">pos</span>, <span class="tok-definition">basePos</span>, <span class="tok-definition">wobble</span>) {
+    <span class="tok-keyword">this</span>.pos = pos;
+    <span class="tok-keyword">this</span>.basePos = basePos;
+    <span class="tok-keyword">this</span>.wobble = wobble;
+  }
+
+  <span class="tok-keyword">get</span> <span class="tok-definition">type</span>() { <span class="tok-keyword">return</span> <span class="tok-string">&quot;coin&quot;</span>; }
+
+  <span class="tok-keyword">static</span> <span class="tok-definition">create</span>(<span class="tok-definition">pos</span>) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">basePos</span> = pos.plus(<span class="tok-keyword">new</span> Vec(<span class="tok-number">0.2</span>, <span class="tok-number">0.1</span>));
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Coin(basePos, basePos,
+                    Math.random() * Math.PI * <span class="tok-number">2</span>);
+  }
+}
+
+Coin.prototype.size = <span class="tok-keyword">new</span> Vec(<span class="tok-number">0.6</span>, <span class="tok-number">0.6</span>);</pre>
+
+<p><a class="p_ident" id="p-q3BCsKPfRq" href="#p-q3BCsKPfRq" tabindex="-1" role="presentation"></a>En <a href="14_dom.html#sin_cos">Capítulo 14</a>, vimos que <code>Math.sin</code> nos da la coordenada y de un punto en un círculo. Esa coordenada va de ida y vuelta en una forma de onda suave a medida que nos movemos a lo largo del círculo, lo que hace que la función seno sea útil para modelar un movimiento ondulado.</p>
+
+<p><a class="p_ident" id="p-qKUL09zfv1" href="#p-qKUL09zfv1" tabindex="-1" role="presentation"></a>Para evitar una situación en la que todas las monedas se mueven hacia arriba y hacia abajo sincrónicamente, la fase inicial de cada moneda se aleatoriza. El periodo de la onda de <code>Math.sin</code>, el ancho de una onda que produce, es 2π. Multiplicamos el valor devuelto por <code>Math.random</code> por ese número para darle a la moneda una posición inicial aleatoria en la onda.</p>
+
+<p><a class="p_ident" id="p-UPItJ3KfKE" href="#p-UPItJ3KfKE" tabindex="-1" role="presentation"></a>Ahora podemos definir el objeto <code>levelChars</code> que mapea caracteres del plano a tipos de cuadrícula de fondo o clases de actor.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VxaicldIYi" href="#c-VxaicldIYi" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">levelChars</span> = {
+  <span class="tok-string">&quot;.&quot;</span>: <span class="tok-string">&quot;empty&quot;</span>, <span class="tok-string">&quot;#&quot;</span>: <span class="tok-string">&quot;wall&quot;</span>, <span class="tok-string">&quot;+&quot;</span>: <span class="tok-string">&quot;lava&quot;</span>,
+  <span class="tok-string">&quot;@&quot;</span>: Player, <span class="tok-string">&quot;o&quot;</span>: Coin,
+  <span class="tok-string">&quot;=&quot;</span>: Lava, <span class="tok-string">&quot;|&quot;</span>: Lava, <span class="tok-string">&quot;v&quot;</span>: Lava
+};</pre>
+
+<p><a class="p_ident" id="p-mJJASbgRQ7" href="#p-mJJASbgRQ7" tabindex="-1" role="presentation"></a>Esto nos brinda todas las partes necesarias para crear una instancia de <code>Level</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-CDJvcZL+0x" href="#c-CDJvcZL+0x" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">simpleLevel</span> = <span class="tok-keyword">new</span> Level(simpleLevelPlan);
+console.log(<span class="tok-string2">`</span>${simpleLevel.width}<span class="tok-string2"> by </span>${simpleLevel.height}<span class="tok-string2">`</span>);
+<span class="tok-comment">// → 22 by 9</span></pre>
+
+<p><a class="p_ident" id="p-z0vmtfGPgj" href="#p-z0vmtfGPgj" tabindex="-1" role="presentation"></a>La tarea por delante es mostrar esos niveles en pantalla y modelar el tiempo y movimiento dentro de ellos.</p>
+
+<h2 id="domdisplay"><a class="h_ident" id="h-nhS1eu4mew" href="#h-nhS1eu4mew" tabindex="-1" role="presentation"></a>Dibujo</h2>
+
+<p><a class="p_ident" id="p-oZf+7MB9hr" href="#p-oZf+7MB9hr" tabindex="-1" role="presentation"></a>En el <a href="17_canvas.html#canvasdisplay">próximo capítulo</a>, mostraremos el mismo juego de una manera diferente. Para hacerlo posible, colocamos la lógica de dibujo detrás de una interfaz y la pasamos al juego como argumento. De esta manera, podemos usar el mismo programa de juego con diferentes nuevos módulos de visualización.</p>
+
+<p><a class="p_ident" id="p-sl8jgXkQ7/" href="#p-sl8jgXkQ7/" tabindex="-1" role="presentation"></a>Un objeto de visualización de juego dibuja un nivel y estado dados. Pasamos su constructor al juego para permitir que sea reemplazado. La clase de visualización que definimos en este capítulo se llama <code>DOMDisplay</code> porque utiliza elementos del DOM para mostrar el nivel.</p>
+
+<p><a class="p_ident" id="p-Jw6XjbLmnc" href="#p-Jw6XjbLmnc" tabindex="-1" role="presentation"></a>Utilizaremos una hoja de estilo para establecer los colores reales y otras propiedades fijas de los elementos que conforman el juego. También sería posible asignar directamente a la propiedad <code>style</code> de los elementos al crearlos, pero eso produciría programas más verbosos.</p>
+
+<p><a class="p_ident" id="p-Chpk4a6tjS" href="#p-Chpk4a6tjS" tabindex="-1" role="presentation"></a>La siguiente función auxiliar proporciona una forma concisa de crear un elemento y darle algunos atributos y nodos secundarios:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-2Xowj65d9+" href="#c-2Xowj65d9+" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">elt</span>(<span class="tok-definition">nombre</span>, <span class="tok-definition">attrs</span>, ...<span class="tok-definition">children</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">dom</span> = document.createElement(nombre);
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">attr</span> <span class="tok-keyword">of</span> Object.keys(attrs)) {
+    dom.setAttribute(attr, attrs[attr]);
+  }
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">child</span> <span class="tok-keyword">of</span> children) {
+    dom.appendChild(child);
+  }
+  <span class="tok-keyword">return</span> dom;
+}</pre>
+
+<p><a class="p_ident" id="p-UoizyDc6X1" href="#p-UoizyDc6X1" tabindex="-1" role="presentation"></a>Una visualización se crea dándole un elemento padre al que debe adjuntarse y un objeto de nivel.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-uxMBP5Dlyq" href="#c-uxMBP5Dlyq" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> DOMDisplay {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">padre</span>, <span class="tok-definition">nivel</span>) {
+    <span class="tok-keyword">this</span>.dom = elt(<span class="tok-string">&quot;div&quot;</span>, {<span class="tok-definition">class</span>: <span class="tok-string">&quot;game&quot;</span>}, dibujarGrid(nivel));
+    <span class="tok-keyword">this</span>.actorLayer = <span class="tok-keyword">null</span>;
+    padre.appendChild(<span class="tok-keyword">this</span>.dom);
+  }
+
+  <span class="tok-definition">clear</span>() { <span class="tok-keyword">this</span>.dom.remove(); }
+}</pre>
+
+<p><a class="p_ident" id="p-Hoeb0wxh5U" href="#p-Hoeb0wxh5U" tabindex="-1" role="presentation"></a>La cuadrícula de fondo del nivel, que nunca cambia, se dibuja una vez. Los actores se vuelven a dibujar cada vez que se actualiza la visualización con un estado dado. La propiedad <code>actorLayer</code> se utilizará para realizar un seguimiento del elemento que contiene a los actores para que puedan ser fácilmente eliminados y reemplazados.</p>
+
+<p><a class="p_ident" id="p-EhhjZDXite" href="#p-EhhjZDXite" tabindex="-1" role="presentation"></a>Nuestras coordenadas y tamaños se rastrean en unidades de cuadrícula, donde un tamaño o distancia de 1 significa un bloque de cuadrícula. Al establecer tamaños de píxeles, tendremos que escalar estas coordenadas: todo en el juego sería ridículamente pequeño con un solo píxel por cuadrado. La constante <code>scale</code> indica el número de píxeles que una unidad ocupa en la pantalla.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-7EK52VlWjw" href="#c-7EK52VlWjw" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">escala</span> = <span class="tok-number">20</span>;
+
+<span class="tok-keyword">function</span> <span class="tok-definition">dibujarGrid</span>(<span class="tok-definition">nivel</span>) {
+  <span class="tok-keyword">return</span> elt(<span class="tok-string">&quot;table&quot;</span>, {
+    <span class="tok-definition">class</span>: <span class="tok-string">&quot;background&quot;</span>,
+    <span class="tok-definition">style</span>: <span class="tok-string2">`width: </span>${nivel.width * escala}<span class="tok-string2">px`</span>
+  }, ...nivel.rows.map(<span class="tok-definition">fila</span> =&gt;
+    elt(<span class="tok-string">&quot;tr&quot;</span>, {<span class="tok-definition">style</span>: <span class="tok-string2">`height: </span>${escala}<span class="tok-string2">px`</span>},
+        ...fila.map(<span class="tok-definition">tipo</span> =&gt; elt(<span class="tok-string">&quot;td&quot;</span>, {<span class="tok-definition">class</span>: tipo})))
+  ));
+}</pre>
+
+<p><a class="p_ident" id="p-TP/V+66O4v" href="#p-TP/V+66O4v" tabindex="-1" role="presentation"></a>El elemento <code>&lt;table&gt;</code> se corresponde bien con la estructura de la propiedad <code>rows</code> del nivel: cada fila de la cuadrícula se convierte en una fila de tabla (<code>&lt;tr&gt;</code>). Las cadenas en la cuadrícula se usan como nombres de clase para los elementos de celda de tabla (<code>&lt;td&gt;</code>). El código utiliza el operador de propagación (triple punto) para pasar matrices de nodos secundarios a <code>elt</code> como argumentos separados.El siguiente CSS hace que la tabla se vea como el fondo que queremos:</p>
+
+<pre class="snippet" data-language="css" ><a class="c_ident" id="c-wOP5LzF6Sp" href="#c-wOP5LzF6Sp" tabindex="-1" role="presentation"></a>.background    { background: <span class="tok-keyword">rgb</span>(<span class="tok-number">52</span>, <span class="tok-number">166</span>, <span class="tok-number">251</span>);
+                 table-layout: <span class="tok-atom">fixed</span>;
+                 border-spacing: <span class="tok-number">0</span>;              }
+.background <span class="tok-typeName">td</span> { padding: <span class="tok-number">0</span>;                     }
+.lava          { background: <span class="tok-keyword">rgb</span>(<span class="tok-number">255</span>, <span class="tok-number">100</span>, <span class="tok-number">100</span>); }
+.wall          { background: <span class="tok-atom">white</span>;              }</pre>
+
+<p><a class="p_ident" id="p-Q+xvO2GRcc" href="#p-Q+xvO2GRcc" tabindex="-1" role="presentation"></a>Algunos de estos (<code>table-layout</code>, <code>border-spacing</code> y <code>padding</code>) se utilizan para suprimir comportamientos predeterminados no deseados. No queremos que el diseño de la tabla dependa del contenido de sus celdas, ni queremos espacio entre las celdas de la tabla o relleno dentro de ellas.</p>
+
+<p><a class="p_ident" id="p-+ECTI8bIcz" href="#p-+ECTI8bIcz" tabindex="-1" role="presentation"></a>La regla <code>background</code> establece el color de fondo. CSS permite que los colores se especifiquen tanto como palabras (<code>white</code>) como con un formato como <code>rgb(R, G, B)</code>, donde los componentes rojo, verde y azul del color se separan en tres números de 0 a 255. Por lo tanto, en <code>rgb(52, 166, 251)</code>, el componente rojo es 52, el verde es 166 y el azul es 251. Dado que el componente azul es el más grande, el color resultante será azulado. En la regla <code>.lava</code>, el primer número (rojo) es el más grande.</p>
+
+<p><a class="p_ident" id="p-iYaZahC7Jr" href="#p-iYaZahC7Jr" tabindex="-1" role="presentation"></a>Dibujamos cada actor creando un elemento DOM para él y estableciendo la posición y el tamaño de ese elemento en función de las propiedades del actor. Los valores tienen que ser multiplicados por <code>scale</code> para pasar de unidades de juego a píxeles.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-SJNWL3kOZh" href="#c-SJNWL3kOZh" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">drawActors</span>(<span class="tok-definition">actors</span>) {
+  <span class="tok-keyword">return</span> elt(<span class="tok-string">&quot;div&quot;</span>, {}, ...actors.map(<span class="tok-definition">actor</span> =&gt; {
+    <span class="tok-keyword">let</span> <span class="tok-definition">rect</span> = elt(<span class="tok-string">&quot;div&quot;</span>, {<span class="tok-definition">class</span>: <span class="tok-string2">`actor </span>${actor.type}<span class="tok-string2">`</span>});
+    rect.style.width = <span class="tok-string2">`</span>${actor.size.x * scale}<span class="tok-string2">px`</span>;
+    rect.style.height = <span class="tok-string2">`</span>${actor.size.y * scale}<span class="tok-string2">px`</span>;
+    rect.style.left = <span class="tok-string2">`</span>${actor.pos.x * scale}<span class="tok-string2">px`</span>;
+    rect.style.top = <span class="tok-string2">`</span>${actor.pos.y * scale}<span class="tok-string2">px`</span>;
+    <span class="tok-keyword">return</span> rect;
+  }));
+}</pre>
+
+<p><a class="p_ident" id="p-60e0ZPCB8W" href="#p-60e0ZPCB8W" tabindex="-1" role="presentation"></a>Para agregar más de una clase a un elemento, separamos los nombres de las clases por espacios. En el siguiente código CSS mostrado a continuación, la clase <code>actor</code> da a los actores su posición absoluta. El nombre de su tipo se utiliza como una clase adicional para darles un color. No tenemos que definir la clase <code>lava</code> de nuevo porque estamos reutilizando la clase para las casillas de lava de la cuadrícula que definimos anteriormente.</p>
+
+<pre class="snippet" data-language="css" ><a class="c_ident" id="c-ksr13Gc65g" href="#c-ksr13Gc65g" tabindex="-1" role="presentation"></a>.actor  { position: <span class="tok-atom">absolute</span>;            }
+.coin   { background: <span class="tok-keyword">rgb</span>(<span class="tok-number">241</span>, <span class="tok-number">229</span>, <span class="tok-number">89</span>); }
+.player { background: <span class="tok-keyword">rgb</span>(<span class="tok-number">64</span>, <span class="tok-number">64</span>, <span class="tok-number">64</span>);   }</pre>
+
+<p><a class="p_ident" id="p-iIyp+A+FzZ" href="#p-iIyp+A+FzZ" tabindex="-1" role="presentation"></a>El método <code>syncState</code> se utiliza para que la pantalla muestre un estado dado. Primero elimina los gráficos de actores antiguos, si los hay, y luego vuelve a dibujar los actores en sus nuevas posiciones. Puede ser tentador intentar reutilizar los elementos DOM para actores, pero para que eso funcione, necesitaríamos mucho más trabajo adicional para asociar actores con elementos DOM y asegurarnos de que eliminamos elementos cuando sus actores desaparecen. Dado que típicamente habrá solo un puñado de actores en el juego, volver a dibujar todos ellos no es costoso.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/bAFVECbGl" href="#c-/bAFVECbGl" tabindex="-1" role="presentation"></a>DOMDisplay.prototype.syncState = <span class="tok-keyword">function</span>(<span class="tok-definition">state</span>) {
+  <span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.actorLayer) <span class="tok-keyword">this</span>.actorLayer.remove();
+  <span class="tok-keyword">this</span>.actorLayer = drawActors(state.actors);
+  <span class="tok-keyword">this</span>.dom.appendChild(<span class="tok-keyword">this</span>.actorLayer);
+  <span class="tok-keyword">this</span>.dom.className = <span class="tok-string2">`game </span>${state.status}<span class="tok-string2">`</span>;
+  <span class="tok-keyword">this</span>.scrollPlayerIntoView(state);
+};</pre>
+
+<p><a class="p_ident" id="p-xaV8WuNtS5" href="#p-xaV8WuNtS5" tabindex="-1" role="presentation"></a>Al agregar el estado actual del nivel como nombre de clase al contenedor, podemos estilizar ligeramente al actor del jugador cuando el juego se gana o se pierde, añadiendo una regla CSS que tenga efecto solo cuando el jugador tiene un elemento ancestro con una clase específica.</p>
+
+<pre class="snippet" data-language="css" ><a class="c_ident" id="c-6QpUiIcdtL" href="#c-6QpUiIcdtL" tabindex="-1" role="presentation"></a>.lost .player {
+  background: <span class="tok-keyword">rgb</span>(<span class="tok-number">160</span>, <span class="tok-number">64</span>, <span class="tok-number">64</span>);
+}
+.won .player {
+  box-shadow: <span class="tok-number">-4</span><span class="tok-keyword">px</span> <span class="tok-number">-7</span><span class="tok-keyword">px</span> <span class="tok-number">8</span><span class="tok-keyword">px</span> <span class="tok-atom">white</span>, <span class="tok-number">4</span><span class="tok-keyword">px</span> <span class="tok-number">-7</span><span class="tok-keyword">px</span> <span class="tok-number">8</span><span class="tok-keyword">px</span> <span class="tok-atom">white</span>;
+}</pre>
+
+<p><a class="p_ident" id="p-yWTJSsN8k5" href="#p-yWTJSsN8k5" tabindex="-1" role="presentation"></a>Después de tocar la lava, el color del jugador se vuelve rojo oscuro, sugiriendo quemaduras. Cuando se ha recolectado la última moneda, agregamos dos sombras blancas difuminadas, una en la parte superior izquierda y otra en la parte superior derecha, para crear un efecto de halo blanco.</p>
+
+<p id="viewport"><a class="p_ident" id="p-LyatP1VqqG" href="#p-LyatP1VqqG" tabindex="-1" role="presentation"></a>{{index “posición (CSS)”, “ancho máximo (CSS)”, “desbordamiento (CSS)”, “altura máxima (CSS)”, viewport, desplazamiento, [DOM, gráficos]}}</p>
+
+<p><a class="p_ident" id="p-/S+i9P6DTR" href="#p-/S+i9P6DTR" tabindex="-1" role="presentation"></a>No podemos asumir que el nivel siempre encaja en el <em>viewport</em> – el elemento en el que dibujamos el juego. Por eso es necesaria la llamada a <code>scrollPlayerIntoView</code>. Se asegura de que si el nivel sobresale del viewport, desplacemos ese viewport para asegurar que el jugador esté cerca de su centro. El siguiente CSS le da al elemento DOM contenedor del juego un tamaño máximo y asegura que cualquier cosa que sobresalga de la caja del elemento no sea visible. También le damos una posición relativa para que los actores dentro de él estén posicionados de manera relativa a la esquina superior izquierda del nivel.</p>
+
+<pre class="snippet" data-language="css" ><a class="c_ident" id="c-cxq+gtsZuW" href="#c-cxq+gtsZuW" tabindex="-1" role="presentation"></a>.game {
+  overflow: <span class="tok-atom">hidden</span>;
+  max-width: <span class="tok-number">600</span><span class="tok-keyword">px</span>;
+  max-height: <span class="tok-number">450</span><span class="tok-keyword">px</span>;
+  position: <span class="tok-atom">relative</span>;
+}</pre>
+
+<p><a class="p_ident" id="p-N6b4mldpc3" href="#p-N6b4mldpc3" tabindex="-1" role="presentation"></a>En el método <code>scrollPlayerIntoView</code>, encontramos la posición del jugador y actualizamos la posición de desplazamiento del elemento contenedor. Cambiamos la posición de desplazamiento manipulando las propiedades <code>scrollLeft</code> y <code>scrollTop</code> de ese elemento cuando el jugador está demasiado cerca del borde.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/zBlzqGSsK" href="#c-/zBlzqGSsK" tabindex="-1" role="presentation"></a>DOMDisplay.prototype.scrollPlayerIntoView = <span class="tok-keyword">function</span>(<span class="tok-definition">state</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">width</span> = <span class="tok-keyword">this</span>.dom.clientWidth;
+  <span class="tok-keyword">let</span> <span class="tok-definition">height</span> = <span class="tok-keyword">this</span>.dom.clientHeight;
+  <span class="tok-keyword">let</span> <span class="tok-definition">margin</span> = width / <span class="tok-number">3</span>;
+
+  <span class="tok-comment">// El viewport</span>
+  <span class="tok-keyword">let</span> <span class="tok-definition">left</span> = <span class="tok-keyword">this</span>.dom.scrollLeft, <span class="tok-definition">right</span> = left + width;
+  <span class="tok-keyword">let</span> <span class="tok-definition">top</span> = <span class="tok-keyword">this</span>.dom.scrollTop, <span class="tok-definition">bottom</span> = top + height;
+
+  <span class="tok-keyword">let</span> <span class="tok-definition">player</span> = state.player;
+  <span class="tok-keyword">let</span> <span class="tok-definition">center</span> = player.pos.plus(player.size.times(<span class="tok-number">0.5</span>))
+                         .times(scale);
+
+  <span class="tok-keyword">if</span> (center.x &lt; left + margin) {
+    <span class="tok-keyword">this</span>.dom.scrollLeft = center.x - margin;
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (center.x &gt; right - margin) {
+    <span class="tok-keyword">this</span>.dom.scrollLeft = center.x + margin - width;
+  }
+  <span class="tok-keyword">if</span> (center.y &lt; top + margin) {
+    <span class="tok-keyword">this</span>.dom.scrollTop = center.y - margin;
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (center.y &gt; bottom - margin) {
+    <span class="tok-keyword">this</span>.dom.scrollTop = center.y + margin - height;
+  }
+};</pre>
+
+<p><a class="p_ident" id="p-zzN0sVELro" href="#p-zzN0sVELro" tabindex="-1" role="presentation"></a>La forma en que se encuentra el centro del jugador muestra cómo los métodos en nuestro tipo <code>Vec</code> permiten que los cálculos con objetos se escriban de una manera relativamente legible. Para encontrar el centro del actor, sumamos su posición (esquina superior izquierda) y la mitad de su tamaño. Ese es el centro en coordenadas de nivel, pero lo necesitamos en coordenadas de píxeles, así que luego multiplicamos el vector resultante por nuestra escala de visualización.</p>
+
+<p><a class="p_ident" id="p-h1n3WkCx32" href="#p-h1n3WkCx32" tabindex="-1" role="presentation"></a>A continuación, una serie de comprobaciones verifica que la posición del jugador no esté fuera del rango permitido. Ten en cuenta que a veces esto establecerá coordenadas de desplazamiento sin sentido que están por debajo de cero o más allá del área desplazable del elemento. Esto está bien, el DOM las limitará a valores aceptables. Establecer  <code>scrollLeft</code> en -10 hará que se convierta en 0.</p>
+
+<p><a class="p_ident" id="p-T5eIFx4SHb" href="#p-T5eIFx4SHb" tabindex="-1" role="presentation"></a>Hubiera sido un poco más sencillo intentar siempre desplazar al jugador al centro del viewport. Pero esto crea un efecto bastante brusco. Mientras saltas, la vista se desplazará constantemente hacia arriba y hacia abajo. Es más agradable tener un área “neutral” en el centro de la pantalla donde puedas moverte sin causar ningún desplazamiento.</p>
+
+<p><a class="p_ident" id="p-4m9RHtbNMg" href="#p-4m9RHtbNMg" tabindex="-1" role="presentation"></a>Ahora podemos mostrar nuestro pequeño nivel.</p>
+
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-LDPexlnWt1" href="#c-LDPexlnWt1" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">link</span> rel=<span class="tok-string">&quot;stylesheet&quot;</span> href=<span class="tok-string">&quot;css/game.css&quot;</span>&gt;
+
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-keyword">let</span> <span class="tok-definition">simpleLevel</span> = <span class="tok-keyword">new</span> Level(simpleLevelPlan);
+  <span class="tok-keyword">let</span> <span class="tok-definition">display</span> = <span class="tok-keyword">new</span> DOMDisplay(document.body, simpleLevel);
+  display.syncState(State.start(simpleLevel));
+&lt;/<span class="tok-typeName">script</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-ON8rd/7gbf" href="#p-ON8rd/7gbf" tabindex="-1" role="presentation"></a>La etiqueta <code>&lt;link&gt;</code>, cuando se utiliza con <code>rel=&quot;stylesheet&quot;</code>, es una forma de cargar un archivo CSS en una página. El archivo <code>game.css</code> contiene los estilos necesarios para nuestro juego.</p>
+
+<h2><a class="h_ident" id="h-tv/BeRzlcm" href="#h-tv/BeRzlcm" tabindex="-1" role="presentation"></a>Movimiento y colisión</h2>
+
+<p><a class="p_ident" id="p-KCvNCPZKJp" href="#p-KCvNCPZKJp" tabindex="-1" role="presentation"></a>{{index física, [animación, “juego de plataformas”]}}</p>
+
+<p><a class="p_ident" id="p-DHGW4rc3K6" href="#p-DHGW4rc3K6" tabindex="-1" role="presentation"></a>Ahora estamos en el punto en el que podemos comenzar a agregar movimiento. El enfoque básico, seguido por la mayoría de juegos como este, es dividir tiempo en pequeños pasos y, para cada paso, mover a los actores una distancia correspondiente a su velocidad multiplicada por el tamaño del paso de tiempo. Mediremos el tiempo en segundos, por lo que las velocidades se expresan en unidades por segundo.</p>
+
+<p><a class="p_ident" id="p-wKG5m7ymDW" href="#p-wKG5m7ymDW" tabindex="-1" role="presentation"></a>{{index obstáculo, “detección de colisión”}}</p>
+
+<p><a class="p_ident" id="p-maCyB+GrHq" href="#p-maCyB+GrHq" tabindex="-1" role="presentation"></a>Mover cosas es fácil. La parte difícil es lidiar con las interacciones entre los elementos. Cuando el jugador golpea una pared o el suelo, no debería simplemente atravesarlo. El juego debe notar cuando un movimiento dado hace que un objeto golpee a otro objeto y responder en consecuencia. Para las paredes, el movimiento debe detenerse. Al golpear una moneda, esa moneda debe ser recogida. Al tocar lava, el juego debería perderse.</p>
+
+<p><a class="p_ident" id="p-EaGug3+J4H" href="#p-EaGug3+J4H" tabindex="-1" role="presentation"></a>Resolver esto para el caso general es una tarea grande. Puedes encontrar bibliotecas, generalmente llamadas <em>motores físicos</em>, que simulan la interacción entre objetos físicos en dos o tres dimensiones. Tomaremos un enfoque más modesto en este capítulo, manejando solo colisiones entre objetos rectangulares y manejándolas de una manera bastante simplista.</p>
+
+<p><a class="p_ident" id="p-w6owX+pHJi" href="#p-w6owX+pHJi" tabindex="-1" role="presentation"></a>{{index rebote, “detección de colisión”, [animación, “juego de plataformas”]}}</p>
+
+<p><a class="p_ident" id="p-wWuS/PtsdK" href="#p-wWuS/PtsdK" tabindex="-1" role="presentation"></a>Antes de mover al jugador o un bloque de lava, probamos si el movimiento los llevaría dentro de una pared. Si lo hace, simplemente cancelamos el movimiento por completo. La respuesta a tal colisión depende del tipo de actor. El jugador se detendrá, mientras que un bloque de lava rebotará.</p>
+
+<p><a class="p_ident" id="p-79mMVoA0pC" href="#p-79mMVoA0pC" tabindex="-1" role="presentation"></a>{{index discretización}}</p>
+
+<p><a class="p_ident" id="p-mv7P7WIvxp" href="#p-mv7P7WIvxp" tabindex="-1" role="presentation"></a>Este enfoque requiere que nuestros pasos de tiempo sean bastante pequeños, ya que hará que el movimiento se detenga antes de que los objetos realmente se toquen. Si los pasos de tiempo (y por lo tanto los pasos de movimiento) son demasiado grandes, el jugador terminaría elevándose a una distancia notable sobre el suelo. Otro enfoque, argumentablemente mejor pero más complicado, sería encontrar el punto exacto de colisión y moverse allí. Tomaremos el enfoque simple y ocultaremos sus problemas asegurando que la animación avance en pasos pequeños.{{index “obstacle”, “método touches”, “detección de colisiones”}}</p>
+
+<p id="touches"><a class="p_ident" id="p-QDNT+CDkqt" href="#p-QDNT+CDkqt" tabindex="-1" role="presentation"></a>Este método nos indica si un rectángulo (especificado por una posición y un tamaño) toca un elemento de rejilla de un tipo dado.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-L9DHo/CdJs" href="#c-L9DHo/CdJs" tabindex="-1" role="presentation"></a>Level.prototype.touches = <span class="tok-keyword">function</span>(<span class="tok-definition">pos</span>, <span class="tok-definition">size</span>, <span class="tok-definition">type</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">xStart</span> = Math.floor(pos.x);
+  <span class="tok-keyword">let</span> <span class="tok-definition">xEnd</span> = Math.ceil(pos.x + size.x);
+  <span class="tok-keyword">let</span> <span class="tok-definition">yStart</span> = Math.floor(pos.y);
+  <span class="tok-keyword">let</span> <span class="tok-definition">yEnd</span> = Math.ceil(pos.y + size.y);
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">y</span> = yStart; y &lt; yEnd; y++) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">x</span> = xStart; x &lt; xEnd; x++) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">isOutside</span> = x &lt; <span class="tok-number">0</span> || x &gt;= <span class="tok-keyword">this</span>.width ||
+                      y &lt; <span class="tok-number">0</span> || y &gt;= <span class="tok-keyword">this</span>.height;
+      <span class="tok-keyword">let</span> <span class="tok-definition">here</span> = isOutside ? <span class="tok-string">&quot;wall&quot;</span> : <span class="tok-keyword">this</span>.rows[y][x];
+      <span class="tok-keyword">if</span> (here == type) <span class="tok-keyword">return</span> true;
+    }
+  }
+  <span class="tok-keyword">return</span> false;
+};</pre>
+
+<p><a class="p_ident" id="p-ap8c9sKdvO" href="#p-ap8c9sKdvO" tabindex="-1" role="presentation"></a>El método calcula el conjunto de cuadrados de rejilla con los que el cuerpo se superpone utilizando <code>Math.floor</code> y <code>Math.ceil</code> en sus coordenadas. Recuerda que los cuadrados de la rejilla son de tamaño 1 por 1 unidad. Al redondear los lados de un cuadro hacia arriba y hacia abajo, obtenemos el rango de cuadrados de fondo que el cuadro toca.</p><figure><img src="img/game-grid.svg" alt="Diagrama que muestra una rejilla con un cuadro negro superpuesto. Todos los cuadrados de la rejilla que están parcialmente cubiertos por el bloque están marcados."></figure>
+
+<p><a class="p_ident" id="p-uApk94hsaO" href="#p-uApk94hsaO" tabindex="-1" role="presentation"></a>Recorremos el bloque de cuadrados de rejilla encontrado al redondear las coordenadas y devolvemos <code>true</code> cuando se encuentra un cuadro coincidente. Los cuadrados fuera del nivel siempre se tratan como <code>&quot;wall&quot;</code> para asegurar que el jugador no pueda salir del mundo y que no intentemos leer fuera de los límites de nuestra matriz <code>rows</code>.</p>
+
+<p><a class="p_ident" id="p-Cesow/hk5h" href="#p-Cesow/hk5h" tabindex="-1" role="presentation"></a>El método <code>update</code> de estado utiliza <code>touches</code> para determinar si el jugador está tocando lava.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-af6Xo1AsIn" href="#c-af6Xo1AsIn" tabindex="-1" role="presentation"></a>State.prototype.update = <span class="tok-keyword">function</span>(<span class="tok-definition">time</span>, <span class="tok-definition">keys</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">actors</span> = <span class="tok-keyword">this</span>.actors
+    .map(<span class="tok-definition">actor</span> =&gt; actor.update(time, <span class="tok-keyword">this</span>, keys));
+  <span class="tok-keyword">let</span> <span class="tok-definition">newState</span> = <span class="tok-keyword">new</span> State(<span class="tok-keyword">this</span>.level, actors, <span class="tok-keyword">this</span>.status);
+
+  <span class="tok-keyword">if</span> (newState.status != <span class="tok-string">&quot;playing&quot;</span>) <span class="tok-keyword">return</span> newState;
+
+  <span class="tok-keyword">let</span> <span class="tok-definition">player</span> = newState.player;
+  <span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.level.touches(player.pos, player.size, <span class="tok-string">&quot;lava&quot;</span>)) {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> State(<span class="tok-keyword">this</span>.level, actors, <span class="tok-string">&quot;lost&quot;</span>);
+  }
+
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">actor</span> <span class="tok-keyword">of</span> actors) {
+    <span class="tok-keyword">if</span> (actor != player &amp;&amp; overlap(actor, player)) {
+      newState = actor.collide(newState);
+    }
+  }
+  <span class="tok-keyword">return</span> newState;
+};</pre>
+
+<p><a class="p_ident" id="p-WmoeDg6vQ9" href="#p-WmoeDg6vQ9" tabindex="-1" role="presentation"></a>El método recibe un paso de tiempo y una estructura de datos que le indica qué teclas se mantienen presionadas. Lo primero que hace es llamar al método <code>update</code> en todos los actores, produciendo un array de actores actualizados. Los actores también reciben el paso de tiempo, las teclas y el estado, para que puedan basar su actualización en esos valores. Solo el jugador realmente lee las teclas, ya que es el único actor controlado por el teclado.</p>
+
+<p><a class="p_ident" id="p-wTfl/2bBAA" href="#p-wTfl/2bBAA" tabindex="-1" role="presentation"></a>Si el juego ya ha terminado, no es necesario realizar más procesamiento (no se puede ganar el juego después de haber perdido, o viceversa). De lo contrario, el método prueba si el jugador está tocando lava de fondo. Si es así, se pierde el juego y hemos terminado. Finalmente, si el juego sigue en curso, verifica si algún otro actor se superpone al jugador.La superposición entre actores se detecta con la función <code>overlap</code>. Toma dos objetos actor y devuelve true cuando se tocan, lo cual sucede cuando se superponen tanto a lo largo del eje x como a lo largo del eje y.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-K7g73S6l2N" href="#c-K7g73S6l2N" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">overlap</span>(<span class="tok-definition">actor1</span>, <span class="tok-definition">actor2</span>) {
+  <span class="tok-keyword">return</span> actor1.pos.x + actor1.size.x &gt; actor2.pos.x &amp;&amp;
+  actor1.pos.x &lt; actor2.pos.x + actor2.size.x &amp;&amp;
+  actor1.pos.y + actor1.size.y &gt; actor2.pos.y &amp;&amp;
+  actor1.pos.y &lt; actor2.pos.y + actor2.size.y;
+}</pre>
+
+<p><a class="p_ident" id="p-wlayYguiqj" href="#p-wlayYguiqj" tabindex="-1" role="presentation"></a>Si algún actor se superpone, su método <code>collide</code> tiene la oportunidad de actualizar el estado. Tocar un actor de lava establece el estado del juego en <code>&quot;lost&quot;</code>. Las monedas desaparecen cuando las tocas y establecen el estado en <code>&quot;won&quot;</code> cuando son la última moneda del nivel.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-jNqQLSOJRn" href="#c-jNqQLSOJRn" tabindex="-1" role="presentation"></a>Lava.prototype.collide = <span class="tok-keyword">function</span>(<span class="tok-definition">state</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> State(state.level, state.actors, <span class="tok-string">&quot;lost&quot;</span>);
+};
+
+Coin.prototype.collide = <span class="tok-keyword">function</span>(<span class="tok-definition">state</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">filtered</span> = state.actors.filter(<span class="tok-definition">a</span> =&gt; a != <span class="tok-keyword">this</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">status</span> = state.status;
+  <span class="tok-keyword">if</span> (!filtered.some(<span class="tok-definition">a</span> =&gt; a.type == <span class="tok-string">&quot;coin&quot;</span>)) status = <span class="tok-string">&quot;won&quot;</span>;
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> State(state.level, filtered, status);
+};</pre>
+
+<h2 id="actores"><a class="h_ident" id="h-uo8ruJq0l5" href="#h-uo8ruJq0l5" tabindex="-1" role="presentation"></a>Actualizaciones de actores</h2>
+
+<p><a class="p_ident" id="p-a0Ow9mdDIT" href="#p-a0Ow9mdDIT" tabindex="-1" role="presentation"></a>Los métodos <code>update</code> de los objetos actor toman como argumentos el paso de tiempo, el objeto de estado y un objeto <code>keys</code>. El de tipo actor <code>Lava</code> ignora el objeto <code>keys</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-vuIaAGYDTl" href="#c-vuIaAGYDTl" tabindex="-1" role="presentation"></a>Lava.prototype.update = <span class="tok-keyword">function</span>(<span class="tok-definition">time</span>, <span class="tok-definition">state</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">newPos</span> = <span class="tok-keyword">this</span>.pos.plus(<span class="tok-keyword">this</span>.speed.times(time));
+  <span class="tok-keyword">if</span> (!state.level.touches(newPos, <span class="tok-keyword">this</span>.size, <span class="tok-string">&quot;wall&quot;</span>)) {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Lava(newPos, <span class="tok-keyword">this</span>.speed, <span class="tok-keyword">this</span>.reset);
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.reset) {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Lava(<span class="tok-keyword">this</span>.reset, <span class="tok-keyword">this</span>.speed, <span class="tok-keyword">this</span>.reset);
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Lava(<span class="tok-keyword">this</span>.pos, <span class="tok-keyword">this</span>.speed.times(-<span class="tok-number">1</span>));
+  }
+};</pre>
+
+<p><a class="p_ident" id="p-U2bHlnrub0" href="#p-U2bHlnrub0" tabindex="-1" role="presentation"></a>{{index rebotante, multiplicación, “Clase Vec”, “detección de colisiones”}}</p>
+
+<p><a class="p_ident" id="p-THhyQQrDVM" href="#p-THhyQQrDVM" tabindex="-1" role="presentation"></a>Este método <code>update</code> calcula una nueva posición agregando el producto del paso de tiempo y la velocidad actual a su posición anterior. Si no hay obstáculos que bloqueen esa nueva posición, se mueve allí. Si hay un obstáculo, el comportamiento depende del tipo de bloque de lava—la lava goteante tiene una posición de <code>reset</code> a la que regresa cuando golpea algo. La lava rebotante invierte su velocidad multiplicándola por -1 para que comience a moverse en la dirección opuesta.</p>
+
+<p><a class="p_ident" id="p-czHlL0lAzr" href="#p-czHlL0lAzr" tabindex="-1" role="presentation"></a>Las monedas utilizan su método <code>update</code> para balancearse. Ignoran las colisiones con la cuadrícula ya que simplemente se balancean dentro de su propio cuadrado.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-+DC3G3xD19" href="#c-+DC3G3xD19" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">wobbleSpeed</span> = <span class="tok-number">8</span>, <span class="tok-definition">wobbleDist</span> = <span class="tok-number">0.07</span>;
+
+Coin.prototype.update = <span class="tok-keyword">function</span>(<span class="tok-definition">time</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">wobble</span> = <span class="tok-keyword">this</span>.wobble + time * wobbleSpeed;
+  <span class="tok-keyword">let</span> <span class="tok-definition">wobblePos</span> = Math.sin(wobble) * wobbleDist;
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Coin(<span class="tok-keyword">this</span>.basePos.plus(<span class="tok-keyword">new</span> Vec(<span class="tok-number">0</span>, wobblePos)),
+                  <span class="tok-keyword">this</span>.basePos, wobble);
+};</pre>
+
+<p><a class="p_ident" id="p-ORbkBcMjM9" href="#p-ORbkBcMjM9" tabindex="-1" role="presentation"></a>La propiedad <code>wobble</code> se incrementa para hacer un seguimiento del tiempo y luego se utiliza como argumento para <code>Math.sin</code> para encontrar la nueva posición en la onda. La posición actual de la moneda se calcula a partir de su posición base y un desplazamiento basado en esta onda.</p>
+
+<p><a class="p_ident" id="p-v6LmCCaFyG" href="#p-v6LmCCaFyG" tabindex="-1" role="presentation"></a>Eso deja al jugador en sí. El movimiento del jugador se maneja por separado por eje porque golpear el suelo no debería impedir el movimiento horizontal, y golpear una pared no debería detener el movimiento de caída o de salto.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-cBJRAPnr2+" href="#c-cBJRAPnr2+" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">playerXSpeed</span> = <span class="tok-number">7</span>;
+<span class="tok-keyword">const</span> <span class="tok-definition">gravity</span> = <span class="tok-number">30</span>;
+<span class="tok-keyword">const</span> <span class="tok-definition">jumpSpeed</span> = <span class="tok-number">17</span>;
+
+Player.prototype.update = <span class="tok-keyword">function</span>(<span class="tok-definition">time</span>, <span class="tok-definition">state</span>, <span class="tok-definition">keys</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">xSpeed</span> = <span class="tok-number">0</span>;
+  <span class="tok-keyword">if</span> (keys.ArrowLeft) xSpeed -= playerXSpeed;
+  <span class="tok-keyword">if</span> (keys.ArrowRight) xSpeed += playerXSpeed;
+  <span class="tok-keyword">let</span> <span class="tok-definition">pos</span> = <span class="tok-keyword">this</span>.pos;
+  <span class="tok-keyword">let</span> <span class="tok-definition">movedX</span> = pos.plus(<span class="tok-keyword">new</span> Vec(xSpeed * time, <span class="tok-number">0</span>));
+  <span class="tok-keyword">if</span> (!state.level.touches(movedX, <span class="tok-keyword">this</span>.size, <span class="tok-string">&quot;wall&quot;</span>)) {
+    pos = movedX;
+  }
+
+  <span class="tok-keyword">let</span> <span class="tok-definition">ySpeed</span> = <span class="tok-keyword">this</span>.speed.y + time * gravity;
+  <span class="tok-keyword">let</span> <span class="tok-definition">movedY</span> = pos.plus(<span class="tok-keyword">new</span> Vec(<span class="tok-number">0</span>, ySpeed * time));
+  <span class="tok-keyword">if</span> (!state.level.touches(movedY, <span class="tok-keyword">this</span>.size, <span class="tok-string">&quot;wall&quot;</span>)) {
+    pos = movedY;
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (keys.ArrowUp &amp;&amp; ySpeed &gt; <span class="tok-number">0</span>) {
+    ySpeed = -jumpSpeed;
+  } <span class="tok-keyword">else</span> {
+    ySpeed = <span class="tok-number">0</span>;
+  }
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Player(pos, <span class="tok-keyword">new</span> Vec(xSpeed, ySpeed));
+};</pre>
+
+<p><a class="p_ident" id="p-LJa4+BA+NQ" href="#p-LJa4+BA+NQ" tabindex="-1" role="presentation"></a>{{index [animación, “juego de plataformas”], teclado}}</p>
+
+<p><a class="p_ident" id="p-+QACdgpz1o" href="#p-+QACdgpz1o" tabindex="-1" role="presentation"></a>El movimiento horizontal se calcula en función del estado de las teclas de flecha izquierda y derecha. Cuando no hay una pared bloqueando la nueva posición creada por este movimiento, se utiliza. De lo contrario, se mantiene la posición anterior.</p>
+
+<p><a class="p_ident" id="p-JyiO+ndghI" href="#p-JyiO+ndghI" tabindex="-1" role="presentation"></a>{{index aceleración, física}}</p>
+
+<p><a class="p_ident" id="p-6IgUr/lkaY" href="#p-6IgUr/lkaY" tabindex="-1" role="presentation"></a>El movimiento vertical funciona de manera similar pero tiene que simular saltos y gravedad. La velocidad vertical del jugador (<code>ySpeed</code>) se acelera primero para tener en cuenta la gravedad.</p>
+
+<p><a class="p_ident" id="p-zaLftgquW2" href="#p-zaLftgquW2" tabindex="-1" role="presentation"></a>Comprobamos las paredes nuevamente. Si no golpeamos ninguna, se usa la nueva posición. Si <em>hay</em> una pared, hay dos posibles resultados. Cuando se presiona la flecha hacia arriba <em>y</em> estamos bajando (lo que significa que lo que golpeamos está debajo de nosotros), la velocidad se establece en un valor negativo relativamente grande. Esto hace que el jugador salte. Si ese no es el caso, el jugador simplemente chocó con algo y la velocidad se establece en cero.</p>
+
+<p><a class="p_ident" id="p-54E5X99wu1" href="#p-54E5X99wu1" tabindex="-1" role="presentation"></a>La fuerza de la gravedad, la velocidad de salto y otras constantes en el juego se determinaron simplemente probando algunos números y viendo cuáles se sentían correctos. Puedes experimentar con ellos.</p>
+
+<h2><a class="h_ident" id="h-WVVqzX6vmH" href="#h-WVVqzX6vmH" tabindex="-1" role="presentation"></a>Seguimiento de teclas</h2>
+
+<p><a class="p_ident" id="p-VyMbnD52Be" href="#p-VyMbnD52Be" tabindex="-1" role="presentation"></a>Para un juego como este, no queremos que las teclas tengan efecto una vez por pulsación de tecla. Más bien, queremos que su efecto (mover la figura del jugador) se mantenga activo mientras se mantienen presionadas.</p>
+
+<p><a class="p_ident" id="p-eLyCT3iT/g" href="#p-eLyCT3iT/g" tabindex="-1" role="presentation"></a>{{index método “preventDefault”}}</p>
+
+<p><a class="p_ident" id="p-3lsWnfq1i6" href="#p-3lsWnfq1i6" tabindex="-1" role="presentation"></a>Necesitamos configurar un controlador de teclas que almacene el estado actual de las teclas de flecha izquierda, derecha y arriba. También queremos llamar a <code>preventDefault</code> para esas teclas para que no terminen desplazando la página.</p>
+
+<p><a class="p_ident" id="p-T2VTkpwMuF" href="#p-T2VTkpwMuF" tabindex="-1" role="presentation"></a>{{index función “trackKeys”, “código de tecla”, “manejo de eventos”, “método addEventListener”}}</p>
+
+<p><a class="p_ident" id="p-orFOAfbCn+" href="#p-orFOAfbCn+" tabindex="-1" role="presentation"></a>La siguiente función, al darle un array de nombres de teclas, devolverá un objeto que sigue la posición actual de esas teclas. Registra controladores de eventos para eventos <code>&quot;keydown&quot;</code> y <code>&quot;keyup&quot;</code> y, cuando el código de tecla en el evento está presente en el conjunto de códigos que está siguiendo, actualiza el objeto.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Y8OO7FYynl" href="#c-Y8OO7FYynl" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">trackKeys</span>(<span class="tok-definition">keys</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">down</span> = Object.create(<span class="tok-keyword">null</span>);
+  <span class="tok-keyword">function</span> <span class="tok-definition">track</span>(<span class="tok-definition">event</span>) {
+    <span class="tok-keyword">if</span> (keys.includes(event.key)) {
+      down[event.key] = event.type == <span class="tok-string">&quot;keydown&quot;</span>;
+      event.preventDefault();
+    }
+  }
+  window.addEventListener(<span class="tok-string">&quot;keydown&quot;</span>, track);
+  window.addEventListener(<span class="tok-string">&quot;keyup&quot;</span>, track);
+  <span class="tok-keyword">return</span> down;
+}</pre>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-gc6K6vD2BM" href="#c-gc6K6vD2BM" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">arrowKeys</span> = trackKeys([<span class="tok-string">&quot;ArrowLeft&quot;</span>, <span class="tok-string">&quot;ArrowRight&quot;</span>, <span class="tok-string">&quot;ArrowUp&quot;</span>]);</pre>
+
+<p><a class="p_ident" id="p-lv5qYrGH5J" href="#p-lv5qYrGH5J" tabindex="-1" role="presentation"></a>La misma función manejadora se utiliza para ambos tipos de eventos. Esta función examina la propiedad <code>type</code> del objeto de evento para determinar si el estado de la tecla debe actualizarse a verdadero (<code>&quot;keydown&quot;</code>) o falso (<code>&quot;keyup&quot;</code>).</p>
+
+<h2 id="runAnimation"><a class="h_ident" id="h-HjoMjq9iwV" href="#h-HjoMjq9iwV" tabindex="-1" role="presentation"></a>Ejecutando el juego</h2>
+
+<p><a class="p_ident" id="p-2faNnmMp8R" href="#p-2faNnmMp8R" tabindex="-1" role="presentation"></a>{{index “función requestAnimationFrame”, [animación, “juego de plataformas”]}}</p>
+
+<p><a class="p_ident" id="p-f/JcUlKudG" href="#p-f/JcUlKudG" tabindex="-1" role="presentation"></a>La función <code>requestAnimationFrame</code>, que vimos en <a href="14_dom.html#animationFrame">Capítulo 14</a>, proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a <code>requestAnimationFrame</code> nuevamente después de cada fotograma.</p>
+
+<p><a class="p_ident" id="p-2faNnmMp8R_1" href="#p-2faNnmMp8R_1" tabindex="-1" role="presentation"></a>{{index “función runAnimation”, “función de devolución de llamada”, [función, “como valor”], [función, “de orden superior”], [animación, “juego de plataformas”]}}</p>
+
+<p><a class="p_ident" id="p-/pRqSyclsU" href="#p-/pRqSyclsU" tabindex="-1" role="presentation"></a>Vamos a definir una función auxiliar que envuelva todo eso en una interfaz conveniente y nos permita simplemente llamar a <code>runAnimation</code>, dándole una función que espera una diferencia de tiempo como argumento y dibuja un solo fotograma. Cuando la función de fotograma devuelve el valor <code>false</code>, la animación se detiene.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-AVT0noPnDW" href="#c-AVT0noPnDW" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">runAnimation</span>(<span class="tok-definition">frameFunc</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">lastTime</span> = <span class="tok-keyword">null</span>;
+  <span class="tok-keyword">function</span> <span class="tok-definition">frame</span>(<span class="tok-definition">time</span>) {
+    <span class="tok-keyword">if</span> (lastTime != <span class="tok-keyword">null</span>) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">timeStep</span> = Math.min(time - lastTime, <span class="tok-number">100</span>) / <span class="tok-number">1000</span>;
+      <span class="tok-keyword">if</span> (frameFunc(timeStep) === false) <span class="tok-keyword">return</span>;
+    }
+    lastTime = time;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}</pre>
+
+<p><a class="p_ident" id="p-ffl7V/nNRH" href="#p-ffl7V/nNRH" tabindex="-1" role="presentation"></a>{{index tiempo, discretización}}</p>
+
+<p><a class="p_ident" id="p-gFgHJEU0sn" href="#p-gFgHJEU0sn" tabindex="-1" role="presentation"></a>He establecido un paso de fotograma máximo de 100 milisegundos (una décima parte de un segundo). Cuando la pestaña del navegador o la ventana con nuestra página está oculta, las llamadas a <code>requestAnimationFrame</code> se suspenden hasta que la pestaña o la ventana se vuelva a mostrar. En este caso, la diferencia entre <code>lastTime</code> y <code>time</code> será todo el tiempo en el que la página estuvo oculta. Avanzar el juego tanto en un solo paso se vería ridículo y podría causar efectos secundarios extraños, como que el jugador caiga a través del suelo.</p>
+
+<p><a class="p_ident" id="p-hmyKYUIDaE" href="#p-hmyKYUIDaE" tabindex="-1" role="presentation"></a>La función también convierte los pasos de tiempo a segundos, que son una cantidad más fácil de entender que los milisegundos.</p>
+
+<p><a class="p_ident" id="p-2faNnmMp8R_2" href="#p-2faNnmMp8R_2" tabindex="-1" role="presentation"></a>{{index “función de devolución de llamada”, “función runLevel”, [animación, “juego de plataformas”]}}</p>
+
+<p><a class="p_ident" id="p-luBQjw6ICO" href="#p-luBQjw6ICO" tabindex="-1" role="presentation"></a>La función <code>runLevel</code> toma un objeto <code>Level</code> y un constructor de display y devuelve una promesa. Muestra el nivel (en <code>document.body</code>) y permite al usuario jugar a través de él. Cuando el nivel termina (perdido o ganado), <code>runLevel</code> espera un segundo más (para que el usuario vea qué sucede), luego borra la pantalla, detiene la animación y resuelve la promesa con el estado final del juego.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-HTrHnVaIWA" href="#c-HTrHnVaIWA" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">runLevel</span>(<span class="tok-definition">level</span>, <span class="tok-definition">Display</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">display</span> = <span class="tok-keyword">new</span> Display(document.body, level);
+  <span class="tok-keyword">let</span> <span class="tok-definition">state</span> = State.start(level);
+  <span class="tok-keyword">let</span> <span class="tok-definition">ending</span> = <span class="tok-number">1</span>;
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">resolve</span> =&gt; {
+    runAnimation(<span class="tok-definition">time</span> =&gt; {
+      state = state.update(time, arrowKeys);
+      display.syncState(state);
+      <span class="tok-keyword">if</span> (state.status == <span class="tok-string">&quot;playing&quot;</span>) {
+        <span class="tok-keyword">return</span> true;
+      } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (ending &gt; <span class="tok-number">0</span>) {
+        ending -= time;
+        <span class="tok-keyword">return</span> true;
+      } <span class="tok-keyword">else</span> {
+        display.clear();
+        resolve(state.status);
+        <span class="tok-keyword">return</span> false;
+      }
+    });
+  });
+}</pre>
+
+<p><a class="p_ident" id="p-hrSvWShOpK" href="#p-hrSvWShOpK" tabindex="-1" role="presentation"></a>Un juego es una secuencia de niveles. Cada vez que el jugador muere, el nivel actual se reinicia. Cuando se completa un nivel, pasamos al siguiente nivel. Esto se puede expresar mediante la siguiente función, que toma un array de planes de nivel (cadenas) y un constructor de display:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qn9T9eiYj5" href="#c-qn9T9eiYj5" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">runGame</span>(<span class="tok-definition">plans</span>, <span class="tok-definition">Display</span>) {
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">level</span> = <span class="tok-number">0</span>; level &lt; plans.length;) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">status</span> = <span class="tok-keyword">await</span> runLevel(<span class="tok-keyword">new</span> Level(plans[level]),
+                                Display);
+    <span class="tok-keyword">if</span> (status == <span class="tok-string">&quot;ganado&quot;</span>) level++;
+  }
+  console.log(<span class="tok-string">&quot;¡Has ganado!&quot;</span>);
+}</pre>
+
+<p><a class="p_ident" id="p-bs54Xqdm0P" href="#p-bs54Xqdm0P" tabindex="-1" role="presentation"></a>Debido a que hicimos que <code>runLevel</code> devuelva una promesa, <code>runGame</code> puede escribirse utilizando una función <code>async</code>, como se muestra en <a href="11_async.html">Capítulo 11</a>. Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.</p>
+
+<p><a class="p_ident" id="p-SNyu3qp7jx" href="#p-SNyu3qp7jx" tabindex="-1" role="presentation"></a>Hay un conjunto de planes de niveles disponibles en el enlace <code>GAME_LEVELS</code> en el <a href="https://eloquentjavascript.net/code#16">sandbox de este capítulo</a>. Esta página los alimenta a <code>runGame</code>, comenzando un juego real.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"  data-focus="true" data-sandbox="null"><a class="c_ident" id="c-ftVm34P6My" href="#c-ftVm34P6My" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">link</span> rel=<span class="tok-string">&quot;stylesheet&quot;</span> href=<span class="tok-string">&quot;css/game.css&quot;</span>&gt;
+
+&lt;<span class="tok-typeName">body</span>&gt;
+  &lt;<span class="tok-typeName">script</span>&gt;
+    runGame(GAME_LEVELS, DOMDisplay);
+  &lt;/<span class="tok-typeName">script</span>&gt;
+&lt;/<span class="tok-typeName">body</span>&gt;</pre>
+
+<p><a class="p_ident" id="p-X8OV+4kYQ5" href="#p-X8OV+4kYQ5" tabindex="-1" role="presentation"></a>Intenta vencerlos. Me divertí construyéndolos.</p>
+
+<h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<h3><a class="i_ident" id="i-k1jnQypMxX" href="#i-k1jnQypMxX" tabindex="-1" role="presentation"></a>Juego terminado</h3>
+
+<p><a class="p_ident" id="p-lJbnvBK9ub" href="#p-lJbnvBK9ub" tabindex="-1" role="presentation"></a>Es tradicional que los juegos de plataformas hagan que el jugador comience con un número limitado de <em>vidas</em> y resten una vida cada vez que mueren. Cuando el jugador se queda sin vidas, el juego se reinicia desde el principio.</p>
+
+<p><a class="p_ident" id="p-JUPqblN1Fi" href="#p-JUPqblN1Fi" tabindex="-1" role="presentation"></a>Ajusta <code>runGame</code> para implementar vidas. Haz que el jugador comience con tres vidas. Muestra el número actual de vidas (usando <code>console.log</code>) cada vez que comienza un nivel.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"  data-focus="true"><a class="c_ident" id="c-ZVHWQb7jLS" href="#c-ZVHWQb7jLS" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">link</span> rel=<span class="tok-string">&quot;stylesheet&quot;</span> href=<span class="tok-string">&quot;css/game.css&quot;</span>&gt;
+
+&lt;<span class="tok-typeName">body</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-comment">// La antigua función runGame. Modifícala...</span>
+  <span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">runGame</span>(<span class="tok-definition">plans</span>, <span class="tok-definition">Display</span>) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">level</span> = <span class="tok-number">0</span>; level &lt; plans.length;) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">status</span> = <span class="tok-keyword">await</span> runLevel(<span class="tok-keyword">new</span> Level(plans[level]),
+                                  Display);
+      <span class="tok-keyword">if</span> (status == <span class="tok-string">&quot;ganado&quot;</span>) level++;
+    }
+    console.log(<span class="tok-string">&quot;¡Has ganado!&quot;</span>);
+  }
+  runGame(GAME_LEVELS, DOMDisplay);
+&lt;/<span class="tok-typeName">script</span>&gt;
+&lt;/<span class="tok-typeName">body</span>&gt;</pre>
+
+<h3><a class="i_ident" id="i-l6vFk1fQp0" href="#i-l6vFk1fQp0" tabindex="-1" role="presentation"></a>Pausar el juego</h3>
+
+<p><a class="p_ident" id="p-JGuxzv0y6f" href="#p-JGuxzv0y6f" tabindex="-1" role="presentation"></a>Haz posible pausar y despausar el juego presionando la tecla Esc.</p>
+
+<p><a class="p_ident" id="p-yfAes1+PGB" href="#p-yfAes1+PGB" tabindex="-1" role="presentation"></a>Esto se puede hacer cambiando la función <code>runLevel</code> para configurar un manejador de eventos de teclado que interrumpa o reanude la animación cada vez que se presiona la tecla Esc.</p>
+
+<p><a class="p_ident" id="p-7Ws78YBbXt" href="#p-7Ws78YBbXt" tabindex="-1" role="presentation"></a>La interfaz de <code>runAnimation</code> puede no parecer adecuada para esto a primera vista, pero lo es si reorganizas la forma en que <code>runLevel</code> la llama.</p>
+
+<p><a class="p_ident" id="p-bnNF+MH4Dz" href="#p-bnNF+MH4Dz" tabindex="-1" role="presentation"></a>{{index [enlace, global], “función trackKeys”}}Cuando tengas eso funcionando, hay algo más que podrías intentar. La forma en que hemos estado registrando los controladores de eventos de teclado es algo problemática. El objeto <code>arrowKeys</code> es actualmente una asignación global, y sus controladores de eventos se mantienen incluso cuando no hay ningún juego en ejecución. Podrías decir que <em>escapan</em> de nuestro sistema. Amplía <code>trackKeys</code> para proporcionar una forma de anular el registro de sus controladores y luego cambia <code>runLevel</code> para registrar sus controladores cuando comienza y desregistrarlos nuevamente cuando termine.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"  data-focus="true"><a class="c_ident" id="c-Pc/v/Rkajg" href="#c-Pc/v/Rkajg" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">link</span> rel=<span class="tok-string">&quot;stylesheet&quot;</span> href=<span class="tok-string">&quot;css/game.css&quot;</span>&gt;
+
+&lt;<span class="tok-typeName">body</span>&gt;
+&lt;<span class="tok-typeName">script</span>&gt;
+  <span class="tok-comment">// La antigua función runLevel. Modifica esto...</span>
+  <span class="tok-keyword">function</span> <span class="tok-definition">runLevel</span>(<span class="tok-definition">level</span>, <span class="tok-definition">Display</span>) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">display</span> = <span class="tok-keyword">new</span> Display(document.body, level);
+    <span class="tok-keyword">let</span> <span class="tok-definition">state</span> = State.start(level);
+    <span class="tok-keyword">let</span> <span class="tok-definition">ending</span> = <span class="tok-number">1</span>;
+    <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">resolve</span> =&gt; {
+      runAnimation(<span class="tok-definition">time</span> =&gt; {
+        state = state.update(time, arrowKeys);
+        display.syncState(state);
+        <span class="tok-keyword">if</span> (state.status == <span class="tok-string">&quot;playing&quot;</span>) {
+          <span class="tok-keyword">return</span> true;
+        } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (ending &gt; <span class="tok-number">0</span>) {
+          ending -= time;
+          <span class="tok-keyword">return</span> true;
+        } <span class="tok-keyword">else</span> {
+          display.clear();
+          resolve(state.status);
+          <span class="tok-keyword">return</span> false;
+        }
+      });
+    });
+  }
+  runGame(GAME_LEVELS, DOMDisplay);
+&lt;/<span class="tok-typeName">script</span>&gt;
+&lt;/<span class="tok-typeName">body</span>&gt;</pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-5t+0TIeRhw" href="#p-5t+0TIeRhw" tabindex="-1" role="presentation"></a>Una animación puede ser interrumpida devolviendo <code>false</code> desde la función dada a <code>runAnimation</code>. Puede ser continuada llamando a <code>runAnimation</code> nuevamente.</p>
+
+<p><a class="p_ident" id="p-RZc6OP+5Gi" href="#p-RZc6OP+5Gi" tabindex="-1" role="presentation"></a>Así que necesitamos comunicar el hecho de que estamos pausando el juego a la función dada a <code>runAnimation</code>. Para eso, puedes usar una asignación a la que tanto el controlador de eventos como esa función tengan acceso.</p>
+
+<p><a class="p_ident" id="p-tzYh1mxOXo" href="#p-tzYh1mxOXo" tabindex="-1" role="presentation"></a>Al encontrar una forma de anular los controladores registrados por <code>trackKeys</code>, recuerda que el valor de función <em>exactamente</em> igual que se pasó a <code>addEventListener</code> debe pasarse a <code>removeEventListener</code> para quitar con éxito un controlador. Por lo tanto, el valor de función <code>handler</code> creado en <code>trackKeys</code> debe estar disponible para el código que anula los controladores.</p>
+
+<p><a class="p_ident" id="p-G2WmM7VgzN" href="#p-G2WmM7VgzN" tabindex="-1" role="presentation"></a>Puedes agregar una propiedad al objeto devuelto por <code>trackKeys</code>, que contenga ese valor de función o un método que maneje la anulación directamente.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-GrZPhKbFes" href="#i-GrZPhKbFes" tabindex="-1" role="presentation"></a>Un monstruo</h3>
+
+<p><a class="p_ident" id="p-sJMqq3IuQE" href="#p-sJMqq3IuQE" tabindex="-1" role="presentation"></a>Es tradicional que los juegos de plataformas tengan enemigos a los que puedes saltar encima para derrotar. Este ejercicio te pide que agregues un tipo de actor así al juego.</p>
+
+<p><a class="p_ident" id="p-yUZPSCIDna" href="#p-yUZPSCIDna" tabindex="-1" role="presentation"></a>Lo llamaremos monstruo. Los monstruos se mueven solo horizontalmente. Puedes hacer que se muevan en la dirección del jugador, que reboten de un lado a otro como lava horizontal, o tengan cualquier patrón de movimiento que desees. La clase no tiene que manejar caídas, pero debe asegurarse de que el monstruo no atraviese paredes.</p>
+
+<p><a class="p_ident" id="p-GBixhtRceH" href="#p-GBixhtRceH" tabindex="-1" role="presentation"></a>Cuando un monstruo toca al jugador, el efecto depende de si el jugador está saltando encima de ellos o no. Puedes aproximarlo comprobando si el final del jugador está cerca de la parte superior del monstruo. Si este es el caso, el monstruo desaparece. Si no, el juego se pierde.</p>
+
+<pre tabindex="0" class="snippet" data-language="html"  data-focus="true"><a class="c_ident" id="c-/iM3LVOK7N" href="#c-/iM3LVOK7N" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">link</span> rel=<span class="tok-string">&quot;stylesheet&quot;</span> href=<span class="tok-string">&quot;css/game.css&quot;</span>&gt;
+&lt;<span class="tok-typeName">style</span>&gt;.monster { background: <span class="tok-atom">purple</span> }&lt;/<span class="tok-typeName">style</span>&gt;
+
+&lt;<span class="tok-typeName">body</span>&gt;
+  &lt;<span class="tok-typeName">script</span>&gt;
+    <span class="tok-comment">// Completa los métodos constructor, update y collide</span>
+    <span class="tok-keyword">class</span> Monster {
+      <span class="tok-definition">constructor</span>(<span class="tok-definition">pos</span>, <span class="tok-comment">/* ... */</span>) {}
+
+      <span class="tok-keyword">get</span> <span class="tok-definition">type</span>() { <span class="tok-keyword">return</span> <span class="tok-string">&quot;monster&quot;</span>; }
+
+      <span class="tok-keyword">static</span> <span class="tok-definition">create</span>(<span class="tok-definition">pos</span>) {
+        <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Monster(pos.plus(<span class="tok-keyword">new</span> Vec(<span class="tok-number">0</span>, -<span class="tok-number">1</span>)));
+      }
+
+      <span class="tok-definition">update</span>(<span class="tok-definition">time</span>, <span class="tok-definition">state</span>) {}
+
+      <span class="tok-definition">collide</span>(<span class="tok-definition">state</span>) {}
+    }
+
+    Monster.prototype.size = <span class="tok-keyword">new</span> Vec(<span class="tok-number">1.2</span>, <span class="tok-number">2</span>);
+
+    levelChars[<span class="tok-string">&quot;M&quot;</span>] = Monster;
+
+    runLevel(<span class="tok-keyword">new</span> Level(<span class="tok-string2">`</span>
+<span class="tok-string2">..................................</span>
+<span class="tok-string2">.################################.</span>
+<span class="tok-string2">.#..............................#.</span>
+<span class="tok-string2">.#..............................#.</span>
+<span class="tok-string2">.#..............................#.</span>
+<span class="tok-string2">.#...........................o..#.</span>
+<span class="tok-string2">.#..@...........................#.</span>
+<span class="tok-string2">.##########..............########.</span>
+<span class="tok-string2">..........#..o..o..o..o..#........</span>
+<span class="tok-string2">..........#...........M..#........</span>
+<span class="tok-string2">..........################........</span>
+<span class="tok-string2">..................................</span>
+<span class="tok-string2">`</span>), DOMDisplay);
+  &lt;/<span class="tok-typeName">script</span>&gt;
+&lt;/<span class="tok-typeName">body</span>&gt;</pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-kWbcEZ9c9n" href="#p-kWbcEZ9c9n" tabindex="-1" role="presentation"></a>Si deseas implementar un tipo de movimiento que sea mutable, como el rebote, asegúrate de almacenar el estado necesario en el objeto del actor, inclúyelo como argumento del constructor y agrégalo como propiedad.</p>
+
+<p><a class="p_ident" id="p-93QIvvX+IN" href="#p-93QIvvX+IN" tabindex="-1" role="presentation"></a>Recuerda que <code>update</code> devuelve un <em>nuevo</em> objeto en lugar de cambiar el anterior.</p>
+
+<p><a class="p_ident" id="p-Q7LlzA/5tD" href="#p-Q7LlzA/5tD" tabindex="-1" role="presentation"></a>Al manejar la colisión, encuentra al jugador en <code>state.actors</code> y compara su posición con la posición del monstruo. Para obtener la <em>parte inferior</em> del jugador, debes sumar su tamaño vertical a su posición vertical. La creación de un estado actualizado se parecerá al método <code>collide</code> de <code>Coin</code> (eliminando al actor) o a <code>Lava</code> (cambiando el estado a <code>&quot;lost&quot;</code>), dependiendo de la posición del jugador.</p>
+
+</div></details><nav><a href="15_event.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="17_canvas.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+</article>
+
+<script src="ejs.js"></script>

@@ -7,10 +7,6 @@
 /pdf/book.*
 /pdf/book_mobile.*
 /pdf/*.log
-/book.pdf
-/book_mobile.pdf
-/html/[012]*.html
-/html/ejs.js
 /code/chapter/*
 /code/chapter_info.js
 /code/file_server.mjs

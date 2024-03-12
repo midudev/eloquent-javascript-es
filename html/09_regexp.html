@@ -1,0 +1,922 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expresiones regulares :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":9}</script></head>
+
+<article>
+<nav><a href="08_error.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="10_modules.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+
+<h1>Expresiones regulares</h1>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-48rajKViXI" href="#p-48rajKViXI" tabindex="-1" role="presentation"></a>Algunas personas, cuando se enfrentan a un problema, piensan '¡Ya sé, usaré expresiones regulares!’ Ahora tienen dos problemas.</p>
+
+<footer>Jamie Zawinski</footer>
+
+</blockquote>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-93M9wGPUIB" href="#p-93M9wGPUIB" tabindex="-1" role="presentation"></a>Cuando cortas en contra de la veta de la madera, se necesita mucha fuerza. Cuando programas en contra de la veta del problema, se necesita mucho código.</p>
+
+<footer>Master Yuan-Ma, <cite>El Libro de la Programación</cite></footer>
+
+</blockquote><figure class="chapter enmarcado en cuadrado"><img src="img/chapter_picture_9.jpg" alt="Ilustración de un sistema de ferrocarril que representa la estructura sintáctica de las expresiones regulares"></figure>
+
+<p><a class="p_ident" id="p-N3gC19Cd9Z" href="#p-N3gC19Cd9Z" tabindex="-1" role="presentation"></a>{{index evolución, adopción, integración}}</p>
+
+<p><a class="p_ident" id="p-cUW+3W7fmu" href="#p-cUW+3W7fmu" tabindex="-1" role="presentation"></a>Las herramientas y técnicas de programación sobreviven y se propagan de manera caótica y evolutiva. No siempre ganan las mejores o brillantes, sino aquellas que funcionan lo suficientemente bien dentro del nicho correcto o que se integran con otra pieza exitosa de tecnología.</p>
+
+<p><a class="p_ident" id="p-DXsuW+HRzs" href="#p-DXsuW+HRzs" tabindex="-1" role="presentation"></a>En este capítulo, discutiré una de esas herramientas, <em>expresiones regulares</em>. Las expresiones regulares son una forma de describir patrónes en datos de cadena. Forman un pequeño lenguaje separado que es parte de JavaScript y muchos otros lenguajes y sistemas.</p>
+
+<p><a class="p_ident" id="p-kWpY5hOt4M" href="#p-kWpY5hOt4M" tabindex="-1" role="presentation"></a>{{index [interfaz, diseño]}}</p>
+
+<p><a class="p_ident" id="p-7XhIkGJNrR" href="#p-7XhIkGJNrR" tabindex="-1" role="presentation"></a>Las expresiones regulares son tanto terriblemente incómodas como extremadamente útiles. Su sintaxis es críptica y la interfaz de programación que JavaScript proporciona para ellas es torpe. Pero son una herramienta poderosa para inspeccionar y procesar cadenas. Comprender adecuadamente las expresiones regulares te hará un programador más efectivo.</p>
+
+<h2><a class="h_ident" id="h-SxIVkReIo1" href="#h-SxIVkReIo1" tabindex="-1" role="presentation"></a>Creando una expresión regular</h2>
+
+<p><a class="p_ident" id="p-GsWPUzJpTw" href="#p-GsWPUzJpTw" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, creación], “clase RegExp”, “expresión literal”, “carácter de barra diagonal”}}</p>
+
+<p><a class="p_ident" id="p-Xg1xoCrnF5" href="#p-Xg1xoCrnF5" tabindex="-1" role="presentation"></a>Una expresión regular es un tipo de objeto. Puede ser construido con el constructor <code>RegExp</code> o escrito como un valor literal al encerrar un patrón entre caracteres de barra diagonal (<code>/</code>).</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-O1I2rl+HTy" href="#c-O1I2rl+HTy" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">re1</span> = <span class="tok-keyword">new</span> RegExp(<span class="tok-string">&quot;abc&quot;</span>);
+<span class="tok-keyword">let</span> <span class="tok-definition">re2</span> = <span class="tok-string2">/abc/</span>;</pre>
+
+<p><a class="p_ident" id="p-Fz6ODF3XJG" href="#p-Fz6ODF3XJG" tabindex="-1" role="presentation"></a>Ambos objetos de expresión regular representan el mismo patrón: un carácter <em>a</em> seguido de un <em>b</em> seguido de un <em>c</em>.</p>
+
+<p><a class="p_ident" id="p-AD2f7pq4at" href="#p-AD2f7pq4at" tabindex="-1" role="presentation"></a>Cuando se utiliza el constructor <code>RegExp</code>, el patrón se escribe como una cadena normal, por lo que se aplican las reglas habituales para las barras invertidas.</p>
+
+<p><a class="p_ident" id="p-KZsxzenKjx" href="#p-KZsxzenKjx" tabindex="-1" role="presentation"></a>La segunda notación, donde el patrón aparece entre caracteres de barra diagonal, trata las barras invertidas de manera un poco diferente. Primero, dado que una barra diagonal termina el patrón, debemos poner una barra invertida antes de cualquier barra diagonal que queramos que sea <em>parte</em> del patrón. Además, las barras invertidas que no forman parte de códigos de caracteres especiales (como <code>\n</code>) serán <em>preservadas</em>, en lugar de ser ignoradas como lo son en las cadenas, y cambian el significado del patrón. Algunos caracteres, como signos de interrogación y signos de más, tienen significados especiales en las expresiones regulares y deben ser precedidos por una barra invertida si se desea representar el propio carácter.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-QdJ95//DRD" href="#c-QdJ95//DRD" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">aPlus</span> = <span class="tok-string2">/A\+/</span>;</pre>
+
+<h2><a class="h_ident" id="h-s5v2OAvvFA" href="#h-s5v2OAvvFA" tabindex="-1" role="presentation"></a>Pruebas de coincidencias</h2>
+
+<p><a class="p_ident" id="p-Gup1XjZJZp" href="#p-Gup1XjZJZp" tabindex="-1" role="presentation"></a>{{index coincidencia, “método test”, [“expresión regular”, métodos]}}</p>
+
+<p><a class="p_ident" id="p-VTSToxvyfB" href="#p-VTSToxvyfB" tabindex="-1" role="presentation"></a>Los objetos de expresiones regulares tienen varios métodos. El más simple es <code>test</code>. Si le pasas una cadena, devolverá un Booleano indicándote si la cadena contiene una coincidencia con el patrón de la expresión.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Szn1CmrIV5" href="#c-Szn1CmrIV5" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/abc/</span>.test(<span class="tok-string">&quot;abcde&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(<span class="tok-string2">/abc/</span>.test(<span class="tok-string">&quot;abxde&quot;</span>));
+<span class="tok-comment">// → false</span></pre>
+
+<p><a class="p_ident" id="p-d4mza4/tx2" href="#p-d4mza4/tx2" tabindex="-1" role="presentation"></a>{{index patrón}}</p>
+
+<p><a class="p_ident" id="p-I9d7+CqxO+" href="#p-I9d7+CqxO+" tabindex="-1" role="presentation"></a>Una expresión regular que consiste solo en caracteres no especiales simplemente representa esa secuencia de caracteres. Si <em>abc</em> aparece en cualquier parte de la cadena contra la cual estamos probando (no solo al principio), <code>test</code> devolverá <code>true</code>.</p>
+
+<h2><a class="h_ident" id="h-JdVGOTeHyG" href="#h-JdVGOTeHyG" tabindex="-1" role="presentation"></a>Conjuntos de caracteres</h2>
+
+<p><a class="p_ident" id="p-z3JS3xx91L" href="#p-z3JS3xx91L" tabindex="-1" role="presentation"></a>Descubrir si una cadena contiene <em>abc</em> también se podría hacer con una llamada a <code>indexOf</code>. Las expresiones regulares son útiles porque nos permiten describir patrones más complicados.</p>
+
+<p><a class="p_ident" id="p-Eh18fULy+Q" href="#p-Eh18fULy+Q" tabindex="-1" role="presentation"></a>Digamos que queremos hacer coincidir cualquier número. En una expresión regular, poner un conjunto de caracteres entre corchetes hace que esa parte de la expresión coincida con cualquiera de los caracteres entre los corchetes.</p>
+
+<p><a class="p_ident" id="p-kRrDHyV1gb" href="#p-kRrDHyV1gb" tabindex="-1" role="presentation"></a>Ambas expresiones siguientes hacen coincidir todas las cadenas que contienen un dígito:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Z3UJdL//cY" href="#c-Z3UJdL//cY" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/[0123456789]/</span>.test(<span class="tok-string">&quot;in 1992&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(<span class="tok-string2">/[0-9]/</span>.test(<span class="tok-string">&quot;in 1992&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-5qaMU7hqLJ" href="#p-5qaMU7hqLJ" tabindex="-1" role="presentation"></a>Dentro de corchetes, un guion (<code>-</code>) entre dos caracteres se puede usar para indicar un rango de caracteres, donde el orden es determinado por el número del carácter en el Unicode. Los caracteres del 0 al 9 están uno al lado del otro en este orden (códigos 48 a 57), por lo que <code>[0-9]</code> abarca todos ellos y coincide con cualquier dígito.</p>
+
+<p><a class="p_ident" id="p-lrGSB7/f6l" href="#p-lrGSB7/f6l" tabindex="-1" role="presentation"></a>Varios grupos comunes de caracteres tienen sus propias abreviaturas incorporadas. Los dígitos son uno de ellos: <code>\d</code> significa lo mismo que <code>[0-9]</code>.</p>
+
+<table>
+
+<tr><td><code>\d</code></td><td>Cualquier carácter dígito</td>
+
+</tr>
+
+<tr><td><code>\w</code></td><td>Un carácter alfanumérico (“carácter de palabra”)</td>
+
+</tr>
+
+<tr><td><code>\s</code></td><td>Cualquier carácter de espacio en blanco (espacio, tabulación, nueva línea, y similares)</td>
+
+</tr>
+
+<tr><td><code>\D</code></td><td>Un carácter que <em>no</em> es un dígito</td>
+
+</tr>
+
+<tr><td><code>\W</code></td><td>Un carácter no alfanumérico</td>
+
+</tr>
+
+<tr><td><code>\S</code></td><td>Un carácter que no es de espacio en blanco</td>
+
+</tr>
+
+<tr><td><code>.</code></td><td>Cualquier carácter excepto nueva línea</td>
+
+</tr>
+
+</table>
+
+<p><a class="p_ident" id="p-kqSlU9BE3X" href="#p-kqSlU9BE3X" tabindex="-1" role="presentation"></a>Así que podrías hacer coincidir un formato de fecha y hora como 01-30-2003 15:20 con la siguiente expresión:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-wJvOGyKwyj" href="#c-wJvOGyKwyj" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">dateTime</span> = <span class="tok-string2">/\d\d-\d\d-\d\d\d\d \d\d:\d\d/</span>;
+console.log(dateTime.test(<span class="tok-string">&quot;01-30-2003 15:20&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(dateTime.test(<span class="tok-string">&quot;30-ene-2003 15:20&quot;</span>));
+<span class="tok-comment">// → false</span></pre>
+
+<p><a class="p_ident" id="p-LVHvE+3Y5l" href="#p-LVHvE+3Y5l" tabindex="-1" role="presentation"></a>{{index [carácter de barra invertida, “en expresiones regulares”]}}</p>
+
+<p><a class="p_ident" id="p-1mBi7vFTKu" href="#p-1mBi7vFTKu" tabindex="-1" role="presentation"></a>¡Eso se ve completamente horrible, ¿verdad? La mitad son barras invertidas, produciendo un ruido de fondo que dificulta identificar el patrón expresado. Veremos una versión ligeramente mejorada de esta expresión <a href="09_regexp.html#date_regexp_counted">más adelante</a>.</p>
+
+<p><a class="p_ident" id="p-UTESrdPYyh" href="#p-UTESrdPYyh" tabindex="-1" role="presentation"></a>Estos códigos de barra invertida también se pueden usar dentro de corchetes. Por ejemplo, <code>[\d.]</code> significa cualquier dígito o un carácter de punto. Pero el punto en sí, entre corchetes, pierde su significado especial. Lo mismo ocurre con otros caracteres especiales, como <code>+</code>.{{index “corchetes cuadrados”, inversión, “carácter circunflejo”}}</p>
+
+<p><a class="p_ident" id="p-UfEuOyZI/2" href="#p-UfEuOyZI/2" tabindex="-1" role="presentation"></a>Para <em>invertir</em> un conjunto de caracteres, es decir, expresar que deseas hacer coincidir cualquier carácter <em>excepto</em> los que están en el conjunto, puedes escribir un carácter circunflejo (<code>^</code>) después del corchete de apertura.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-jj4NG87MXv" href="#c-jj4NG87MXv" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">nonBinary</span> = <span class="tok-string2">/[^01]/</span>;
+console.log(nonBinary.test(<span class="tok-string">&quot;1100100010100110&quot;</span>));
+<span class="tok-comment">// → false</span>
+console.log(nonBinary.test(<span class="tok-string">&quot;0111010112101001&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<h2><a class="h_ident" id="h-z2+P4EyKss" href="#h-z2+P4EyKss" tabindex="-1" role="presentation"></a>Caracteres internacionales</h2>
+
+<p><a class="p_ident" id="p-k158+8Ftan" href="#p-k158+8Ftan" tabindex="-1" role="presentation"></a>{{index internacionalización, Unicode, [“expresión regular”, internacionalización]}}</p>
+
+<p><a class="p_ident" id="p-vKYjSGxrpB" href="#p-vKYjSGxrpB" tabindex="-1" role="presentation"></a>Debido a la implementación simplista inicial de JavaScript y al hecho de que este enfoque simplista luego se estableció como comportamiento estándar, las expresiones regulares de JavaScript son bastante simples en lo que respecta a los caracteres que no aparecen en el idioma inglés. Por ejemplo, según las expresiones regulares de JavaScript, un “carácter de palabra” es solo uno de los 26 caracteres del alfabeto latino (mayúsculas o minúsculas), dígitos decimales y, por alguna razón, el guion bajo. Cosas como <em>é</em> o <em>β</em>, que definitivamente son caracteres de palabra, no coincidirán con <code>\w</code> (y <em>sí</em> coincidirán con <code>\W</code> en mayúsculas, la categoría de no palabras).</p>
+
+<p><a class="p_ident" id="p-1RUMuhSGvB" href="#p-1RUMuhSGvB" tabindex="-1" role="presentation"></a>Por un extraño accidente histórico, <code>\s</code> (espacio en blanco) no tiene este problema y coincide con todos los caracteres que el estándar Unicode considera espacios en blanco, incluidos elementos como el espacio sin ruptura y el separador de vocal mongol.</p>
+
+<p><a class="p_ident" id="p-osUhjAOwQC" href="#p-osUhjAOwQC" tabindex="-1" role="presentation"></a>Es posible usar <code>\p</code> en una expresión regular para hacer coincidir todos los caracteres a los que el estándar Unicode asigna una propiedad dada. Esto nos permite hacer coincidir cosas como letras de una manera más cosmopolita. Sin embargo, nuevamente debido a la compatibilidad con los estándares originales del lenguaje, estos solo se reconocen cuando se coloca un carácter <code>u</code> (por Unicode) después de la expresión regular.</p>
+
+<table>
+
+<tr><td><code>\p{L}</code></td><td>Cualquier letra</td>
+
+</tr>
+
+<tr><td><code>\p{N}</code></td><td>Cualquier carácter numérico</td>
+
+</tr>
+
+<tr><td><code>\p{P}</code></td><td>Cualquier carácter de puntuación</td>
+
+</tr>
+
+<tr><td><code>\P{L}</code></td><td>Cualquier no letra (la P en mayúsculas invierte)</td>
+
+</tr>
+
+<tr><td><code>\p{Script=Hangul}</code></td><td>Cualquier carácter del guion dado (ver <a href="05_higher_order.html#scripts">Capítulo 5</a>)</td>
+
+</tr>
+
+</table>
+
+<p><a class="p_ident" id="p-ArOE+RMcya" href="#p-ArOE+RMcya" tabindex="-1" role="presentation"></a>Usar <code>\w</code> para el procesamiento de texto que puede necesitar manejar texto no inglés (o incluso texto en inglés con palabras prestadas como “cliché&quot;) es una desventaja, ya que no tratará caracteres como &quot;é&quot; como letras. Aunque tienden a ser un poco más verbosos, los grupos de propiedades <code>\p</code> son más robustos.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-s9MXvH0LEh" href="#c-s9MXvH0LEh" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/\p{L}/u</span>.test(<span class="tok-string">&quot;α&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(<span class="tok-string2">/\p{L}/u</span>.test(<span class="tok-string">&quot;!&quot;</span>));
+<span class="tok-comment">// → false</span>
+console.log(<span class="tok-string2">/\p{Script=Greek}/u</span>.test(<span class="tok-string">&quot;α&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(<span class="tok-string2">/\p{Script=Arabic}/u</span>.test(<span class="tok-string">&quot;α&quot;</span>));
+<span class="tok-comment">// → false</span></pre>
+
+<p><a class="p_ident" id="p-oTgMYVkQhW" href="#p-oTgMYVkQhW" tabindex="-1" role="presentation"></a>Por otro lado, si estás haciendo coincidir números para hacer algo con ellos, a menudo querrás usar <code>\d</code> para dígitos, ya que convertir caracteres numéricos arbitrarios en un número de JavaScript no es algo que una función como <code>Number</code> pueda hacer por ti.</p>
+
+<h2><a class="h_ident" id="h-jw7Q3yVJ5U" href="#h-jw7Q3yVJ5U" tabindex="-1" role="presentation"></a>Repetir partes de un patrón</h2>
+
+<p><a class="p_ident" id="p-7JOkzZOdrA" href="#p-7JOkzZOdrA" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, repetición]}}Ahora sabemos cómo hacer coincidir un solo dígito. ¿Qué tal si queremos hacer coincidir un número entero, una secuencia de uno o más dígitos?</p>
+
+<p><a class="p_ident" id="p-i0LVID05Mm" href="#p-i0LVID05Mm" tabindex="-1" role="presentation"></a>{{index “carácter de suma”, repetición, “operador +&quot;}}</p>
+
+<p><a class="p_ident" id="p-wGrdJKTgSN" href="#p-wGrdJKTgSN" tabindex="-1" role="presentation"></a>Cuando colocas un signo más (<code>+</code>) después de algo en una expresión regular, indica que el elemento puede repetirse más de una vez. Así, <code>/\d+/</code> hace coincidir uno o más caracteres de dígitos.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9/5mFF4Ih4" href="#c-9/5mFF4Ih4" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/'\d+'/</span>.test(<span class="tok-string">&quot;'123'&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(<span class="tok-string2">/'\d+'/</span>.test(<span class="tok-string">&quot;''&quot;</span>));
+<span class="tok-comment">// → false</span>
+console.log(<span class="tok-string2">/'\d*'/</span>.test(<span class="tok-string">&quot;'123'&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(<span class="tok-string2">/'\d*'/</span>.test(<span class="tok-string">&quot;''&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-s2rQiOFAes" href="#p-s2rQiOFAes" tabindex="-1" role="presentation"></a>El asterisco (<code>*</code>) tiene un significado similar pero también permite que el patrón coincida cero veces. Algo con un asterisco después nunca impide que un patrón coincida, simplemente coincidirá cero veces si no puede encontrar ningún texto adecuado para hacer coincidir.</p>
+
+<p><a class="p_ident" id="p-z8tNT58Jv0" href="#p-z8tNT58Jv0" tabindex="-1" role="presentation"></a>Un signo de interrogación hace que una parte de un patrón sea <em>opcional</em>, lo que significa que puede ocurrir cero veces o una vez. En el siguiente ejemplo, se permite que el carácter <em>u</em> ocurra, pero el patrón también coincide cuando falta.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-EiCIowdq+d" href="#c-EiCIowdq+d" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">neighbor</span> = <span class="tok-string2">/neighbou?r/</span>;
+console.log(neighbor.test(<span class="tok-string">&quot;neighbour&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(neighbor.test(<span class="tok-string">&quot;neighbor&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-qsg1d+rkQF" href="#p-qsg1d+rkQF" tabindex="-1" role="presentation"></a>{{index repetición, [llaves, “en expresión regular”]}}</p>
+
+<p><a class="p_ident" id="p-pQrIOoMzrK" href="#p-pQrIOoMzrK" tabindex="-1" role="presentation"></a>Para indicar que un patrón debe ocurrir un número preciso de veces, utiliza llaves. Colocar <code>{4}</code> después de un elemento, por ejemplo, requiere que ocurra exactamente cuatro veces. También es posible especificar un rango de esta manera: <code>{2,4}</code> significa que el elemento debe ocurrir al menos dos veces y como máximo cuatro veces.</p>
+
+<p id="date_regexp_counted"><a class="p_ident" id="p-lup45v+KG+" href="#p-lup45v+KG+" tabindex="-1" role="presentation"></a>Aquí tienes otra versión del patrón de fecha y hora que permite días, meses y horas de uno o dos dígitos. También es un poco más fácil de entender.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Tw+K6Mxe45" href="#c-Tw+K6Mxe45" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">dateTime</span> = <span class="tok-string2">/\d{1,2}-\d{1,2}-\d{4} \d{1,2}:\d{2}/</span>;
+console.log(dateTime.test(<span class="tok-string">&quot;1-30-2003 8:45&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-PBrmor3xzD" href="#p-PBrmor3xzD" tabindex="-1" role="presentation"></a>También puedes especificar rangos abiertos al utilizar llaves omitiendo el número después de la coma. Así, <code>{5,}</code> significa cinco o más veces.</p>
+
+<h2><a class="h_ident" id="h-ajNAW/IU6r" href="#h-ajNAW/IU6r" tabindex="-1" role="presentation"></a>Agrupación de subexpresiones</h2>
+
+<p><a class="p_ident" id="p-TKgx7oPQQ3" href="#p-TKgx7oPQQ3" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, agrupación], agrupación, [paréntesis, “en expresiones regulares”]}}</p>
+
+<p><a class="p_ident" id="p-v3uf4iDeF4" href="#p-v3uf4iDeF4" tabindex="-1" role="presentation"></a>Para usar un operador como <code>*</code> o <code>+</code> en más de un elemento a la vez, debes utilizar paréntesis. Una parte de una expresión regular que está encerrada entre paréntesis cuenta como un solo elemento en lo que respecta a los operadores que le siguen.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-P/f6a65XwI" href="#c-P/f6a65XwI" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">cartoonCrying</span> = <span class="tok-string2">/boo+(hoo+)+/i</span>;
+console.log(cartoonCrying.test(<span class="tok-string">&quot;Boohoooohoohooo&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-1LZtgULsIM" href="#p-1LZtgULsIM" tabindex="-1" role="presentation"></a>Los primeros y segundos caracteres <code>+</code> aplican solo al segundo <em>o</em> en <em>boo</em> y <em>hoo</em>, respectivamente. El tercer <code>+</code> se aplica a todo el grupo <code>(hoo+)</code>, haciendo coincidir una o más secuencias como esa.</p>
+
+<p><a class="p_ident" id="p-S1/QTkNDfs" href="#p-S1/QTkNDfs" tabindex="-1" role="presentation"></a>{{index “sensibilidad a mayúsculas”, capitalización, [“expresión regular”, banderas]}}</p>
+
+<p><a class="p_ident" id="p-30jgTw/nrn" href="#p-30jgTw/nrn" tabindex="-1" role="presentation"></a>La <code>i</code> al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la <em>B</em> mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.## Coincidencias y grupos</p>
+
+<p><a class="p_ident" id="p-Pd1YZ8sXPG" href="#p-Pd1YZ8sXPG" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, agrupación], “método exec”, [array, “coincidencia de RegExp”]}}</p>
+
+<p><a class="p_ident" id="p-4/Ykf8h2Ls" href="#p-4/Ykf8h2Ls" tabindex="-1" role="presentation"></a>El método <code>test</code> es la forma más simple de hacer coincidir una expresión regular. Solo te indica si hubo coincidencia y nada más. Las expresiones regulares también tienen un método <code>exec</code> (ejecutar) que devolverá <code>null</code> si no se encontró ninguna coincidencia y devolverá un objeto con información sobre la coincidencia en caso contrario.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-geq7uRLZVm" href="#c-geq7uRLZVm" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">coincidencia</span> = <span class="tok-string2">/\d+/</span>.exec(<span class="tok-string">&quot;uno dos 100&quot;</span>);
+console.log(coincidencia);
+<span class="tok-comment">// → [&quot;100&quot;]</span>
+console.log(coincidencia.index);
+<span class="tok-comment">// → 8</span></pre>
+
+<p><a class="p_ident" id="p-9Qvr2j7Myu" href="#p-9Qvr2j7Myu" tabindex="-1" role="presentation"></a>{{index “propiedad de índice”, [string, indexación]}}</p>
+
+<p><a class="p_ident" id="p-MEyBiymd+J" href="#p-MEyBiymd+J" tabindex="-1" role="presentation"></a>Un objeto devuelto por <code>exec</code> tiene una propiedad de <code>index</code> que nos dice <em>dónde</em> en la cadena comienza la coincidencia exitosa. Aparte de eso, el objeto parece (y de hecho es) un array de strings, cuyo primer elemento es la cadena que coincidió. En el ejemplo anterior, esta es la secuencia de dígitos que estábamos buscando.</p>
+
+<p><a class="p_ident" id="p-bdrKIKpht8" href="#p-bdrKIKpht8" tabindex="-1" role="presentation"></a>{{index [string, métodos], “método match”}}</p>
+
+<p><a class="p_ident" id="p-e2o3R6JZyN" href="#p-e2o3R6JZyN" tabindex="-1" role="presentation"></a>Los valores de tipo string tienen un método <code>match</code> que se comporta de manera similar.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KCEzXI85eI" href="#c-KCEzXI85eI" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;uno dos 100&quot;</span>.match(<span class="tok-string2">/\d+/</span>));
+<span class="tok-comment">// → [&quot;100&quot;]</span></pre>
+
+<p><a class="p_ident" id="p-O2lQmrJjUB" href="#p-O2lQmrJjUB" tabindex="-1" role="presentation"></a>{{index agrupación, “grupo de captura”, “método exec”}}</p>
+
+<p><a class="p_ident" id="p-mvGBAzey4W" href="#p-mvGBAzey4W" tabindex="-1" role="presentation"></a>Cuando la expresión regular contiene subexpresiones agrupadas con paréntesis, el texto que coincidió con esos grupos también aparecerá en el array. La coincidencia completa es siempre el primer elemento. El siguiente elemento es la parte coincidente con el primer grupo (el que tiene el paréntesis de apertura primero en la expresión), luego el segundo grupo, y así sucesivamente.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-DhEu3yj+hp" href="#c-DhEu3yj+hp" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">textoEntreComillas</span> = <span class="tok-string2">/'([^']*)'/</span>;
+console.log(textoEntreComillas.exec(<span class="tok-string">&quot;ella dijo 'hola'&quot;</span>));
+<span class="tok-comment">// → [&quot;'hola'&quot;, &quot;hola&quot;]</span></pre>
+
+<p><a class="p_ident" id="p-mesWUfRxLZ" href="#p-mesWUfRxLZ" tabindex="-1" role="presentation"></a>Cuando un grupo no termina coincidiendo en absoluto (por ejemplo, cuando está seguido por un signo de pregunta), su posición en el array de salida contendrá <code>undefined</code>. Y cuando un grupo coincide múltiples veces (por ejemplo, cuando está seguido por un <code>+</code>), solo la última coincidencia termina en el array.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-SEbCBydGa3" href="#c-SEbCBydGa3" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/mal(mente)?/</span>.exec(<span class="tok-string">&quot;mal&quot;</span>));
+<span class="tok-comment">// → [&quot;mal&quot;, undefined]</span>
+console.log(<span class="tok-string2">/(\d)+/</span>.exec(<span class="tok-string">&quot;123&quot;</span>));
+<span class="tok-comment">// → [&quot;123&quot;, &quot;3&quot;]</span></pre>
+
+<p><a class="p_ident" id="p-SAuB3/3lpK" href="#p-SAuB3/3lpK" tabindex="-1" role="presentation"></a>Si quieres utilizar paréntesis puramente para agrupar, sin que aparezcan en el array de coincidencias, puedes colocar <code>?:</code> después del paréntesis de apertura.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-JYRtOm6gNP" href="#c-JYRtOm6gNP" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/(?:na)+/</span>.exec(<span class="tok-string">&quot;banana&quot;</span>));
+<span class="tok-comment">// → [&quot;nana&quot;]</span></pre>
+
+<p><a class="p_ident" id="p-SCv+lT1Tn0" href="#p-SCv+lT1Tn0" tabindex="-1" role="presentation"></a>{{index “método exec”, [“expresión regular”, métodos], extracción}}</p>
+
+<p><a class="p_ident" id="p-kh0zXCIbfV" href="#p-kh0zXCIbfV" tabindex="-1" role="presentation"></a>Los grupos pueden ser útiles para extraer partes de una cadena. Si no solo queremos verificar si una cadena contiene una fecha sino también extraerla y construir un objeto que la represente, podemos envolver paréntesis alrededor de los patrones de dígitos y seleccionar directamente la fecha del resultado de <code>exec</code>.</p>
+
+<p><a class="p_ident" id="p-YRmJQbp4Jt" href="#p-YRmJQbp4Jt" tabindex="-1" role="presentation"></a>Pero primero haremos un breve desvío, en el que discutiremos la forma incorporada de representar fechas y horas en JavaScript.</p>
+
+<h2><a class="h_ident" id="h-Mi5NWDyYJW" href="#h-Mi5NWDyYJW" tabindex="-1" role="presentation"></a>La clase Date</h2>
+
+<p><a class="p_ident" id="p-iS/kDBNVYY" href="#p-iS/kDBNVYY" tabindex="-1" role="presentation"></a>JavaScript tiene una clase estándar para representar fechas—o, más bien, puntos en tiempo. Se llama <code>Date</code>. Si simplemente creas un objeto de fecha usando <code>new</code>, obtendrás la fecha y hora actuales.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-pkHhVmn87o" href="#c-pkHhVmn87o" tabindex="-1" role="presentation"></a>console.log(<span class="tok-keyword">new</span> Date());
+<span class="tok-comment">// → Fri Feb 02 2024 18:03:06 GMT+0100 (CET)</span></pre>
+
+<p><a class="p_ident" id="p-WBNfYVwKZS" href="#p-WBNfYVwKZS" tabindex="-1" role="presentation"></a>También puedes crear un objeto para un momento específico.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FkAc42qjrU" href="#c-FkAc42qjrU" tabindex="-1" role="presentation"></a>console.log(<span class="tok-keyword">new</span> Date(<span class="tok-number">2009</span>, <span class="tok-number">11</span>, <span class="tok-number">9</span>));
+<span class="tok-comment">// → Mié Dec 09 2009 00:00:00 GMT+0100 (CET)</span>
+console.log(<span class="tok-keyword">new</span> Date(<span class="tok-number">2009</span>, <span class="tok-number">11</span>, <span class="tok-number">9</span>, <span class="tok-number">12</span>, <span class="tok-number">59</span>, <span class="tok-number">59</span>, <span class="tok-number">999</span>));
+<span class="tok-comment">// → Mié Dec 09 2009 12:59:59 GMT+0100 (CET)</span></pre>
+
+<p><a class="p_ident" id="p-EVQMyA7tjB" href="#p-EVQMyA7tjB" tabindex="-1" role="presentation"></a>{{index “Conteo basado en cero”, [interfaz, diseño]}}</p>
+
+<p><a class="p_ident" id="p-Bw0MeCio5N" href="#p-Bw0MeCio5N" tabindex="-1" role="presentation"></a>JavaScript utiliza una convención donde los números de mes empiezan en cero (por lo que diciembre es 11), pero los números de día comienzan en uno. Esto es confuso y tonto. Ten cuidado.</p>
+
+<p><a class="p_ident" id="p-HgiufDrqlL" href="#p-HgiufDrqlL" tabindex="-1" role="presentation"></a>Los últimos cuatro argumentos (horas, minutos, segundos y milisegundos) son opcionales y se consideran cero cuando no se proporcionan.</p>
+
+<p><a class="p_ident" id="p-gxwZAuY3o1" href="#p-gxwZAuY3o1" tabindex="-1" role="presentation"></a>Las marcas de tiempo se almacenan como el número de milisegundos desde el comienzo de 1970, en UTC (zona horaria). Esto sigue una convención establecida por “tiempo de Unix”, que fue inventado alrededor de esa época. Puedes usar números negativos para tiempos antes de 1970. El método <code>getTime</code> en un objeto de fecha retorna este número. Es grande, como te puedes imaginar.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Lj+Qss3ZWD" href="#c-Lj+Qss3ZWD" tabindex="-1" role="presentation"></a>console.log(<span class="tok-keyword">new</span> Date(<span class="tok-number">2013</span>, <span class="tok-number">11</span>, <span class="tok-number">19</span>).getTime());
+<span class="tok-comment">// → 1387407600000</span>
+console.log(<span class="tok-keyword">new</span> Date(<span class="tok-number">1387407600000</span>));
+<span class="tok-comment">// → Jue Dec 19 2013 00:00:00 GMT+0100 (CET)</span></pre>
+
+<p><a class="p_ident" id="p-nCAtjqvFCh" href="#p-nCAtjqvFCh" tabindex="-1" role="presentation"></a>Si le proporcionas un único argumento al constructor <code>Date</code>, ese argumento se tratará como un recuento de milisegundos. Puedes obtener el recuento actual de milisegundos creando un nuevo objeto <code>Date</code> y llamando a <code>getTime</code> en él o llamando a la función <code>Date.now</code>.</p>
+
+<p><a class="p_ident" id="p-VscGabP21e" href="#p-VscGabP21e" tabindex="-1" role="presentation"></a>Los objetos de fecha proporcionan métodos como <code>getFullYear</code>, <code>getMonth</code>, <code>getDate</code>, <code>getHours</code>, <code>getMinutes</code> y <code>getSeconds</code> para extraer sus componentes. Además de <code>getFullYear</code>, también existe <code>getYear</code>, que te da el año menos 1900 (<code>98</code> o <code>119</code>) y es en su mayoría inútil.</p>
+
+<p><a class="p_ident" id="p-b4LvB+ncD2" href="#p-b4LvB+ncD2" tabindex="-1" role="presentation"></a>{{index “Grupo de captura”, “Método getDate”, [paréntesis, “en expresiones regulares”]}}</p>
+
+<p><a class="p_ident" id="p-eA5U6lb8Dx" href="#p-eA5U6lb8Dx" tabindex="-1" role="presentation"></a>Poniendo paréntesis alrededor de las partes de la expresión que nos interesan, podemos crear un objeto de fecha a partir de una cadena.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-SU0rTpHzGn" href="#c-SU0rTpHzGn" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">getDate</span>(<span class="tok-definition">string</span>) {
+  <span class="tok-keyword">let</span> [<span class="tok-definition">_</span>, <span class="tok-definition">month</span>, <span class="tok-definition">day</span>, <span class="tok-definition">year</span>] =
+    <span class="tok-string2">/(\d{1,2})-(\d{1,2})-(\d{4})/</span>.exec(string);
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Date(year, month - <span class="tok-number">1</span>, day);
+}
+console.log(getDate(<span class="tok-string">&quot;1-30-2003&quot;</span>));
+<span class="tok-comment">// → Jue Ene 30 2003 00:00:00 GMT+0100 (CET)</span></pre>
+
+<p><a class="p_ident" id="p-rkfkh1qvgb" href="#p-rkfkh1qvgb" tabindex="-1" role="presentation"></a>La vinculación <code>_</code> (guion bajo) se ignora y se utiliza solo para omitir el elemento de coincidencia completa en el array devuelto por <code>exec</code>.</p>
+
+<h2><a class="h_ident" id="h-tNtw4L7Y+r" href="#h-tNtw4L7Y+r" tabindex="-1" role="presentation"></a>Límites y anticipación</h2>
+
+<p><a class="p_ident" id="p-XPEoZ2d0NT" href="#p-XPEoZ2d0NT" tabindex="-1" role="presentation"></a>{{index matching, [“expresión regular”, límite]}}</p>
+
+<p><a class="p_ident" id="p-qbV1DRyGh9" href="#p-qbV1DRyGh9" tabindex="-1" role="presentation"></a>Desafortunadamente, <code>getDate</code> también extraerá felizmente una fecha de la cadena <code>&quot;100-1-30000&quot;</code>. Una coincidencia puede ocurrir en cualquier parte de la cadena, por lo que en este caso, simplemente empezará en el segundo carácter y terminará en el antepenúltimo carácter.</p>
+
+<p><a class="p_ident" id="p-Relwj7LTb5" href="#p-Relwj7LTb5" tabindex="-1" role="presentation"></a>{{index límite, “carácter circunflejo”, “signo de dólar”}}</p>
+
+<p><a class="p_ident" id="p-NBcH2y4uFF" href="#p-NBcH2y4uFF" tabindex="-1" role="presentation"></a>Si queremos asegurar que la coincidencia abarque toda la cadena, podemos agregar los marcadores <code>^</code> y <code>$</code>. El circunflejo coincide con el inicio de la cadena de entrada, mientras que el signo de dólar coincide con el final. Por lo tanto, <code>/^\d+$/</code> coincide con una cadena que consiste completamente de uno o más dígitos, <code>/^!/</code> coincide con cualquier cadena que comience con un signo de exclamación y <code>/x^/</code> no coincide con ninguna cadena (no puede haber una <em>x</em> antes del inicio de la cadena).{{index “límite de palabra”, “carácter de palabra”}}</p>
+
+<p><a class="p_ident" id="p-LrT5oRdCQy" href="#p-LrT5oRdCQy" tabindex="-1" role="presentation"></a>También existe un marcador <code>\b</code>, que coincide con los “límites de palabra”, posiciones que tienen un carácter de palabra a un lado y un carácter que no es de palabra al otro. Desafortunadamente, estos utilizan el mismo concepto simplista de caracteres de palabra que <code>\w</code>, por lo que no son muy confiables.</p>
+
+<p><a class="p_ident" id="p-RfgTmK5+t/" href="#p-RfgTmK5+t/" tabindex="-1" role="presentation"></a>Ten en cuenta que estos marcadores no coinciden con ningún carácter real. Simplemente aseguran que se cumpla una condición determinada en el lugar donde aparecen en el patrón.</p>
+
+<p><a class="p_ident" id="p-HmSpm3FjH9" href="#p-HmSpm3FjH9" tabindex="-1" role="presentation"></a>Las pruebas de <em>mirar adelante</em> hacen algo similar. Proporcionan un patrón y harán que la coincidencia falle si la entrada no coincide con ese patrón, pero en realidad no mueven la posición de la coincidencia hacia adelante. Se escriben entre <code>(?=</code> y <code>)</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ryfOqCgM06" href="#c-ryfOqCgM06" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/a(?=e)/</span>.exec(<span class="tok-string">&quot;braeburn&quot;</span>));
+<span class="tok-comment">// → [&quot;a&quot;]</span>
+console.log(<span class="tok-string2">/a(?! )/</span>.exec(<span class="tok-string">&quot;a b&quot;</span>));
+<span class="tok-comment">// → null</span></pre>
+
+<p><a class="p_ident" id="p-RuQb3z5Mwx" href="#p-RuQb3z5Mwx" tabindex="-1" role="presentation"></a>Observa cómo la <code>e</code> en el primer ejemplo es necesaria para coincidir, pero no forma parte de la cadena coincidente. La notación <code>(?! )</code> expresa un mirar adelante <em>negativo</em>. Esto solo coincide si el patrón entre paréntesis <em>no</em> coincide, lo que hace que el segundo ejemplo solo coincida con caracteres “a” que no tienen un espacio después de ellos.</p>
+
+<h2><a class="h_ident" id="h-TUSc554JnM" href="#h-TUSc554JnM" tabindex="-1" role="presentation"></a>Patrones de elección</h2>
+
+<p><a class="p_ident" id="p-g+0lsX1IVo" href="#p-g+0lsX1IVo" tabindex="-1" role="presentation"></a>Digamos que queremos saber si un texto contiene no solo un número, sino un número seguido de una de las palabras <em>pig</em>, <em>cow</em> o <em>chicken</em>, o cualquiera de sus formas en plural.</p>
+
+<p><a class="p_ident" id="p-faCL6B9cwG" href="#p-faCL6B9cwG" tabindex="-1" role="presentation"></a>Podríamos escribir tres expresiones regulares y probarlas sucesivamente, pero hay una forma más sencilla. El carácter de barra vertical (<code>|</code>) denota una elección entre el patrón a su izquierda y el patrón a su derecha. Así que puedo decir esto:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-tEyQxhonoR" href="#c-tEyQxhonoR" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">animalCount</span> = <span class="tok-string2">/\d+ (pig|cow|chicken)s?/</span>;
+console.log(animalCount.test(<span class="tok-string">&quot;15 pigs&quot;</span>));
+<span class="tok-comment">// → true</span>
+console.log(animalCount.test(<span class="tok-string">&quot;15 pugs&quot;</span>));
+<span class="tok-comment">// → false</span></pre>
+
+<p><a class="p_ident" id="p-1ax3XRGkJ7" href="#p-1ax3XRGkJ7" tabindex="-1" role="presentation"></a>{{index [paréntesis, “en expresiones regulares”]}}</p>
+
+<p><a class="p_ident" id="p-o/w2hW+vwa" href="#p-o/w2hW+vwa" tabindex="-1" role="presentation"></a>Los paréntesis se pueden utilizar para limitar la parte del patrón a la que se aplica el operador de barra, y puedes colocar varios de estos operadores uno al lado del otro para expresar una elección entre más de dos alternativas.</p>
+
+<h2><a class="h_ident" id="h-LDlMA55Hgg" href="#h-LDlMA55Hgg" tabindex="-1" role="presentation"></a>La mecánica de la coincidencia</h2>
+
+<p><a class="p_ident" id="p-yKsAs46XQh" href="#p-yKsAs46XQh" tabindex="-1" role="presentation"></a>Conceptualmente, cuando utilizas <code>exec</code> o <code>test</code>, el motor de expresiones regulares busca una coincidencia en tu cadena tratando de ajustar primero la expresión desde el comienzo de la cadena, luego desde el segundo carácter, y así sucesivamente, hasta que encuentra una coincidencia o llega al final de la cadena. Devolverá la primera coincidencia que encuentre o fracasará en encontrar cualquier coincidencia.</p>
+
+<p><a class="p_ident" id="p-F6uLAaHlXA" href="#p-F6uLAaHlXA" tabindex="-1" role="presentation"></a>Para hacer la coincidencia real, el motor trata a una expresión regular algo así como un diagrama de flujo. Este es el diagrama para la expresión de ganado en el ejemplo anterior:</p>
+
+<p><a class="p_ident" id="p-wp/UCxZncZ" href="#p-wp/UCxZncZ" tabindex="-1" role="presentation"></a>{{figure {url: “img/re_pigchickens.svg”, alt: “Diagrama de ferrocarril que primero pasa por un recuadro etiquetado ‘dígito’, que tiene un bucle que regresa desde después de él a antes de él, y luego un recuadro para un carácter de espacio. Después de eso, el ferrocarril se divide en tres, pasando por cuadros para ‘pig’, ‘cow’ y ‘chicken’. Después de estos, se reúne de nuevo y pasa por un cuadro etiquetado ‘s’, que, al ser opcional, también tiene un ferrocarril que lo pasa por alto. Finalmente, la línea llega al estado de aceptación.”}}</p>
+
+<p><a class="p_ident" id="p-6KuJyUkARn" href="#p-6KuJyUkARn" tabindex="-1" role="presentation"></a>Nuestra expresión coincide si podemos encontrar un camino desde el lado izquierdo del diagrama hasta el lado derecho. Mantenemos una posición actual en la cadena, y cada vez que avanzamos a través de un recuadro, verificamos que la parte de la cadena después de nuestra posición actual coincida con ese recuadro.</p>
+
+<h2 id="retroceso"><a class="h_ident" id="h-nmeiqrCjN8" href="#h-nmeiqrCjN8" tabindex="-1" role="presentation"></a>Retroceso</h2>
+
+<p><a class="p_ident" id="p-QOY2sD8j/J" href="#p-QOY2sD8j/J" tabindex="-1" role="presentation"></a>La expresión regular <code>/<wbr>^([01]+b|[\da-f]+h|\d+)$/<wbr></code> coincide ya sea con un número binario seguido de una <em>b</em>, un número hexadecimal (es decir, base 16, con las letras <em>a</em> a <em>f</em> representando los dígitos del 10 al 15) seguido de un <em>h</em>, o un número decimal regular sin un carácter de sufijo. Este es el diagrama correspondiente:</p><figure><img src="img/re_number.svg" alt="Diagrama de ferrocarril para la expresión regular '^([01]+b|\d+|[\da-f]+h)$'"></figure>
+
+<p><a class="p_ident" id="p-YRJnthsMCJ" href="#p-YRJnthsMCJ" tabindex="-1" role="presentation"></a>{{index ramificación}}</p>
+
+<p><a class="p_ident" id="p-F8PggnyHoN" href="#p-F8PggnyHoN" tabindex="-1" role="presentation"></a>Al coincidir con esta expresión, a menudo sucede que se ingresa por la rama superior (binaria) aunque la entrada en realidad no contenga un número binario. Al coincidir con la cadena <code>&quot;103&quot;</code>, por ejemplo, solo se aclara en el 3 que estamos en la rama incorrecta. La cadena <em>coincide</em> con la expresión, simplemente no con la rama en la que nos encontramos actualmente.</p>
+
+<p><a class="p_ident" id="p-7qbjzwRdSE" href="#p-7qbjzwRdSE" tabindex="-1" role="presentation"></a>Entonces, el coincidente <em>retrocede</em>. Al ingresar a una rama, recuerda su posición actual (en este caso, al principio de la cadena, justo después del primer cuadro de límite en el diagrama) para poder retroceder y probar otra rama si la actual no funciona. Para la cadena <code>&quot;103&quot;</code>, después de encontrar el carácter 3, intentará la rama para los números hexadecimales, lo cual también falla porque no hay un <em>h</em> después del número. Entonces intenta la rama para los números decimales. Esta encaja, y se informa una coincidencia después de todo.</p>
+
+<p><a class="p_ident" id="p-0RSYS7890V" href="#p-0RSYS7890V" tabindex="-1" role="presentation"></a>El coincidente se detiene tan pronto como encuentra una coincidencia completa. Esto significa que si varias ramas podrían coincidir potencialmente con una cadena, solo se usa la primera (ordenada por dónde aparecen las ramas en la expresión regular).</p>
+
+<p><a class="p_ident" id="p-G1JkUqppfY" href="#p-G1JkUqppfY" tabindex="-1" role="presentation"></a>El retroceso también ocurre para los operadores de repetición como + y <code>*</code>. Si coincide con <code>/^.*x/</code> contra <code>&quot;abcxe&quot;</code>, la parte <code>.*</code> intentará primero consumir toda la cadena. Luego el motor se dará cuenta de que necesita una <em>x</em> para que coincida con el patrón. Dado que no hay una <em>x</em> más allá del final de la cadena, el operador estrella intentará coincidir con un carácter menos. Pero el coincidente no encuentra una <em>x</em> después de <code>abcx</code> tampoco, por lo que retrocede nuevamente, coincidiendo con el operador estrella solo con <code>abc</code>. <em>Ahora</em> encuentra una <em>x</em> donde la necesita y reporta una coincidencia exitosa desde las posiciones 0 a 4.</p>
+
+<p><a class="p_ident" id="p-64uzCw+r5+" href="#p-64uzCw+r5+" tabindex="-1" role="presentation"></a>Es posible escribir expresiones regulares que realizarán <em>mucho</em> retroceso. Este problema ocurre cuando un patrón puede coincidir con una parte de la entrada de muchas formas diferentes. Por ejemplo, si nos confundimos al escribir una expresión regular para los números binarios, podríamos escribir accidentalmente algo como <code>/([01]+)+b/</code>.{{figure {url: “img/re_slow.svg”, alt: “Diagrama de ferrocarril para la expresión regular '([01]+)+b’&quot;, width: “6cm”}}}</p>
+
+<p><a class="p_ident" id="p-jqlLoLqI3m" href="#p-jqlLoLqI3m" tabindex="-1" role="presentation"></a>Si intenta hacer coincidir una serie larga de ceros y unos sin un caracter <em>b</em> al final, el analizador primero pasa por el bucle interno hasta que se queda sin dígitos. Luego se da cuenta de que no hay <em>b</em>, por lo que retrocede una posición, pasa por el bucle externo una vez y vuelve a darse por vencido, intentando retroceder nuevamente fuera del bucle interno. Continuará intentando todas las rutas posibles a través de estos dos bucles. Esto significa que la cantidad de trabajo se <em>duplica</em> con cada carácter adicional. Incluso con apenas unas pocas docenas de caracteres, la coincidencia resultante tomará prácticamente para siempre.</p>
+
+<h2><a class="h_ident" id="h-f49QceigRC" href="#h-f49QceigRC" tabindex="-1" role="presentation"></a>El método replace</h2>
+
+<p><a class="p_ident" id="p-1ySwSsfW/X" href="#p-1ySwSsfW/X" tabindex="-1" role="presentation"></a>Los valores de cadena tienen un método <code>replace</code> que se puede utilizar para reemplazar parte de la cadena con otra cadena.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-dPdIdK/Wyi" href="#c-dPdIdK/Wyi" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;papa&quot;</span>.replace(<span class="tok-string">&quot;p&quot;</span>, <span class="tok-string">&quot;m&quot;</span>));
+<span class="tok-comment">// → mapa</span></pre>
+
+<p><a class="p_ident" id="p-jRLNNW4/Hs" href="#p-jRLNNW4/Hs" tabindex="-1" role="presentation"></a>El primer argumento también puede ser una expresión regular, en cuyo caso se reemplaza la primera coincidencia de la expresión regular. Cuando se agrega una opción <code>g</code> (para <em>global</em>) después de la expresión regular, <em>todas</em> las coincidencias en la cadena serán reemplazadas, no solo la primera.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ztGnSKyKy1" href="#c-ztGnSKyKy1" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;Borobudur&quot;</span>.replace(<span class="tok-string2">/[ou]/</span>, <span class="tok-string">&quot;a&quot;</span>));
+<span class="tok-comment">// → Barobudur</span>
+console.log(<span class="tok-string">&quot;Borobudur&quot;</span>.replace(<span class="tok-string2">/[ou]/g</span>, <span class="tok-string">&quot;a&quot;</span>));
+<span class="tok-comment">// → Barabadar</span></pre>
+
+<p><a class="p_ident" id="p-u/kfgHrS6D" href="#p-u/kfgHrS6D" tabindex="-1" role="presentation"></a>{{index agrupación, “grupo de captura”, “signo de dólar”, “método replace”, [“expresión regular”, agrupación]}}</p>
+
+<p><a class="p_ident" id="p-mDtLRf/Jcr" href="#p-mDtLRf/Jcr" tabindex="-1" role="presentation"></a>El verdadero poder de usar expresiones regulares con <code>replace</code> proviene del hecho de que podemos hacer referencia a grupos coincidentes en la cadena de reemplazo. Por ejemplo, digamos que tenemos una cadena larga que contiene los nombres de personas, un nombre por línea, en el formato <code>Apellido, Nombre</code>. Si queremos intercambiar estos nombres y eliminar la coma para obtener un formato <code>Nombre Apellido</code>, podemos usar el siguiente código:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Kb7uk2ah9L" href="#c-Kb7uk2ah9L" tabindex="-1" role="presentation"></a>console.log(
+  <span class="tok-string">&quot;Liskov, Barbara</span><span class="tok-string2">\n</span><span class="tok-string">McCarthy, John</span><span class="tok-string2">\n</span><span class="tok-string">Milner, Robin&quot;</span>
+    .replace(<span class="tok-string2">/(\p{L}+), (\p{L}+)/gu</span>, <span class="tok-string">&quot;$2 $1&quot;</span>));
+<span class="tok-comment">// → Barbara Liskov</span>
+<span class="tok-comment">//   John McCarthy</span>
+<span class="tok-comment">//   Robin Milner</span></pre>
+
+<p><a class="p_ident" id="p-p2f8BR4+jy" href="#p-p2f8BR4+jy" tabindex="-1" role="presentation"></a>Los <code>$1</code> y <code>$2</code> en la cadena de reemplazo se refieren a los grupos entre paréntesis en el patrón. <code>$1</code> es reemplazado por el texto que coincidió con el primer grupo, <code>$2</code> por el segundo, y así sucesivamente, hasta <code>$9</code>. Toda la coincidencia se puede referenciar con <code>$&amp;</code>.</p>
+
+<p><a class="p_ident" id="p-JH2XhU7+vU" href="#p-JH2XhU7+vU" tabindex="-1" role="presentation"></a>{{index [función, “de orden superior”], agrupación, “grupo de captura”}}</p>
+
+<p><a class="p_ident" id="p-7Dj3BhD29k" href="#p-7Dj3BhD29k" tabindex="-1" role="presentation"></a>Es posible pasar una función, en lugar de una cadena, como segundo argumento a <code>replace</code>. Para cada reemplazo, la función se llamará con los grupos coincidentes (así como la coincidencia completa) como argumentos, y su valor de retorno se insertará en la nueva cadena.</p>
+
+<p><a class="p_ident" id="p-Od/5LHikVf" href="#p-Od/5LHikVf" tabindex="-1" role="presentation"></a>Aquí tienes un ejemplo:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-uAXkxyRZne" href="#c-uAXkxyRZne" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">stock</span> = <span class="tok-string">&quot;1 limón, 2 repollos y 101 huevos&quot;</span>;
+<span class="tok-keyword">function</span> <span class="tok-definition">menosUno</span>(<span class="tok-definition">match</span>, <span class="tok-definition">cantidad</span>, <span class="tok-definition">unidad</span>) {
+  cantidad = Number(cantidad) - <span class="tok-number">1</span>;
+  <span class="tok-keyword">if</span> (cantidad == <span class="tok-number">1</span>) { <span class="tok-comment">// solo queda uno, se elimina la 's'</span>
+    unidad = unidad.slice(<span class="tok-number">0</span>, unidad.length - <span class="tok-number">1</span>);
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (cantidad == <span class="tok-number">0</span>) {
+    cantidad = <span class="tok-string">&quot;ningún&quot;</span>;
+  }
+  <span class="tok-keyword">return</span> cantidad + <span class="tok-string">&quot; &quot;</span> + unidad;
+}
+console.log(stock.replace(<span class="tok-string2">/(\d+) (\p{L}+)/gu</span>, menosUno));
+<span class="tok-comment">// → ningún limón, 1 repollo y 100 huevos</span></pre>
+
+<p><a class="p_ident" id="p-VHv2obV4AF" href="#p-VHv2obV4AF" tabindex="-1" role="presentation"></a>Esta función toma una cadena, encuentra todas las ocurrencias de un número seguido de una palabra alfanumérica, y devuelve una cadena que tiene una cantidad menos de cada una de esas ocurrencias.</p>
+
+<p><a class="p_ident" id="p-ni452X7vOx" href="#p-ni452X7vOx" tabindex="-1" role="presentation"></a>El grupo <code>(\d+)</code> termina siendo el argumento <code>amount</code> de la función, y el grupo <code>(\p{L}+)</code> se asigna a <code>unit</code>. La función convierte <code>amount</code> a un número, lo cual siempre funciona ya que coincide con <code>\d+</code>, y realiza algunos ajustes en caso de que solo quede uno o ninguno.</p>
+
+<h2><a class="h_ident" id="h-cI0ExIcqOA" href="#h-cI0ExIcqOA" tabindex="-1" role="presentation"></a>Avaricia</h2>
+
+<p><a class="p_ident" id="p-xH5+BJjvA9" href="#p-xH5+BJjvA9" tabindex="-1" role="presentation"></a>Es posible usar <code>replace</code> para escribir una función que elimine todos los comentarios de un fragmento de código JavaScript. Aquí tienes un primer intento:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hqiQQzO7k6" href="#c-hqiQQzO7k6" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">stripComments</span>(<span class="tok-definition">code</span>) {
+  <span class="tok-keyword">return</span> code.replace(<span class="tok-string2">/\/\/.*|\/\*[^]*\*\//g</span>, <span class="tok-string">&quot;&quot;</span>);
+}
+console.log(stripComments(<span class="tok-string">&quot;1 + /* 2 */3&quot;</span>));
+<span class="tok-comment">// → 1 + 3</span>
+console.log(stripComments(<span class="tok-string">&quot;x = 10;// ¡diez!&quot;</span>));
+<span class="tok-comment">// → x = 10;</span>
+console.log(stripComments(<span class="tok-string">&quot;1 /* a */+/* b */ 1&quot;</span>));
+<span class="tok-comment">// → 1  1</span></pre>
+
+<p><a class="p_ident" id="p-lareD54U0I" href="#p-lareD54U0I" tabindex="-1" role="presentation"></a>La parte antes del operador <em>or</em> coincide con dos caracteres de barra seguidos por cualquier cantidad de caracteres que no sean de nueva línea. La parte de comentarios de varias líneas es más compleja. Utilizamos <code>[^]</code> (cualquier carácter que no esté en el conjunto vacío de caracteres) como una forma de coincidir con cualquier carácter. No podemos usar simplemente un punto aquí porque los comentarios de bloque pueden continuar en una nueva línea, y el carácter de punto no coincide con caracteres de nueva línea.</p>
+
+<p><a class="p_ident" id="p-mxzz/dlHK7" href="#p-mxzz/dlHK7" tabindex="-1" role="presentation"></a>Pero la salida para la última línea parece haber salido mal. ¿Por qué?</p>
+
+<p><a class="p_ident" id="p-KYpv5oZkiP" href="#p-KYpv5oZkiP" tabindex="-1" role="presentation"></a>La parte <code>[^]*</code> de la expresión, como describí en la sección sobre retroceso, primero intentará coincidir con todo lo que pueda. Si esto hace que la siguiente parte del patrón falle, el coincidente retrocede un carácter y vuelve a intentar desde ahí. En el ejemplo, el coincidente intenta primero coincidir con el resto completo de la cadena y luego retrocede desde allí. Encontrará una ocurrencia de <code>*/</code> después de retroceder cuatro caracteres y coincidirá con eso. Esto no es lo que queríamos, la intención era coincidir con un único comentario, no llegar hasta el final del código y encontrar el final del último comentario de bloque.</p>
+
+<p><a class="p_ident" id="p-fC+SPfUUr7" href="#p-fC+SPfUUr7" tabindex="-1" role="presentation"></a>Debido a este comportamiento, decimos que los operadores de repetición (<code>+</code>, <code>*</code>, <code>?</code>, y <code>{}</code>) son <em>avariciosos</em>, lo que significa que coinciden con todo lo que pueden y retroceden desde allí. Si colocas un signo de interrogación después de ellos (<code>+?</code>, <code>*?</code>, <code>??</code>, <code>{}?</code>), se vuelven no avariciosos y comienzan coincidiendo con la menor cantidad posible, coincidiendo más solo cuando el patrón restante no encaja con la coincidencia más pequeña.</p>
+
+<p><a class="p_ident" id="p-MUXpQzArez" href="#p-MUXpQzArez" tabindex="-1" role="presentation"></a>Y eso es exactamente lo que queremos en este caso. Al hacer que el asterisco coincida con la menor cantidad de caracteres que nos lleva a <code>*/</code>, consumimos un comentario de bloque y nada más.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-MCNF7GxfR1" href="#c-MCNF7GxfR1" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">stripComments</span>(<span class="tok-definition">code</span>) {
+  <span class="tok-keyword">return</span> code.replace(<span class="tok-string2">/\/\/.*|\/\*[^]*?\*\//g</span>, <span class="tok-string">&quot;&quot;</span>);
+}
+console.log(stripComments(<span class="tok-string">&quot;1 /* a */+/* b */ 1&quot;</span>));
+<span class="tok-comment">// → 1 + 1</span></pre>
+
+<p><a class="p_ident" id="p-MBkU6rPo30" href="#p-MBkU6rPo30" tabindex="-1" role="presentation"></a>Muchos errors en programas de expresión regular pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.## Creación dinámica de objetos RegExp</p>
+
+<p><a class="p_ident" id="p-FsCpU66Mcq" href="#p-FsCpU66Mcq" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, creación], “carácter de subrayado”, “clase RegExp”}}</p>
+
+<p><a class="p_ident" id="p-VeBLJxBP+2" href="#p-VeBLJxBP+2" tabindex="-1" role="presentation"></a>Hay casos en los que es posible que no sepas el patrón exacto que necesitas para hacer coincidir cuando estás escribiendo tu código. Digamos que quieres probar el nombre de usuario en un fragmento de texto. Puedes construir una cadena y usar el <code>constructor</code> <code>RegExp</code> en ello. Aquí tienes un ejemplo:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-WfHBCcn+gy" href="#c-WfHBCcn+gy" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">name</span> = <span class="tok-string">&quot;harry&quot;</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">regexp</span> = <span class="tok-keyword">new</span> RegExp(<span class="tok-string">&quot;(^|</span><span class="tok-string2">\\</span><span class="tok-string">s)&quot;</span> + name + <span class="tok-string">&quot;($|</span><span class="tok-string2">\\</span><span class="tok-string">s)&quot;</span>, <span class="tok-string">&quot;gi&quot;</span>);
+console.log(regexp.test(<span class="tok-string">&quot;Harry es un personaje dudoso.&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-t/sBXmwE44" href="#p-t/sBXmwE44" tabindex="-1" role="presentation"></a>Al crear la parte <code>\s</code> de la cadena, tenemos que usar dos barras invertidas porque las estamos escribiendo en una cadena normal, no en una expresión regular entre barras. El segundo argumento del constructor <code>RegExp</code> contiene las opciones para la expresión regular, en este caso, <code>&quot;gi&quot;</code> para global e insensible a mayúsculas y minúsculas.</p>
+
+<p><a class="p_ident" id="p-kTObyW6aHr" href="#p-kTObyW6aHr" tabindex="-1" role="presentation"></a>Pero ¿qué pasa si el nombre es <code>&quot;dea+hl[]rd&quot;</code> porque nuestro usuario es un adolescente nerd? Eso resultaría en una expresión regular absurda que en realidad no coincidiría con el nombre del usuario.</p>
+
+<p><a class="p_ident" id="p-PLgFCFdANG" href="#p-PLgFCFdANG" tabindex="-1" role="presentation"></a>Para solucionar esto, podemos agregar barras invertidas antes de cualquier carácter que tenga un significado especial.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-E6w+CZN7CT" href="#c-E6w+CZN7CT" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">name</span> = <span class="tok-string">&quot;dea+hl[]rd&quot;</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">escaped</span> = name.replace(<span class="tok-string2">/[\\[.+*?(){|^$]/g</span>, <span class="tok-string">&quot;</span><span class="tok-string2">\\</span><span class="tok-string">$&amp;&quot;</span>);
+<span class="tok-keyword">let</span> <span class="tok-definition">regexp</span> = <span class="tok-keyword">new</span> RegExp(<span class="tok-string">&quot;(^|</span><span class="tok-string2">\\</span><span class="tok-string">s)&quot;</span> + escaped + <span class="tok-string">&quot;($|</span><span class="tok-string2">\\</span><span class="tok-string">s)&quot;</span>,
+                        <span class="tok-string">&quot;gi&quot;</span>);
+<span class="tok-keyword">let</span> <span class="tok-definition">text</span> = <span class="tok-string">&quot;Este chico dea+hl[]rd es súper molesto.&quot;</span>;
+console.log(regexp.test(text));
+<span class="tok-comment">// → true</span></pre>
+
+<h2><a class="h_ident" id="h-uCPhVoLsMf" href="#h-uCPhVoLsMf" tabindex="-1" role="presentation"></a>El método search</h2>
+
+<p><a class="p_ident" id="p-aaXtAV6WUI" href="#p-aaXtAV6WUI" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, métodos], “método indexOf”, “método search”}}</p>
+
+<p><a class="p_ident" id="p-3qxpU8WQEB" href="#p-3qxpU8WQEB" tabindex="-1" role="presentation"></a>El método <code>indexOf</code> en las cadenas no puede ser llamado con una expresión regular. Pero hay otro método, <code>search</code>, que espera una expresión regular. Al igual que <code>indexOf</code>, devuelve el primer índice en el que se encontró la expresión, o -1 cuando no se encontró.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hINt/qpuxG" href="#c-hINt/qpuxG" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;  palabra&quot;</span>.search(<span class="tok-string2">/\S/</span>));
+<span class="tok-comment">// → 2</span>
+console.log(<span class="tok-string">&quot;    &quot;</span>.search(<span class="tok-string2">/\S/</span>));
+<span class="tok-comment">// → -1</span></pre>
+
+<p><a class="p_ident" id="p-bCpmiIwqTW" href="#p-bCpmiIwqTW" tabindex="-1" role="presentation"></a>Desafortunadamente, no hay una forma de indicar que la coincidencia debería comenzar en un offset dado (como se puede hacer con el segundo argumento de <code>indexOf</code>), lo cual a menudo sería útil.</p>
+
+<h2><a class="h_ident" id="h-61OHLlWPwV" href="#h-61OHLlWPwV" tabindex="-1" role="presentation"></a>La propiedad lastIndex</h2>
+
+<p><a class="p_ident" id="p-OpmhI72Qfi" href="#p-OpmhI72Qfi" tabindex="-1" role="presentation"></a>El método <code>exec</code> de manera similar no proporciona una forma conveniente de comenzar a buscar desde una posición dada en la cadena. Pero sí proporciona una forma <em>in</em>conveniente.</p>
+
+<p><a class="p_ident" id="p-JYAjlYrL9h" href="#p-JYAjlYrL9h" tabindex="-1" role="presentation"></a>Los objetos de expresión regular tienen propiedades. Una de esas propiedades es <code>source</code>, que contiene la cadena de la que se creó la expresión. Otra propiedad es <code>lastIndex</code>, que controla, en algunas circunstancias limitadas, desde dónde comenzará la siguiente coincidencia.</p>
+
+<p><a class="p_ident" id="p-HYyAQ29dT7" href="#p-HYyAQ29dT7" tabindex="-1" role="presentation"></a>{{index [interface, diseño], “método exec”, [“expresión regular”, global]}}</p>
+
+<p><a class="p_ident" id="p-59IpNLm2WF" href="#p-59IpNLm2WF" tabindex="-1" role="presentation"></a>Estas circunstancias implican que la expresión regular debe tener la opción global (<code>g</code>) o pegajosa (<code>y</code>) activada, y la coincidencia debe ocurrir a través del método <code>exec</code>. Nuevamente, una solución menos confusa habría sido simplemente permitir que se pase un argumento adicional a <code>exec</code>, pero la confusión es una característica esencial de la interfaz de expresiones regulares de JavaScript.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-nXsHtqIJdF" href="#c-nXsHtqIJdF" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">pattern</span> = <span class="tok-string2">/y/g</span>;
+pattern.lastIndex = <span class="tok-number">3</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">match</span> = pattern.exec(<span class="tok-string">&quot;xyzzy&quot;</span>);
+console.log(match.index);
+<span class="tok-comment">// → 4</span>
+console.log(pattern.lastIndex);
+<span class="tok-comment">// → 5</span></pre>
+
+<p><a class="p_ident" id="p-0DBtft8C4S" href="#p-0DBtft8C4S" tabindex="-1" role="presentation"></a>Si la coincidencia tuvo éxito, la llamada a <code>exec</code> actualiza automáticamente la propiedad <code>lastIndex</code> para que apunte después de la coincidencia. Si no se encontró ninguna coincidencia, <code>lastIndex</code> se restablece a cero, que es también el valor que tiene en un objeto de expresión regular recién construido.</p>
+
+<p><a class="p_ident" id="p-1u3O8Smqjw" href="#p-1u3O8Smqjw" tabindex="-1" role="presentation"></a>La diferencia entre las opciones global y sticky es que, cuando se habilita sticky, la coincidencia solo se producirá si comienza directamente en <code>lastIndex</code>, mientras que con global se buscará una posición donde pueda comenzar una coincidencia.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-98GwGRIMj8" href="#c-98GwGRIMj8" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">global</span> = <span class="tok-string2">/abc/g</span>;
+console.log(global.exec(<span class="tok-string">&quot;xyz abc&quot;</span>));
+<span class="tok-comment">// → [&quot;abc&quot;]</span>
+<span class="tok-keyword">let</span> <span class="tok-definition">sticky</span> = <span class="tok-string2">/abc/y</span>;
+console.log(sticky.exec(<span class="tok-string">&quot;xyz abc&quot;</span>));
+<span class="tok-comment">// → null</span></pre>
+
+<p><a class="p_ident" id="p-SPnGt76q5R" href="#p-SPnGt76q5R" tabindex="-1" role="presentation"></a>Al usar un valor de expresión regular compartido para múltiples llamadas a <code>exec</code>, estas actualizaciones automáticas a la propiedad <code>lastIndex</code> pueden causar problemas. Es posible que tu expresión regular comience accidentalmente en un índice que quedó de una llamada previa.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-kE2WKkyjwG" href="#c-kE2WKkyjwG" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">digit</span> = <span class="tok-string2">/\d/g</span>;
+console.log(digit.exec(<span class="tok-string">&quot;aquí está: 1&quot;</span>));
+<span class="tok-comment">// → [&quot;1&quot;]</span>
+console.log(digit.exec(<span class="tok-string">&quot;ahora: 1&quot;</span>));
+<span class="tok-comment">// → null</span></pre>
+
+<p><a class="p_ident" id="p-M58YL9ghmR" href="#p-M58YL9ghmR" tabindex="-1" role="presentation"></a>Otro efecto interesante de la opción global es que cambia la forma en que funciona el método <code>match</code> en las cadenas. Cuando se llama con una expresión global, en lugar de devolver una matriz similar a la devuelta por <code>exec</code>, <code>match</code> encontrará <em>todas</em> las coincidencias del patrón en la cadena y devolverá una matriz que contiene las cadenas coincidentes.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-weT/d5+8vE" href="#c-weT/d5+8vE" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;Banana&quot;</span>.match(<span class="tok-string2">/an/g</span>));
+<span class="tok-comment">// → [&quot;an&quot;, &quot;an&quot;]</span></pre>
+
+<p><a class="p_ident" id="p-P0n0q5qqiM" href="#p-P0n0q5qqiM" tabindex="-1" role="presentation"></a>Así que ten cuidado con las expresiones regulares globales. Los casos en los que son necesarias, como las llamadas a <code>replace</code> y los lugares donde quieres usar explícitamente <code>lastIndex</code>, son típicamente los únicos lugares donde las deseas utilizar.</p>
+
+<h3><a class="i_ident" id="i-vqvHDgpGfT" href="#i-vqvHDgpGfT" tabindex="-1" role="presentation"></a>Obteniendo todas las coincidencias</h3>
+
+<p><a class="p_ident" id="p-2/FZJ5j0h9" href="#p-2/FZJ5j0h9" tabindex="-1" role="presentation"></a>Algo común que se hace es encontrar todas las coincidencias de una expresión regular en una cadena. Podemos hacer esto usando el método <code>matchAll</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-otfl+S6eNg" href="#c-otfl+S6eNg" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">input</span> = <span class="tok-string">&quot;Una cadena con 3 números... 42 y 88.&quot;</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">matches</span> = input.matchAll(<span class="tok-string2">/\d+/g</span>);
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">match</span> <span class="tok-keyword">of</span> matches) {
+  console.log(<span class="tok-string">&quot;Encontrado&quot;</span>, match[<span class="tok-number">0</span>], <span class="tok-string">&quot;en&quot;</span>, match.index);
+}
+<span class="tok-comment">// → Encontrado 3 en 14</span>
+<span class="tok-comment">//   Encontrado 42 en 33</span>
+<span class="tok-comment">//   Encontrado 88 en 40</span></pre>
+
+<p><a class="p_ident" id="p-+4Amv+gHld" href="#p-+4Amv+gHld" tabindex="-1" role="presentation"></a>Este método devuelve una matriz de matrices de coincidencias. La expresión regular que se le proporciona <em>debe</em> tener <code>g</code> habilitado.</p>
+
+<h2 id="ini"><a class="h_ident" id="h-aqUstUx5TS" href="#h-aqUstUx5TS" tabindex="-1" role="presentation"></a>Analizando un archivo INI</h2>
+
+<p><a class="p_ident" id="p-sGp7Jxx2uG" href="#p-sGp7Jxx2uG" tabindex="-1" role="presentation"></a>Para concluir el capítulo, analizaremos un problema que requiere expresiones regulares. Imagina que estamos escribiendo un programa para recopilar automáticamente información sobre nuestros enemigos desde Internet. (En realidad, no escribiremos ese programa aquí, solo la parte que lee el archivo de configuración. Lo siento.) El archivo de configuración se ve así:</p>
+
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-UqWNJS/fmo" href="#c-UqWNJS/fmo" tabindex="-1" role="presentation"></a>motorbusqueda=https://duckduckgo.com/?q=$1
+rencor=9.7
+
+``````markdown
+; comentarios precedidos por un punto y coma...
+; cada sección se refiere a un enemigo individual
+[larry]
+fullname=Larry Doe
+type=matón de jardín de infantes
+website=http://www.geocities.com/CapeCanaveral/11451
+
+[davaeorn]
+fullname=Davaeorn
+type=mago malvado
+outputdir=/home/marijn/enemies/davaeorn</pre>
+
+<p><a class="p_ident" id="p-WAurbu6Lod" href="#p-WAurbu6Lod" tabindex="-1" role="presentation"></a>{{index gramática}}</p>
+
+<p><a class="p_ident" id="p-2XRX7atQld" href="#p-2XRX7atQld" tabindex="-1" role="presentation"></a>Las reglas exactas para este formato (que es un formato ampliamente utilizado, generalmente llamado un archivo <em>INI</em>) son las siguientes:</p>
+
+<ul>
+
+<li>
+
+<p><a class="p_ident" id="p-Of3fAfBjo/" href="#p-Of3fAfBjo/" tabindex="-1" role="presentation"></a>Las líneas en blanco y las líneas que comienzan con punto y coma son ignoradas.</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-aZL0fMSaMp" href="#p-aZL0fMSaMp" tabindex="-1" role="presentation"></a>Las líneas envueltas en <code>[</code> y <code>]</code> inician una nueva sección.</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-A63YtLp+/Z" href="#p-A63YtLp+/Z" tabindex="-1" role="presentation"></a>Las líneas que contienen un identificador alfanumérico seguido de un caracter <code>=</code> agregan una configuración a la sección actual.</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-2qriKCQvre" href="#p-2qriKCQvre" tabindex="-1" role="presentation"></a>Cualquier otra cosa es inválida.</p></li></ul>
+
+<p><a class="p_ident" id="p-g7nzf3T0qT" href="#p-g7nzf3T0qT" tabindex="-1" role="presentation"></a>Nuestra tarea es convertir una cadena como esta en un objeto cuyas propiedades contienen cadenas para las configuraciones escritas antes del primer encabezado de sección y subobjetos para las secciones, con esos subobjetos conteniendo las configuraciones de la sección.</p>
+
+<p><a class="p_ident" id="p-7z9fdAqy4R" href="#p-7z9fdAqy4R" tabindex="-1" role="presentation"></a>Dado que el formato debe procesarse línea por línea, dividir el archivo en líneas separadas es un buen comienzo. Vimos el método <code>split</code> en <a href="04_data.html#split">Capítulo 4</a>. Sin embargo, algunos sistemas operativos utilizan no solo un carácter de nueva línea para separar líneas sino un carácter de retorno de carro seguido de una nueva línea (<code>&quot;\r\n&quot;</code>). Dado que el método <code>split</code> también permite una expresión regular como argumento, podemos usar una expresión regular como <code>/\r?\n/</code> para dividir de una manera que permita tanto <code>&quot;\n&quot;</code> como <code>&quot;\r\n&quot;</code> entre líneas.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-WalMuQxa8W" href="#c-WalMuQxa8W" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">parseINI</span>(<span class="tok-definition">string</span>) {
+  <span class="tok-comment">// Comenzar con un objeto para contener los campos de nivel superior</span>
+  <span class="tok-keyword">let</span> <span class="tok-definition">result</span> = {};
+  <span class="tok-keyword">let</span> <span class="tok-definition">section</span> = result;
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">line</span> <span class="tok-keyword">of</span> string.split(<span class="tok-string2">/\r?\n/</span>)) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">match</span>;
+    <span class="tok-keyword">if</span> (match = line.match(<span class="tok-string2">/^(\w+)=(.*)$/</span>)) {
+      section[match[<span class="tok-number">1</span>]] = match[<span class="tok-number">2</span>];
+    } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (match = line.match(<span class="tok-string2">/^\[(.*)\]$/</span>)) {
+      section = result[match[<span class="tok-number">1</span>]] = {};
+    } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (!<span class="tok-string2">/^\s*(;|$)/</span>.test(line)) {
+      <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string">&quot;La línea '&quot;</span> + line + <span class="tok-string">&quot;' no es válida.&quot;</span>);
+    }
+  };
+  <span class="tok-keyword">return</span> result;
+}
+
+console.log(parseINI(<span class="tok-string2">`</span>
+<span class="tok-string2">name=Vasilis</span>
+<span class="tok-string2">[address]</span>
+<span class="tok-string2">city=Tessaloniki`</span>));
+<span class="tok-comment">// → {name: &quot;Vasilis&quot;, address: {city: &quot;Tessaloniki&quot;}}</span></pre>
+
+<p><a class="p_ident" id="p-uDuoTxf0bm" href="#p-uDuoTxf0bm" tabindex="-1" role="presentation"></a>{{index “función parseINI”, análisis}}</p>
+
+<p><a class="p_ident" id="p-LsLS8mCe4B" href="#p-LsLS8mCe4B" tabindex="-1" role="presentation"></a>El código recorre las líneas del archivo y construye un objeto. Las propiedades en la parte superior se almacenan directamente en ese objeto, mientras que las propiedades encontradas en secciones se almacenan en un objeto de sección separado. El enlace <code>section</code> apunta al objeto para la sección actual.</p>
+
+<p><a class="p_ident" id="p-W38Z15dwza" href="#p-W38Z15dwza" tabindex="-1" role="presentation"></a>Hay dos tipos de líneas significativas: encabezados de sección o líneas de propiedades. Cuando una línea es una propiedad regular, se almacena en la sección actual. Cuando es un encabezado de sección, se crea un nuevo objeto de sección y <code>section</code> se establece para apuntar a él.</p>
+
+<p><a class="p_ident" id="p-bzvgU9mjWB" href="#p-bzvgU9mjWB" tabindex="-1" role="presentation"></a>{{index “carácter indicador”, “signo de dólar”, límite}}</p>
+
+<p><a class="p_ident" id="p-WRi9IuRJQq" href="#p-WRi9IuRJQq" tabindex="-1" role="presentation"></a>Observa el uso recurrente de <code>^</code> y <code>$</code> para asegurarse de que la expresión coincida con toda la línea, no solo parte de ella. Dejarlos fuera resulta en un código que funciona en su mayor parte pero se comporta de manera extraña para algunas entradas, lo que puede ser un error difícil de rastrear.</p>
+
+<p><a class="p_ident" id="p-X9Akkm89/F" href="#p-X9Akkm89/F" tabindex="-1" role="presentation"></a>{{index “instrucción if”, asignación, [“operador =&quot;, “como expresión”]}} ```El patrón <code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code> hace uso del hecho de que el valor de una expresión de asignación (<code>=</code>) es el valor asignado. A menudo no estás seguro de que tu llamada a <code>match</code> tendrá éxito, por lo que solo puedes acceder al objeto resultante dentro de una declaración <code>if</code> que comprueba esto. Para no romper la agradable cadena de formas de <code>else if</code>, asignamos el resultado de la coincidencia a un enlace y usamos inmediatamente esa asignación como la prueba para la declaración <code>if</code>.</p>
+
+<p><a class="p_ident" id="p-1ax3XRGkJ7_1" href="#p-1ax3XRGkJ7_1" tabindex="-1" role="presentation"></a>{{index [paréntesis, “en expresiones regulares”]}}</p>
+
+<p><a class="p_ident" id="p-zg+5BDK7MN" href="#p-zg+5BDK7MN" tabindex="-1" role="presentation"></a>Si una línea no es un encabezado de sección o una propiedad, la función verifica si es un comentario o una línea vacía usando la expresión <code>/^\s*(;|$)/</code> para hacer coincidir líneas que solo contienen espacio o espacio seguido de un punto y coma (haciendo que el resto de la línea sea un comentario). Cuando una línea no coincide con ninguna de las formas esperadas, la función lanza una excepción.</p>
+
+<h2><a class="h_ident" id="h-boAsI3PiWP" href="#h-boAsI3PiWP" tabindex="-1" role="presentation"></a>Unidades de código y caracteres</h2>
+
+<p><a class="p_ident" id="p-CzHGvvAVs9" href="#p-CzHGvvAVs9" tabindex="-1" role="presentation"></a>Otro error de diseño que se ha estandarizado en las expresiones regulares de JavaScript es que, por defecto, operadores como <code>.</code> o <code>?</code> trabajan en unidades de código, como se discute en <a href="05_higher_order.html#code_units">Capítulo 5</a>, no en caracteres reales. Esto significa que los caracteres que están compuestos por dos unidades de código se comportan de manera extraña.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-CfMTYxun8D" href="#c-CfMTYxun8D" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/🍎{3}/</span>.test(<span class="tok-string">&quot;🍎🍎🍎&quot;</span>));
+<span class="tok-comment">// → false</span>
+console.log(<span class="tok-string2">/&lt;.&gt;/</span>.test(<span class="tok-string">&quot;&lt;🌹&gt;&quot;</span>));
+<span class="tok-comment">// → false</span>
+console.log(<span class="tok-string2">/&lt;.&gt;/u</span>.test(<span class="tok-string">&quot;&lt;🌹&gt;&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<p><a class="p_ident" id="p-tkZzF4g00f" href="#p-tkZzF4g00f" tabindex="-1" role="presentation"></a>El problema es que el 🍎 en la primera línea se trata como dos unidades de código, y la parte <code>{3}</code> se aplica solo al segundo. Del mismo modo, el punto coincidirá con una sola unidad de código, no con las dos que componen la rosa emoji.</p>
+
+<p><a class="p_ident" id="p-u0Yir1kR27" href="#p-u0Yir1kR27" tabindex="-1" role="presentation"></a>Debes agregar la opción <code>u</code> (Unicode) a tu expresión regular para que trate correctamente este tipo de caracteres.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-3HTiC3yQKP" href="#c-3HTiC3yQKP" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/🍎{3}/u</span>.test(<span class="tok-string">&quot;🍎🍎🍎&quot;</span>));
+<span class="tok-comment">// → true</span></pre>
+
+<h2 id="summary_regexp"><a class="h_ident" id="h-NUFOUyK+lw" href="#h-NUFOUyK+lw" tabindex="-1" role="presentation"></a>Resumen</h2>
+
+<p><a class="p_ident" id="p-Odk02sNpX4" href="#p-Odk02sNpX4" tabindex="-1" role="presentation"></a>Las expresiones regulares son objetos que representan patrones en cadenas. Utilizan su propio lenguaje para expresar estos patrones.</p>
+
+<table>
+
+<tr><td><code>/abc/</code></td><td>Una secuencia de caracteres</td>
+
+</tr>
+
+<tr><td><code>/[abc]/</code></td><td>Cualquier carácter de un conjunto de caracteres</td>
+
+</tr>
+
+<tr><td><code>/[^abc]/</code></td><td>Cualquier carácter <em>que no esté</em> en un conjunto de caracteres</td>
+
+</tr>
+
+<tr><td><code>/[0-9]/</code></td><td>Cualquier carácter en un rango de caracteres</td>
+
+</tr>
+
+<tr><td><code>/x+/</code></td><td>Una o más ocurrencias del patrón <code>x</code></td>
+
+</tr>
+
+<tr><td><code>/x+?/</code></td><td>Una o más ocurrencias, perezoso</td>
+
+</tr>
+
+<tr><td><code>/x*/</code></td><td>Cero o más ocurrencias</td>
+
+</tr>
+
+<tr><td><code>/x?/</code></td><td>Cero o una ocurrencia</td>
+
+</tr>
+
+<tr><td><code>/x{2,4}/</code></td><td>Dos a cuatro ocurrencias</td>
+
+</tr>
+
+<tr><td><code>/(abc)/</code></td><td>Un grupo</td>
+
+</tr>
+
+<tr><td><code>/a|b|c/</code></td><td>Cualquiera de varias combinaciones de patrones</td>
+
+</tr>
+
+<tr><td><code>/\d/</code></td><td>Cualquier carácter de dígito</td>
+
+</tr>
+
+<tr><td><code>/\w/</code></td><td>Un carácter alfanumérico (“carácter de palabra”)</td>
+
+</tr>
+
+<tr><td><code>/\s/</code></td><td>Cualquier carácter de espacio en blanco</td>
+
+</tr>
+
+<tr><td><code>/./</code></td><td>Cualquier carácter excepto saltos de línea</td>
+
+</tr>
+
+<tr><td><code>/\p{L}/u</code></td><td>Cualquier carácter de letra</td>
+
+</tr>
+
+<tr><td><code>/^/</code></td><td>Inicio de entrada</td>
+
+</tr>
+
+<tr><td><code>/$/</code></td><td>Fin de entrada</td>
+
+</tr>
+
+<tr><td><code>/(?=a)/</code></td><td>Una prueba de vistazo hacia adelante</td>
+
+</tr>
+
+</table>
+
+<p><a class="p_ident" id="p-CFboyM9HDn" href="#p-CFboyM9HDn" tabindex="-1" role="presentation"></a>Una expresión regular tiene un método <code>test</code> para comprobar si una cadena dada coincide con ella. También tiene un método <code>exec</code> que, cuando se encuentra una coincidencia, devuelve un array que contiene todos los grupos coincidentes. Dicho array tiene una propiedad <code>index</code> que indica dónde empezó la coincidencia.Las cadenas tienen un método <code>match</code> para compararlas con una expresión regular y un método <code>search</code> para buscar una, devolviendo solo la posición de inicio de la coincidencia. Su método <code>replace</code> puede reemplazar coincidencias de un patrón con una cadena o función de reemplazo.</p>
+
+<p><a class="p_ident" id="p-5tlP70sWEp" href="#p-5tlP70sWEp" tabindex="-1" role="presentation"></a>Las expresiones regulares pueden tener opciones, que se escriben después de la barra de cierre. La opción <code>i</code> hace que la coincidencia no distinga entre mayúsculas y minúsculas. La opción <code>g</code> hace que la expresión sea <em>global</em>, lo que, entre otras cosas, hace que el método <code>replace</code> reemplace todas las instancias en lugar de solo la primera. La opción <code>y</code> la hace persistente, lo que significa que no buscará por delante ni omitirá parte de la cadena al buscar una coincidencia. La opción <code>u</code> activa el modo Unicode, que habilita la sintaxis <code>\p</code> y soluciona varios problemas en torno al manejo de caracteres que ocupan dos unidades de código.</p>
+
+<p><a class="p_ident" id="p-Hw5k4JvKlE" href="#p-Hw5k4JvKlE" tabindex="-1" role="presentation"></a>Las expresiones regulares son una herramienta afilada con un mango incómodo. Simplifican enormemente algunas tareas, pero pueden volverse rápidamente ingobernables cuando se aplican a problemas complejos. Parte de saber cómo usarlas es resistir la tentación de intentar forzar cosas que no pueden expresarse de forma clara en ellas.</p>
+
+<h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<p><a class="p_ident" id="p-7luPllNrX9" href="#p-7luPllNrX9" tabindex="-1" role="presentation"></a>Es casi inevitable que, al trabajar en estos ejercicios, te sientas confundido y frustrado por el comportamiento inexplicable de algunas expresiones regulares. A veces ayuda introducir tu expresión en una herramienta en línea como <a href="https://www.debuggex.com/"><em>debuggex.com</em></a> para ver si su visualización corresponde a lo que pretendías y para experimentar con la forma en que responde a diferentes cadenas de entrada.</p>
+
+<h3><a class="i_ident" id="i-vDM8PzwQWU" href="#i-vDM8PzwQWU" tabindex="-1" role="presentation"></a>Regexp golf</h3>
+
+<p><a class="p_ident" id="p-f3iYNNsbiL" href="#p-f3iYNNsbiL" tabindex="-1" role="presentation"></a><em>Code golf</em> es un término utilizado para el juego de intentar expresar un programa en particular con la menor cantidad de caracteres posible. De manera similar, <em>regexp golf</em> es la práctica de escribir una expresión regular lo más pequeña posible para que coincida con un patrón dado, y <em>solo</em> ese patrón.</p>
+
+<p><a class="p_ident" id="p-74bE61d3fk" href="#p-74bE61d3fk" tabindex="-1" role="presentation"></a>Para cada uno de los siguientes elementos, escribe una expresión regular para comprobar si el patrón dado ocurre en una cadena. La expresión regular debe coincidir solo con cadenas que contengan el patrón. Cuando tu expresión funcione, verifica si puedes hacerla más pequeña.</p>
+
+<ol>
+
+<li>
+
+<p><a class="p_ident" id="p-G1x4eWBRd+" href="#p-G1x4eWBRd+" tabindex="-1" role="presentation"></a><em>car</em> y <em>cat</em></p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-LUL5rXROVp" href="#p-LUL5rXROVp" tabindex="-1" role="presentation"></a><em>pop</em> y <em>prop</em></p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-4grj7sKuEe" href="#p-4grj7sKuEe" tabindex="-1" role="presentation"></a><em>ferret</em>, <em>ferry</em> y <em>ferrari</em></p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-QQ5/lZXIIE" href="#p-QQ5/lZXIIE" tabindex="-1" role="presentation"></a>Cualquier palabra que termine en <em>ious</em></p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-3zcZI8F3XE" href="#p-3zcZI8F3XE" tabindex="-1" role="presentation"></a>Un carácter de espacio en blanco seguido de un punto, coma, dos puntos o punto y coma</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-ElfdU/EyTI" href="#p-ElfdU/EyTI" tabindex="-1" role="presentation"></a>Una palabra con más de seis letras</p></li>
+
+<li>
+
+<p><a class="p_ident" id="p-ex6we1EAMv" href="#p-ex6we1EAMv" tabindex="-1" role="presentation"></a>Una palabra sin la letra <em>e</em> (o <em>E</em>)</p></li>
+
+</ol>
+
+<p><a class="p_ident" id="p-sw+R4CLmjK" href="#p-sw+R4CLmjK" tabindex="-1" role="presentation"></a>Consulta la tabla en el <a href="09_regexp.html#summary_regexp">resumen del capítulo</a> para obtener ayuda. Prueba cada solución con algunas cadenas de prueba.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-V69VVjpD/G" href="#c-V69VVjpD/G" tabindex="-1" role="presentation"></a><span class="tok-comment">// Fill in the regular expressions</span>
+
+verify(<span class="tok-string2">/.../</span>,
+       [<span class="tok-string">&quot;my car&quot;</span>, <span class="tok-string">&quot;bad cats&quot;</span>],
+       [<span class="tok-string">&quot;camper&quot;</span>, <span class="tok-string">&quot;high art&quot;</span>]);
+
+verify(<span class="tok-string2">/.../</span>,
+       [<span class="tok-string">&quot;pop culture&quot;</span>, <span class="tok-string">&quot;mad props&quot;</span>],
+       [<span class="tok-string">&quot;plop&quot;</span>, <span class="tok-string">&quot;prrrop&quot;</span>]);
+
+verify(<span class="tok-string2">/.../</span>,
+       [<span class="tok-string">&quot;ferret&quot;</span>, <span class="tok-string">&quot;ferry&quot;</span>, <span class="tok-string">&quot;ferrari&quot;</span>],
+       [<span class="tok-string">&quot;ferrum&quot;</span>, <span class="tok-string">&quot;transfer A&quot;</span>]);
+
+verify(<span class="tok-string2">/.../</span>,
+       [<span class="tok-string">&quot;how delicious&quot;</span>, <span class="tok-string">&quot;spacious room&quot;</span>],
+       [<span class="tok-string">&quot;ruinous&quot;</span>, <span class="tok-string">&quot;consciousness&quot;</span>]);
+
+verify(<span class="tok-string2">/.../</span>,
+       [<span class="tok-string">&quot;bad punctuation .&quot;</span>],
+       [<span class="tok-string">&quot;escape the period&quot;</span>]);
+
+verify(<span class="tok-string2">/.../</span>,
+       [<span class="tok-string">&quot;Siebentausenddreihundertzweiundzwanzig&quot;</span>],
+       [<span class="tok-string">&quot;no&quot;</span>, <span class="tok-string">&quot;three small words&quot;</span>]);
+
+verify(<span class="tok-string2">/.../</span>,
+       [<span class="tok-string">&quot;red platypus&quot;</span>, <span class="tok-string">&quot;wobbling nest&quot;</span>],
+       [<span class="tok-string">&quot;earth bed&quot;</span>, <span class="tok-string">&quot;bedrøvet abe&quot;</span>, <span class="tok-string">&quot;BEET&quot;</span>]);
+
+
+<span class="tok-keyword">function</span> <span class="tok-definition">verify</span>(<span class="tok-definition">regexp</span>, <span class="tok-definition">yes</span>, <span class="tok-definition">no</span>) {
+  <span class="tok-comment">// Ignore unfinished exercises</span>
+  <span class="tok-keyword">if</span> (regexp.source == <span class="tok-string">&quot;...&quot;</span>) <span class="tok-keyword">return</span>;
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">str</span> <span class="tok-keyword">of</span> yes) <span class="tok-keyword">if</span> (!regexp.test(str)) {
+    console.log(<span class="tok-string2">`Failure to match '</span>${str}<span class="tok-string2">'`</span>);
+  }
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">str</span> <span class="tok-keyword">of</span> no) <span class="tok-keyword">if</span> (regexp.test(str)) {
+    console.log(<span class="tok-string2">`Unexpected match for '</span>${str}<span class="tok-string2">'`</span>);
+  }
+}</pre>
+
+<h3><a class="i_ident" id="i-efCNhNV5nJ" href="#i-efCNhNV5nJ" tabindex="-1" role="presentation"></a>Estilo de comillas</h3>
+
+<p><a class="p_ident" id="p-Vlm4WMQc9O" href="#p-Vlm4WMQc9O" tabindex="-1" role="presentation"></a>Imagina que has escrito una historia y usaste comillas simples single-quote character para marcar piezas de diálogo. Ahora quieres reemplazar todas las comillas de diálogo con comillas dobles, manteniendo las comillas simples utilizadas en contracciones como <em>aren’t</em>.</p>
+
+<p><a class="p_ident" id="p-6mNToRPnum" href="#p-6mNToRPnum" tabindex="-1" role="presentation"></a>Piensa en un patrón que distinga estos dos tipos de uso de comillas y crea una llamada al método <code>replace</code> que realice el reemplazo adecuado.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-2AAfiUdDr8" href="#c-2AAfiUdDr8" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">text</span> = <span class="tok-string">&quot;'I'm the cook,' he said, 'it's my job.'&quot;</span>;
+<span class="tok-comment">// Cambia esta llamada.</span>
+console.log(text.replace(<span class="tok-string2">/A/g</span>, <span class="tok-string">&quot;B&quot;</span>));
+<span class="tok-comment">// → &quot;I'm the cook,&quot; he said, &quot;it's my job.&quot;</span></pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-F9p3rrsc74" href="#p-F9p3rrsc74" tabindex="-1" role="presentation"></a>La solución más obvia es reemplazar solo las comillas que tienen un carácter que no sea una letra en al menos un lado, algo como <code>/\P{L}'|'\P{L}/</code>. Pero también debes tener en cuenta el inicio y el final de la línea.</p>
+
+<p><a class="p_ident" id="p-qbGJneI2P1" href="#p-qbGJneI2P1" tabindex="-1" role="presentation"></a>Además, debes asegurarte de que la sustitución también incluya los caracteres que coincidieron con el patrón <code>\P{L}</code> para que no se eliminen. Esto se puede hacer envolviéndolos entre paréntesis e incluyendo sus grupos en la cadena de reemplazo (<code>$1</code>, <code>$2</code>). Los grupos que no se emparejen se reemplazarán por nada.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-YSgOufjbNE" href="#i-YSgOufjbNE" tabindex="-1" role="presentation"></a>Números nuevamente</h3>
+
+<p><a class="p_ident" id="p-oeGH9sXraQ" href="#p-oeGH9sXraQ" tabindex="-1" role="presentation"></a>Escribe una expresión que coincida solo con los números al estilo de JavaScript. Debe admitir un signo menos <em>o</em> más opcional delante del número, el punto decimal y la notación de exponente—<code>5e-3</code> o <code>1E10</code>—de nuevo con un signo opcional delante del exponente. También ten en cuenta que no es necesario que haya dígitos delante o después del punto, pero el número no puede ser solo un punto. Es decir, <code>.5</code> y <code>5.</code> son números de JavaScript válidos, pero un punto solitario <em>no</em> lo es.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-0YfxA4ebjL" href="#c-0YfxA4ebjL" tabindex="-1" role="presentation"></a><span class="tok-comment">// Completa esta expresión regular.</span>
+<span class="tok-keyword">let</span> <span class="tok-definition">number</span> = <span class="tok-string2">/^...$/</span>;
+
+<span class="tok-comment">// Pruebas:</span>
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">str</span> <span class="tok-keyword">of</span> [<span class="tok-string">&quot;1&quot;</span>, <span class="tok-string">&quot;-1&quot;</span>, <span class="tok-string">&quot;+15&quot;</span>, <span class="tok-string">&quot;1.55&quot;</span>, <span class="tok-string">&quot;.5&quot;</span>, <span class="tok-string">&quot;5.&quot;</span>,
+                 <span class="tok-string">&quot;1.3e2&quot;</span>, <span class="tok-string">&quot;1E-4&quot;</span>, <span class="tok-string">&quot;1e+12&quot;</span>]) {
+  <span class="tok-keyword">if</span> (!number.test(str)) {
+    console.log(<span class="tok-string2">`Failed to match '</span>${str}<span class="tok-string2">'`</span>);
+  }
+}
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">str</span> <span class="tok-keyword">of</span> [<span class="tok-string">&quot;1a&quot;</span>, <span class="tok-string">&quot;+-1&quot;</span>, <span class="tok-string">&quot;1.2.3&quot;</span>, <span class="tok-string">&quot;1+1&quot;</span>, <span class="tok-string">&quot;1e4.5&quot;</span>,
+                 <span class="tok-string">&quot;.5.&quot;</span>, <span class="tok-string">&quot;1f5&quot;</span>, <span class="tok-string">&quot;.&quot;</span>]) {
+  <span class="tok-keyword">if</span> (number.test(str)) {
+    console.log(<span class="tok-string2">`Incorrectly accepted '</span>${str}<span class="tok-string2">'`</span>);
+  }
+}
+<span class="tok-string2">``</span><span class="tok-string2">`if}}</span>
+
+<span class="tok-string2">{{hint</span>
+
+<span class="tok-string2">{{index [&quot;expresión regular&quot;, escapar], [&quot;carácter de barra invertida&quot;, &quot;en expresiones regulares&quot;]}}</span>
+
+<span class="tok-string2">Primero, no olvides la barra invertida delante del punto.</span>
+
+<span class="tok-string2">Para hacer coincidir el ((signo)) opcional delante del ((número)), así como delante del ((exponente)), se puede hacer con `</span>[+\-]?<span class="tok-string2">` o `</span>(\+|-|)<span class="tok-string2">` (más, menos, o nada).</span>
+
+<span class="tok-string2">{{index &quot;carácter de tubería&quot;}}</span>
+
+<span class="tok-string2">La parte más complicada del ejercicio es el problema de hacer coincidir tanto `</span><span class="tok-string">&quot;5.&quot;</span><span class="tok-string2">` como `</span><span class="tok-string">&quot;.5&quot;</span><span class="tok-string2">` sin hacer coincidir también `</span><span class="tok-string">&quot;.&quot;</span><span class="tok-string2">`. Para esto, una buena solución es usar el operador `</span>|<span class="tok-string2">` para separar los dos casos: uno o más dígitos seguidos opcionalmente por un punto y cero o más dígitos _o_ un punto seguido por uno o más dígitos.</span>
+
+<span class="tok-string2">{{index exponente, &quot;sensibilidad a mayúsculas y minúsculas&quot;, [&quot;expresión regular&quot;, flags]}}</span>
+
+<span class="tok-string2">Finalmente, para hacer que el caso de la _e_ sea insensible a mayúsculas y minúsculas, añade una opción `</span>i<span class="tok-string2">` a la expresión regular o usa `</span>[eE]<span class="tok-string2">`.</span>
+
+<span class="tok-string2">hint}}</span></pre><nav><a href="08_error.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="10_modules.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+</article>
+
+<script src="ejs.js"></script>

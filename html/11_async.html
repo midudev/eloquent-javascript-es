@@ -1,0 +1,640 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Programación Asíncrona :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":11}</script></head>
+
+<article>
+<nav><a href="10_modules.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="12_language.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+
+<h1>Programación Asíncrona</h1>
+
+<p><a class="p_ident" id="p-7d8XUF7zMV" href="#p-7d8XUF7zMV" tabindex="-1" role="presentation"></a>{{meta {load_files: [“code/hangar2.js”, “code/chapter/11_async.js”], zip: “node/html”}}</p>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-50dHgvPbfK" href="#p-50dHgvPbfK" tabindex="-1" role="presentation"></a>¿Quién puede esperar en silencio mientras el barro se asienta?<br>¿Quién puede permanecer quieto hasta el momento de la acción?</p>
+
+<footer>Laozi, <cite>Tao Te Ching</cite></footer>
+
+</blockquote>
+
+<p><a class="p_ident" id="p-dLUrYLnJml" href="#p-dLUrYLnJml" tabindex="-1" role="presentation"></a>{{figure {url: “img/chapter_picture_11.jpg”, alt: “Ilustración que muestra dos cuervos en una rama de árbol”, capítulo: enmarcado}}}</p>
+
+<p><a class="p_ident" id="p-VOCX31yYLX" href="#p-VOCX31yYLX" tabindex="-1" role="presentation"></a>La parte central de una computadora, la parte que lleva a cabo los pasos individuales que componen nuestros programas, se llama el <em>procesador</em>. Los programas que hemos visto hasta ahora mantendrán ocupado al procesador hasta que hayan terminado su trabajo. La velocidad a la cual algo como un bucle que manipula números puede ser ejecutado depende casi enteramente de la velocidad del procesador y la memoria de la computadora.</p>
+
+<p><a class="p_ident" id="p-hbyVo1hWzb" href="#p-hbyVo1hWzb" tabindex="-1" role="presentation"></a>Pero muchos programas interactúan con cosas fuera del procesador. Por ejemplo, pueden comunicarse a través de una red de computadoras o solicitar datos desde el disco duro, lo cual es mucho más lento que obtenerlo de la memoria.</p>
+
+<p><a class="p_ident" id="p-sSdVomtbXO" href="#p-sSdVomtbXO" tabindex="-1" role="presentation"></a>Cuando esto está sucediendo, sería una lástima dejar el procesador inactivo, ya que podría haber otro trabajo que podría hacer en ese tiempo. En parte, esto es manejado por tu sistema operativo, el cual cambiará el procesador entre múltiples programas en ejecución. Pero eso no ayuda cuando queremos que un <em>único</em> programa pueda avanzar mientras espera una solicitud de red.</p>
+
+<h2><a class="h_ident" id="h-tfdiSubDV/" href="#h-tfdiSubDV/" tabindex="-1" role="presentation"></a>Asincronía</h2>
+
+<p><a class="p_ident" id="p-hOUZrWQWAe" href="#p-hOUZrWQWAe" tabindex="-1" role="presentation"></a>En un modelo de programación <em>sincrónico</em>, las cosas suceden una a la vez. Cuando llamas a una función que realiza una acción de larga duración, solo devuelve cuando la acción ha terminado y puede devolver el resultado. Esto detiene tu programa durante el tiempo que tome la acción.</p>
+
+<p><a class="p_ident" id="p-AfqGZZISHU" href="#p-AfqGZZISHU" tabindex="-1" role="presentation"></a>Un modelo <em>asincrónico</em> permite que múltiples cosas sucedan al mismo tiempo. Cuando inicias una acción, tu programa continúa ejecutándose. Cuando la acción termina, el programa es informado y obtiene acceso al resultado (por ejemplo, los datos leídos desde el disco).</p>
+
+<p><a class="p_ident" id="p-uV05EDkpgy" href="#p-uV05EDkpgy" tabindex="-1" role="presentation"></a>Podemos comparar la programación sincrónica y asincrónica usando un pequeño ejemplo: un programa que realiza dos solicitudes a través de la red y luego combina los resultados.</p>
+
+<p><a class="p_ident" id="p-lPwjR+DoPb" href="#p-lPwjR+DoPb" tabindex="-1" role="presentation"></a>En un entorno sincrónico, donde la función de solicitud devuelve solo después de haber hecho su trabajo, la forma más fácil de realizar esta tarea es hacer las solicitudes una después de la otra. Esto tiene la desventaja de que la segunda solicitud se iniciará solo cuando la primera haya terminado. El tiempo total tomado será al menos la suma de los dos tiempos de respuesta.</p>
+
+<p><a class="p_ident" id="p-z93EAH7YYz" href="#p-z93EAH7YYz" tabindex="-1" role="presentation"></a>La solución a este problema, en un sistema sincrónico, es iniciar hebras de control adicionales. Una <em>hebra</em> es otro programa en ejecución cuya ejecución puede ser intercalada con otros programas por el sistema operativo, ya que la mayoría de las computadoras modernas contienen múltiples procesadores, múltiples hebras incluso podrían ejecutarse al mismo tiempo, en diferentes procesadores. Una segunda hebra podría iniciar la segunda solicitud, y luego ambas hebras esperan que sus resultados regresen, después de lo cual se resincronizan para combinar sus resultados.{{index CPU, bloqueo, “programación asíncrona”, línea de tiempo, “función de devolución de llamada”}}</p>
+
+<p><a class="p_ident" id="p-Wkrmfutpwr" href="#p-Wkrmfutpwr" tabindex="-1" role="presentation"></a>En el siguiente diagrama, las líneas gruesas representan el tiempo que el programa pasa funcionando normalmente, y las líneas delgadas representan el tiempo gastado esperando a la red. En el modelo síncrono, el tiempo tomado por la red es <em>parte</em> de la línea de tiempo para un hilo de control dado. En el modelo asíncrono, iniciar una acción en la red permite que el programa continúe ejecutándose mientras la comunicación en la red sucede junto a él, notificando al programa cuando haya terminado.</p><figure><img src="img/control-io.svg" alt="Diagrama que muestra el flujo de control en programas síncronos y asíncronos. La primera parte muestra un programa síncrono, donde las fases activas y de espera del programa ocurren en una única línea secuencial. La segunda parte muestra un programa síncrono multi-hilo, con dos líneas paralelas en las cuales las partes de espera suceden una al lado de la otra, haciendo que el programa termine más rápido. La última parte muestra un programa asíncrono, donde las múltiples acciones asíncronas se ramifican desde el programa principal, el cual se detiene en algún momento y luego continúa cuando la primera cosa por la que estaba esperando finaliza."></figure>
+
+<p><a class="p_ident" id="p-TpvRIq40Yj" href="#p-TpvRIq40Yj" tabindex="-1" role="presentation"></a>{{index [“flujo de control”, asíncrono], “programación asíncrona”, verbosidad, rendimiento}}</p>
+
+<p><a class="p_ident" id="p-m0bMwsi7Hj" href="#p-m0bMwsi7Hj" tabindex="-1" role="presentation"></a>Otra forma de describir la diferencia es que esperar a que las acciones terminen es <em>implícito</em> en el modelo síncrono, mientras que es <em>explícito</em>, bajo nuestro control, en el modelo asíncrono.</p>
+
+<p><a class="p_ident" id="p-Gt0CDXTJDZ" href="#p-Gt0CDXTJDZ" tabindex="-1" role="presentation"></a>La asincronía tiene sus pros y sus contras. Facilita la expresión de programas que no encajan en el modelo de control de línea recta, pero también puede hacer que expresar programas que siguen una línea recta sea más complicado. Veremos algunas formas de reducir esta dificultad más adelante en el capítulo.</p>
+
+<p><a class="p_ident" id="p-obm8VsybKv" href="#p-obm8VsybKv" tabindex="-1" role="presentation"></a>Tanto las plataformas de programación de JavaScript prominentes —navegadores como Node.js— hacen operaciones que podrían tardar un tiempo de forma asíncrona, en lugar de depender de hilos. Dado que programar con hilos es notoriamente difícil (entender lo que hace un programa es mucho más difícil cuando está haciendo múltiples cosas a la vez), esto generalmente se considera algo bueno.</p>
+
+<h2><a class="h_ident" id="h-r4RRRjuEnZ" href="#h-r4RRRjuEnZ" tabindex="-1" role="presentation"></a>Retrollamadas</h2>
+
+<p><a class="p_ident" id="p-AnUWBgmQKm" href="#p-AnUWBgmQKm" tabindex="-1" role="presentation"></a>{{veríndice [función, devolución de llamada], “función de devolución de llamada”}}</p>
+
+<p><a class="p_ident" id="p-F908df1kGc" href="#p-F908df1kGc" tabindex="-1" role="presentation"></a>Un enfoque para la programación asíncrona es hacer que las funciones que necesitan esperar por algo tomen un argumento adicional, una <em>función de devolución de llamada</em>. La función asíncrona inicia algún proceso, configura las cosas para que se llame a la función de devolución de llamada cuando el proceso termine, y luego retorna.</p>
+
+<p><a class="p_ident" id="p-D6ZI0eQstT" href="#p-D6ZI0eQstT" tabindex="-1" role="presentation"></a>Como ejemplo, la función <code>setTimeout</code>, disponible tanto en Node.js como en los navegadores, espera un número dado de milisegundos (un segundo equivale a mil milisegundos) y luego llama a una función.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-RyFm7Uoiuv" href="#c-RyFm7Uoiuv" tabindex="-1" role="presentation"></a>setTimeout(() =&gt; console.log(<span class="tok-string">&quot;Tick&quot;</span>), <span class="tok-number">500</span>);</pre>
+
+<p><a class="p_ident" id="p-DGyxMPXUKo" href="#p-DGyxMPXUKo" tabindex="-1" role="presentation"></a>Esperar no suele ser un tipo de trabajo muy importante, pero puede ser muy útil cuando necesitas organizar que algo suceda en un momento determinado o verificar si alguna otra acción está tomando más tiempo del esperado.{{index “función readTextFile”}}</p>
+
+<p><a class="p_ident" id="p-IUCZ3FiQHh" href="#p-IUCZ3FiQHh" tabindex="-1" role="presentation"></a>Otro ejemplo de una operación asincrónica común es leer un archivo desde el almacenamiento de un dispositivo. Imagina que tienes una función <code>readTextFile</code>, la cual lee el contenido de un archivo como una cadena y lo pasa a una función de devolución de llamada.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-W+pevJMeqq" href="#c-W+pevJMeqq" tabindex="-1" role="presentation"></a>readTextFile(<span class="tok-string">&quot;lista_de_compras.txt&quot;</span>, <span class="tok-definition">contenido</span> =&gt; {
+  console.log(<span class="tok-string2">`Lista de Compras:\n</span>${contenido}<span class="tok-string2">`</span>);
+});
+<span class="tok-comment">// → Lista de Compras:</span>
+<span class="tok-comment">// → Mantequilla de cacahuate</span>
+<span class="tok-comment">// → Plátanos</span></pre>
+
+<p><a class="p_ident" id="p-+9d/1JmuUd" href="#p-+9d/1JmuUd" tabindex="-1" role="presentation"></a>La función <code>readTextFile</code> no es parte del estándar de JavaScript. Veremos cómo leer archivos en el navegador y en Node.js en capítulos posteriores.</p>
+
+<p><a class="p_ident" id="p-YF9vn5sToC" href="#p-YF9vn5sToC" tabindex="-1" role="presentation"></a>Realizar múltiples acciones asincrónicas en fila usando devoluciones de llamada significa que tienes que seguir pasando nuevas funciones para manejar la continuación de la computación después de las acciones. Así es como podría verse una función asincrónica que compara dos archivos y produce un booleano que indica si su contenido es el mismo.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NvOoAKarwY" href="#c-NvOoAKarwY" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">compararArchivos</span>(<span class="tok-definition">archivoA</span>, <span class="tok-definition">archivoB</span>, <span class="tok-definition">devolucionLlamada</span>) {
+  readTextFile(archivoA, <span class="tok-definition">contenidoA</span> =&gt; {
+    readTextFile(archivoB, <span class="tok-definition">contenidoB</span> =&gt; {
+      devolucionLlamada(contenidoA == contenidoB);
+    });
+  });
+}</pre>
+
+<p><a class="p_ident" id="p-BF6VvMVpzu" href="#p-BF6VvMVpzu" tabindex="-1" role="presentation"></a>Este estilo de programación es funcional, pero el nivel de indentación aumenta con cada acción asincrónica porque terminas en otra función. Hacer cosas más complicadas, como envolver acciones asincrónicas en un bucle, puede ser incómodo.</p>
+
+<p><a class="p_ident" id="p-E60GIBKpBQ" href="#p-E60GIBKpBQ" tabindex="-1" role="presentation"></a>De alguna manera, la asincronía es contagiosa. Cualquier función que llame a una función que trabaja de forma asincrónica debe ser asincrónica en sí misma, utilizando una devolución de llamada u otro mecanismo similar para entregar su resultado. Llamar a una devolución de llamada es algo más complicado y propenso a errores que simplemente devolver un valor, por lo que necesitar estructurar grandes partes de tu programa de esa manera no es ideal.</p>
+
+<h2><a class="h_ident" id="h-O5NEmIaSuD" href="#h-O5NEmIaSuD" tabindex="-1" role="presentation"></a>Promesas</h2>
+
+<p><a class="p_ident" id="p-ltS3in1H1E" href="#p-ltS3in1H1E" tabindex="-1" role="presentation"></a>Una forma ligeramente diferente de construir un programa asincrónico es hacer que las funciones asincrónicas devuelvan un objeto que represente su resultado (futuro) en lugar de pasar devoluciones de llamada por todas partes. De esta manera, tales funciones realmente devuelven algo significativo, y la estructura del programa se asemeja más a la de los programas síncronos.</p>
+
+<p><a class="p_ident" id="p-3ArPEeb3po" href="#p-3ArPEeb3po" tabindex="-1" role="presentation"></a>Para esto sirve la clase estándar <code>Promise</code>. Una <em>promesa</em> es un recibo que representa un valor que aún puede no estar disponible. Proporciona un método <code>then</code> que te permite registrar una función que debe ser llamada cuando la acción por la que está esperando finalice. Cuando la promesa se <em>resuelve</em>, es decir, su valor se vuelve disponible, esas funciones (puede haber varias) son llamadas con el valor del resultado. Es posible llamar a <code>then</code> en una promesa que ya ha sido resuelta; tu función seguirá siendo llamada.</p>
+
+<p><a class="p_ident" id="p-RGlDUtOJ93" href="#p-RGlDUtOJ93" tabindex="-1" role="presentation"></a>La forma más sencilla de crear una promesa es llamando a <code>Promise.resolve</code>. Esta función se asegura de que el valor que le proporcionas esté envuelto en una promesa. Si ya es una promesa, simplemente se devuelve; de lo contrario, obtienes una nueva promesa que se resuelve de inmediato con tu valor como resultado.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-PQuvdLBL68" href="#c-PQuvdLBL68" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">quince</span> = Promise.resolve(<span class="tok-number">15</span>);
+quince.then(<span class="tok-definition">valor</span> =&gt; console.log(<span class="tok-string2">`Obtenido </span>${valor}<span class="tok-string2">`</span>));
+<span class="tok-comment">// → Obtenido 15</span></pre>
+
+<p><a class="p_ident" id="p-c4wtF3+bV/" href="#p-c4wtF3+bV/" tabindex="-1" role="presentation"></a>Para crear una promesa que no se resuelva inmediatamente, puedes utilizar <code>Promise</code> como constructor. Tiene una interfaz un tanto extraña: el constructor espera una función como argumento, la cual llama inmediatamente, pasándole una función que puede utilizar para resolver la promesa.</p>
+
+<p><a class="p_ident" id="p-C4xSB0FUME" href="#p-C4xSB0FUME" tabindex="-1" role="presentation"></a>Así es como podrías crear una interfaz basada en promesas para la función <code>readTextFile</code>:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-2C6M2ihbOc" href="#c-2C6M2ihbOc" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">textFile</span>(<span class="tok-definition">nombreArchivo</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">resolve</span> =&gt; {
+    readTextFile(nombreArchivo, <span class="tok-definition">texto</span> =&gt; resolve(texto));
+  });
+}
+
+textFile(<span class="tok-string">&quot;planes.txt&quot;</span>).then(console.log);</pre>
+
+<p><a class="p_ident" id="p-sr4id/GYVf" href="#p-sr4id/GYVf" tabindex="-1" role="presentation"></a>Observa cómo esta función asíncrona devuelve un valor significativo: una promesa para proporcionarte el contenido del archivo en algún momento futuro.</p>
+
+<p><a class="p_ident" id="p-JzjtMWC7B5" href="#p-JzjtMWC7B5" tabindex="-1" role="presentation"></a>Una característica útil del método <code>then</code> es que él mismo devuelve otra promesa que se resuelve al valor retornado por la función de devolución de llamada o, si esa función devuelve una promesa, al valor al que esa promesa se resuelve. De esta forma, puedes “encadenar” varias llamadas a <code>then</code> para configurar una secuencia de acciones asíncronas.</p>
+
+<p><a class="p_ident" id="p-kO8eylKtGY" href="#p-kO8eylKtGY" tabindex="-1" role="presentation"></a>Esta función, la cual lee un archivo lleno de nombres de archivos y devuelve el contenido de un archivo aleatorio de esa lista, muestra este tipo de cadena asíncrona de promesas.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Hb690LALZU" href="#c-Hb690LALZU" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">randomFile</span>(<span class="tok-definition">archivoLista</span>) {
+  <span class="tok-keyword">return</span> textFile(archivoLista)
+    .then(<span class="tok-definition">contenido</span> =&gt; contenido.trim().split(<span class="tok-string">&quot;</span><span class="tok-string2">\n</span><span class="tok-string">&quot;</span>))
+    .then(<span class="tok-definition">ls</span> =&gt; ls[Math.floor(Math.random() * ls.length)])
+    .then(<span class="tok-definition">nombreArchivo</span> =&gt; textFile(nombreArchivo));
+}</pre>
+
+<p><a class="p_ident" id="p-vwGbLsp+ut" href="#p-vwGbLsp+ut" tabindex="-1" role="presentation"></a>La función devuelve el resultado de esta cadena de llamadas a <code>then</code>. La promesa inicial obtiene la lista de archivos como una cadena. La primera llamada a <code>then</code> transforma esa cadena en un array de líneas, produciendo una nueva promesa. La segunda llamada a <code>then</code> elige una línea aleatoria de eso, produciendo una tercera promesa que arroja un único nombre de archivo. La llamada final a <code>then</code> lee este archivo, de modo que el resultado de la función en su totalidad es una promesa que devuelve el contenido de un archivo aleatorio.</p>
+
+<p><a class="p_ident" id="p-WSdli2Whfb" href="#p-WSdli2Whfb" tabindex="-1" role="presentation"></a>En este código, las funciones utilizadas en las primeras dos llamadas a <code>then</code> devuelven un valor regular, que se pasará inmediatamente a la promesa devuelta por <code>then</code> cuando la función regrese. La última devuelve una promesa (<code>textFile(nombreArchivo)</code>), convirtiéndola en un paso asincrónico real.</p>
+
+<p><a class="p_ident" id="p-z9ZsQuS8Cj" href="#p-z9ZsQuS8Cj" tabindex="-1" role="presentation"></a>También habría sido posible realizar todos estos pasos dentro de un solo callback de <code>then</code>, ya que solo el último paso es realmente asíncrono. Pero los tipos de envolturas <code>then</code> que solo realizan alguna transformación de datos síncrona son a menudo útiles, por ejemplo, cuando deseas devolver una promesa que produzca una versión procesada de algún resultado asíncrono.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Q3vBSBU3QB" href="#c-Q3vBSBU3QB" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">jsonFile</span>(<span class="tok-definition">nombreArchivo</span>) {
+  <span class="tok-keyword">return</span> textFile(nombreArchivo).then(JSON.parse);
+}
+
+jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.log);</pre>
+
+<p><a class="p_ident" id="p-lXBankL5QR" href="#p-lXBankL5QR" tabindex="-1" role="presentation"></a>En general, es útil pensar en las promesas como un mecanismo que permite al código ignorar la pregunta de cuándo va a llegar un valor. Un valor normal tiene que existir realmente antes de que podamos hacer referencia a él. Un valor prometido es un valor que <em>puede</em> estar allí o podría aparecer en algún momento en el futuro. Las operaciones definidas en términos de promesas, al conectarlas con llamadas <code>then</code>, se ejecutan de forma asíncrona a medida que sus entradas están disponibles.## Falla</p>
+
+<p><a class="p_ident" id="p-+fxovQGwNA" href="#p-+fxovQGwNA" tabindex="-1" role="presentation"></a>Las computaciones regulares de JavaScript pueden fallar al lanzar una excepción. Las computaciones asíncronas a menudo necesitan algo así. Una solicitud de red puede fallar, un archivo puede no existir, o algún código que forma parte de la computación asíncrona puede lanzar una excepción.</p>
+
+<p><a class="p_ident" id="p-8XWhkwl0eo" href="#p-8XWhkwl0eo" tabindex="-1" role="presentation"></a>Uno de los problemas más apremiantes con el estilo de programación asíncrona basado en devoluciones de llamada es que hace extremadamente difícil asegurarse de que las fallas se informen adecuadamente a las devoluciones de llamada.</p>
+
+<p><a class="p_ident" id="p-r4LVn4wZ0P" href="#p-r4LVn4wZ0P" tabindex="-1" role="presentation"></a>Una convención ampliamente utilizada es que el primer argumento de la devolución de llamada se utiliza para indicar que la acción falló, y el segundo contiene el valor producido por la acción cuando fue exitosa.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/lUgiJQG9L" href="#c-/lUgiJQG9L" tabindex="-1" role="presentation"></a>unaFuncionAsincrona((<span class="tok-definition">error</span>, <span class="tok-definition">valor</span>) =&gt; {
+  <span class="tok-keyword">if</span> (error) manejarError(error);
+  <span class="tok-keyword">else</span> procesarValor(valor);
+});</pre>
+
+<p><a class="p_ident" id="p-WOsDKk7EQx" href="#p-WOsDKk7EQx" tabindex="-1" role="presentation"></a>Tales funciones de devolución de llamada siempre deben verificar si recibieron una excepción y asegurarse de que cualquier problema que causen, incluidas las excepciones lanzadas por las funciones que llaman, se capturen y se den a la función correcta.</p>
+
+<p><a class="p_ident" id="p-4XJanqagJR" href="#p-4XJanqagJR" tabindex="-1" role="presentation"></a>Las promesas facilitan esto. Pueden ser o bien resueltas (la acción se completó con éxito) o rechazadas (falló). Los manejadores de resolución (como se registran con <code>then</code>) se llaman solo cuando la acción es exitosa, y los rechazos se propagan a la nueva promesa que es devuelta por <code>then</code>. Cuando un manejador lanza una excepción, esto causa automáticamente que la promesa producida por la llamada a su <code>then</code> sea rechazada. Entonces, si algún elemento en una cadena de acciones asíncronas falla, el resultado de toda la cadena se marca como rechazado, y no se llaman manejadores de éxito más allá del punto donde falló.</p>
+
+<p><a class="p_ident" id="p-JZgXPDvBUG" href="#p-JZgXPDvBUG" tabindex="-1" role="presentation"></a>Al igual que resolver una promesa proporciona un valor, rechazar una también lo hace, generalmente llamado el <em>motivo</em> del rechazo. Cuando una excepción en una función manejadora causa el rechazo, el valor de la excepción se usa como el motivo. De manera similar, cuando una función manejadora devuelve una promesa que es rechazada, ese rechazo fluye hacia la siguiente promesa. Existe una función <code>Promise.reject</code> que crea una nueva promesa inmediatamente rechazada.</p>
+
+<p><a class="p_ident" id="p-gAl8dny3ZI" href="#p-gAl8dny3ZI" tabindex="-1" role="presentation"></a>Para manejar explícitamente tales rechazos, las promesas tienen un método <code>catch</code> que registra un manejador para ser llamado cuando la promesa es rechazada, similar a cómo los manejadores de <code>then</code> manejan la resolución normal. También es muy similar a <code>then</code> en que devuelve una nueva promesa, que se resuelve con el valor de la promesa original cuando se resuelve normalmente y con el resultado del manejador <code>catch</code> en caso contrario. Si un manejador de <code>catch</code> lanza un error, la nueva promesa también se rechaza.</p>
+
+<p><a class="p_ident" id="p-SHY7aonJ/O" href="#p-SHY7aonJ/O" tabindex="-1" role="presentation"></a>Como un atajo, <code>then</code> también acepta un manejador de rechazo como segundo argumento, para poder instalar ambos tipos de manejadores en una sola llamada de método.</p>
+
+<p><a class="p_ident" id="p-cAXjTS7KlW" href="#p-cAXjTS7KlW" tabindex="-1" role="presentation"></a>Una función pasada al constructor <code>Promise</code> recibe un segundo argumento, junto con la función de resolución, que puede usar para rechazar la nueva promesa.Cuando nuestra función <code>readTextFile</code> encuentra un problema, pasa el error a su función de devolución de llamada como segundo argumento. Nuestro envoltorio <code>textFile</code> debería realmente examinar ese argumento, de manera que un fallo cause que la promesa que devuelve sea rechazada.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Z3TGL4evDx" href="#c-Z3TGL4evDx" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">textFile</span>(<span class="tok-definition">filename</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise((<span class="tok-definition">resolve</span>, <span class="tok-definition">reject</span>) =&gt; {
+    readTextFile(filename, (<span class="tok-definition">text</span>, <span class="tok-definition">error</span>) =&gt; {
+      <span class="tok-keyword">if</span> (error) reject(error);
+      <span class="tok-keyword">else</span> resolve(text);
+    });
+  });
+}</pre>
+
+<p><a class="p_ident" id="p-LtILeb1bZh" href="#p-LtILeb1bZh" tabindex="-1" role="presentation"></a>Las cadenas de valores de promesa creadas por llamadas a <code>then</code> y <code>catch</code> forman así un pipeline a través del cual se mueven los valores asíncronos o fallos. Dado que dichas cadenas se crean registrando manejadores, cada eslabón tiene asociado un manejador de éxito o un manejador de rechazo (o ambos). Los manejadores que no coinciden con el tipo de resultado (éxito o fallo) son ignorados. Pero aquellos que coinciden son llamados, y su resultado determina qué tipo de valor viene a continuación: éxito cuando devuelve un valor que no es una promesa, rechazo cuando genera una excepción, y el resultado de la promesa cuando devuelve una promesa.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-2Eh0hD89OR" href="#c-2Eh0hD89OR" tabindex="-1" role="presentation"></a><span class="tok-keyword">new</span> Promise((<span class="tok-definition">_</span>, <span class="tok-definition">reject</span>) =&gt; reject(<span class="tok-keyword">new</span> Error(<span class="tok-string">&quot;Fail&quot;</span>)))
+  .then(<span class="tok-definition">value</span> =&gt; console.log(<span class="tok-string">&quot;Manejador 1:&quot;</span>, value))
+  .catch(<span class="tok-definition">reason</span> =&gt; {
+    console.log(<span class="tok-string">&quot;Error capturado &quot;</span> + reason);
+    <span class="tok-keyword">return</span> <span class="tok-string">&quot;nada&quot;</span>;
+  })
+  .then(<span class="tok-definition">value</span> =&gt; console.log(<span class="tok-string">&quot;Manejador 2:&quot;</span>, value));
+<span class="tok-comment">// → Error capturado Error: Fail</span>
+<span class="tok-comment">// → Handler 2: nothing</span></pre>
+
+<p><a class="p_ident" id="p-iBD0Lbg2Bk" href="#p-iBD0Lbg2Bk" tabindex="-1" role="presentation"></a>La primera función de manejador regular no es llamada, porque en ese punto del pipeline la promesa contiene un rechazo. El manejador <code>catch</code> maneja ese rechazo y devuelve un valor, que se le da a la segunda función de manejador.</p>
+
+<p><a class="p_ident" id="p-nAXpd8J86T" href="#p-nAXpd8J86T" tabindex="-1" role="presentation"></a>Cuando una excepción no controlada es manejada por el entorno, los entornos de JavaScript pueden detectar cuándo un rechazo de promesa no es manejado y lo reportarán como un error.</p>
+
+<h2><a class="h_ident" id="h-XxJsV0JUaZ" href="#h-XxJsV0JUaZ" tabindex="-1" role="presentation"></a>Carla</h2>
+
+<p><a class="p_ident" id="p-sI2r0mTENb" href="#p-sI2r0mTENb" tabindex="-1" role="presentation"></a>Es un día soleado en Berlín. La pista del antiguo aeropuerto desmantelado rebosa de ciclistas y patinadores en línea. En el césped cerca de un contenedor de basura un grupo de cuervos se agita ruidosamente, intentando convencer a un grupo de turistas de que les den sus sándwiches.</p>
+
+<p><a class="p_ident" id="p-jIHoxx51eu" href="#p-jIHoxx51eu" tabindex="-1" role="presentation"></a>Uno de los cuervos destaca: una hembra grande andrajosa con algunas plumas blancas en su ala derecha. Está atrayendo a la gente con habilidad y confianza que sugieren que ha estado haciendo esto durante mucho tiempo. Cuando un anciano se distrae con las travesuras de otro cuervo, ella se abalanza casualmente, arrebata su bollo a medio comer de su mano y se aleja planeando.</p>
+
+<p><a class="p_ident" id="p-cvIv/A82B2" href="#p-cvIv/A82B2" tabindex="-1" role="presentation"></a>A diferencia del resto del grupo, que parece estar feliz de pasar el día holgazaneando aquí, el cuervo grande parece tener un propósito. Llevando su botín, vuela directamente hacia el techo del edificio del hangar, desapareciendo en una rejilla de ventilación.</p>
+
+<p><a class="p_ident" id="p-LznaJcdrKY" href="#p-LznaJcdrKY" tabindex="-1" role="presentation"></a>Dentro del edificio, se puede escuchar un sonido peculiar: suave, pero persistente. Viene de un espacio estrecho bajo el techo de una escalera sin terminar. El cuervo está sentado allí, rodeado de sus botines robados, media docena de teléfonos inteligentes (varios de los cuales están encendidos) y un enredo de cables. Golpea rápidamente la pantalla de uno de los teléfonos con su pico. Aparecen palabras en él. Si no supieras mejor, pensarías que estaba escribiendo.Este cuervo es conocido por sus pares como “cāāw-krö&quot;. Pero dado que esos sonidos no son adecuados para las cuerdas vocales humanas, la llamaremos Carla.</p>
+
+<p><a class="p_ident" id="p-qyFUB1V+JF" href="#p-qyFUB1V+JF" tabindex="-1" role="presentation"></a>Carla es un cuervo algo peculiar. En su juventud, estaba fascinada por el lenguaje humano, escuchando a la gente hasta que tuvo un buen entendimiento de lo que decían. Más tarde, su interés se trasladó a la tecnología humana, y comenzó a robar teléfonos para estudiarlos. Su proyecto actual es aprender a programar. El texto que está escribiendo en su laboratorio secreto, de hecho, es un fragmento de código JavaScript.</p>
+
+<h2><a class="h_ident" id="h-/5q4Gr2m3m" href="#h-/5q4Gr2m3m" tabindex="-1" role="presentation"></a>Infiltración</h2>
+
+<p><a class="p_ident" id="p-lIH7NawKaH" href="#p-lIH7NawKaH" tabindex="-1" role="presentation"></a>A Carla le encanta Internet. Fastidiosamente, el teléfono en el que está trabajando está a punto de quedarse sin datos prepagos. El edificio tiene una red inalámbrica, pero se requiere un código para acceder a ella.</p>
+
+<p><a class="p_ident" id="p-8ZznJOIiK/" href="#p-8ZznJOIiK/" tabindex="-1" role="presentation"></a>Afortunadamente, los enrutadores inalámbricos en el edificio tienen 20 años y están mal protegidos. Tras investigar un poco, Carla descubre que el mecanismo de autenticación de la red tiene una falla que puede aprovechar. Al unirse a la red, un dispositivo debe enviar el código correcto de 6 dígitos. El punto de acceso responderá con un mensaje de éxito o fracaso dependiendo de si se proporciona el código correcto. Sin embargo, al enviar solo un código parcial (digamos, solo 3 dígitos), la respuesta es diferente según si esos dígitos son el inicio correcto del código o no. Cuando se envía un número incorrecto, se recibe inmediatamente un mensaje de fracaso. Cuando se envían los correctos, el punto de acceso espera más dígitos.</p>
+
+<p><a class="p_ident" id="p-Jzo5cZ0BBA" href="#p-Jzo5cZ0BBA" tabindex="-1" role="presentation"></a>Esto hace posible acelerar enormemente la adivinación del número. Carla puede encontrar el primer dígito probando cada número a su vez, hasta que encuentre uno que no devuelva inmediatamente un fracaso. Teniendo un dígito, puede encontrar el segundo de la misma manera, y así sucesivamente, hasta que conozca todo el código de acceso.</p>
+
+<p><a class="p_ident" id="p-RIZ6rVDtx9" href="#p-RIZ6rVDtx9" tabindex="-1" role="presentation"></a>Supongamos que tenemos una función <code>joinWifi</code>. Dado el nombre de la red y el código de acceso (como una cadena), intenta unirse a la red, devolviendo una promesa que se resuelve si tiene éxito, y se rechaza si la autenticación falla. Lo primero que necesitamos es una forma de envolver una promesa para que se rechace automáticamente después de transcurrir demasiado tiempo, de manera que podamos avanzar rápidamente si el punto de acceso no responde.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yGIEN33W5z" href="#c-yGIEN33W5z" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">withTimeout</span>(<span class="tok-definition">promise</span>, <span class="tok-definition">tiempo</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise((<span class="tok-definition">resolve</span>, <span class="tok-definition">reject</span>) =&gt; {
+    promise.then(resolve, reject);
+    setTimeout(() =&gt; reject(<span class="tok-string">&quot;Se agotó el tiempo&quot;</span>), tiempo);
+  });
+}</pre>
+
+<p><a class="p_ident" id="p-5b6JDzOqB2" href="#p-5b6JDzOqB2" tabindex="-1" role="presentation"></a>Esto aprovecha el hecho de que una promesa solo puede resolverse o rechazarse una vez: si la promesa dada como argumento se resuelve o se rechaza primero, ese será el resultado de la promesa devuelta por <code>withTimeout</code>. Si, por otro lado, el <code>setTimeout</code> se ejecuta primero, rechazando la promesa, se ignoran cualquier llamada posterior a resolve o reject.</p>
+
+<p><a class="p_ident" id="p-aGXBBNJk0l" href="#p-aGXBBNJk0l" tabindex="-1" role="presentation"></a>Para encontrar todo el código de acceso, necesitamos buscar repetidamente el siguiente dígito probando cada dígito. Si la autenticación tiene éxito, sabremos que hemos encontrado lo que buscamos. Si falla inmediatamente, sabremos que ese dígito era incorrecto y debemos probar con el siguiente. Si la solicitud se agota, hemos encontrado otro dígito correcto y debemos continuar agregando otro dígito.Debido a que no puedes esperar una promesa dentro de un bucle <code>for</code>, Carla utiliza una función recursiva para llevar a cabo este proceso. En cada llamada, obtiene el código tal como lo conocemos hasta ahora, así como el siguiente dígito a probar. Dependiendo de lo que suceda, puede devolver un código terminado, o llamar de nuevo a sí misma, ya sea para comenzar a descifrar la siguiente posición en el código, o para intentarlo de nuevo con otro dígito.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-rKTBHF8p2l" href="#c-rKTBHF8p2l" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">crackPasscode</span>(<span class="tok-definition">networkID</span>) {
+  <span class="tok-keyword">function</span> <span class="tok-definition">nextDigit</span>(<span class="tok-definition">code</span>, <span class="tok-definition">digit</span>) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">newCode</span> = code + digit;
+    <span class="tok-keyword">return</span> withTimeout(joinWifi(networkID, newCode), <span class="tok-number">50</span>)
+      .then(() =&gt; newCode)
+      .catch(<span class="tok-definition">failure</span> =&gt; {
+        <span class="tok-keyword">if</span> (failure == <span class="tok-string">&quot;Timed out&quot;</span>) {
+          <span class="tok-keyword">return</span> nextDigit(newCode, <span class="tok-number">0</span>);
+        } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (digit &lt; <span class="tok-number">9</span>) {
+          <span class="tok-keyword">return</span> nextDigit(code, digit + <span class="tok-number">1</span>);
+        } <span class="tok-keyword">else</span> {
+          <span class="tok-keyword">throw</span> failure;
+        }
+      });
+  }
+  <span class="tok-keyword">return</span> nextDigit(<span class="tok-string">&quot;&quot;</span>, <span class="tok-number">0</span>);
+}</pre>
+
+<p><a class="p_ident" id="p-7c/57tY3Ft" href="#p-7c/57tY3Ft" tabindex="-1" role="presentation"></a>El punto de acceso suele responder a solicitudes de autenticación incorrectas en aproximadamente 20 milisegundos, por lo que, para estar seguros, esta función espera 50 milisegundos antes de hacer expirar una solicitud.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-QKY6kJy25c" href="#c-QKY6kJy25c" tabindex="-1" role="presentation"></a>crackPasscode(<span class="tok-string">&quot;HANGAR 2&quot;</span>).then(console.log);
+<span class="tok-comment">// → 555555</span></pre>
+
+<p><a class="p_ident" id="p-KpmbzaGvuk" href="#p-KpmbzaGvuk" tabindex="-1" role="presentation"></a>Carla inclina la cabeza y suspira. Esto habría sido más satisfactorio si el código hubiera sido un poco más difícil de adivinar.</p>
+
+<h2><a class="h_ident" id="h-NGTlK4NQNX" href="#h-NGTlK4NQNX" tabindex="-1" role="presentation"></a>Funciones asíncronas</h2>
+
+<p><a class="p_ident" id="p-1bcWQeAU8b" href="#p-1bcWQeAU8b" tabindex="-1" role="presentation"></a>Incluso con promesas, este tipo de código asíncrono es molesto de escribir. Las promesas a menudo necesitan ser encadenadas de manera verbosa y arbitraria. Y nos vimos obligados a introducir una función recursiva solo para crear un bucle.</p>
+
+<p><a class="p_ident" id="p-JTBQPMRuqH" href="#p-JTBQPMRuqH" tabindex="-1" role="presentation"></a>Lo que la función de descifrado realmente hace es completamente lineal: siempre espera a que la acción anterior se complete antes de comenzar la siguiente. En un modelo de programación síncrona, sería más sencillo de expresar.</p>
+
+<p><a class="p_ident" id="p-G5SArOKa1V" href="#p-G5SArOKa1V" tabindex="-1" role="presentation"></a>La buena noticia es que JavaScript te permite escribir código pseudo-sincrónico para describir la computación asíncrona. Una función <code>async</code> es una función que implícitamente devuelve una promesa y que puede, en su cuerpo, <code>await</code> otras promesas de una manera que <em>parece</em> sincrónica.</p>
+
+<p><a class="p_ident" id="p-QE3XBITstL" href="#p-QE3XBITstL" tabindex="-1" role="presentation"></a>Podemos reescribir <code>crackPasscode</code> de la siguiente manera:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-f8fODDM35B" href="#c-f8fODDM35B" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">crackPasscode</span>(<span class="tok-definition">networkID</span>) {
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">code</span> = <span class="tok-string">&quot;&quot;</span>;;) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">digit</span> = <span class="tok-number">0</span>;; digit++) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">newCode</span> = code + digit;
+      <span class="tok-keyword">try</span> {
+        <span class="tok-keyword">await</span> withTimeout(joinWifi(networkID, newCode), <span class="tok-number">50</span>);
+        <span class="tok-keyword">return</span> newCode;
+      } <span class="tok-keyword">catch</span> (<span class="tok-definition">failure</span>) {
+        <span class="tok-keyword">if</span> (failure == <span class="tok-string">&quot;Timed out&quot;</span>) {
+          code = newCode;
+          <span class="tok-keyword">break</span>;
+        } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (digit == <span class="tok-number">9</span>) {
+          <span class="tok-keyword">throw</span> failure;
+        }
+      }
+    }
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-+4mFixoWg7" href="#p-+4mFixoWg7" tabindex="-1" role="presentation"></a>Esta versión muestra de manera más clara la estructura de doble bucle de la función (el bucle interno prueba el dígito 0 al 9, el bucle externo añade dígitos al código de acceso).</p>
+
+<p><a class="p_ident" id="p-EizoMH3UA0" href="#p-EizoMH3UA0" tabindex="-1" role="presentation"></a>Una función <code>async</code> está marcada con la palabra <code>async</code> antes de la palabra clave <code>function</code>. Los métodos también pueden ser marcados como <code>async</code> escribiendo <code>async</code> antes de su nombre. Cuando se llama a una función o método de esta manera, devuelve una promesa. Tan pronto como la función devuelve algo, esa promesa se resuelve. Si el cuerpo genera una excepción, la promesa es rechazada.{{index “await keyword”, [“control flow”, asynchronous]}}</p>
+
+<p><a class="p_ident" id="p-GXfnmGh9zs" href="#p-GXfnmGh9zs" tabindex="-1" role="presentation"></a>Dentro de una función <code>async</code>, la palabra <code>await</code> puede colocarse delante de una expresión para esperar a que una promesa se resuelva y luego continuar con la ejecución de la función. Si la promesa es rechazada, se genera una excepción en el punto del <code>await</code>.</p>
+
+<p><a class="p_ident" id="p-o9TSZxwXki" href="#p-o9TSZxwXki" tabindex="-1" role="presentation"></a>Una función así ya no se ejecuta, como una función regular de JavaScript, de principio a fin de una sola vez. En su lugar, puede estar <em>congelada</em> en cualquier punto que tenga un <code>await</code>, y puede continuar más tarde.</p>
+
+<p><a class="p_ident" id="p-YwhF0rS3qb" href="#p-YwhF0rS3qb" tabindex="-1" role="presentation"></a>Para la mayoría del código asíncrono, esta notación es más conveniente que usar directamente promesas. Aún necesitas comprender las promesas, ya que en muchos casos todavía interactúas con ellas directamente. Pero al encadenarlas, las funciones <code>async</code> suelen ser más agradables de escribir que encadenar llamadas <code>then</code>.</p>
+
+<h2 id="generator"><a class="h_ident" id="h-LGLwBM7N7Q" href="#h-LGLwBM7N7Q" tabindex="-1" role="presentation"></a>Generadores</h2>
+
+<p><a class="p_ident" id="p-vucanJZjN2" href="#p-vucanJZjN2" tabindex="-1" role="presentation"></a>Esta capacidad de pausar y luego reanudar funciones no es exclusiva de las funciones <code>async</code>. JavaScript también tiene una característica llamada <em>generador</em> functions. Son similares, pero sin las promesas.</p>
+
+<p><a class="p_ident" id="p-XRry3BevpR" href="#p-XRry3BevpR" tabindex="-1" role="presentation"></a>Cuando defines una función con <code>function*</code> (colocando un asterisco después de la palabra <code>function</code>), se convierte en un generador. Al llamar a un generador, devuelve un iterador, que ya vimos en <a href="06_object.html">Capítulo 6</a>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-B4ek89g871" href="#c-B4ek89g871" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span><span class="tok-keyword">*</span> <span class="tok-definition">powers</span>(<span class="tok-definition">n</span>) {
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">current</span> = n;; current *= n) {
+    <span class="tok-keyword">yield</span> current;
+  }
+}
+
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">power</span> <span class="tok-keyword">of</span> powers(<span class="tok-number">3</span>)) {
+  <span class="tok-keyword">if</span> (power &gt; <span class="tok-number">50</span>) <span class="tok-keyword">break</span>;
+  console.log(power);
+}
+<span class="tok-comment">// → 3</span>
+<span class="tok-comment">// → 9</span>
+<span class="tok-comment">// → 27</span></pre>
+
+<p><a class="p_ident" id="p-aD9V5e562+" href="#p-aD9V5e562+" tabindex="-1" role="presentation"></a>Inicialmente, al llamar a <code>powers</code>, la función se congela desde el principio. Cada vez que llamas a <code>next</code> en el iterador, la función se ejecuta hasta que encuentra una expresión <code>yield</code>, que la pausa y hace que el valor generado se convierta en el próximo valor producido por el iterador. Cuando la función retorna (la del ejemplo nunca lo hace), el iterador ha terminado.</p>
+
+<p><a class="p_ident" id="p-+edzRQNWn2" href="#p-+edzRQNWn2" tabindex="-1" role="presentation"></a>Escribir iteradores a menudo es mucho más fácil cuando usas funciones generadoras. El iterador para la clase <code>Group</code> (del ejercicio en <a href="06_object.html#group_iterator">Capítulo 6</a>) se puede escribir con este generador:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-C6OZWjI9EM" href="#c-C6OZWjI9EM" tabindex="-1" role="presentation"></a>Group.prototype[Symbol.iterator] = <span class="tok-keyword">function</span><span class="tok-keyword">*</span>() {
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; <span class="tok-keyword">this</span>.members.length; i++) {
+    <span class="tok-keyword">yield</span> <span class="tok-keyword">this</span>.members[i];
+  }
+};</pre>
+
+<p><a class="p_ident" id="p-Tcmh5kj782" href="#p-Tcmh5kj782" tabindex="-1" role="presentation"></a>Ya no es necesario crear un objeto para mantener el estado de la iteración: los generadores guardan automáticamente su estado local cada vez que hacen un <code>yield</code>.</p>
+
+<p><a class="p_ident" id="p-C276cu76si" href="#p-C276cu76si" tabindex="-1" role="presentation"></a>Tales expresiones <code>yield</code> solo pueden ocurrir directamente en la función generadora misma y no en una función interna que definas dentro de ella. El estado que un generador guarda, al hacer yield, es solo su entorno <em>local</em> y la posición donde hizo el yield.</p>
+
+<p><a class="p_ident" id="p-pzLWf0oAA3" href="#p-pzLWf0oAA3" tabindex="-1" role="presentation"></a>Una función <code>async</code> es un tipo especial de generador. Produce una promesa al llamarla, la cual se resuelve cuando retorna (termina) y se rechaza cuando arroja una excepción. Cada vez que hace un yield (awaits) una promesa, el resultado de esa promesa (valor o excepción generada) es el resultado de la expresión <code>await</code>.## Un Proyecto de Arte de Corvidos</p>
+
+<p><a class="p_ident" id="p-EIAKJkXc8j" href="#p-EIAKJkXc8j" tabindex="-1" role="presentation"></a>Esta mañana, Carla se despertó con un ruido desconocido en la pista de aterrizaje fuera de su hangar. Saltando al borde del techo, ve que los humanos están preparando algo. Hay muchos cables eléctricos, un escenario y una especie de gran pared negra que están construyendo.</p>
+
+<p><a class="p_ident" id="p-7+FP7NBriA" href="#p-7+FP7NBriA" tabindex="-1" role="presentation"></a>Siendo una cuerva curiosa, Carla echa un vistazo más de cerca a la pared. Parece estar compuesta por varios dispositivos grandes con frente de vidrio conectados a cables. En la parte trasera, los dispositivos dicen “LedTec SIG-5030”.</p>
+
+<p><a class="p_ident" id="p-yBNrkTbIgn" href="#p-yBNrkTbIgn" tabindex="-1" role="presentation"></a>Una rápida búsqueda en Internet saca a relucir un manual de usuario para estos dispositivos. Parecen ser señales de tráfico, con una matriz programable de luces LED ambarinas. La intención de los humanos probablemente sea mostrar algún tipo de información en ellas durante su evento. Curiosamente, las pantallas pueden ser programadas a través de una red inalámbrica. ¿Podría ser que estén conectadas a la red local del edificio?</p>
+
+<p><a class="p_ident" id="p-4e69YlbBkR" href="#p-4e69YlbBkR" tabindex="-1" role="presentation"></a>Cada dispositivo en una red recibe una <em>dirección IP</em>, que otros dispositivos pueden usar para enviarle mensajes. Hablamos más sobre eso en el <a href="13_browser.html">Capítulo 13</a>. Carla nota que sus propios teléfonos reciben direcciones como <code>10.0.0.20</code> o <code>10.0.0.33</code>. Podría valer la pena intentar enviar mensajes a todas esas direcciones y ver si alguna responde a la interfaz descrita en el manual de las señales.</p>
+
+<p><a class="p_ident" id="p-nKIobazOIw" href="#p-nKIobazOIw" tabindex="-1" role="presentation"></a>El <a href="18_http.html">Capítulo 18</a> muestra cómo hacer solicitudes reales en redes reales. En este capítulo, usaremos una función ficticia simplificada llamada <code>request</code> para la comunicación en red. Esta función toma dos argumentos: una dirección de red y un mensaje, que puede ser cualquier cosa que se pueda enviar como JSON, y devuelve una promesa que se resuelve con una respuesta de la máquina en la dirección dada, o se rechaza si hubo un problema.</p>
+
+<p><a class="p_ident" id="p-3j7VheCqjp" href="#p-3j7VheCqjp" tabindex="-1" role="presentation"></a>Según el manual, puedes cambiar lo que se muestra en una señal SIG-5030 enviándole un mensaje con contenido como <code>{&quot;command&quot;: &quot;display&quot;, &quot;data&quot;: [0, 0, 3, …]}</code>, donde <code>data</code> contiene un número por cada punto de LED, indicando su brillo; 0 significa apagado, 3 significa brillo máximo. Cada señal tiene 50 luces de ancho y 30 luces de alto, por lo que un comando de actualización debe enviar 1500 números.</p>
+
+<p><a class="p_ident" id="p-Id2shPCIz0" href="#p-Id2shPCIz0" tabindex="-1" role="presentation"></a>Este código envía un mensaje de actualización de pantalla a todas las direcciones en la red local para ver cuál se queda. Cada uno de los números en una dirección IP puede ir de 0 a 255. En los datos que envía, activa un número de luces correspondiente al último número de la dirección de red.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-2FC1PT/yQn" href="#c-2FC1PT/yQn" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">addr</span> = <span class="tok-number">1</span>; addr &lt; <span class="tok-number">256</span>; addr++) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">data</span> = [];
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">n</span> = <span class="tok-number">0</span>; n &lt; <span class="tok-number">1500</span>; n++) {
+    data.push(n &lt; addr ? <span class="tok-number">3</span> : <span class="tok-number">0</span>);
+  }
+  <span class="tok-keyword">let</span> <span class="tok-definition">ip</span> = <span class="tok-string2">`10.0.0.</span>${addr}<span class="tok-string2">`</span>;
+  request(ip, {<span class="tok-definition">command</span>: <span class="tok-string">&quot;display&quot;</span>, <span class="tok-definition">data</span>})
+    .then(() =&gt; console.log(<span class="tok-string2">`Solicitud a </span>${ip}<span class="tok-string2"> aceptada`</span>))
+    .catch(() =&gt; {});
+}</pre>
+
+<p><a class="p_ident" id="p-nJVIxRRyu8" href="#p-nJVIxRRyu8" tabindex="-1" role="presentation"></a>Dado que la mayoría de estas direcciones no existirán o no aceptarán tales mensajes, la llamada a <code>catch</code> se asegura de que los errores de red no hagan que el programa falle. Las solicitudes se envían todas inmediatamente, sin esperar a que otras solicitudes terminen, para no perder tiempo cuando algunas de las máquinas no respondan.</p>
+
+<p><a class="p_ident" id="p-wwrWebhsJD" href="#p-wwrWebhsJD" tabindex="-1" role="presentation"></a>Después de haber iniciado su exploración de red, Carla regresa afuera para ver el resultado. Para su deleite, todas las pantallas ahora muestran una franja de luz en sus esquinas superiores izquierdas. Están en la red local y sí aceptan comandos. Rápidamente toma nota de los números mostrados en cada pantalla. Hay 9 pantallas, dispuestas tres en alto y tres en ancho. Tienen las siguientes direcciones de red:```{includeCode: true} const screenAddresses = [ “10.0.0.44”, “10.0.0.45”, “10.0.0.41”, “10.0.0.31”, “10.0.0.40”, “10.0.0.42”, “10.0.0.48”, “10.0.0.47”, “10.0.0.46” ];</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-D6DnIQ3tbv" href="#c-D6DnIQ3tbv" tabindex="-1" role="presentation"></a>
+Ahora esto abre posibilidades para todo tipo de travesuras. Podría mostrar <span class="tok-string">&quot;los cuervos mandan, los humanos babean&quot;</span> en la pared en letras gigantes. Pero eso se siente un poco grosero. En su lugar, planea mostrar un video de un cuervo volando que cubre todas las pantallas por la noche.
+
+Carla encuentra un clip de video adecuado, en el cual un segundo y medio de metraje se puede repetir para crear un video en bucle mostrando el aleteo de un cuervo. Para ajustarse a las nueve pantallas (cada una de las cuales puede mostrar <span class="tok-number">50</span> por <span class="tok-number">30</span> píxeles), Carla corta y redimensiona los videos para obtener una serie de imágenes de <span class="tok-number">150</span> por <span class="tok-number">90</span>, diez por segundo. Estas luego se cortan en nueve rectángulos cada una, y se procesan para que los puntos oscuros en el video (donde está el cuervo) muestren una luz brillante, y los puntos claros (sin cuervo) permanezcan oscuros, lo que debería crear el efecto de un cuervo ámbar volando contra un fondo negro.
+
+Ella ha configurado la variable <span class="tok-string2">`clipImages`</span> para contener un array de fotogramas, donde cada fotograma se representa con un array de nueve conjuntos de píxeles, uno para cada pantalla, en el formato que los letreros esperan.
+
+Para mostrar un único fotograma del video, Carla necesita enviar una solicitud a todas las pantallas a la vez. Pero también necesita esperar el resultado de estas solicitudes, tanto para no comenzar a enviar el siguiente fotograma antes de que el actual se haya enviado correctamente, como para notar cuando las solicitudes están fallando.
+
+{{index <span class="tok-string">&quot;Promise.all function&quot;</span>}}
+
+<span class="tok-string2">`Promise`</span> tiene un método estático <span class="tok-string2">`all`</span> que se puede usar para convertir un array de promesas en una sola promesa que se resuelve en un array de resultados. Esto proporciona una forma conveniente de que algunas acciones asíncronas sucedan al lado unas de otras, esperar a que todas terminen y luego hacer algo con sus resultados (o al menos esperar a que terminen para asegurarse de que no fallen).
+
+<span class="tok-string2">``</span><span class="tok-string2">`{includeCode: true}</span>
+<span class="tok-string2">function displayFrame(frame) {</span>
+<span class="tok-string2">  return Promise.all(frame.map((data, i) =&gt; {</span>
+<span class="tok-string2">    return request(screenAddresses[i], {</span>
+<span class="tok-string2">      command: &quot;display&quot;,</span>
+<span class="tok-string2">      data</span>
+<span class="tok-string2">    });</span>
+<span class="tok-string2">  }));</span>
+<span class="tok-string2">}</span></pre>
+
+<p><a class="p_ident" id="p-FPLMeF12gv" href="#p-FPLMeF12gv" tabindex="-1" role="presentation"></a>Esto recorre las imágenes en <code>frame</code> (que es un array de arrays de datos de visualización) para crear un array de promesas de solicitud. Luego devuelve una promesa que combina todas esas promesas.</p>
+
+<p><a class="p_ident" id="p-toeS8qCaQC" href="#p-toeS8qCaQC" tabindex="-1" role="presentation"></a>Para poder detener un video en reproducción, el proceso está envuelto en una clase. Esta clase tiene un método asíncrono <code>play</code> que devuelve una promesa que solo se resuelve cuando la reproducción se detiene de nuevo a través del método <code>stop</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-e8QIAV+ZhD" href="#c-e8QIAV+ZhD" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">wait</span>(<span class="tok-definition">time</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">accept</span> =&gt; setTimeout(accept, time));
+}
+
+<span class="tok-keyword">class</span> VideoPlayer {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">frames</span>, <span class="tok-definition">frameTime</span>) {
+    <span class="tok-keyword">this</span>.frames = frames;
+    <span class="tok-keyword">this</span>.frameTime = frameTime;
+    <span class="tok-keyword">this</span>.stopped = true;
+  }
+
+  <span class="tok-keyword">async</span> <span class="tok-definition">play</span>() {
+    <span class="tok-keyword">this</span>.stopped = false;
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; !<span class="tok-keyword">this</span>.stopped; i++) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">nextFrame</span> = wait(<span class="tok-keyword">this</span>.frameTime);
+      <span class="tok-keyword">await</span> displayFrame(<span class="tok-keyword">this</span>.frames[i % <span class="tok-keyword">this</span>.frames.length]);
+      <span class="tok-keyword">await</span> nextFrame;
+    }
+  }
+
+  <span class="tok-definition">stop</span>() {
+    <span class="tok-keyword">this</span>.stopped = true;
+  }
+}
+<span class="tok-string2">``</span><span class="tok-string2">`La función `</span>wait<span class="tok-string2">` envuelve `</span>setTimeout<span class="tok-string2">` en una promesa que se resuelve después del número de milisegundos especificado. Esto es útil para controlar la velocidad de reproducción.</span>
+
+<span class="tok-string2">`</span><span class="tok-string2">``</span>{startCode: true}
+<span class="tok-keyword">let</span> <span class="tok-definition">video</span> = <span class="tok-keyword">new</span> VideoPlayer(clipImages, <span class="tok-number">100</span>);
+video.play().catch(<span class="tok-definition">e</span> =&gt; {
+  console.log(<span class="tok-string">&quot;La reproducción falló: &quot;</span> + e);
+});
+setTimeout(() =&gt; video.stop(), <span class="tok-number">15000</span>);</pre>
+
+<p><a class="p_ident" id="p-Yx3D6CTz+N" href="#p-Yx3D6CTz+N" tabindex="-1" role="presentation"></a>Durante toda la semana que dura el muro de pantalla, todas las noches, cuando está oscuro, aparece misteriosamente un enorme pájaro naranja brillante en él.</p>
+
+<h2><a class="h_ident" id="h-iSkjGslyNf" href="#h-iSkjGslyNf" tabindex="-1" role="presentation"></a>El bucle de eventos</h2>
+
+<p><a class="p_ident" id="p-dEurinIBnY" href="#p-dEurinIBnY" tabindex="-1" role="presentation"></a>{{index “programación asincrónica”, programación, “bucle de eventos”, línea de tiempo}}</p>
+
+<p><a class="p_ident" id="p-uqFuigR5hW" href="#p-uqFuigR5hW" tabindex="-1" role="presentation"></a>Un programa asincrónico comienza ejecutando su script principal, que a menudo configurará devoluciones de llamada para ser llamadas más tarde. Ese script principal, así como las devoluciones de llamada, se ejecutan por completo de una vez, sin interrupciones. Pero entre ellos, el programa puede estar inactivo, esperando a que ocurra algo.</p>
+
+<p><a class="p_ident" id="p-RRuVVhfUCF" href="#p-RRuVVhfUCF" tabindex="-1" role="presentation"></a>Por lo tanto, las devoluciones de llamada no son llamadas directamente por el código que las programó. Si llamo a <code>setTimeout</code> desde dentro de una función, esa función ya habrá retornado en el momento en que se llame a la función de devolución de llamada. Y cuando la devolución de llamada regresa, el control no vuelve a la función que lo programó.</p>
+
+<p><a class="p_ident" id="p-ekUlWC/PZ3" href="#p-ekUlWC/PZ3" tabindex="-1" role="presentation"></a>El comportamiento asincrónico ocurre en su propia función vacía pila de llamadas. Esta es una de las razones por las que, sin promesas, gestionar excepciones en código asincrónico es tan difícil. Dado que cada devolución de llamada comienza con una pila de llamadas en su mayoría vacía, sus manejadores de <code>catch</code> no estarán en la pila cuando lancen una excepción.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-RZ/XhGQYYZ" href="#c-RZ/XhGQYYZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">try</span> {
+  setTimeout(() =&gt; {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> Error(<span class="tok-string">&quot;¡Zoom!&quot;</span>);
+  }, <span class="tok-number">20</span>);
+} <span class="tok-keyword">catch</span> (<span class="tok-definition">e</span>) {
+  <span class="tok-comment">// Esto no se ejecutará</span>
+  console.log(<span class="tok-string">&quot;Atrapado&quot;</span>, e);
+}</pre>
+
+<p><a class="p_ident" id="p-joSObRYrFp" href="#p-joSObRYrFp" tabindex="-1" role="presentation"></a>No importa cuán cerca ocurran eventos, como tiempos de espera o solicitudes entrantes, un entorno JavaScript ejecutará solo un programa a la vez. Puedes pensar en esto como ejecutar un gran bucle <em>alrededor</em> de tu programa, llamado el <em>bucle de eventos</em>. Cuando no hay nada que hacer, ese bucle se pausa. Pero a medida que llegan eventos, se agregan a una cola y su código se ejecuta uno tras otro. Debido a que no se ejecutan dos cosas al mismo tiempo, un código lento puede retrasar el manejo de otros eventos.</p>
+
+<p><a class="p_ident" id="p-5ZkjsY7Yeu" href="#p-5ZkjsY7Yeu" tabindex="-1" role="presentation"></a>Este ejemplo establece un tiempo de espera pero luego se demora hasta después del momento previsto para el tiempo de espera, provocando que el tiempo de espera sea tardío.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Avc3WZx6ck" href="#c-Avc3WZx6ck" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">start</span> = Date.now();
+setTimeout(() =&gt; {
+  console.log(<span class="tok-string">&quot;El tiempo de espera se ejecutó en&quot;</span>, Date.now() - start);
+}, <span class="tok-number">20</span>);
+<span class="tok-keyword">while</span> (Date.now() &lt; start + <span class="tok-number">50</span>) {}
+console.log(<span class="tok-string">&quot;Tiempo perdido hasta&quot;</span>, Date.now() - start);
+<span class="tok-comment">// → Tiempo perdido hasta 50</span>
+<span class="tok-comment">// → El tiempo de espera se ejecutó en 55</span></pre>
+
+<p><a class="p_ident" id="p-rhhrRkqin4" href="#p-rhhrRkqin4" tabindex="-1" role="presentation"></a>Las promesas siempre se resuelven o se rechazan como un nuevo evento. Incluso si una promesa ya está resuelta, esperarla hará que su devolución de llamada se ejecute después de que termine el script actual, en lugar de inmediatamente.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-CpYlSjFfYU" href="#c-CpYlSjFfYU" tabindex="-1" role="presentation"></a>Promise.resolve(<span class="tok-string">&quot;Hecho&quot;</span>).then(console.log);
+console.log(<span class="tok-string">&quot;¡Yo primero!&quot;</span>);
+<span class="tok-comment">// → ¡Yo primero!</span>
+<span class="tok-comment">// → Hecho</span></pre>
+
+<p><a class="p_ident" id="p-43H0li0kuu" href="#p-43H0li0kuu" tabindex="-1" role="presentation"></a>En capítulos posteriores veremos varios tipos de eventos que se ejecutan en el bucle de eventos.## Errores asincrónicos</p>
+
+<p><a class="p_ident" id="p-DJqLCQdudP" href="#p-DJqLCQdudP" tabindex="-1" role="presentation"></a>Cuando tu programa se ejecuta de forma síncrona, de una sola vez, no hay cambios de estado ocurriendo excepto aquellos que el programa mismo realiza. Para programas asíncronos esto es diferente, pueden tener <em>brechas</em> en su ejecución durante las cuales otro código puede correr.</p>
+
+<p><a class="p_ident" id="p-1YB4rmos4T" href="#p-1YB4rmos4T" tabindex="-1" role="presentation"></a>Veamos un ejemplo. Esta es una función que intenta reportar el tamaño de cada archivo en un arreglo de archivos, asegurándose de leerlos todos al mismo tiempo en lugar de en secuencia.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-SNIwqfk7T3" href="#c-SNIwqfk7T3" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">fileSizes</span>(<span class="tok-definition">files</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">lista</span> = <span class="tok-string">&quot;&quot;</span>;
+  <span class="tok-keyword">await</span> Promise.all(files.map(<span class="tok-keyword">async</span> <span class="tok-definition">fileName</span> =&gt; {
+    lista += fileName + <span class="tok-string">&quot;: &quot;</span> +
+      (<span class="tok-keyword">await</span> textFile(fileName)).length + <span class="tok-string">&quot;</span><span class="tok-string2">\n</span><span class="tok-string">&quot;</span>;
+  }));
+  <span class="tok-keyword">return</span> lista;
+}</pre>
+
+<p><a class="p_ident" id="p-HiAwDFFOUL" href="#p-HiAwDFFOUL" tabindex="-1" role="presentation"></a>La parte <code>async fileName =&gt;</code> muestra cómo también se pueden hacer arrow functions <code>async</code> colocando la palabra <code>async</code> delante de ellas.</p>
+
+<p><a class="p_ident" id="p-pPIiTEafT4" href="#p-pPIiTEafT4" tabindex="-1" role="presentation"></a>El código no parece ser sospechoso de inmediato... mapea la función flecha <code>async</code> sobre el arreglo de nombres, creando un arreglo de promesas, y luego usa <code>Promise.all</code> para esperar a todas ellas antes de devolver la lista que construyen.</p>
+
+<p><a class="p_ident" id="p-exvEa8QEiP" href="#p-exvEa8QEiP" tabindex="-1" role="presentation"></a>Pero está totalmente roto. Siempre devolverá solo una línea de salida, enumerando el archivo que tardó más en leer.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KqsJmHqBh2" href="#c-KqsJmHqBh2" tabindex="-1" role="presentation"></a>fileSizes([<span class="tok-string">&quot;plans.txt&quot;</span>, <span class="tok-string">&quot;shopping_list.txt&quot;</span>])
+  .then(console.log);</pre>
+
+<p><a class="p_ident" id="p-s9Q+INoyNl" href="#p-s9Q+INoyNl" tabindex="-1" role="presentation"></a>¿Puedes descubrir por qué?</p>
+
+<p><a class="p_ident" id="p-GBG4on0Rh9" href="#p-GBG4on0Rh9" tabindex="-1" role="presentation"></a>El problema radica en el operador <code>+=</code>, que toma el valor <em>actual</em> de <code>lista</code> en el momento en que comienza a ejecutarse la instrucción y luego, cuando el <code>await</code> termina, establece el enlace <code>lista</code> como ese valor más la cadena agregada.</p>
+
+<p><a class="p_ident" id="p-gKQGh439Yc" href="#p-gKQGh439Yc" tabindex="-1" role="presentation"></a>Pero entre el momento en que comienza a ejecutarse la instrucción y el momento en que termina, hay una brecha asincrónica. La expresión <code>map</code> se ejecuta antes de que se agregue cualquier cosa a la lista, por lo que cada uno de los operadores <code>+=</code> comienza desde una cadena vacía y termina, cuando termina su recuperación de almacenamiento, estableciendo <code>lista</code> en el resultado de agregar su línea a la cadena vacía.</p>
+
+<p><a class="p_ident" id="p-MBjCCi/2ci" href="#p-MBjCCi/2ci" tabindex="-1" role="presentation"></a>Esto podría haberse evitado fácilmente devolviendo las líneas de las promesas mapeadas y llamando a <code>join</code> en el resultado de <code>Promise.all</code>, en lugar de construir la lista cambiando un enlace. Como suele ser, calcular nuevos valores es menos propenso a errores que cambiar valores existentes.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9cdVzSKas5" href="#c-9cdVzSKas5" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">fileSizes</span>(<span class="tok-definition">files</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">líneas</span> = files.map(<span class="tok-keyword">async</span> <span class="tok-definition">fileName</span> =&gt; {
+    <span class="tok-keyword">return</span> fileName + <span class="tok-string">&quot;: &quot;</span> +
+      (<span class="tok-keyword">await</span> textFile(fileName)).length;
+  });
+  <span class="tok-keyword">return</span> (<span class="tok-keyword">await</span> Promise.all(líneas)).join(<span class="tok-string">&quot;</span><span class="tok-string2">\n</span><span class="tok-string">&quot;</span>);
+}</pre>
+
+<p><a class="p_ident" id="p-D5OZ7eAJk7" href="#p-D5OZ7eAJk7" tabindex="-1" role="presentation"></a>Errores como este son fáciles de cometer, especialmente al usar <code>await</code>, y debes ser consciente de dónde ocurren las brechas en tu código. Una ventaja de la asincronía <em>explícita</em> de JavaScript (ya sea a través de devoluciones de llamada, promesas o <code>await</code>) es que identificar estas brechas es relativamente fácil.</p>
+
+<h2><a class="h_ident" id="h-NUFOUyK+lw" href="#h-NUFOUyK+lw" tabindex="-1" role="presentation"></a>Resumen</h2>
+
+<p><a class="p_ident" id="p-/tyI2XiFVY" href="#p-/tyI2XiFVY" tabindex="-1" role="presentation"></a>La programación asincrónica hace posible expresar la espera de acciones de larga duración sin congelar todo el programa. Los entornos de JavaScript típicamente implementan este estilo de programación utilizando devoluciones de llamada, funciones que se llaman cuando las acciones se completan. Un bucle de eventos programa estas devoluciones de llamada para que se llamen cuando sea apropiado, una tras otra, de modo que su ejecución no se superponga.La programación de forma asíncrona se facilita gracias a las promesas, que son objetos que representan acciones que podrían completarse en el futuro, y las funciones <code>async</code>, que te permiten escribir un programa asíncrono como si fuera sincrónico.</p>
+
+<h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<h3><a class="i_ident" id="i-+uVmJAkWrn" href="#i-+uVmJAkWrn" tabindex="-1" role="presentation"></a>Momentos de tranquilidad</h3>
+
+<p><a class="p_ident" id="p-6ZL6bHpqZH" href="#p-6ZL6bHpqZH" tabindex="-1" role="presentation"></a>Hay una cámara de seguridad cerca del laboratorio de Carla que se activa con un sensor de movimiento. Está conectada a la red y comienza a enviar un flujo de video cuando está activa. Como prefiere no ser descubierta, Carla ha configurado un sistema que detecta este tipo de tráfico de red inalámbrico y enciende una luz en su guarida cada vez que hay actividad afuera, para que ella sepa cuándo mantenerse en silencio.</p>
+
+<p><a class="p_ident" id="p-0yy81tIz2h" href="#p-0yy81tIz2h" tabindex="-1" role="presentation"></a>También ha estado registrando los momentos en que la cámara se activa desde hace un tiempo, y quiere utilizar esta información para visualizar qué momentos, en una semana promedio, tienden a ser tranquilos y cuáles tienden a ser ocupados. El registro se almacena en archivos que contienen un número de marca de tiempo por línea (como devuelto por <code>Date.now()</code>).</p>
+
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-oYpYSTh/9y" href="#c-oYpYSTh/9y" tabindex="-1" role="presentation"></a>1695709940692
+1695701068331
+1695701189163</pre>
+
+<p><a class="p_ident" id="p-jjaZ48VGVD" href="#p-jjaZ48VGVD" tabindex="-1" role="presentation"></a>El archivo <code>&quot;camera_logs.<wbr>txt&quot;</code> contiene una lista de archivos de registro. Escribe una función asíncrona <code>activityTable(día)</code> que, para un día de la semana dado, devuelva un array de 24 números, uno para cada hora del día, que contenga la cantidad de observaciones de tráfico de red de la cámara vista en esa hora del día. Los días se identifican por número utilizando el sistema utilizado por <code>Date.getDay</code>, donde el domingo es 0 y el sábado es 6.</p>
+
+<p><a class="p_ident" id="p-nq7jr1mWcA" href="#p-nq7jr1mWcA" tabindex="-1" role="presentation"></a>La función <code>activityGraph</code>, proporcionada por el sandbox, resume dicha tabla en una cadena.</p>
+
+<p><a class="p_ident" id="p-4EjrIsWVmx" href="#p-4EjrIsWVmx" tabindex="-1" role="presentation"></a>Utiliza la función <code>textFile</code> definida anteriormente, que al recibir un nombre de archivo devuelve una promesa que se resuelve en el contenido del archivo. Recuerda que <code>new Date(marcaDeTiempo)</code> crea un objeto <code>Date</code> para ese momento, que tiene métodos <code>getDay</code> y <code>getHours</code> que devuelven el día de la semana y la hora del día.</p>
+
+<p><a class="p_ident" id="p-oVU7j47Kad" href="#p-oVU7j47Kad" tabindex="-1" role="presentation"></a>Ambos tipos de archivos, la lista de archivos de registro y los propios archivos de registro, tienen cada dato en su propia línea, separados por caracteres de nueva línea (<code>&quot;\n&quot;</code>).</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-lwkjHlEwNf" href="#c-lwkjHlEwNf" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">day</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">logFileList</span> = <span class="tok-keyword">await</span> textFile(<span class="tok-string">&quot;camera_logs.txt&quot;</span>);
+  <span class="tok-comment">// Tu código aquí</span>
+}
+
+activityTable(<span class="tok-number">1</span>)
+  .then(<span class="tok-definition">table</span> =&gt; console.log(activityGraph(table)));</pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-jZ7OykMDrT" href="#p-jZ7OykMDrT" tabindex="-1" role="presentation"></a>Necesitarás convertir el contenido de estos archivos en un array. La forma más fácil de hacerlo es utilizando el método <code>split</code> en la cadena producida por <code>textFile</code>. Ten en cuenta que para los archivos de registro, eso seguirá dándote un array de cadenas, que debes convertir a números antes de pasarlos a <code>new Date</code>.</p>
+
+<p><a class="p_ident" id="p-7AYrnSLgC/" href="#p-7AYrnSLgC/" tabindex="-1" role="presentation"></a>Resumir todos los puntos temporales en una tabla de horas se puede hacer creando una tabla (array) que contenga un número para cada hora del día. Luego puedes recorrer todos los marca de tiempos (sobre los archivos de registro y los números en cada archivo de registro) y, para cada uno, si sucedió en el día correcto, toma la hora en que ocurrió y suma uno al número correspondiente en la tabla.{{index “función async”, “palabra clave await”, “clase Promise”}}</p>
+
+<p><a class="p_ident" id="p-iW4mBbLVDT" href="#p-iW4mBbLVDT" tabindex="-1" role="presentation"></a>Asegúrate de usar <code>await</code> en el resultado de las funciones asíncronas antes de hacer cualquier cosa con él, o terminarás con una <code>Promise</code> donde esperabas un string.</p>
+
+<p><a class="p_ident" id="p-MYC7CGnZ1D" href="#p-MYC7CGnZ1D" tabindex="-1" role="presentation"></a>hinting}}</p>
+
+<h3><a class="i_ident" id="i-rAhebsaSY2" href="#i-rAhebsaSY2" tabindex="-1" role="presentation"></a>Promesas Reales</h3>
+
+<p><a class="p_ident" id="p-vfx72TWCka" href="#p-vfx72TWCka" tabindex="-1" role="presentation"></a>Reescribe la función del ejercicio anterior sin <code>async</code>/<code>await</code>, utilizando métodos simples de <code>Promise</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-3oGelkObvZ" href="#c-3oGelkObvZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
+  <span class="tok-comment">// Tu código aquí</span>
+}
+
+activityTable(<span class="tok-number">6</span>)
+  .then(<span class="tok-definition">tabla</span> =&gt; console.log(gráficoActividad(tabla)));</pre>
+
+<p><a class="p_ident" id="p-BGph0/UdzK" href="#p-BGph0/UdzK" tabindex="-1" role="presentation"></a>En este estilo, usar <code>Promise.all</code> será más conveniente que intentar modelar un bucle sobre los archivos de registro. En la función <code>async</code>, simplemente usar <code>await</code> en un bucle es más simple. Si leer un archivo toma un tiempo, ¿cuál de estos dos enfoques tomará menos tiempo para ejecutarse?</p>
+
+<p><a class="p_ident" id="p-EBStIx8OmH" href="#p-EBStIx8OmH" tabindex="-1" role="presentation"></a>Si uno de los archivos listados en la lista de archivos tiene un error tipográfico, y falla al leerlo, ¿cómo termina ese fallo en el objeto <code>Promise</code> que retorna tu función?</p>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-aw5MLt4jxJ" href="#p-aw5MLt4jxJ" tabindex="-1" role="presentation"></a>El enfoque más directo para escribir esta función es usar una cadena de llamadas <code>then</code>. La primera promesa se produce al leer la lista de archivos de registro. El primer callback puede dividir esta lista y mapear <code>textFile</code> sobre ella para obtener una matriz de promesas para pasar a <code>Promise.all</code>. Puede devolver el objeto devuelto por <code>Promise.all</code>, para que lo que sea que eso devuelva se convierta en el resultado del valor de retorno de este primer <code>then</code>.</p>
+
+<p><a class="p_ident" id="p-XLfKUPx5h8" href="#p-XLfKUPx5h8" tabindex="-1" role="presentation"></a>Ahora tenemos una promesa que devuelve un array de archivos de registro. Podemos llamar a <code>then</code> nuevamente en eso, y poner la lógica de conteo de marcas de tiempo allí. Algo así:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Ri43SdEaNh" href="#c-Ri43SdEaNh" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
+  <span class="tok-keyword">return</span> textoArchivo(<span class="tok-string">&quot;registros_camara.txt&quot;</span>).then(<span class="tok-definition">archivos</span> =&gt; {
+    <span class="tok-keyword">return</span> Promise.all(archivos.split(<span class="tok-string">&quot;</span><span class="tok-string2">\n</span><span class="tok-string">&quot;</span>).map(textoArchivo));
+  }).then(<span class="tok-definition">logs</span> =&gt; {
+    <span class="tok-comment">// analizar...</span>
+  });
+}</pre>
+
+<p><a class="p_ident" id="p-nemG+o6551" href="#p-nemG+o6551" tabindex="-1" role="presentation"></a>O podrías, para una programación aún mejor, poner el análisis de cada archivo dentro de <code>Promise.all</code>, para que ese trabajo pueda comenzar para el primer archivo que regresa del disco, incluso antes de que los otros archivos regresen.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-c8ZiPZOaXj" href="#c-c8ZiPZOaXj" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">tabla</span> = []; <span class="tok-comment">// inicializar...</span>
+  <span class="tok-keyword">return</span> textoArchivo(<span class="tok-string">&quot;registros_camara.txt&quot;</span>).then(<span class="tok-definition">archivos</span> =&gt; {
+    <span class="tok-keyword">return</span> Promise.all(archivos.split(<span class="tok-string">&quot;</span><span class="tok-string2">\n</span><span class="tok-string">&quot;</span>).map(<span class="tok-definition">nombre</span> =&gt; {
+      <span class="tok-keyword">return</span> textoArchivo(nombre).then(<span class="tok-definition">log</span> =&gt; {
+        <span class="tok-comment">// analizar...</span>
+      });
+    }));
+  }).then(() =&gt; tabla);
+}</pre>
+
+<p><a class="p_ident" id="p-kss/RZ3ia7" href="#p-kss/RZ3ia7" tabindex="-1" role="presentation"></a>{{index “palabra clave await”, programación de planificación}}</p>
+
+<p><a class="p_ident" id="p-T9hIHQbiz1" href="#p-T9hIHQbiz1" tabindex="-1" role="presentation"></a>Lo que muestra que la forma en que estructuras tus promesas puede tener un efecto real en la forma en que se programa el trabajo. Un simple bucle con <code>await</code> hará que el proceso sea completamente lineal: espera a que se cargue cada archivo antes de continuar. <code>Promise.all</code> hace posible que varias tareas sean trabajadas conceptualmente al mismo tiempo, permitiéndoles progresar mientras los archivos aún se están cargando. Esto puede ser más rápido, pero también hace que el orden en que sucederán las cosas sea menos predecible. En este caso, donde solo vamos a estar incrementando números en una tabla, eso no es difícil de hacer de manera segura. Para otros tipos de problemas, puede ser mucho más difícil.{{index “rechazar (una promesa)”, “método then”}}</p>
+
+<p><a class="p_ident" id="p-Ld+4EByL4v" href="#p-Ld+4EByL4v" tabindex="-1" role="presentation"></a>Cuando un archivo en la lista no existe, la promesa devuelta por <code>textFile</code> será rechazada. Debido a que <code>Promise.all</code> se rechaza si alguna de las promesas que se le pasan falla, el valor de retorno de la devolución de llamada dada al primer <code>then</code> también será una promesa rechazada. Esto hace que la promesa devuelta por <code>then</code> falle, por lo que la devolución de llamada dada al segundo <code>then</code> ni siquiera se llama, y se devuelve una promesa rechazada desde la función.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-pfc5Y5gAWn" href="#i-pfc5Y5gAWn" tabindex="-1" role="presentation"></a>Construyendo Promise.all</h3>
+
+<p><a class="p_ident" id="p-M8QzvSw1av" href="#p-M8QzvSw1av" tabindex="-1" role="presentation"></a>Como vimos, dado un array de promesas, <code>Promise.all</code> devuelve una promesa que espera a que todas las promesas en el array finalicen. Luego tiene éxito, devolviendo un array de valores de resultado. Si una promesa en el array falla, la promesa devuelta por <code>all</code> también falla, con la razón de fallo de la promesa que falló.</p>
+
+<p><a class="p_ident" id="p-7xgUT0fq6f" href="#p-7xgUT0fq6f" tabindex="-1" role="presentation"></a>Implementa algo similar tú mismo como una función regular llamada <code>Promise_all</code>.</p>
+
+<p><a class="p_ident" id="p-JLqRagv2ZP" href="#p-JLqRagv2ZP" tabindex="-1" role="presentation"></a>Recuerda que después de que una promesa tiene éxito o falla, no puede volver a tener éxito o fallar, y las llamadas posteriores a las funciones que la resuelven se ignoran. Esto puede simplificar la forma en que manejas el fallo de tu promesa.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ksC0e2Z7aT" href="#c-ksC0e2Z7aT" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">Promise_all</span>(<span class="tok-definition">promesas</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise((<span class="tok-definition">resolver</span>, <span class="tok-definition">rechazar</span>) =&gt; {
+    <span class="tok-comment">// Tu código aquí.</span>
+  });
+}
+
+<span class="tok-comment">// Código de prueba.</span>
+Promise_all([]).then(<span class="tok-definition">array</span> =&gt; {
+  console.log(<span class="tok-string">&quot;Esto debería ser []:&quot;</span>, array);
+});
+<span class="tok-keyword">function</span> <span class="tok-definition">pronto</span>(<span class="tok-definition">val</span>) {
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">resolve</span> =&gt; {
+    setTimeout(() =&gt; resolve(val), Math.random() * <span class="tok-number">500</span>);
+  });
+}
+Promise_all([pronto(<span class="tok-number">1</span>), pronto(<span class="tok-number">2</span>), pronto(<span class="tok-number">3</span>)]).then(<span class="tok-definition">array</span> =&gt; {
+  console.log(<span class="tok-string">&quot;Esto debería ser [1, 2, 3]:&quot;</span>, array);
+});
+Promise_all([pronto(<span class="tok-number">1</span>), Promise.reject(<span class="tok-string">&quot;X&quot;</span>), pronto(<span class="tok-number">3</span>)])
+  .then(<span class="tok-definition">array</span> =&gt; {
+    console.log(<span class="tok-string">&quot;No deberíamos llegar aquí&quot;</span>);
+  })
+  .catch(<span class="tok-definition">error</span> =&gt; {
+    <span class="tok-keyword">if</span> (error != <span class="tok-string">&quot;X&quot;</span>) {
+      console.log(<span class="tok-string">&quot;Fallo inesperado:&quot;</span>, error);
+    }
+  });</pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-jsnP1W7uln" href="#p-jsnP1W7uln" tabindex="-1" role="presentation"></a>La función pasada al constructor <code>Promise</code> tendrá que llamar a <code>then</code> en cada una de las promesas en el array dado. Cuando una de ellas tiene éxito, dos cosas deben suceder. El valor resultante debe ser almacenado en la posición correcta de un array de resultados, y debemos verificar si esta era la última promesa pendiente y finalizar nuestra propia promesa si lo era.</p>
+
+<p><a class="p_ident" id="p-pv4cygIqmH" href="#p-pv4cygIqmH" tabindex="-1" role="presentation"></a>Esto último se puede hacer con un contador que se inicializa con la longitud del array de entrada y del cual restamos 1 cada vez que una promesa tiene éxito. Cuando llegue a 0, hemos terminado. Asegúrate de tener en cuenta la situación en la que el array de entrada está vacío (y por lo tanto ninguna promesa se resolverá nunca).</p>
+
+<p><a class="p_ident" id="p-RfvboDBLxx" href="#p-RfvboDBLxx" tabindex="-1" role="presentation"></a>Manejar el fallo requiere un poco de pensamiento pero resulta ser extremadamente simple. Simplemente pasa la función <code>reject</code> de la promesa contenedora a cada una de las promesas en el array como un controlador <code>catch</code> o como un segundo argumento para <code>then</code> para que un fallo en una de ellas desencadene el rechazo de toda la promesa contenedora.</p>
+
+<p><a class="p_ident" id="p-nfQ6A5rdkZ" href="#p-nfQ6A5rdkZ" tabindex="-1" role="presentation"></a>pista</p>
+
+</div></details>
+
+</div></details><nav><a href="10_modules.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="12_language.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+</article>
+
+<script src="ejs.js"></script>

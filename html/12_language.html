@@ -1,0 +1,532 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proyecto: Un Lenguaje de Programación :: Eloquent JavaScript</title>
+  <link rel=stylesheet href="css/ejs.css"><script>
+      var page = {"type":"chapter","number":12}</script></head>
+
+<article>
+<nav><a href="11_async.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="13_browser.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+
+<h1>Proyecto: Un Lenguaje de Programación</h1>
+
+<p><a class="p_ident" id="p-7d8XUF7zMV" href="#p-7d8XUF7zMV" tabindex="-1" role="presentation"></a>{{meta {load_files: [“code/chapter/12_language.js”], zip: “node/html”}}</p>
+
+<blockquote>
+
+<p><a class="p_ident" id="p-NCKe5tEBSN" href="#p-NCKe5tEBSN" tabindex="-1" role="presentation"></a>El evaluador, que determina el significado de expresiones en un lenguaje de programación, es solo otro programa.</p>
+
+<footer>Hal Abelson y Gerald Sussman, <cite>Estructura e Interpretación de Programas de Computadora</cite></footer>
+
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_12.jpg" alt="Ilustración que muestra un huevo con agujeros, mostrando huevos más pequeños dentro, que a su vez tienen huevos aún más pequeños dentro de ellos, y así sucesivamente"></figure>
+
+<p><a class="p_ident" id="p-xcNW3HLt2k" href="#p-xcNW3HLt2k" tabindex="-1" role="presentation"></a>Crear tu propio lenguaje de programación es sorprendentemente fácil (si no apuntas muy alto) y muy esclarecedor.</p>
+
+<p><a class="p_ident" id="p-mZbmmA9jPL" href="#p-mZbmmA9jPL" tabindex="-1" role="presentation"></a>Lo principal que quiero mostrar en este capítulo es que no hay magia involucrada en la construcción de un lenguaje de programación. A menudo he sentido que algunas invenciones humanas eran tan inmensamente inteligentes y complicadas que nunca las entendería. Pero con un poco de lectura y experimentación, a menudo resultan ser bastante mundanas.</p>
+
+<p><a class="p_ident" id="p-vxboe8cY1Z" href="#p-vxboe8cY1Z" tabindex="-1" role="presentation"></a>{{index “Lenguaje Egg”, [abstracción, “en Egg”]}}</p>
+
+<p><a class="p_ident" id="p-AY1eTWKK2r" href="#p-AY1eTWKK2r" tabindex="-1" role="presentation"></a>Construiremos un lenguaje de programación llamado Egg. Será un lenguaje simple y diminuto, pero lo suficientemente poderoso como para expresar cualquier cálculo que puedas imaginar. Permitirá una simple abstracción basada en funciones.</p>
+
+<h2 id="parsing"><a class="h_ident" id="h-Ri8DEsFixT" href="#h-Ri8DEsFixT" tabindex="-1" role="presentation"></a>Análisis Sintáctico</h2>
+
+<p><a class="p_ident" id="p-FjEZMpJcyL" href="#p-FjEZMpJcyL" tabindex="-1" role="presentation"></a>{{index parsing, validación, [sintaxis, “de Egg”]}}</p>
+
+<p><a class="p_ident" id="p-LWCHgQ8jiK" href="#p-LWCHgQ8jiK" tabindex="-1" role="presentation"></a>La parte más inmediatamente visible de un lenguaje de programación es su <em>sintaxis</em>, o notación. Un <em>analizador sintáctico</em> es un programa que lee un fragmento de texto y produce una estructura de datos que refleja la estructura del programa contenido en ese texto. Si el texto no forma un programa válido, el analizador sintáctico debería señalar el error.</p>
+
+<p><a class="p_ident" id="p-g4dCM+i4JR" href="#p-g4dCM+i4JR" tabindex="-1" role="presentation"></a>{{index “forma especial”, [función, aplicación]}}</p>
+
+<p><a class="p_ident" id="p-ZtGU+dhqC7" href="#p-ZtGU+dhqC7" tabindex="-1" role="presentation"></a>Nuestro lenguaje tendrá una sintaxis simple y uniforme. Todo en Egg es una expresión. Una expresión puede ser el nombre de una asignación, un número, una cadena o una <em>aplicación</em>. Las aplicaciones se utilizan para llamadas de funciones pero también para estructuras como <code>if</code> o <code>while</code>.</p>
+
+<p><a class="p_ident" id="p-ep+0glVGES" href="#p-ep+0glVGES" tabindex="-1" role="presentation"></a>Para mantener el analizador sintáctico simple, las cadenas en Egg no admiten nada parecido a los escapes con barra invertida. Una cadena es simplemente una secuencia de caracteres que no son comillas dobles, envueltos entre comillas dobles. Un número es una secuencia de dígitos. Los nombres de las asignaciones pueden consistir en cualquier carácter que no sea espacio en blanco y que no tenga un significado especial en la sintaxis.</p>
+
+<p><a class="p_ident" id="p-mnO+5f1sTK" href="#p-mnO+5f1sTK" tabindex="-1" role="presentation"></a>{{index “carácter de coma”, [paréntesis, argumentos]}}</p>
+
+<p><a class="p_ident" id="p-vwvgo3jFhV" href="#p-vwvgo3jFhV" tabindex="-1" role="presentation"></a>Las aplicaciones se escriben de la misma manera que en JavaScript, colocando paréntesis después de una expresión y teniendo cualquier número de argumentos entre esos paréntesis, separados por comas.</p>
+
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-mxbdQPKeHJ" href="#c-mxbdQPKeHJ" tabindex="-1" role="presentation"></a>do(define(x, 10),
+   if(&gt;(x, 5),
+      print(&quot;grande&quot;),
+      print(&quot;pequeño&quot;)))</pre>
+
+<p><a class="p_ident" id="p-DOnNbgZ2gp" href="#p-DOnNbgZ2gp" tabindex="-1" role="presentation"></a>La uniformidad del lenguaje Egg significa que las cosas que son operadores en JavaScript (como <code>&gt;</code>) son asignaciones normales en este lenguaje, aplicadas de la misma manera que otras funciones. Y dado que la sintaxis no tiene concepto de bloque, necesitamos un constructo <code>do</code> para representar la realización de múltiples tareas en secuencia.{{index “propiedad tipo”, análisis sintáctico, [“estructura de datos”, árbol]}}</p>
+
+<p><a class="p_ident" id="p-U5mB4GWXLX" href="#p-U5mB4GWXLX" tabindex="-1" role="presentation"></a>La estructura de datos que el analizador sintáctico utilizará para describir un programa consiste en objetos expresión, cada uno de los cuales tiene una propiedad <code>type</code> que indica el tipo de expresión que es y otras propiedades para describir su contenido.</p>
+
+<p><a class="p_ident" id="p-dTPyueuVSb" href="#p-dTPyueuVSb" tabindex="-1" role="presentation"></a>Las expresiones de tipo <code>&quot;value&quot;</code> representan cadenas literales o números. Su propiedad <code>value</code> contiene el valor de cadena o número que representan. Las expresiones de tipo <code>&quot;word&quot;</code> se utilizan para identificadores (nombres). Estos objetos tienen una propiedad <code>name</code> que contiene el nombre del identificador como cadena. Finalmente, las expresiones <code>&quot;apply&quot;</code> representan aplicaciones. Tienen una propiedad <code>operator</code> que se refiere a la expresión que se está aplicando, así como una propiedad <code>args</code> que contiene una serie de expresiones de argumento.</p>
+
+<p><a class="p_ident" id="p-RNNQ9+j+mM" href="#p-RNNQ9+j+mM" tabindex="-1" role="presentation"></a>La parte <code>&gt;(x, 5)</code> del programa anterior se representaría de la siguiente manera:</p>
+
+<pre class="snippet" data-language="json" ><a class="c_ident" id="c-YRUVy1WdLZ" href="#c-YRUVy1WdLZ" tabindex="-1" role="presentation"></a>{
+  <span class="tok-definition">type</span>: <span class="tok-string">&quot;apply&quot;</span>,
+  <span class="tok-definition">operator</span>: {<span class="tok-definition">type</span>: <span class="tok-string">&quot;word&quot;</span>, <span class="tok-definition">name</span>: <span class="tok-string">&quot;&gt;&quot;</span>},
+  <span class="tok-definition">args</span>: [
+    {<span class="tok-definition">type</span>: <span class="tok-string">&quot;word&quot;</span>, <span class="tok-definition">name</span>: <span class="tok-string">&quot;x&quot;</span>},
+    {<span class="tok-definition">type</span>: <span class="tok-string">&quot;value&quot;</span>, <span class="tok-definition">value</span>: <span class="tok-number">5</span>}
+  ]
+}</pre>
+
+<p><a class="p_ident" id="p-4Oty520T7c" href="#p-4Oty520T7c" tabindex="-1" role="presentation"></a>{{indexsee &quot;árbol de sintaxis abstracta”, &quot;árbol sintáctico”, [“estructura de datos”, árbol]}}</p>
+
+<p><a class="p_ident" id="p-xa+b6R6Gzl" href="#p-xa+b6R6Gzl" tabindex="-1" role="presentation"></a>Esta estructura de datos se llama un <em>árbol de sintaxis</em>. Si te imaginas los objetos como puntos y los enlaces entre ellos como líneas entre esos puntos, tiene una forma similar a un árbol. El hecho de que las expresiones contienen otras expresiones, que a su vez pueden contener más expresiones, es similar a la forma en que las ramas de un árbol se dividen y vuelven a dividir.</p><figure><img src="img/syntax_tree.svg" alt="Un diagrama que muestra la estructura del árbol de sintaxis del programa de ejemplo. La raíz está etiquetada como 'do' y tiene dos hijos, uno etiquetado como 'define' y otro como 'if'. A su vez, estos tienen más hijos que describen su contenido."></figure>
+
+<p><a class="p_ident" id="p-/T+pMy2lr/" href="#p-/T+pMy2lr/" tabindex="-1" role="presentation"></a>{{index análisis sintáctico}}</p>
+
+<p><a class="p_ident" id="p-oWghglriRc" href="#p-oWghglriRc" tabindex="-1" role="presentation"></a>Contrasta esto con el analizador que escribimos para el formato de archivo de configuración en <a href="09_regexp.html#ini">Capítulo 9</a>, que tenía una estructura simple: dividía la entrada en líneas y manejaba esas líneas una a la vez. Solo había algunas formas simples que una línea podía tener.</p>
+
+<p><a class="p_ident" id="p-IAXNFD4zEE" href="#p-IAXNFD4zEE" tabindex="-1" role="presentation"></a>{{index recursión, [anidamiento, “de expresiones”]}}</p>
+
+<p><a class="p_ident" id="p-6Mz6uGItWm" href="#p-6Mz6uGItWm" tabindex="-1" role="presentation"></a>Aquí debemos encontrar un enfoque diferente. Las expresiones no están separadas en líneas, y tienen una estructura recursiva. Las expresiones de aplicación <em>contienen</em> otras expresiones.</p>
+
+<p><a class="p_ident" id="p-cXp43eu5PY" href="#p-cXp43eu5PY" tabindex="-1" role="presentation"></a>Afortunadamente, este problema puede resolverse muy bien escribiendo una función de análisis sintáctico que sea recursiva de una manera que refleje la naturaleza recursiva del lenguaje.</p>
+
+<p><a class="p_ident" id="p-+kbXV3aRjp" href="#p-+kbXV3aRjp" tabindex="-1" role="presentation"></a>Definimos una función <code>parseExpression</code>, que recibe una cadena como entrada y devuelve un objeto que contiene la estructura de datos de la expresión al inicio de la cadena, junto con la parte de la cadena que queda después de analizar esta expresión. Al analizar subexpresiones (el argumento de una aplicación, por ejemplo), esta función puede ser llamada nuevamente, obteniendo la expresión de argumento así como el texto que queda. Este texto a su vez puede contener más argumentos o puede ser el paréntesis de cierre que finaliza la lista de argumentos.Esta es la primera parte del analizador sintáctico:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Kq2My8rR4Z" href="#c-Kq2My8rR4Z" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">parseExpression</span>(<span class="tok-definition">program</span>) {
+  program = skipSpace(program);
+  <span class="tok-keyword">let</span> <span class="tok-definition">match</span>, <span class="tok-definition">expr</span>;
+  <span class="tok-keyword">if</span> (match = <span class="tok-string2">/^&quot;([^&quot;]*)&quot;/</span>.exec(program)) {
+    expr = {<span class="tok-definition">type</span>: <span class="tok-string">&quot;value&quot;</span>, <span class="tok-definition">value</span>: match[<span class="tok-number">1</span>]};
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (match = <span class="tok-string2">/^\d+\b/</span>.exec(program)) {
+    expr = {<span class="tok-definition">type</span>: <span class="tok-string">&quot;value&quot;</span>, <span class="tok-definition">value</span>: Number(match[<span class="tok-number">0</span>])};
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (match = <span class="tok-string2">/^[^\s(),#&quot;]+/</span>.exec(program)) {
+    expr = {<span class="tok-definition">type</span>: <span class="tok-string">&quot;word&quot;</span>, <span class="tok-definition">name</span>: match[<span class="tok-number">0</span>]};
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Sintaxis inesperada: &quot;</span> + program);
+  }
+
+  <span class="tok-keyword">return</span> parseApply(expr, program.slice(match[<span class="tok-number">0</span>].length));
+}
+
+<span class="tok-keyword">function</span> <span class="tok-definition">skipSpace</span>(<span class="tok-definition">string</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">first</span> = string.search(<span class="tok-string2">/\S/</span>);
+  <span class="tok-keyword">if</span> (first == -<span class="tok-number">1</span>) <span class="tok-keyword">return</span> <span class="tok-string">&quot;&quot;</span>;
+  <span class="tok-keyword">return</span> string.slice(first);
+}</pre>
+
+<p><a class="p_ident" id="p-69spf6/XVL" href="#p-69spf6/XVL" tabindex="-1" role="presentation"></a>Debido a que Egg, al igual que JavaScript, permite cualquier cantidad de espacios en blanco entre sus elementos, debemos cortar repetidamente el espacio en blanco del inicio de la cadena del programa. Eso es para lo que sirve la función <code>skipSpace</code>.</p>
+
+<p><a class="p_ident" id="p-G2iiBlqqe/" href="#p-G2iiBlqqe/" tabindex="-1" role="presentation"></a>Después de omitir cualquier espacio inicial, <code>parseExpression</code> utiliza tres expresiones regulares para detectar los tres elementos atómicos que admite Egg: cadenas, números y palabras. El analizador construye un tipo diferente de estructura de datos dependiendo de cuál de ellos coincida. Si la entrada no coincide con ninguna de estas tres formas, no es una expresión válida y el analizador genera un error. Utilizamos el constructor <code>SyntaxError</code> aquí. Esta es una clase de excepción definida por el estándar, al igual que <code>Error</code>, pero más específica.</p>
+
+<p><a class="p_ident" id="p-EgqyXKPX43" href="#p-EgqyXKPX43" tabindex="-1" role="presentation"></a>Luego cortamos la parte que coincidió de la cadena del programa y la pasamos, junto con el objeto de la expresión, a <code>parseApply</code>, que verifica si la expresión es una aplicación. Si lo es, analiza una lista de argumentos entre paréntesis.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NbmLO+XtaQ" href="#c-NbmLO+XtaQ" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">parseApply</span>(<span class="tok-definition">expr</span>, <span class="tok-definition">program</span>) {
+  program = skipSpace(program);
+  <span class="tok-keyword">if</span> (program[<span class="tok-number">0</span>] != <span class="tok-string">&quot;(&quot;</span>) {
+    <span class="tok-keyword">return</span> {<span class="tok-definition">expr</span>: expr, <span class="tok-definition">rest</span>: program};
+  }
+
+  program = skipSpace(program.slice(<span class="tok-number">1</span>));
+  expr = {<span class="tok-definition">type</span>: <span class="tok-string">&quot;apply&quot;</span>, <span class="tok-definition">operator</span>: expr, <span class="tok-definition">args</span>: []};
+  <span class="tok-keyword">while</span> (program[<span class="tok-number">0</span>] != <span class="tok-string">&quot;)&quot;</span>) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">arg</span> = parseExpression(program);
+    expr.args.push(arg.expr);
+    program = skipSpace(arg.rest);
+    <span class="tok-keyword">if</span> (program[<span class="tok-number">0</span>] == <span class="tok-string">&quot;,&quot;</span>) {
+      program = skipSpace(program.slice(<span class="tok-number">1</span>));
+    } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (program[<span class="tok-number">0</span>] != <span class="tok-string">&quot;)&quot;</span>) {
+      <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Se esperaba ',' o ')'&quot;</span>);
+    }
+  }
+  <span class="tok-keyword">return</span> parseApply(expr, program.slice(<span class="tok-number">1</span>));
+}</pre>
+
+<p><a class="p_ident" id="p-P+rEG3RwON" href="#p-P+rEG3RwON" tabindex="-1" role="presentation"></a>Si el próximo carácter en el programa no es un paréntesis de apertura, esto no es una aplicación y <code>parseApply</code> devuelve la expresión que se le dio.</p>
+
+<p><a class="p_ident" id="p-gyKfAj64fa" href="#p-gyKfAj64fa" tabindex="-1" role="presentation"></a>De lo contrario, se salta el paréntesis de apertura y crea el objeto árbol sintáctico para esta expresión de aplicación. Luego llama recursivamente a <code>parseExpression</code> para analizar cada argumento hasta encontrar un paréntesis de cierre. La recursión es indirecta, a través de <code>parseApply</code> y <code>parseExpression</code> llamándose mutuamente.</p>
+
+<p><a class="p_ident" id="p-++4YGbdlTZ" href="#p-++4YGbdlTZ" tabindex="-1" role="presentation"></a>Dado que una expresión de aplicación puede a su vez ser aplicada (como en <code>multiplicador(2)(1)</code>), <code>parseApply</code> debe, después de analizar una aplicación, llamarse a sí misma nuevamente para verificar si sigue otro par de paréntesis.{{index &quot;árbol de sintaxis”, “lenguaje Egg”, “función de análisis”}}</p>
+
+<p><a class="p_ident" id="p-89g4z+3rO6" href="#p-89g4z+3rO6" tabindex="-1" role="presentation"></a>Esto es todo lo que necesitamos para analizar Egg. Lo envolvemos en una conveniente <code>parse</code> función que verifica que ha llegado al final de la cadena de entrada después de analizar la expresión (un programa Egg es una sola expresión), y que nos da la estructura de datos del programa.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-PRcHuKWwJ9" href="#c-PRcHuKWwJ9" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">parse</span>(<span class="tok-definition">program</span>) {
+  <span class="tok-keyword">let</span> {expr, rest} = parseExpression(program);
+  <span class="tok-keyword">if</span> (skipSpace(rest).length &gt; <span class="tok-number">0</span>) {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Texto inesperado después del programa&quot;</span>);
+  }
+  <span class="tok-keyword">return</span> expr;
+}
+
+console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
+<span class="tok-comment">// → {type: &quot;apply&quot;,</span>
+<span class="tok-comment">//    operator: {type: &quot;word&quot;, name: &quot;+&quot;},</span>
+<span class="tok-comment">//    args: [{type: &quot;word&quot;, name: &quot;a&quot;},</span>
+<span class="tok-comment">//           {type: &quot;value&quot;, value: 10}]}</span></pre>
+
+<p><a class="p_ident" id="p-l7ELJeshJs" href="#p-l7ELJeshJs" tabindex="-1" role="presentation"></a>¡Funciona! No nos da información muy útil cuando falla y no almacena la línea y la columna en las que comienza cada expresión, lo cual podría ser útil al informar errores más tarde, pero es suficiente para nuestros propósitos.</p>
+
+<h2><a class="h_ident" id="h-lI3Fc6r+GN" href="#h-lI3Fc6r+GN" tabindex="-1" role="presentation"></a>El evaluador</h2>
+
+<p><a class="p_ident" id="p-2DwFFoQHaQ" href="#p-2DwFFoQHaQ" tabindex="-1" role="presentation"></a>{{index “función de evaluación”, evaluación, interpretación, &quot;árbol de sintaxis”, “lenguaje Egg”}}</p>
+
+<p><a class="p_ident" id="p-dhdWhScWHm" href="#p-dhdWhScWHm" tabindex="-1" role="presentation"></a>¿Qué podemos hacer con el árbol de sintaxis de un programa? ¡Ejecutarlo, por supuesto! Y eso es lo que hace el evaluador. Le das un árbol de sintaxis y un objeto de ámbito que asocia nombres con valores, y evaluará la expresión que representa el árbol y devolverá el valor que esto produce.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-w34EbEGm2M" href="#c-w34EbEGm2M" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">specialForms</span> = Object.create(<span class="tok-keyword">null</span>);
+
+<span class="tok-keyword">function</span> <span class="tok-definition">evaluate</span>(<span class="tok-definition">expr</span>, <span class="tok-definition">scope</span>) {
+  <span class="tok-keyword">if</span> (expr.type == <span class="tok-string">&quot;value&quot;</span>) {
+    <span class="tok-keyword">return</span> expr.value;
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (expr.type == <span class="tok-string">&quot;word&quot;</span>) {
+    <span class="tok-keyword">if</span> (expr.name <span class="tok-keyword">in</span> scope) {
+      <span class="tok-keyword">return</span> scope[expr.name];
+    } <span class="tok-keyword">else</span> {
+      <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> ReferenceError(
+        <span class="tok-string2">`Vinculación indefinida: </span>${expr.name}<span class="tok-string2">`</span>);
+    }
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (expr.type == <span class="tok-string">&quot;apply&quot;</span>) {
+    <span class="tok-keyword">let</span> {operator, args} = expr;
+    <span class="tok-keyword">if</span> (operator.type == <span class="tok-string">&quot;word&quot;</span> &amp;&amp;
+        operator.name <span class="tok-keyword">in</span> specialForms) {
+      <span class="tok-keyword">return</span> specialForms[operator.name](expr.args, scope);
+    } <span class="tok-keyword">else</span> {
+      <span class="tok-keyword">let</span> <span class="tok-definition">op</span> = evaluate(operator, scope);
+      <span class="tok-keyword">if</span> (<span class="tok-keyword">typeof</span> op == <span class="tok-string">&quot;function&quot;</span>) {
+        <span class="tok-keyword">return</span> op(...args.map(<span class="tok-definition">arg</span> =&gt; evaluate(arg, scope)));
+      } <span class="tok-keyword">else</span> {
+        <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> TypeError(<span class="tok-string">&quot;Aplicando una no-función.&quot;</span>);
+      }
+    }
+  }
+}</pre>
+
+<p><a class="p_ident" id="p-aDKfEqCSlh" href="#p-aDKfEqCSlh" tabindex="-1" role="presentation"></a>{{index “expresión literal”, ámbito}}</p>
+
+<p><a class="p_ident" id="p-HWNpAazEel" href="#p-HWNpAazEel" tabindex="-1" role="presentation"></a>El evaluador tiene código para cada uno de los tipos de expresión. Una expresión de valor literal produce su valor. (Por ejemplo, la expresión <code>100</code> simplemente se evalúa como el número 100.) Para un enlace, debemos verificar si está realmente definido en el ámbito y, si lo está, obtener el valor del enlace.</p>
+
+<p><a class="p_ident" id="p-OkaJrgRDDs" href="#p-OkaJrgRDDs" tabindex="-1" role="presentation"></a>{{index [función, aplicación]}}</p>
+
+<p><a class="p_ident" id="p-NYz/C0Evfv" href="#p-NYz/C0Evfv" tabindex="-1" role="presentation"></a>Las aplicaciones son más complicadas. Si son una forma especial, como <code>if</code>, no evaluamos nada y pasamos las expresiones de argumento, junto con el ámbito, a la función que maneja esta forma. Si es una llamada normal, evaluamos el operador, verificamos que sea una función, y la llamamos con los argumentos evaluados.</p>
+
+<p><a class="p_ident" id="p-UhQj4bgm9i" href="#p-UhQj4bgm9i" tabindex="-1" role="presentation"></a>Usamos valores de función JavaScript simples para representar los valores de función de Egg. Volveremos a esto <a href="12_language.html#egg_fun">más tarde</a>, cuando se defina la forma especial llamada <code>fun</code>.{{index legibilidad, “función de evaluación”, recursión, análisis sintáctico}}</p>
+
+<p><a class="p_ident" id="p-yBQx2/sKQH" href="#p-yBQx2/sKQH" tabindex="-1" role="presentation"></a>La estructura recursiva de <code>evaluate</code> se asemeja a la estructura similar del analizador sintáctico, y ambos reflejan la estructura del lenguaje en sí. También sería posible combinar el analizador sintáctico y el evaluador en una sola función, y evaluar durante el análisis sintáctico. Pero dividirlos de esta manera hace que el programa sea más claro y flexible.</p>
+
+<p><a class="p_ident" id="p-r32eYZy07M" href="#p-r32eYZy07M" tabindex="-1" role="presentation"></a>{{index “Lenguaje Egg”, interpretación}}</p>
+
+<p><a class="p_ident" id="p-YL/SkpZx0H" href="#p-YL/SkpZx0H" tabindex="-1" role="presentation"></a>Esto es realmente todo lo que se necesita para interpretar Egg. Es así de simple. Pero sin definir algunas formas especiales y agregar algunos valores útiles al entorno, todavía no puedes hacer mucho con este lenguaje.</p>
+
+<h2><a class="h_ident" id="h-okJU2Tz5zr" href="#h-okJU2Tz5zr" tabindex="-1" role="presentation"></a>Formas especiales</h2>
+
+<p><a class="p_ident" id="p-4AQECo8zLD" href="#p-4AQECo8zLD" tabindex="-1" role="presentation"></a>El objeto <code>specialForms</code> se utiliza para definir sintaxis especial en Egg. Asocia palabras con funciones que evalúan dichas formas. Actualmente está vacío. Añadamos <code>if</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-zMj1xnykR3" href="#c-zMj1xnykR3" tabindex="-1" role="presentation"></a>specialForms.if = (<span class="tok-definition">args</span>, <span class="tok-definition">scope</span>) =&gt; {
+  <span class="tok-keyword">if</span> (args.length != <span class="tok-number">3</span>) {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Número incorrecto de argumentos para if&quot;</span>);
+  } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (evaluate(args[<span class="tok-number">0</span>], scope) !== false) {
+    <span class="tok-keyword">return</span> evaluate(args[<span class="tok-number">1</span>], scope);
+  } <span class="tok-keyword">else</span> {
+    <span class="tok-keyword">return</span> evaluate(args[<span class="tok-number">2</span>], scope);
+  }
+};</pre>
+
+<p><a class="p_ident" id="p-WeZ6L3damh" href="#p-WeZ6L3damh" tabindex="-1" role="presentation"></a>La construcción <code>if</code> de Egg espera exactamente tres argumentos. Evaluará el primero, y si el resultado no es el valor <code>false</code>, evaluará el segundo. De lo contrario, se evaluará el tercero. Esta forma <code>if</code> se asemeja más al operador ternario <code>?:</code> de JavaScript que al <code>if</code> de JavaScript. Es una expresión, no una declaración, y produce un valor, concretamente, el resultado del segundo o tercer argumento.</p>
+
+<p><a class="p_ident" id="p-zLB8PMONce" href="#p-zLB8PMONce" tabindex="-1" role="presentation"></a>Egg también difiere de JavaScript en cómo maneja el valor de condición para <code>if</code>. No tratará cosas como cero o la cadena vacía como falso, solo el valor preciso <code>false</code>.</p>
+
+<p><a class="p_ident" id="p-q4X/kmv6pB" href="#p-q4X/kmv6pB" tabindex="-1" role="presentation"></a>La razón por la que necesitamos representar <code>if</code> como una forma especial, en lugar de una función regular, es que todos los argumentos de las funciones se evalúan antes de llamar a la función, mientras que <code>if</code> debe evaluar solo <em>uno</em> de sus segundos o terceros argumentos, dependiendo del valor del primero.</p>
+
+<p><a class="p_ident" id="p-ThCmPNDU78" href="#p-ThCmPNDU78" tabindex="-1" role="presentation"></a>La forma <code>while</code> es similar.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-icmi3itpHq" href="#c-icmi3itpHq" tabindex="-1" role="presentation"></a>specialForms.while = (<span class="tok-definition">args</span>, <span class="tok-definition">scope</span>) =&gt; {
+  <span class="tok-keyword">if</span> (args.length != <span class="tok-number">2</span>) {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Número incorrecto de argumentos para while&quot;</span>);
+  }
+  <span class="tok-keyword">while</span> (evaluate(args[<span class="tok-number">0</span>], scope) !== false) {
+    evaluate(args[<span class="tok-number">1</span>], scope);
+  }
+
+  <span class="tok-comment">// Dado que undefined no existe en Egg, devolvemos false,</span>
+  <span class="tok-comment">// por falta de un resultado significativo.</span>
+  <span class="tok-keyword">return</span> false;
+};</pre>
+
+<p><a class="p_ident" id="p-Z/4xap75Q7" href="#p-Z/4xap75Q7" tabindex="-1" role="presentation"></a>Otro bloque básico es <code>do</code>, que ejecuta todos sus argumentos de arriba abajo. Su valor es el valor producido por el último argumento.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-PsbGnrOVLi" href="#c-PsbGnrOVLi" tabindex="-1" role="presentation"></a>specialForms.do = (<span class="tok-definition">args</span>, <span class="tok-definition">scope</span>) =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">valor</span> = false;
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">arg</span> <span class="tok-keyword">of</span> args) {
+    valor = evaluate(arg, scope);
+  }
+  <span class="tok-keyword">return</span> valor;
+};</pre>
+
+<p><a class="p_ident" id="p-9XnR4LPwbb" href="#p-9XnR4LPwbb" tabindex="-1" role="presentation"></a>{{index [“operador =&quot;, “en Egg”], [vinculación, “en Egg”]}}</p>
+
+<p><a class="p_ident" id="p-p3K5iHWfUQ" href="#p-p3K5iHWfUQ" tabindex="-1" role="presentation"></a>Para poder crear vinculaciones y darles nuevos valores, también creamos una forma llamada <code>define</code>. Espera una palabra como su primer argumento y una expresión que produzca el valor a asignar a esa palabra como su segundo argumento. Dado que <code>define</code>, al igual que todo, es una expresión, debe devolver un valor. Haremos que devuelva el valor que se asignó (como el operador <code>=</code> de JavaScript).</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9inONoYidA" href="#c-9inONoYidA" tabindex="-1" role="presentation"></a>specialForms.define = (<span class="tok-definition">args</span>, <span class="tok-definition">scope</span>) =&gt; {
+  <span class="tok-keyword">if</span> (args.length != <span class="tok-number">2</span> || args[<span class="tok-number">0</span>].type != <span class="tok-string">&quot;word&quot;</span>) {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Uso incorrecto de define&quot;</span>);
+  }
+  <span class="tok-keyword">let</span> <span class="tok-definition">value</span> = evaluate(args[<span class="tok-number">1</span>], scope);
+  scope[args[<span class="tok-number">0</span>].name] = value;
+  <span class="tok-keyword">return</span> value;
+};</pre>
+
+<h2><a class="h_ident" id="h-QDYVZFuV/L" href="#h-QDYVZFuV/L" tabindex="-1" role="presentation"></a>El entorno</h2>
+
+<p><a class="p_ident" id="p-t3Y1Pmfab7" href="#p-t3Y1Pmfab7" tabindex="-1" role="presentation"></a>El scope aceptado por <code>evaluate</code> es un objeto con propiedades cuyos nombres corresponden a los nombres de los bindings y cuyos valores corresponden a los valores a los que esos bindings están ligados. Definamos un objeto para representar el scope global.</p>
+
+<p><a class="p_ident" id="p-b3b8HuKUtZ" href="#p-b3b8HuKUtZ" tabindex="-1" role="presentation"></a>Para poder usar la construcción <code>if</code> que acabamos de definir, necesitamos tener acceso a valores Booleanos. Dado que solo hay dos valores Booleanos, no necesitamos una sintaxis especial para ellos. Simplemente asignamos dos nombres a los valores <code>true</code> y <code>false</code> y los usamos.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-vJ45zHlK0v" href="#c-vJ45zHlK0v" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">topScope</span> = Object.create(<span class="tok-keyword">null</span>);
+
+topScope.true = true;
+topScope.false = false;</pre>
+
+<p><a class="p_ident" id="p-2qBpV6Yj9I" href="#p-2qBpV6Yj9I" tabindex="-1" role="presentation"></a>Ahora podemos evaluar una expresión simple que niega un valor Booleano.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ynBEgrK+/h" href="#c-ynBEgrK+/h" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">prog</span> = parse(<span class="tok-string2">`if(true, false, true)`</span>);
+console.log(evaluate(prog, topScope));
+<span class="tok-comment">// → false</span></pre>
+
+<p><a class="p_ident" id="p-UUFPrY5r8L" href="#p-UUFPrY5r8L" tabindex="-1" role="presentation"></a>{{index aritmética, “Constructor de funciones”}}</p>
+
+<p><a class="p_ident" id="p-bkglU4hrcr" href="#p-bkglU4hrcr" tabindex="-1" role="presentation"></a>Para suministrar operadores básicos de aritmética y comparación, también agregaremos algunas funciones al scope. En aras de mantener el código corto, usaremos <code>Function</code> para sintetizar un conjunto de funciones de operadores en un bucle, en lugar de definirlas individualmente.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-OTgmEw/s8v" href="#c-OTgmEw/s8v" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">op</span> <span class="tok-keyword">of</span> [<span class="tok-string">&quot;+&quot;</span>, <span class="tok-string">&quot;-&quot;</span>, <span class="tok-string">&quot;*&quot;</span>, <span class="tok-string">&quot;/&quot;</span>, <span class="tok-string">&quot;==&quot;</span>, <span class="tok-string">&quot;&lt;&quot;</span>, <span class="tok-string">&quot;&gt;&quot;</span>]) {
+  topScope[op] = Function(<span class="tok-string">&quot;a, b&quot;</span>, <span class="tok-string2">`return a </span>${op}<span class="tok-string2"> b;`</span>);
+}</pre>
+
+<p><a class="p_ident" id="p-/LoFnlViDG" href="#p-/LoFnlViDG" tabindex="-1" role="presentation"></a>También es útil tener una forma de imprimir valores, por lo que envolveremos <code>console.log</code> en una función y la llamaremos <code>print</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-XFrq8jIuQC" href="#c-XFrq8jIuQC" tabindex="-1" role="presentation"></a>topScope.print = <span class="tok-definition">value</span> =&gt; {
+  console.log(value);
+  <span class="tok-keyword">return</span> value;
+};</pre>
+
+<p><a class="p_ident" id="p-fwBjYvhI3d" href="#p-fwBjYvhI3d" tabindex="-1" role="presentation"></a>Esto nos proporciona suficientes herramientas elementales para escribir programas simples. La siguiente función proporciona una forma conveniente de analizar un programa y ejecutarlo en un nuevo ámbito:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-aPeJgSZPEO" href="#c-aPeJgSZPEO" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">run</span>(<span class="tok-definition">program</span>) {
+  <span class="tok-keyword">return</span> evaluate(parse(program), Object.create(topScope));
+}</pre>
+
+<p><a class="p_ident" id="p-QlhCpeZ1rM" href="#p-QlhCpeZ1rM" tabindex="-1" role="presentation"></a>Utilizaremos las cadenas de prototipos de objetos para representar ámbitos anidados para que el programa pueda agregar bindings a su ámbito local sin modificar el ámbito de nivel superior.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-uW/XtfVXMZ" href="#c-uW/XtfVXMZ" tabindex="-1" role="presentation"></a>run(<span class="tok-string2">`</span>
+<span class="tok-string2">do(define(total, 0),</span>
+<span class="tok-string2">   define(count, 1),</span>
+<span class="tok-string2">   while(&lt;(count, 11),</span>
+<span class="tok-string2">         do(define(total, +(total, count)),</span>
+<span class="tok-string2">            define(count, +(count, 1)))),</span>
+<span class="tok-string2">   print(total))</span>
+<span class="tok-string2">`</span>);
+<span class="tok-comment">// → 55</span></pre>
+
+<p><a class="p_ident" id="p-xNJMDZFJNP" href="#p-xNJMDZFJNP" tabindex="-1" role="presentation"></a>Este es el programa que hemos visto varias veces antes, que calcula la suma de los números del 1 al 10, expresado en Egg. Es claramente más feo que el equivalente programa en JavaScript, pero no está mal para un lenguaje implementado en menos de 150 líneas de código.</p>
+
+<h2 id="egg_fun"><a class="h_ident" id="h-H0l5He7QIh" href="#h-H0l5He7QIh" tabindex="-1" role="presentation"></a>Funciones</h2>
+
+<p><a class="p_ident" id="p-hPeP06Sjvr" href="#p-hPeP06Sjvr" tabindex="-1" role="presentation"></a>{{index función, “Lenguaje Egg”}}</p>
+
+<p><a class="p_ident" id="p-pxhz3ZokU1" href="#p-pxhz3ZokU1" tabindex="-1" role="presentation"></a>Un lenguaje de programación sin funciones es un pobre lenguaje de programación.</p>
+
+<p><a class="p_ident" id="p-Knv8+HvQ29" href="#p-Knv8+HvQ29" tabindex="-1" role="presentation"></a>Afortunadamente, no es difícil agregar una construcción <code>fun</code>, que trata su último argumento como el cuerpo de la función y utiliza todos los argumentos anteriores como los nombres de los parámetros de la función.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-nLlUjn7C0q" href="#c-nLlUjn7C0q" tabindex="-1" role="presentation"></a>specialForms.fun = (<span class="tok-definition">args</span>, <span class="tok-definition">scope</span>) =&gt; {
+  <span class="tok-keyword">if</span> (!args.length) {
+    <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Las funciones necesitan un cuerpo&quot;</span>);
+  }
+  <span class="tok-keyword">let</span> <span class="tok-definition">body</span> = args[args.length - <span class="tok-number">1</span>];
+  <span class="tok-keyword">let</span> <span class="tok-definition">params</span> = args.slice(<span class="tok-number">0</span>, args.length - <span class="tok-number">1</span>).map(<span class="tok-definition">expr</span> =&gt; {
+    <span class="tok-keyword">if</span> (expr.type != <span class="tok-string">&quot;word&quot;</span>) {
+      <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Los nombres de los parámetros deben ser palabras&quot;</span>);
+    }
+    <span class="tok-keyword">return</span> expr.name;
+  });
+
+  <span class="tok-keyword">return</span> <span class="tok-keyword">function</span>(...<span class="tok-definition">args</span>) {
+    <span class="tok-keyword">if</span> (args.length != params.length) {
+      <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> TypeError(<span class="tok-string">&quot;Número incorrecto de argumentos&quot;</span>);
+    }
+    <span class="tok-keyword">let</span> <span class="tok-definition">localScope</span> = Object.create(scope);
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; args.length; i++) {
+      localScope[params[i]] = args[i];
+    }
+    <span class="tok-keyword">return</span> evaluate(body, localScope);
+  };
+};</pre>
+
+<p><a class="p_ident" id="p-gjkoD3dPuc" href="#p-gjkoD3dPuc" tabindex="-1" role="presentation"></a>Las funciones en Egg tienen su propio ámbito local. La función producida por la forma <code>fun</code> crea este ámbito local y añade los enlaces de los argumentos a él. Luego evalúa el cuerpo de la función en este ámbito y devuelve el resultado.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-tn5DChGAkA" href="#c-tn5DChGAkA" tabindex="-1" role="presentation"></a>run(<span class="tok-string2">`</span>
+<span class="tok-string2">do(define(plusOne, fun(a, +(a, 1))),</span>
+<span class="tok-string2">   print(plusOne(10)))</span>
+<span class="tok-string2">`</span>);
+<span class="tok-comment">// → 11</span>
+
+run(<span class="tok-string2">`</span>
+<span class="tok-string2">do(define(pow, fun(base, exp,</span>
+<span class="tok-string2">     if(==(exp, 0),</span>
+<span class="tok-string2">        1,</span>
+<span class="tok-string2">        *(base, pow(base, -(exp, 1)))))),</span>
+<span class="tok-string2">   print(pow(2, 10)))</span>
+<span class="tok-string2">`</span>);
+<span class="tok-comment">// → 1024</span></pre>
+
+<h2><a class="h_ident" id="h-QZp+1BKgLP" href="#h-QZp+1BKgLP" tabindex="-1" role="presentation"></a>Compilación</h2>
+
+<p><a class="p_ident" id="p-o4645TAlcf" href="#p-o4645TAlcf" tabindex="-1" role="presentation"></a>{{index interpretación, compilación}}</p>
+
+<p><a class="p_ident" id="p-pYpmnQkmEE" href="#p-pYpmnQkmEE" tabindex="-1" role="presentation"></a>Lo que hemos construido es un intérprete. Durante la evaluación, actúa directamente sobre la representación del programa producido por el analizador sintáctico.</p>
+
+<p><a class="p_ident" id="p-IX7aTbUl3L" href="#p-IX7aTbUl3L" tabindex="-1" role="presentation"></a>{{index eficiencia, rendimiento, [enlace, definición], [memoria, velocidad]}}</p>
+
+<p><a class="p_ident" id="p-TqdaU5OIYq" href="#p-TqdaU5OIYq" tabindex="-1" role="presentation"></a><em>La compilación</em> es el proceso de agregar otro paso entre el análisis sintáctico y la ejecución de un programa, que transforma el programa en algo que puede ser evaluado de manera más eficiente al hacer la mayor cantidad de trabajo posible por adelantado. Por ejemplo, en lenguajes bien diseñados, es obvio, para cada uso de un enlace, a qué enlace se hace referencia, sin ejecutar realmente el programa. Esto se puede utilizar para evitar buscar el enlace por nombre cada vez que se accede, en su lugar, recuperándolo directamente desde una ubicación de memoria predeterminada.</p>
+
+<p><a class="p_ident" id="p-MlvKWh44Ts" href="#p-MlvKWh44Ts" tabindex="-1" role="presentation"></a>Tradicionalmente, compilar implica convertir el programa a código máquina, el formato en bruto que un procesador de computadora puede ejecutar. Pero cualquier proceso que convierta un programa a una representación diferente se puede considerar como compilación.</p>
+
+<p><a class="p_ident" id="p-XZWNZya8cg" href="#p-XZWNZya8cg" tabindex="-1" role="presentation"></a>{{index simplicidad, “Constructor de funciones”, transpilación}}</p>
+
+<p><a class="p_ident" id="p-aM2KGsJ5pX" href="#p-aM2KGsJ5pX" tabindex="-1" role="presentation"></a>Sería posible escribir una estrategia de evaluación alternativa para Egg, una que primero convierte el programa a un programa JavaScript, usa <code>Function</code> para invocar el compilador de JavaScript en él, y luego ejecuta el resultado. Cuando se hace correctamente, esto haría que Egg se ejecutara muy rápido y aún así fuera bastante simple de implementar.</p>
+
+<p><a class="p_ident" id="p-41d+3GRIQp" href="#p-41d+3GRIQp" tabindex="-1" role="presentation"></a>Si te interesa este tema y estás dispuesto a dedicar tiempo a ello, te animo a intentar implementar ese compilador como ejercicio.</p>
+
+<h2><a class="h_ident" id="h-cAD+YSu/Uu" href="#h-cAD+YSu/Uu" tabindex="-1" role="presentation"></a>Haciendo trampa</h2>
+
+<p><a class="p_ident" id="p-VP1siqwk/B" href="#p-VP1siqwk/B" tabindex="-1" role="presentation"></a>Cuando definimos <code>if</code> y <code>while</code>, probablemente notaste que eran envoltorios más o menos triviales alrededor del propio <code>if</code> y <code>while</code> de JavaScript. De manera similar, los valores en Egg son simplemente valores regulares de JavaScript. Cerrar la brecha hacia un sistema más primitivo, como el código máquina que entiende el procesador, requiere más esfuerzo, pero la forma en que funciona se asemeja a lo que estamos haciendo aquí.Aunque el lenguaje de juguete de este capítulo no hace nada que no se pudiera hacer mejor en JavaScript, <em>sí</em> hay situaciones donde escribir pequeños lenguajes ayuda a realizar trabajos reales.</p>
+
+<p><a class="p_ident" id="p-kbfQXnrr8R" href="#p-kbfQXnrr8R" tabindex="-1" role="presentation"></a>Tal lenguaje no tiene por qué parecerse a un lenguaje de programación típico. Si JavaScript no viniera equipado con expresiones regulares, por ejemplo, podrías escribir tu propio analizador sintáctico y evaluador para expresiones regulares.</p>
+
+<p><a class="p_ident" id="p-UmyA5toIkN" href="#p-UmyA5toIkN" tabindex="-1" role="presentation"></a>O imagina que estás construyendo un programa que permite crear rápidamente analizadores sintácticos al proporcionar una descripción lógica del lenguaje que necesitan analizar. Podrías definir una notación específica para eso y un compilador que la convierta en un programa analizador.</p>
+
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-ZLsfR3tk19" href="#c-ZLsfR3tk19" tabindex="-1" role="presentation"></a>expr = número | cadena | nombre | aplicación
+
+number = dígito+
+
+name = letra+
+
+string = '&quot;' (! '&quot;')* '&quot;'
+
+application = expr '(' (expr (',' expr)*)? ')'</pre>
+
+<p><a class="p_ident" id="p-C0dzBDL4SR" href="#p-C0dzBDL4SR" tabindex="-1" role="presentation"></a>Esto es lo que comúnmente se denomina un <em>lenguaje específico de dominio</em>, un lenguaje diseñado para expresar un ámbito estrecho de conocimiento. Tal lenguaje puede ser más expresivo que un lenguaje de propósito general porque está diseñado para describir exactamente las cosas que necesitan ser descritas en su dominio, y nada más.</p>
+
+<h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
+
+<h3><a class="i_ident" id="i-uQzJv9I1Z6" href="#i-uQzJv9I1Z6" tabindex="-1" role="presentation"></a>Arrays</h3>
+
+<p><a class="p_ident" id="p-t4E4CEaBzk" href="#p-t4E4CEaBzk" tabindex="-1" role="presentation"></a>Agrega soporte para arrays en Egg añadiendo las siguientes tres funciones al ámbito superior: <code>array(.<wbr>.<wbr>.<wbr>valores)</code> para construir un array que contenga los valores de los argumentos, <code>length(array)</code> para obtener la longitud de un array y <code>element(array, n)</code> para obtener el n-ésimo elemento de un array.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-fh4cngpM93" href="#c-fh4cngpM93" tabindex="-1" role="presentation"></a><span class="tok-comment">// Modifica estas definiciones...</span>
+
+topScope.array = <span class="tok-string">&quot;...&quot;</span>;
+
+topScope.length = <span class="tok-string">&quot;...&quot;</span>;
+
+topScope.element = <span class="tok-string">&quot;...&quot;</span>;
+
+run(<span class="tok-string2">`</span>
+<span class="tok-string2">do(define(sum, fun(array,</span>
+<span class="tok-string2">     do(define(i, 0),</span>
+<span class="tok-string2">        define(sum, 0),</span>
+<span class="tok-string2">        while(&lt;(i, length(array)),</span>
+<span class="tok-string2">          do(define(sum, +(sum, element(array, i))),</span>
+<span class="tok-string2">             define(i, +(i, 1)))),</span>
+<span class="tok-string2">        sum))),</span>
+<span class="tok-string2">   print(sum(array(1, 2, 3))))</span>
+<span class="tok-string2">`</span>);
+<span class="tok-comment">// → 6</span></pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-V6CA9sjtEY" href="#p-V6CA9sjtEY" tabindex="-1" role="presentation"></a>La forma más sencilla de hacer esto es representar los arrays de Egg con arrays de JavaScript.</p>
+
+<p><a class="p_ident" id="p-gKO9oQjczI" href="#p-gKO9oQjczI" tabindex="-1" role="presentation"></a>Los valores añadidos al ámbito superior deben ser funciones. Al usar un argumento restante (con la notación de triple punto), la definición de <code>array</code> puede ser <em>muy</em> simple.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-KU8YojAGul" href="#i-KU8YojAGul" tabindex="-1" role="presentation"></a>Clausura</h3>
+
+<p><a class="p_ident" id="p-R4KFDn2Nek" href="#p-R4KFDn2Nek" tabindex="-1" role="presentation"></a>{{index closure, [función, ámbito], “clausura en Egg (ejercicio)”}}</p>
+
+<p><a class="p_ident" id="p-fppmSSGuOO" href="#p-fppmSSGuOO" tabindex="-1" role="presentation"></a>La forma en que hemos definido <code>fun</code> permite que las funciones en Egg hagan referencia al ámbito circundante, lo que permite que el cuerpo de la función use valores locales que eran visibles en el momento en que se definió la función, al igual que lo hacen las funciones de JavaScript.</p>
+
+<p><a class="p_ident" id="p-CGUDr6fRr0" href="#p-CGUDr6fRr0" tabindex="-1" role="presentation"></a>El siguiente programa ilustra esto: la función <code>f</code> devuelve una función que suma su argumento al argumento de <code>f</code>, lo que significa que necesita acceder al ámbito local dentro de <code>f</code> para poder usar la vinculación <code>a</code>.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-zJ2x7sbWRv" href="#c-zJ2x7sbWRv" tabindex="-1" role="presentation"></a>run(<span class="tok-string2">`</span>
+<span class="tok-string2">do(define(f, fun(a, fun(b, +(a, b)))),</span>
+<span class="tok-string2">   print(f(4)(5)))</span>
+<span class="tok-string2">`</span>);
+<span class="tok-comment">// → 9</span></pre>
+
+<p><a class="p_ident" id="p-8Tn4o3XoK3" href="#p-8Tn4o3XoK3" tabindex="-1" role="presentation"></a>Vuelve a la definición del formulario <code>fun</code> y explica qué mecanismo hace que esto funcione.</p>
+
+<p><a class="p_ident" id="p-BzdZUR0fo1" href="#p-BzdZUR0fo1" tabindex="-1" role="presentation"></a>{{hint{{index cierre, “cierre en Egg (ejercicio)”}}</p>
+
+<p><a class="p_ident" id="p-+PSytzGvu7" href="#p-+PSytzGvu7" tabindex="-1" role="presentation"></a>Una vez más, estamos montando un mecanismo en JavaScript para obtener la característica equivalente en Egg. Los formularios especiales reciben el ámbito local en el que se evalúan para que puedan evaluar sus subformas en ese ámbito. La función devuelta por <code>fun</code> tiene acceso al argumento <code>scope</code> dado a su función contenedora y lo utiliza para crear el ámbito local de la función cuando se llama.</p>
+
+<p><a class="p_ident" id="p-oBLpxDLost" href="#p-oBLpxDLost" tabindex="-1" role="presentation"></a>{{index compilación}}</p>
+
+<p><a class="p_ident" id="p-ZUZpVdQzvJ" href="#p-ZUZpVdQzvJ" tabindex="-1" role="presentation"></a>Esto significa que el prototipo del ámbito local será el ámbito en el cual la función fue creada, lo que hace posible acceder a los enlaces en ese ámbito desde la función. Esto es todo lo que se necesita para implementar el cierre (aunque para compilarlo de una manera realmente eficiente, sería necesario hacer un poco más de trabajo).</p>
+
+<p><a class="p_ident" id="p-c0w8Z9ugmb" href="#p-c0w8Z9ugmb" tabindex="-1" role="presentation"></a>hint}}</p>
+
+<h3><a class="i_ident" id="i-BU3lBD6Cl5" href="#i-BU3lBD6Cl5" tabindex="-1" role="presentation"></a>Comentarios</h3>
+
+<p><a class="p_ident" id="p-O8y2A3uI5s" href="#p-O8y2A3uI5s" tabindex="-1" role="presentation"></a>Sería bueno si pudiéramos escribir comentarios en Egg. Por ejemplo, siempre que encontremos un signo de almohadilla (<code>#</code>), podríamos tratar el resto de la línea como un comentario y ignorarlo, similar a <code>//</code> en JavaScript.</p>
+
+<p><a class="p_ident" id="p-ctRQbLAhSs" href="#p-ctRQbLAhSs" tabindex="-1" role="presentation"></a>No tenemos que hacer grandes cambios en el analizador para admitir esto. Simplemente podemos cambiar <code>skipSpace</code> para omitir comentarios como si fueran espacios en blanco de manera que todos los puntos donde se llama a <code>skipSpace</code> ahora también omitirán comentarios. Realiza este cambio.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-mAy9RNedq5" href="#c-mAy9RNedq5" tabindex="-1" role="presentation"></a><span class="tok-comment">// Este es el skipSpace antiguo. Modifícalo...</span>
+<span class="tok-keyword">function</span> <span class="tok-definition">skipSpace</span>(<span class="tok-definition">string</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">first</span> = string.search(<span class="tok-string2">/\S/</span>);
+  <span class="tok-keyword">if</span> (first == -<span class="tok-number">1</span>) <span class="tok-keyword">return</span> <span class="tok-string">&quot;&quot;</span>;
+  <span class="tok-keyword">return</span> string.slice(first);
+}
+
+console.log(parse(<span class="tok-string">&quot;# hola</span><span class="tok-string2">\n</span><span class="tok-string">x&quot;</span>));
+<span class="tok-comment">// → {type: &quot;word&quot;, name: &quot;x&quot;}</span>
+
+console.log(parse(<span class="tok-string">&quot;a # uno</span><span class="tok-string2">\n</span><span class="tok-string">   # dos</span><span class="tok-string2">\n</span><span class="tok-string">()&quot;</span>));
+<span class="tok-comment">// → {type: &quot;apply&quot;,</span>
+<span class="tok-comment">//    operator: {type: &quot;word&quot;, name: &quot;a&quot;},</span>
+<span class="tok-comment">//    args: []}</span></pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-4pQ2RIUDPS" href="#p-4pQ2RIUDPS" tabindex="-1" role="presentation"></a>Asegúrate de que tu solución maneje múltiples comentarios seguidos, con posiblemente espacios en blanco entre ellos o después de ellos.</p>
+
+<p><a class="p_ident" id="p-QQa8lWmHXT" href="#p-QQa8lWmHXT" tabindex="-1" role="presentation"></a>Una expresión regular es probablemente la forma más sencilla de resolver esto. Escribe algo que coincida con “espacio en blanco o un comentario, cero o más veces”. Utiliza el método <code>exec</code> o <code>match</code> y observa la longitud del primer elemento en la matriz devuelta (la coincidencia completa) para averiguar cuántos caracteres cortar.</p>
+
+</div></details>
+
+<h3><a class="i_ident" id="i-TJ4IOq9YIj" href="#i-TJ4IOq9YIj" tabindex="-1" role="presentation"></a>Corrigiendo el ámbito</h3>
+
+<p><a class="p_ident" id="p-u0Ry6EwCmy" href="#p-u0Ry6EwCmy" tabindex="-1" role="presentation"></a>{{index [enlace, definición], asignación, “corrección de ámbito (ejercicio)”}}</p>
+
+<p><a class="p_ident" id="p-OLjh9e6hGE" href="#p-OLjh9e6hGE" tabindex="-1" role="presentation"></a>Actualmente, la única forma de asignar un enlace un valor es <code>define</code>. Esta construcción actúa como una forma tanto de definir nuevos enlaces como de dar un nuevo valor a los existentes.</p>
+
+<p><a class="p_ident" id="p-ssqoqtZ2fc" href="#p-ssqoqtZ2fc" tabindex="-1" role="presentation"></a>Esta ambigüedad causa un problema. Cuando intentas darle un nuevo valor a un enlace no local, terminarás definiendo uno local con el mismo nombre en su lugar. Algunos lenguajes funcionan de esta manera por diseño, pero siempre he encontrado que es una forma incómoda de manejar el ámbito.</p>
+
+<p><a class="p_ident" id="p-ryWI6Ic/LB" href="#p-ryWI6Ic/LB" tabindex="-1" role="presentation"></a>Agrega una forma especial <code>set</code>, similar a <code>define</code>, que da un nuevo valor a un enlace, actualizando el enlace en un ámbito exterior si aún no existe en el ámbito interior. Si el enlace no está definido en absoluto, lanza un <code>ReferenceError</code> (otro tipo de error estándar).{{index “hasOwn function”, prototype, “getPrototypeOf function”}}</p>
+
+<p><a class="p_ident" id="p-sX9Cu8BPn/" href="#p-sX9Cu8BPn/" tabindex="-1" role="presentation"></a>La técnica de representar los ámbitos como objetos simples, que hasta ahora ha sido conveniente, te causará un pequeño problema en este punto. Es posible que desees usar la función <code>Object.<wbr>getPrototypeOf</code>, la cual devuelve el prototipo de un objeto. También recuerda que puedes utilizar <code>Object.hasOwn</code> para verificar si un objeto dado tiene una propiedad.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-kGrfbWJiix" href="#c-kGrfbWJiix" tabindex="-1" role="presentation"></a>specialForms.set = (<span class="tok-definition">args</span>, <span class="tok-definition">scope</span>) =&gt; {
+  <span class="tok-comment">// Tu código aquí.</span>
+};
+
+run(<span class="tok-string2">`</span>
+<span class="tok-string2">do(define(x, 4),</span>
+<span class="tok-string2">   define(setx, fun(val, set(x, val))),</span>
+<span class="tok-string2">   setx(50),</span>
+<span class="tok-string2">   print(x))</span>
+<span class="tok-string2">`</span>);
+<span class="tok-comment">// → 50</span>
+run(<span class="tok-string2">`set(quux, true)`</span>);
+<span class="tok-comment">// → Algún tipo de ReferenceError</span></pre>
+
+<details class="solution"><summary>Display hints...</summary><div class="solution-text">
+
+<p><a class="p_ident" id="p-3GnB2HNK88" href="#p-3GnB2HNK88" tabindex="-1" role="presentation"></a>Tendrás que iterar a través de un scope a la vez, utilizando <code>Object.<wbr>getPrototypeOf</code> para ir al siguiente ámbito exterior. Para cada ámbito, utiliza <code>Object.hasOwn</code> para determinar si el enlace, indicado por la propiedad <code>name</code> del primer argumento de <code>set</code>, existe en ese ámbito. Si existe, establécelo en el resultado de evaluar el segundo argumento de <code>set</code> y luego devuelve ese valor.</p>
+
+<p><a class="p_ident" id="p-oVYMm2onb4" href="#p-oVYMm2onb4" tabindex="-1" role="presentation"></a>Si se alcanza el ámbito más externo (<code>Object.<wbr>getPrototypeOf</code> devuelve null) y aún no hemos encontrado el enlace, significa que no existe y se debe lanzar un error.</p>
+
+</div></details><nav><a href="11_async.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="13_browser.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
+</nav>
+</article>
+
+<script src="ejs.js"></script>
