@@ -72,7 +72,7 @@ Los cálculos con números enteros (también llamados _((enteros))_) que son má
 
 ### Aritmética
 
-{{index [sintaxis, operador], operador, "operador binario", aritmética, suma, multiplicación}}
+{{index [sintaxis, operador], operador, "operador binario", "aritmética", suma, "multiplicación"}}
 
 Lo principal que se puede hacer con los números es la aritmética. Operaciones aritméticas como la suma o la multiplicación toman dos valores numéricos y producen un nuevo número a partir de ellos. Así es como se ven en JavaScript:
 
