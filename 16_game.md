@@ -770,7 +770,7 @@ La misma función manejadora se utiliza para ambos tipos de eventos. Esta funci�
 
 La función `requestAnimationFrame`, que vimos en [Capítulo ?](dom#animationFrame), proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a `requestAnimationFrame` nuevamente después de cada fotograma.
 
-{{index "función runAnimation", "función de devolución de llamada", [función, "como valor"], [función, "de orden superior"], [animación, "juego de plataformas"]}}
+{{index "función runAnimation", "función de devolución de llamada", ["función", "como valor"], ["función", "de orden superior"], [animación, "juego de plataformas"]}}
 
 Vamos a definir una función auxiliar que envuelva todo eso en una interfaz conveniente y nos permita simplemente llamar a `runAnimation`, dándole una función que espera una diferencia de tiempo como argumento y dibuja un solo fotograma. Cuando la función de fotograma devuelve el valor `false`, la animación se detiene.
 

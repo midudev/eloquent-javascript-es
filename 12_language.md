@@ -28,7 +28,7 @@ Construiremos un lenguaje de programación llamado Egg. Será un lenguaje simple
 
 La parte más inmediatamente visible de un lenguaje de programación es su _sintaxis_, o notación. Un _analizador sintáctico_ es un programa que lee un fragmento de texto y produce una estructura de datos que refleja la estructura del programa contenido en ese texto. Si el texto no forma un programa válido, el analizador sintáctico debería señalar el error.
 
-{{index "forma especial", [función, aplicación]}}
+{{index "forma especial", ["función", aplicación]}}
 
 Nuestro lenguaje tendrá una sintaxis simple y uniforme. Todo en Egg es una ((expresión)). Una expresión puede ser el nombre de una asignación, un número, una cadena o una _aplicación_. Las aplicaciones se utilizan para llamadas de funciones pero también para estructuras como `if` o `while`.
 
@@ -227,7 +227,7 @@ function evaluate(expr, scope) {
 
 El evaluador tiene código para cada uno de los tipos de expresión. Una expresión de valor literal produce su valor. (Por ejemplo, la expresión `100` simplemente se evalúa como el número 100.) Para un enlace, debemos verificar si está realmente definido en el ámbito y, si lo está, obtener el valor del enlace.
 
-{{index [función, aplicación]}}
+{{index ["función", aplicación]}}
 
 Las aplicaciones son más complicadas. Si son una ((forma especial)), como `if`, no evaluamos nada y pasamos las expresiones de argumento, junto con el ámbito, a la función que maneja esta forma. Si es una llamada normal, evaluamos el operador, verificamos que sea una función, y la llamamos con los argumentos evaluados.
 
@@ -538,7 +538,7 @@ hint}}
 
 ### Clausura
 
-{{index closure, [función, "ámbito"], "clausura en Egg (ejercicio)"}}
+{{index closure, ["función", "ámbito"], "clausura en Egg (ejercicio)"}}
 
 La forma en que hemos definido `fun` permite que las funciones en Egg hagan referencia al ámbito circundante, lo que permite que el cuerpo de la función use valores locales que eran visibles en el momento en que se definió la función, al igual que lo hacen las funciones de JavaScript.
 

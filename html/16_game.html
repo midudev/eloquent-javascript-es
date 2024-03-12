@@ -602,7 +602,7 @@ Player.prototype.update = <span class="tok-keyword">function</span>(<span class=
 
 <p><a class="p_ident" id="p-f/JcUlKudG" href="#p-f/JcUlKudG" tabindex="-1" role="presentation"></a>La función <code>requestAnimationFrame</code>, que vimos en <a href="14_dom.html#animationFrame">Capítulo 14</a>, proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a <code>requestAnimationFrame</code> nuevamente después de cada fotograma.</p>
 
-<p><a class="p_ident" id="p-2faNnmMp8R_1" href="#p-2faNnmMp8R_1" tabindex="-1" role="presentation"></a>{{index “función runAnimation”, “función de devolución de llamada”, [función, “como valor”], [función, “de orden superior”], [animación, “juego de plataformas”]}}</p>
+<p><a class="p_ident" id="p-2faNnmMp8R_1" href="#p-2faNnmMp8R_1" tabindex="-1" role="presentation"></a>{{index “función runAnimation”, “función de devolución de llamada”, [“función”, “como valor”], [“función”, “de orden superior”], [animación, “juego de plataformas”]}}</p>
 
 <p><a class="p_ident" id="p-/pRqSyclsU" href="#p-/pRqSyclsU" tabindex="-1" role="presentation"></a>Vamos a definir una función auxiliar que envuelva todo eso en una interfaz conveniente y nos permita simplemente llamar a <code>runAnimation</code>, dándole una función que espera una diferencia de tiempo como argumento y dibuja un solo fotograma. Cuando la función de fotograma devuelve el valor <code>false</code>, la animación se detiene.</p>
 

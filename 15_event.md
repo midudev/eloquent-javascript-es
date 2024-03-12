@@ -84,7 +84,7 @@ El método `removeEventListener`, llamado con argumentos similares a `addEventLi
 </script>
 ```
 
-{{index [función, "como valor"]}}
+{{index ["función", "como valor"]}}
 
 La función proporcionada a `removeEventListener` debe ser el mismo valor de función que se proporcionó a `addEventListener`. Por lo tanto, para anular el registro de un manejador, querrás darle un nombre a la función (`unaVez`, en el ejemplo) para poder pasar el mismo valor de función a ambos métodos.
 
