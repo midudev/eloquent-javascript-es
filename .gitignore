@@ -23,7 +23,5 @@
 /epub/img/*
 /epub/content.opf
 /epub/toc.xhtml
-/book.epub
-/book.mobi
 /scripts
 .DS_Store

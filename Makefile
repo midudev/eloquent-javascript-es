@@ -4,6 +4,12 @@ SVGS := $(wildcard img/*.svg)
 
 all: html book.pdf book_mobile.pdf book.epub book.mobi
 
+copy:
+	cp ./book.pdf ./Eloquent_JavaScript.pdf
+	cp ./book_mobile.pdf ./Eloquent_JavaScript_mobile.pdf
+	cp ./book.epub ./Eloquent_JavaScript.epub
+	cp ./book.mobi ./Eloquent_JavaScript.mobi
+
 html: $(foreach CHAP,$(CHAPTERS),html/$(CHAP).html) html/ejs.js \
       code/skillsharing.zip code/solutions/20_3_a_public_space_on_the_web.zip html/code/chapter_info.js
 
