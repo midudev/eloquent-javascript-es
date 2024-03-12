@@ -14,11 +14,11 @@ En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas 
 
 ## Expresiones y declaraciones
 
-{{index grammar, [sintaxis, expresión], [código, "estructura de"], gramática, [JavaScript, sintaxis]}}
+{{index grammar, [sintaxis, "expresión"], [código, "estructura de"], "gramática", [JavaScript, sintaxis]}}
 
 En [Capítulo ?](valores), creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
 
-{{index "expresión literal", [paréntesis, expresión]}}
+{{index "expresión literal", ["paréntesis", "expresión"]}}
 
 Un fragmento de código que produce un valor se llama una _((expresión))_. Cada valor que está escrito literalmente (como `22` o `"psicoanálisis"`) es una expresión. Una expresión entre paréntesis también es una expresión, al igual que un ((operador binario)) aplicado a dos expresiones o un ((operador unario)) aplicado a uno.
 
@@ -26,11 +26,11 @@ Un fragmento de código que produce un valor se llama una _((expresión))_. Cada
 
 Esto muestra parte de la belleza de una interfaz basada en lenguaje. Las expresiones pueden contener otras expresiones de manera similar a cómo las subsentencias en los idiomas humanos están anidadas: una subsentencia puede contener sus propias subsentencias, y así sucesivamente. Esto nos permite construir expresiones que describen cálculos arbitrariamente complejos.
 
-{{index declaración, punto y coma, programa}}
+{{index "declaración", punto y coma, programa}}
 
 Si una expresión corresponde a un fragmento de oración, una _declaración_ de JavaScript corresponde a una oración completa. Un programa es una lista de declaraciones.
 
-{{index [sintaxis, declaración]}}
+{{index [sintaxis, "declaración"]}}
 
 El tipo más simple de declaración es una expresión con un punto y coma al final. Este es un programa:
 
@@ -46,7 +46,8 @@ Sin embargo, es un programa inútil. Una ((expresión)) puede conformarse con si
 En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima ((línea)) se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.## Bindings
 
 {{indexsee variable, binding}}
-{{index [syntax, statement], [binding, definition], "side effect", [memory, organization], [state, in binding]}}
+
+{{index [syntax, statement], [binding, definition], "side effect", ["memoría", "organización"], [estado, in binding]}}
 
 ¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no cambia los valores antiguos, y el nuevo valor debe utilizarse inmediatamente o se disipará nuevamente. Para atrapar y retener valores, JavaScript proporciona una cosa llamada un _enlace_, o _variable_:
 
@@ -68,7 +69,7 @@ console.log(ten * ten);
 // → 100
 ```
 
-{{index "= operator", assignment, [binding, assignment]}}
+{{index "= operator", "asignación", [binding, "asignación"]}}
 
 Cuando un enlace apunta a un valor, eso no significa que esté atado a ese valor para siempre. El operador `=` se puede usar en cualquier momento en enlaces existentes para desconectarlos de su valor actual y hacer que apunten a uno nuevo:
 
@@ -81,7 +82,7 @@ console.log(mood);
 // → dark
 ```
 
-{{index [binding, "model of"], "tentacle (analogy)"}}
+{{index [binding, "modelo de"], "tentáculo (analogía)"}}
 
 Debes imaginarte los enlaces como tentáculos en lugar de cajas. No _contienen_ valores; los _agarran_—dos enlaces pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un tentáculo para aferrarte a él o vuelves a conectar uno de tus tentáculos existentes a él.
 
@@ -155,10 +156,11 @@ La colección de enlaces y sus valores que existen en un momento dado se llama _
 
 ## Funciones
 
-{{indexsee "aplicación (de funciones)", [función, aplicación]}}
-{{indexsee "invocación (de funciones)", [función, aplicación]}}
-{{indexsee "llamado (de funciones)", [función, aplicación]}}
-{{index salida, función, [función, aplicación], [navegador, entorno]}}
+{{indexsee "aplicación (de funciones)", ["función", "aplicación"]}}
+{{indexsee "invocación (de funciones)", ["función", "aplicación"]}}
+{{indexsee "llamado (de funciones)", ["función", "aplicación"]}}
+
+{{index salida, "función", ["función", "aplicación"], [navegador, entorno]}}
 
 Muchos de los valores proporcionados en el entorno predeterminado tienen el tipo de _((función))_. Una función es un fragmento de programa envuelto en un valor. Estos valores pueden ser _aplicados_ para ejecutar el programa envuelto. Por ejemplo, en un entorno de navegador, el enlace `prompt` contiene una función que muestra un pequeño ((cuadro de diálogo)) pidiendo la entrada del usuario. Se utiliza de la siguiente manera:
 
@@ -168,7 +170,7 @@ prompt("Ingrese el código de acceso");
 
 {{figure {url: "img/prompt.png", alt: "Un cuadro de diálogo que dice 'ingrese el código de acceso'", width: "8cm"}}}
 
-{{index parámetro, [función, aplicación], [paréntesis, argumentos]}}
+{{index parámetro, ["función", "aplicación"], ["paréntesis", argumentos]}}
 
 Ejecutar una función se llama _invocar_, _llamar_, o _aplicar_ la función. Puedes llamar una función poniendo paréntesis después de una expresión que produce un valor de función. Usualmente usarás directamente el nombre del enlace que contiene la función. Los valores entre paréntesis se le pasan al programa dentro de la función. En el ejemplo, la función `prompt` utiliza la cadena que le pasamos como el texto a mostrar en el cuadro de diálogo. Los valores dados a las funciones se llaman _((argumento))s_. Diferentes funciones pueden necesitar un número diferente o diferentes tipos de argumentos.
 
@@ -208,7 +210,7 @@ console.log(Math.max(2, 4));
 // → 4
 ```
 
-{{index [función, aplicación], mínimo, función "Math.min"}}
+{{index ["función", "aplicación"], "mínimo", "función Math.min"}}
 
 Cuando una función produce un valor, se dice que _retorna_ ese valor. Cualquier cosa que produzca un valor es una ((expresión)) en JavaScript, lo que significa que las llamadas a funciones se pueden utilizar dentro de expresiones más grandes. En el siguiente código, una llamada a `Math.min`, que es lo opuesto a `Math.max`, se usa como parte de una expresión de suma:
 
