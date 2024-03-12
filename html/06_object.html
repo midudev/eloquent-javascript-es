@@ -455,34 +455,45 @@ console.log(okIterador.next());
 
 <p><a class="p_ident" id="p-r4wb0UozDS" href="#p-r4wb0UozDS" tabindex="-1" role="presentation"></a>{{index [“estructura de datos”, lista], “lista enlazada”, colección}}</p>
 
-<p><a class="p_ident" id="p-0kfQB+WhB+" href="#p-0kfQB+WhB+" tabindex="-1" role="presentation"></a>Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en <a href="datos">Capítulo ?</a>. Esta vez escribiremos la lista como una clase.```{includeCode: true} class List { constructor(value, rest) { this.value = value; this.rest = rest; }</p>
+<p><a class="p_ident" id="p-pWWhlMCrry" href="#p-pWWhlMCrry" tabindex="-1" role="presentation"></a>Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en <a href="datos">Capítulo ?</a>. Esta vez escribiremos la lista como una clase.</p>
 
-<p><a class="p_ident" id="p-9TqDYQ8QC7" href="#p-9TqDYQ8QC7" tabindex="-1" role="presentation"></a>get length() { return 1 + (this.rest ? this.rest.length : 0); }</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-gbtYx+2BOB" href="#c-gbtYx+2BOB" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> List {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">value</span>, <span class="tok-definition">rest</span>) {
+    <span class="tok-keyword">this</span>.value = value;
+    <span class="tok-keyword">this</span>.rest = rest;
+  }
 
-<p><a class="p_ident" id="p-BJ7FWZW44A" href="#p-BJ7FWZW44A" tabindex="-1" role="presentation"></a>static fromArray(array) { let result = null; for (let i = array.length - 1; i &gt;= 0; i--) { result = new this(array[i], result); } return result; } }</p>
+  <span class="tok-keyword">get</span> <span class="tok-definition">length</span>() {
+    <span class="tok-keyword">return</span> <span class="tok-number">1</span> + (<span class="tok-keyword">this</span>.rest ? <span class="tok-keyword">this</span>.rest.length : <span class="tok-number">0</span>);
+  }
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-bAo19AZT8d" href="#c-bAo19AZT8d" tabindex="-1" role="presentation"></a>
-Toma en cuenta que <span class="tok-string2">`this`</span>, en un método estático, apunta al constructor de la clase, no a una instancia, ya que no hay una instancia disponible cuando se llama a un método estático.
+  <span class="tok-keyword">static</span> <span class="tok-definition">fromArray</span>(<span class="tok-definition">array</span>) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">result</span> = <span class="tok-keyword">null</span>;
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = array.length - <span class="tok-number">1</span>; i &gt;= <span class="tok-number">0</span>; i--) {
+      result = <span class="tok-keyword">new</span> <span class="tok-keyword">this</span>(array[i], result);
+    }
+    <span class="tok-keyword">return</span> result;
+  }
+}</pre>
 
-Iterar sobre una lista debería devolver todos los elementos de la lista desde el principio hasta el final. Escribiremos una clase separada para el iterador.
+<p><a class="p_ident" id="p-c2tvPOgW+J" href="#p-c2tvPOgW+J" tabindex="-1" role="presentation"></a>Toma en cuenta que <code>this</code>, en un método estático, apunta al constructor de la clase, no a una instancia, ya que no hay una instancia disponible cuando se llama a un método estático.</p>
 
-{{index <span class="tok-string">&quot;Clase ListIterator&quot;</span>}}
+<p><a class="p_ident" id="p-MDb4MF0B0v" href="#p-MDb4MF0B0v" tabindex="-1" role="presentation"></a>Iterar sobre una lista debería devolver todos los elementos de la lista desde el principio hasta el final. Escribiremos una clase separada para el iterador.</p>
 
-<span class="tok-string2">``</span><span class="tok-string2">`{includeCode: true}</span>
-<span class="tok-string2">class ListIterator {</span>
-<span class="tok-string2">  constructor(list) {</span>
-<span class="tok-string2">    this.list = list;</span>
-<span class="tok-string2">  }</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-xNhGMf/Lhe" href="#c-xNhGMf/Lhe" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> ListIterator {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">list</span>) {
+    <span class="tok-keyword">this</span>.list = list;
+  }
 
-<span class="tok-string2">  next() {</span>
-<span class="tok-string2">    if (this.list == null) {</span>
-<span class="tok-string2">      return { done: true };</span>
-<span class="tok-string2">    }</span>
-<span class="tok-string2">    let value = this.list.value;</span>
-<span class="tok-string2">    this.list = this.list.rest;</span>
-<span class="tok-string2">    return { value, done: false };</span>
-<span class="tok-string2">  }</span>
-<span class="tok-string2">}</span></pre>
+  <span class="tok-definition">next</span>() {
+    <span class="tok-keyword">if</span> (<span class="tok-keyword">this</span>.list == <span class="tok-keyword">null</span>) {
+      <span class="tok-keyword">return</span> { <span class="tok-definition">done</span>: true };
+    }
+    <span class="tok-keyword">let</span> <span class="tok-definition">value</span> = <span class="tok-keyword">this</span>.list.value;
+    <span class="tok-keyword">this</span>.list = <span class="tok-keyword">this</span>.list.rest;
+    <span class="tok-keyword">return</span> { <span class="tok-definition">value</span>, <span class="tok-definition">done</span>: false };
+  }
+}</pre>
 
 <p><a class="p_ident" id="p-xdlBL0DX57" href="#p-xdlBL0DX57" tabindex="-1" role="presentation"></a>La clase realiza un seguimiento del progreso de la iteración a través de la lista actualizando su propiedad <code>list</code> para moverse al siguiente objeto de lista cada vez que se devuelve un valor, y reporta que ha terminado cuando esa lista está vacía (null).</p>
 

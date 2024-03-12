@@ -325,8 +325,6 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
   }
 }</pre>
 
-<p><a class="p_ident" id="p-dClPTW6Kd8" href="#p-dClPTW6Kd8" tabindex="-1" role="presentation"></a>{{index “bucle infinito”, “bucle for”, “palabra clave catch”, depuración}}</p>
-
 <p><a class="p_ident" id="p-UAeKsDMazt" href="#p-UAeKsDMazt" tabindex="-1" role="presentation"></a>La construcción <code>for (;;)</code> es una forma de crear intencionalmente un bucle que no se termina por sí mismo. Salimos del bucle solo cuando se proporciona una dirección válida. <em>Pero</em> escribimos mal <code>promptDirection</code>, lo que resultará en un error de “variable no definida”. Debido a que el bloque <code>catch</code> ignora por completo el valor de la excepción (<code>e</code>), asumiendo que sabe cuál es el problema, trata erróneamente el error de enlace mal escrito como indicativo de una entrada incorrecta. Esto no solo causa un bucle infinito, sino que también “entorpece” el útil mensaje de error sobre el enlace mal escrito.</p>
 
 <p><a class="p_ident" id="p-1NuYJNWPUR" href="#p-1NuYJNWPUR" tabindex="-1" role="presentation"></a>Como regla general, no captures excepciones de manera general a menos que sea con el propósito de “enviarlas” a algún lugar, por ejemplo, a través de la red para informar a otro sistema que nuestro programa se bloqueó. E incluso en ese caso, piensa cuidadosamente cómo podrías estar ocultando información.</p>
@@ -364,13 +362,9 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
   }
 }</pre>
 
-<p><a class="p_ident" id="p-xRDMWHaGme" href="#p-xRDMWHaGme" tabindex="-1" role="presentation"></a>{{index depuración}}</p>
-
 <p><a class="p_ident" id="p-1HdJVWn4X+" href="#p-1HdJVWn4X+" tabindex="-1" role="presentation"></a>Esto capturará solo instancias de <code>InputError</code> y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.</p>
 
 <h2><a class="h_ident" id="h-cLlvsxFcXB" href="#h-cLlvsxFcXB" tabindex="-1" role="presentation"></a>Afirmaciones</h2>
-
-<p><a class="p_ident" id="p-OQr5ZjOQ8p" href="#p-OQr5ZjOQ8p" tabindex="-1" role="presentation"></a>{{index “función assert”, “afirmación”, depuración}}</p>
 
 <p><a class="p_ident" id="p-ETMuysY1G8" href="#p-ETMuysY1G8" tabindex="-1" role="presentation"></a>Las <em>afirmaciones</em> son verificaciones dentro de un programa que aseguran que algo es como se supone que debe ser. Se utilizan no para manejar situaciones que pueden surgir en la operación normal, sino para encontrar errores de programación.</p>
 

@@ -198,23 +198,19 @@ console.log(object.value);
 
 <p><a class="p_ident" id="p-3CXgjiC8tx" href="#p-3CXgjiC8tx" tabindex="-1" role="presentation"></a>Vamos a iniciar un mundo virtual.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-rli5rZfGpe" href="#c-rli5rZfGpe" tabindex="-1" role="presentation"></a>runRobot(VillageState.random(), randomRobot);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Ibn5l8fm0j" href="#c-Ibn5l8fm0j" tabindex="-1" role="presentation"></a>runRobot(VillageState.random(), randomRobot);
 <span class="tok-comment">// → Movido a Mercado</span>
 <span class="tok-comment">// → Movido a Ayuntamiento</span>
 <span class="tok-comment">// → …</span>
-<span class="tok-comment">// → Terminado en 63 turnos</span>
-<span class="tok-string2">``</span><span class="tok-string2">`Al robot le lleva muchas vueltas entregar los paquetes porque no está planificando muy bien. Abordaremos eso pronto.</span>
+<span class="tok-comment">// → Terminado en 63 turnos</span></pre>
 
-<span class="tok-string2">{{if interactive</span>
+<p><a class="p_ident" id="p-VLRaDqy2QY" href="#p-VLRaDqy2QY" tabindex="-1" role="presentation"></a>Al robot le lleva muchas vueltas entregar los paquetes porque no está planificando muy bien. Abordaremos eso pronto.</p>
 
-<span class="tok-string2">Para tener una perspectiva más agradable de la simulación, puedes usar la función `</span>runRobotAnimation<span class="tok-string2">` que está disponible en [el entorno de programación de este capítulo](https://eloquentjavascript.net/code/#7). Esto ejecuta la simulación, pero en lugar de mostrar texto, te muestra al robot moviéndose por el mapa del pueblo.</span>
+<p><a class="p_ident" id="p-LTO+75V071" href="#p-LTO+75V071" tabindex="-1" role="presentation"></a>Para tener una perspectiva más agradable de la simulación, puedes usar la función <code>runRobotAnimation</code> que está disponible en <a href="https://eloquentjavascript.net/code/#7">el entorno de programación de este capítulo</a>. Esto ejecuta la simulación, pero en lugar de mostrar texto, te muestra al robot moviéndose por el mapa del pueblo.</p>
 
-<span class="tok-string2">`</span><span class="tok-string2">``</span>{test: no}
-runRobotAnimation(VillageState.random(), randomRobot);</pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-jWQlJ73x2Z" href="#c-jWQlJ73x2Z" tabindex="-1" role="presentation"></a>runRobotAnimation(VillageState.random(), randomRobot);</pre>
 
 <p><a class="p_ident" id="p-wTfPDt+D+s" href="#p-wTfPDt+D+s" tabindex="-1" role="presentation"></a>La forma en que <code>runRobotAnimation</code> está implementada permanecerá como un misterio por ahora, pero después de que hayas leído los <a href="14_dom.html">capítulos posteriores</a> de este libro, que tratan sobre la integración de JavaScript en los navegadores web, podrás adivinar cómo funciona.</p>
-
-<p><a class="p_ident" id="p-lY9X9X1yow" href="#p-lY9X9X1yow" tabindex="-1" role="presentation"></a>if}}</p>
 
 <h2><a class="h_ident" id="h-Gn9gM3o6mE" href="#h-Gn9gM3o6mE" tabindex="-1" role="presentation"></a>Ruta del camión de correo</h2>
 
@@ -287,7 +283,7 @@ runRobotAnimation(VillageState.random(), randomRobot);</pre>
   <span class="tok-keyword">return</span> {<span class="tok-definition">direction</span>: route[<span class="tok-number">0</span>], <span class="tok-definition">memory</span>: route.slice(<span class="tok-number">1</span>)};
 }</pre>
 
-<p><a class="p_ident" id="p-bbUCewbNK4" href="#p-bbUCewbNK4" tabindex="-1" role="presentation"></a>{{index “goalOrientedRobot function”}}Este robot utiliza el valor de su memoria como una lista de direcciones en las que moverse, al igual que el robot que sigue la ruta. Cuando esa lista está vacía, debe averiguar qué hacer a continuación. Toma el primer paquete no entregado del conjunto y, si ese paquete aún no ha sido recogido, traza una ruta hacia él. Si el paquete ya ha sido recogido, todavía necesita ser entregado, por lo que el robot crea una ruta hacia la dirección de entrega.</p>
+<p><a class="p_ident" id="p-SgSFCewRHC" href="#p-SgSFCewRHC" tabindex="-1" role="presentation"></a>Este robot utiliza el valor de su memoria como una lista de direcciones en las que moverse, al igual que el robot que sigue la ruta. Cuando esa lista está vacía, debe averiguar qué hacer a continuación. Toma el primer paquete no entregado del conjunto y, si ese paquete aún no ha sido recogido, traza una ruta hacia él. Si el paquete ya ha sido recogido, todavía necesita ser entregado, por lo que el robot crea una ruta hacia la dirección de entrega.</p>
 
 <p><a class="p_ident" id="p-HSmURF+mCI" href="#p-HSmURF+mCI" tabindex="-1" role="presentation"></a>Veamos cómo lo hace.</p>
 

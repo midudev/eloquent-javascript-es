@@ -213,8 +213,6 @@ console.log(dateTime.test(<span class="tok-string">&quot;1-30-2003 8:45&quot;</s
 
 <h2><a class="h_ident" id="h-ajNAW/IU6r" href="#h-ajNAW/IU6r" tabindex="-1" role="presentation"></a>Agrupación de subexpresiones</h2>
 
-<p><a class="p_ident" id="p-TKgx7oPQQ3" href="#p-TKgx7oPQQ3" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, &quot;“agrupación”&quot;], &quot;“agrupación”&quot;, [paréntesis, “en expresiones regulares”]}}</p>
-
 <p><a class="p_ident" id="p-v3uf4iDeF4" href="#p-v3uf4iDeF4" tabindex="-1" role="presentation"></a>Para usar un operador como <code>*</code> o <code>+</code> en más de un elemento a la vez, debes utilizar paréntesis. Una parte de una expresión regular que está encerrada entre paréntesis cuenta como un solo elemento en lo que respecta a los operadores que le siguen.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-P/f6a65XwI" href="#c-P/f6a65XwI" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">cartoonCrying</span> = <span class="tok-string2">/boo+(hoo+)+/i</span>;
@@ -299,8 +297,6 @@ console.log(<span class="tok-keyword">new</span> Date(<span class="tok-number">1
 
 <p><a class="p_ident" id="p-VscGabP21e" href="#p-VscGabP21e" tabindex="-1" role="presentation"></a>Los objetos de fecha proporcionan métodos como <code>getFullYear</code>, <code>getMonth</code>, <code>getDate</code>, <code>getHours</code>, <code>getMinutes</code> y <code>getSeconds</code> para extraer sus componentes. Además de <code>getFullYear</code>, también existe <code>getYear</code>, que te da el año menos 1900 (<code>98</code> o <code>119</code>) y es en su mayoría inútil.</p>
 
-<p><a class="p_ident" id="p-b4LvB+ncD2" href="#p-b4LvB+ncD2" tabindex="-1" role="presentation"></a>{{index “Grupo de captura”, “Método getDate”, [paréntesis, “en expresiones regulares”]}}</p>
-
 <p><a class="p_ident" id="p-eA5U6lb8Dx" href="#p-eA5U6lb8Dx" tabindex="-1" role="presentation"></a>Poniendo paréntesis alrededor de las partes de la expresión que nos interesan, podemos crear un objeto de fecha a partir de una cadena.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-SU0rTpHzGn" href="#c-SU0rTpHzGn" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">getDate</span>(<span class="tok-definition">string</span>) {
@@ -346,17 +342,13 @@ console.log(animalCount.test(<span class="tok-string">&quot;15 pigs&quot;</span>
 console.log(animalCount.test(<span class="tok-string">&quot;15 pugs&quot;</span>));
 <span class="tok-comment">// → false</span></pre>
 
-<p><a class="p_ident" id="p-1ax3XRGkJ7" href="#p-1ax3XRGkJ7" tabindex="-1" role="presentation"></a>{{index [paréntesis, “en expresiones regulares”]}}</p>
-
 <p><a class="p_ident" id="p-o/w2hW+vwa" href="#p-o/w2hW+vwa" tabindex="-1" role="presentation"></a>Los paréntesis se pueden utilizar para limitar la parte del patrón a la que se aplica el operador de barra, y puedes colocar varios de estos operadores uno al lado del otro para expresar una elección entre más de dos alternativas.</p>
 
 <h2><a class="h_ident" id="h-LDlMA55Hgg" href="#h-LDlMA55Hgg" tabindex="-1" role="presentation"></a>La mecánica de la coincidencia</h2>
 
 <p><a class="p_ident" id="p-yKsAs46XQh" href="#p-yKsAs46XQh" tabindex="-1" role="presentation"></a>Conceptualmente, cuando utilizas <code>exec</code> o <code>test</code>, el motor de expresiones regulares busca una coincidencia en tu cadena tratando de ajustar primero la expresión desde el comienzo de la cadena, luego desde el segundo carácter, y así sucesivamente, hasta que encuentra una coincidencia o llega al final de la cadena. Devolverá la primera coincidencia que encuentre o fracasará en encontrar cualquier coincidencia.</p>
 
-<p><a class="p_ident" id="p-F6uLAaHlXA" href="#p-F6uLAaHlXA" tabindex="-1" role="presentation"></a>Para hacer la coincidencia real, el motor trata a una expresión regular algo así como un diagrama de flujo. Este es el diagrama para la expresión de ganado en el ejemplo anterior:</p>
-
-<p><a class="p_ident" id="p-wp/UCxZncZ" href="#p-wp/UCxZncZ" tabindex="-1" role="presentation"></a>{{figure {url: “img/re_pigchickens.svg”, alt: “Diagrama de ferrocarril que primero pasa por un recuadro etiquetado ‘dígito’, que tiene un bucle que regresa desde después de él a antes de él, y luego un recuadro para un carácter de espacio. Después de eso, el ferrocarril se divide en tres, pasando por cuadros para ‘pig’, ‘cow’ y ‘chicken’. Después de estos, se reúne de nuevo y pasa por un cuadro etiquetado ‘s’, que, al ser opcional, también tiene un ferrocarril que lo pasa por alto. Finalmente, la línea llega al estado de aceptación.”}}</p>
+<p><a class="p_ident" id="p-F6uLAaHlXA" href="#p-F6uLAaHlXA" tabindex="-1" role="presentation"></a>Para hacer la coincidencia real, el motor trata a una expresión regular algo así como un diagrama de flujo. Este es el diagrama para la expresión de ganado en el ejemplo anterior:</p><figure><img src="img/re_pigchickens.svg" alt="Diagrama de ferrocarril que primero pasa por un recuadro etiquetado 'dígito', que tiene un bucle que regresa desde después de él a antes de él, y luego un recuadro para un carácter de espacio. Después de eso, el ferrocarril se divide en tres, pasando por cuadros para 'pig', 'cow' y 'chicken'. Después de estos, se reúne de nuevo y pasa por un cuadro etiquetado 's', que, al ser opcional, también tiene un ferrocarril que lo pasa por alto. Finalmente, la línea llega al estado de aceptación."></figure>
 
 <p><a class="p_ident" id="p-6KuJyUkARn" href="#p-6KuJyUkARn" tabindex="-1" role="presentation"></a>Nuestra expresión coincide si podemos encontrar un camino desde el lado izquierdo del diagrama hasta el lado derecho. Mantenemos una posición actual en la cadena, y cada vez que avanzamos a través de un recuadro, verificamos que la parte de la cadena después de nuestra posición actual coincida con ese recuadro.</p>
 
@@ -626,8 +618,6 @@ console.log(parseINI(<span class="tok-string2">`</span>
 <p><a class="p_ident" id="p-WRi9IuRJQq" href="#p-WRi9IuRJQq" tabindex="-1" role="presentation"></a>Observa el uso recurrente de <code>^</code> y <code>$</code> para asegurarse de que la expresión coincida con toda la línea, no solo parte de ella. Dejarlos fuera resulta en un código que funciona en su mayor parte pero se comporta de manera extraña para algunas entradas, lo que puede ser un error difícil de rastrear.</p>
 
 <p><a class="p_ident" id="p-w+p65GaQlw" href="#p-w+p65GaQlw" tabindex="-1" role="presentation"></a>```El patrón <code>if (match = string.<wbr>match(.<wbr>.<wbr>.<wbr>))</code> hace uso del hecho de que el valor de una expresión de asignación (<code>=</code>) es el valor asignado. A menudo no estás seguro de que tu llamada a <code>match</code> tendrá éxito, por lo que solo puedes acceder al objeto resultante dentro de una declaración <code>if</code> que comprueba esto. Para no romper la agradable cadena de formas de <code>else if</code>, asignamos el resultado de la coincidencia a un enlace y usamos inmediatamente esa asignación como la prueba para la declaración <code>if</code>.</p>
-
-<p><a class="p_ident" id="p-1ax3XRGkJ7_1" href="#p-1ax3XRGkJ7_1" tabindex="-1" role="presentation"></a>{{index [paréntesis, “en expresiones regulares”]}}</p>
 
 <p><a class="p_ident" id="p-zg+5BDK7MN" href="#p-zg+5BDK7MN" tabindex="-1" role="presentation"></a>Si una línea no es un encabezado de sección o una propiedad, la función verifica si es un comentario o una línea vacía usando la expresión <code>/^\s*(;|$)/</code> para hacer coincidir líneas que solo contienen espacio o espacio seguido de un punto y coma (haciendo que el resto de la línea sea un comentario). Cuando una línea no coincide con ninguna de las formas esperadas, la función lanza una excepción.</p>
 

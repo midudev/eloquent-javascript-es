@@ -116,8 +116,6 @@ console.log(n);
 
 <h2><a class="h_ident" id="h-3mNEhIfF61" href="#h-3mNEhIfF61" tabindex="-1" role="presentation"></a>Funciones como valores</h2>
 
-<p><a class="p_ident" id="p-OczsHQA3Ys" href="#p-OczsHQA3Ys" tabindex="-1" role="presentation"></a>{{index [“función”, “como valor”], [enlace, definición]}}</p>
-
 <p><a class="p_ident" id="p-exs7Hvd+8O" href="#p-exs7Hvd+8O" tabindex="-1" role="presentation"></a>Un enlace de función generalmente simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.</p>
 
 <p><a class="p_ident" id="p-u3xqON34cW" href="#p-u3xqON34cW" tabindex="-1" role="presentation"></a>{{index [enlace, asignación]}}</p>
@@ -164,14 +162,10 @@ console.log(n);
 
 <p><a class="p_ident" id="p-4wRZ32fVtv" href="#p-4wRZ32fVtv" tabindex="-1" role="presentation"></a>La flecha viene <em>después</em> de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como “esta entrada (los parámetross) produce este resultado (el cuerpo)”.</p>
 
-<p><a class="p_ident" id="p-dVoVXbAR1e" href="#p-dVoVXbAR1e" tabindex="-1" role="presentation"></a>{{index [braces, “function body”], “ejemplo de exponente”, [paréntesis, argumentos]}}</p>
-
 <p><a class="p_ident" id="p-B2W8hY/asG" href="#p-B2W8hY/asG" tabindex="-1" role="presentation"></a>Cuando solo hay un nombre de parámetro, puedes omitir los paréntesis alrededor de la lista de parámetros. Si el cuerpo es una sola expresión, en lugar de un bloque entre llaves, esa expresión será devuelta por la función. Por lo tanto, estas dos definiciones de <code>exponente</code> hacen lo mismo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yDV8N1C3lB" href="#c-yDV8N1C3lB" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">exponente1</span> = (<span class="tok-definition">x</span>) =&gt; { <span class="tok-keyword">return</span> x * x; };
 <span class="tok-keyword">const</span> <span class="tok-definition">exponente2</span> = <span class="tok-definition">x</span> =&gt; x * x;</pre>
-
-<p><a class="p_ident" id="p-px+yeKedD0" href="#p-px+yeKedD0" tabindex="-1" role="presentation"></a>{{index [paréntesis, argumentos]}}</p>
 
 <p><a class="p_ident" id="p-PvxM25s0zB" href="#p-PvxM25s0zB" tabindex="-1" role="presentation"></a>Cuando una función de flecha no tiene parámetros en absoluto, su lista de parámetros es simplemente un conjunto vacío de paréntesis.</p>
 
@@ -182,8 +176,6 @@ console.log(n);
 <p><a class="p_ident" id="p-4OrL8rdCwp" href="#p-4OrL8rdCwp" tabindex="-1" role="presentation"></a>No hay una razón profunda para tener tanto funciones de flecha como expresiones <code>function</code> en el lenguaje. Aparte de un detalle menor, que discutiremos en el <a href="objeto">Capítulo ?</a>, hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en [Capítulo ?](orden superior).</p>
 
 <h2 id="pila"><a class="h_ident" id="h-nePB5S+L1Q" href="#h-nePB5S+L1Q" tabindex="-1" role="presentation"></a>La pila de llamadas</h2>
-
-<p><a class="p_ident" id="p-KpPYLVkGI7" href="#p-KpPYLVkGI7" tabindex="-1" role="presentation"></a>{{index “pila de llamadas”, [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-aMmoKkJUw3" href="#p-aMmoKkJUw3" tabindex="-1" role="presentation"></a>La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:</p>
 
@@ -221,8 +213,6 @@ console.log(chicken() + <span class="tok-string">&quot; salió primero.&quot;</s
 <span class="tok-comment">// → ??</span></pre>
 
 <h2><a class="h_ident" id="h-jNCGCF3rFb" href="#h-jNCGCF3rFb" tabindex="-1" role="presentation"></a>Argumentos Opcionales</h2>
-
-<p><a class="p_ident" id="p-AYghzNL2vr" href="#p-AYghzNL2vr" tabindex="-1" role="presentation"></a>{{index argumento, [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-H9TL95isqo" href="#p-H9TL95isqo" tabindex="-1" role="presentation"></a>El siguiente código está permitido y se ejecuta sin ningún problema:</p>
 
@@ -301,8 +291,6 @@ console.log(twice(<span class="tok-number">5</span>));
 
 <h2><a class="h_ident" id="h-ge3a45K3m3" href="#h-ge3a45K3m3" tabindex="-1" role="presentation"></a>Recursión</h2>
 
-<p><a class="p_ident" id="p-grDy9G1ky2" href="#p-grDy9G1ky2" tabindex="-1" role="presentation"></a>{{index “ejemplo de potencia”, “desbordamiento de pila”, “recursión”, [“función”, aplicación]}}</p>
-
 <p><a class="p_ident" id="p-A2M2+fm6Wx" href="#p-A2M2+fm6Wx" tabindex="-1" role="presentation"></a>Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama <em>recursiva</em>. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función <code>power</code>, que hace lo mismo que el operador <code>**</code> (exponenciación):</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-agdELfiRGm" href="#c-agdELfiRGm" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">power</span>(<span class="tok-definition">base</span>, <span class="tok-definition">exponent</span>) {
@@ -315,8 +303,6 @@ console.log(twice(<span class="tok-number">5</span>));
 
 console.log(power(<span class="tok-number">2</span>, <span class="tok-number">3</span>));
 <span class="tok-comment">// → 8</span></pre>
-
-<p><a class="p_ident" id="p-eeADyLq72s" href="#p-eeADyLq72s" tabindex="-1" role="presentation"></a>{{index ciclo, legibilidad, matemáticas}}</p>
 
 <p><a class="p_ident" id="p-ZH6kc3lXYd" href="#p-ZH6kc3lXYd" tabindex="-1" role="presentation"></a>Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en <a href="estructura_programaci%C3%B3n">Capítulo ?</a>. La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.</p>
 
@@ -380,8 +366,6 @@ console.log(findSolution(<span class="tok-number">24</span>));
 <p><a class="p_ident" id="p-DHJBtGEOXF" href="#p-DHJBtGEOXF" tabindex="-1" role="presentation"></a>La sangría indica la profundidad de la pila de llamadas. La primera vez que se llama a <code>find</code>, la función comienza llamándose a sí misma para explorar la solución que comienza con <code>(1 + 5)</code>. Esa llamada seguirá recursivamente para explorar <em>cada</em> solución continua que produzca un número menor o igual al número objetivo. Como no encuentra uno que alcance el objetivo, devuelve <code>null</code> a la primera llamada. Allí, el operador <code>??</code> hace que ocurra la llamada que explora <code>(1 * 3)</code>. Esta búsqueda tiene más suerte: su primera llamada recursiva, a través de otra llamada recursiva, alcanza el número objetivo. Esa llamada más interna devuelve una cadena, y cada uno de los operadores <code>??</code> en las llamadas intermedias pasa esa cadena, devolviendo en última instancia la solución.</p>
 
 <h2><a class="h_ident" id="h-uZ0juDUWOs" href="#h-uZ0juDUWOs" tabindex="-1" role="presentation"></a>Crecimiento de funciones</h2>
-
-<p><a class="p_ident" id="p-xpCk2pMjoJ" href="#p-xpCk2pMjoJ" tabindex="-1" role="presentation"></a>{{index [“función”, definición]}}</p>
 
 <p><a class="p_ident" id="p-n9cGqWi0db" href="#p-n9cGqWi0db" tabindex="-1" role="presentation"></a>Hay dos formas más o menos naturales de introducir funciones en los programas.</p>
 

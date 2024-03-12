@@ -193,7 +193,7 @@ Content-Length: 295
 
 <p><a class="p_ident" id="p-HVx8AlKtha" href="#p-HVx8AlKtha" tabindex="-1" role="presentation"></a>Nuestra función <code>serveFromRouter</code> utiliza una convención similar a la del servidor de archivos del <a href="20_node.html">capítulo anterior</a> para las respuestas: los manejadores en el enrutador devuelven promesas que se resuelven en objetos que describen la respuesta.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-cH7BS4nzGw" href="#c-cH7BS4nzGw" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">Router</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;./router.mjs&quot;</span>;
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-pOBp3UhLkD" href="#c-pOBp3UhLkD" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">Router</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;./router.mjs&quot;</span>;
 
 <span class="tok-keyword">const</span> <span class="tok-definition">router</span> = <span class="tok-keyword">new</span> Router();
 <span class="tok-keyword">const</span> <span class="tok-definition">defaultHeaders</span> = {<span class="tok-string">&quot;Content-Type&quot;</span>: <span class="tok-string">&quot;text/plain&quot;</span>};
@@ -210,17 +210,15 @@ Content-Length: 295
     <span class="tok-keyword">await</span> resolved;
   response.writeHead(status, headers);
   response.end(body);
-}
-<span class="tok-string2">``</span><span class="tok-string2">`### Charlas como recursos</span>
+}</pre>
 
-<span class="tok-string2">Las ((charlas)) que se han propuesto se almacenan en la propiedad `</span>talks<span class="tok-string2">` del servidor, un objeto cuyas propiedades son los títulos de las charlas. Agregaremos algunos controladores a nuestro enrutador que expongan estos como ((recursos)) HTTP bajo `</span>/charlas/[título]<span class="tok-string2">`.</span>
+<h3><a class="i_ident" id="i-ufH3WCBBxA" href="#i-ufH3WCBBxA" tabindex="-1" role="presentation"></a>Charlas como recursos</h3>
 
-<span class="tok-string2">{{index &quot;método GET&quot;, &quot;404 (código de estado HTTP)&quot;, &quot;función hasOwn&quot;}}</span>
+<p><a class="p_ident" id="p-1W52Huo5gE" href="#p-1W52Huo5gE" tabindex="-1" role="presentation"></a>Las charlas que se han propuesto se almacenan en la propiedad <code>talks</code> del servidor, un objeto cuyas propiedades son los títulos de las charlas. Agregaremos algunos controladores a nuestro enrutador que expongan estos como recursos HTTP bajo <code>/<wbr>charlas/<wbr>[título]</code>.</p>
 
-<span class="tok-string2">El controlador para las solicitudes que `</span>GET<span class="tok-string2">` una sola charla debe buscar la charla y responder ya sea con los datos JSON de la charla o con una respuesta de error 404.</span>
+<p><a class="p_ident" id="p-KVcSbBGYSx" href="#p-KVcSbBGYSx" tabindex="-1" role="presentation"></a>El controlador para las solicitudes que <code>GET</code> una sola charla debe buscar la charla y responder ya sea con los datos JSON de la charla o con una respuesta de error 404.</p>
 
-<span class="tok-string2">`</span><span class="tok-string2">``</span>{includeCode: <span class="tok-string">&quot;&gt;code/skillsharing/skillsharing_server.mjs&quot;</span>}
-<span class="tok-keyword">const</span> <span class="tok-definition">talkPath</span> = <span class="tok-string2">/^\/charlas\/([^\/]+)$/</span>;
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-LtnGtXI6eR" href="#c-LtnGtXI6eR" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">talkPath</span> = <span class="tok-string2">/^\/charlas\/([^\/]+)$/</span>;
 
 router.add(<span class="tok-string">&quot;GET&quot;</span>, talkPath, <span class="tok-keyword">async</span> (<span class="tok-definition">server</span>, <span class="tok-definition">title</span>) =&gt; {
   <span class="tok-keyword">if</span> (Object.hasOwn(server.talks, title)) {

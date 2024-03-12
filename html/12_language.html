@@ -32,13 +32,9 @@
 
 <p><a class="p_ident" id="p-LWCHgQ8jiK" href="#p-LWCHgQ8jiK" tabindex="-1" role="presentation"></a>La parte más inmediatamente visible de un lenguaje de programación es su <em>sintaxis</em>, o notación. Un <em>analizador sintáctico</em> es un programa que lee un fragmento de texto y produce una estructura de datos que refleja la estructura del programa contenido en ese texto. Si el texto no forma un programa válido, el analizador sintáctico debería señalar el error.</p>
 
-<p><a class="p_ident" id="p-g4dCM+i4JR" href="#p-g4dCM+i4JR" tabindex="-1" role="presentation"></a>{{index “forma especial”, [“función”, aplicación]}}</p>
-
 <p><a class="p_ident" id="p-ZtGU+dhqC7" href="#p-ZtGU+dhqC7" tabindex="-1" role="presentation"></a>Nuestro lenguaje tendrá una sintaxis simple y uniforme. Todo en Egg es una expresión. Una expresión puede ser el nombre de una asignación, un número, una cadena o una <em>aplicación</em>. Las aplicaciones se utilizan para llamadas de funciones pero también para estructuras como <code>if</code> o <code>while</code>.</p>
 
 <p><a class="p_ident" id="p-ep+0glVGES" href="#p-ep+0glVGES" tabindex="-1" role="presentation"></a>Para mantener el analizador sintáctico simple, las cadenas en Egg no admiten nada parecido a los escapes con barra invertida. Una cadena es simplemente una secuencia de caracteres que no son comillas dobles, envueltos entre comillas dobles. Un número es una secuencia de dígitos. Los nombres de las asignaciones pueden consistir en cualquier carácter que no sea espacio en blanco y que no tenga un significado especial en la sintaxis.</p>
-
-<p><a class="p_ident" id="p-mnO+5f1sTK" href="#p-mnO+5f1sTK" tabindex="-1" role="presentation"></a>{{index “carácter de coma”, [paréntesis, argumentos]}}</p>
 
 <p><a class="p_ident" id="p-vwvgo3jFhV" href="#p-vwvgo3jFhV" tabindex="-1" role="presentation"></a>Las aplicaciones se escriben de la misma manera que en JavaScript, colocando paréntesis después de una expresión y teniendo cualquier número de argumentos entre esos paréntesis, separados por comas.</p>
 
@@ -186,8 +182,6 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
 <p><a class="p_ident" id="p-aDKfEqCSlh" href="#p-aDKfEqCSlh" tabindex="-1" role="presentation"></a>{{index “expresión literal”, ámbito}}</p>
 
 <p><a class="p_ident" id="p-HWNpAazEel" href="#p-HWNpAazEel" tabindex="-1" role="presentation"></a>El evaluador tiene código para cada uno de los tipos de expresión. Una expresión de valor literal produce su valor. (Por ejemplo, la expresión <code>100</code> simplemente se evalúa como el número 100.) Para un enlace, debemos verificar si está realmente definido en el ámbito y, si lo está, obtener el valor del enlace.</p>
-
-<p><a class="p_ident" id="p-OkaJrgRDDs" href="#p-OkaJrgRDDs" tabindex="-1" role="presentation"></a>{{index [“función”, aplicación]}}</p>
 
 <p><a class="p_ident" id="p-NYz/C0Evfv" href="#p-NYz/C0Evfv" tabindex="-1" role="presentation"></a>Las aplicaciones son más complicadas. Si son una forma especial, como <code>if</code>, no evaluamos nada y pasamos las expresiones de argumento, junto con el ámbito, a la función que maneja esta forma. Si es una llamada normal, evaluamos el operador, verificamos que sea una función, y la llamamos con los argumentos evaluados.</p>
 
@@ -438,7 +432,7 @@ run(<span class="tok-string2">`</span>
 
 <p><a class="p_ident" id="p-8Tn4o3XoK3" href="#p-8Tn4o3XoK3" tabindex="-1" role="presentation"></a>Vuelve a la definición del formulario <code>fun</code> y explica qué mecanismo hace que esto funcione.</p>
 
-<p><a class="p_ident" id="p-BzdZUR0fo1" href="#p-BzdZUR0fo1" tabindex="-1" role="presentation"></a>{{hint{{index cierre, “cierre en Egg (ejercicio)”}}</p>
+<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
 <p><a class="p_ident" id="p-+PSytzGvu7" href="#p-+PSytzGvu7" tabindex="-1" role="presentation"></a>Una vez más, estamos montando un mecanismo en JavaScript para obtener la característica equivalente en Egg. Los formularios especiales reciben el ámbito local en el que se evalúan para que puedan evaluar sus subformas en ese ámbito. La función devuelta por <code>fun</code> tiene acceso al argumento <code>scope</code> dado a su función contenedora y lo utiliza para crear el ámbito local de la función cuando se llama.</p>
 
@@ -446,7 +440,7 @@ run(<span class="tok-string2">`</span>
 
 <p><a class="p_ident" id="p-ZUZpVdQzvJ" href="#p-ZUZpVdQzvJ" tabindex="-1" role="presentation"></a>Esto significa que el prototipo del ámbito local será el ámbito en el cual la función fue creada, lo que hace posible acceder a los enlaces en ese ámbito desde la función. Esto es todo lo que se necesita para implementar el cierre (aunque para compilarlo de una manera realmente eficiente, sería necesario hacer un poco más de trabajo).</p>
 
-<p><a class="p_ident" id="p-c0w8Z9ugmb" href="#p-c0w8Z9ugmb" tabindex="-1" role="presentation"></a>hint}}</p>
+</div></details>
 
 <h3><a class="i_ident" id="i-BU3lBD6Cl5" href="#i-BU3lBD6Cl5" tabindex="-1" role="presentation"></a>Comentarios</h3>
 
