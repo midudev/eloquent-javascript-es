@@ -265,7 +265,7 @@ writeFile("graffiti.txt", "Node estuvo aquí", err => {
 
 Aquí no fue necesario especificar la codificación: `writeFile` asumirá que cuando se le da una cadena para escribir, en lugar de un objeto `Buffer`, debe escribirla como texto utilizando su codificación de caracteres predeterminada, que es ((UTF-8)).
 
-{{index "node:fs", """"función"""" "readdir", """"función"""" "stat", """"función"""" "rename", """"función"""" "unlink"}}
+{{index "node:fs", "función" "readdir", "función" "stat", "función" "rename", "función" "unlink"}}
 
 El módulo `node:fs` contiene muchas otras funciones útiles: `readdir` te dará los archivos en un ((directorio)) como un array de cadenas, `stat` recuperará información sobre un archivo, `rename` cambiará el nombre de un archivo, `unlink` lo eliminará, entre otros. Consulta la documentación en [_https://nodejs.org_](https://nodejs.org) para obtener detalles específicos.
 

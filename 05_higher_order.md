@@ -212,7 +212,7 @@ console.log(filter(SCRIPTS, script => script.living));
 // → [{name: "Adlam", …}, …]
 ```
 
-{{index ["función", "como valor"], ["función", aplicación]}}
+{{index ["función", "como valor"], ["función", "aplicación"]}}
 
 La función utiliza el argumento llamado `test`, un valor de función, para llenar un "vacío" en la computación, el proceso de decidir qué elementos recopilar.
 

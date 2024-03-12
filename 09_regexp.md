@@ -233,7 +233,7 @@ También puedes especificar ((rangos)) abiertos al utilizar llaves omitiendo el 
 
 ## Agrupación de subexpresiones
 
-{{index ["expresión regular", ""agrupación""], ""agrupación"", [paréntesis, "en expresiones regulares"]}}
+{{index ["expresión regular", "agrupación"], "agrupación", ["paréntesis", "en expresiones regulares"]}}
 
 Para usar un operador como `*` o `+` en más de un elemento a la vez, debes utilizar paréntesis. Una parte de una expresión regular que está encerrada entre paréntesis cuenta como un solo elemento en lo que respecta a los operadores que le siguen.
 
@@ -359,7 +359,7 @@ Si le proporcionas un único argumento al constructor `Date`, ese argumento se t
 
 Los objetos de fecha proporcionan métodos como `getFullYear`, `getMonth`, `getDate`, `getHours`, `getMinutes` y `getSeconds` para extraer sus componentes. Además de `getFullYear`, también existe `getYear`, que te da el año menos 1900 (`98` o `119`) y es en su mayoría inútil.
 
-{{index "Grupo de captura", "Método getDate", [paréntesis, "en expresiones regulares"]}}
+{{index "Grupo de captura", "Método getDate", ["paréntesis", "en expresiones regulares"]}}
 
 
 Poniendo paréntesis alrededor de las partes de la expresión que nos interesan, podemos crear un objeto de fecha a partir de una cadena.
@@ -423,7 +423,7 @@ console.log(animalCount.test("15 pugs"));
 // → false
 ```
 
-{{index [paréntesis, "en expresiones regulares"]}}
+{{index ["paréntesis", "en expresiones regulares"]}}
 
 Los paréntesis se pueden utilizar para limitar la parte del patrón a la que se aplica el operador de barra, y puedes colocar varios de estos operadores uno al lado del otro para expresar una elección entre más de dos alternativas.
 
@@ -791,7 +791,7 @@ Observa el uso recurrente de `^` y `$` para asegurarse de que la expresión coin
 {{index "instrucción if", "asignación", ["operador =", "como expresión"]}}
 ```El patrón `if (match = string.match(...))` hace uso del hecho de que el valor de una expresión de ((asignación)) (`=`) es el valor asignado. A menudo no estás seguro de que tu llamada a `match` tendrá éxito, por lo que solo puedes acceder al objeto resultante dentro de una declaración `if` que comprueba esto. Para no romper la agradable cadena de formas de `else if`, asignamos el resultado de la coincidencia a un enlace y usamos inmediatamente esa asignación como la prueba para la declaración `if`.
 
-{{index [paréntesis, "en expresiones regulares"]}}
+{{index ["paréntesis", "en expresiones regulares"]}}
 
 Si una línea no es un encabezado de sección o una propiedad, la función verifica si es un comentario o una línea vacía usando la expresión `/^\s*(;|$)/` para hacer coincidir líneas que solo contienen espacio o espacio seguido de un punto y coma (haciendo que el resto de la línea sea un comentario). Cuando una línea no coincide con ninguna de las formas esperadas, la función lanza una excepción.
 

@@ -611,7 +611,9 @@ console.log(okIterador.next());
 
 {{index ["estructura de datos", lista], "lista enlazada", colección}}
 
-Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en [Capítulo ?](datos). Esta vez escribiremos la lista como una clase.```{includeCode: true}
+Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en [Capítulo ?](datos). Esta vez escribiremos la lista como una clase.
+
+```{includeCode: true}
 class List {
   constructor(value, rest) {
     this.value = value;

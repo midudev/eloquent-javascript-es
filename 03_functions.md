@@ -147,7 +147,7 @@ El conjunto de enlaces visibles dentro de un bloque está determinado por el lug
 
 ## Funciones como valores
 
-{{index ["función", "como valor"], [enlace, definición]}}
+{{index ["función", "como valor"], [enlace, "definición"]}}
 
 Un enlace de función generalmente simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.
 
@@ -213,7 +213,7 @@ const roundTo = (n, step) => {
 
 La flecha viene _después_ de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como "esta entrada (los ((parámetros))s) produce este resultado (el cuerpo)".
 
-{{index [braces, "function body"], "ejemplo de exponente", [paréntesis, argumentos]}}
+{{index [braces, "function body"], "ejemplo de exponente", ["paréntesis", argumentos]}}
 
 Cuando solo hay un nombre de parámetro, puedes omitir los paréntesis alrededor de la lista de parámetros. Si el cuerpo es una sola expresión, en lugar de un ((bloque)) entre llaves, esa expresión será devuelta por la función. Por lo tanto, estas dos definiciones de `exponente` hacen lo mismo:
 
@@ -222,7 +222,7 @@ const exponente1 = (x) => { return x * x; };
 const exponente2 = x => x * x;
 ```
 
-{{index [paréntesis, argumentos]}}
+{{index ["paréntesis", argumentos]}}
 
 Cuando una función de flecha no tiene parámetros en absoluto, su lista de parámetros es simplemente un conjunto vacío de paréntesis.
 
@@ -241,7 +241,7 @@ No hay una razón profunda para tener tanto funciones de flecha como expresiones
 ## La pila de llamadas
 
 {{indexsee pila, "pila de llamadas"}}
-{{index "pila de llamadas", ["función", aplicación]}}
+{{index "pila de llamadas", ["función", "aplicación"]}}
 
 La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:
 
@@ -292,7 +292,7 @@ console.log(chicken() + " salió primero.");
 
 ## Argumentos Opcionales
 
-{{index argumento, ["función", aplicación]}}
+{{index argumento, ["función", "aplicación"]}}
 
 El siguiente código está permitido y se ejecuta sin ningún problema:
 
@@ -398,7 +398,7 @@ En el ejemplo anterior, se llama a `multiplier` y crea un entorno en el que su p
 
 ## Recursión
 
-{{index "ejemplo de potencia", "desbordamiento de pila", "recursión", ["función", aplicación]}}
+{{index "ejemplo de potencia", "desbordamiento de pila", "recursión", ["función", "aplicación"]}}
 
 Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama _recursiva_. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función `power`, que hace lo mismo que el operador `**` (exponenciación):
 
@@ -415,7 +415,7 @@ console.log(power(2, 3));
 // → 8
 ```
 
-{{index ciclo, legibilidad, matemáticas}}
+{{index ciclo, legibilidad, "matemáticas"}}
 
 Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en [Capítulo ?](estructura_programación). La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.
 
@@ -499,7 +499,7 @@ La sangría indica la profundidad de la pila de llamadas. La primera vez que se 
 
 ## Crecimiento de funciones
 
-{{index ["función", definición]}}
+{{index ["función", "definición"]}}
 
 Hay dos formas más o menos naturales de introducir funciones en los programas.
 
