@@ -37,7 +37,6 @@
     "standard": "^17.1.0"
   },
   "scripts": {
-    "copy": "make copy",
     "test": "make test"
   },
   "eslintConfig": {
