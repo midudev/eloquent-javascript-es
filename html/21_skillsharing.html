@@ -58,8 +58,6 @@
 
 <p><a class="p_ident" id="p-GMlJy93L9x" href="#p-GMlJy93L9x" tabindex="-1" role="presentation"></a>Antes de comenzar a diseñar el servidor o el cliente, pensemos en el punto donde se conectan: la interfaz HTTP a través de la cual se comunican.</p>
 
-<p><a class="p_ident" id="p-FMtwUSWpS0" href="#p-FMtwUSWpS0" tabindex="-1" role="presentation"></a>{{index [ruta, URL], [método, HTTP]}}</p>
-
 <p><a class="p_ident" id="p-NRA737W3IG" href="#p-NRA737W3IG" tabindex="-1" role="presentation"></a>Utilizaremos JSON como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del <a href="20_node.html#file_server">Capítulo 20</a>, intentaremos hacer un buen uso de los métodos y cabeceras HTTP. La interfaz se centra en la ruta <code>/talks</code>. Las rutas que no comienzan con <code>/talks</code> se utilizarán para servir archivos estáticos—el código HTML y JavaScript para el sistema del lado del cliente.</p>
 
 <p><a class="p_ident" id="p-z2nHTSSYsb" href="#p-z2nHTSSYsb" tabindex="-1" role="presentation"></a>Una solicitud <code>GET</code> a <code>/talks</code> devuelve un documento JSON como este:</p>
@@ -122,8 +120,6 @@ Content-Length: 295
 <p><a class="p_ident" id="p-2FUAACQEai" href="#p-2FUAACQEai" tabindex="-1" role="presentation"></a>Comencemos construyendo la parte del programa del lado del servidor. El código en esta sección se ejecuta en Node.js.</p>
 
 <h3><a class="i_ident" id="i-939KJHgV2o" href="#i-939KJHgV2o" tabindex="-1" role="presentation"></a>Enrutamiento</h3>
-
-<p><a class="p_ident" id="p-Wvpuzm93Zy" href="#p-Wvpuzm93Zy" tabindex="-1" role="presentation"></a>{{index “función createServer”, [ruta, URL], [método, HTTP]}}</p>
 
 <p><a class="p_ident" id="p-dOksxO97TB" href="#p-dOksxO97TB" tabindex="-1" role="presentation"></a>Nuestro servidor utilizará <code>createServer</code> de Node para iniciar un servidor HTTP. En la función que maneja una nueva solicitud, debemos distinguir entre los diferentes tipos de solicitudes (como se determina por el método y la ruta) que soportamos. Esto se puede hacer con una larga cadena de declaraciones <code>if</code>, pero hay una manera más elegante.</p>
 

@@ -426,7 +426,7 @@ console.log(reliableMultiply(<span class="tok-number">8</span>, <span class="tok
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-b3OXNxCriW" href="#p-b3OXNxCriW" tabindex="-1" role="presentation"></a>{{index “primitiveMultiply (exercise)”, “palabra clave try”, “palabra clave catch”, “palabra clave throw”}}La llamada a <code>primitiveMultiply</code> definitivamente debería ocurrir en un bloque <code>try</code>. El bloque <code>catch</code> correspondiente debería relanzar la excepción cuando no sea una instancia de <code>MultiplicatorUnitFailure</code> y asegurarse de que la llamada se reintente cuando lo sea.</p>
+<p><a class="p_ident" id="p-mI8+1MDBby" href="#p-mI8+1MDBby" tabindex="-1" role="presentation"></a>La llamada a <code>primitiveMultiply</code> definitivamente debería ocurrir en un bloque <code>try</code>. El bloque <code>catch</code> correspondiente debería relanzar la excepción cuando no sea una instancia de <code>MultiplicatorUnitFailure</code> y asegurarse de que la llamada se reintente cuando lo sea.</p>
 
 <p><a class="p_ident" id="p-SZQFD46n4X" href="#p-SZQFD46n4X" tabindex="-1" role="presentation"></a>Para hacer el reintentamiento, puedes usar un bucle que se detenga solo cuando una llamada tiene éxito, como en el ejemplo de <a href="08_error.html#look"><code>look</code></a> anterior en este capítulo, o usar la recursión y esperar que no tengas una cadena tan larga de fallos que colapse la pila (lo cual es bastante improbable).</p>
 
