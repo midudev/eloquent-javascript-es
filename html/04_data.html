@@ -210,27 +210,32 @@ console.log(objetoA);
 
 <p><a class="p_ident" id="p-JWQfsbAO+t" href="#p-JWQfsbAO+t" tabindex="-1" role="presentation"></a>{{index [objeto, identidad], identidad, [organización, memoria], mutabilidad}}</p>
 
-<p><a class="p_ident" id="p-gFUsy2u0VE" href="#p-gFUsy2u0VE" tabindex="-1" role="presentation"></a>Cuando tenemos dos números, 120 y 120, podemos considerarlos precisamente el mismo número, tanto si se refieren a los mismos bits físicos como si no. Con los objetos, hay una diferencia entre tener dos referencias al mismo objeto y tener dos objetos diferentes que contienen las mismas propiedades. Considera el siguiente código:``` let object1 = {value: 10}; let object2 = object1; let object3 = {value: 10};</p>
+<p><a class="p_ident" id="p-ulxBQ5Ge7V" href="#p-ulxBQ5Ge7V" tabindex="-1" role="presentation"></a>Cuando tenemos dos números, 120 y 120, podemos considerarlos precisamente el mismo número, tanto si se refieren a los mismos bits físicos como si no. Con los objetos, hay una diferencia entre tener dos referencias al mismo objeto y tener dos objetos diferentes que contienen las mismas propiedades. Considera el siguiente código:</p>
 
-<p><a class="p_ident" id="p-+mKYf4Feml" href="#p-+mKYf4Feml" tabindex="-1" role="presentation"></a>console.log(object1 == object2); // → true console.log(object1 == object3); // → false</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-I1Dv6D46/p" href="#c-I1Dv6D46/p" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">object1</span> = {<span class="tok-definition">value</span>: <span class="tok-number">10</span>};
+<span class="tok-keyword">let</span> <span class="tok-definition">object2</span> = object1;
+<span class="tok-keyword">let</span> <span class="tok-definition">object3</span> = {<span class="tok-definition">value</span>: <span class="tok-number">10</span>};
 
-<p><a class="p_ident" id="p-tqQ08aHst3" href="#p-tqQ08aHst3" tabindex="-1" role="presentation"></a>object1.value = 15; console.log(object2.value); // → 15 console.log(object3.value); // → 10</p>
+console.log(object1 == object2);
+<span class="tok-comment">// → true</span>
+console.log(object1 == object3);
+<span class="tok-comment">// → false</span>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-EjQW+DdLFo" href="#c-EjQW+DdLFo" tabindex="-1" role="presentation"></a>
-{{index <span class="tok-string">&quot;tentacle (analogy)&quot;</span>, [binding, <span class="tok-string">&quot;model of&quot;</span>]}}
+object1.value = <span class="tok-number">15</span>;
+console.log(object2.value);
+<span class="tok-comment">// → 15</span>
+console.log(object3.value);
+<span class="tok-comment">// → 10</span></pre>
 
-Las asignaciones <span class="tok-string2">`object1`</span> y <span class="tok-string2">`object2`</span> contienen la _misma_ referencia al objeto, por lo que al cambiar <span class="tok-string2">`object1`</span> también se cambia el valor de <span class="tok-string2">`object2`</span>. Se dice que tienen la misma _identidad_. La asignación <span class="tok-string2">`object3`</span> apunta a un objeto diferente, que inicialmente contiene las mismas propiedades que <span class="tok-string2">`object1`</span> pero vive una vida separada.
+<p><a class="p_ident" id="p-3BhnYICwfS" href="#p-3BhnYICwfS" tabindex="-1" role="presentation"></a>Las asignaciones <code>object1</code> y <code>object2</code> contienen la <em>misma</em> referencia al objeto, por lo que al cambiar <code>object1</code> también se cambia el valor de <code>object2</code>. Se dice que tienen la misma <em>identidad</em>. La asignación <code>object3</code> apunta a un objeto diferente, que inicialmente contiene las mismas propiedades que <code>object1</code> pero vive una vida separada.</p>
 
-{{index <span class="tok-string">&quot;const keyword&quot;</span>, <span class="tok-string">&quot;let keyword&quot;</span>, [binding, <span class="tok-string">&quot;as state&quot;</span>]}}
+<p><a class="p_ident" id="p-ArMAPB/ERK" href="#p-ArMAPB/ERK" tabindex="-1" role="presentation"></a>Las asignaciones pueden ser modificables o constantes, pero esto es independiente de cómo se comportan sus valores. Aunque los valores numéricos no cambian, puedes utilizar una asignación <code>let</code> para hacer un seguimiento de un número que cambia al cambiar el valor al que apunta la asignación. De manera similar, aunque una asignación <code>const</code> a un objeto en sí no puede cambiarse y seguirá apuntando al mismo objeto, los <em>contenidos</em> de ese objeto pueden cambiar.</p>
 
-Las asignaciones pueden ser modificables o constantes, pero esto es independiente de cómo se comportan sus valores. Aunque los valores numéricos no cambian, puedes utilizar una asignación <span class="tok-string2">`let`</span> para hacer un seguimiento de un número que cambia al cambiar el valor al que apunta la asignación. De manera similar, aunque una asignación <span class="tok-string2">`const`</span> a un objeto en sí no puede cambiarse y seguirá apuntando al mismo objeto, los _contenidos_ de ese objeto pueden cambiar.
-
-<span class="tok-string2">``</span><span class="tok-string2">`{test: no}</span>
-<span class="tok-string2">const score = {visitors: 0, home: 0};</span>
-<span class="tok-string2">// Esto está bien</span>
-<span class="tok-string2">score.visitors = 1;</span>
-<span class="tok-string2">// Esto no está permitido</span>
-<span class="tok-string2">score = {visitors: 1, home: 1};</span></pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-5fiEcoTq3V" href="#c-5fiEcoTq3V" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">score</span> = {<span class="tok-definition">visitors</span>: <span class="tok-number">0</span>, <span class="tok-definition">home</span>: <span class="tok-number">0</span>};
+<span class="tok-comment">// Esto está bien</span>
+score.visitors = <span class="tok-number">1</span>;
+<span class="tok-comment">// Esto no está permitido</span>
+score = {<span class="tok-definition">visitors</span>: <span class="tok-number">1</span>, <span class="tok-definition">home</span>: <span class="tok-number">1</span>};</pre>
 
 <p><a class="p_ident" id="p-PlnbB6uWyK" href="#p-PlnbB6uWyK" tabindex="-1" role="presentation"></a>Cuando se comparan objetos con el operador <code>==</code> de JavaScript, se compara por identidad: producirá <code>true</code> solo si ambos objetos son exactamente el mismo valor. Comparar objetos diferentes devolverá <code>false</code>, incluso si tienen propiedades idénticas. No hay una operación de comparación “profunda” incorporada en JavaScript que compare objetos por contenido, pero es posible escribirla tú mismo (lo cual es uno de los <a href="04_data.html#exercise_deep_compare">ejercicios</a> al final de este capítulo).</p>
 
@@ -299,68 +304,65 @@ console.log(phi([<span class="tok-number">76</span>, <span class="tok-number">9<
 
 <p><a class="p_ident" id="p-H+PUtmvv+G" href="#p-H+PUtmvv+G" tabindex="-1" role="presentation"></a>Jacques mantiene su diario por tres meses. El conjunto de datos resultante está disponible en el <a href="https://eloquentjavascript.net/code#4">sandbox de código</a> para este capítulo, donde se almacena en el vínculo <code>JOURNAL</code>, y en un archivo descargable <a href="https://eloquentjavascript.net/code/journal.js">aquí</a>.</p>
 
-<p><a class="p_ident" id="p-ZQMPDxDtcY" href="#p-ZQMPDxDtcY" tabindex="-1" role="presentation"></a>Para extraer una tabla dos por dos para un evento específico del diario, debemos recorrer todas las entradas y contar cuántas veces ocurre el evento en relación con las transformaciones de ardilla:```{includeCode: strip_log} function tableFor(event, journal) { let table = [0, 0, 0, 0]; for (let i = 0; i &lt; journal.length; i++) { let entry = journal[i], index = 0; if (entry.events.includes(event)) index += 1; if (entry.squirrel) index += 2; table[index] += 1; } return table; }</p>
+<p><a class="p_ident" id="p-eSRZhKWOYA" href="#p-eSRZhKWOYA" tabindex="-1" role="presentation"></a>Para extraer una tabla dos por dos para un evento específico del diario, debemos recorrer todas las entradas y contar cuántas veces ocurre el evento en relación con las transformaciones de ardilla:</p>
 
-<p><a class="p_ident" id="p-/y0RF8f4Zw" href="#p-/y0RF8f4Zw" tabindex="-1" role="presentation"></a>console.log(tableFor(“pizza”, JOURNAL)); // → [76, 9, 4, 1]</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-rfea+FwMb5" href="#c-rfea+FwMb5" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">tableFor</span>(<span class="tok-definition">event</span>, <span class="tok-definition">journal</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">table</span> = [<span class="tok-number">0</span>, <span class="tok-number">0</span>, <span class="tok-number">0</span>, <span class="tok-number">0</span>];
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; journal.length; i++) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">entry</span> = journal[i], <span class="tok-definition">index</span> = <span class="tok-number">0</span>;
+    <span class="tok-keyword">if</span> (entry.events.includes(event)) index += <span class="tok-number">1</span>;
+    <span class="tok-keyword">if</span> (entry.squirrel) index += <span class="tok-number">2</span>;
+    table[index] += <span class="tok-number">1</span>;
+  }
+  <span class="tok-keyword">return</span> table;
+}
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KIGWmEBrEy" href="#c-KIGWmEBrEy" tabindex="-1" role="presentation"></a>
-{{index [array, searching], <span class="tok-string">&quot;includes method&quot;</span>}}
+console.log(tableFor(<span class="tok-string">&quot;pizza&quot;</span>, JOURNAL));
+<span class="tok-comment">// → [76, 9, 4, 1]</span></pre>
 
-Los arrays tienen un método <span class="tok-string2">`includes`</span> que comprueba si un valor dado existe en el array. La función utiliza esto para determinar si el nombre del evento en el que está interesado forma parte de la lista de eventos de un día dado.
+<p><a class="p_ident" id="p-eAvvkz4cOx" href="#p-eAvvkz4cOx" tabindex="-1" role="presentation"></a>Los arrays tienen un método <code>includes</code> que comprueba si un valor dado existe en el array. La función utiliza esto para determinar si el nombre del evento en el que está interesado forma parte de la lista de eventos de un día dado.</p>
 
-{{index [array, indexing]}}
+<p><a class="p_ident" id="p-ZpHXjONXhz" href="#p-ZpHXjONXhz" tabindex="-1" role="presentation"></a>El cuerpo del bucle en <code>tableFor</code> determina en qué caja de la tabla cae cada entrada del diario, verificando si la entrada contiene el evento específico en el que está interesado y si el evento ocurre junto con un incidente de ardilla. Luego, el bucle suma uno a la caja correcta de la tabla.</p>
 
-El cuerpo del bucle en <span class="tok-string2">`tableFor`</span> determina en qué caja de la tabla cae cada entrada del diario, verificando si la entrada contiene el evento específico en el que está interesado y si el evento ocurre junto con un incidente de ardilla. Luego, el bucle suma uno a la caja correcta de la tabla.
+<p><a class="p_ident" id="p-Qng1Vzkfh5" href="#p-Qng1Vzkfh5" tabindex="-1" role="presentation"></a>Ahora tenemos las herramientas necesarias para calcular correlaciones individuales. El único paso restante es encontrar una correlación para cada tipo de evento que se registró y ver si algo destaca.</p>
 
-Ahora tenemos las herramientas necesarias para calcular correlaciones individuales. El único paso restante es encontrar una correlación para cada tipo de evento que se registró y ver si algo destaca.
+<h2 id="for_of_loop"><a class="h_ident" id="h-eKoIunsb5g" href="#h-eKoIunsb5g" tabindex="-1" role="presentation"></a>Bucles de Array</h2>
 
-{{id for_of_loop}}
+<p><a class="p_ident" id="p-A0wc2jwdJF" href="#p-A0wc2jwdJF" tabindex="-1" role="presentation"></a>En la función <code>tableFor</code>, hay un bucle como este:</p>
 
-## Bucles de Array
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-lSIvapHPx/" href="#c-lSIvapHPx/" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; JOURNAL.length; i++) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">entry</span> = JOURNAL[i];
+  <span class="tok-comment">// Hacer algo con entry</span>
+}</pre>
 
-{{index <span class="tok-string">&quot;for loop&quot;</span>, loop, [array, iteration]}}
+<p><a class="p_ident" id="p-qcEYSvPpPp" href="#p-qcEYSvPpPp" tabindex="-1" role="presentation"></a>Este tipo de bucle es común en el JavaScript clásico; recorrer arrays elemento por elemento es algo que se hace con frecuencia, y para hacerlo se recorre un contador sobre la longitud del array y se selecciona cada elemento por turno.</p>
 
-En la función <span class="tok-string2">`tableFor`</span>, hay un bucle como este:</pre>
+<p><a class="p_ident" id="p-I6RpywbSC2" href="#p-I6RpywbSC2" tabindex="-1" role="presentation"></a>Hay una forma más sencilla de escribir tales bucles en JavaScript moderno:</p>
 
-<p><a class="p_ident" id="p-8f4bM/VRvo" href="#p-8f4bM/VRvo" tabindex="-1" role="presentation"></a>for (let i = 0; i &lt; JOURNAL.length; i++) { let entry = JOURNAL[i]; // Hacer algo con entry }</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-fZUSWxKfrE" href="#c-fZUSWxKfrE" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">entry</span> <span class="tok-keyword">of</span> JOURNAL) {
+  console.log(<span class="tok-string2">`</span>${entry.events.length}<span class="tok-string2"> eventos.`</span>);
+}</pre>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ScHMIQ4RB3" href="#c-ScHMIQ4RB3" tabindex="-1" role="presentation"></a>
-Este tipo de bucle es común en el JavaScript clásico; recorrer arrays elemento por elemento es algo que se hace con frecuencia, y para hacerlo se recorre un contador sobre la longitud del array y se selecciona cada elemento por turno.
+<p><a class="p_ident" id="p-TgA+BqFdRc" href="#p-TgA+BqFdRc" tabindex="-1" role="presentation"></a>Cuando un bucle <code>for</code> usa la palabra <code>of</code> después de la definición de su variable, recorrerá los elementos del valor dado después de <code>of</code>. Esto no solo funciona para arrays, sino también para cadenas y algunas otras estructuras de datos. Discutiremos <em>cómo</em> funciona en <a href="06_object.html">Capítulo 6</a>.</p>
 
-Hay una forma más sencilla de escribir tales bucles en JavaScript moderno:</pre>
+<h2 id="analysis"><a class="h_ident" id="h-Wb1c9APydD" href="#h-Wb1c9APydD" tabindex="-1" role="presentation"></a>El análisis final</h2>
 
-<p><a class="p_ident" id="p-pxkyaBEcyG" href="#p-pxkyaBEcyG" tabindex="-1" role="presentation"></a>for (let entry of JOURNAL) { console.log(<code>${entry.<wbr>events.<wbr>length} eventos.<wbr></code>); }</p>
+<p><a class="p_ident" id="p-53cmjcL1el" href="#p-53cmjcL1el" tabindex="-1" role="presentation"></a>Necesitamos calcular una correlación para cada tipo de evento que ocurre en el conjunto de datos. Para hacerlo, primero necesitamos <em>encontrar</em> cada tipo de evento.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-4z7XP38mEN" href="#c-4z7XP38mEN" tabindex="-1" role="presentation"></a>
-{{index <span class="tok-string">&quot;for/of loop&quot;</span>}}
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FwRlgr2/i2" href="#c-FwRlgr2/i2" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">journalEvents</span>(<span class="tok-definition">journal</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">events</span> = [];
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">entry</span> <span class="tok-keyword">of</span> journal) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">event</span> <span class="tok-keyword">of</span> entry.events) {
+      <span class="tok-keyword">if</span> (!events.includes(event)) {
+        events.push(event);
+      }
+    }
+  }
+  <span class="tok-keyword">return</span> events;
+}
 
-Cuando un bucle <span class="tok-string2">`for`</span> usa la palabra <span class="tok-string2">`of`</span> después de la definición de su variable, recorrerá los elementos del valor dado después de <span class="tok-string2">`of`</span>. Esto no solo funciona para arrays, sino también para cadenas y algunas otras estructuras de datos. Discutiremos _cómo_ funciona en [Capítulo ?](object).
-
-{{id analysis}}
-
-## El análisis final
-
-{{index journal, <span class="tok-string">&quot;ejemplo de ardilla&quot;</span>, <span class="tok-string">&quot;función journalEvents&quot;</span>}}
-
-Necesitamos calcular una correlación para cada tipo de evento que ocurre en el conjunto de datos. Para hacerlo, primero necesitamos _encontrar_ cada tipo de evento.
-
-{{index <span class="tok-string">&quot;includes method&quot;</span>, <span class="tok-string">&quot;push method&quot;</span>}}
-
-<span class="tok-string2">``</span><span class="tok-string2">`{includeCode: &quot;strip_log&quot;}</span>
-<span class="tok-string2">function journalEvents(journal) {</span>
-<span class="tok-string2">  let events = [];</span>
-<span class="tok-string2">  for (let entry of journal) {</span>
-<span class="tok-string2">    for (let event of entry.events) {</span>
-<span class="tok-string2">      if (!events.includes(event)) {</span>
-<span class="tok-string2">        events.push(event);</span>
-<span class="tok-string2">      }</span>
-<span class="tok-string2">    }</span>
-<span class="tok-string2">  }</span>
-<span class="tok-string2">  return events;</span>
-<span class="tok-string2">}</span>
-
-<span class="tok-string2">console.log(journalEvents(JOURNAL));</span>
-<span class="tok-string2">// → [&quot;zanahoria&quot;, &quot;ejercicio&quot;, &quot;fin de semana&quot;, &quot;pan&quot;, …]</span></pre>
+console.log(journalEvents(JOURNAL));
+<span class="tok-comment">// → [&quot;zanahoria&quot;, &quot;ejercicio&quot;, &quot;fin de semana&quot;, &quot;pan&quot;, …]</span></pre>
 
 <p><a class="p_ident" id="p-dtQt+LnThZ" href="#p-dtQt+LnThZ" tabindex="-1" role="presentation"></a>Agregando los nombres de cualquier evento que no estén en él al array <code>events</code>, la función recopila todos los tipos de eventos.</p>
 

@@ -138,17 +138,17 @@ Y esta es la segunda</pre>
 
 <p><a class="p_ident" id="p-Hhgu1LorgP" href="#p-Hhgu1LorgP" tabindex="-1" role="presentation"></a>{{index “operador +&quot;, concatenación}}</p>
 
-<p><a class="p_ident" id="p-TB+I2SThsU" href="#p-TB+I2SThsU" tabindex="-1" role="presentation"></a>Las cadenas no se pueden dividir, multiplicar o restar. El operador <code>+</code> se puede usar en ellas, no para sumar, sino para <em>concatenar</em> —unir dos cadenas. La siguiente línea producirá la cadena <code>&quot;concatenar&quot;</code>:```{meta: “expr”} “con” + “cat” + “e” + “nate”</p>
+<p><a class="p_ident" id="p-yVQTjTfX8O" href="#p-yVQTjTfX8O" tabindex="-1" role="presentation"></a>Las cadenas no se pueden dividir, multiplicar o restar. El operador <code>+</code> se puede usar en ellas, no para sumar, sino para <em>concatenar</em> —unir dos cadenas. La siguiente línea producirá la cadena <code>&quot;concatenar&quot;</code>:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Fmmnp0uu+A" href="#c-Fmmnp0uu+A" tabindex="-1" role="presentation"></a>
-Los valores de cadena tienen una serie de funciones asociadas (_métodos_) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en [Capítulo ?](data#methods).
+<pre tabindex="0" class="snippet" data-language="javascript"  data-meta="expr"><a class="c_ident" id="c-eCO7oekmP9" href="#c-eCO7oekmP9" tabindex="-1" role="presentation"></a><span class="tok-string">&quot;con&quot;</span> + <span class="tok-string">&quot;cat&quot;</span> + <span class="tok-string">&quot;e&quot;</span> + <span class="tok-string">&quot;nate&quot;</span></pre>
 
-{{index interpolación, acento grave}}
+<p><a class="p_ident" id="p-T3iEY8dvWU" href="#p-T3iEY8dvWU" tabindex="-1" role="presentation"></a>Los valores de cadena tienen una serie de funciones asociadas (<em>métodos</em>) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en <a href="04_data.html#methods">Capítulo 4</a>.</p>
 
-Las cadenas escritas con comillas simples o dobles se comportan de manera muy similar, la única diferencia radica en qué tipo de comilla necesitas escapar dentro de ellas. Las cadenas entre acentos graves, generalmente llamadas _((template literals))_, pueden hacer algunas cosas más. Aparte de poder abarcar varias líneas, también pueden incrustar otros valores.
+<p><a class="p_ident" id="p-5FiP7hkQ3P" href="#p-5FiP7hkQ3P" tabindex="-1" role="presentation"></a>{{index interpolación, acento grave}}</p>
 
-<span class="tok-string2">``</span><span class="tok-string2">`{meta: &quot;expr&quot;}</span>
-<span class="tok-string2">`</span>la mitad de <span class="tok-number">100</span> es ${<span class="tok-number">100</span> / <span class="tok-number">2</span>}<span class="tok-string2">`</span></pre>
+<p><a class="p_ident" id="p-ihSs5peL7s" href="#p-ihSs5peL7s" tabindex="-1" role="presentation"></a>Las cadenas escritas con comillas simples o dobles se comportan de manera muy similar, la única diferencia radica en qué tipo de comilla necesitas escapar dentro de ellas. Las cadenas entre acentos graves, generalmente llamadas <em>template literals</em>, pueden hacer algunas cosas más. Aparte de poder abarcar varias líneas, también pueden incrustar otros valores.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript"  data-meta="expr"><a class="c_ident" id="c-Q70paqTNYa" href="#c-Q70paqTNYa" tabindex="-1" role="presentation"></a><span class="tok-string2">`la mitad de 100 es </span>${<span class="tok-number">100</span> / <span class="tok-number">2</span>}<span class="tok-string2">`</span></pre>
 
 <p><a class="p_ident" id="p-6tfJCNVaMB" href="#p-6tfJCNVaMB" tabindex="-1" role="presentation"></a>Cuando escribes algo dentro de <code>${}</code> en una plantilla literal, su resultado se calculará, se convertirá en una cadena y se incluirá en esa posición. Este ejemplo produce “<em>la mitad de 100 es 50</em>”.</p>
 

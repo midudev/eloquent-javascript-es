@@ -171,57 +171,55 @@ console.log(n);
 
 <p><a class="p_ident" id="p-Yjvk4I+wXH" href="#p-Yjvk4I+wXH" tabindex="-1" role="presentation"></a>{{index función, “función de flecha”}}</p>
 
-<p><a class="p_ident" id="p-v1MfpE/cGm" href="#p-v1MfpE/cGm" tabindex="-1" role="presentation"></a>Hay una tercera notación para funciones, que se ve muy diferente de las otras. En lugar de la palabra clave <code>function</code>, utiliza una flecha (<code>=&gt;</code>) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe <code>&gt;=</code>):```{test: wrap} const roundTo = (n, step) =&gt; { let remainder = n % step; return n - remainder + (remainder &lt; step / 2 ? 0 : step); };</p>
+<p><a class="p_ident" id="p-qp+SShPV+r" href="#p-qp+SShPV+r" tabindex="-1" role="presentation"></a>Hay una tercera notación para funciones, que se ve muy diferente de las otras. En lugar de la palabra clave <code>function</code>, utiliza una flecha (<code>=&gt;</code>) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe <code>&gt;=</code>):</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-16IZBhBCAF" href="#c-16IZBhBCAF" tabindex="-1" role="presentation"></a>
-{{index [<span class="tok-keyword">function</span>, body]}}
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-5zMRAvLyub" href="#c-5zMRAvLyub" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">roundTo</span> = (<span class="tok-definition">n</span>, <span class="tok-definition">step</span>) =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">remainder</span> = n % step;
+  <span class="tok-keyword">return</span> n - remainder + (remainder &lt; step / <span class="tok-number">2</span> ? <span class="tok-number">0</span> : step);
+};</pre>
 
-La flecha viene _después_ de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como <span class="tok-string">&quot;esta entrada (los ((parámetros))s) produce este resultado (el cuerpo)&quot;</span>.
+<p><a class="p_ident" id="p-4wRZ32fVtv" href="#p-4wRZ32fVtv" tabindex="-1" role="presentation"></a>La flecha viene <em>después</em> de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como “esta entrada (los parámetross) produce este resultado (el cuerpo)”.</p>
 
-{{index [braces, <span class="tok-string">&quot;function body&quot;</span>], <span class="tok-string">&quot;ejemplo de exponente&quot;</span>, [paréntesis, argumentos]}}
+<p><a class="p_ident" id="p-dVoVXbAR1e" href="#p-dVoVXbAR1e" tabindex="-1" role="presentation"></a>{{index [braces, “function body”], “ejemplo de exponente”, [paréntesis, argumentos]}}</p>
 
-Cuando solo hay un nombre de parámetro, puedes omitir los paréntesis alrededor de la lista de parámetros. Si el cuerpo es una sola expresión, en lugar de un ((bloque)) entre llaves, esa expresión será devuelta por la función. Por lo tanto, estas dos definiciones de <span class="tok-string2">`exponente`</span> hacen lo mismo:</pre>
+<p><a class="p_ident" id="p-B2W8hY/asG" href="#p-B2W8hY/asG" tabindex="-1" role="presentation"></a>Cuando solo hay un nombre de parámetro, puedes omitir los paréntesis alrededor de la lista de parámetros. Si el cuerpo es una sola expresión, en lugar de un bloque entre llaves, esa expresión será devuelta por la función. Por lo tanto, estas dos definiciones de <code>exponente</code> hacen lo mismo:</p>
 
-<p><a class="p_ident" id="p-4xhr3Smhw9" href="#p-4xhr3Smhw9" tabindex="-1" role="presentation"></a>const exponente1 = (x) =&gt; { return x * x; }; const exponente2 = x =&gt; x * x;</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yDV8N1C3lB" href="#c-yDV8N1C3lB" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">exponente1</span> = (<span class="tok-definition">x</span>) =&gt; { <span class="tok-keyword">return</span> x * x; };
+<span class="tok-keyword">const</span> <span class="tok-definition">exponente2</span> = <span class="tok-definition">x</span> =&gt; x * x;</pre>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-As8LqrFXXa" href="#c-As8LqrFXXa" tabindex="-1" role="presentation"></a>
-{{index [paréntesis, argumentos]}}
+<p><a class="p_ident" id="p-px+yeKedD0" href="#p-px+yeKedD0" tabindex="-1" role="presentation"></a>{{index [paréntesis, argumentos]}}</p>
 
-Cuando una función de flecha no tiene parámetros en absoluto, su lista de parámetros es simplemente un conjunto vacío de paréntesis.</pre>
+<p><a class="p_ident" id="p-PvxM25s0zB" href="#p-PvxM25s0zB" tabindex="-1" role="presentation"></a>Cuando una función de flecha no tiene parámetros en absoluto, su lista de parámetros es simplemente un conjunto vacío de paréntesis.</p>
 
-<p><a class="p_ident" id="p-rTP3z4R16y" href="#p-rTP3z4R16y" tabindex="-1" role="presentation"></a>const cuerno = () =&gt; { console.log(“Toot”); };</p>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-WTImn5yQuM" href="#c-WTImn5yQuM" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">cuerno</span> = () =&gt; {
+  console.log(<span class="tok-string">&quot;Toot&quot;</span>);
+};</pre>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-E/Txp1oT/k" href="#c-E/Txp1oT/k" tabindex="-1" role="presentation"></a>
-{{index verbosidad}}
+<p><a class="p_ident" id="p-4OrL8rdCwp" href="#p-4OrL8rdCwp" tabindex="-1" role="presentation"></a>No hay una razón profunda para tener tanto funciones de flecha como expresiones <code>function</code> en el lenguaje. Aparte de un detalle menor, que discutiremos en el <a href="objeto">Capítulo ?</a>, hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en [Capítulo ?](orden superior).</p>
 
-No hay una razón profunda para tener tanto funciones de flecha como expresiones <span class="tok-string2">`function`</span> en el lenguaje. Aparte de un detalle menor, que discutiremos en el [Capítulo ?](objeto), hacen lo mismo. Las funciones de flecha se agregaron en <span class="tok-number">2015</span>, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en [Capítulo ?](orden superior).
+<h2 id="pila"><a class="h_ident" id="h-nePB5S+L1Q" href="#h-nePB5S+L1Q" tabindex="-1" role="presentation"></a>La pila de llamadas</h2>
 
-{{id pila}}
+<p><a class="p_ident" id="p-KpPYLVkGI7" href="#p-KpPYLVkGI7" tabindex="-1" role="presentation"></a>{{index “pila de llamadas”, [función, aplicación]}}</p>
 
-## La pila de llamadas
+<p><a class="p_ident" id="p-aMmoKkJUw3" href="#p-aMmoKkJUw3" tabindex="-1" role="presentation"></a>La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:</p>
 
-{{indexsee pila, <span class="tok-string">&quot;pila de llamadas&quot;</span>}}
-{{index <span class="tok-string">&quot;pila de llamadas&quot;</span>, [función, aplicación]}}
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-gT/IAWNknj" href="#c-gT/IAWNknj" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">saludar</span>(<span class="tok-definition">quién</span>) {
+  console.log(<span class="tok-string">&quot;Hola &quot;</span> + quién);
+}
+saludar(<span class="tok-string">&quot;Harry&quot;</span>);
+console.log(<span class="tok-string">&quot;Adiós&quot;</span>);</pre>
 
-La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:</pre>
+<p><a class="p_ident" id="p-Dn5Off5HVf" href="#p-Dn5Off5HVf" tabindex="-1" role="presentation"></a>Una ejecución de este programa va más o menos así: la llamada a <code>saludar</code> hace que el control salte al inicio de esa función (línea 2). La función llama a <code>console.log</code>, que toma el control, hace su trabajo, y luego devuelve el control a la línea 2. Allí, llega al final de la función <code>saludar</code>, por lo que regresa al lugar que la llamó, línea 4. La línea siguiente llama a <code>console.log</code> nuevamente. Después de ese retorno, el programa llega a su fin.</p>
 
-<p><a class="p_ident" id="p-FeWW4Bk3Og" href="#p-FeWW4Bk3Og" tabindex="-1" role="presentation"></a>function saludar(quién) { console.log(“Hola &quot; + quién); } saludar(“Harry”); console.log(“Adiós”);</p>
+<p><a class="p_ident" id="p-EhJguRxP1B" href="#p-EhJguRxP1B" tabindex="-1" role="presentation"></a>Podríamos mostrar el flujo de control esquemáticamente de esta manera:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-DYluD+rBwU" href="#c-DYluD+rBwU" tabindex="-1" role="presentation"></a>
-{{index [<span class="tok-string">&quot;flujo de control&quot;</span>, funciones], <span class="tok-string">&quot;orden de ejecución&quot;</span>, <span class="tok-string">&quot;console.log&quot;</span>}}
-
-Una ejecución de este programa va más o menos así: la llamada a <span class="tok-string2">`saludar`</span> hace que el control salte al inicio de esa función (línea 2). La función llama a <span class="tok-string2">`console.log`</span>, que toma el control, hace su trabajo, y luego devuelve el control a la línea 2. Allí, llega al final de la función <span class="tok-string2">`saludar`</span>, por lo que regresa al lugar que la llamó, línea 4. La línea siguiente llama a <span class="tok-string2">`console.log`</span> nuevamente. Después de ese retorno, el programa llega a su fin.
-
-Podríamos mostrar el flujo de control esquemáticamente de esta manera:
-
-<span class="tok-string2">``</span><span class="tok-string2">`{lang: null}</span>
-<span class="tok-string2">no en función</span>
-<span class="tok-string2">   en saludar</span>
-<span class="tok-string2">        en console.log</span>
-<span class="tok-string2">   en saludar</span>
-<span class="tok-string2">no en función</span>
-<span class="tok-string2">   en console.log</span>
-<span class="tok-string2">no en función</span></pre>
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-P67GeEPWC+" href="#c-P67GeEPWC+" tabindex="-1" role="presentation"></a>no en función
+   en saludar
+        en console.log
+   en saludar
+no en función
+   en console.log
+no en función</pre>
 
 <p><a class="p_ident" id="p-M5sgy1Ouv/" href="#p-M5sgy1Ouv/" tabindex="-1" role="presentation"></a>Dado que una función tiene que regresar al lugar que la llamó cuando termina, la computadora debe recordar el contexto desde el cual se realizó la llamada. En un caso, <code>console.log</code> tiene que regresar a la función <code>saludar</code> cuando haya terminado. En el otro caso, regresa al final del programa.</p>
 

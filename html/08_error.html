@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bugs and Errors :: Eloquent JavaScript</title>
+  <title>Bugs y Errores :: Eloquent JavaScript</title>
   <link rel=stylesheet href="css/ejs.css"><script>
       var page = {"type":"chapter","number":8,"load_files":["code/chapter/08_error.js"]}</script></head>
 
@@ -10,7 +10,7 @@
 <nav><a href="07_robot.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="09_regexp.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
 </nav>
 
-<h1>Bugs and Errors</h1>
+<h1>Bugs y Errores</h1>
 
 <blockquote>
 
@@ -290,7 +290,7 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 
 <p><a class="p_ident" id="p-7MIgFxyQWl" href="#p-7MIgFxyQWl" tabindex="-1" role="presentation"></a>Pero eso no siempre es práctico. Por eso existe otra característica que tienen las instrucciones <code>try</code>. Pueden estar seguidas de un bloque <code>finally</code> en lugar o además de un bloque <code>catch</code>. Un bloque <code>finally</code> dice “sin importar <em>qué</em> suceda, ejecuta este código después de intentar ejecutar el código en el bloque <code>try</code>.”</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-R0twXcAhr/" href="#c-R0twXcAhr/" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">transfer</span>(<span class="tok-definition">from</span>, <span class="tok-definition">amount</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-YI1EDwJBY5" href="#c-YI1EDwJBY5" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">transfer</span>(<span class="tok-definition">from</span>, <span class="tok-definition">amount</span>) {
   <span class="tok-keyword">if</span> (accounts[from] &lt; amount) <span class="tok-keyword">return</span>;
   <span class="tok-keyword">let</span> <span class="tok-definition">progress</span> = <span class="tok-number">0</span>;
   <span class="tok-keyword">try</span> {
@@ -340,7 +340,9 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
 
 <span class="tok-string2">{{index &quot;función promptDirection&quot;}}</span>
 
-<span class="tok-string2">Pero podría no serlo. Alguno otra ((asunción)) podría estar violada, o podrías haber introducido un error que está causando una excepción. Aquí tienes un ejemplo que _intenta_ seguir llamando a `</span>promptDirection<span class="tok-string2">` hasta obtener una respuesta válida:`</span><span class="tok-string2">``</span>{test: no}
+<span class="tok-string2">Pero podría no serlo. Alguno otra ((asunción)) podría estar violada, o podrías haber introducido un error que está causando una excepción. Aquí tienes un ejemplo que _intenta_ seguir llamando a `</span>promptDirection<span class="tok-string2">` hasta obtener una respuesta válida:</span>
+
+<span class="tok-string2">`</span><span class="tok-string2">``</span>{test: no}
 <span class="tok-keyword">for</span> (;;) {
   <span class="tok-keyword">try</span> {
     <span class="tok-keyword">let</span> <span class="tok-definition">dir</span> = promptDirection(<span class="tok-string">&quot;¿Dónde?&quot;</span>); <span class="tok-comment">// ← ¡Error de tipeo!</span>

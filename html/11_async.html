@@ -346,30 +346,32 @@ jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.
 
 <p><a class="p_ident" id="p-nJVIxRRyu8" href="#p-nJVIxRRyu8" tabindex="-1" role="presentation"></a>Dado que la mayoría de estas direcciones no existirán o no aceptarán tales mensajes, la llamada a <code>catch</code> se asegura de que los errores de red no hagan que el programa falle. Las solicitudes se envían todas inmediatamente, sin esperar a que otras solicitudes terminen, para no perder tiempo cuando algunas de las máquinas no respondan.</p>
 
-<p><a class="p_ident" id="p-wwrWebhsJD" href="#p-wwrWebhsJD" tabindex="-1" role="presentation"></a>Después de haber iniciado su exploración de red, Carla regresa afuera para ver el resultado. Para su deleite, todas las pantallas ahora muestran una franja de luz en sus esquinas superiores izquierdas. Están en la red local y sí aceptan comandos. Rápidamente toma nota de los números mostrados en cada pantalla. Hay 9 pantallas, dispuestas tres en alto y tres en ancho. Tienen las siguientes direcciones de red:```{includeCode: true} const screenAddresses = [ “10.0.0.44”, “10.0.0.45”, “10.0.0.41”, “10.0.0.31”, “10.0.0.40”, “10.0.0.42”, “10.0.0.48”, “10.0.0.47”, “10.0.0.46” ];</p>
+<p><a class="p_ident" id="p-XT02BFndLm" href="#p-XT02BFndLm" tabindex="-1" role="presentation"></a>Después de haber iniciado su exploración de red, Carla regresa afuera para ver el resultado. Para su deleite, todas las pantallas ahora muestran una franja de luz en sus esquinas superiores izquierdas. Están en la red local y sí aceptan comandos. Rápidamente toma nota de los números mostrados en cada pantalla. Hay 9 pantallas, dispuestas tres en alto y tres en ancho. Tienen las siguientes direcciones de red:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-D6DnIQ3tbv" href="#c-D6DnIQ3tbv" tabindex="-1" role="presentation"></a>
-Ahora esto abre posibilidades para todo tipo de travesuras. Podría mostrar <span class="tok-string">&quot;los cuervos mandan, los humanos babean&quot;</span> en la pared en letras gigantes. Pero eso se siente un poco grosero. En su lugar, planea mostrar un video de un cuervo volando que cubre todas las pantallas por la noche.
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-YxTIbNKE+b" href="#c-YxTIbNKE+b" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">screenAddresses</span> = [
+  <span class="tok-string">&quot;10.0.0.44&quot;</span>, <span class="tok-string">&quot;10.0.0.45&quot;</span>, <span class="tok-string">&quot;10.0.0.41&quot;</span>,
+  <span class="tok-string">&quot;10.0.0.31&quot;</span>, <span class="tok-string">&quot;10.0.0.40&quot;</span>, <span class="tok-string">&quot;10.0.0.42&quot;</span>,
+  <span class="tok-string">&quot;10.0.0.48&quot;</span>, <span class="tok-string">&quot;10.0.0.47&quot;</span>, <span class="tok-string">&quot;10.0.0.46&quot;</span>
+];</pre>
 
-Carla encuentra un clip de video adecuado, en el cual un segundo y medio de metraje se puede repetir para crear un video en bucle mostrando el aleteo de un cuervo. Para ajustarse a las nueve pantallas (cada una de las cuales puede mostrar <span class="tok-number">50</span> por <span class="tok-number">30</span> píxeles), Carla corta y redimensiona los videos para obtener una serie de imágenes de <span class="tok-number">150</span> por <span class="tok-number">90</span>, diez por segundo. Estas luego se cortan en nueve rectángulos cada una, y se procesan para que los puntos oscuros en el video (donde está el cuervo) muestren una luz brillante, y los puntos claros (sin cuervo) permanezcan oscuros, lo que debería crear el efecto de un cuervo ámbar volando contra un fondo negro.
+<p><a class="p_ident" id="p-t3lXdYG6kN" href="#p-t3lXdYG6kN" tabindex="-1" role="presentation"></a>Ahora esto abre posibilidades para todo tipo de travesuras. Podría mostrar “los cuervos mandan, los humanos babean” en la pared en letras gigantes. Pero eso se siente un poco grosero. En su lugar, planea mostrar un video de un cuervo volando que cubre todas las pantallas por la noche.</p>
 
-Ella ha configurado la variable <span class="tok-string2">`clipImages`</span> para contener un array de fotogramas, donde cada fotograma se representa con un array de nueve conjuntos de píxeles, uno para cada pantalla, en el formato que los letreros esperan.
+<p><a class="p_ident" id="p-y5Q2eMHG15" href="#p-y5Q2eMHG15" tabindex="-1" role="presentation"></a>Carla encuentra un clip de video adecuado, en el cual un segundo y medio de metraje se puede repetir para crear un video en bucle mostrando el aleteo de un cuervo. Para ajustarse a las nueve pantallas (cada una de las cuales puede mostrar 50 por 30 píxeles), Carla corta y redimensiona los videos para obtener una serie de imágenes de 150 por 90, diez por segundo. Estas luego se cortan en nueve rectángulos cada una, y se procesan para que los puntos oscuros en el video (donde está el cuervo) muestren una luz brillante, y los puntos claros (sin cuervo) permanezcan oscuros, lo que debería crear el efecto de un cuervo ámbar volando contra un fondo negro.</p>
 
-Para mostrar un único fotograma del video, Carla necesita enviar una solicitud a todas las pantallas a la vez. Pero también necesita esperar el resultado de estas solicitudes, tanto para no comenzar a enviar el siguiente fotograma antes de que el actual se haya enviado correctamente, como para notar cuando las solicitudes están fallando.
+<p><a class="p_ident" id="p-y6uk8qBvhT" href="#p-y6uk8qBvhT" tabindex="-1" role="presentation"></a>Ella ha configurado la variable <code>clipImages</code> para contener un array de fotogramas, donde cada fotograma se representa con un array de nueve conjuntos de píxeles, uno para cada pantalla, en el formato que los letreros esperan.</p>
 
-{{index <span class="tok-string">&quot;Promise.all function&quot;</span>}}
+<p><a class="p_ident" id="p-KvXTg6wDLF" href="#p-KvXTg6wDLF" tabindex="-1" role="presentation"></a>Para mostrar un único fotograma del video, Carla necesita enviar una solicitud a todas las pantallas a la vez. Pero también necesita esperar el resultado de estas solicitudes, tanto para no comenzar a enviar el siguiente fotograma antes de que el actual se haya enviado correctamente, como para notar cuando las solicitudes están fallando.</p>
 
-<span class="tok-string2">`Promise`</span> tiene un método estático <span class="tok-string2">`all`</span> que se puede usar para convertir un array de promesas en una sola promesa que se resuelve en un array de resultados. Esto proporciona una forma conveniente de que algunas acciones asíncronas sucedan al lado unas de otras, esperar a que todas terminen y luego hacer algo con sus resultados (o al menos esperar a que terminen para asegurarse de que no fallen).
+<p><a class="p_ident" id="p-YW17AqPsQ1" href="#p-YW17AqPsQ1" tabindex="-1" role="presentation"></a><code>Promise</code> tiene un método estático <code>all</code> que se puede usar para convertir un array de promesas en una sola promesa que se resuelve en un array de resultados. Esto proporciona una forma conveniente de que algunas acciones asíncronas sucedan al lado unas de otras, esperar a que todas terminen y luego hacer algo con sus resultados (o al menos esperar a que terminen para asegurarse de que no fallen).</p>
 
-<span class="tok-string2">``</span><span class="tok-string2">`{includeCode: true}</span>
-<span class="tok-string2">function displayFrame(frame) {</span>
-<span class="tok-string2">  return Promise.all(frame.map((data, i) =&gt; {</span>
-<span class="tok-string2">    return request(screenAddresses[i], {</span>
-<span class="tok-string2">      command: &quot;display&quot;,</span>
-<span class="tok-string2">      data</span>
-<span class="tok-string2">    });</span>
-<span class="tok-string2">  }));</span>
-<span class="tok-string2">}</span></pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-IQcpgoIvEH" href="#c-IQcpgoIvEH" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">displayFrame</span>(<span class="tok-definition">frame</span>) {
+  <span class="tok-keyword">return</span> Promise.all(frame.map((<span class="tok-definition">data</span>, <span class="tok-definition">i</span>) =&gt; {
+    <span class="tok-keyword">return</span> request(screenAddresses[i], {
+      <span class="tok-definition">command</span>: <span class="tok-string">&quot;display&quot;</span>,
+      <span class="tok-definition">data</span>
+    });
+  }));
+}</pre>
 
 <p><a class="p_ident" id="p-FPLMeF12gv" href="#p-FPLMeF12gv" tabindex="-1" role="presentation"></a>Esto recorre las imágenes en <code>frame</code> (que es un array de arrays de datos de visualización) para crear un array de promesas de solicitud. Luego devuelve una promesa que combina todas esas promesas.</p>
 

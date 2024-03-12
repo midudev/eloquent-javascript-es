@@ -40,27 +40,27 @@ GET /index.html HTTP/1.1
 
 Hay muchas más reglas sobre la forma en que el solicitante puede incluir más información en la ((solicitud)) y la forma en que el otro lado, que devuelve el recurso, empaqueta su contenido. Veremos HTTP con un poco más de detalle en el [Capítulo ?](http).
 
-{{capas, flujo, orden}}
+{{index layering, stream, ordering}}
 
 La mayoría de los protocolos se construyen sobre otros protocolos. HTTP trata la red como un dispositivo similar a un flujo en el que puedes poner bits y hacer que lleguen al destino correcto en el orden correcto. Proporcionar esas garantías encima del envío de datos primitivos que proporciona la red es un problema bastante complicado.
 
-{{TCP}}
+{{index TCP}}
 
-{{ver "Protocolo de Control de Transmisión", TCP}}
+{{indexsee "Transmission Control Protocol", TCP}}
 
 El _Protocolo de Control de Transmisión_ (TCP) es un ((protocolo)) que aborda este problema. Todos los dispositivos conectados a Internet lo "hablan" y la mayoría de las comunicaciones en ((Internet)) se construyen sobre él.
 
-{{escuchar (TCP)}}
+{{index "listening (TCP)"}}
 
 Una conexión TCP funciona de la siguiente manera: una computadora debe estar esperando, o *escuchando*, a que otras computadoras comiencen a hablar con ella. Para poder escuchar diferentes tipos de comunicación al mismo tiempo en una sola máquina, cada oyente tiene asociado un número (llamado _((puerto))_). La mayoría de los ((protocolo))s especifican qué puerto debe usarse de forma predeterminada. Por ejemplo, cuando queremos enviar un correo electrónico usando el protocolo ((SMTP)), se espera que la máquina a través de la cual lo enviamos esté escuchando en el puerto 25.
 
 Otra computadora puede establecer entonces una conexión conectándose a la máquina de destino usando el número de puerto correcto. Si la máquina de destino es alcanzable y está escuchando en ese puerto, la conexión se crea con éxito. La computadora que escucha se llama el _((servidor))_, y la computadora que se conecta se llama el _((cliente))_.
 
-{{abstracción, "de la red"}}
+{{index ["abstracción", "de la red"]}}
 
 Dicha conexión actúa como un conducto bidireccional a través del cual pueden fluir los bits: las máquinas en ambos extremos pueden insertar datos en él. Una vez que los bits se transmiten con éxito, pueden volver a ser leídos por la máquina del otro lado. Este es un modelo conveniente. Se podría decir que ((TCP)) proporciona una abstracción de la red.
 
-{{web}}
+{{id web}}
 
 ## La Web
 
@@ -68,9 +68,9 @@ El _((World Wide Web))_ (no se debe confundir con el ((Internet)) en su totalida
 
 Para formar parte de la Web, todo lo que necesitas hacer es conectar una máquina al ((Internet)) y hacer que escuche en el puerto 80 con el protocolo ((HTTP)) para que otras computadoras puedan solicitarle documentos.
 
-{{URL}}
+{{index URL}}
 
-{{ver "Localizador de Recursos Uniforme", URL}}
+{{indexsee "Uniform Resource Locator", URL}}
 
 Cada ((documento)) en la Web está nombrado por un _Localizador de Recursos Uniforme_ (URL), que se ve algo así:
 
