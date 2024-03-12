@@ -510,7 +510,9 @@ function handleAction(state, action) {
   }
   return state;
 }
-```{{index "objecto localStorage"}}
+```
+
+{{index "objecto localStorage"}}
 
 Almacenaremos el nombre del usuario en `localStorage` para que pueda ser restaurado cuando se cargue la página.
 
@@ -611,7 +613,9 @@ function renderTalk(talk, dispatch) {
     }, elt("input", {type: "text", name: "comment"}), " ",
        elt("button", {type: "submit"}, "Añadir comentario")));
 }
-```{{index "evento submit"}}
+```
+
+{{index "evento submit"}}
 
 El controlador de evento `"submit"` llama a `form.reset` para limpiar el contenido del formulario después de crear una acción `"newComment"`.
 

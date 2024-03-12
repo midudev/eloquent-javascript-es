@@ -210,7 +210,9 @@ console.log(Math.max(2, 4));
 
 {{index [función, aplicación], mínimo, función "Math.min"}}
 
-Cuando una función produce un valor, se dice que _retorna_ ese valor. Cualquier cosa que produzca un valor es una ((expresión)) en JavaScript, lo que significa que las llamadas a funciones se pueden utilizar dentro de expresiones más grandes. En el siguiente código, una llamada a `Math.min`, que es lo opuesto a `Math.max`, se usa como parte de una expresión de suma:```
+Cuando una función produce un valor, se dice que _retorna_ ese valor. Cualquier cosa que produzca un valor es una ((expresión)) en JavaScript, lo que significa que las llamadas a funciones se pueden utilizar dentro de expresiones más grandes. En el siguiente código, una llamada a `Math.min`, que es lo opuesto a `Math.max`, se usa como parte de una expresión de suma:
+
+```
 console.log(Math.min(2, 4) + 100);
 // → 102
 ```

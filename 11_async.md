@@ -114,7 +114,9 @@ La forma más sencilla de crear una promesa es llamando a `Promise.resolve`. Est
 let quince = Promise.resolve(15);
 quince.then(valor => console.log(`Obtenido ${valor}`));
 // → Obtenido 15
-```{{index "Clase Promise"}}
+```
+
+{{index "Clase Promise"}}
 
 Para crear una promesa que no se resuelva inmediatamente, puedes utilizar `Promise` como constructor. Tiene una interfaz un tanto extraña: el constructor espera una función como argumento, la cual llama inmediatamente, pasándole una función que puede utilizar para resolver la promesa.
 

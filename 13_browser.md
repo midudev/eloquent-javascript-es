@@ -76,7 +76,9 @@ Cada ((documento)) en la Web está nombrado por un _Localizador de Recursos Unif
   http://eloquentjavascript.net/13_browser.html
  |      |                      |               |
  protocol       servidor               ruta
-```{{index HTTPS}}
+```
+
+{{index HTTPS}}
 
 La primera parte nos dice que esta URL utiliza el protocolo HTTP (en contraposición, por ejemplo, a HTTP cifrado, que sería _https://_). Luego viene la parte que identifica desde qué servidor estamos solicitando el documento. Por último está una cadena de ruta que identifica el documento específico (o _((recurso))_) en el que estamos interesados.
 

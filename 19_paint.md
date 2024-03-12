@@ -273,7 +273,9 @@ PictureCanvas.prototype.touch = function(startEvent,
   this.dom.addEventListener("touchmove", move);
   this.dom.addEventListener("touchend", end);
 };
-```{{index "touches property", "clientX property", "clientY property"}}
+```
+
+{{index "touches property", "clientX property", "clientY property"}}
 
 Para eventos táctiles, `clientX` y `clientY` no están disponibles directamente en el objeto de evento, pero podemos usar las coordenadas del primer objeto táctil en la propiedad `touches`.
 
@@ -334,7 +336,9 @@ class ToolSelect {
   }
   syncState(state) { this.select.value = state.tool; }
 }
-```{{index "etiqueta (etiqueta HTML)"}}
+```
+
+{{index "etiqueta (etiqueta HTML)"}}
 
 Al envolver el texto de la etiqueta y el campo en un elemento `<label>`, le decimos al navegador que la etiqueta pertenece a ese campo para que, por ejemplo, se pueda hacer clic en la etiqueta para enfocar el campo.
 
@@ -411,7 +415,9 @@ function rectangle(start, state, dispatch) {
   drawRectangle(start);
   return drawRectangle;
 }
-```{{index "estructura de datos persistente", [estado, persistencia]}}
+```
+
+{{index "estructura de datos persistente", [estado, persistencia]}}
 
 Un detalle importante en esta implementación es que al arrastrar, el rectángulo se vuelve a dibujar en la imagen a partir del estado _original_. De esta manera, puedes hacer que el rectángulo sea más grande o más pequeño nuevamente mientras lo creas, sin que los rectángulos intermedios queden pegados en la imagen final. Esta es una de las razones por las que los objetos de imagen ((inmutables)) son útiles; veremos otra razón más adelante.
 

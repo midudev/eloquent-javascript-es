@@ -317,7 +317,9 @@ JavaScript tiene una clase estándar para representar ((fechas))—o, más bien,
 ```{test: no}
 console.log(new Date());
 // → Fri Feb 02 2024 18:03:06 GMT+0100 (CET)
-```{{index "Clase Date"}}
+```
+
+{{index "Clase Date"}}
 
 También puedes crear un objeto para un momento específico.
 

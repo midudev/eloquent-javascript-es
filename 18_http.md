@@ -539,7 +539,9 @@ Un campo de ((casilla de verificación)) es un interruptor binario. Su valor se 
       casillaVerificacion.checked ? "mediumpurple" : "";
   });
 </script>
-```{{index "for attribute", "id attribute", focus, "label (HTML tag)", labeling}}
+```
+
+{{index "for attribute", "id attribute", focus, "label (HTML tag)", labeling}}
 
 La etiqueta `<label>` asocia un fragmento de documento con un campo de entrada. Hacer clic en cualquier parte de la etiqueta activará el campo, lo enfocará e invertirá su valor cuando sea un casilla de verificación o un botón de radio.
 
@@ -667,7 +669,9 @@ Lo que no tiene es una propiedad que contenga el contenido del archivo. Acceder 
     }
   });
 </script>
-```{{index "Clase FileReader", "evento load", "método readAsText", "propiedad result"}}
+```
+
+{{index "Clase FileReader", "evento load", "método readAsText", "propiedad result"}}
 
 La lectura de un archivo se realiza creando un objeto `FileReader`, registrando un controlador de eventos `"load"` para él y llamando a su método `readAsText`, dándole el archivo que queremos leer. Una vez que la carga finaliza, la propiedad `result` del lector contiene el contenido del archivo.
 

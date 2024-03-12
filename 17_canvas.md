@@ -346,7 +346,9 @@ Para dibujar un diagrama de sectores, dibujamos una serie de sectores circulares
     cx.fill();
   }
 </script>
-```{{if book
+```
+
+{{if book
 
 Esto dibuja el siguiente gráfico:
 
@@ -404,7 +406,9 @@ El método `drawImage` nos permite dibujar datos ((de píxel)) en un ((canvas)).
     }
   });
 </script>
-```{{index "método drawImage", escalado}}
+```
+
+{{index "método drawImage", escalado}}
 
 Por defecto, `drawImage` dibujará la imagen a su tamaño original. También se le pueden proporcionar dos argumentos adicionales para establecer un ancho y alto diferente.
 
@@ -518,7 +522,9 @@ function flipHorizontally(context, around) {
   context.scale(-1, 1);
   context.translate(-around, 0);
 }
-```{{index "método flipHorizontally"}}
+```
+
+{{index "método flipHorizontally"}}
 
 Movemos el eje y a donde queremos que esté nuestro ((espejo)), aplicamos el efecto de espejo y finalmente devolvemos el eje y a su lugar adecuado en el universo espejado. La siguiente imagen explica por qué esto funciona:
 

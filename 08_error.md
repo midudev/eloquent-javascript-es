@@ -50,7 +50,9 @@ function canYouSpotTheProblem() {
 
 canYouSpotTheProblem();
 // → ReferenceError: counter is not defined
-```{{index "let keyword", [binding, global]}}
+```
+
+{{index "let keyword", [binding, global]}}
 
 Normalmente, cuando olvidas poner `let` frente a tu enlace, como en el caso de `counter` en el ejemplo, JavaScript silenciosamente crea un enlace global y lo utiliza. En modo estricto, se reporta un ((error)) en su lugar. Esto es muy útil. Sin embargo, cabe mencionar que esto no funciona cuando el enlace en cuestión ya existe en algún lugar del ámbito. En ese caso, el bucle seguirá sobrescribiendo silenciosamente el valor del enlace.
 

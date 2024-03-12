@@ -136,7 +136,9 @@ const hummus = function(factor) {
   ingredient(2, "cucharada", "aceite de oliva");
   ingredient(0.5, "cucharadita", "comino");
 };
-```{{index [función, alcance], alcance}}
+```
+
+{{index [función, alcance], alcance}}
 
 El código dentro de la función `ingredient` puede ver el enlace `factor` desde la función exterior, pero sus enlaces locales, como `unit` o `ingredientAmount`, no son visibles en la función exterior.
 

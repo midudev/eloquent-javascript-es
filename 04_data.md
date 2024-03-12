@@ -201,7 +201,9 @@ console.log("izquierda" in unObjeto);
 // → false
 console.log("derecha" in unObjeto);
 // → true
-```{{index "operador in", [propiedad, "prueba de"], objeto}}
+```
+
+{{index "operador in", [propiedad, "prueba de"], objeto}}
 
 El operador binario `in`, cuando se aplica a una cadena y un objeto, te dice si ese objeto tiene una propiedad con ese nombre. La diferencia entre establecer una propiedad como `undefined` y realmente borrarla es que, en el primer caso, el objeto todavía _tiene_ la propiedad (simplemente no tiene un valor muy interesante), mientras que en el segundo caso la propiedad ya no está presente y `in` devolverá `false`.
 
@@ -788,7 +790,9 @@ console.log(Math.random());
 // → 0.727367032552138
 console.log(Math.random());
 // → 0.40180766698904335
-```{{index "número seudorandom", "número aleatorio"}}
+```
+
+{{index "número seudorandom", "número aleatorio"}}
 
 Aunque las computadoras son máquinas deterministas —siempre reaccionan de la misma manera si se les da la misma entrada— es posible hacer que produzcan números que parezcan aleatorios. Para lograrlo, la máquina mantiene algún valor oculto y, cada vez que solicitas un nuevo número aleatorio, realiza cálculos complicados en este valor oculto para crear un valor nuevo. Almacena un nuevo valor y devuelve algún número derivado de este. De esta manera, puede producir números nuevos y difíciles de predecir que se _aparentan_ aleatorios.
 

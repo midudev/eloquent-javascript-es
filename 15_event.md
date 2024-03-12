@@ -240,7 +240,9 @@ Las teclas modificadoras como [shift]{keyname}, [control]{keyname}, [alt]{keynam
     }
   });
 </script>
-```{{index "button (etiqueta HTML)", "atributo tabindex", [DOM, eventos]}}
+```
+
+{{index "button (etiqueta HTML)", "atributo tabindex", [DOM, eventos]}}
 
 El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene ((foco)) cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo `tabindex`, pero cosas como los ((enlace))s, botones y campos de formulario pueden. Volveremos a los campos de formulario en [Capítulo ?](http#forms). Cuando nada en particular tiene foco, `document.body` actúa como el nodo objetivo de los eventos de teclado.
 

@@ -521,7 +521,9 @@ methods.GET = async function(request) {
             type: lookup(path)};
   }
 };
-```{{index "función createReadStream", ["programación asíncrona", "en Node.js"], "manejo de errores","ENOENT (código de estado)","Tipo de error","herencia"}}
+```
+
+{{index "función createReadStream", ["programación asíncrona", "en Node.js"], "manejo de errores","ENOENT (código de estado)","Tipo de error","herencia"}}
 
 Debido a que debe acceder al disco y por lo tanto podría llevar algún tiempo, `stat` es asíncrono. Dado que estamos utilizando promesas en lugar del estilo de devolución de llamada, debe ser importado desde `node:fs/promises` en lugar de directamente desde `node:fs`.
 
