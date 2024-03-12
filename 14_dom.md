@@ -262,7 +262,7 @@ console.log(array.map(s => s.toUpperCase()));
 
 Para crear nodos ((elemento)), puedes utilizar el método `document.createElement`. Este método toma un nombre de etiqueta y devuelve un nuevo nodo vacío del tipo dado.
 
-{{index "Popper, Karl", [DOM, construcción], "función elt"}}
+{{index "Popper, Karl", [DOM, "construcción"], "función elt"}}
 
 {{id elt}}
 
@@ -369,7 +369,7 @@ Darle a un párrafo un borde hace que se dibuje un rectángulo a su alrededor.
 
 if}}
 
-{{index "método `getBoundingClientRect`", posición, propiedad `pageXOffset`, propiedad `pageYOffset`}}
+{{index "método `getBoundingClientRect`", "posición", propiedad `pageXOffset`, propiedad `pageYOffset`}}
 
 {{id rectánguloDelimitador}}
 
@@ -475,7 +475,7 @@ El código JavaScript puede manipular directamente el estilo de un elemento a tr
 </script>
 ```
 
-{{index "camel case", capitalización, "carácter guion", "font-family (CSS)"}}
+{{index "camel case", "capitalización", "carácter guion", "font-family (CSS)"}}
 
 Algunos nombres de propiedades de estilo contienen guiones, como `font-family`. Debido a que trabajar con estos nombres de propiedades en JavaScript es incómodo (tendrías que decir `style["font-family"]`), los nombres de las propiedades en el objeto `style` para tales propiedades tienen los guiones eliminados y las letras posterior a ellos en mayúscula (`style.fontFamily`).
 
@@ -627,7 +627,7 @@ Nuestra imagen está centrada en la página y tiene una `posición` de `relative
 
 El script utiliza `requestAnimationFrame` para programar la ejecución de la función `animar` siempre que el navegador esté listo para repintar la pantalla. La función `animar` a su vez vuelve a llamar a `requestAnimationFrame` para programar la siguiente actualización. Cuando la ventana del navegador (o pestaña) está activa, esto provocará que las actualizaciones ocurran a una velocidad de aproximadamente 60 por segundo, lo que suele producir una animación atractiva.
 
-{{index línea de tiempo, bloqueo}}
+{{index "línea" de tiempo, bloqueo}}
 
 Si simplemente actualizáramos el DOM en un bucle, la página se congelaría y nada aparecería en la pantalla. Los navegadores no actualizan su pantalla mientras se ejecuta un programa JavaScript, ni permiten ninguna interacción con la página. Por eso necesitamos `requestAnimationFrame` — le indica al navegador que hemos terminado por ahora, y puede continuar haciendo las cosas que hacen los navegadores, como actualizar la pantalla y responder a las acciones del usuario.
 
@@ -746,7 +746,7 @@ hint}}
 
 El método `document.getElementsByTagName` devuelve todos los elementos hijos con un nombre de etiqueta dado. Implementa tu propia versión de esto como una función que tome un nodo y un string (el nombre de la etiqueta) como argumentos y devuelva un array que contenga todos los nodos de elementos descendientes con el nombre de etiqueta dado. Tu función debe recorrer el documento en sí. No puede usar un método como `querySelectorAll` para hacer el trabajo.
 
-{{index "propiedad nodeName", capitalización, "método toLowerCase", "método toUpperCase"}}
+{{index "propiedad nodeName", "capitalización", "método toLowerCase", "método toUpperCase"}}
 
 Para encontrar el nombre de etiqueta de un elemento, usa su propiedad `nodeName`. Pero ten en cuenta que esto devolverá el nombre de la etiqueta en mayúsculas. Usa los métodos de string `toLowerCase` o `toUpperCase` para compensar esto.
 

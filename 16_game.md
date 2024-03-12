@@ -34,7 +34,7 @@ La caja oscura representa al ((jugador)), cuya tarea es recolectar las cajas ama
 
 El jugador puede moverse con las teclas de flecha izquierda y derecha y puede saltar con la tecla de flecha hacia arriba. Saltar es una especialidad de este personaje del juego. Puede alcanzar varias veces su altura y puede cambiar de dirección en el aire. Esto puede no ser del todo realista, pero ayuda a darle al jugador la sensación de tener un control directo sobre el ((avatar)) en pantalla.
 
-{{index "número fraccionario", discretización, "vida artificial", "vida electrónica"}}
+{{index "número fraccionario", "discretización", "vida artificial", "vida electrónica"}}
 
 El ((juego)) consiste en un ((fondo)) estático, dispuesto como una ((rejilla)), con los elementos móviles superpuestos en ese fondo. Cada campo en la rejilla está vacío, sólido o es ((lava)). Los elementos móviles son el jugador, las monedas y ciertas piezas de lava. Las posiciones de estos elementos no están restringidas a la rejilla: sus coordenadas pueden ser fraccionarias, permitiendo un ((movimiento)) suave.
 
@@ -44,7 +44,7 @@ El ((juego)) consiste en un ((fondo)) estático, dispuesto como una ((rejilla)),
 
 Usaremos el DOM del ((navegador)) para mostrar el juego y leeremos la entrada del usuario manejando eventos de teclado.
 
-{{index rectángulo, "fondo (CSS)", "posición (CSS)", gráficos}}
+{{index "rectángulo", "fondo (CSS)", "posición (CSS)", gráficos}}
 
 El código relacionado con la pantalla y el teclado es solo una pequeña parte del trabajo que necesitamos hacer para construir este ((juego)). Dado que todo se ve como ((caja))s de colores, dibujar es sencillo: creamos elementos del DOM y usamos estilos para darles un color de fondo, tamaño y posición.
 
@@ -532,11 +532,11 @@ La etiqueta `<link>`, cuando se utiliza con `rel="stylesheet"`, es una forma de 
 
 ## Movimiento y colisión
 
-{{index física, [animación, "juego de plataformas"]}}
+{{index "física", [animación, "juego de plataformas"]}}
 
 Ahora estamos en el punto en el que podemos comenzar a agregar movimiento. El enfoque básico, seguido por la mayoría de juegos como este, es dividir ((tiempo)) en pequeños pasos y, para cada paso, mover a los actores una distancia correspondiente a su velocidad multiplicada por el tamaño del paso de tiempo. Mediremos el tiempo en segundos, por lo que las velocidades se expresan en unidades por segundo.
 
-{{index obstáculo, "detección de colisión"}}
+{{index "obstáculo", "detección de colisión"}}
 
 Mover cosas es fácil. La parte difícil es lidiar con las interacciones entre los elementos. Cuando el jugador golpea una pared o el suelo, no debería simplemente atravesarlo. El juego debe notar cuando un movimiento dado hace que un objeto golpee a otro objeto y responder en consecuencia. Para las paredes, el movimiento debe detenerse. Al golpear una moneda, esa moneda debe ser recogida. Al tocar lava, el juego debería perderse.
 
@@ -656,7 +656,7 @@ Lava.prototype.update = function(time, state) {
 };
 ```
 
-{{index rebotante, multiplicación, "Clase Vec", "detección de colisiones"}}
+{{index rebotante, "multiplicación", "Clase Vec", "detección de colisiones"}}
 
 Este método `update` calcula una nueva posición agregando el producto del paso de tiempo y la velocidad actual a su posición anterior. Si no hay obstáculos que bloqueen esa nueva posición, se mueve allí. Si hay un obstáculo, el comportamiento depende del tipo de bloque de ((lava))—la lava goteante tiene una posición de `reset` a la que regresa cuando golpea algo. La lava rebotante invierte su velocidad multiplicándola por -1 para que comience a moverse en la dirección opuesta.
 
@@ -715,7 +715,7 @@ Player.prototype.update = function(time, state, keys) {
 
 El movimiento horizontal se calcula en función del estado de las teclas de flecha izquierda y derecha. Cuando no hay una pared bloqueando la nueva posición creada por este movimiento, se utiliza. De lo contrario, se mantiene la posición anterior.
 
-{{index aceleración, física}}
+{{index "aceleración", física}}
 
 El movimiento vertical funciona de manera similar pero tiene que simular ((saltos)) y ((gravedad)). La velocidad vertical del jugador (`ySpeed`) se acelera primero para tener en cuenta la ((gravedad)).
 
@@ -731,11 +731,11 @@ La fuerza de la gravedad, la velocidad de ((salto)) y otras ((constantes)) en el
 
 Para un ((juego)) como este, no queremos que las teclas tengan efecto una vez por pulsación de tecla. Más bien, queremos que su efecto (mover la figura del jugador) se mantenga activo mientras se mantienen presionadas.
 
-{{index método "preventDefault"}}
+{{index "método" "preventDefault"}}
 
 Necesitamos configurar un controlador de teclas que almacene el estado actual de las teclas de flecha izquierda, derecha y arriba. También queremos llamar a `preventDefault` para esas teclas para que no terminen ((desplazando)) la página.
 
-{{index función "trackKeys", "código de tecla", "manejo de eventos", "método addEventListener"}}
+{{index "función" "trackKeys", "código de tecla", "manejo de eventos", "método addEventListener"}}
 
 La siguiente función, al darle un array de nombres de teclas, devolverá un objeto que sigue la posición actual de esas teclas. Registra controladores de eventos para eventos `"keydown"` y `"keyup"` y, cuando el código de tecla en el evento está presente en el conjunto de códigos que está siguiendo, actualiza el objeto.
 

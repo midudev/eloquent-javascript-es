@@ -70,7 +70,7 @@ Un lienzo nuevo está vacío, lo que significa que es completamente ((transparen
 
 La etiqueta `<canvas>` está destinada a permitir diferentes estilos de ((dibujo)). Para acceder a una interfaz de dibujo real, primero necesitamos crear un _((contexto))_, un objeto cuyos métodos proporcionan la interfaz de dibujo. Actualmente existen tres estilos de dibujo ampliamente compatibles: `"2d"` para gráficos bidimensionales, `"webgl"` para gráficos tridimensionales a través de la interfaz OpenGL, y `"webgpu"`, una alternativa más moderna y flexible a WebGL.
 
-{{index renderizado, gráficos, eficiencia}}
+{{index renderizado, "gráficos", eficiencia}}
 
 Este libro no discutirá WebGL ni WebGPU—nos mantendremos en dos dimensiones. Pero si estás interesado en gráficos tridimensionales, te animo a investigar sobre WebGPU. Proporciona una interfaz directa al hardware gráfico y te permite renderizar escenas incluso complicadas de manera eficiente, utilizando JavaScript.
 
@@ -464,7 +464,7 @@ El enlace `ciclo` sigue nuestra posición en la animación. En cada ((frame)), s
 
 ## Transformación
 
-{{index transformación, espejado}}
+{{index "transformación", espejado}}
 
 {{indexsee voltear, espejado}}
 
@@ -534,7 +534,7 @@ Movemos el eje y a donde queremos que esté nuestro ((espejo)), aplicamos el efe
 
 {{figure {url: "img/mirror.svg", alt: "Diagrama que muestra el efecto de trasladar y espejar un triángulo", width: "8cm"}}}
 
-{{index "método translate", "método scale", transformación, lienzo}}
+{{index "método translate", "método scale", "transformación", lienzo}}
 
 Esto muestra los sistemas de coordenadas antes y después del espejo a través de la línea central. Los triángulos están numerados para ilustrar cada paso. Si dibujamos un triángulo en una posición x positiva, por defecto estaría en el lugar donde se encuentra el triángulo 1. Una llamada a `flipHorizontally` primero realiza una traslación a la derecha, lo que nos lleva al triángulo 2. Luego escala, volteando el triángulo a la posición 3. Esto no es donde debería estar, si estuviera reflejado en la línea dada. La segunda llamada a `translate` corrige esto, "cancela" la traslación inicial y hace que el triángulo 4 aparezca exactamente donde debería.
 
@@ -684,7 +684,7 @@ CanvasDisplay.prototype.updateViewport = function(state) {
 };
 ```
 
-{{index límite, "Función Math.max", "Función Math.min", recorte}}
+{{index "límite", "Función Math.max", "Función Math.min", recorte}}
 
 Las llamadas a `Math.max` y `Math.min` aseguran que el **viewport** no termine mostrando espacio fuera del nivel. `Math.max(x, 0)` se asegura de que el número resultante no sea menor que cero. `Math.min` garantiza de manera similar que un valor se mantenga por debajo de un límite dado.
 
@@ -1047,7 +1047,7 @@ if}}
 
 {{hint
 
-{{index "método strokeRect", animación, "método arc"}}
+{{index "método strokeRect", "animación", "método arc"}}
 
 Un ((cuadro)) es fácil de dibujar con `strokeRect`. Define una variable que contenga su tamaño o define dos variables si el ancho y alto de tu cuadro difieren. Para crear una ((pelota)) redonda, comienza un camino y llama a `arc(x, y, radio, 0, 7)`, que crea un arco que va desde cero a más de un círculo completo. Luego rellena el camino.
 
@@ -1063,7 +1063,7 @@ hint}}
 
 ### Reflejo precalculado
 
-{{index optimización, "gráficos de mapa de bits", espejo}}
+{{index "optimización", "gráficos de mapa de bits", espejo}}
 
 Una desventaja de las ((transformaciones)) es que ralentizan el dibujo de mapas de bits. La posición y el tamaño de cada ((píxel)) deben ser transformados, y aunque es posible que los ((navegadores)) se vuelvan más inteligentes sobre las transformaciones en el ((futuro)), actualmente causan un aumento medible en el tiempo que lleva dibujar un mapa de bits.
 

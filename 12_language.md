@@ -24,7 +24,7 @@ Construiremos un lenguaje de programación llamado Egg. Será un lenguaje simple
 
 ## Análisis Sintáctico
 
-{{index parsing, validación, [sintaxis, "de Egg"]}}
+{{index parsing, "validación", [sintaxis, "de Egg"]}}
 
 La parte más inmediatamente visible de un lenguaje de programación es su _sintaxis_, o notación. Un _analizador sintáctico_ es un programa que lee un fragmento de texto y produce una estructura de datos que refleja la estructura del programa contenido en ese texto. Si el texto no forma un programa válido, el analizador sintáctico debería señalar el error.
 
@@ -78,11 +78,11 @@ Esta estructura de datos se llama un _((árbol de sintaxis))_. Si te imaginas lo
 
 {{figure {url: "img/syntax_tree.svg", alt: "Un diagrama que muestra la estructura del árbol de sintaxis del programa de ejemplo. La raíz está etiquetada como 'do' y tiene dos hijos, uno etiquetado como 'define' y otro como 'if'. A su vez, estos tienen más hijos que describen su contenido.", width: "5cm"}}}
 
-{{index análisis sintáctico}}
+{{index "análisis" sintáctico}}
 
 Contrasta esto con el analizador que escribimos para el formato de archivo de configuración en [Capítulo ?](regexp#ini), que tenía una estructura simple: dividía la entrada en líneas y manejaba esas líneas una a la vez. Solo había algunas formas simples que una línea podía tener.
 
-{{index recursión, [anidamiento, "de expresiones"]}}
+{{index "recursión", [anidamiento, "de expresiones"]}}
 
 Aquí debemos encontrar un enfoque diferente. Las expresiones no están separadas en líneas, y tienen una estructura recursiva. Las expresiones de aplicación _contienen_ otras expresiones.
 
@@ -189,7 +189,7 @@ console.log(parse("+(a, 10)"));
 
 ## El evaluador
 
-{{index "función de evaluación", evaluación, interpretación, "árbol de sintaxis", "lenguaje Egg"}}
+{{index "función de evaluación", "evaluación", "interpretación", "árbol de sintaxis", "lenguaje Egg"}}
 
 ¿Qué podemos hacer con el árbol de sintaxis de un programa? ¡Ejecutarlo, por supuesto! Y eso es lo que hace el evaluador. Le das un árbol de sintaxis y un objeto de ámbito que asocia nombres con valores, y evaluará la expresión que representa el árbol y devolverá el valor que esto produce.
 
@@ -338,7 +338,7 @@ console.log(evaluate(prog, topScope));
 // → false
 ```
 
-{{index aritmética, "Constructor de funciones"}}
+{{index "aritmética", "Constructor de funciones"}}
 
 Para suministrar ((operadores)) básicos de ((aritmética)) y ((comparación)), también agregaremos algunas funciones al ((scope)). En aras de mantener el código corto, usaremos `Function` para sintetizar un conjunto de funciones de operadores en un bucle, en lugar de definirlas individualmente.
 
@@ -391,7 +391,7 @@ Este es el programa que hemos visto varias veces antes, que calcula la suma de l
 
 ## Funciones
 
-{{index función, "Lenguaje Egg"}}
+{{index "función", "Lenguaje Egg"}}
 
 Un lenguaje de programación sin funciones es un pobre lenguaje de programación.
 
@@ -446,11 +446,11 @@ do(define(pow, fun(base, exp,
 
 ## Compilación
 
-{{index interpretación, compilación}}
+{{index "interpretación", compilación}}
 
 Lo que hemos construido es un intérprete. Durante la evaluación, actúa directamente sobre la representación del programa producido por el analizador sintáctico.
 
-{{index eficiencia, rendimiento, [enlace, definición], [memoria, velocidad]}}
+{{index eficiencia, rendimiento, [enlace, "definición"], [memoria, velocidad]}}
 
 _La compilación_ es el proceso de agregar otro paso entre el análisis sintáctico y la ejecución de un programa, que transforma el programa en algo que puede ser evaluado de manera más eficiente al hacer la mayor cantidad de trabajo posible por adelantado. Por ejemplo, en lenguajes bien diseñados, es obvio, para cada uso de un enlace, a qué enlace se hace referencia, sin ejecutar realmente el programa. Esto se puede utilizar para evitar buscar el enlace por nombre cada vez que se accede, en su lugar, recuperándolo directamente desde una ubicación de memoria predeterminada.
 
@@ -538,7 +538,7 @@ hint}}
 
 ### Clausura
 
-{{index closure, [función, ámbito], "clausura en Egg (ejercicio)"}}
+{{index closure, [función, "ámbito"], "clausura en Egg (ejercicio)"}}
 
 La forma en que hemos definido `fun` permite que las funciones en Egg hagan referencia al ámbito circundante, lo que permite que el cuerpo de la función use valores locales que eran visibles en el momento en que se definió la función, al igual que lo hacen las funciones de JavaScript.
 
@@ -606,7 +606,7 @@ hint}}
 
 ### Corrigiendo el ámbito
 
-{{index [enlace, definición], asignación, "corrección de ámbito (ejercicio)"}}
+{{index [enlace, "definición"], "asignación", "corrección de ámbito (ejercicio)"}}
 
 Actualmente, la única forma de asignar un enlace un valor es `define`. Esta construcción actúa como una forma tanto de definir nuevos enlaces como de dar un nuevo valor a los existentes.
 

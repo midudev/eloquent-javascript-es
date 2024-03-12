@@ -74,7 +74,7 @@ Nuestro ((robot)) se moverá por el pueblo. Hay paquetes en varios lugares, cada
 
 El autómata debe decidir, en cada punto, hacia dónde ir a continuación. Habrá terminado su tarea cuando todos los paquetes hayan sido entregados.
 
-{{index simulación, "mundo virtual"}}
+{{index "simulación", "mundo virtual"}}
 
 Para poder simular este proceso, debemos definir un mundo virtual que pueda describirlo. Este modelo nos dice dónde está el robot y dónde están los paquetes. Cuando el robot decide moverse a algún lugar, necesitamos actualizar el modelo para reflejar la nueva situación.
 
@@ -163,7 +163,7 @@ Desafortunadamente, aunque entender un sistema construido sobre estructuras de d
 
 ## Simulación
 
-{{index simulación, "mundo virtual"}}
+{{index "simulación", "mundo virtual"}}
 
 Un ((robot)) de entrega observa el mundo y decide en qué dirección quiere moverse. Como tal, podríamos decir que un robot es una función que toma un objeto `VillageState` y devuelve el nombre de un lugar cercano.
 
@@ -470,7 +470,7 @@ if}}
 
 {{hint
 
-{{index "mapa persistente (ejercicio)", "clase Set", [array, creación], "clase PGroup"}}
+{{index "mapa persistente (ejercicio)", "clase Set", [array, "creación"], "clase PGroup"}}
 
 La forma más conveniente de representar el conjunto de valores miembro sigue siendo como un array, ya que los arrays son fáciles de copiar.
 

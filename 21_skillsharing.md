@@ -38,7 +38,7 @@ La ((aplicación)) se configurará para mostrar una vista _en vivo_ de las charl
 
 ## Long polling
 
-{{index firewall, notificación, "long polling", red, [navegador, seguridad]}}
+{{index firewall, "notificación", "long polling", red, [navegador, seguridad]}}
 
 Para poder notificar inmediatamente a un cliente que algo ha cambiado, necesitamos una ((conexión)) con ese cliente. Dado que los navegadores web tradicionalmente no aceptan conexiones y los clientes a menudo están detrás de ((router))s que bloquearían tales conexiones de todos modos, no es práctico que sea el servidor quien inicie esta conexión.
 
@@ -305,7 +305,7 @@ router.add("DELETE", talkPath, async (server, title) => {
 
 El método `updated`, que definiremos [más adelante](skillsharing#updated), notifica a las solicitudes de espera larga sobre el cambio.
 
-{{index validación, entrada, "método PUT"}}
+{{index "validación", entrada, "método PUT"}}
 
 Un controlador que necesita leer cuerpos de solicitud es el controlador `PUT`, que se utiliza para crear nuevas ((charlas)). Debe verificar si los datos que se le proporcionaron tienen propiedades `presentador` y `resumen`, que son cadenas de texto. Cualquier dato que provenga de fuera del sistema podría ser un sinsentido y no queremos corromper nuestro modelo de datos interno o ((fallar)) cuando lleguen solicitudes incorrectas.
 
@@ -727,7 +727,7 @@ class SkillShareApp {
 }
 ```
 
-{{index sincronización, "vista en vivo"}}
+{{index "sincronización", "vista en vivo"}}
 
 Cuando las charlas cambian, este componente las vuelve a dibujar todas. Esto es simple pero también derrochador. Hablaremos sobre eso en los ejercicios.
 
@@ -794,13 +794,13 @@ Cuando varias personas están añadiendo comentarios al mismo tiempo, esto podr�
 
 {{hint
 
-{{index "restablecimiento del campo de comentarios (ejercicio)", plantilla, método "syncState"}}
+{{index "restablecimiento del campo de comentarios (ejercicio)", plantilla, "método" "syncState"}}
 
 La mejor manera de hacerlo probablemente sea convertir el componente de la charla en un objeto, con un método `syncState`, para que se puedan actualizar para mostrar una versión modificada de la charla. Durante el funcionamiento normal, la única forma en que una charla puede cambiar es añadiendo más comentarios, por lo que el método `syncState` puede ser relativamente sencillo.
 
 La parte difícil es que, cuando llega una lista modificada de charlas, tenemos que conciliar la lista existente de componentes de DOM con las charlas de la nueva lista: eliminar los componentes cuya charla fue eliminada y actualizar los componentes cuya charla cambió.
 
-{{index sincronización, "vista en vivo"}}
+{{index "sincronización", "vista en vivo"}}
 
 Para hacer esto, podría ser útil mantener una estructura de datos que almacene los componentes de las charlas bajo los títulos de las charlas para que puedas averiguar fácilmente si existe un componente para una charla dada. Luego puedes recorrer la nueva matriz de charlas y, para cada una de ellas, sincronizar un componente existente o crear uno nuevo. Para eliminar los componentes de charlas eliminadas, también tendrás que recorrer los componentes y comprobar si las charlas correspondientes aún existen.
 

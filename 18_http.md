@@ -231,7 +231,7 @@ Access-Control-Allow-Origin: *
 
 Cuando se construye un sistema que requiere ((comunicación)) entre un programa JavaScript que se ejecuta en el ((navegador)) (lado del cliente) y un programa en un ((servidor)) (lado del servidor), hay varias formas diferentes de modelar esta comunicación.
 
-{{index [red, abstracción], abstracción}}
+{{index [red, "abstracción"], "abstracción"}}
 
 Un modelo comúnmente utilizado es el de las _llamadas de procedimiento remoto_. En este modelo, la comunicación sigue los patrones de llamadas de función normales, excepto que la función en realidad se está ejecutando en otra máquina. Llamarla implica hacer una solicitud al servidor que incluye el nombre de la función y sus argumentos. La respuesta a esa solicitud contiene el valor devuelto.
 
@@ -251,7 +251,7 @@ Los datos que viajan por Internet tienden a seguir un largo y peligroso camino. 
 
 Si es importante que algo se mantenga en secreto, como la ((contraseña)) de tu cuenta de ((correo electrónico)), o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, HTTP simple no es suficiente.
 
-{{index criptografía, cifrado}}
+{{index "criptografía", cifrado}}
 
 {{indexsee "HTTP seguro", HTTPS, [navegador, seguridad]}}
 
@@ -781,7 +781,7 @@ El script obtiene su estado inicial del valor `"Notas"` almacenado en `localStor
 
 El método `setState` se asegura de que el DOM muestre un estado dado y almacena el nuevo estado en `localStorage`. Los controladores de eventos llaman a esta función para moverse a un nuevo estado.
 
-{{index [objeto, creación], propiedad, "propiedad computada"}}
+{{index [objeto, "creación"], propiedad, "propiedad computada"}}
 
 La sintaxis `...` en el ejemplo se utiliza para crear un nuevo objeto que es un clon del antiguo `state.notes`, pero con una propiedad añadida o sobrescrita. Utiliza la sintaxis ((spread)) para primero añadir las propiedades del objeto antiguo y luego establecer una nueva propiedad. La notación de ((corchetes cuadrados)) en el literal del objeto se utiliza para crear una propiedad cuyo nombre se basa en algún valor dinámico.
 
