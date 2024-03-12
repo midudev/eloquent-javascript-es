@@ -55,7 +55,7 @@ Tanto las plataformas de programación de JavaScript prominentes —((navegadore
 
 ## Retrollamadas
 
-{{veríndice [función, devolución de llamada], "función de devolución de llamada"}}
+{{indexsee ["función", "devolución de llamada"], "función de devolución de llamada"}}
 
 Un enfoque para la ((programación asíncrona)) es hacer que las funciones que necesitan esperar por algo tomen un argumento adicional, una _((función de devolución de llamada))_. La función asíncrona inicia algún proceso, configura las cosas para que se llame a la función de devolución de llamada cuando el proceso termine, y luego retorna.
 
