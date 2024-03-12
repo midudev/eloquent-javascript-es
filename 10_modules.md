@@ -12,7 +12,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_10.jpg", alt: "Ilustración de un edificio complicado construido a partir de piezas modulares", chapter: framed}}}
 
-{{index "organización", [código, estructura de]}}
+{{index "organización", ["código", estructura de]}}
 
 Idealmente, un programa tiene una estructura clara y directa. La forma en que funciona es fácil de explicar, y cada parte desempeña un papel bien definido.
 
@@ -297,7 +297,7 @@ Por lo tanto, no es raro que el código que encuentres en un paquete de NPM o qu
 
 ## Diseño de módulos
 
-{{index ["módulo", diseño], [interfaz, "módulo"], [código, "estructura de"]}}
+{{index ["módulo", "diseño"], [interfaz, "módulo"], ["código", "estructura de"]}}
 
 Estructurar programas es uno de los aspectos más sutiles de la programación. Cualquier funcionalidad no trivial puede ser organizada de diversas formas.
 
