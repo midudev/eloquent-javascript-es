@@ -702,7 +702,7 @@ La tecnología del navegador es asombrosa. Proporciona un poderoso conjunto de b
 
 Al mismo tiempo, la tecnología del navegador es ridícula. Tienes que aprender una gran cantidad de trucos tontos y hechos oscuros para dominarla, y el modelo de programación predeterminado que ofrece es tan problemático que la mayoría de los programadores prefieren cubrirlo con varias capas de ((abstracción)) en lugar de lidiar con él directamente.
 
-{{index estándar, evolución}}
+{{index "estándar", evolución}}
 
 Y aunque la situación definitivamente está mejorando, en su mayoría lo hace en forma de más elementos que se agregan para abordar deficiencias, creando aún más ((complejidad)). Una característica utilizada por un millón de sitios web realmente no se puede reemplazar. Incluso si se pudiera, sería difícil decidir con qué debiera ser reemplazada.
 

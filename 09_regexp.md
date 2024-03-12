@@ -143,7 +143,7 @@ console.log(nonBinary.test("0111010112101001"));
 
 ## Caracteres internacionales
 
-{{index internacionalización, Unicode, ["expresión regular", internacionalización]}}
+{{index "internacionalización", Unicode, ["expresión regular", "internacionalización"]}}
 
 Debido a la implementación simplista inicial de JavaScript y al hecho de que este enfoque simplista luego se estableció como comportamiento ((estándar)), las expresiones regulares de JavaScript son bastante simples en lo que respecta a los caracteres que no aparecen en el idioma inglés. Por ejemplo, según las expresiones regulares de JavaScript, un "((carácter de palabra))" es solo uno de los 26 caracteres del alfabeto latino (mayúsculas o minúsculas), dígitos decimales y, por alguna razón, el guion bajo. Cosas como _é_ o _β_, que definitivamente son caracteres de palabra, no coincidirán con `\w` (y _sí_ coincidirán con `\W` en mayúsculas, la categoría de no palabras).
 
@@ -184,7 +184,7 @@ Por otro lado, si estás haciendo coincidir números para hacer algo con ellos, 
 
 {{index ["expresión regular", repetición]}}Ahora sabemos cómo hacer coincidir un solo dígito. ¿Qué tal si queremos hacer coincidir un número entero, una ((secuencia)) de uno o más dígitos?
 
-{{index "carácter de suma", repetición, "operador +"}}
+{{index "carácter de suma", "repetición", "operador +"}}
 
 Cuando colocas un signo más (`+`) después de algo en una expresión regular, indica que el elemento puede repetirse más de una vez. Así, `/\d+/` hace coincidir uno o más caracteres de dígitos.
 
@@ -215,7 +215,7 @@ console.log(neighbor.test("neighbor"));
 // → true
 ```
 
-{{index repetición, [llaves, "en expresión regular"]}}
+{{index "repetición", [llaves, "en expresión regular"]}}
 
 Para indicar que un patrón debe ocurrir un número preciso de veces, utiliza llaves. Colocar `{4}` después de un elemento, por ejemplo, requiere que ocurra exactamente cuatro veces. También es posible especificar un ((rango)) de esta manera: `{2,4}` significa que el elemento debe ocurrir al menos dos veces y como máximo cuatro veces.
 
@@ -233,7 +233,7 @@ También puedes especificar ((rangos)) abiertos al utilizar llaves omitiendo el 
 
 ## Agrupación de subexpresiones
 
-{{index ["expresión regular", agrupación], agrupación, [paréntesis, "en expresiones regulares"]}}
+{{index ["expresión regular", ""agrupación""], ""agrupación"", [paréntesis, "en expresiones regulares"]}}
 
 Para usar un operador como `*` o `+` en más de un elemento a la vez, debes utilizar paréntesis. Una parte de una expresión regular que está encerrada entre paréntesis cuenta como un solo elemento en lo que respecta a los operadores que le siguen.
 
@@ -247,11 +247,11 @@ console.log(cartoonCrying.test("Boohoooohoohooo"));
 
 Los primeros y segundos caracteres `+` aplican solo al segundo _o_ en _boo_ y _hoo_, respectivamente. El tercer `+` se aplica a todo el grupo `(hoo+)`, haciendo coincidir una o más secuencias como esa.
 
-{{index "sensibilidad a mayúsculas", capitalización, ["expresión regular", banderas]}}
+{{index "sensibilidad a mayúsculas", "capitalización", ["expresión regular", banderas]}}
 
 La `i` al final de la expresión en el ejemplo hace que esta expresión regular ignore mayúsculas y minúsculas, lo que le permite hacer coincidir la _B_ mayúscula en la cadena de entrada, aunque el patrón en sí está completamente en minúsculas.## Coincidencias y grupos
 
-{{index ["expresión regular", agrupación], "método exec", [array, "coincidencia de RegExp"]}}
+{{index ["expresión regular", "agrupación"], "método exec", [array, "coincidencia de RegExp"]}}
 
 El método `test` es la forma más simple de hacer coincidir una expresión regular. Solo te indica si hubo coincidencia y nada más. Las expresiones regulares también tienen un método `exec` (ejecutar) que devolverá `null` si no se encontró ninguna coincidencia y devolverá un objeto con información sobre la coincidencia en caso contrario.
 
@@ -267,7 +267,7 @@ console.log(coincidencia.index);
 
 Un objeto devuelto por `exec` tiene una propiedad de `index` que nos dice _dónde_ en la cadena comienza la coincidencia exitosa. Aparte de eso, el objeto parece (y de hecho es) un array de strings, cuyo primer elemento es la cadena que coincidió. En el ejemplo anterior, esta es la secuencia de ((dígitos)) que estábamos buscando.
 
-{{index [string, métodos], "método match"}}
+{{index [string, "métodos"], "método match"}}
 
 Los valores de tipo string tienen un método `match` que se comporta de manera similar.
 
@@ -276,7 +276,7 @@ console.log("uno dos 100".match(/\d+/));
 // → ["100"]
 ```
 
-{{index agrupación, "grupo de captura", "método exec"}}
+{{index "agrupación", "grupo de captura", "método exec"}}
 
 Cuando la expresión regular contiene subexpresiones agrupadas con paréntesis, el texto que coincidió con esos grupos también aparecerá en el array. La coincidencia completa es siempre el primer elemento. El siguiente elemento es la parte coincidente con el primer grupo (el que tiene el paréntesis de apertura primero en la expresión), luego el segundo grupo, y así sucesivamente.
 
@@ -304,7 +304,7 @@ console.log(/(?:na)+/.exec("banana"));
 // → ["nana"]
 ```
 
-{{index "método exec", ["expresión regular", métodos], extracción}}
+{{index "método exec", ["expresión regular", "métodos"], extracción}}
 
 Los grupos pueden ser útiles para extraer partes de una cadena. Si no solo queremos verificar si una cadena contiene una ((fecha)) sino también extraerla y construir un objeto que la represente, podemos envolver paréntesis alrededor de los patrones de dígitos y seleccionar directamente la fecha del resultado de `exec`.
 
@@ -382,7 +382,7 @@ La vinculación `_` (guion bajo) se ignora y se utiliza solo para omitir el elem
 
 Desafortunadamente, `getDate` también extraerá felizmente una fecha de la cadena `"100-1-30000"`. Una coincidencia puede ocurrir en cualquier parte de la cadena, por lo que en este caso, simplemente empezará en el segundo carácter y terminará en el antepenúltimo carácter.
 
-{{index límite, "carácter circunflejo", "signo de dólar"}}
+{{index "límite", "carácter circunflejo", "signo de dólar"}}
 
 Si queremos asegurar que la coincidencia abarque toda la cadena, podemos agregar los marcadores `^` y `$`. El circunflejo coincide con el inicio de la cadena de entrada, mientras que el signo de dólar coincide con el final. Por lo tanto, `/^\d+$/` coincide con una cadena que consiste completamente de uno o más dígitos, `/^!/` coincide con cualquier cadena que comience con un signo de exclamación y `/x^/` no coincide con ninguna cadena (no puede haber una _x_ antes del inicio de la cadena).
 
@@ -495,7 +495,7 @@ console.log("Borobudur".replace(/[ou]/g, "a"));
 // → Barabadar
 ```
 
-{{index agrupación, "grupo de captura", "signo de dólar", "método replace", ["expresión regular", agrupación]}}
+{{index "agrupación", "grupo de captura", "signo de dólar", "método replace", ["expresión regular", "agrupación"]}}
 
 El verdadero poder de usar expresiones regulares con `replace` proviene del hecho de que podemos hacer referencia a grupos coincidentes en la cadena de reemplazo. Por ejemplo, digamos que tenemos una cadena larga que contiene los nombres de personas, un nombre por línea, en el formato `Apellido, Nombre`. Si queremos intercambiar estos nombres y eliminar la coma para obtener un formato `Nombre Apellido`, podemos usar el siguiente código:
 
@@ -510,7 +510,7 @@ console.log(
 
 Los `$1` y `$2` en la cadena de reemplazo se refieren a los grupos entre paréntesis en el patrón. `$1` es reemplazado por el texto que coincidió con el primer grupo, `$2` por el segundo, y así sucesivamente, hasta `$9`. Toda la coincidencia se puede referenciar con `$&`.
 
-{{index [función, "de orden superior"], agrupación, "grupo de captura"}}
+{{index [función, "de orden superior"], "agrupación", "grupo de captura"}}
 
 Es posible pasar una función, en lugar de una cadena, como segundo argumento a `replace`. Para cada reemplazo, la función se llamará con los grupos coincidentes (así como la coincidencia completa) como argumentos, y su valor de retorno se insertará en la nueva cadena.
 
@@ -576,7 +576,7 @@ console.log(stripComments("1 /* a */+/* b */ 1"));
 
 Muchos ((error))s en programas de ((expresión regular)) pueden rastrearse hasta el uso no intencionado de un operador avaricioso donde uno no avaricioso funcionaría mejor. Cuando uses un operador de repetición, prefiere la variante no avariciosa.## Creación dinámica de objetos RegExp
 
-{{index ["expresión regular", creación], "carácter de subrayado", "clase RegExp"}}
+{{index ["expresión regular", "creación"], "carácter de subrayado", "clase RegExp"}}
 
 Hay casos en los que es posible que no sepas el patrón exacto que necesitas para hacer coincidir cuando estás escribiendo tu código. Digamos que quieres probar el nombre de usuario en un fragmento de texto. Puedes construir una cadena y usar el `constructor` `RegExp` en ello. Aquí tienes un ejemplo:
 
@@ -609,7 +609,7 @@ console.log(regexp.test(text));
 
 ## El método search
 
-{{index ["expresión regular", métodos], "método indexOf", "método search"}}
+{{index ["expresión regular", "métodos"], "método indexOf", "método search"}}
 
 El método `indexOf` en las cadenas no puede ser llamado con una expresión regular. Pero hay otro método, `search`, que espera una expresión regular. Al igual que `indexOf`, devuelve el primer índice en el que se encontró la expresión, o -1 cuando no se encontró.
 
@@ -783,7 +783,7 @@ Hay dos tipos de líneas significativas: encabezados de sección o líneas de pr
 
 Observa el uso recurrente de `^` y `$` para asegurarse de que la expresión coincida con toda la línea, no solo parte de ella. Dejarlos fuera resulta en un código que funciona en su mayor parte pero se comporta de manera extraña para algunas entradas, lo que puede ser un error difícil de rastrear.
 
-{{index "instrucción if", asignación, ["operador =", "como expresión"]}}
+{{index "instrucción if", "asignación", ["operador =", "como expresión"]}}
 ```El patrón `if (match = string.match(...))` hace uso del hecho de que el valor de una expresión de ((asignación)) (`=`) es el valor asignado. A menudo no estás seguro de que tu llamada a `match` tendrá éxito, por lo que solo puedes acceder al objeto resultante dentro de una declaración `if` que comprueba esto. Para no romper la agradable cadena de formas de `else if`, asignamos el resultado de la coincidencia a un enlace y usamos inmediatamente esa asignación como la prueba para la declaración `if`.
 
 {{index [paréntesis, "en expresiones regulares"]}}

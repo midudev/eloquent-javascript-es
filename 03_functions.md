@@ -16,13 +16,13 @@ Las funciones son una de las herramientas más centrales en la programación en 
 
 La aplicación más evidente de las funciones es definir nuevos ((vocabulario)). Crear nuevas palabras en prosa suele ser de mal estilo, pero en la programación es indispensable.
 
-{{index abstracción, vocabulario}}
+{{index "abstracción", vocabulario}}
 
 Los hablantes de inglés adultos típicos tienen alrededor de 20,000 palabras en su vocabulario. Pocas lenguajes de programación vienen con 20,000 comandos incorporados. Y el vocabulario que _está_ disponible tiende a estar más precisamente definido, y por lo tanto menos flexible, que en el lenguaje humano. Por lo tanto, _tenemos_ que introducir nuevas palabras para evitar la verbosidad excesiva.
 
 ## Definir una función
 
-{{index "ejemplo de cuadrado", [función, definición], [vinculación, definición]}}
+{{index "ejemplo de cuadrado", [función, "definición"], [vinculación, "definición"]}}
 
 Una definición de función es una vinculación regular donde el valor de la vinculación es una función. Por ejemplo, este código define `square` para que se refiera a una función que produce el cuadrado de un número dado:
 
@@ -36,7 +36,7 @@ console.log(square(12));
 ```
 
 {{indexsee "llaves", corchetes}}
-{{index [corchetes, "cuerpo de la función"], bloque, [sintaxis, función], "palabra clave de función", [función, cuerpo], [función, "como valor"], [paréntesis, argumentos]}}
+{{index [corchetes, "cuerpo de la "función""], bloque, [sintaxis, "función"], "palabra clave de "función"", ["función", cuerpo], ["función", "como valor"], [paréntesis, argumentos]}}
 
 Una función se crea con una expresión que comienza con la palabra clave `function`. Las funciones tienen un conjunto de _((parámetro))s_ (en este caso, solo `x`) y un _cuerpo_, que contiene las declaraciones que se ejecutarán cuando se llame a la función. El cuerpo de una función creada de esta manera siempre debe estar envuelto entre llaves, incluso cuando consiste en una única ((declaración)).
 
@@ -65,7 +65,7 @@ console.log(roundTo(23, 10));
 
 Algunas funciones, como `roundTo` y `square`, producen un valor, y otras no, como `makeNoise`, cuyo único resultado es un ((efecto secundario)). Una instrucción `return` determina el valor que devuelve la función. Cuando el control llega a una instrucción de ese tipo, salta inmediatamente fuera de la función actual y le da el valor devuelto al código que llamó a la función. Una palabra clave `return` sin una expresión después de ella hará que la función devuelva `undefined`. Las funciones que no tienen ninguna instrucción `return` en absoluto, como `makeNoise`, devuelven igualmente `undefined`.
 
-{{index parámetro, [función, aplicación], [ligadura, "desde parámetro"]}}
+{{index "parámetro", [función, "aplicación"], [ligadura, "desde parámetro"]}}
 
 Los parámetros de una función se comportan como ligaduras regulares, pero sus valores iniciales son dados por el _llamador_ de la función, no por el código en la función en sí misma.
 
@@ -112,7 +112,7 @@ console.log(n);
 
 ## Ámbito anidado
 
-{{index [anidamiento, "de funciones"], [anidamiento, "de ámbito"], ámbito, "función interna", "ámbito léxico"}}
+{{index [anidamiento, "de funciones"], [anidamiento, "de ámbito"], "ámbito", "función interna", "ámbito léxico"}}
 
 JavaScript distingue no solo entre ligaduras globales y locales. Bloques y funciones pueden ser creados dentro de otros bloques y funciones, produciendo múltiples grados de localidad.
 
@@ -169,7 +169,7 @@ En [Capítulo ?](higher_order), discutiremos las cosas interesantes que podemos 
 
 ## Notación de declaración
 
-{{index [sintaxis, función], "palabra clave función", "ejemplo cuadrado", [función, definición], [función, declaración]}}
+{{index [sintaxis, "función"], "palabra clave función", "ejemplo cuadrado", ["función", "definición"], ["función", "declaración"]}}
 
 Hay una manera ligeramente más corta de crear un enlace de función. Cuando se utiliza la palabra clave `function` al inicio de una declaración, funciona de manera diferente:
 
@@ -197,7 +197,7 @@ El código anterior funciona, incluso aunque la función esté definida _debajo_
 
 ## Funciones de flecha
 
-{{index función, "función de flecha"}}
+{{index "función", "función de flecha"}}
 
 Hay una tercera notación para funciones, que se ve muy diferente de las otras. En lugar de la palabra clave `function`, utiliza una flecha (`=>`) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe `>=`):
 
@@ -322,7 +322,7 @@ console.log(minus(10, 5));
 ```
 
 {{id roundTo}}
-{{index "argumento opcional", "valor por defecto", parámetro, ["operador =", "para valor por defecto"], "ejemplo de redondeo"}}
+{{index "argumento opcional", "valor por defecto", "parámetro", ["operador =", "para valor por defecto"], "ejemplo de redondeo"}}
 
 Si escribes un operador `=` después de un parámetro, seguido de una expresión, el valor de esa expresión reemplazará al argumento cuando no se le dé. Por ejemplo, esta versión de `roundTo` hace que su segundo argumento sea opcional. Si no lo proporcionas o pasas el valor `undefined`, por defecto será uno:
 
@@ -397,7 +397,7 @@ En el ejemplo anterior, se llama a `multiplier` y crea un entorno en el que su p
 
 ## Recursión
 
-{{index "ejemplo de potencia", "desbordamiento de pila", recursión, [función, aplicación]}}
+{{index "ejemplo de potencia", "desbordamiento de pila", "recursión", [función, aplicación]}}
 
 Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama _recursiva_. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función `power`, que hace lo mismo que el operador `**` (exponenciación):
 
@@ -418,7 +418,7 @@ console.log(power(2, 3));
 
 Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en [Capítulo ?](estructura_programación). La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.
 
-{{index [función, aplicación], eficiencia}}
+{{index [función, "aplicación"], eficiencia}}
 
 Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un `for` loop. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.
 
@@ -441,7 +441,7 @@ Por lo tanto, generalmente deberías comenzar escribiendo algo que sea correcto 
 La recursión no siempre es simplemente una alternativa ineficiente a los bucles. Algunos problemas realmente son más fáciles de resolver con recursión que con bucles. Con mayor frecuencia, estos son problemas que requieren explorar o procesar varias "ramas", cada una de las cuales podría ramificarse nuevamente en aún más ramas.
 
 {{id rompecabezas_recursivo}}
-{{index recursión, "ejemplo de rompecabezas numérico"}}
+{{index "recursión", "ejemplo de rompecabezas numérico"}}
 
 Considera este rompecabezas: al comenzar desde el número 1 y repetidamente sumar 5 o multiplicar por 3, se puede producir un conjunto infinito de números. ¿Cómo escribirías una función que, dado un número, intente encontrar una secuencia de tales sumas y multiplicaciones que produzcan ese número? Por ejemplo, el número 13 podría alcanzarse al multiplicar por 3 y luego sumar 5 dos veces, mientras que el número 15 no podría alcanzarse en absoluto.
 
@@ -619,7 +619,7 @@ La primera función auxiliar en el ((ejemplo de la granja)), `imprimirRellenadoC
 
 Una función _pura_ es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de que una función pura esté funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.
 
-{{index optimización, "console.log"}}
+{{index "optimización", "console.log"}}
 
 Aún así, no hay necesidad de sentirse mal al escribir funciones que no son puras. Los efectos secundarios a menudo son útiles. No hay forma de escribir una versión pura de `console.log`, por ejemplo, y es bueno tener `console.log`. Algunas operaciones también son más fáciles de expresar de manera eficiente cuando usamos efectos secundarios.
 

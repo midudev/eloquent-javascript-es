@@ -10,7 +10,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_8.jpg", alt: "Ilustración mostrando varios insectos y un ciempiés", chapter: framed}}}
 
-{{index "Kernighan, Brian", "Plauger, P.J.", depuración, "manejo de errores"}}
+{{index "Kernighan, Brian", "Plauger, P.J.", "depuración", "manejo de errores"}}
 
 Las fallas en los programas de computadora generalmente se llaman _((bug))s_. Hace que los programadores se sientan bien imaginarlos como pequeñas cosas que simplemente se meten en nuestro trabajo. En realidad, por supuesto, nosotros mismos los colocamos allí.
 
@@ -18,7 +18,7 @@ Si un programa es pensamiento cristalizado, puedes clasificar aproximadamente lo
 
 ## Lenguaje
 
-{{index análisis, parsing}}
+{{index "análisis", parsing}}
 
 Muchos errores podrían ser señalados automáticamente por la computadora, si supiera lo suficiente sobre lo que estamos intentando hacer. Pero la laxitud de JavaScript es un obstáculo aquí. Su concepto de enlaces y propiedades es lo suficientemente vago como para rara vez atrapar ((typo))s antes de ejecutar realmente el programa. E incluso entonces, te permite hacer algunas cosas claramente absurdas sin quejarse, como calcular `true * "monkey"`.
 
@@ -119,7 +119,7 @@ En este libro, continuaremos utilizando código JavaScript crudo, peligroso y si
 
 ## Pruebas
 
-{{index "suite de pruebas", "error en tiempo de ejecución", automatización, pruebas}}
+{{index "suite de pruebas", "error en tiempo de ejecución", "automatización", pruebas}}
 
 Si el lenguaje no nos va a ayudar mucho a encontrar errores, tendremos que encontrarlos a la antigua: ejecutando el programa y viendo si hace lo correcto.
 
@@ -196,7 +196,7 @@ Incluso si ya ves el problema, finge por un momento que no lo haces. Sabemos que
 
 Aquí es donde debes resistir la tentación de empezar a hacer cambios aleatorios en el código para ver si eso lo mejora. En cambio, _piensa_. Analiza lo que está sucediendo y elabora una ((teoría)) sobre por qué podría estar ocurriendo. Luego, realiza observaciones adicionales para probar esta teoría, o si aún no tienes una teoría, realiza observaciones adicionales para ayudarte a crear una.
 
-{{index "console.log", salida, depuración, registro}}
+{{index "console.log", salida, "depuración", registro}}
 
 Colocar algunas llamadas `console.log` estratégicas en el programa es una buena manera de obtener información adicional sobre lo que está haciendo el programa. En este caso, queremos que `n` tome los valores `13`, `1` y luego `0`. Vamos a escribir su valor al inicio del ciclo.
 
@@ -275,7 +275,7 @@ Cuando una función no puede proceder normalmente, lo que a menudo _queremos_ ha
 
 Las excepciones son un mecanismo que hace posible que el código que se encuentra con un problema _lanze_ (o _emita_) una excepción. Una excepción puede ser cualquier valor. Lanzar una se asemeja de alguna manera a un retorno super potenciado de una función: sale no solo de la función actual sino también de sus llamadores, hasta llegar a la primera llamada que inició la ejecución actual. Esto se llama _((desenrollar la pila))_. Puede recordar la pila de llamadas a funciones que se mencionó en el [Capítulo ?](functions#stack). Una excepción recorre esta pila, descartando todos los contextos de llamada que encuentra.
 
-{{index "manejo de errores", [sintaxis, declaración], "palabra clave catch"}}
+{{index "manejo de errores", [sintaxis, "declaración"], "palabra clave catch"}}
 
 Si las excepciones siempre fueran directamente hasta el final de la pila, no serían de mucha utilidad. Simplemente proporcionarían una forma novedosa de hacer que su programa falle. Su poder radica en el hecho de que puede colocar "obstáculos" a lo largo de la pila para _capturar_ la excepción mientras viaja hacia abajo. Una vez que ha capturado una excepción, puede hacer algo con ella para resolver el problema y luego continuar ejecutando el programa.
 
@@ -309,7 +309,7 @@ try {
 
 La palabra clave `throw` se utiliza para lanzar una excepción. La captura de una excepción se realiza envolviendo un trozo de código en un bloque `try`, seguido de la palabra clave `catch`. Cuando el código en el bloque `try` provoca que se lance una excepción, se evalúa el bloque `catch`, con el nombre entre paréntesis vinculado al valor de la excepción. Después de que el bloque `catch` finalice, o si el bloque `try` finaliza sin problemas, el programa continúa debajo de toda la instrucción `try/catch`.
 
-{{index depuración, "pila de llamadas", "Tipo de error"}}
+{{index "depuración", "pila de llamadas", "Tipo de error"}}
 
 En este caso, utilizamos el ((constructor)) `Error` para crear nuestro valor de excepción. Este es un constructor de JavaScript ((estándar)) que crea un objeto con una propiedad `message`. Las instancias de `Error` también recopilan información sobre la pila de llamadas que existía cuando se creó la excepción, una llamada _((traza de pila))_. Esta información se almacena en la propiedad `stack` y puede ser útil al intentar depurar un problema: nos indica la función donde ocurrió el problema y qué funciones realizaron la llamada fallida.
 
@@ -404,7 +404,7 @@ Para errores de programación, a menudo dejar que el error siga su curso es lo m
 
 Para problemas que se _espera_ que ocurran durante el uso rutinario, fallar con una excepción no manejada es una estrategia terrible.
 
-{{index [función, aplicación], "manejo de excepciones", "tipo de error", [enlace, indefinido]}}
+{{index [función, "aplicación"], "manejo de excepciones", "tipo de error", [enlace, indefinido]}}
 
 Usos incorrectos del lenguaje, como hacer referencia a un enlace inexistente, buscar una propiedad en `null` o llamar a algo que no es una función, también provocarán que se lancen excepciones. Estas excepciones también pueden ser capturadas.
 
@@ -487,7 +487,7 @@ for (;;) {
 
 Esto capturará solo instancias de `InputError` y permitirá que pasen excepciones no relacionadas. Si vuelves a introducir el error de tipeo, el error de enlace no definido se informará correctamente.## Afirmaciones
 
-{{index "función assert", afirmación, depuración}}
+{{index "función assert", "afirmación", depuración}}
 
 Las _afirmaciones_ son verificaciones dentro de un programa que aseguran que algo es como se supone que debe ser. Se utilizan no para manejar situaciones que pueden surgir en la operación normal, sino para encontrar errores de programación.
 
@@ -502,7 +502,7 @@ function primerElemento(array) {
 }
 ```
 
-{{index validación, "error en tiempo de ejecución", fallo, suposición}}
+{{index "validación", "error en tiempo de ejecución", fallo, suposición}}
 
 Ahora, en lugar de devolver silenciosamente `undefined` (que es lo que obtienes al leer una propiedad de un array que no existe), esto hará que tu programa falle ruidosamente tan pronto como lo uses incorrectamente. Esto hace que sea menos probable que tales errores pasen desapercibidos y más fácil encontrar su causa cuando ocurran.
 

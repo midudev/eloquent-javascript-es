@@ -12,7 +12,7 @@ quote}}
 
 Los próximos capítulos de este libro hablarán sobre los navegadores web. Sin los navegadores web, no habría JavaScript. O incluso si existiera, nadie le habría prestado atención.
 
-{{index descentralización, compatibilidad}}
+{{index "descentralización", compatibilidad}}
 
 La tecnología web ha sido descentralizada desde el principio, no solo técnicamente, sino también en la forma en que evolucionó. Varios fabricantes de navegadores han añadido nueva funcionalidad de manera ad hoc y a veces sin mucho sentido, que luego, a veces, terminaba siendo adoptada por otros, y finalmente establecida como en los ((estándares)).
 
@@ -152,7 +152,7 @@ Para poder incluir ((corchetes angulares)) en el texto de un documento, a pesar 
 
 Esto es análogo a la manera en que se utilizan las barras invertidas en las cadenas de texto de JavaScript. Dado que este mecanismo también otorga un significado especial a los caracteres de y comercial, necesitan ser escapados como `&amp;`. Dentro de los valores de los atributos, que están entre comillas dobles, se puede usar `&quot;` para insertar un carácter de comillas real.
 
-{{index "tolerancia a errores", análisis sintáctico}}
+{{index "tolerancia a errores", "análisis sintáctico"}}
 
 HTML se analiza de una manera notablemente tolerante a errores. Cuando faltan etiquetas que deberían estar ahí, el navegador las agrega automáticamente. La forma en que se hace esto se ha estandarizado, y puedes confiar en que todos los navegadores modernos lo harán de la misma manera.
 

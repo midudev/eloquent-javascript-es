@@ -14,7 +14,7 @@ Algunos programas trabajan con la entrada directa del usuario, como acciones del
 
 ## Controladores de Eventos
 
-{{index sondeo, botón, "tiempo real"}}
+{{index sondeo, "botón", "tiempo real"}}
 
 Imagina una interfaz donde la única forma de saber si una tecla en el ((teclado)) está siendo presionada es leyendo el estado actual de esa tecla. Para poder reaccionar a las pulsaciones de teclas, tendrías que leer constantemente el estado de la tecla para capturarla antes de que se libere nuevamente. Sería peligroso realizar otras computaciones intensivas en tiempo, ya que podrías perder una pulsación de tecla.
 
@@ -120,7 +120,7 @@ La información almacenada en un objeto de evento difiere según el tipo de even
 
 {{indexsee burbujeo, "propagación de evento"}}
 
-{{indexsee propagación, "propagación de evento"}}
+{{indexsee "propagación", "propagación de evento"}}
 
 Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.
 
@@ -272,7 +272,7 @@ Después del evento `"mouseup"`, se dispara un evento `"click"` en el nodo más 
 
 Si dos clics ocurren cerca uno del otro, también se dispara un evento `"dblclick"` (doble clic), después del segundo evento de clic.
 
-{{index píxel, "propiedad clientX", "propiedad clientY", "propiedad pageX", "propiedad pageY", "objeto evento"}}
+{{index "píxel", "propiedad clientX", "propiedad clientY", "propiedad pageX", "propiedad pageY", "objeto evento"}}
 
 Para obtener información precisa sobre el lugar donde ocurrió un evento de ratón, puedes mirar sus propiedades `clientX` y `clientY`, que contienen las ((coordenadas)) del evento (en píxeles) relativas a la esquina superior izquierda de la ventana, o `pageX` y `pageY`, que son relativas a la esquina superior izquierda de todo el documento (lo cual puede ser diferente cuando la ventana ha sido desplazada).
 
@@ -588,7 +588,7 @@ let reloj = setInterval(() => {
 
 ## Debouncing
 
-{{index optimización, "evento mousemove", "evento scroll", bloqueo}}
+{{index "optimización", "evento mousemove", "evento scroll", bloqueo}}
 
 Algunos tipos de eventos pueden activarse rápidamente, muchas veces seguidas (como los eventos `"mousemove"` y `"scroll"`, por ejemplo). Al manejar tales eventos, debes tener cuidado de no hacer nada que consuma demasiado tiempo, ya que tu controlador tomará tanto tiempo que la interacción con el documento comenzará a sentirse lenta.
 
@@ -690,7 +690,7 @@ hint}}
 
 ### Estela del ratón
 
-{{index animación, "estela del ratón (ejercicio)"}}
+{{index "animación", "estela del ratón (ejercicio)"}}
 
 En los primeros días de JavaScript, que fue la época dorada de las ((páginas de inicio estridentes)) con un montón de imágenes animadas, la gente ideó formas verdaderamente inspiradoras de usar el lenguaje.
 

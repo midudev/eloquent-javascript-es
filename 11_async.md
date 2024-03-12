@@ -11,7 +11,7 @@ quote}}
 
 {{index "Laozi"}}
 
-{{figure {url: "img/chapter_picture_11.jpg", alt: "Ilustración que muestra dos cuervos en una rama de árbol", capítulo: enmarcado}}}
+{{figure {url: "img/chapter_picture_11.jpg", alt: "Ilustración que muestra dos cuervos en una rama de árbol", "capítulo": enmarcado}}}
 
 La parte central de una computadora, la parte que lleva a cabo los pasos individuales que componen nuestros programas, se llama el _((procesador))_. Los programas que hemos visto hasta ahora mantendrán ocupado al procesador hasta que hayan terminado su trabajo. La velocidad a la cual algo como un bucle que manipula números puede ser ejecutado depende casi enteramente de la velocidad del procesador y la memoria de la computadora.
 
@@ -522,7 +522,7 @@ Durante toda la semana que dura el muro de pantalla, todas las noches, cuando es
 
 ## El bucle de eventos
 
-{{index "programación asincrónica", programación, "bucle de eventos", línea de tiempo}}
+{{index "programación asincrónica", "programación", "bucle de eventos", "línea" de tiempo}}
 
 Un programa asincrónico comienza ejecutando su script principal, que a menudo configurará devoluciones de llamada para ser llamadas más tarde. Ese script principal, así como las devoluciones de llamada, se ejecutan por completo de una vez, sin interrupciones. Pero entre ellos, el programa puede estar inactivo, esperando a que ocurra algo.
 
@@ -764,7 +764,7 @@ function activityTable(día) {
 }
 ```
 
-{{index "palabra clave await", programación de planificación}}
+{{index "palabra clave await", "programación" de planificación}}
 
 Lo que muestra que la forma en que estructuras tus promesas puede tener un efecto real en la forma en que se programa el trabajo. Un simple bucle con `await` hará que el proceso sea completamente lineal: espera a que se cargue cada archivo antes de continuar. `Promise.all` hace posible que varias tareas sean trabajadas conceptualmente al mismo tiempo, permitiéndoles progresar mientras los archivos aún se están cargando. Esto puede ser más rápido, pero también hace que el orden en que sucederán las cosas sea menos predecible. En este caso, donde solo vamos a estar incrementando números en una tabla, eso no es difícil de hacer de manera segura. Para otros tipos de problemas, puede ser mucho más difícil.
 

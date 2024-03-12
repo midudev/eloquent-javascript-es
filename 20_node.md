@@ -126,7 +126,7 @@ let argument = process.argv[2];
 console.log(reverse(argument));
 ```
 
-{{index reutilización, "función Array.from", "método join"}}
+{{index "reutilización", "función Array.from", "método join"}}
 
 El archivo `reverse.mjs` define una biblioteca para revertir cadenas, que puede ser utilizada tanto por esta herramienta de línea de comandos como por otros scripts que necesiten acceso directo a una función para revertir cadenas.
 
@@ -222,7 +222,7 @@ El comando `npm` también se utiliza para publicar nuevos paquetes o nuevas vers
 
 Uno de los módulos integrados más utilizados en Node es el módulo `node:fs`, que significa _((sistema de archivos))_. Exporta funciones para trabajar con archivos y directorios.
 
-{{index función "readFile", "función de devolución de llamada"}}
+{{index "función" "readFile", "función de devolución de llamada"}}
 
 Por ejemplo, la función llamada `readFile` lee un archivo y luego llama a una función de devolución de llamada con el contenido del archivo.
 
@@ -247,7 +247,7 @@ readFile("archivo.txt", (error, buffer) => {
 });
 ```
 
-{{index función "writeFile", "sistema de archivos", [archivo, acceso]}}
+{{index "función" "writeFile", "sistema de archivos", [archivo, acceso]}}
 
 Una función similar, `writeFile`, se utiliza para escribir un archivo en el disco.
 
@@ -263,7 +263,7 @@ writeFile("graffiti.txt", "Node estuvo aquí", err => {
 
 Aquí no fue necesario especificar la codificación: `writeFile` asumirá que cuando se le da una cadena para escribir, en lugar de un objeto `Buffer`, debe escribirla como texto utilizando su codificación de caracteres predeterminada, que es ((UTF-8)).
 
-{{index "node:fs", función "readdir", función "stat", función "rename", función "unlink"}}
+{{index "node:fs", """"función"""" "readdir", """"función"""" "stat", """"función"""" "rename", """"función"""" "unlink"}}
 
 El módulo `node:fs` contiene muchas otras funciones útiles: `readdir` te dará los archivos en un ((directorio)) como un array de cadenas, `stat` recuperará información sobre un archivo, `rename` cambiará el nombre de un archivo, `unlink` lo eliminará, entre otros. Consulta la documentación en [_https://nodejs.org_](https://nodejs.org) para obtener detalles específicos.
 
@@ -291,7 +291,7 @@ console.log("El archivo contiene:",
             readFileSync("file.txt", "utf8"));
 ```
 
-{{index optimización, rendimiento, bloqueo}}
+{{index "optimización", rendimiento, bloqueo}}
 
 Cabe destacar que mientras se realiza una operación síncrona de este tipo, tu programa se detiene por completo. Si debería estar respondiendo al usuario o a otras máquinas en la red, quedarse atrapado en una acción síncrona podría producir retrasos molestos.
 
@@ -374,7 +374,7 @@ Los objetos que emiten eventos en Node tienen un método llamado `on` que es sim
 
 Los ((stream))s legibles tienen eventos `"data"` y `"end"`. El primero se dispara cada vez que llegan datos, y el segundo se llama cuando el flujo llega a su fin. Este modelo es más adecuado para datos de _streaming_ que pueden procesarse de inmediato, incluso cuando todo el documento aún no está disponible. Un archivo se puede leer como un flujo legible utilizando la función `createReadStream` de `node:fs`.
 
-{{index "ejemplo de servidor de mayúsculas", capitalización, "método toUpperCase"}}
+{{index "ejemplo de servidor de mayúsculas", "capitalización", "método toUpperCase"}}
 
 Este código crea un ((servidor)) que lee los cuerpos de las solicitudes y los reenvía al cliente como texto en mayúsculas:
 
@@ -461,7 +461,7 @@ El campo `status` de la descripción de la respuesta puede omitirse, en cuyo cas
 
 Cuando el valor de `body` es un ((readable stream)), este tendrá un método `pipe` que se utiliza para reenviar todo el contenido de un flujo de lectura a un ((writable stream)). Si no es así, se asume que es `null` (sin cuerpo), una cadena o un búfer, y se pasa directamente al método `end` del ((response)).
 
-{{index [ruta, URL], "función urlPath", "clase URL", análisis, [escape, "en las URL"], "función decodeURIComponent", "método startsWith"}}
+{{index [ruta, URL], "función urlPath", "clase URL", "análisis", [escape, "en las URL"], "función decodeURIComponent", "método startsWith"}}
 
 Para determinar qué ruta de archivo corresponde a una URL de solicitud, la función `urlPath` utiliza la clase integrada `URL` (que también existe en el navegador) para analizar la URL. Este constructor espera una URL completa, no solo la parte que comienza con la barra diagonal que obtenemos de `request.url`, por lo que le proporcionamos un nombre de dominio falso para completar. Extrae su ruta, que será algo como `"/archivo.txt"`, la decodifica para eliminar los códigos de escape estilo `%20`, y la resuelve en relación con el directorio de trabajo del programa.
 

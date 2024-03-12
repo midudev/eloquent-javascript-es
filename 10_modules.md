@@ -12,7 +12,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_10.jpg", alt: "Ilustración de un edificio complicado construido a partir de piezas modulares", chapter: framed}}}
 
-{{index organización, [código, estructura de]}}
+{{index "organización", [código, estructura de]}}
 
 Idealmente, un programa tiene una estructura clara y directa. La forma en que funciona es fácil de explicar, y cada parte desempeña un papel bien definido.
 
@@ -79,7 +79,7 @@ console.log(`Hoy es ${dayName(ahora.getDay())}`);
 
 La palabra clave `import`, seguida de una lista de nombres de vinculación entre llaves, hace que las vinculaciones de otro módulo estén disponibles en el módulo actual. Los módulos se identifican por cadenas entre comillas.
 
-{{index [módulo, resolución], resolución}}
+{{index [módulo, "resolución"], "resolución"}}
 
 Cómo se resuelve un nombre de módulo a un programa real difiere según la plataforma. El navegador los trata como direcciones web, mientras que Node.js los resuelve a archivos. Para ejecutar un módulo, se cargan todos los demás módulos en los que depende, y las vinculaciones exportadas se ponen a disposición de los módulos que las importan.
 
@@ -168,7 +168,7 @@ console.log(parse("x = 10\ny = 20"));
 
 Antes de 2015, cuando el lenguaje de JavaScript no tenía un sistema de módulos integrado real, las personas ya estaban construyendo sistemas grandes en JavaScript. Para que funcionara, ellos _necesitaban_ ((módulos)).
 
-{{index [función, alcance], [interfaz, módulo], [objeto, como módulo]}}
+{{index [función, alcance], [interfaz, "módulo"], [objeto, como "módulo"]}}
 
 La comunidad diseñó sus propios ((sistemas de módulos)) improvisados sobre el lenguaje. Estos utilizan funciones para crear un alcance local para los módulos y objetos regulares para representar interfaces de módulos.
 
@@ -196,7 +196,7 @@ Este estilo de módulos proporciona ((aislamiento)), hasta cierto punto, pero no
 
 Si implementamos nuestro propio cargador de módulos, podemos hacerlo mejor. El enfoque más ampliamente utilizado para los módulos de JavaScript agregados se llama _Módulos CommonJS_. ((Node.js)) lo utilizaba desde el principio (aunque ahora también sabe cómo cargar módulos ES) y es el sistema de módulos utilizado por muchos paquetes en ((NPM)).
 
-{{index "función require", [interfaz, módulo], "objeto exports"}}
+{{index "función require", [interfaz, "módulo"], "objeto exports"}}
 
 Un módulo CommonJS se ve como un script regular, pero tiene acceso a dos enlaces que utiliza para interactuar con otros módulos. El primero es una función llamada `require`. Cuando llamas a esto con el nombre del módulo de tu dependencia, se asegura de que el módulo esté cargado y devuelve su interfaz. El segundo es un objeto llamado `exports`, que es el objeto de interfaz para el módulo. Comienza vacío y agregas propiedades para definir los valores exportados.
 
@@ -279,7 +279,7 @@ La transición de la comunidad de JavaScript desde el estilo CommonJS a los mód
 
 ## Compilación y empaquetado
 
-{{index compilación, "verificación de tipos"}}
+{{index "compilación", "verificación de tipos"}}
 
 Muchos paquetes de JavaScript no están, técnicamente, escritos en JavaScript. Hay extensiones, como TypeScript, el dialecto de verificación de tipos mencionado en el [Capítulo ?](error#typing), que se utilizan ampliamente. A menudo, las personas también comienzan a usar extensiones planeadas para el lenguaje mucho antes de que se agreguen a las plataformas que realmente ejecutan JavaScript.
 
@@ -297,7 +297,7 @@ Por lo tanto, no es raro que el código que encuentres en un paquete de NPM o qu
 
 ## Diseño de módulos
 
-{{index [módulo, diseño], [interfaz, módulo], [código, "estructura de"]}}
+{{index ["módulo", diseño], [interfaz, "módulo"], [código, "estructura de"]}}
 
 Estructurar programas es uno de los aspectos más sutiles de la programación. Cualquier funcionalidad no trivial puede ser organizada de diversas formas.
 

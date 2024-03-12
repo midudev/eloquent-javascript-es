@@ -42,7 +42,7 @@ Cambió a un enfoque más científico, Jacques ha comenzado a llevar un registro
 
 ## Conjuntos de datos
 
-{{index ["estructura de datos", colección], [memoria, organización]}}
+{{index ["estructura de datos", "colección"], [memoria, organización]}}
 
 Para trabajar con un conjunto de datos digitales, primero tenemos que encontrar una forma de representarlo en la memoria de nuestra máquina. Digamos, por ejemplo, que queremos representar una ((colección)) de los números 2, 3, 5, 7 y 11.
 
@@ -50,7 +50,7 @@ Para trabajar con un conjunto de datos digitales, primero tenemos que encontrar 
 
 Podríamos ser creativos con las cadenas, después de todo, las cadenas pueden tener cualquier longitud, por lo que podemos poner muchos datos en ellas, y usar `"2 3 5 7 11"` como nuestra representación. Pero esto es incómodo. Tendríamos que extraer de alguna manera los dígitos y convertirlos de vuelta a números para acceder a ellos.
 
-{{index [array, creación], "[] (arreglo)"}}
+{{index [array, "creación"], "[] (arreglo)"}}
 
 Afortunadamente, JavaScript proporciona un tipo de dato específicamente para almacenar secuencias de valores. Se llama un _array_ y se escribe como una lista de valores entre ((corchetes)), separados por comas:
 
@@ -105,7 +105,7 @@ Al igual que las cadenas de texto, los arrays tienen una propiedad `length` que 
 
 ## Métodos
 
-{{index [función, "como propiedad"], método, cadena}}
+{{index [función, "como propiedad"], "método", cadena}}
 
 Tanto los valores de cadena como los de array contienen, además de la propiedad `length`, varias propiedades que contienen valores de función.
 
@@ -143,7 +143,7 @@ console.log(secuencia);
 // → [1, 2, 3, 4]
 ```
 
-{{index colección, array, "método push", "método pop"}}
+{{index "colección", array, "método push", "método pop"}}
 
 El método `push` agrega valores al final de un array. El método `pop` hace lo opuesto, eliminando el último valor en el array y devolviéndolo.
 
@@ -252,7 +252,7 @@ let diario = [
 
 Pronto llegaremos a la programación real, pero primero, hay una pieza más de teoría para entender.
 
-{{index mutabilidad, "efecto secundario", número, cadena, booleano, [objeto, mutabilidad]}}
+{{index mutabilidad, "efecto secundario", "número", cadena, booleano, [objeto, mutabilidad]}}
 
 Vimos que los valores de objetos pueden modificarse. Los tipos de valores discutidos en capítulos anteriores, como números, cadenas y booleanos, son todos _((inmutables))_—es imposible cambiar valores de esos tipos. Puedes combinarlos y derivar nuevos valores de ellos, pero al tomar un valor específico de cadena, ese valor siempre permanecerá igual. El texto dentro de él no puede ser cambiado. Si tienes una cadena que contiene `"gato"`, no es posible que otro código cambie un carácter en tu cadena para que diga `"rata"`.
 
@@ -360,7 +360,7 @@ if}}
 
 La notación [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} indica la cantidad de mediciones donde la primera variable (ardillez) es falsa (0) y la segunda variable (pizza) es verdadera (1). En la tabla de pizza, [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} es 9.El valor [_n_~1•~]{if html}[[$n_{1\bullet}$]{latex}]{if tex} se refiere a la suma de todas las mediciones donde la primera variable es verdadera, que es 5 en el ejemplo de la tabla. De manera similar, [_n_~•0~]{if html}[[$n_{\bullet0}$]{latex}]{if tex} se refiere a la suma de las mediciones donde la segunda variable es falsa.
 
-{{index correlación, "coeficiente phi"}}
+{{index "correlación", "coeficiente phi"}}
 
 Entonces para la tabla de pizza, la parte encima de la línea de división (el dividendo) sería 1×76−4×9 = 40, y la parte debajo de ella (el divisor) sería la raíz cuadrada de 5×85×10×80, o [√340,000]{if html}[[$\sqrt{340,000}$]{latex}]{if tex}. Esto da un valor de _ϕ_ ≈ 0.069, que es muy pequeño. Comer ((pizza)) no parece tener influencia en las transformaciones.
 
@@ -540,7 +540,7 @@ Pero solo pasan unos pocos meses antes de que se dé cuenta de que algo falta en
 
 ## Más arreología
 
-{{index [array, métodos], [método, array]}}
+{{index [array, "métodos"], [método, array]}}
 
 Antes de terminar el capítulo, quiero presentarte algunos conceptos más relacionados con objetos. Comenzaré presentando algunos métodos de array generalmente útiles.
 
@@ -749,7 +749,7 @@ console.log({...coordenadas, y: 5, z: 1});
 
 ## El objeto Math
 
-{{index "Objeto Math", "Función Math.min", "Función Math.max", "Función Math.sqrt", mínimo, máximo, "raíz cuadrada"}}
+{{index "Objeto Math", "Función Math.min", "Función Math.max", "Función Math.sqrt", "mínimo", "máximo", "raíz cuadrada"}}
 
 Como hemos visto, `Math` es una bolsa de funciones de utilidad relacionadas con números, tales como `Math.max` (máximo), `Math.min` (mínimo) y `Math.sqrt` (raíz cuadrada).
 

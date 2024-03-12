@@ -43,7 +43,7 @@ Cada tipo de dato abstracto tiene una _interfaz_, que es la colección de operac
 
 ## Métodos
 
-{{index "ejemplo de conejo", método, [propiedad, acceso]}}
+{{index "ejemplo de conejo", "método", [propiedad, acceso]}}
 
 En JavaScript, los métodos no son más que propiedades que contienen valores de función. Este es un método simple:
 
@@ -440,7 +440,7 @@ console.log(Object.hasOwn({x: 1}, "toString"));
 
 ## Polimorfismo
 
-{{index "método toString", "función String", polimorfismo, anulación, "programación orientada a objetos"}}
+{{index "método toString", "función String", polimorfismo, "anulación", "programación orientada a objetos"}}
 
 Cuando llamas a la función `String` (que convierte un valor a una cadena) en un objeto, llamará al método `toString` en ese objeto para intentar crear una cadena significativa a partir de él. Mencioné que algunos de los prototipos estándar definen su propia versión de `toString` para poder crear una cadena que contenga información más útil que `"[object Object]"`. También puedes hacerlo tú mismo.
 
@@ -475,7 +475,7 @@ Array.prototype.forEach.call({
 
 ## Getters, setters y estáticos
 
-{{index [interfaz, objeto], [propiedad, definición], "clase Map"}}
+{{index [interfaz, objeto], [propiedad, "definición"], "clase Map"}}
 
 Las interfaces a menudo contienen propiedades simples, no solo métodos. Por ejemplo, los objetos `Map` tienen una propiedad `size` que te dice cuántas claves están almacenadas en ellos.
 
@@ -724,7 +724,7 @@ Luego, el constructor almacena la longitud de la lista en una propiedad privada.
 
 La herencia nos permite construir tipos de datos ligeramente diferentes a partir de tipos de datos existentes con relativamente poco trabajo. Es una parte fundamental de la tradición orientada a objetos, junto con la encapsulación y la polimorfismo. Pero, mientras que los dos últimos se consideran generalmente ideas maravillosas, la herencia es más controvertida.
 
-{{index complejidad, reutilización, "jerarquía de clases"}}
+{{index complejidad, "reutilización", "jerarquía de clases"}}
 
 Mientras que ((encapsulación)) y polimorfismo se pueden utilizar para _separar_ las piezas de código unas de otras, reduciendo el enredo del programa en general, ((herencia)) fundamentalmente ata clases juntas, creando _más_ enredo. Al heredar de una clase, generalmente tienes que saber más sobre cómo funciona que cuando simplemente la usas. La herencia puede ser una herramienta útil para hacer que algunos tipos de programas sean más concisos, pero no debería ser la primera herramienta a la que recurras, y probablemente no deberías buscar activamente oportunidades para construir jerarquías de clases (árboles genealógicos de clases).
 
@@ -776,7 +776,7 @@ Cuando se implementan múltiples clases que difieren solo en algunos detalles, p
 
 Escribe una clase `Vec` que represente un vector en el espacio bidimensional. Toma los parámetros `x` e `y` (números), que debería guardar en propiedades del mismo nombre.
 
-{{index adición, sustracción}}
+{{index "adición", sustracción}}
 
 Dale a la clase `Vec` dos métodos en su prototipo, `plus` y `minus`, que tomen otro vector como parámetro y devuelvan un nuevo vector que tenga la suma o la diferencia de los valores _x_ e _y_ de los dos vectores (`this` y el parámetro).
 
@@ -802,7 +802,7 @@ if}}
 
 Mira de nuevo el ejemplo de la clase `Rabbit` si no estás seguro de cómo se ven las declaraciones de `class`.
 
-{{index Pitágoras, "defineProperty function", "raíz cuadrada", "Math.sqrt function"}}
+{{index "Pitágoras", "defineProperty function", "raíz cuadrada", "Math.sqrt function"}}
 
 Agregar una propiedad getter al constructor se puede hacer poniendo la palabra `get` antes del nombre del método. Para calcular la distancia desde (0, 0) hasta (x, y), puedes usar el teorema de Pitágoras, que dice que el cuadrado de la distancia que estamos buscando es igual al cuadrado de la coordenada x más el cuadrado de la coordenada y. Por lo tanto, [√(x^2^ + y^2^)]{if html}[[$\sqrt{x^2 + y^2}$]{latex}]{if tex} es el número que buscas. `Math.sqrt` es la forma de calcular una raíz cuadrada en JavaScript y `x ** 2` se puede usar para elevar al cuadrado un número.
 

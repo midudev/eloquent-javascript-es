@@ -147,7 +147,7 @@ repetir(3, n => {
 // → 2 es par
 ```
 
-{{index [array, métodos], [array, iteración], "método forEach"}}
+{{index [array, "métodos"], [array, "iteración"], "método forEach"}}
 
 Existe un método incorporado de arrays, `forEach`, que proporciona algo similar a un bucle `for`/`of` como una función de orden superior:
 
@@ -231,7 +231,7 @@ console.log(SCRIPTS.filter(s => s.direction == "ttb"));
 
 ## Transformación con map
 
-{{index [array, métodos], "método de mapeo"}}
+{{index [array, "métodos"], "método de mapeo"}}
 
 Digamos que tenemos una matriz de objetos que representan guiones, producida al filtrar la matriz `SCRIPTS` de alguna manera. Queremos una matriz de nombres en su lugar, que es más fácil de inspeccionar.
 
@@ -257,7 +257,7 @@ Al igual que `forEach` y `filter`, `map` es un método de matriz estándar.
 
 ## Resumen con reduce
 
-{{index [array, métodos], "ejemplo de suma", "método de reducción"}}
+{{index [array, "métodos"], "ejemplo de suma", "método de reducción"}}
 
 Otra cosa común que hacer con matrices es calcular un único valor a partir de ellas. Nuestro ejemplo recurrente, sumar una colección de números, es una instancia de esto. Otro ejemplo es encontrar el guion con más caracteres.
 
@@ -289,7 +289,7 @@ console.log([1, 2, 3, 4].reduce((a, b) => a + b));
 // → 10
 ```
 
-{{index máximo, "función characterCount"}}
+{{index "máximo", "función characterCount"}}
 
 Para usar `reduce` (dos veces) y encontrar el script con más caracteres, podemos escribir algo así:
 
@@ -407,7 +407,7 @@ En [Chapter ?](values) mencioné que las cadenas de JavaScript están codificada
 
 UTF-16 generalmente se considera una mala idea hoy en día. Parece casi diseñado intencionalmente para invitar a errores. Es fácil escribir programas que pretendan que las unidades de código y los caracteres son lo mismo. Y si tu lenguaje no utiliza caracteres de dos unidades, eso parecerá funcionar perfectamente. Pero tan pronto como alguien intente usar dicho programa con algunos caracteres chinos menos comunes, fallará. Afortunadamente, con la llegada de los emoji, todo el mundo ha comenzado a usar caracteres de dos unidades, y la carga de tratar con tales problemas está más equitativamente distribuida.
 
-{{index [cadena, longitud], [cadena, indexación], "método charCodeAt"}}
+{{index [cadena, longitud], [cadena, "indexación"], "método charCodeAt"}}
 
 Lamentablemente, las operaciones obvias en las cadenas de JavaScript, como obtener su longitud a través de la propiedad `length` y acceder a su contenido usando corchetes cuadrados, tratan solo con unidades de código.
 
