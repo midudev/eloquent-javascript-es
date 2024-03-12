@@ -420,7 +420,9 @@ Cuando tratamos los archivos como ((recursos)) de HTTP, los métodos HTTP `GET`,
 
 Probablemente no queramos compartir todo nuestro sistema de archivos, por lo que interpretaremos estas rutas como comenzando en el directorio de trabajo del servidor, que es el directorio en el que se inició. Si ejecuté el servidor desde `/tmp/public/` (o `C:\tmp\public\` en Windows), entonces una solicitud para `/file.txt` debería referirse a `/tmp/public/file.txt` (o `C:\tmp\public\file.txt`).
 
-{{index "ejemplo de servidor de archivos", "Node.js", "objeto methods", "clase Promise"}}Construiremos el programa paso a paso, utilizando un objeto llamado `methods` para almacenar las funciones que manejan los diferentes métodos HTTP. Los controladores de métodos son funciones `async` que reciben el objeto de solicitud como argumento y devuelven una promesa que se resuelve a un objeto que describe la respuesta.
+{{index "ejemplo de servidor de archivos", "Node.js", "objeto methods", "clase Promise"}}
+
+Construiremos el programa paso a paso, utilizando un objeto llamado `methods` para almacenar las funciones que manejan los diferentes métodos HTTP. Los controladores de métodos son funciones `async` que reciben el objeto de solicitud como argumento y devuelven una promesa que se resuelve a un objeto que describe la respuesta.
 
 ```{includeCode: ">code/file_server.mjs"}
 import {createServer} from "node:http";
@@ -482,7 +484,9 @@ function urlPath(url) {
   }
   return path;
 }
-```Tan pronto como configuras un programa para aceptar solicitudes de red, debes empezar a preocuparte por la ((seguridad)). En este caso, si no tenemos cuidado, es probable que terminemos exponiendo accidentalmente todo nuestro ((sistema de archivos)) a la red.
+```
+
+Tan pronto como configuras un programa para aceptar solicitudes de red, debes empezar a preocuparte por la ((seguridad)). En este caso, si no tenemos cuidado, es probable que terminemos exponiendo accidentalmente todo nuestro ((sistema de archivos)) a la red.
 
 Las rutas de archivos son cadenas en Node. Para mapear dicha cadena a un archivo real, hay una cantidad no trivial de interpretación en juego. Las rutas pueden, por ejemplo, incluir `../` para hacer referencia a un directorio padre. Así que una fuente obvia de problemas serían las solicitudes de rutas como `/../archivo_secreto`.
 

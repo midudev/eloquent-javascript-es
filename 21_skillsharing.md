@@ -34,7 +34,9 @@ El servidor mantiene la lista de ((charla))s propuestas para la próxima reunió
 
 La ((aplicación)) se configurará para mostrar una vista _en vivo_ de las charlas propuestas actuales y sus comentarios. Cada vez que alguien, en algún lugar, envíe una nueva charla o agregue un comentario, todas las personas que tengan la página abierta en sus navegadores deberían ver el cambio de inmediato. Esto plantea un desafío—no hay forma de que un servidor web abra una conexión a un cliente, ni hay una buena forma de saber qué clientes están viendo actualmente un sitio web dado.
 
-{{index "Node.js"}}Una solución común a este problema se llama _((long polling))_, que resulta ser una de las motivaciones del diseño de Node.
+{{index "Node.js"}}
+
+Una solución común a este problema se llama _((long polling))_, que resulta ser una de las motivaciones del diseño de Node.
 
 ## Long polling
 
