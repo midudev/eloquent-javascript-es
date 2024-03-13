@@ -6,6 +6,8 @@
 
 Traducción de la cuarta edición de [Eloquent JavaScript](https://eloquentjavascript.net/) al español por [midudev](https://twitch.tv/midudev).
 
+[Repositorio original](https://github.com/marijnh/Eloquent-JavaScript)
+
 <ul>
 <li><a href="https://pub-97d2f14809854ff1870055724c829992.r2.dev/book.pdf">Descargar PDF del libro</a> (&amp; <a href="https://pub-97d2f14809854ff1870055724c829992.r2.dev/book_mobile.pdf">Descargar versión pequeña para
   móviles</a>)</li>
