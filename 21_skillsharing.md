@@ -386,7 +386,7 @@ SkillShareServer.prototype.talkResponse = function() {
 };
 ```
 
-{{index "cadena de consulta", "paquete url", análisis}}
+{{index "cadena de consulta", "paquete url", "análisis"}}
 
 El controlador en sí mismo necesita examinar los encabezados de la solicitud para ver si están presentes los encabezados `If-None-Match` y `Prefer`. Node almacena los encabezados, cuyos nombres se especifican como insensibles a mayúsculas y minúsculas, bajo sus nombres en minúsculas.
 
@@ -770,7 +770,9 @@ Los siguientes ejercicios implicarán modificar el sistema definido en este cap�
 
 ### Persistencia en disco
 
-{{index "pérdida de datos", persistencia, [memoria, persistencia]}}El servidor de intercambio de habilidades mantiene sus datos puramente en memoria. Esto significa que cuando se produce un fallo o se reinicia por cualquier motivo, se pierden todas las charlas y comentarios.
+{{index "pérdida de datos", persistencia, [memoria, persistencia]}}
+
+El servidor de intercambio de habilidades mantiene sus datos puramente en memoria. Esto significa que cuando se produce un fallo o se reinicia por cualquier motivo, se pierden todas las charlas y comentarios.
 
 {{index "disco duro"}}
 

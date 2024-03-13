@@ -609,7 +609,7 @@ console.log(okIterador.next());
 // → {value: undefined, done: true}
 ```
 
-{{index ["estructura de datos", lista], "lista enlazada", colección}}
+{{index ["estructura de datos", lista], "lista enlazada", "colección"}}
 
 Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en [Capítulo ?](datos). Esta vez escribiremos la lista como una clase.
 

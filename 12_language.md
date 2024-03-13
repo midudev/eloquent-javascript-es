@@ -223,7 +223,7 @@ function evaluate(expr, scope) {
 }
 ```
 
-{{index "expresión literal", ámbito}}
+{{index "expresión literal", "ámbito"}}
 
 El evaluador tiene código para cada uno de los tipos de expresión. Una expresión de valor literal produce su valor. (Por ejemplo, la expresión `100` simplemente se evalúa como el número 100.) Para un enlace, debemos verificar si está realmente definido en el ámbito y, si lo está, obtener el valor del enlace.
 
@@ -237,7 +237,7 @@ Usamos valores de función JavaScript simples para representar los valores de fu
 
 La estructura recursiva de `evaluate` se asemeja a la estructura similar del analizador sintáctico, y ambos reflejan la estructura del lenguaje en sí. También sería posible combinar el analizador sintáctico y el evaluador en una sola función, y evaluar durante el análisis sintáctico. Pero dividirlos de esta manera hace que el programa sea más claro y flexible.
 
-{{index "Lenguaje Egg", interpretación}}
+{{index "Lenguaje Egg", "interpretación"}}
 
 Esto es realmente todo lo que se necesita para interpretar Egg. Es así de simple. Pero sin definir algunas formas especiales y agregar algunos valores útiles al ((entorno)), todavía no puedes hacer mucho con este lenguaje.
 
@@ -300,7 +300,7 @@ specialForms.do = (args, scope) => {
 };
 ```
 
-{{index ["operador =", "en Egg"], [vinculación, "en Egg"]}}
+{{index ["operador =", "en Egg"], ["vinculación", "en Egg"]}}
 
 Para poder crear vinculaciones y darles nuevos valores, también creamos una forma llamada `define`. Espera una palabra como su primer argumento y una expresión que produzca el valor a asignar a esa palabra como su segundo argumento. Dado que `define`, al igual que todo, es una expresión, debe devolver un valor. Haremos que devuelva el valor que se asignó (como el operador `=` de JavaScript).
 
@@ -446,7 +446,7 @@ do(define(pow, fun(base, exp,
 
 ## Compilación
 
-{{index "interpretación", compilación}}
+{{index "interpretación", "compilación"}}
 
 Lo que hemos construido es un intérprete. Durante la evaluación, actúa directamente sobre la representación del programa producido por el analizador sintáctico.
 
@@ -456,7 +456,7 @@ _La compilación_ es el proceso de agregar otro paso entre el análisis sintáct
 
 Tradicionalmente, ((compilar)) implica convertir el programa a ((código máquina)), el formato en bruto que un procesador de computadora puede ejecutar. Pero cualquier proceso que convierta un programa a una representación diferente se puede considerar como compilación.
 
-{{index simplicidad, "Constructor de funciones", transpilación}}
+{{index simplicidad, "Constructor de funciones", "transpilación"}}
 
 Sería posible escribir una estrategia de ((evaluación)) alternativa para Egg, una que primero convierte el programa a un programa JavaScript, usa `Function` para invocar el compilador de JavaScript en él, y luego ejecuta el resultado. Cuando se hace correctamente, esto haría que Egg se ejecutara muy rápido y aún así fuera bastante simple de implementar.
 

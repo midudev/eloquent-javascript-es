@@ -778,7 +778,7 @@ city=Tessaloniki`));
 // → {name: "Vasilis", address: {city: "Tessaloniki"}}
 ```
 
-{{index "función parseINI", análisis}}
+{{index "función parseINI", "análisis"}}
 
 El código recorre las líneas del archivo y construye un objeto. Las propiedades en la parte superior se almacenan directamente en ese objeto, mientras que las propiedades encontradas en secciones se almacenan en un objeto de sección separado. El enlace `section` apunta al objeto para la sección actual.
 

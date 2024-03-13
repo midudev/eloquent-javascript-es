@@ -28,7 +28,7 @@ if}}
 
 ## El hombreardilla
 
-{{index "ejemplo hombreardilla", licantropía}}
+{{index "ejemplo hombreardilla", "licantropía"}}
 
 De vez en cuando, usualmente entre las 8 p. m. y las 10 p. m., ((Jacques)) se encuentra transformándose en un pequeño roedor peludo con una cola espesa.
 
@@ -42,7 +42,7 @@ Cambió a un enfoque más científico, Jacques ha comenzado a llevar un registro
 
 ## Conjuntos de datos
 
-{{index ["estructura de datos", "colección"], [memoria, organización]}}
+{{index ["estructura de datos", "colección"], [memoria, "organización"]}}
 
 Para trabajar con un conjunto de datos digitales, primero tenemos que encontrar una forma de representarlo en la memoria de nuestra máquina. Digamos, por ejemplo, que queremos representar una ((colección)) de los números 2, 3, 5, 7 y 11.
 
@@ -64,11 +64,12 @@ console.log(listaDeNumeros[2 - 1]);
 // → 3
 ```
 
-{{index "[] (subíndice)", [array, indexación]}}
+{{index "[] (subíndice)", [array, "indexación"]}}
 
 La notación para acceder a los elementos dentro de un array también utiliza ((corchetes)). Un par de corchetes inmediatamente después de una expresión, con otra expresión dentro de ellos, buscará el elemento en la expresión de la izquierda que corresponde al _((índice))_ dado por la expresión en los corchetes.
 
 {{id array_indexing}}
+
 {{index "conteo basado en cero"}}
 
 El primer índice de un array es cero, no uno, por lo que el primer elemento se recupera con `listaDeNumeros[0]`. El conteo basado en cero tiene una larga tradición en tecnología y de ciertas maneras tiene mucho sentido, pero requiere cierta acostumbrarse. Piensa en el índice como el número de elementos a omitir, contando desde el inicio del array.
@@ -81,7 +82,7 @@ El primer índice de un array es cero, no uno, por lo que el primer elemento se 
 
 Hemos visto algunas expresiones como `miCadena.length` (para obtener la longitud de una cadena) y `Math.max` (la función máxima) en capítulos anteriores. Estas expresiones acceden a una _propiedad_ de algún valor. En el primer caso, accedemos a la propiedad `length` del valor en `miCadena`. En el segundo, accedemos a la propiedad llamada `max` en el objeto `Math` (que es una colección de constantes y funciones relacionadas con matemáticas).
 
-{{index [acceso de propiedad], null, undefined}}
+{{index ["acceso de propiedad"], null, undefined}}
 
 Casi todos los valores de JavaScript tienen propiedades. Las excepciones son `null` y `undefined`. Si intentas acceder a una propiedad en uno de estos valores no definidos, obtendrás un error:
 
@@ -91,7 +92,7 @@ null.length;
 ```
 
 {{indexsee "carácter punto", "carácter punto"}}
-{{index "[] (subíndice)", "carácter punto", "corchetes", "propiedad calculada", [acceso de propiedad]}}
+{{index "[] (subíndice)", "carácter punto", "corchetes", "propiedad calculada", ["acceso de propiedad"]}}
 
 Las dos formas principales de acceder a propiedades en JavaScript son con un punto y con corchetes. Tanto `valor.x` como `valor[x]` acceden a una propiedad en `valor`, pero no necesariamente a la misma propiedad. La diferencia radica en cómo se interpreta `x`. Al usar un punto, la palabra después del punto es el nombre literal de la propiedad. Al usar corchetes, la expresión entre los corchetes es _evaluada_ para obtener el nombre de la propiedad. Mientras que `valor.x` obtiene la propiedad de `valor` llamada "x", `valor[x]` toma el valor de la variable llamada `x` y lo utiliza, convertido a cadena, como nombre de propiedad.Si sabes que la propiedad en la que estás interesado se llama _color_, dices `valor.color`. Si quieres extraer la propiedad nombrada por el valor almacenado en la vinculación `i`, dices `valor[i]`. Los nombres de las propiedades son cadenas de texto. Pueden ser cualquier cadena, pero la notación de punto solo funciona con nombres que parecen nombres de vinculaciones válidos, comenzando con una letra o guion bajo, y conteniendo solo letras, números y guiones bajos. Si deseas acceder a una propiedad llamada _2_ o _John Doe_, debes utilizar corchetes: `valor[2]` o `valor["John Doe"]`.
 
@@ -101,7 +102,7 @@ Los elementos en un ((array)) se almacenan como propiedades del array, utilizand
 
 Al igual que las cadenas de texto, los arrays tienen una propiedad `length` que nos dice cuántos elementos tiene el array.
 
-{{id métodos}}
+{{id "métodos"}}
 
 ## Métodos
 
@@ -127,7 +128,7 @@ Curiosamente, aunque la llamada a `toUpperCase` no pasa argumentos, de alguna ma
 
 Las propiedades que contienen funciones generalmente se llaman _métodos_ del valor al que pertenecen, como en "`toUpperCase` es un método de una cadena".
 
-{{id métodos_de_array}}
+{{id "métodos_de_array"}}
 
 Este ejemplo demuestra dos métodos que puedes utilizar para manipular arrays:
 
@@ -153,7 +154,9 @@ Estos nombres un tanto tontos son términos tradicionales para operaciones en un
 
 ## Objetos
 
-{{index diario, "ejemplo weresquirrel", array, registro}}De vuelta al hombre-ardilla. Un conjunto de entradas de registro diario se puede representar como un array, pero las entradas no consisten solo en un número o una cadena, cada entrada necesita almacenar una lista de actividades y un valor booleano que indique si Jacques se convirtió en ardilla o no. Idealmente, nos gustaría agrupar estos elementos en un único valor y luego poner esos valores agrupados en un array de entradas de registro.
+{{index diario, "ejemplo weresquirrel", array, registro}}
+
+De vuelta al hombre-ardilla. Un conjunto de entradas de registro diario se puede representar como un array, pero las entradas no consisten solo en un número o una cadena, cada entrada necesita almacenar una lista de actividades y un valor booleano que indique si Jacques se convirtió en ardilla o no. Idealmente, nos gustaría agrupar estos elementos en un único valor y luego poner esos valores agrupados en un array de entradas de registro.
 
 Los valores del tipo ((object)) son colecciones arbitrarias de propiedades. Una forma de crear un objeto es usando llaves como una expresión:
 
@@ -225,7 +228,7 @@ console.log(objetoA);
 // → {a: 1, b: 3, c: 4}
 ```
 
-{{index array, colección}}
+{{index array, "colección"}}
 
 Los arrays, entonces, son solo un tipo de objeto especializado para almacenar secuencias de cosas. Si evalúas `typeof []`, producirá `"object"`. Puedes visualizar los arrays como pulpos largos y planos con todos sus tentáculos en una fila ordenada, etiquetados con números.
 
@@ -330,7 +333,7 @@ addEntry(["weekend", "cycling", "break", "peanuts",
 
 Una vez que tiene suficientes puntos de datos, tiene la intención de utilizar estadísticas para descubrir qué eventos pueden estar relacionados con las transformaciones en ardilla.
 
-{{index de correlación}}
+{{index "correlación"}}
 
 La _correlación_ es una medida de la ((dependencia)) entre variables estadísticas. Una variable estadística no es exactamente igual a una variable de programación. En estadística, típicamente tienes un conjunto de _mediciones_, y cada variable se mide para cada medición. La correlación entre variables suele expresarse como un valor que va de -1 a 1. Una correlación de cero significa que las variables no están relacionadas. Una correlación de 1 indica que las dos están perfectamente relacionadas: si conoces una, también conoces la otra. Un -1 también significa que las variables están perfectamente relacionadas pero son opuestas: cuando una es verdadera, la otra es falsa.
 
@@ -366,7 +369,7 @@ Entonces para la tabla de pizza, la parte encima de la línea de división (el d
 
 ## Calculando la correlación
 
-{{index [array, "como tabla"], [anidación, "de arrays"]}}
+{{index [array, "como tabla"], ["anidación", "de arrays"]}}
 
 Podemos representar una tabla dos por dos en JavaScript con un array de cuatro elementos (`[76, 9, 4, 1]`). También podríamos usar otras representaciones, como un array que contiene dos arrays de dos elementos cada uno (`[[76, 9], [4, 1]]`) o un objeto con nombres de propiedades como `"11"` y `"01"`, pero el array plano es simple y hace que las expresiones que acceden a la tabla sean agradabemente cortas. Interpretaremos los índices del array como números binarios de dos bits, donde el dígito más a la izquierda (más significativo) se refiere a la variable ardilla y el dígito más a la derecha (menos significativo) se refiere a la variable de evento. Por ejemplo, el número binario `10` se refiere al caso donde Jacques se transformó en ardilla, pero el evento (digamos, "pizza") no ocurrió. Esto sucedió cuatro veces. Y como `10` en binario es 2 en notación decimal, almacenaremos este número en el índice 2 del array.
 
@@ -497,7 +500,9 @@ for (let event of journalEvents(JOURNAL)) {
 // → pan:   -0.0757554019
 // → pudín: -0.0648203724
 // y así sucesivamente...
-```La mayoría de las correlaciones parecen estar cerca de cero. Comer zanahorias, pan o pudín aparentemente no desencadena la licantropía de las ardillas. Las transformaciones parecen ocurrir un poco más a menudo los fines de semana. Filtraremos los resultados para mostrar solo correlaciones mayores que 0.1 o menores que -0.1:
+```
+
+La mayoría de las correlaciones parecen estar cerca de cero. Comer zanahorias, pan o pudín aparentemente no desencadena la licantropía de las ardillas. Las transformaciones parecen ocurrir un poco más a menudo los fines de semana. Filtraremos los resultados para mostrar solo correlaciones mayores que 0.1 o menores que -0.1:
 
 ```{test: no, startCode: true}
 for (let event of journalEvents(JOURNAL)) {
@@ -643,7 +648,9 @@ console.log("one two three".indexOf("ee"));
 // → 11
 ```
 
-{{index [whitespace, trimming], "trim method"}}El método `trim` elimina los espacios en blanco (espacios, saltos de línea, tabulaciones y caracteres similares) del principio y final de una cadena:
+{{index [whitespace, trimming], "trim method"}}
+
+El método `trim` elimina los espacios en blanco (espacios, saltos de línea, tabulaciones y caracteres similares) del principio y final de una cadena:
 
 ```
 console.log("  okay \n ".trim());

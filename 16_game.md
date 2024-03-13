@@ -546,7 +546,7 @@ Resolver esto para el caso general es una tarea grande. Puedes encontrar bibliot
 
 Antes de mover al ((jugador)) o un bloque de ((lava)), probamos si el movimiento los llevaría dentro de una pared. Si lo hace, simplemente cancelamos el movimiento por completo. La respuesta a tal colisión depende del tipo de actor. El jugador se detendrá, mientras que un bloque de lava rebotará.
 
-{{index discretización}}
+{{index "discretización"}}
 
 Este enfoque requiere que nuestros pasos de ((tiempo)) sean bastante pequeños, ya que hará que el movimiento se detenga antes de que los objetos realmente se toquen. Si los pasos de tiempo (y por lo tanto los pasos de movimiento) son demasiado grandes, el jugador terminaría elevándose a una distancia notable sobre el suelo. Otro enfoque, argumentablemente mejor pero más complicado, sería encontrar el punto exacto de colisión y moverse allí. Tomaremos el enfoque simple y ocultaremos sus problemas asegurando que la animación avance en pasos pequeños.
 
@@ -789,7 +789,7 @@ function runAnimation(frameFunc) {
 }
 ```
 
-{{index tiempo, discretización}}
+{{index tiempo, "discretización"}}
 
 He establecido un paso de fotograma máximo de 100 milisegundos (una décima parte de un segundo). Cuando la pestaña del navegador o la ventana con nuestra página está oculta, las llamadas a `requestAnimationFrame` se suspenden hasta que la pestaña o la ventana se vuelva a mostrar. En este caso, la diferencia entre `lastTime` y `time` será todo el tiempo en el que la página estuvo oculta. Avanzar el juego tanto en un solo paso se vería ridículo y podría causar efectos secundarios extraños, como que el jugador caiga a través del suelo.
 

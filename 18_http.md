@@ -247,7 +247,7 @@ Otro enfoque es construir tu comunicación en torno al concepto de ((recurso))s 
 
 Los datos que viajan por Internet tienden a seguir un largo y peligroso camino. Para llegar a su destino, deben pasar por cualquier cosa, desde puntos de acceso Wi-Fi de cafeterías hasta redes controladas por varias empresas y estados. En cualquier punto a lo largo de su ruta, pueden ser inspeccionados o incluso modificados.
 
-{{index manipulación}}
+{{index "manipulación"}}
 
 Si es importante que algo se mantenga en secreto, como la ((contraseña)) de tu cuenta de ((correo electrónico)), o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, HTTP simple no es suficiente.
 
@@ -419,7 +419,9 @@ Cuando un programa está en proceso de manejar una acción provocada por algún 
 
 ## El formulario en su totalidad
 
-{{index "objeto similar a un array", "formulario (etiqueta HTML)", "propiedad formulario", "propiedad elementos"}}Cuando un ((field)) está contenido en un elemento `<form>`, su elemento DOM tendrá una propiedad `form` que enlaza de vuelta al elemento DOM del formulario. El elemento `<form>`, a su vez, tiene una propiedad llamada `elements` que contiene una colección similar a un array de los campos dentro de él.
+{{index "objeto similar a un array", "formulario (etiqueta HTML)", "propiedad formulario", "propiedad elementos"}}
+
+Cuando un ((field)) está contenido en un elemento `<form>`, su elemento DOM tendrá una propiedad `form` que enlaza de vuelta al elemento DOM del formulario. El elemento `<form>`, a su vez, tiene una propiedad llamada `elements` que contiene una colección similar a un array de los campos dentro de él.
 
 {{index "elements property", "name attribute"}}
 

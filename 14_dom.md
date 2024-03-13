@@ -8,7 +8,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_14.jpg", alt: "Ilustración que muestra un árbol con letras, imágenes y engranajes colgando de sus ramas", chapter: "framed"}}}
 
-{{index dibujo, análisis}}
+{{index dibujo, "análisis"}}
 
 Cuando abres una página web, tu navegador recupera el texto ((HTML)) de la página y lo analiza, de manera similar a como nuestro analizador de [Capítulo ?](language#parsing) analizaba programas. El navegador construye un modelo de la ((estructura)) del documento y utiliza este modelo para dibujar la página en la pantalla.
 
@@ -89,11 +89,13 @@ Las hojas son nodos de texto, y las flechas indican las relaciones padre-hijo en
 
 Usar códigos numéricos crípticos para representar tipos de nodos no es algo muy propio de JavaScript. Más adelante en este capítulo, veremos que otras partes de la interfaz del DOM también se sienten incómodas y extrañas. La razón de esto es que la interfaz del DOM no fue diseñada exclusivamente para JavaScript. Más bien, intenta ser una interfaz neutral en cuanto a lenguaje que también pueda utilizarse en otros sistemas, no solo para HTML, sino también para ((XML)), que es un formato de datos genérico con una sintaxis similar a HTML.
 
-{{index consistencia, integración}}
+{{index consistencia, "integración"}}
 
 Esto es lamentable. Los estándares a menudo son útiles. Pero en este caso, la ventaja (consistencia entre lenguajes) no es tan convincente. Tener una interfaz que esté correctamente integrada con el lenguaje que estás utilizando te ahorrará más tiempo que tener una interfaz familiar en varios lenguajes.
 
-{{index "objeto similar a arreglo", "tipo NodeList"}}Como ejemplo de esta mala integración, considera la propiedad `childNodes` que tienen los nodos de elementos en el DOM. Esta propiedad contiene un objeto similar a un array, con una propiedad `length` y propiedades etiquetadas por números para acceder a los nodos hijos. Pero es una instancia del tipo `NodeList`, no un array real, por lo que no tiene métodos como `slice` y `map`.
+{{index "objeto similar a arreglo", "tipo NodeList"}}
+
+Como ejemplo de esta mala integración, considera la propiedad `childNodes` que tienen los nodos de elementos en el DOM. Esta propiedad contiene un objeto similar a un array, con una propiedad `length` y propiedades etiquetadas por números para acceder a los nodos hijos. Pero es una instancia del tipo `NodeList`, no un array real, por lo que no tiene métodos como `slice` y `map`.
 
 {{index [interface, design], [DOM, construction], "side effect"}}
 
@@ -439,7 +441,7 @@ if}}
 
 Un atributo de estilo puede contener uno o más _((declaración))es_, que son una propiedad (como `color`) seguida de dos puntos y un valor (como `verde`). Cuando hay más de una declaración, deben separarse por ((punto y coma))s, como en `"color: rojo; border: ninguno"`.
 
-{{index "display (CSS)", diseño}}
+{{index "display (CSS)", "diseño"}}
 
 Muchos aspectos del documento pueden ser influenciados por el estilo. Por ejemplo, la propiedad `display` controla si un elemento se muestra como un bloque o como un elemento en línea.
 
@@ -692,7 +694,9 @@ Una tabla HTML se construye con la siguiente estructura de etiquetas:
 </table>
 ```
 
-{{index "tr (etiqueta HTML)", "th (etiqueta HTML)", "td (etiqueta HTML)"}}Dado un conjunto de datos de montañas, un array de objetos con propiedades `name`, `height`, y `place`, genera la estructura DOM para una tabla que enumera los objetos. Debería haber una columna por clave y una fila por objeto, además de una fila de encabezado con elementos `<th>` en la parte superior, enumerando los nombres de las columnas.
+{{index "tr (etiqueta HTML)", "th (etiqueta HTML)", "td (etiqueta HTML)"}}
+
+Dado un conjunto de datos de montañas, un array de objetos con propiedades `name`, `height`, y `place`, genera la estructura DOM para una tabla que enumera los objetos. Debería haber una columna por clave y una fila por objeto, además de una fila de encabezado con elementos `<th>` en la parte superior, enumerando los nombres de las columnas.
 
 Escribe esto de manera que las columnas se deriven automáticamente de los objetos, tomando los nombres de las propiedades del primer objeto en los datos.
 

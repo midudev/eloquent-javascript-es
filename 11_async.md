@@ -512,7 +512,9 @@ class VideoPlayer {
     this.stopped = true;
   }
 }
-```La función `wait` envuelve `setTimeout` en una promesa que se resuelve después del número de milisegundos especificado. Esto es útil para controlar la velocidad de reproducción.
+```
+
+La función `wait` envuelve `setTimeout` en una promesa que se resuelve después del número de milisegundos especificado. Esto es útil para controlar la velocidad de reproducción.
 
 ```{startCode: true}
 let video = new VideoPlayer(clipImages, 100);

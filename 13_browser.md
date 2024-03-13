@@ -124,11 +124,11 @@ Así es como se vería dicho documento en el navegador:
 
 if}}
 
-{{index [HTML, notación]}}
+{{index [HTML, "notación"]}}
 
 Las etiquetas, encerradas en ((corchetes angulares)) (`<` y `>`, los símbolos de _menor que_ y _mayor que_), proporcionan información sobre la ((estructura)) del documento. El otro ((texto)) es simplemente texto plano.
 
-{{index doctype, versión}}
+{{index doctype, "versión"}}
 
 El documento comienza con `<!doctype html>`, lo que indica al navegador interpretar la página como HTML _moderno_, en contraposición a estilos obsoletos que se utilizaban en el pasado.
 
@@ -193,7 +193,7 @@ En el contexto de este libro, la etiqueta HTML más importante es `<script>`. Es
 <script>alert("¡hola!");</script>
 ```
 
-{{index "función alert", cronología}}
+{{index "función alert", "cronología"}}
 
 Dicho script se ejecutará tan pronto como su etiqueta `<script>` sea encontrada mientras el navegador lee el HTML. Esta página mostrará un cuadro de diálogo al abrirla—la función `alert` se asemeja a `prompt`, en que muestra una ventana pequeña, pero solo muestra un mensaje sin solicitar entrada.
 
