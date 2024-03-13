@@ -480,7 +480,9 @@ Interceptar los eventos `"submit"` en JavaScript tiene varios usos. Podemos escr
 
 Los campos creados por etiquetas `<textarea>`, o etiquetas `<input>` con un tipo de `text` o `password`, comparten una interfaz común. Sus elementos DOM tienen una propiedad `value` que contiene su contenido actual como un valor de cadena. Establecer esta propiedad a otra cadena cambia el contenido del campo.
 
-{{index "selectionStart property", "selectionEnd property"}}Las propiedades `selectionStart` y `selectionEnd` de los ((campos de texto)) nos brindan información sobre la posición del ((cursor)) y la ((selección)) en el ((texto)). Cuando no se ha seleccionado nada, estas dos propiedades contienen el mismo número, indicando la posición del cursor. Por ejemplo, 0 indica el inicio del texto, y 10 indica que el cursor está después del 10^º^ ((carácter)). Cuando se selecciona parte del campo, las dos propiedades serán diferentes, dándonos el inicio y el final del texto seleccionado. Al igual que `value`, estas propiedades también se pueden escribir.
+{{index "selectionStart property", "selectionEnd property"}}
+
+Las propiedades `selectionStart` y `selectionEnd` de los ((campos de texto)) nos brindan información sobre la posición del ((cursor)) y la ((selección)) en el ((texto)). Cuando no se ha seleccionado nada, estas dos propiedades contienen el mismo número, indicando la posición del cursor. Por ejemplo, 0 indica el inicio del texto, y 10 indica que el cursor está después del 10^º^ ((carácter)). Cuando se selecciona parte del campo, las dos propiedades serán diferentes, dándonos el inicio y el final del texto seleccionado. Al igual que `value`, estas propiedades también se pueden escribir.
 
 {{index Khasekhemwy, "etiqueta textarea (HTML)", teclado, "manejo de eventos"}}
 

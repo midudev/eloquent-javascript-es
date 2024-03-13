@@ -12,7 +12,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_17.jpg", alt: "Ilustración que muestra un brazo robótico con aspecto industrial dibujando una ciudad en un trozo de papel", chapter: "framed"}}}
 
-{{index CSS, "transform (CSS)", [DOM, gráficos]}}
+{{index CSS, "transform (CSS)", [DOM, "gráficos"]}}
 
 Los navegadores nos ofrecen varias formas de mostrar ((gráficos)). La forma más simple es usar estilos para posicionar y colorear elementos DOM regulares. Esto puede llevarnos bastante lejos, como mostró el juego en el [capítulo anterior](game). Al agregar imágenes de fondo parcialmente transparentes a los nodos, podemos hacer que se vean exactamente como queremos. Incluso es posible rotar o sesgar nodos con el estilo `transform`.
 
@@ -51,7 +51,7 @@ El documento se muestra de la siguiente manera:
 
 if}}
 
-{{index [DOM, gráficos]}}
+{{index [DOM, "gráficos"]}}
 
 Estas etiquetas crean elementos del DOM, al igual que las etiquetas HTML, con las que los scripts pueden interactuar. Por ejemplo, esto cambia el elemento `<circle>` para que se coloree de cian:
 
@@ -559,7 +559,7 @@ Ahora podemos dibujar un personaje espejado en la posición (100,0) volteando el
 
 ## Almacenando y eliminando transformaciones
 
-{{index "efecto secundario", lienzo, transformación}}
+{{index "efecto secundario", lienzo, "transformación"}}
 
 Las transformaciones permanecen. Todo lo que dibujemos después de ese personaje espejado también estará reflejado. Eso podría ser inconveniente.
 
@@ -569,7 +569,7 @@ Es posible guardar la transformación actual, hacer algunos dibujos y transforma
 
 Los métodos `save` y `restore` en el contexto 2D del lienzo hacen este manejo de transformaciones. Conceptualmente mantienen una pila de estados de transformación. Cuando llamas a `save`, el estado actual se apila, y cuando llamas a `restore`, se elimina el estado de la cima de la pila y se usa como la transformación actual del contexto. También puedes llamar a `resetTransform` para restablecer completamente la transformación.
 
-{{index "recursión de ramificación", "ejemplo de fractal", recursión}}
+{{index "recursión de ramificación", "ejemplo de fractal", "recursión"}}
 
 La función `branch` en el siguiente ejemplo ilustra lo que puedes hacer con una función que cambia la transformación y luego llama a una función (en este caso a sí misma), que continúa dibujando con la transformación dada.Esta función dibuja una forma parecida a un árbol dibujando una línea, moviendo el centro del sistema de coordenadas al final de la línea, y llamándose a sí misma dos veces, primero rotada a la izquierda y luego rotada a la derecha. Cada llamada reduce la longitud de la rama dibujada, y la recursividad se detiene cuando la longitud desciende por debajo de 8.
 
@@ -868,7 +868,7 @@ También hay efectos, como renderizar una escena píxel por píxel (por ejemplo,
 
 En algunos casos, puede que desees combinar varias de estas técnicas. Por ejemplo, podrías dibujar un ((gráfico)) con ((SVG)) o ((canvas)) pero mostrar información ((text))ual posicionando un elemento HTML encima de la imagen.
 
-{{index visualización}}
+{{index "visualización"}}
 
 Para aplicaciones poco exigentes, realmente no importa mucho qué interfaz elijas. La visualización que construimos para nuestro juego en este capítulo podría haber sido implementada utilizando cualquiera de estas tres tecnologías ((gráficas)) ya que no necesita dibujar texto, manejar interacción del mouse o trabajar con una cantidad extraordinariamente grande de elementos.
 

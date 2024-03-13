@@ -715,7 +715,7 @@ Player.prototype.update = function(time, state, keys) {
 
 El movimiento horizontal se calcula en función del estado de las teclas de flecha izquierda y derecha. Cuando no hay una pared bloqueando la nueva posición creada por este movimiento, se utiliza. De lo contrario, se mantiene la posición anterior.
 
-{{index "aceleración", física}}
+{{index "aceleración", "física"}}
 
 El movimiento vertical funciona de manera similar pero tiene que simular ((saltos)) y ((gravedad)). La velocidad vertical del jugador (`ySpeed`) se acelera primero para tener en cuenta la ((gravedad)).
 
@@ -911,7 +911,9 @@ Esto se puede hacer cambiando la función `runLevel` para configurar un manejado
 
 La interfaz de `runAnimation` puede no parecer adecuada para esto a primera vista, pero lo es si reorganizas la forma en que `runLevel` la llama.
 
-{{index [enlace, global], "función trackKeys"}}Cuando tengas eso funcionando, hay algo más que podrías intentar. La forma en que hemos estado registrando los controladores de eventos de teclado es algo problemática. El objeto `arrowKeys` es actualmente una asignación global, y sus controladores de eventos se mantienen incluso cuando no hay ningún juego en ejecución. Podrías decir que _escapan_ de nuestro sistema. Amplía `trackKeys` para proporcionar una forma de anular el registro de sus controladores y luego cambia `runLevel` para registrar sus controladores cuando comienza y desregistrarlos nuevamente cuando termine.
+{{index [enlace, global], "función trackKeys"}}
+
+Cuando tengas eso funcionando, hay algo más que podrías intentar. La forma en que hemos estado registrando los controladores de eventos de teclado es algo problemática. El objeto `arrowKeys` es actualmente una asignación global, y sus controladores de eventos se mantienen incluso cuando no hay ningún juego en ejecución. Podrías decir que _escapan_ de nuestro sistema. Amplía `trackKeys` para proporcionar una forma de anular el registro de sus controladores y luego cambia `runLevel` para registrar sus controladores cuando comienza y desregistrarlos nuevamente cuando termine.
 
 {{if interactive
 
