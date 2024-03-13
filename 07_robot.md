@@ -115,7 +115,7 @@ class VillageState {
 
 El método `move` es donde ocurre la acción. Primero verifica si hay un camino desde el lugar actual hasta el destino, y si no lo hay, devuelve el estado anterior ya que este no es un movimiento válido.
 
-{{index método "map", método "filter"}} 
+{{index "método map", "método filter"}} 
 
 Luego crea un nuevo estado con el destino como el nuevo lugar del robot. Pero también necesita crear un nuevo conjunto de paquetes: los paquetes que lleva el robot (que están en el lugar actual del robot) deben ser trasladados al nuevo lugar. Y los paquetes dirigidos al nuevo lugar deben ser entregados, es decir, deben ser eliminados del conjunto de paquetes no entregados. La llamada a `map` se encarga del traslado y la llamada a `filter` de la entrega.
 

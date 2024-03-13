@@ -59,7 +59,7 @@ let aPlus = /A\+/;
 
 ## Pruebas de coincidencias
 
-{{index coincidencia, "método test", ["expresión regular", métodos]}}
+{{index coincidencia, "método test", ["expresión regular", "métodos"]}}
 
 Los objetos de expresiones regulares tienen varios métodos. El más simple es `test`. Si le pasas una cadena, devolverá un ((Booleano)) indicándote si la cadena contiene una coincidencia con el patrón de la expresión.
 

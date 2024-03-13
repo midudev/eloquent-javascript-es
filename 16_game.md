@@ -198,7 +198,7 @@ class Vec {
 }
 ```
 
-{{index "times method", multiplicación}}
+{{index "times method", "multiplicación"}}
 
 El método `times` escala un vector por un número dado. Será útil cuando necesitemos multiplicar un vector de velocidad por un intervalo de tiempo para obtener la distancia recorrida durante ese tiempo.
 

@@ -261,7 +261,7 @@ Vimos que los valores de objetos pueden modificarse. Los tipos de valores discut
 
 Los objetos funcionan de manera diferente. _Puedes_ cambiar sus propiedades, lo que hace que un valor de objeto tenga un contenido diferente en momentos diferentes.
 
-{{index [objeto, identidad], identidad, [organización, memoria], mutabilidad}}
+{{index [objeto, identidad], identidad, ["organización", memoria], mutabilidad}}
 
 Cuando tenemos dos números, 120 y 120, podemos considerarlos precisamente el mismo número, tanto si se refieren a los mismos bits físicos como si no. Con los objetos, hay una diferencia entre tener dos referencias al mismo objeto y tener dos objetos diferentes que contienen las mismas propiedades. Considera el siguiente código:
 
@@ -742,11 +742,14 @@ La notación de array entre corchetes cuadrados permite al operador de triple pu
 
 ```
 let words = ["never", "fully"];
+
 console.log(["will", ...words, "understand"]);
 // → ["will", "never", "fully", "understand"]
 ```
 
-{{index "{} (object)"}}Esto funciona incluso en objetos con llaves de rizo, donde agrega todas las propiedades de otro objeto. Si una propiedad se agrega varias veces, el último valor añadido es el que se conserva:
+{{index "{} (object)"}}
+
+Esto funciona incluso en objetos con llaves, donde agrega todas las propiedades de otro objeto. Si una propiedad se agrega varias veces, el último valor añadido es el que se conserva:
 
 ```
 let coordenadas = {x: 10, y: 0};
@@ -838,7 +841,7 @@ function phi(table) {
 }
 ```
 
-{{index "desestructuración de asignaciones", parámetro}}
+{{index "desestructuración de asignaciones", "parámetro"}}
 
 Una razón por la que esta función es difícil de leer es que tenemos una asignación apuntando a nuestro array, pero preferiríamos tener asignaciones para los _elementos_ del array, es decir, `let n00 = table[0]` y así sucesivamente. Afortunadamente, hay una forma concisa de hacer esto en JavaScript:
 
@@ -850,7 +853,7 @@ function phi([n00, n01, n10, n11]) {
 }
 ```
 
-{{index "palabra clave let", "palabra clave var", "palabra clave const", [asignación, desestructuración]}}
+{{index "palabra clave let", "palabra clave var", "palabra clave const", ["asignación", "desestructuración"]}}
 
 Esto también funciona para asignaciones creadas con `let`, `var` o `const`. Si sabes que el valor que estás asignando es un array, puedes usar ((corchetes)) para "mirar dentro" del valor y asignar sus contenidos.
 
@@ -1006,7 +1009,7 @@ hint}}
 
 ### Reversión de un array
 
-{{index "reversing (exercise)", "método reverse", [array, métodos]}}
+{{index "reversing (exercise)", "método reverse", [array, "métodos"]}}
 
 Los arrays tienen un método `reverse` que cambia el array invirtiendo el orden en el que aparecen sus elementos. Para este ejercicio, escribe dos funciones, `reverseArray` y `reverseArrayInPlace`. La primera, `reverseArray`, debería tomar un array como argumento y producir un _nuevo_ array que tenga los mismos elementos en orden inverso. La segunda, `reverseArrayInPlace`, debería hacer lo que hace el método `reverse`: _modificar_ el array dado como argumento invirtiendo sus elementos. Ninguna de las funciones puede utilizar el método `reverse` estándar.
 
@@ -1050,7 +1053,7 @@ hint}}
 
 ### Lista
 
-{{index ["estructura de datos", lista], "lista (exercise)", "lista enlazada", array, colección}}
+{{index ["estructura de datos", lista], "lista (exercise)", "lista enlazada", array, "colección"}}
 
 Como bloques genéricos de valores, los objetos se pueden utilizar para construir todo tipo de estructuras de datos. Una estructura de datos común es la _lista_ (no confundir con arrays). Una lista es un conjunto anidado de objetos, donde el primer objeto contiene una referencia al segundo, el segundo al tercero, y así sucesivamente:
 

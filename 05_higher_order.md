@@ -263,7 +263,9 @@ Otra cosa común que hacer con matrices es calcular un único valor a partir de 
 
 {{indexsee "fold", "método de reducción"}}
 
-{{index ["función", "de orden superior"], "método de reducción"}}La operación de orden superior que representa este patrón se llama _reduce_ (a veces también llamada _fold_). Construye un valor tomando repetidamente un único elemento del array y combinándolo con el valor actual. Al sumar números, comenzarías con el número cero y, para cada elemento, lo sumarías al total.
+{{index ["función", "de orden superior"], "método de reducción"}}
+
+La operación de orden superior que representa este patrón se llama _reduce_ (a veces también llamada _fold_). Construye un valor tomando repetidamente un único elemento del array y combinándolo con el valor actual. Al sumar números, comenzarías con el número cero y, para cada elemento, lo sumarías al total.
 
 Los parámetros de `reduce` son, además del array, una función de combinación y un valor inicial. Esta función es un poco menos directa que `filter` y `map`, así que obsérvala detenidamente:
 
@@ -312,7 +314,7 @@ El script Han tiene más de 89,000 caracteres asignados en el estándar Unicode,
 
 ## Composabilidad
 
-{{index bucle, máximo}}
+{{index bucle, "máximo"}}
 
 Considera cómo hubiéramos escrito el ejemplo anterior (encontrando el script más grande) sin funciones de orden superior. El código no es mucho peor:
 
@@ -330,7 +332,9 @@ console.log(biggest);
 
 Hay algunas variables adicionales y el programa tiene cuatro líneas más, pero sigue siendo muy legible.
 
-{{index "función promedio", composabilidad, ["función", "de orden superior"], "método filter", "método map", "método reduce"}}{{id average_function}}
+{{index "función promedio", composabilidad, ["función", "de orden superior"], "método filter", "método map", "método reduce"}}
+
+{{id average_function}}
 
 Las abstracciones proporcionadas por estas funciones brillan realmente cuando necesitas _componer_ operaciones. Como ejemplo, escribamos un código que encuentre el año promedio de origen para scripts vivos y muertos en el conjunto de datos:
 

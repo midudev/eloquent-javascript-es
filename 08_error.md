@@ -34,7 +34,7 @@ El proceso de encontrar errores—bugs—en los programas se llama _((depuració
 
 ## Modo estricto
 
-{{index "modo estricto", [sintaxis, error], función}}
+{{index "modo estricto", [sintaxis, error], "función"}}
 
 {{indexsee "use strict", "modo estricto"}}
 
@@ -219,7 +219,7 @@ Una alternativa a usar `console.log` para observar el comportamiento del program
 
 ## Propagación de errores
 
-{{index entrada, salida, "error en tiempo de ejecución", error, validación}}
+{{index entrada, salida, "error en tiempo de ejecución", error, "validación"}}
 
 Lamentablemente, no todos los problemas pueden ser prevenidos por el programador. Si tu programa se comunica de alguna manera con el mundo exterior, es posible recibir entradas malformadas, sobrecargarse de trabajo o que falle la red.
 
@@ -227,7 +227,7 @@ Lamentablemente, no todos los problemas pueden ser prevenidos por el programador
 
 Si estás programando solo para ti, puedes permitirte simplemente ignorar esos problemas hasta que ocurran. Pero si estás construyendo algo que será utilizado por alguien más, generalmente quieres que el programa haga algo más que simplemente colapsar. A veces lo correcto es aceptar la entrada incorrecta y continuar ejecutándose. En otros casos, es mejor informar al usuario sobre lo que salió mal y luego rendirse. Pero en cualquier situación, el programa debe hacer algo activamente en respuesta al problema.
 
-{{index "función promptNumber", validación}}
+{{index "función promptNumber", "validación"}}
 
 Imaginemos que tienes una función `promptNumber` que solicita al usuario un número y lo retorna. ¿Qué debería retornar si el usuario ingresa "naranja"?
 
@@ -504,7 +504,7 @@ function primerElemento(array) {
 }
 ```
 
-{{index "validación", "error en tiempo de ejecución", fallo, suposición}}
+{{index "validación", "error en tiempo de ejecución", fallo, "suposición"}}
 
 Ahora, en lugar de devolver silenciosamente `undefined` (que es lo que obtienes al leer una propiedad de un array que no existe), esto hará que tu programa falle ruidosamente tan pronto como lo uses incorrectamente. Esto hace que sea menos probable que tales errores pasen desapercibidos y más fácil encontrar su causa cuando ocurran.
 

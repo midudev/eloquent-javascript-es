@@ -213,7 +213,7 @@ class Rabbit {
 
 La palabra clave `class` inicia una ((declaración de clase)), que nos permite definir un constructor y un conjunto de métodos juntos. Se pueden escribir cualquier cantidad de métodos dentro de las llaves de la declaración. Este código tiene el efecto de definir un enlace llamado `Rabbit`, que contiene una función que ejecuta el código en `constructor`, y tiene una propiedad `prototype` que contiene el método `speak`.
 
-{{index "operador new", "enlace this", [creación de objetos]}}
+{{index "operador new", "enlace this", ["creación de objetos"]}}
 
 Esta función no puede ser llamada normalmente. Los constructores, en JavaScript, se llaman colocando la palabra clave `new` delante de ellos. Al hacerlo, se crea un objeto nuevo con el objeto contenido en la propiedad `prototype` de la función como prototipo, luego se ejecuta la función con `this` vinculado al nuevo objeto, y finalmente se devuelve el objeto.
 
@@ -237,7 +237,7 @@ let conejoEstiloAntiguo = new ConejoArcaico("estilo antiguo");
 
 Por esta razón, todas las funciones que no sean de flecha comienzan con una propiedad `prototype` que contiene un objeto vacío.
 
-{{index mayúsculas}}
+{{index "mayúsculas"}}
 
 Por convención, los nombres de constructores se escriben con mayúscula inicial para que puedan distinguirse fácilmente de otras funciones.
 
@@ -425,7 +425,7 @@ console.log(ages.has("toString"));
 // → false
 ```
 
-{{index [interfaz, objeto], "método set", "método get", "método has", encapsulación}}
+{{index [interfaz, objeto], "método set", "método get", "método has", "encapsulación"}}
 
 Los métodos `set`, `get` y `has` forman parte de la interfaz del objeto `Map`. Escribir una estructura de datos que pueda actualizar y buscar rápidamente un gran conjunto de valores no es fácil, pero no tenemos que preocuparnos por eso. Alguien más lo hizo por nosotros, y podemos utilizar su trabajo a través de esta interfaz sencilla.
 
@@ -543,7 +543,7 @@ Es posible que múltiples interfaces utilicen el mismo nombre de propiedad para 
 
 Un objeto que intente ser una ruta y similar a un array (quizás para enumerar sus puntos de referencia) es algo un tanto improbable, y este tipo de problema no es tan común en la práctica. Pero para cosas como el protocolo de iteración, los diseñadores del lenguaje necesitaban un tipo de propiedad que _realmente_ no entrara en conflicto con ninguna otra. Por lo tanto, en 2015, se agregaron los _((símbolos))_ al lenguaje.
 
-{{index "Función de símbolo", [propiedad, denominación]}}
+{{index "Función de símbolo", [propiedad, "denominación"]}}
 
 La mayoría de las propiedades, incluidas todas las propiedades que hemos visto hasta ahora, se nombran con cadenas. Pero también es posible usar símbolos como nombres de propiedades. Los símbolos son valores creados con la función `Symbol`. A diferencia de las cadenas, los símbolos recién creados son únicos: no puedes crear el mismo símbolo dos veces.
 
@@ -570,7 +570,7 @@ console.log([1, 2][longitud]);
 // → 0
 ```
 
-{{index [propiedad, denominación]}}
+{{index [propiedad, "denominación"]}}
 
 Es posible incluir propiedades de símbolos en expresiones de objetos y clases mediante el uso de ((corchetes)). Esto hace que la expresión entre los corchetes se evalúe para producir el nombre de la propiedad, análogo a la notación de acceso a propiedades mediante corchetes cuadrados.
 
@@ -692,7 +692,7 @@ console.log([... "PCI"]);
 
 ## Herencia
 
-{{index "herencia, "lista enlazada", "programación orientada a objetos", "Clase LengthList"}}
+{{index "herencia", "lista enlazada", "programación orientada a objetos", "Clase LengthList"}}
 
 Imaginemos que necesitamos un tipo de lista, bastante parecido a la clase `List` que vimos anteriormente, pero como siempre estaremos preguntando por su longitud, no queremos tener que recorrer su `rest` cada vez, en su lugar, queremos almacenar la longitud en cada instancia para un acceso eficiente.
 
@@ -780,7 +780,7 @@ Cuando se implementan múltiples clases que difieren solo en algunos detalles, p
 
 Escribe una clase `Vec` que represente un vector en el espacio bidimensional. Toma los parámetros `x` e `y` (números), que debería guardar en propiedades del mismo nombre.
 
-{{index "adición", sustracción}}
+{{index "adición", "sustracción"}}
 
 Dale a la clase `Vec` dos métodos en su prototipo, `plus` y `minus`, que tomen otro vector como parámetro y devuelvan un nuevo vector que tenga la suma o la diferencia de los valores _x_ e _y_ de los dos vectores (`this` y el parámetro).
 

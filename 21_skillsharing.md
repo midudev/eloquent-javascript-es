@@ -30,7 +30,7 @@ El servidor mantiene la lista de ((charla))s propuestas para la próxima reunió
 
 {{figure {url: "img/skillsharing.png", alt: "Captura de pantalla del sitio web de intercambio de habilidades", width: "10cm"}}}
 
-{{index "vista en vivo", "experiencia del usuario", "envío de datos", conexión}}
+{{index "vista en vivo", "experiencia del usuario", "envío de datos", "conexión"}}
 
 La ((aplicación)) se configurará para mostrar una vista _en vivo_ de las charlas propuestas actuales y sus comentarios. Cada vez que alguien, en algún lugar, envíe una nueva charla o agregue un comentario, todas las personas que tengan la página abierta en sus navegadores deberían ver el cambio de inmediato. Esto plantea un desafío—no hay forma de que un servidor web abra una conexión a un cliente, ni hay una buena forma de saber qué clientes están viendo actualmente un sitio web dado.
 
@@ -173,7 +173,7 @@ Un _((enrutador))_ es un componente que ayuda a despachar una solicitud a la fun
 
 Hay varios paquetes de enrutadores buenos en ((NPM)), pero aquí escribiremos uno nosotros mismos para ilustrar el principio.
 
-{{index "palabra clave import", "clase Router", módulo}}
+{{index "palabra clave import", "clase Router", "módulo"}}
 
 Este es `router.mjs`, que luego `importaremos` desde nuestro módulo del servidor:
 
