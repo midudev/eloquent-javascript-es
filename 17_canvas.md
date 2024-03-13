@@ -22,7 +22,7 @@ Pero estaríamos utilizando el DOM para algo para lo que no fue diseñado origin
 
 Hay dos alternativas. La primera es basada en el DOM pero utiliza _Gráficos Vectoriales Escalables_ (SVG), en lugar de HTML. Piensa en SVG como un dialecto de marcado de ((documento)) que se centra en las ((forma))s en lugar de en el texto. Puedes incrustar un documento SVG directamente en un documento HTML o incluirlo con una etiqueta `<img>`.
 
-{{index despejando, [gráficos DOM], [interfaz, lienzo]}}
+{{index despejando, ["gráficos" DOM], [interfaz, lienzo]}}
 
 La segunda alternativa se llama _((lienzo))_. Un lienzo es un solo elemento DOM que encapsula una ((imagen)). Proporciona una interfaz de programación para dibujar ((forma))s en el espacio ocupado por el nodo. La principal diferencia entre un lienzo y una imagen SVG es que en SVG se conserva la descripción original de las formas para que puedan moverse o redimensionarse en cualquier momento. Un lienzo, por otro lado, convierte las formas en ((píxel))s (puntos de color en una cuadrícula) en cuanto se dibujan y no recuerda qué representan estos píxeles. La única forma de mover una forma en un lienzo es borrar el lienzo (o la parte del lienzo alrededor de la forma) y volver a dibujarlo con la forma en una nueva posición.
 
@@ -62,7 +62,7 @@ circle.setAttribute("fill", "cyan");
 
 ## El elemento canvas
 
-{{index [lienzo, tamaño], "canvas (etiqueta HTML)"}}
+{{index [lienzo, "tamaño"], "canvas (etiqueta HTML)"}}
 
 Los ((gráficos)) en lienzo pueden ser dibujados en un elemento `<canvas>`. Puedes darle a dicho elemento atributos `width` y `height` para determinar su tamaño en ((píxel))s.
 

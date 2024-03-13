@@ -733,7 +733,9 @@ Los sitios de diferentes ((dominios)) obtienen compartimentos de almacenamiento 
 
 Los navegadores aplican un límite en el tamaño de los datos que un sitio puede almacenar en `localStorage`. Esta restricción, junto con el hecho de que llenar los ((discos duros)) de la gente con basura no es realmente rentable, evita que la función ocupe demasiado espacio.
 
-{{index "objeto localStorage", "ejemplo de toma de notas", "etiqueta select (HTML)", "etiqueta botón (HTML)", "etiqueta textarea (HTML)"}}El siguiente código implementa una aplicación rudimentaria de toma de notas. Mantiene un conjunto de notas con nombres y permite al usuario editar notas y crear nuevas.
+{{index "objeto localStorage", "ejemplo de toma de notas", "etiqueta select (HTML)", "etiqueta botón (HTML)", "etiqueta textarea (HTML)"}}
+
+El siguiente código implementa una aplicación rudimentaria de toma de notas. Mantiene un conjunto de notas con nombres y permite al usuario editar notas y crear nuevas.
 
 ```{lang: html, startCode: true}
 Notas: <select></select> <button>Añadir</button><br>
