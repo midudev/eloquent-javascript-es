@@ -1,4 +1,4 @@
-{{meta {load_files: ["code/chapter/16_game.js", "code/levels.js", "code/stop_keys.js", "code/chapter/17_canvas.js"], zip: "html include=["img/player.png", "img/sprites.png"]"}}}
+{{meta {load_files: ["code/chapter/16_game.js", "code/levels.js", "code/stop_keys.js", "code/chapter/17_canvas.js"], zip: "html", include: ["img/player.png", "img/sprites.png"]}}}
 
 # Dibujando en Canvas
 
