@@ -22,8 +22,6 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_17.jpg" alt="Ilustración que muestra un brazo robótico con aspecto industrial dibujando una ciudad en un trozo de papel"></figure>
 
-<p><a class="p_ident" id="p-bbWcNyh1sz" href="#p-bbWcNyh1sz" tabindex="-1" role="presentation"></a>{{index CSS, “transform (CSS)”, [DOM, gráficos]}}</p>
-
 <p><a class="p_ident" id="p-WsH95+AeJX" href="#p-WsH95+AeJX" tabindex="-1" role="presentation"></a>Los navegadores nos ofrecen varias formas de mostrar gráficos. La forma más simple es usar estilos para posicionar y colorear elementos DOM regulares. Esto puede llevarnos bastante lejos, como mostró el juego en el <a href="16_game.html">capítulo anterior</a>. Al agregar imágenes de fondo parcialmente transparentes a los nodos, podemos hacer que se vean exactamente como queremos. Incluso es posible rotar o sesgar nodos con el estilo <code>transform</code>.</p>
 
 <p><a class="p_ident" id="p-VaIkI2Lvrr" href="#p-VaIkI2Lvrr" tabindex="-1" role="presentation"></a>Pero estaríamos utilizando el DOM para algo para lo que no fue diseñado originalmente. Algunas tareas, como dibujar una línea entre puntos arbitrarios, son extremadamente incómodas de hacer con elementos HTML regulares.</p>
@@ -46,8 +44,6 @@
   &lt;<span class="tok-typeName">rect</span> x=<span class="tok-string">&quot;120&quot;</span> y=<span class="tok-string">&quot;5&quot;</span> width=<span class="tok-string">&quot;90&quot;</span> height=<span class="tok-string">&quot;90&quot;</span>
         stroke=<span class="tok-string">&quot;blue&quot;</span> fill=<span class="tok-string">&quot;none&quot;</span>/&gt;
 &lt;/<span class="tok-typeName">svg</span>&gt;</pre>
-
-<p><a class="p_ident" id="p-YFWuXXEMvU" href="#p-YFWuXXEMvU" tabindex="-1" role="presentation"></a>{{index [DOM, gráficos]}}</p>
 
 <p><a class="p_ident" id="p-nP9GmCkWpk" href="#p-nP9GmCkWpk" tabindex="-1" role="presentation"></a>Estas etiquetas crean elementos del DOM, al igual que las etiquetas HTML, con las que los scripts pueden interactuar. Por ejemplo, esto cambia el elemento <code>&lt;circle&gt;</code> para que se coloree de cian:</p>
 
@@ -357,15 +353,11 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <h2><a class="h_ident" id="h-IJTm33ZSO1" href="#h-IJTm33ZSO1" tabindex="-1" role="presentation"></a>Almacenando y eliminando transformaciones</h2>
 
-<p><a class="p_ident" id="p-L8TR2iC+n+" href="#p-L8TR2iC+n+" tabindex="-1" role="presentation"></a>{{index “efecto secundario”, lienzo, transformación}}</p>
-
 <p><a class="p_ident" id="p-rJlfTniPkL" href="#p-rJlfTniPkL" tabindex="-1" role="presentation"></a>Las transformaciones permanecen. Todo lo que dibujemos después de ese personaje espejado también estará reflejado. Eso podría ser inconveniente.</p>
 
 <p><a class="p_ident" id="p-SalCElR8sc" href="#p-SalCElR8sc" tabindex="-1" role="presentation"></a>Es posible guardar la transformación actual, hacer algunos dibujos y transformaciones, y luego restaurar la antigua transformación. Esto suele ser lo apropiado para una función que necesita transformar temporalmente el sistema de coordenadas. Primero, guardamos cualquier transformación que estuviera utilizando el código que llamó a la función. Luego, la función realiza su tarea, agregando más transformaciones sobre la transformación actual. Finalmente, volvemos a la transformación con la que comenzamos.</p>
 
 <p><a class="p_ident" id="p-weTFB7xTVK" href="#p-weTFB7xTVK" tabindex="-1" role="presentation"></a>Los métodos <code>save</code> y <code>restore</code> en el contexto 2D del lienzo hacen este manejo de transformaciones. Conceptualmente mantienen una pila de estados de transformación. Cuando llamas a <code>save</code>, el estado actual se apila, y cuando llamas a <code>restore</code>, se elimina el estado de la cima de la pila y se usa como la transformación actual del contexto. También puedes llamar a <code>resetTransform</code> para restablecer completamente la transformación.</p>
-
-<p><a class="p_ident" id="p-NZT4MbJ6jI" href="#p-NZT4MbJ6jI" tabindex="-1" role="presentation"></a>{{index “recursión de ramificación”, “ejemplo de fractal”, recursión}}</p>
 
 <p><a class="p_ident" id="p-MLYFMEHl9N" href="#p-MLYFMEHl9N" tabindex="-1" role="presentation"></a>La función <code>branch</code> en el siguiente ejemplo ilustra lo que puedes hacer con una función que cambia la transformación y luego llama a una función (en este caso a sí misma), que continúa dibujando con la transformación dada.Esta función dibuja una forma parecida a un árbol dibujando una línea, moviendo el centro del sistema de coordenadas al final de la línea, y llamándose a sí misma dos veces, primero rotada a la izquierda y luego rotada a la derecha. Cada llamada reduce la longitud de la rama dibujada, y la recursividad se detiene cuando la longitud desciende por debajo de 8.</p>
 
@@ -579,8 +571,6 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 <p><a class="p_ident" id="p-JcCiSu5oeu" href="#p-JcCiSu5oeu" tabindex="-1" role="presentation"></a>También hay efectos, como renderizar una escena píxel por píxel (por ejemplo, usando un ray tracer) o procesar una imagen con JavaScript (desenfocarla o distorsionarla), que solo son prácticos con un elemento canvas.</p>
 
 <p><a class="p_ident" id="p-N6EbEIQTYy" href="#p-N6EbEIQTYy" tabindex="-1" role="presentation"></a>En algunos casos, puede que desees combinar varias de estas técnicas. Por ejemplo, podrías dibujar un gráfico con SVG o canvas pero mostrar información textual posicionando un elemento HTML encima de la imagen.</p>
-
-<p><a class="p_ident" id="p-btRwmwl2MT" href="#p-btRwmwl2MT" tabindex="-1" role="presentation"></a>{{index visualización}}</p>
 
 <p><a class="p_ident" id="p-ur+3ZHHg7V" href="#p-ur+3ZHHg7V" tabindex="-1" role="presentation"></a>Para aplicaciones poco exigentes, realmente no importa mucho qué interfaz elijas. La visualización que construimos para nuestro juego en este capítulo podría haber sido implementada utilizando cualquiera de estas tres tecnologías gráficas ya que no necesita dibujar texto, manejar interacción del mouse o trabajar con una cantidad extraordinariamente grande de elementos.</p>
 
