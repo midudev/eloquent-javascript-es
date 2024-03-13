@@ -37,8 +37,6 @@
 console.log(square(<span class="tok-number">12</span>));
 <span class="tok-comment">// → 144</span></pre>
 
-<p><a class="p_ident" id="p-Cp1gUOkf3+" href="#p-Cp1gUOkf3+" tabindex="-1" role="presentation"></a>{{index [corchetes, “cuerpo de la “función”], bloque, [sintaxis, “función”], “palabra clave de “función”, [“función”, cuerpo], [“función”, “como valor”], [“paréntesis”, argumentos]}}</p>
-
 <p><a class="p_ident" id="p-Wttl/7EpwM" href="#p-Wttl/7EpwM" tabindex="-1" role="presentation"></a>Una función se crea con una expresión que comienza con la palabra clave <code>function</code>. Las funciones tienen un conjunto de <em>parámetros</em> (en este caso, solo <code>x</code>) y un <em>cuerpo</em>, que contiene las declaraciones que se ejecutarán cuando se llame a la función. El cuerpo de una función creada de esta manera siempre debe estar envuelto entre llaves, incluso cuando consiste en una única declaración.</p>
 
 <p><a class="p_ident" id="p-vrjpkACz/x" href="#p-vrjpkACz/x" tabindex="-1" role="presentation"></a>Una función puede tener varios parámetros o ninguno en absoluto. En el siguiente ejemplo, <code>makeNoise</code> no enumera nombres de parámetros, mientras que <code>roundTo</code> (que redondea <code>n</code> al múltiplo más cercano de <code>step</code>) enumera dos:</p>
@@ -117,8 +115,6 @@ console.log(n);
 <h2><a class="h_ident" id="h-3mNEhIfF61" href="#h-3mNEhIfF61" tabindex="-1" role="presentation"></a>Funciones como valores</h2>
 
 <p><a class="p_ident" id="p-exs7Hvd+8O" href="#p-exs7Hvd+8O" tabindex="-1" role="presentation"></a>Un enlace de función generalmente simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.</p>
-
-<p><a class="p_ident" id="p-u3xqON34cW" href="#p-u3xqON34cW" tabindex="-1" role="presentation"></a>{{index [enlace, asignación]}}</p>
 
 <p><a class="p_ident" id="p-Z3YsDzJ9JG" href="#p-Z3YsDzJ9JG" tabindex="-1" role="presentation"></a>Pero los dos son diferentes. Un valor de función puede hacer todas las cosas que pueden hacer otros valores: se puede utilizar en expresiones arbitrarias, no solo llamarlo. Es posible almacenar un valor de función en un nuevo enlace, pasarlo como argumento a una función, etc. De manera similar, un enlace que contiene una función sigue siendo solo un enlace regular y, si no es constante, se le puede asignar un nuevo valor, así:</p>
 
@@ -308,8 +304,6 @@ console.log(power(<span class="tok-number">2</span>, <span class="tok-number">3<
 
 <p><a class="p_ident" id="p-vuRF5znTGo" href="#p-vuRF5znTGo" tabindex="-1" role="presentation"></a>Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un <code>for</code> loop. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.</p>
 
-<p><a class="p_ident" id="p-gH8+0xPUHt" href="#p-gH8+0xPUHt" tabindex="-1" role="presentation"></a>{{index optimización}}</p>
-
 <p><a class="p_ident" id="p-HyK1Oztn84" href="#p-HyK1Oztn84" tabindex="-1" role="presentation"></a>El dilema de velocidad versus elegancia es interesante. Se puede ver como una especie de continuo entre amigabilidad humana y amigabilidad de máquina. Casi cualquier programa puede ser acelerado haciendo que sea más extenso y complicado. El programador debe encontrar un equilibrio apropiado.</p>
 
 <p><a class="p_ident" id="p-WSac5vh/iZ" href="#p-WSac5vh/iZ" tabindex="-1" role="presentation"></a>En el caso de la función <code>potencia</code>, una versión poco elegante (con bucles) sigue siendo bastante simple y fácil de leer. No tiene mucho sentido reemplazarla con una función recursiva. Sin embargo, a menudo un programa trata con conceptos tan complejos que renunciar a algo de eficiencia para hacer que el programa sea más directo es útil.</p>
@@ -368,8 +362,6 @@ console.log(findSolution(<span class="tok-number">24</span>));
 <h2><a class="h_ident" id="h-uZ0juDUWOs" href="#h-uZ0juDUWOs" tabindex="-1" role="presentation"></a>Crecimiento de funciones</h2>
 
 <p><a class="p_ident" id="p-n9cGqWi0db" href="#p-n9cGqWi0db" tabindex="-1" role="presentation"></a>Hay dos formas más o menos naturales de introducir funciones en los programas.</p>
-
-<p><a class="p_ident" id="p-+r1OTMXmXD" href="#p-+r1OTMXmXD" tabindex="-1" role="presentation"></a>{{index repetición}}</p>
 
 <p><a class="p_ident" id="p-B8XV+CLjOF" href="#p-B8XV+CLjOF" tabindex="-1" role="presentation"></a>La primera ocurre cuando te encuentras escribiendo código similar varias veces. Preferirías no hacer eso, ya que tener más código significa más espacio para que se escondan los errores y más material para que las personas que intentan entender el programa lo lean. Por lo tanto, tomas la funcionalidad repetida, encuentras un buen nombre para ella y la colocas en una función.</p>
 
@@ -442,8 +434,6 @@ imprimirInventarioGranja(<span class="tok-number">7</span>, <span class="tok-num
 
 <p><a class="p_ident" id="p-Pp4JWQb2Da" href="#p-Pp4JWQb2Da" tabindex="-1" role="presentation"></a>Una función con un nombre claro y obvio como <code>rellenarConCeros</code> hace que sea más fácil para alguien que lee el código entender qué hace. Además, una función así es útil en más situaciones que solo este programa específico. Por ejemplo, podrías usarla para ayudar a imprimir tablas de números alineadas correctamente.</p>
 
-<p><a class="p_ident" id="p-kWpY5hOt4M" href="#p-kWpY5hOt4M" tabindex="-1" role="presentation"></a>{{index [interfaz, diseño]}}</p>
-
 <p><a class="p_ident" id="p-Pe3o8sCfTl" href="#p-Pe3o8sCfTl" tabindex="-1" role="presentation"></a>¿Qué tan inteligente y versátil <em>debería</em> ser nuestra función? Podríamos escribir cualquier cosa, desde una función terriblemente simple que solo puede rellenar un número para que tenga tres caracteres de ancho hasta un sistema de formato de números generalizado complicado que maneje números fraccionarios, números negativos, alineación de puntos decimales, relleno con diferentes caracteres, y más.</p>
 
 <p><a class="p_ident" id="p-YDmdVKuy2l" href="#p-YDmdVKuy2l" tabindex="-1" role="presentation"></a>Un principio útil es abstenerse de agregar ingenio a menos que estés absolutamente seguro de que lo vas a necesitar. Puede ser tentador escribir “marcos de trabajo” generales para cada trozo de funcionalidad que te encuentres. Resiste esa tentación. No lograrás hacer ningún trabajo real: estarás demasiado ocupado escribiendo código que nunca usas.</p>
@@ -452,11 +442,7 @@ imprimirInventarioGranja(<span class="tok-number">7</span>, <span class="tok-num
 
 <p><a class="p_ident" id="p-WDphrqGwmP" href="#p-WDphrqGwmP" tabindex="-1" role="presentation"></a>Las funciones pueden dividirse aproximadamente en aquellas que se llaman por sus efectos secundarios y aquellas que se llaman por su valor de retorno (aunque también es posible tener efectos secundarios y devolver un valor).</p>
 
-<p><a class="p_ident" id="p-bV8uhOd6u/" href="#p-bV8uhOd6u/" tabindex="-1" role="presentation"></a>{{index reutilización}}</p>
-
 <p><a class="p_ident" id="p-HhXOUWHo2Y" href="#p-HhXOUWHo2Y" tabindex="-1" role="presentation"></a>La primera función auxiliar en el ejemplo de la granja, <code>imprimirRellenadoConEtiqueta</code>, se llama por su efecto secundario: imprime una línea. La segunda versión, <code>rellenarConCero</code>, se llama por su valor de retorno. No es casualidad que la segunda sea útil en más situaciones que la primera. Las funciones que crean valores son más fáciles de combinar de nuevas formas que las funciones que realizan efectos secundarios directamente.</p>
-
-<p><a class="p_ident" id="p-uZwYjlANQc" href="#p-uZwYjlANQc" tabindex="-1" role="presentation"></a>{{index sustitución}}</p>
 
 <p><a class="p_ident" id="p-ZQPtksrZZc" href="#p-ZQPtksrZZc" tabindex="-1" role="presentation"></a>Una función <em>pura</em> es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de que una función pura esté funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.</p>
 
