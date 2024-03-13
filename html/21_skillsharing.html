@@ -32,8 +32,6 @@
 
 <p><a class="p_ident" id="p-jc0lnz5w+z" href="#p-jc0lnz5w+z" tabindex="-1" role="presentation"></a>El servidor mantiene la lista de charlas propuestas para la próxima reunión, y el cliente muestra esta lista. Cada charla tiene un nombre de presentador, un título, un resumen y una matriz de comentarios asociados. El cliente permite a los usuarios proponer nuevas charlas (agregándolas a la lista), eliminar charlas y comentar en charlas existentes. Cada vez que el usuario realiza un cambio de este tipo, el cliente realiza una solicitud HTTP para informar al servidor al respecto.</p><figure><img src="img/skillsharing.png" alt="Captura de pantalla del sitio web de intercambio de habilidades"></figure>
 
-<p><a class="p_ident" id="p-LjuGdRIE75" href="#p-LjuGdRIE75" tabindex="-1" role="presentation"></a>{{index “vista en vivo”, “experiencia del usuario”, “envío de datos”, conexión}}</p>
-
 <p><a class="p_ident" id="p-oateJBFpXz" href="#p-oateJBFpXz" tabindex="-1" role="presentation"></a>La aplicación se configurará para mostrar una vista <em>en vivo</em> de las charlas propuestas actuales y sus comentarios. Cada vez que alguien, en algún lugar, envíe una nueva charla o agregue un comentario, todas las personas que tengan la página abierta en sus navegadores deberían ver el cambio de inmediato. Esto plantea un desafío—no hay forma de que un servidor web abra una conexión a un cliente, ni hay una buena forma de saber qué clientes están viendo actualmente un sitio web dado.</p>
 
 <p><a class="p_ident" id="p-UaD3BZk280" href="#p-UaD3BZk280" tabindex="-1" role="presentation"></a>Una solución común a este problema se llama <em>long polling</em>, que resulta ser una de las motivaciones del diseño de Node.</p>
@@ -126,8 +124,6 @@ Content-Length: 295
 <p><a class="p_ident" id="p-zXEf+YLpW2" href="#p-zXEf+YLpW2" tabindex="-1" role="presentation"></a>Un <em>enrutador</em> es un componente que ayuda a despachar una solicitud a la función que puede manejarla. Puedes indicarle al enrutador, por ejemplo, que las solicitudes <code>PUT</code> con una ruta que coincida con la expresión regular <code>/<wbr>^\/<wbr>talks\/<wbr>([^\/<wbr>]+)$/<wbr></code> (<code>/talks/</code> seguido de un título de charla) pueden ser manejadas por una función dada. Además, puede ayudar a extraer las partes significativas de la ruta (en este caso el título de la charla), envueltas en paréntesis en la expresión regular, y pasarlas a la función manejadora.</p>
 
 <p><a class="p_ident" id="p-GRDOfoyc6J" href="#p-GRDOfoyc6J" tabindex="-1" role="presentation"></a>Hay varios paquetes de enrutadores buenos en NPM, pero aquí escribiremos uno nosotros mismos para ilustrar el principio.</p>
-
-<p><a class="p_ident" id="p-mn80X6/ZER" href="#p-mn80X6/ZER" tabindex="-1" role="presentation"></a>{{index “palabra clave import”, “clase Router”, módulo}}</p>
 
 <p><a class="p_ident" id="p-f+1c52SwUl" href="#p-f+1c52SwUl" tabindex="-1" role="presentation"></a>Este es <code>router.mjs</code>, que luego <code>importaremos</code> desde nuestro módulo del servidor:</p>
 

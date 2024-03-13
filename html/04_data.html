@@ -188,8 +188,6 @@ console.log(objetoA);
 
 <p><a class="p_ident" id="p-qBpnB+cTrk" href="#p-qBpnB+cTrk" tabindex="-1" role="presentation"></a>Los objetos funcionan de manera diferente. <em>Puedes</em> cambiar sus propiedades, lo que hace que un valor de objeto tenga un contenido diferente en momentos diferentes.</p>
 
-<p><a class="p_ident" id="p-JWQfsbAO+t" href="#p-JWQfsbAO+t" tabindex="-1" role="presentation"></a>{{index [objeto, identidad], identidad, [organización, memoria], mutabilidad}}</p>
-
 <p><a class="p_ident" id="p-ulxBQ5Ge7V" href="#p-ulxBQ5Ge7V" tabindex="-1" role="presentation"></a>Cuando tenemos dos números, 120 y 120, podemos considerarlos precisamente el mismo número, tanto si se refieren a los mismos bits físicos como si no. Con los objetos, hay una diferencia entre tener dos referencias al mismo objeto y tener dos objetos diferentes que contienen las mismas propiedades. Considera el siguiente código:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-I1Dv6D46/p" href="#c-I1Dv6D46/p" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">object1</span> = {<span class="tok-definition">value</span>: <span class="tok-number">10</span>};
@@ -518,11 +516,12 @@ console.log(max(...numbers));
 
 <p><a class="p_ident" id="p-y7lBlP3psf" href="#p-y7lBlP3psf" tabindex="-1" role="presentation"></a>La notación de array entre corchetes cuadrados permite al operador de triple punto expandir otro array en el nuevo array:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-4t+LJt3Kyo" href="#c-4t+LJt3Kyo" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">words</span> = [<span class="tok-string">&quot;never&quot;</span>, <span class="tok-string">&quot;fully&quot;</span>];
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NxsGC0fWGP" href="#c-NxsGC0fWGP" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">words</span> = [<span class="tok-string">&quot;never&quot;</span>, <span class="tok-string">&quot;fully&quot;</span>];
+
 console.log([<span class="tok-string">&quot;will&quot;</span>, ...words, <span class="tok-string">&quot;understand&quot;</span>]);
 <span class="tok-comment">// → [&quot;will&quot;, &quot;never&quot;, &quot;fully&quot;, &quot;understand&quot;]</span></pre>
 
-<p><a class="p_ident" id="p-nPA2iImUVb" href="#p-nPA2iImUVb" tabindex="-1" role="presentation"></a>{{index &quot;{} (object)”}}Esto funciona incluso en objetos con llaves de rizo, donde agrega todas las propiedades de otro objeto. Si una propiedad se agrega varias veces, el último valor añadido es el que se conserva:</p>
+<p><a class="p_ident" id="p-Rg0TFI20SL" href="#p-Rg0TFI20SL" tabindex="-1" role="presentation"></a>Esto funciona incluso en objetos con llaves, donde agrega todas las propiedades de otro objeto. Si una propiedad se agrega varias veces, el último valor añadido es el que se conserva:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-t2ITfDhAL8" href="#c-t2ITfDhAL8" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">coordenadas</span> = {<span class="tok-definition">x</span>: <span class="tok-number">10</span>, <span class="tok-definition">y</span>: <span class="tok-number">0</span>};
 console.log({...coordenadas, <span class="tok-definition">y</span>: <span class="tok-number">5</span>, <span class="tok-definition">z</span>: <span class="tok-number">1</span>});
@@ -584,8 +583,6 @@ console.log(Math.random());
               (table[<span class="tok-number">0</span>] + table[<span class="tok-number">2</span>]));
 }</pre>
 
-<p><a class="p_ident" id="p-e8JBoIaiA3" href="#p-e8JBoIaiA3" tabindex="-1" role="presentation"></a>{{index “desestructuración de asignaciones”, parámetro}}</p>
-
 <p><a class="p_ident" id="p-MvhILwj7IW" href="#p-MvhILwj7IW" tabindex="-1" role="presentation"></a>Una razón por la que esta función es difícil de leer es que tenemos una asignación apuntando a nuestro array, pero preferiríamos tener asignaciones para los <em>elementos</em> del array, es decir, <code>let n00 = table[0]</code> y así sucesivamente. Afortunadamente, hay una forma concisa de hacer esto en JavaScript:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-z2cboTL/zX" href="#c-z2cboTL/zX" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">phi</span>([<span class="tok-definition">n00</span>, <span class="tok-definition">n01</span>, <span class="tok-definition">n10</span>, <span class="tok-definition">n11</span>]) {
@@ -593,8 +590,6 @@ console.log(Math.random());
     Math.sqrt((n10 + n11) * (n00 + n01) *
               (n01 + n11) * (n00 + n10));
 }</pre>
-
-<p><a class="p_ident" id="p-daI7rVdS6C" href="#p-daI7rVdS6C" tabindex="-1" role="presentation"></a>{{index “palabra clave let”, “palabra clave var”, “palabra clave const”, [asignación, desestructuración]}}</p>
 
 <p><a class="p_ident" id="p-9LYXEJ7/Do" href="#p-9LYXEJ7/Do" tabindex="-1" role="presentation"></a>Esto también funciona para asignaciones creadas con <code>let</code>, <code>var</code> o <code>const</code>. Si sabes que el valor que estás asignando es un array, puedes usar corchetes para “mirar dentro” del valor y asignar sus contenidos.</p>
 
@@ -702,8 +697,6 @@ console.log(sum(range(<span class="tok-number">1</span>, <span class="tok-number
 
 <h3><a class="i_ident" id="i-ZA7kEgnlyq" href="#i-ZA7kEgnlyq" tabindex="-1" role="presentation"></a>Reversión de un array</h3>
 
-<p><a class="p_ident" id="p-OmdA70S285" href="#p-OmdA70S285" tabindex="-1" role="presentation"></a>{{index “reversing (exercise)”, “método reverse”, [array, métodos]}}</p>
-
 <p><a class="p_ident" id="p-RN/q2v3dpH" href="#p-RN/q2v3dpH" tabindex="-1" role="presentation"></a>Los arrays tienen un método <code>reverse</code> que cambia el array invirtiendo el orden en el que aparecen sus elementos. Para este ejercicio, escribe dos funciones, <code>reverseArray</code> y <code>reverseArrayInPlace</code>. La primera, <code>reverseArray</code>, debería tomar un array como argumento y producir un <em>nuevo</em> array que tenga los mismos elementos en orden inverso. La segunda, <code>reverseArrayInPlace</code>, debería hacer lo que hace el método <code>reverse</code>: <em>modificar</em> el array dado como argumento invirtiendo sus elementos. Ninguna de las funciones puede utilizar el método <code>reverse</code> estándar.</p>
 
 <p><a class="p_ident" id="p-dDITyrsPOv" href="#p-dDITyrsPOv" tabindex="-1" role="presentation"></a>Recordando las notas sobre efectos secundarios y funciones puras en el <a href="03_functions.html#pure">capítulo anterior</a>, ¿qué variante esperas que sea útil en más situaciones? ¿Cuál se ejecuta más rápido?</p>
@@ -731,8 +724,6 @@ console.log(arrayValue);
 </div></details>
 
 <h3 id="list"><a class="i_ident" id="i-5BqUd2Lp+I" href="#i-5BqUd2Lp+I" tabindex="-1" role="presentation"></a>Lista</h3>
-
-<p><a class="p_ident" id="p-e5AazA+bOQ" href="#p-e5AazA+bOQ" tabindex="-1" role="presentation"></a>{{index [“estructura de datos”, lista], “lista (exercise)”, “lista enlazada”, array, colección}}</p>
 
 <p><a class="p_ident" id="p-yg6YrLsDpf" href="#p-yg6YrLsDpf" tabindex="-1" role="presentation"></a>Como bloques genéricos de valores, los objetos se pueden utilizar para construir todo tipo de estructuras de datos. Una estructura de datos común es la <em>lista</em> (no confundir con arrays). Una lista es un conjunto anidado de objetos, donde el primer objeto contiene una referencia al segundo, el segundo al tercero, y así sucesivamente:</p>
 

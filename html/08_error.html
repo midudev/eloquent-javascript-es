@@ -36,8 +36,6 @@
 
 <h2><a class="h_ident" id="h-VqnTmwySiJ" href="#h-VqnTmwySiJ" tabindex="-1" role="presentation"></a>Modo estricto</h2>
 
-<p><a class="p_ident" id="p-WNgMyKdL4k" href="#p-WNgMyKdL4k" tabindex="-1" role="presentation"></a>{{index “modo estricto”, [sintaxis, error], función}}</p>
-
 <p><a class="p_ident" id="p-iJcOGE1sqz" href="#p-iJcOGE1sqz" tabindex="-1" role="presentation"></a>JavaScript puede ser un <em>poco</em> más estricto al habilitar el <em>modo estricto</em>. Esto se hace colocando la cadena <code>&quot;use strict&quot;</code> en la parte superior de un archivo o en el cuerpo de una función. Aquí tienes un ejemplo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-tKCBneE0vw" href="#c-tKCBneE0vw" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">canYouSpotTheProblem</span>() {
@@ -167,13 +165,9 @@ console.log(numberToString(<span class="tok-number">13</span>, <span class="tok-
 
 <h2><a class="h_ident" id="h-a0SXG/vlkA" href="#h-a0SXG/vlkA" tabindex="-1" role="presentation"></a>Propagación de errores</h2>
 
-<p><a class="p_ident" id="p-wNSRXedmhb" href="#p-wNSRXedmhb" tabindex="-1" role="presentation"></a>{{index entrada, salida, “error en tiempo de ejecución”, error, validación}}</p>
-
 <p><a class="p_ident" id="p-hHvvnQa31B" href="#p-hHvvnQa31B" tabindex="-1" role="presentation"></a>Lamentablemente, no todos los problemas pueden ser prevenidos por el programador. Si tu programa se comunica de alguna manera con el mundo exterior, es posible recibir entradas malformadas, sobrecargarse de trabajo o que falle la red.</p>
 
 <p><a class="p_ident" id="p-rFotl1BZs4" href="#p-rFotl1BZs4" tabindex="-1" role="presentation"></a>Si estás programando solo para ti, puedes permitirte simplemente ignorar esos problemas hasta que ocurran. Pero si estás construyendo algo que será utilizado por alguien más, generalmente quieres que el programa haga algo más que simplemente colapsar. A veces lo correcto es aceptar la entrada incorrecta y continuar ejecutándose. En otros casos, es mejor informar al usuario sobre lo que salió mal y luego rendirse. Pero en cualquier situación, el programa debe hacer algo activamente en respuesta al problema.</p>
-
-<p><a class="p_ident" id="p-LuqIlrCUOp" href="#p-LuqIlrCUOp" tabindex="-1" role="presentation"></a>{{index “función promptNumber”, validación}}</p>
 
 <p><a class="p_ident" id="p-lJIpzewONf" href="#p-lJIpzewONf" tabindex="-1" role="presentation"></a>Imaginemos que tienes una función <code>promptNumber</code> que solicita al usuario un número y lo retorna. ¿Qué debería retornar si el usuario ingresa “naranja”?</p>
 
@@ -376,8 +370,6 @@ console.log(promptNumber(<span class="tok-string">&quot;¿Cuántos árboles ves?
   }
   <span class="tok-keyword">return</span> array[<span class="tok-number">0</span>];
 }</pre>
-
-<p><a class="p_ident" id="p-eS4NJSGD8Q" href="#p-eS4NJSGD8Q" tabindex="-1" role="presentation"></a>{{index “validación”, “error en tiempo de ejecución”, fallo, suposición}}</p>
 
 <p><a class="p_ident" id="p-d/otm+M+EY" href="#p-d/otm+M+EY" tabindex="-1" role="presentation"></a>Ahora, en lugar de devolver silenciosamente <code>undefined</code> (que es lo que obtienes al leer una propiedad de un array que no existe), esto hará que tu programa falle ruidosamente tan pronto como lo uses incorrectamente. Esto hace que sea menos probable que tales errores pasen desapercibidos y más fácil encontrar su causa cuando ocurran.</p>
 

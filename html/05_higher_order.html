@@ -218,7 +218,7 @@ console.log(map(rtlScripts, <span class="tok-definition">s</span> =&gt; s.name))
 
 <p><a class="p_ident" id="p-0sSdjIXjkE" href="#p-0sSdjIXjkE" tabindex="-1" role="presentation"></a>Otra cosa común que hacer con matrices es calcular un único valor a partir de ellas. Nuestro ejemplo recurrente, sumar una colección de números, es una instancia de esto. Otro ejemplo es encontrar el guion con más caracteres.</p>
 
-<p><a class="p_ident" id="p-saI2d9pHc9" href="#p-saI2d9pHc9" tabindex="-1" role="presentation"></a>{{index [“función”, “de orden superior”], “método de reducción”}}La operación de orden superior que representa este patrón se llama <em>reduce</em> (a veces también llamada <em>fold</em>). Construye un valor tomando repetidamente un único elemento del array y combinándolo con el valor actual. Al sumar números, comenzarías con el número cero y, para cada elemento, lo sumarías al total.</p>
+<p><a class="p_ident" id="p-Nbb72CteP6" href="#p-Nbb72CteP6" tabindex="-1" role="presentation"></a>La operación de orden superior que representa este patrón se llama <em>reduce</em> (a veces también llamada <em>fold</em>). Construye un valor tomando repetidamente un único elemento del array y combinándolo con el valor actual. Al sumar números, comenzarías con el número cero y, para cada elemento, lo sumarías al total.</p>
 
 <p><a class="p_ident" id="p-2kupqkikqu" href="#p-2kupqkikqu" tabindex="-1" role="presentation"></a>Los parámetros de <code>reduce</code> son, además del array, una función de combinación y un valor inicial. Esta función es un poco menos directa que <code>filter</code> y <code>map</code>, así que obsérvala detenidamente:</p>
 
@@ -257,8 +257,6 @@ console.log(SCRIPTS.reduce((<span class="tok-definition">a</span>, <span class="
 
 <h2><a class="h_ident" id="h-bzPoX82c4F" href="#h-bzPoX82c4F" tabindex="-1" role="presentation"></a>Composabilidad</h2>
 
-<p><a class="p_ident" id="p-bFYtadUC4/" href="#p-bFYtadUC4/" tabindex="-1" role="presentation"></a>{{index bucle, máximo}}</p>
-
 <p><a class="p_ident" id="p-gP2bptAN2f" href="#p-gP2bptAN2f" tabindex="-1" role="presentation"></a>Considera cómo hubiéramos escrito el ejemplo anterior (encontrando el script más grande) sin funciones de orden superior. El código no es mucho peor:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-1FmIKHNB24" href="#c-1FmIKHNB24" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">biggest</span> = <span class="tok-keyword">null</span>;
@@ -273,9 +271,7 @@ console.log(biggest);
 
 <p><a class="p_ident" id="p-EtVmv7i/iI" href="#p-EtVmv7i/iI" tabindex="-1" role="presentation"></a>Hay algunas variables adicionales y el programa tiene cuatro líneas más, pero sigue siendo muy legible.</p>
 
-<p><a class="p_ident" id="p-5fJ9IZD2F1" href="#p-5fJ9IZD2F1" tabindex="-1" role="presentation"></a>{{index “función promedio”, composabilidad, [“función”, “de orden superior”], “método filter”, “método map”, “método reduce”}}{{id average_function}}</p>
-
-<p><a class="p_ident" id="p-/CzAZCG1Ww" href="#p-/CzAZCG1Ww" tabindex="-1" role="presentation"></a>Las abstracciones proporcionadas por estas funciones brillan realmente cuando necesitas <em>componer</em> operaciones. Como ejemplo, escribamos un código que encuentre el año promedio de origen para scripts vivos y muertos en el conjunto de datos:</p>
+<p id="average_function"><a class="p_ident" id="p-/CzAZCG1Ww" href="#p-/CzAZCG1Ww" tabindex="-1" role="presentation"></a>Las abstracciones proporcionadas por estas funciones brillan realmente cuando necesitas <em>componer</em> operaciones. Como ejemplo, escribamos un código que encuentre el año promedio de origen para scripts vivos y muertos en el conjunto de datos:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-rumPqbzokK" href="#c-rumPqbzokK" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">average</span>(<span class="tok-definition">array</span>) {
   <span class="tok-keyword">return</span> array.reduce((<span class="tok-definition">a</span>, <span class="tok-definition">b</span>) =&gt; a + b) / array.length;
