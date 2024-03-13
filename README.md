@@ -1,6 +1,8 @@
 # Eloquent JavaScript en Español
 
-<img alt="Portada del libro" src="https://github.com/midudev/eloquent-javascript-es/assets/1561955/727c8b2a-0a0f-4e9b-a6e1-9c1ec5765612" width="200px" />
+<a href='https://midu.link/eloquent'>
+  <img alt="Portada del libro" src="https://github.com/midudev/eloquent-javascript-es/assets/1561955/727c8b2a-0a0f-4e9b-a6e1-9c1ec5765612" width="250px" />
+</a>
 
 Traducción de la cuarta edición de [Eloquent JavaScript](https://eloquentjavascript.net/) al español por [midudev](https://twitch.tv/midudev).
 
