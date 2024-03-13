@@ -28,8 +28,6 @@
 
 <p><a class="p_ident" id="p-8EN87JsadZ" href="#p-8EN87JsadZ" tabindex="-1" role="presentation"></a>Hay dos alternativas. La primera es basada en el DOM pero utiliza <em>Gráficos Vectoriales Escalables</em> (SVG), en lugar de HTML. Piensa en SVG como un dialecto de marcado de documento que se centra en las formas en lugar de en el texto. Puedes incrustar un documento SVG directamente en un documento HTML o incluirlo con una etiqueta <code>&lt;img&gt;</code>.</p>
 
-<p><a class="p_ident" id="p-xGKpLinIFm" href="#p-xGKpLinIFm" tabindex="-1" role="presentation"></a>{{index despejando, [gráficos DOM], [interfaz, lienzo]}}</p>
-
 <p><a class="p_ident" id="p-5ipuOzKaXl" href="#p-5ipuOzKaXl" tabindex="-1" role="presentation"></a>La segunda alternativa se llama <em>lienzo</em>. Un lienzo es un solo elemento DOM que encapsula una imagen. Proporciona una interfaz de programación para dibujar formas en el espacio ocupado por el nodo. La principal diferencia entre un lienzo y una imagen SVG es que en SVG se conserva la descripción original de las formas para que puedan moverse o redimensionarse en cualquier momento. Un lienzo, por otro lado, convierte las formas en píxels (puntos de color en una cuadrícula) en cuanto se dibujan y no recuerda qué representan estos píxeles. La única forma de mover una forma en un lienzo es borrar el lienzo (o la parte del lienzo alrededor de la forma) y volver a dibujarlo con la forma en una nueva posición.</p>
 
 <h2><a class="h_ident" id="h-UPzm0CiZhQ" href="#h-UPzm0CiZhQ" tabindex="-1" role="presentation"></a>SVG</h2>
@@ -51,8 +49,6 @@
 circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span class="tok-string">&quot;cyan&quot;</span>);</pre>
 
 <h2><a class="h_ident" id="h-IHgXAPlRoi" href="#h-IHgXAPlRoi" tabindex="-1" role="presentation"></a>El elemento canvas</h2>
-
-<p><a class="p_ident" id="p-q32YGd/ICa" href="#p-q32YGd/ICa" tabindex="-1" role="presentation"></a>{{index [lienzo, tamaño], “canvas (etiqueta HTML)”}}</p>
 
 <p><a class="p_ident" id="p-foVNVjLewD" href="#p-foVNVjLewD" tabindex="-1" role="presentation"></a>Los gráficos en lienzo pueden ser dibujados en un elemento <code>&lt;canvas&gt;</code>. Puedes darle a dicho elemento atributos <code>width</code> y <code>height</code> para determinar su tamaño en píxels.</p>
 
