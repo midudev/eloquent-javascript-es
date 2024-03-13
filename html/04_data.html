@@ -531,9 +531,7 @@ console.log({...coordenadas, <span class="tok-definition">y</span>: <span class=
 
 <p><a class="p_ident" id="p-cHCP2HN+mo" href="#p-cHCP2HN+mo" tabindex="-1" role="presentation"></a>Como hemos visto, <code>Math</code> es una bolsa de funciones de utilidad relacionadas con números, tales como <code>Math.max</code> (máximo), <code>Math.min</code> (mínimo) y <code>Math.sqrt</code> (raíz cuadrada).</p>
 
-<p><a class="p_ident" id="p-8fO3d/nG40" href="#p-8fO3d/nG40" tabindex="-1" role="presentation"></a>{{id contaminación_de_espacio_de_nombres}}</p>
-
-<p><a class="p_ident" id="p-AEaIwoBlup" href="#p-AEaIwoBlup" tabindex="-1" role="presentation"></a>El objeto <code>Math</code> se utiliza como un contenedor para agrupar un conjunto de funcionalidades relacionadas. Solo hay un objeto <code>Math</code> y casi nunca es útil como un valor. Más bien, proporciona un <em>espacio de nombres</em> para que todas estas funciones y valores no tengan que ser enlaces globales.</p>
+<p id="contaminación de espacio de nombres"><a class="p_ident" id="p-AEaIwoBlup" href="#p-AEaIwoBlup" tabindex="-1" role="presentation"></a>El objeto <code>Math</code> se utiliza como un contenedor para agrupar un conjunto de funcionalidades relacionadas. Solo hay un objeto <code>Math</code> y casi nunca es útil como un valor. Más bien, proporciona un <em>espacio de nombres</em> para que todas estas funciones y valores no tengan que ser enlaces globales.</p>
 
 <p><a class="p_ident" id="p-7DncZUiEME" href="#p-7DncZUiEME" tabindex="-1" role="presentation"></a>Tener demasiados enlaces globales “contamina” el espacio de nombres. Cuantos más nombres se hayan tomado, más probable es que sobrescribas accidentalmente el valor de algún enlace existente. Por ejemplo, es probable que quieras nombrar algo <code>max</code> en uno de tus programas. Dado que la función <code>max</code> integrada de JavaScript está protegida de forma segura dentro del objeto <code>Math</code>, no tienes que preocuparte por sobrescribirla.</p>
 

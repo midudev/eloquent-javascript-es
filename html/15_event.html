@@ -18,9 +18,7 @@
 
 <footer>Marco Aurelio, <cite>Meditaciones</cite></footer>
 
-</blockquote>
-
-<p><a class="p_ident" id="p-K6TmLCuZAC" href="#p-K6TmLCuZAC" tabindex="-1" role="presentation"></a>{{index estoicismo, “Marco Aurelio”, input, cronología}}</p><figure class="chapter framed"><img src="img/chapter_picture_15.jpg" alt="Ilustración que muestra una máquina de Rube Goldberg que involucra una pelota, una balanza, un par de tijeras y un martillo, los cuales se afectan en una reacción en cadena que enciende una bombilla."></figure>
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_15.jpg" alt="Ilustración que muestra una máquina de Rube Goldberg que involucra una pelota, una balanza, un par de tijeras y un martillo, los cuales se afectan en una reacción en cadena que enciende una bombilla."></figure>
 
 <p><a class="p_ident" id="p-7buioHYYih" href="#p-7buioHYYih" tabindex="-1" role="presentation"></a>Algunos programas trabajan con la entrada directa del usuario, como acciones del ratón y del teclado. Ese tipo de entrada no está disponible de antemano, como una estructura de datos bien organizada, llega pieza por pieza, en tiempo real, y el programa debe responder a medida que sucede.</p>
 
@@ -208,7 +206,7 @@
 
 <p><a class="p_ident" id="p-bCo6gVY4HL" href="#p-bCo6gVY4HL" tabindex="-1" role="presentation"></a>Para obtener información precisa sobre el lugar donde ocurrió un evento de ratón, puedes mirar sus propiedades <code>clientX</code> y <code>clientY</code>, que contienen las coordenadas del evento (en píxeles) relativas a la esquina superior izquierda de la ventana, o <code>pageX</code> y <code>pageY</code>, que son relativas a la esquina superior izquierda de todo el documento (lo cual puede ser diferente cuando la ventana ha sido desplazada).</p>
 
-<p><a class="p_ident" id="p-btTzDnqkvx" href="#p-btTzDnqkvx" tabindex="-1" role="presentation"></a>{{id mouse_drawing}}El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver <a href="19_paint.html">Capítulo 19</a> para una aplicación de dibujo menos primitiva.</p>
+<p id="dibujo con ratón"><a class="p_ident" id="p-u6ObYcInxf" href="#p-u6ObYcInxf" tabindex="-1" role="presentation"></a>El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver <a href="19_paint.html">Capítulo 19</a> para una aplicación de dibujo menos primitiva.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-vLkN71+z+e" href="#c-vLkN71+z+e" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">style</span>&gt;
   <span class="tok-typeName">body</span> {
@@ -419,8 +417,6 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <p><a class="p_ident" id="p-FuxjnPqka7" href="#p-FuxjnPqka7" tabindex="-1" role="presentation"></a>La función <code>cancelAnimationFrame</code> funciona de la misma manera que <code>clearTimeout</code>; llamarla en un valor devuelto por <code>requestAnimationFrame</code> cancelará ese fotograma (si no se ha llamado ya).</p>
 
-<p><a class="p_ident" id="p-k0LQg2pHxj" href="#p-k0LQg2pHxj" tabindex="-1" role="presentation"></a>{{index “función setInterval”, “función clearInterval”, repetición}}</p>
-
 <p><a class="p_ident" id="p-et73hwNMcb" href="#p-et73hwNMcb" tabindex="-1" role="presentation"></a>Un conjunto similar de funciones, <code>setInterval</code> y <code>clearInterval</code>, se utilizan para programar temporizadores que deben <em>repetirse</em> cada <em>X</em> milisegundos.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-TYDPdAHQd3" href="#c-TYDPdAHQd3" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">ticks</span> = <span class="tok-number">0</span>;
@@ -484,7 +480,7 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <h3><a class="i_ident" id="i-NaqVfjsbAA" href="#i-NaqVfjsbAA" tabindex="-1" role="presentation"></a>Globo</h3>
 
-<p><a class="p_ident" id="p-d9ucos1++h" href="#p-d9ucos1++h" tabindex="-1" role="presentation"></a>{{index “globo (ejercicio)”, “tecla de flecha”}}Escribe una página que muestre un globo (usando el emoji de globo, 🎈). Cuando presiones la flecha hacia arriba, debería inflarse (crecer) un 10 por ciento, y cuando presiones la flecha hacia abajo, debería desinflarse (encoger) un 10 por ciento.</p>
+<p><a class="p_ident" id="p-b3Hqo7husK" href="#p-b3Hqo7husK" tabindex="-1" role="presentation"></a>Escribe una página que muestre un globo (usando el emoji de globo, 🎈). Cuando presiones la flecha hacia arriba, debería inflarse (crecer) un 10 por ciento, y cuando presiones la flecha hacia abajo, debería desinflarse (encoger) un 10 por ciento.</p>
 
 <p><a class="p_ident" id="p-IEP4Bro5Ql" href="#p-IEP4Bro5Ql" tabindex="-1" role="presentation"></a>Puedes controlar el tamaño del texto (los emoji son texto) estableciendo la propiedad CSS <code>font-size</code> (<code>style.fontSize</code>) en su elemento padre. Recuerda incluir una unidad en el valor, por ejemplo, píxeles (<code>10px</code>).</p>
 

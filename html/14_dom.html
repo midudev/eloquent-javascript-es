@@ -67,8 +67,6 @@
 
 <h2 id="estándar"><a class="h_ident" id="h-CFjVAEqJy7" href="#h-CFjVAEqJy7" tabindex="-1" role="presentation"></a>El estándar</h2>
 
-<p><a class="p_ident" id="p-Thr12eQdGQ" href="#p-Thr12eQdGQ" tabindex="-1" role="presentation"></a>{{index “lenguaje de programación”, [interfaz, diseño], [DOM, interfaz]}}</p>
-
 <p><a class="p_ident" id="p-d46TYUYjnb" href="#p-d46TYUYjnb" tabindex="-1" role="presentation"></a>Usar códigos numéricos crípticos para representar tipos de nodos no es algo muy propio de JavaScript. Más adelante en este capítulo, veremos que otras partes de la interfaz del DOM también se sienten incómodas y extrañas. La razón de esto es que la interfaz del DOM no fue diseñada exclusivamente para JavaScript. Más bien, intenta ser una interfaz neutral en cuanto a lenguaje que también pueda utilizarse en otros sistemas, no solo para HTML, sino también para XML, que es un formato de datos genérico con una sintaxis similar a HTML.</p>
 
 <p><a class="p_ident" id="p-VodjM/oXmV" href="#p-VodjM/oXmV" tabindex="-1" role="presentation"></a>Esto es lamentable. Los estándares a menudo son útiles. Pero en este caso, la ventaja (consistencia entre lenguajes) no es tan convincente. Tener una interfaz que esté correctamente integrada con el lenguaje que estás utilizando te ahorrará más tiempo que tener una interfaz familiar en varios lenguajes.</p>
@@ -134,7 +132,7 @@ console.log(enlace.href);</pre>
 
 <h2><a class="h_ident" id="h-EjVaQgERdd" href="#h-EjVaQgERdd" tabindex="-1" role="presentation"></a>Cambiando el documento</h2>
 
-<p><a class="p_ident" id="p-z1m0Az9yZa" href="#p-z1m0Az9yZa" tabindex="-1" role="presentation"></a>{{index “efecto secundario”, “método removeChild”, “método appendChild”, “método insertBefore”, [construcción, DOM], [modificación, DOM]}}Casi todo se puede cambiar en la estructura de datos del DOM. La forma del árbol del documento se puede modificar cambiando las relaciones padre-hijo. Los nodos tienen un método <code>remove</code> para removerlos de su nodo padre actual. Para añadir un nodo hijo a un nodo de elemento, podemos usar <code>appendChild</code>, que lo coloca al final de la lista de hijos, o <code>insertBefore</code>, que inserta el nodo dado como primer argumento antes del nodo dado como segundo argumento.</p>
+<p><a class="p_ident" id="p-41N9V1W1OM" href="#p-41N9V1W1OM" tabindex="-1" role="presentation"></a>Casi todo se puede cambiar en la estructura de datos del DOM. La forma del árbol del documento se puede modificar cambiando las relaciones padre-hijo. Los nodos tienen un método <code>remove</code> para removerlos de su nodo padre actual. Para añadir un nodo hijo a un nodo de elemento, podemos usar <code>appendChild</code>, que lo coloca al final de la lista de hijos, o <code>insertBefore</code>, que inserta el nodo dado como primer argumento antes del nodo dado como segundo argumento.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-DiYstIpu+b" href="#c-DiYstIpu+b" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Uno&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">p</span>&gt;Dos&lt;/<span class="tok-typeName">p</span>&gt;
@@ -255,11 +253,7 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
   <span class="tok-comment">// → 25</span>
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-EsRBOwDy8L" href="#p-EsRBOwDy8L" tabindex="-1" role="presentation"></a>{{index “método <code>getBoundingClientRect</code>”, “posición”, propiedad <code>pageXOffset</code>, propiedad <code>pageYOffset</code>}}</p>
-
-<p><a class="p_ident" id="p-JaJZBGphMj" href="#p-JaJZBGphMj" tabindex="-1" role="presentation"></a>{{id rectánguloDelimitador}}</p>
-
-<p><a class="p_ident" id="p-x9VDcFAD2/" href="#p-x9VDcFAD2/" tabindex="-1" role="presentation"></a>La manera más efectiva de encontrar la posición precisa de un elemento en la pantalla es el método <code>getBoundingClientRect</code>. Devuelve un objeto con las propiedades <code>top</code>, <code>bottom</code>, <code>left</code> y <code>right</code>, indicando las posiciones en píxeles de los lados del elemento en relación con la esquina superior izquierda de la pantalla. Si los quieres en relación al documento completo, debes sumar la posición actual de desplazamiento, que puedes encontrar en las variables <code>pageXOffset</code> y <code>pageYOffset</code>.</p>
+<p id="rectángulo delimitador"><a class="p_ident" id="p-x9VDcFAD2/" href="#p-x9VDcFAD2/" tabindex="-1" role="presentation"></a>La manera más efectiva de encontrar la posición precisa de un elemento en la pantalla es el método <code>getBoundingClientRect</code>. Devuelve un objeto con las propiedades <code>top</code>, <code>bottom</code>, <code>left</code> y <code>right</code>, indicando las posiciones en píxeles de los lados del elemento en relación con la esquina superior izquierda de la pantalla. Si los quieres en relación al documento completo, debes sumar la posición actual de desplazamiento, que puedes encontrar en las variables <code>pageXOffset</code> y <code>pageYOffset</code>.</p>
 
 <p><a class="p_ident" id="p-1CP2gBKXRb" href="#p-1CP2gBKXRb" tabindex="-1" role="presentation"></a>Diseñar un documento puede ser bastante trabajo. En aras de la rapidez, los motores de los navegadores no vuelven a diseñar inmediatamente un documento cada vez que se modifica, sino que esperan tanto como pueden. Cuando un programa de JavaScript que ha modificado el documento finaliza su ejecución, el navegador tendrá que calcular un nuevo diseño para dibujar el documento modificado en la pantalla. Cuando un programa <em>pide</em> la posición o tamaño de algo leyendo propiedades como <code>offsetHeight</code> o llamando a <code>getBoundingClientRect</code>, proporcionar esa información también requiere calcular un diseño.</p>
 
@@ -418,15 +412,11 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
 
 <p><a class="p_ident" id="p-fEXgVZgjYG" href="#p-fEXgVZgjYG" tabindex="-1" role="presentation"></a>Nuestra imagen está centrada en la página y tiene una <code>posición</code> de <code>relative</code>. Actualizaremos repetidamente los estilos <code>top</code> e <code>left</code> de esa imagen para moverla.</p>
 
-<p><a class="p_ident" id="p-L7J9O4rzAJ" href="#p-L7J9O4rzAJ" tabindex="-1" role="presentation"></a>{{index “función requestAnimationFrame”, dibujo, animación}}</p>
-
 <p id="animationFrame"><a class="p_ident" id="p-RqVeyWHVNp" href="#p-RqVeyWHVNp" tabindex="-1" role="presentation"></a>El script utiliza <code>requestAnimationFrame</code> para programar la ejecución de la función <code>animar</code> siempre que el navegador esté listo para repintar la pantalla. La función <code>animar</code> a su vez vuelve a llamar a <code>requestAnimationFrame</code> para programar la siguiente actualización. Cuando la ventana del navegador (o pestaña) está activa, esto provocará que las actualizaciones ocurran a una velocidad de aproximadamente 60 por segundo, lo que suele producir una animación atractiva.</p>
 
 <p><a class="p_ident" id="p-pmgnq2fRkz" href="#p-pmgnq2fRkz" tabindex="-1" role="presentation"></a>Si simplemente actualizáramos el DOM en un bucle, la página se congelaría y nada aparecería en la pantalla. Los navegadores no actualizan su pantalla mientras se ejecuta un programa JavaScript, ni permiten ninguna interacción con la página. Por eso necesitamos <code>requestAnimationFrame</code> — le indica al navegador que hemos terminado por ahora, y puede continuar haciendo las cosas que hacen los navegadores, como actualizar la pantalla y responder a las acciones del usuario.</p>
 
 <p><a class="p_ident" id="p-jsGXLKizvY" href="#p-jsGXLKizvY" tabindex="-1" role="presentation"></a>La función de animación recibe el tiempo actual como argumento. Para asegurar que el movimiento del gato por milisegundo sea estable, basa la velocidad a la que cambia el ángulo en la diferencia entre el tiempo actual y el último tiempo en que se ejecutó la función. Si simplemente moviera el ángulo por una cantidad fija por paso, el movimiento se interrumpiría si, por ejemplo, otra tarea pesada que se está ejecutando en la misma computadora impidiera que la función se ejecutara durante una fracción de segundo.</p>
-
-<p><a class="p_ident" id="p-cfc1E4A6lU" href="#p-cfc1E4A6lU" tabindex="-1" role="presentation"></a>{{index “función Math.cos”, “función Math.sin”, coseno, seno, trigonometría}}</p>
 
 <p id="sin_cos"><a class="p_ident" id="p-kst9P8Te8N" href="#p-kst9P8Te8N" tabindex="-1" role="presentation"></a>Moverse en círculos se hace utilizando las funciones trigonométricas <code>Math.cos</code> y <code>Math.sin</code>. Para aquellos que no estén familiarizados con ellas, las presentaré brevemente ya que ocasionalmente las utilizaremos en este libro.</p>
 

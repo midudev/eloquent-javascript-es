@@ -18,9 +18,7 @@
 
 <footer>Iain Banks, <cite>The Player of Games</cite></footer>
 
-</blockquote>
-
-<p><a class="p_ident" id="p-9ebjmgMVJa" href="#p-9ebjmgMVJa" tabindex="-1" role="presentation"></a>{{index “Banks, Ian”, “capítulo del proyecto”, simulación}}</p><figure class="chapter framed"><img src="img/chapter_picture_16.jpg" alt="Ilustración que muestra un personaje de un juego de computadora saltando sobre lava en un mundo bidimensional"></figure>
+</blockquote><figure class="chapter framed"><img src="img/chapter_picture_16.jpg" alt="Ilustración que muestra un personaje de un juego de computadora saltando sobre lava en un mundo bidimensional"></figure>
 
 <p><a class="p_ident" id="p-eMFkPMmXrs" href="#p-eMFkPMmXrs" tabindex="-1" role="presentation"></a>Gran parte de mi fascinación inicial con las computadoras, al igual que la de muchos niños nerds, tenía que ver con los juegos de computadora. Me sentía atraído por los diminutos mundos simulados que podía manipular y en los que se desarrollaban historias (más o menos), supongo, debido a la forma en que proyectaba mi imaginación en ellos más que por las posibilidades que realmente ofrecían.</p>
 
@@ -40,21 +38,13 @@
 
 <h2><a class="h_ident" id="h-LCW090OGxh" href="#h-LCW090OGxh" tabindex="-1" role="presentation"></a>La tecnología</h2>
 
-<p><a class="p_ident" id="p-+veB6d/KdW" href="#p-+veB6d/KdW" tabindex="-1" role="presentation"></a>{{index “manejo de eventos”, teclado, [DOM, gráficos]}}</p>
-
 <p><a class="p_ident" id="p-02rkmELxyA" href="#p-02rkmELxyA" tabindex="-1" role="presentation"></a>Usaremos el DOM del navegador para mostrar el juego y leeremos la entrada del usuario manejando eventos de teclado.</p>
-
-<p><a class="p_ident" id="p-AQeAYtzocX" href="#p-AQeAYtzocX" tabindex="-1" role="presentation"></a>{{index “rectángulo”, “fondo (CSS)”, “posición (CSS)”, gráficos}}</p>
 
 <p><a class="p_ident" id="p-Fxtnet7a1k" href="#p-Fxtnet7a1k" tabindex="-1" role="presentation"></a>El código relacionado con la pantalla y el teclado es solo una pequeña parte del trabajo que necesitamos hacer para construir este juego. Dado que todo se ve como cajas de colores, dibujar es sencillo: creamos elementos del DOM y usamos estilos para darles un color de fondo, tamaño y posición.</p>
 
 <p><a class="p_ident" id="p-waStMtTsQB" href="#p-waStMtTsQB" tabindex="-1" role="presentation"></a>Podemos representar el fondo como una tabla ya que es una cuadrícula inmutable de cuadrados. Los elementos de movimiento libre se pueden superponer utilizando elementos posicionados absolutamente.</p>
 
-<p><a class="p_ident" id="p-6MErUv/bvP" href="#p-6MErUv/bvP" tabindex="-1" role="presentation"></a>{{index rendimiento, [DOM, gráficos]}}</p>
-
 <p><a class="p_ident" id="p-JT/4zQXp3g" href="#p-JT/4zQXp3g" tabindex="-1" role="presentation"></a>En juegos y otros programas que deben animar gráficos y responder a la entrada del usuario sin retrasos notables, la eficiencia es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas animaciones en <a href="14_dom.html#animacion">Capítulo 14</a>. En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la optimización.</p>
-
-<p><a class="p_ident" id="p-lNtMKc2CyK" href="#p-lNtMKc2CyK" tabindex="-1" role="presentation"></a>{{index lienzo, [DOM, gráficos]}}</p>
 
 <p><a class="p_ident" id="p-3byV0kYq/Y" href="#p-3byV0kYq/Y" tabindex="-1" role="presentation"></a>En el <a href="17_canvas.html">próximo capítulo</a>, exploraremos otra tecnología del navegador, la etiqueta <code>&lt;canvas&gt;</code>, que proporciona una forma más tradicional de dibujar gráficos, trabajando en términos de formas y píxeles en lugar de elementos del DOM.</p>
 
@@ -356,9 +346,7 @@ console.log(<span class="tok-string2">`</span>${simpleLevel.width}<span class="t
 
 <p><a class="p_ident" id="p-yWTJSsN8k5" href="#p-yWTJSsN8k5" tabindex="-1" role="presentation"></a>Después de tocar la lava, el color del jugador se vuelve rojo oscuro, sugiriendo quemaduras. Cuando se ha recolectado la última moneda, agregamos dos sombras blancas difuminadas, una en la parte superior izquierda y otra en la parte superior derecha, para crear un efecto de halo blanco.</p>
 
-<p id="viewport"><a class="p_ident" id="p-LyatP1VqqG" href="#p-LyatP1VqqG" tabindex="-1" role="presentation"></a>{{index “posición (CSS)”, “ancho máximo (CSS)”, “desbordamiento (CSS)”, “altura máxima (CSS)”, viewport, desplazamiento, [DOM, gráficos]}}</p>
-
-<p><a class="p_ident" id="p-/S+i9P6DTR" href="#p-/S+i9P6DTR" tabindex="-1" role="presentation"></a>No podemos asumir que el nivel siempre encaja en el <em>viewport</em> – el elemento en el que dibujamos el juego. Por eso es necesaria la llamada a <code>scrollPlayerIntoView</code>. Se asegura de que si el nivel sobresale del viewport, desplacemos ese viewport para asegurar que el jugador esté cerca de su centro. El siguiente CSS le da al elemento DOM contenedor del juego un tamaño máximo y asegura que cualquier cosa que sobresalga de la caja del elemento no sea visible. También le damos una posición relativa para que los actores dentro de él estén posicionados de manera relativa a la esquina superior izquierda del nivel.</p>
+<p id="viewport"><a class="p_ident" id="p-/S+i9P6DTR" href="#p-/S+i9P6DTR" tabindex="-1" role="presentation"></a>No podemos asumir que el nivel siempre encaja en el <em>viewport</em> – el elemento en el que dibujamos el juego. Por eso es necesaria la llamada a <code>scrollPlayerIntoView</code>. Se asegura de que si el nivel sobresale del viewport, desplacemos ese viewport para asegurar que el jugador esté cerca de su centro. El siguiente CSS le da al elemento DOM contenedor del juego un tamaño máximo y asegura que cualquier cosa que sobresalga de la caja del elemento no sea visible. También le damos una posición relativa para que los actores dentro de él estén posicionados de manera relativa a la esquina superior izquierda del nivel.</p>
 
 <pre class="snippet" data-language="css" ><a class="c_ident" id="c-cxq+gtsZuW" href="#c-cxq+gtsZuW" tabindex="-1" role="presentation"></a>.game {
   overflow: <span class="tok-atom">hidden</span>;
@@ -414,15 +402,11 @@ console.log(<span class="tok-string2">`</span>${simpleLevel.width}<span class="t
 
 <h2><a class="h_ident" id="h-tv/BeRzlcm" href="#h-tv/BeRzlcm" tabindex="-1" role="presentation"></a>Movimiento y colisión</h2>
 
-<p><a class="p_ident" id="p-KCvNCPZKJp" href="#p-KCvNCPZKJp" tabindex="-1" role="presentation"></a>{{index “física”, [animación, “juego de plataformas”]}}</p>
-
 <p><a class="p_ident" id="p-DHGW4rc3K6" href="#p-DHGW4rc3K6" tabindex="-1" role="presentation"></a>Ahora estamos en el punto en el que podemos comenzar a agregar movimiento. El enfoque básico, seguido por la mayoría de juegos como este, es dividir tiempo en pequeños pasos y, para cada paso, mover a los actores una distancia correspondiente a su velocidad multiplicada por el tamaño del paso de tiempo. Mediremos el tiempo en segundos, por lo que las velocidades se expresan en unidades por segundo.</p>
 
 <p><a class="p_ident" id="p-maCyB+GrHq" href="#p-maCyB+GrHq" tabindex="-1" role="presentation"></a>Mover cosas es fácil. La parte difícil es lidiar con las interacciones entre los elementos. Cuando el jugador golpea una pared o el suelo, no debería simplemente atravesarlo. El juego debe notar cuando un movimiento dado hace que un objeto golpee a otro objeto y responder en consecuencia. Para las paredes, el movimiento debe detenerse. Al golpear una moneda, esa moneda debe ser recogida. Al tocar lava, el juego debería perderse.</p>
 
 <p><a class="p_ident" id="p-EaGug3+J4H" href="#p-EaGug3+J4H" tabindex="-1" role="presentation"></a>Resolver esto para el caso general es una tarea grande. Puedes encontrar bibliotecas, generalmente llamadas <em>motores físicos</em>, que simulan la interacción entre objetos físicos en dos o tres dimensiones. Tomaremos un enfoque más modesto en este capítulo, manejando solo colisiones entre objetos rectangulares y manejándolas de una manera bastante simplista.</p>
-
-<p><a class="p_ident" id="p-w6owX+pHJi" href="#p-w6owX+pHJi" tabindex="-1" role="presentation"></a>{{index rebote, “detección de colisión”, [animación, “juego de plataformas”]}}</p>
 
 <p><a class="p_ident" id="p-wWuS/PtsdK" href="#p-wWuS/PtsdK" tabindex="-1" role="presentation"></a>Antes de mover al jugador o un bloque de lava, probamos si el movimiento los llevaría dentro de una pared. Si lo hace, simplemente cancelamos el movimiento por completo. La respuesta a tal colisión depende del tipo de actor. El jugador se detendrá, mientras que un bloque de lava rebotará.</p>
 
@@ -555,8 +539,6 @@ Player.prototype.update = <span class="tok-keyword">function</span>(<span class=
   <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Player(pos, <span class="tok-keyword">new</span> Vec(xSpeed, ySpeed));
 };</pre>
 
-<p><a class="p_ident" id="p-LJa4+BA+NQ" href="#p-LJa4+BA+NQ" tabindex="-1" role="presentation"></a>{{index [animación, “juego de plataformas”], teclado}}</p>
-
 <p><a class="p_ident" id="p-+QACdgpz1o" href="#p-+QACdgpz1o" tabindex="-1" role="presentation"></a>El movimiento horizontal se calcula en función del estado de las teclas de flecha izquierda y derecha. Cuando no hay una pared bloqueando la nueva posición creada por este movimiento, se utiliza. De lo contrario, se mantiene la posición anterior.</p>
 
 <p><a class="p_ident" id="p-JyiO+ndghI" href="#p-JyiO+ndghI" tabindex="-1" role="presentation"></a>{{index “aceleración”, física}}</p>
@@ -594,11 +576,7 @@ Player.prototype.update = <span class="tok-keyword">function</span>(<span class=
 
 <h2 id="runAnimation"><a class="h_ident" id="h-HjoMjq9iwV" href="#h-HjoMjq9iwV" tabindex="-1" role="presentation"></a>Ejecutando el juego</h2>
 
-<p><a class="p_ident" id="p-2faNnmMp8R" href="#p-2faNnmMp8R" tabindex="-1" role="presentation"></a>{{index “función requestAnimationFrame”, [animación, “juego de plataformas”]}}</p>
-
 <p><a class="p_ident" id="p-f/JcUlKudG" href="#p-f/JcUlKudG" tabindex="-1" role="presentation"></a>La función <code>requestAnimationFrame</code>, que vimos en <a href="14_dom.html#animationFrame">Capítulo 14</a>, proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a <code>requestAnimationFrame</code> nuevamente después de cada fotograma.</p>
-
-<p><a class="p_ident" id="p-2faNnmMp8R_1" href="#p-2faNnmMp8R_1" tabindex="-1" role="presentation"></a>{{index “función runAnimation”, “función de devolución de llamada”, [“función”, “como valor”], [“función”, “de orden superior”], [animación, “juego de plataformas”]}}</p>
 
 <p><a class="p_ident" id="p-/pRqSyclsU" href="#p-/pRqSyclsU" tabindex="-1" role="presentation"></a>Vamos a definir una función auxiliar que envuelva todo eso en una interfaz conveniente y nos permita simplemente llamar a <code>runAnimation</code>, dándole una función que espera una diferencia de tiempo como argumento y dibuja un solo fotograma. Cuando la función de fotograma devuelve el valor <code>false</code>, la animación se detiene.</p>
 
@@ -618,8 +596,6 @@ Player.prototype.update = <span class="tok-keyword">function</span>(<span class=
 <p><a class="p_ident" id="p-gFgHJEU0sn" href="#p-gFgHJEU0sn" tabindex="-1" role="presentation"></a>He establecido un paso de fotograma máximo de 100 milisegundos (una décima parte de un segundo). Cuando la pestaña del navegador o la ventana con nuestra página está oculta, las llamadas a <code>requestAnimationFrame</code> se suspenden hasta que la pestaña o la ventana se vuelva a mostrar. En este caso, la diferencia entre <code>lastTime</code> y <code>time</code> será todo el tiempo en el que la página estuvo oculta. Avanzar el juego tanto en un solo paso se vería ridículo y podría causar efectos secundarios extraños, como que el jugador caiga a través del suelo.</p>
 
 <p><a class="p_ident" id="p-hmyKYUIDaE" href="#p-hmyKYUIDaE" tabindex="-1" role="presentation"></a>La función también convierte los pasos de tiempo a segundos, que son una cantidad más fácil de entender que los milisegundos.</p>
-
-<p><a class="p_ident" id="p-2faNnmMp8R_2" href="#p-2faNnmMp8R_2" tabindex="-1" role="presentation"></a>{{index “función de devolución de llamada”, “función runLevel”, [animación, “juego de plataformas”]}}</p>
 
 <p><a class="p_ident" id="p-luBQjw6ICO" href="#p-luBQjw6ICO" tabindex="-1" role="presentation"></a>La función <code>runLevel</code> toma un objeto <code>Level</code> y un constructor de display y devuelve una promesa. Muestra el nivel (en <code>document.body</code>) y permite al usuario jugar a través de él. Cuando el nivel termina (perdido o ganado), <code>runLevel</code> espera un segundo más (para que el usuario vea qué sucede), luego borra la pantalla, detiene la animación y resuelve la promesa con el estado final del juego.</p>
 

@@ -274,8 +274,6 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-OGnn92PfqV" href="#p-OGnn92PfqV" tabindex="-1" role="presentation"></a>Esto se puede utilizar para empaquetar varios <em>sprites</em> (elementos de imagen) en un único archivo de imagen y luego dibujar solo la parte que se necesita. Por ejemplo, tenemos esta imagen que contiene un personaje de juego en múltiples poses:</p><figure><img src="img/player_big.png" alt="Arte de píxeles mostrando un personaje de videojuego en 10 poses diferentes. Las primeras 8 forman su ciclo de animación de carrera, la novena tiene al personaje parado, y la décima lo muestra saltando."></figure>
 
-<p><a class="p_ident" id="p-tx4iba2iCf" href="#p-tx4iba2iCf" tabindex="-1" role="presentation"></a>{{index [animación, “juego de plataforma”]}}</p>
-
 <p><a class="p_ident" id="p-irGio/b5/R" href="#p-irGio/b5/R" tabindex="-1" role="presentation"></a>Alternando qué pose dibujamos, podemos mostrar una animación que parece un personaje caminando.</p>
 
 <p><a class="p_ident" id="p-v9SUKElKNf" href="#p-v9SUKElKNf" tabindex="-1" role="presentation"></a>Para animar una imagen en un lienzo, el método <code>clearRect</code> es útil. Se asemeja a <code>fillRect</code>, pero en lugar de colorear el rectángulo, lo vuelve transparente, eliminando los píxeles dibujados anteriormente.</p>
@@ -301,8 +299,6 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
     }, <span class="tok-number">120</span>);
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
-
-<p><a class="p_ident" id="p-pnmOAlueWg" href="#p-pnmOAlueWg" tabindex="-1" role="presentation"></a>{{index “operador de resto”, “operador %&quot;, [animación, “juego de plataforma”]}}</p>
 
 <p><a class="p_ident" id="p-/TzcCCetH2" href="#p-/TzcCCetH2" tabindex="-1" role="presentation"></a>El enlace <code>ciclo</code> sigue nuestra posición en la animación. En cada frame, se incrementa y luego se recorta de nuevo al rango de 0 a 7 usando el operador de resto. Este enlace se utiliza luego para calcular la coordenada x que tiene el sprite para la pose actual en la imagen.</p>
 
@@ -504,8 +500,6 @@ CanvasDisplay.prototype.drawBackground = <span class="tok-keyword">function</spa
 
 <p><a class="p_ident" id="p-ZcJ4ygukyJ" href="#p-ZcJ4ygukyJ" tabindex="-1" role="presentation"></a>No nos molesta esperar a que se cargue la imagen del sprite. Llamar a <code>drawImage</code> con una imagen que aún no se ha cargado simplemente no hará nada. Por lo tanto, podríamos no dibujar correctamente el juego durante los primeros cuadros, mientras la imagen aún se está cargando, pero eso no es un problema grave. Dado que seguimos actualizando la pantalla, la escena correcta aparecerá tan pronto como termine la carga.</p>
 
-<p><a class="p_ident" id="p-ST6OmeQs73" href="#p-ST6OmeQs73" tabindex="-1" role="presentation"></a>{{index “jugador”, [animación, “juego de plataformas”], dibujo}}</p>
-
 <p><a class="p_ident" id="p-ORq0xRxiNO" href="#p-ORq0xRxiNO" tabindex="-1" role="presentation"></a>El personaje de movimiento que se mostró anteriormente se utilizará para representar al jugador. El código que lo dibuja necesita seleccionar el sprite adecuado y la dirección basándose en el movimiento actual del jugador. Los primeros ocho sprites contienen una animación de caminar. Cuando el jugador se está moviendo a lo largo de una superficie, los recorremos según el tiempo actual. Queremos cambiar de fotogramas cada 60 milisegundos, por lo que primero dividimos el tiempo por 60. Cuando el jugador está quieto, dibujamos el noveno sprite. Durante los saltos, que se reconocen por el hecho de que la velocidad vertical no es cero, usamos el décimo sprite de la derecha.</p>
 
 <p><a class="p_ident" id="p-0A/X02lHnK" href="#p-0A/X02lHnK" tabindex="-1" role="presentation"></a>Dado que los sprites son ligeramente más anchos que el objeto del jugador—24 en lugar de 16 píxeles para permitir algo de espacio para los pies y los brazos—el método debe ajustar la coordenada x y el ancho por una cantidad dada (<code>playerXOverlap</code>).</p>
@@ -580,8 +574,6 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-KKqtQMD1GU" href="#p-KKqtQMD1GU" tabindex="-1" role="presentation"></a>Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que está haciendo el usuario o como parte de una animación, hacerlo en un canvas puede ser innecesariamente costoso. El DOM también nos permite registrar manipuladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con canvas.</p>
 
-<p><a class="p_ident" id="p-cmJbWQ8fDG" href="#p-cmJbWQ8fDG" tabindex="-1" role="presentation"></a>{{index rendimiento, optimización}}</p>
-
 <p><a class="p_ident" id="p-RRzI6Zv0v1" href="#p-RRzI6Zv0v1" tabindex="-1" role="presentation"></a>Pero el enfoque orientado a píxeles de canvas puede ser una ventaja al dibujar una gran cantidad de elementos pequeños. El hecho de que no construye una estructura de datos, sino que solo dibuja repetidamente sobre la misma superficie de píxeles, hace que canvas tenga un menor costo por forma.</p>
 
 <p><a class="p_ident" id="p-JcCiSu5oeu" href="#p-JcCiSu5oeu" tabindex="-1" role="presentation"></a>También hay efectos, como renderizar una escena píxel por píxel (por ejemplo, usando un ray tracer) o procesar una imagen con JavaScript (desenfocarla o distorsionarla), que solo son prácticos con un elemento canvas.</p>
@@ -615,8 +607,6 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 <h3><a class="i_ident" id="i-6W3KpJZhnW" href="#i-6W3KpJZhnW" tabindex="-1" role="presentation"></a>Formas</h3>
 
 <p><a class="p_ident" id="p-iT72bWnKCh" href="#p-iT72bWnKCh" tabindex="-1" role="presentation"></a>Escribe un programa que dibuje las siguientes formas en un lienzo canvas:</p>
-
-<p><a class="p_ident" id="p-+8Iub9n6Va" href="#p-+8Iub9n6Va" tabindex="-1" role="presentation"></a>{{index rotación}}</p>
 
 <ol>
 

@@ -176,7 +176,7 @@ console.log(<span class="tok-string2">/\p{Script=Arabic}/u</span>.test(<span cla
 
 <h2><a class="h_ident" id="h-jw7Q3yVJ5U" href="#h-jw7Q3yVJ5U" tabindex="-1" role="presentation"></a>Repetir partes de un patrón</h2>
 
-<p><a class="p_ident" id="p-7JOkzZOdrA" href="#p-7JOkzZOdrA" tabindex="-1" role="presentation"></a>{{index [“expresión regular”, repetición]}}Ahora sabemos cómo hacer coincidir un solo dígito. ¿Qué tal si queremos hacer coincidir un número entero, una secuencia de uno o más dígitos?</p>
+<p><a class="p_ident" id="p-Rewuh7bsSI" href="#p-Rewuh7bsSI" tabindex="-1" role="presentation"></a>Ahora sabemos cómo hacer coincidir un solo dígito. ¿Qué tal si queremos hacer coincidir un número entero, una secuencia de uno o más dígitos?</p>
 
 <p><a class="p_ident" id="p-wGrdJKTgSN" href="#p-wGrdJKTgSN" tabindex="-1" role="presentation"></a>Cuando colocas un signo más (<code>+</code>) después de algo en una expresión regular, indica que el elemento puede repetirse más de una vez. Así, <code>/\d+/</code> hace coincidir uno o más caracteres de dígitos.</p>
 
@@ -231,8 +231,6 @@ console.log(coincidencia);
 console.log(coincidencia.index);
 <span class="tok-comment">// → 8</span></pre>
 
-<p><a class="p_ident" id="p-9Qvr2j7Myu" href="#p-9Qvr2j7Myu" tabindex="-1" role="presentation"></a>{{index “propiedad de índice”, [string, indexación]}}</p>
-
 <p><a class="p_ident" id="p-MEyBiymd+J" href="#p-MEyBiymd+J" tabindex="-1" role="presentation"></a>Un objeto devuelto por <code>exec</code> tiene una propiedad de <code>index</code> que nos dice <em>dónde</em> en la cadena comienza la coincidencia exitosa. Aparte de eso, el objeto parece (y de hecho es) un array de strings, cuyo primer elemento es la cadena que coincidió. En el ejemplo anterior, esta es la secuencia de dígitos que estábamos buscando.</p>
 
 <p><a class="p_ident" id="p-e2o3R6JZyN" href="#p-e2o3R6JZyN" tabindex="-1" role="presentation"></a>Los valores de tipo string tienen un método <code>match</code> que se comporta de manera similar.</p>
@@ -258,8 +256,6 @@ console.log(<span class="tok-string2">/(\d)+/</span>.exec(<span class="tok-strin
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-JYRtOm6gNP" href="#c-JYRtOm6gNP" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string2">/(?:na)+/</span>.exec(<span class="tok-string">&quot;banana&quot;</span>));
 <span class="tok-comment">// → [&quot;nana&quot;]</span></pre>
 
-<p><a class="p_ident" id="p-SCv+lT1Tn0" href="#p-SCv+lT1Tn0" tabindex="-1" role="presentation"></a>{{index “método exec”, [“expresión regular”, “métodos”], extracción}}</p>
-
 <p><a class="p_ident" id="p-kh0zXCIbfV" href="#p-kh0zXCIbfV" tabindex="-1" role="presentation"></a>Los grupos pueden ser útiles para extraer partes de una cadena. Si no solo queremos verificar si una cadena contiene una fecha sino también extraerla y construir un objeto que la represente, podemos envolver paréntesis alrededor de los patrones de dígitos y seleccionar directamente la fecha del resultado de <code>exec</code>.</p>
 
 <p><a class="p_ident" id="p-YRmJQbp4Jt" href="#p-YRmJQbp4Jt" tabindex="-1" role="presentation"></a>Pero primero haremos un breve desvío, en el que discutiremos la forma incorporada de representar fechas y horas en JavaScript.</p>
@@ -277,8 +273,6 @@ console.log(<span class="tok-string2">/(\d)+/</span>.exec(<span class="tok-strin
 <span class="tok-comment">// → Mié Dec 09 2009 00:00:00 GMT+0100 (CET)</span>
 console.log(<span class="tok-keyword">new</span> Date(<span class="tok-number">2009</span>, <span class="tok-number">11</span>, <span class="tok-number">9</span>, <span class="tok-number">12</span>, <span class="tok-number">59</span>, <span class="tok-number">59</span>, <span class="tok-number">999</span>));
 <span class="tok-comment">// → Mié Dec 09 2009 12:59:59 GMT+0100 (CET)</span></pre>
-
-<p><a class="p_ident" id="p-EVQMyA7tjB" href="#p-EVQMyA7tjB" tabindex="-1" role="presentation"></a>{{index “Conteo basado en cero”, [interfaz, diseño]}}</p>
 
 <p><a class="p_ident" id="p-Bw0MeCio5N" href="#p-Bw0MeCio5N" tabindex="-1" role="presentation"></a>JavaScript utiliza una convención donde los números de mes empiezan en cero (por lo que diciembre es 11), pero los números de día comienzan en uno. Esto es confuso y tonto. Ten cuidado.</p>
 
@@ -308,8 +302,6 @@ console.log(getDate(<span class="tok-string">&quot;1-30-2003&quot;</span>));
 <p><a class="p_ident" id="p-rkfkh1qvgb" href="#p-rkfkh1qvgb" tabindex="-1" role="presentation"></a>La vinculación <code>_</code> (guion bajo) se ignora y se utiliza solo para omitir el elemento de coincidencia completa en el array devuelto por <code>exec</code>.</p>
 
 <h2><a class="h_ident" id="h-tNtw4L7Y+r" href="#h-tNtw4L7Y+r" tabindex="-1" role="presentation"></a>Límites y anticipación</h2>
-
-<p><a class="p_ident" id="p-XPEoZ2d0NT" href="#p-XPEoZ2d0NT" tabindex="-1" role="presentation"></a>{{index matching, [“expresión regular”, límite]}}</p>
 
 <p><a class="p_ident" id="p-qbV1DRyGh9" href="#p-qbV1DRyGh9" tabindex="-1" role="presentation"></a>Desafortunadamente, <code>getDate</code> también extraerá felizmente una fecha de la cadena <code>&quot;100-1-30000&quot;</code>. Una coincidencia puede ocurrir en cualquier parte de la cadena, por lo que en este caso, simplemente empezará en el segundo carácter y terminará en el antepenúltimo carácter.</p>
 
@@ -353,8 +345,6 @@ console.log(animalCount.test(<span class="tok-string">&quot;15 pugs&quot;</span>
 <h2 id="retroceso"><a class="h_ident" id="h-nmeiqrCjN8" href="#h-nmeiqrCjN8" tabindex="-1" role="presentation"></a>Retroceso</h2>
 
 <p><a class="p_ident" id="p-QOY2sD8j/J" href="#p-QOY2sD8j/J" tabindex="-1" role="presentation"></a>La expresión regular <code>/<wbr>^([01]+b|[\da-f]+h|\d+)$/<wbr></code> coincide ya sea con un número binario seguido de una <em>b</em>, un número hexadecimal (es decir, base 16, con las letras <em>a</em> a <em>f</em> representando los dígitos del 10 al 15) seguido de un <em>h</em>, o un número decimal regular sin un carácter de sufijo. Este es el diagrama correspondiente:</p><figure><img src="img/re_number.svg" alt="Diagrama de ferrocarril para la expresión regular '^([01]+b|\d+|[\da-f]+h)$'"></figure>
-
-<p><a class="p_ident" id="p-YRJnthsMCJ" href="#p-YRJnthsMCJ" tabindex="-1" role="presentation"></a>{{index ramificación}}</p>
 
 <p><a class="p_ident" id="p-F8PggnyHoN" href="#p-F8PggnyHoN" tabindex="-1" role="presentation"></a>Al coincidir con esta expresión, a menudo sucede que se ingresa por la rama superior (binaria) aunque la entrada en realidad no contenga un número binario. Al coincidir con la cadena <code>&quot;103&quot;</code>, por ejemplo, solo se aclara en el 3 que estamos en la rama incorrecta. La cadena <em>coincide</em> con la expresión, simplemente no con la rama en la que nos encontramos actualmente.</p>
 
@@ -486,8 +476,6 @@ console.log(<span class="tok-string">&quot;    &quot;</span>.search(<span class=
 
 <p><a class="p_ident" id="p-JYAjlYrL9h" href="#p-JYAjlYrL9h" tabindex="-1" role="presentation"></a>Los objetos de expresión regular tienen propiedades. Una de esas propiedades es <code>source</code>, que contiene la cadena de la que se creó la expresión. Otra propiedad es <code>lastIndex</code>, que controla, en algunas circunstancias limitadas, desde dónde comenzará la siguiente coincidencia.</p>
 
-<p><a class="p_ident" id="p-HYyAQ29dT7" href="#p-HYyAQ29dT7" tabindex="-1" role="presentation"></a>{{index [interface, diseño], “método exec”, [“expresión regular”, global]}}</p>
-
 <p><a class="p_ident" id="p-59IpNLm2WF" href="#p-59IpNLm2WF" tabindex="-1" role="presentation"></a>Estas circunstancias implican que la expresión regular debe tener la opción global (<code>g</code>) o pegajosa (<code>y</code>) activada, y la coincidencia debe ocurrir a través del método <code>exec</code>. Nuevamente, una solución menos confusa habría sido simplemente permitir que se pase un argumento adicional a <code>exec</code>, pero la confusión es una característica esencial de la interfaz de expresiones regulares de JavaScript.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-nXsHtqIJdF" href="#c-nXsHtqIJdF" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">pattern</span> = <span class="tok-string2">/y/g</span>;
@@ -608,8 +596,6 @@ console.log(parseINI(<span class="tok-string2">`</span>
 <p><a class="p_ident" id="p-LsLS8mCe4B" href="#p-LsLS8mCe4B" tabindex="-1" role="presentation"></a>El código recorre las líneas del archivo y construye un objeto. Las propiedades en la parte superior se almacenan directamente en ese objeto, mientras que las propiedades encontradas en secciones se almacenan en un objeto de sección separado. El enlace <code>section</code> apunta al objeto para la sección actual.</p>
 
 <p><a class="p_ident" id="p-W38Z15dwza" href="#p-W38Z15dwza" tabindex="-1" role="presentation"></a>Hay dos tipos de líneas significativas: encabezados de sección o líneas de propiedades. Cuando una línea es una propiedad regular, se almacena en la sección actual. Cuando es un encabezado de sección, se crea un nuevo objeto de sección y <code>section</code> se establece para apuntar a él.</p>
-
-<p><a class="p_ident" id="p-bzvgU9mjWB" href="#p-bzvgU9mjWB" tabindex="-1" role="presentation"></a>{{index “carácter indicador”, “signo de dólar”, límite}}</p>
 
 <p><a class="p_ident" id="p-WRi9IuRJQq" href="#p-WRi9IuRJQq" tabindex="-1" role="presentation"></a>Observa el uso recurrente de <code>^</code> y <code>$</code> para asegurarse de que la expresión coincida con toda la línea, no solo parte de ella. Dejarlos fuera resulta en un código que funciona en su mayor parte pero se comporta de manera extraña para algunas entradas, lo que puede ser un error difícil de rastrear.</p>
 

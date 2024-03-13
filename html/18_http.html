@@ -142,7 +142,7 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p-0beQN19rwJ" href="#p-0beQN19rwJ" tabindex="-1" role="presentation"></a>El código de estado 405 significa “método no permitido”, la forma en que un servidor HTTP dice “Me temo que no puedo hacer eso”.</p>
 
-<p><a class="p_ident" id="p-27+7cu4w5E" href="#p-27+7cu4w5E" tabindex="-1" role="presentation"></a>{{index “encabezado de rango”, “propiedad cuerpo”, “propiedad headers”}}Para agregar un cuerpo de solicitud, puedes incluir una opción <code>body</code>. Para establecer cabeceras, está la opción <code>headers</code>. Por ejemplo, esta solicitud incluye una cabecera <code>Range</code>, que indica al servidor que devuelva solo una parte de un documento.</p>
+<p><a class="p_ident" id="p-jNuYZ4aDPQ" href="#p-jNuYZ4aDPQ" tabindex="-1" role="presentation"></a>Para agregar un cuerpo de solicitud, puedes incluir una opción <code>body</code>. Para establecer cabeceras, está la opción <code>headers</code>. Por ejemplo, esta solicitud incluye una cabecera <code>Range</code>, que indica al servidor que devuelva solo una parte de un documento.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-AvTzEmYpI/" href="#c-AvTzEmYpI/" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;ejemplo/datos.txt&quot;</span>, {<span class="tok-definition">headers</span>: {<span class="tok-definition">Range</span>: <span class="tok-string">&quot;bytes=8-19&quot;</span>}})
   .then(<span class="tok-definition">resp</span> =&gt; resp.text())
@@ -189,7 +189,7 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p-F9Gy1z8vid" href="#p-F9Gy1z8vid" tabindex="-1" role="presentation"></a>Un formulario web consiste en cualquier número de campos de entrada agrupados en una etiqueta <code>&lt;form&gt;</code>. HTML permite varios estilos diferentes de campos, que van desde simples casillas de verificación de encendido/apagado hasta menús desplegables y campos para entrada de texto. Este libro no intentará discutir exhaustivamente todos los tipos de campos, pero comenzaremos con una vista general aproximada.</p>
 
-<p><a class="p_ident" id="p-z6lyqofrPK" href="#p-z6lyqofrPK" tabindex="-1" role="presentation"></a>Muchos tipos de campos utilizan la etiqueta <code>&lt;input&gt;</code>. El atributo <code>type</code> de esta etiqueta se utiliza para seleccionar el estilo del campo. Estos son algunos tipos comúnmente utilizados de <code>&lt;input&gt;</code>:{{index “campo de contraseña”, casilla de verificación, botón de radio, campo de archivo”}}</p>
+<p><a class="p_ident" id="p-KqKV79NEDL" href="#p-KqKV79NEDL" tabindex="-1" role="presentation"></a>Muchos tipos de campos utilizan la etiqueta <code>&lt;input&gt;</code>. El atributo <code>type</code> de esta etiqueta se utiliza para seleccionar el estilo del campo. Estos son algunos tipos comúnmente utilizados de <code>&lt;input&gt;</code>:</p>
 
 <table>
 
@@ -503,8 +503,6 @@ tres
 <h2><a class="h_ident" id="h-pubr/frF3q" href="#h-pubr/frF3q" tabindex="-1" role="presentation"></a>Almacenando datos del lado del cliente</h2>
 
 <p><a class="p_ident" id="p-nQ5HeD4HcD" href="#p-nQ5HeD4HcD" tabindex="-1" role="presentation"></a>Páginas simples de HTML con un poco de JavaScript pueden ser un gran formato para “mini aplicaciones” - pequeños programas auxiliares que automatizan tareas básicas. Conectando unos cuantos campos de formulario con controladores de eventos, puedes hacer desde convertir entre centímetros y pulgadas hasta calcular contraseñas a partir de una contraseña maestra y un nombre de sitio web.</p>
-
-<p><a class="p_ident" id="p-iLZgc1+7Yp" href="#p-iLZgc1+7Yp" tabindex="-1" role="presentation"></a>{{index persistencia, [vinculación, “como estado”], [navegador, almacenamiento]}}</p>
 
 <p><a class="p_ident" id="p-thk+vTbuyG" href="#p-thk+vTbuyG" tabindex="-1" role="presentation"></a>Cuando una aplicación así necesita recordar algo entre sesiones, no puedes usar las vinculaciones de JavaScript, ya que estas se descartan cada vez que se cierra la página. Podrías configurar un servidor, conectarlo a Internet y hacer que tu aplicación almacene algo allí. Veremos cómo hacerlo en el <a href="20_node.html">Capítulo 20</a>. Pero eso implica mucho trabajo extra y complejidad. A veces es suficiente con mantener los datos en el navegador.</p>
 

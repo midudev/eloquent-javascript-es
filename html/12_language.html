@@ -24,8 +24,6 @@
 
 <p><a class="p_ident" id="p-mZbmmA9jPL" href="#p-mZbmmA9jPL" tabindex="-1" role="presentation"></a>Lo principal que quiero mostrar en este capítulo es que no hay magia involucrada en la construcción de un lenguaje de programación. A menudo he sentido que algunas invenciones humanas eran tan inmensamente inteligentes y complicadas que nunca las entendería. Pero con un poco de lectura y experimentación, a menudo resultan ser bastante mundanas.</p>
 
-<p><a class="p_ident" id="p-vxboe8cY1Z" href="#p-vxboe8cY1Z" tabindex="-1" role="presentation"></a>{{index “Lenguaje Egg”, [abstracción, “en Egg”]}}</p>
-
 <p><a class="p_ident" id="p-AY1eTWKK2r" href="#p-AY1eTWKK2r" tabindex="-1" role="presentation"></a>Construiremos un lenguaje de programación llamado Egg. Será un lenguaje simple y diminuto, pero lo suficientemente poderoso como para expresar cualquier cálculo que puedas imaginar. Permitirá una simple abstracción basada en funciones.</p>
 
 <h2 id="parsing"><a class="h_ident" id="h-Ri8DEsFixT" href="#h-Ri8DEsFixT" tabindex="-1" role="presentation"></a>Análisis Sintáctico</h2>
@@ -60,11 +58,7 @@
   ]
 }</pre>
 
-<p><a class="p_ident" id="p-4Oty520T7c" href="#p-4Oty520T7c" tabindex="-1" role="presentation"></a>{{indexsee &quot;árbol de sintaxis abstracta”, &quot;árbol sintáctico”, [“estructura de datos”, árbol]}}</p>
-
 <p><a class="p_ident" id="p-xa+b6R6Gzl" href="#p-xa+b6R6Gzl" tabindex="-1" role="presentation"></a>Esta estructura de datos se llama un <em>árbol de sintaxis</em>. Si te imaginas los objetos como puntos y los enlaces entre ellos como líneas entre esos puntos, tiene una forma similar a un árbol. El hecho de que las expresiones contienen otras expresiones, que a su vez pueden contener más expresiones, es similar a la forma en que las ramas de un árbol se dividen y vuelven a dividir.</p><figure><img src="img/syntax_tree.svg" alt="Un diagrama que muestra la estructura del árbol de sintaxis del programa de ejemplo. La raíz está etiquetada como 'do' y tiene dos hijos, uno etiquetado como 'define' y otro como 'if'. A su vez, estos tienen más hijos que describen su contenido."></figure>
-
-<p><a class="p_ident" id="p-/T+pMy2lr/" href="#p-/T+pMy2lr/" tabindex="-1" role="presentation"></a>{{index “análisis” sintáctico}}</p>
 
 <p><a class="p_ident" id="p-oWghglriRc" href="#p-oWghglriRc" tabindex="-1" role="presentation"></a>Contrasta esto con el analizador que escribimos para el formato de archivo de configuración en <a href="09_regexp.html#ini">Capítulo 9</a>, que tenía una estructura simple: dividía la entrada en líneas y manejaba esas líneas una a la vez. Solo había algunas formas simples que una línea podía tener.</p>
 
