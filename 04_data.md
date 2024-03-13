@@ -765,7 +765,7 @@ Como hemos visto, `Math` es una bolsa de funciones de utilidad relacionadas con 
 
 {{index espacio de nombres, [objeto, propiedad]}}
 
-{{id contaminación_de_espacio_de_nombres}}
+{{id "contaminación de espacio de nombres"}}
 
 El objeto `Math` se utiliza como un contenedor para agrupar un conjunto de funcionalidades relacionadas. Solo hay un objeto `Math` y casi nunca es útil como un valor. Más bien, proporciona un _espacio de nombres_ para que todas estas funciones y valores no tengan que ser enlaces globales.
 

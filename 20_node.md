@@ -107,7 +107,7 @@ Node comenzó utilizando el sistema de módulos CommonJS, basado en la función 
 
 Pero también soporta el sistema de módulos ES más moderno. Cuando el nombre de un script termina en `.mjs`, se considera que es un módulo de este tipo, y puedes usar `import` y `export` en él (pero no `require`). Utilizaremos módulos ES en este capítulo.
 
-{{index [path, "sistema de archivos"], "ruta relativa", resolución}}
+{{index [path, "sistema de archivos"], "ruta relativa", "resolución"}}
 
 Cuando se importa un módulo, ya sea con `require` o `import`, Node debe resolver la cadena proporcionada a un ((archivo)) real que pueda cargar. Los nombres que comienzan con `/`, `./` o `../` se resuelven como archivos, relativos a la ruta del módulo actual. Aquí, `.` representa el directorio actual, `../` para un directorio arriba, y `/` para la raíz del sistema de archivos. Por lo tanto, si solicitas `"./graph.mjs"` desde el archivo `/tmp/robot/robot.mjs`, Node intentará cargar el archivo `/tmp/robot/graph.mjs`.
 
@@ -614,7 +614,7 @@ Cuando algo sale mal al abrir el archivo, `createWriteStream` seguirá devolvien
 
 El script completo del servidor está disponible en [_https://eloquentjavascript.net/code/file_server.mjs_](https://eloquentjavascript.net/code/file_server.mjs). Puedes descargarlo y, después de instalar sus dependencias, ejecutarlo con Node para iniciar tu propio servidor de archivos. Y, por supuesto, puedes modificarlo y ampliarlo para resolver los ejercicios de este capítulo o para experimentar.
 
-{{index "cuerpo (HTTP)", "programa curl", [HTTP, cliente], [método, HTTP]}}
+{{index "cuerpo (HTTP)", "programa curl", [HTTP, cliente], ["método", HTTP]}}
 
 La herramienta de línea de comandos `curl`, ampliamente disponible en sistemas ((Unix)) (como macOS y Linux), se puede utilizar para hacer ((solicitudes)) HTTP. La siguiente sesión prueba brevemente nuestro servidor. La opción `-X` se usa para establecer el método de la solicitud, y `-d` se utiliza para incluir un cuerpo de solicitud.
 

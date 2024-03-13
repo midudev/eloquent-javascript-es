@@ -6,7 +6,7 @@ Toda la realidad es un juego.
 
 quote}}
 
-{{index "Banks, Ian", "capítulo del proyecto", simulación}}
+{{index "Banks, Ian", "capítulo del proyecto", "simulación"}}
 
 {{figure {url: "img/chapter_picture_16.jpg", alt: "Ilustración que muestra un personaje de un juego de computadora saltando sobre lava en un mundo bidimensional", chapter: "framed"}}}
 
@@ -40,11 +40,11 @@ El ((juego)) consiste en un ((fondo)) estático, dispuesto como una ((rejilla)),
 
 ## La tecnología
 
-{{index "manejo de eventos", teclado, [DOM, gráficos]}}
+{{index "manejo de eventos", teclado, [DOM, "gráficos"]}}
 
 Usaremos el DOM del ((navegador)) para mostrar el juego y leeremos la entrada del usuario manejando eventos de teclado.
 
-{{index "rectángulo", "fondo (CSS)", "posición (CSS)", gráficos}}
+{{index "rectángulo", "fondo (CSS)", "posición (CSS)", "gráficos"}}
 
 El código relacionado con la pantalla y el teclado es solo una pequeña parte del trabajo que necesitamos hacer para construir este ((juego)). Dado que todo se ve como ((caja))s de colores, dibujar es sencillo: creamos elementos del DOM y usamos estilos para darles un color de fondo, tamaño y posición.
 
@@ -52,11 +52,11 @@ El código relacionado con la pantalla y el teclado es solo una pequeña parte d
 
 Podemos representar el fondo como una tabla ya que es una ((cuadrícula)) inmutable de cuadrados. Los elementos de movimiento libre se pueden superponer utilizando elementos posicionados absolutamente.
 
-{{index rendimiento, [DOM, gráficos]}}
+{{index rendimiento, [DOM, "gráficos"]}}
 
 En juegos y otros programas que deben animar ((gráficos)) y responder a la ((entrada)) del usuario sin retrasos notables, la ((eficiencia)) es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas ((animacione))s en [Capítulo ?](dom#animacion). En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la ((optimización)).
 
-{{index lienzo, [DOM, gráficos]}}
+{{index lienzo, [DOM, "gráficos"]}}
 
 En el [próximo capítulo](canvas), exploraremos otra tecnología del ((navegador)), la etiqueta `<canvas>`, que proporciona una forma más tradicional de dibujar gráficos, trabajando en términos de formas y ((píxel))es en lugar de elementos del DOM.
 
@@ -452,7 +452,7 @@ Después de tocar la lava, el color del jugador se vuelve rojo oscuro, sugiriend
 
 {{id viewport}}
 
-{{index "posición (CSS)", "ancho máximo (CSS)", "desbordamiento (CSS)", "altura máxima (CSS)", viewport, desplazamiento, [DOM, gráficos]}}
+{{index "posición (CSS)", "ancho máximo (CSS)", "desbordamiento (CSS)", "altura máxima (CSS)", viewport, desplazamiento, [DOM, "gráficos"]}}
 
 No podemos asumir que el nivel siempre encaja en el _viewport_ – el elemento en el que dibujamos el juego. Por eso es necesaria la llamada a `scrollPlayerIntoView`. Se asegura de que si el nivel sobresale del viewport, desplacemos ese viewport para asegurar que el jugador esté cerca de su centro. El siguiente ((CSS)) le da al elemento DOM contenedor del juego un tamaño máximo y asegura que cualquier cosa que sobresalga de la caja del elemento no sea visible. También le damos una posición relativa para que los actores dentro de él estén posicionados de manera relativa a la esquina superior izquierda del nivel.
 
@@ -532,7 +532,7 @@ La etiqueta `<link>`, cuando se utiliza con `rel="stylesheet"`, es una forma de 
 
 ## Movimiento y colisión
 
-{{index "física", [animación, "juego de plataformas"]}}
+{{index "física", ["animación", "juego de plataformas"]}}
 
 Ahora estamos en el punto en el que podemos comenzar a agregar movimiento. El enfoque básico, seguido por la mayoría de juegos como este, es dividir ((tiempo)) en pequeños pasos y, para cada paso, mover a los actores una distancia correspondiente a su velocidad multiplicada por el tamaño del paso de tiempo. Mediremos el tiempo en segundos, por lo que las velocidades se expresan en unidades por segundo.
 
@@ -542,7 +542,7 @@ Mover cosas es fácil. La parte difícil es lidiar con las interacciones entre l
 
 Resolver esto para el caso general es una tarea grande. Puedes encontrar bibliotecas, generalmente llamadas _((motores físicos))_, que simulan la interacción entre objetos físicos en dos o tres ((dimensiones)). Tomaremos un enfoque más modesto en este capítulo, manejando solo colisiones entre objetos rectangulares y manejándolas de una manera bastante simplista.
 
-{{index rebote, "detección de colisión", [animación, "juego de plataformas"]}}
+{{index rebote, "detección de colisión", ["animación", "juego de plataformas"]}}
 
 Antes de mover al ((jugador)) o un bloque de ((lava)), probamos si el movimiento los llevaría dentro de una pared. Si lo hace, simplemente cancelamos el movimiento por completo. La respuesta a tal colisión depende del tipo de actor. El jugador se detendrá, mientras que un bloque de lava rebotará.
 
@@ -711,7 +711,7 @@ Player.prototype.update = function(time, state, keys) {
 };
 ```
 
-{{index [animación, "juego de plataformas"], teclado}}
+{{index ["animación", "juego de plataformas"], teclado}}
 
 El movimiento horizontal se calcula en función del estado de las teclas de flecha izquierda y derecha. Cuando no hay una pared bloqueando la nueva posición creada por este movimiento, se utiliza. De lo contrario, se mantiene la posición anterior.
 
@@ -766,11 +766,11 @@ La misma función manejadora se utiliza para ambos tipos de eventos. Esta funci�
 
 ## Ejecutando el juego
 
-{{index "función requestAnimationFrame", [animación, "juego de plataformas"]}}
+{{index "función requestAnimationFrame", ["animación", "juego de plataformas"]}}
 
 La función `requestAnimationFrame`, que vimos en [Capítulo ?](dom#animationFrame), proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a `requestAnimationFrame` nuevamente después de cada fotograma.
 
-{{index "función runAnimation", "función de devolución de llamada", ["función", "como valor"], ["función", "de orden superior"], [animación, "juego de plataformas"]}}
+{{index "función runAnimation", "función de devolución de llamada", ["función", "como valor"], ["función", "de orden superior"], ["animación", "juego de plataformas"]}}
 
 Vamos a definir una función auxiliar que envuelva todo eso en una interfaz conveniente y nos permita simplemente llamar a `runAnimation`, dándole una función que espera una diferencia de tiempo como argumento y dibuja un solo fotograma. Cuando la función de fotograma devuelve el valor `false`, la animación se detiene.
 
@@ -795,7 +795,7 @@ He establecido un paso de fotograma máximo de 100 milisegundos (una décima par
 
 La función también convierte los pasos de tiempo a segundos, que son una cantidad más fácil de entender que los milisegundos.
 
-{{index "función de devolución de llamada", "función runLevel", [animación, "juego de plataformas"]}}
+{{index "función de devolución de llamada", "función runLevel", ["animación", "juego de plataformas"]}}
 
 La función `runLevel` toma un objeto `Level` y un constructor de ((display)) y devuelve una promesa. Muestra el nivel (en `document.body`) y permite al usuario jugar a través de él. Cuando el nivel termina (perdido o ganado), `runLevel` espera un segundo más (para que el usuario vea qué sucede), luego borra la pantalla, detiene la animación y resuelve la promesa con el estado final del juego.
 

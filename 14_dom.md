@@ -85,7 +85,7 @@ Las hojas son nodos de texto, y las flechas indican las relaciones padre-hijo en
 
 ## El estándar
 
-{{index "lenguaje de programación", [interfaz, diseño], [DOM, interfaz]}}
+{{index "lenguaje de programación", [interfaz, "diseño"], [DOM, interfaz]}}
 
 Usar códigos numéricos crípticos para representar tipos de nodos no es algo muy propio de JavaScript. Más adelante en este capítulo, veremos que otras partes de la interfaz del DOM también se sienten incómodas y extrañas. La razón de esto es que la interfaz del DOM no fue diseñada exclusivamente para JavaScript. Más bien, intenta ser una interfaz neutral en cuanto a lenguaje que también pueda utilizarse en otros sistemas, no solo para HTML, sino también para ((XML)), que es un formato de datos genérico con una sintaxis similar a HTML.
 
@@ -192,7 +192,9 @@ Un tercer método similar es `getElementsByClassName`, que, al igual que `getEle
 
 ## Cambiando el documento
 
-{{index "efecto secundario", "método removeChild", "método appendChild", "método insertBefore", [construcción, DOM], [modificación, DOM]}}Casi todo se puede cambiar en la estructura de datos del DOM. La forma del árbol del documento se puede modificar cambiando las relaciones padre-hijo. Los nodos tienen un método `remove` para removerlos de su nodo padre actual. Para añadir un nodo hijo a un nodo de elemento, podemos usar `appendChild`, que lo coloca al final de la lista de hijos, o `insertBefore`, que inserta el nodo dado como primer argumento antes del nodo dado como segundo argumento.
+{{index "efecto secundario", "método removeChild", "método appendChild", "método insertBefore", ["construcción", DOM], ["modificación", DOM]}}
+
+Casi todo se puede cambiar en la estructura de datos del DOM. La forma del árbol del documento se puede modificar cambiando las relaciones padre-hijo. Los nodos tienen un método `remove` para removerlos de su nodo padre actual. Para añadir un nodo hijo a un nodo de elemento, podemos usar `appendChild`, que lo coloca al final de la lista de hijos, o `insertBefore`, que inserta el nodo dado como primer argumento antes del nodo dado como segundo argumento.
 
 ```{lang: html}
 <p>Uno</p>
@@ -371,9 +373,9 @@ Darle a un párrafo un borde hace que se dibuje un rectángulo a su alrededor.
 
 if}}
 
-{{index "método `getBoundingClientRect`", "posición", propiedad `pageXOffset`, propiedad `pageYOffset`}}
+{{index "método `getBoundingClientRect`", "posición", "propiedad `pageXOffset`", "propiedad `pageYOffset`"}}
 
-{{id rectánguloDelimitador}}
+{{id "rectángulo delimitador"}}
 
 La manera más efectiva de encontrar la posición precisa de un elemento en la pantalla es el método `getBoundingClientRect`. Devuelve un objeto con las propiedades `top`, `bottom`, `left` y `right`, indicando las posiciones en píxeles de los lados del elemento en relación con la esquina superior izquierda de la pantalla. Si los quieres en relación al documento completo, debes sumar la posición actual de desplazamiento, que puedes encontrar en las variables `pageXOffset` y `pageYOffset`.
 
@@ -623,7 +625,7 @@ if}}
 
 Nuestra imagen está centrada en la página y tiene una `posición` de `relative`. Actualizaremos repetidamente los estilos `top` e `left` de esa imagen para moverla.
 
-{{index "función requestAnimationFrame", dibujo, animación}}
+{{index "función requestAnimationFrame", dibujo, "animación"}}
 
 {{id animationFrame}}
 
@@ -637,7 +639,7 @@ Si simplemente actualizáramos el DOM en un bucle, la página se congelaría y n
 
 La función de animación recibe el ((tiempo)) actual como argumento. Para asegurar que el movimiento del gato por milisegundo sea estable, basa la velocidad a la que cambia el ángulo en la diferencia entre el tiempo actual y el último tiempo en que se ejecutó la función. Si simplemente moviera el ángulo por una cantidad fija por paso, el movimiento se interrumpiría si, por ejemplo, otra tarea pesada que se está ejecutando en la misma computadora impidiera que la función se ejecutara durante una fracción de segundo.
 
-{{index "función Math.cos", "función Math.sin", coseno, seno, trigonometría}}
+{{index "función Math.cos", "función Math.sin", coseno, seno, "trigonometría"}}
 
 {{id sin_cos}}
 

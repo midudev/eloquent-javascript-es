@@ -426,7 +426,7 @@ Esto se puede utilizar para empaquetar varios _((sprites))_ (elementos de imagen
 
 {{figure {url: "img/player_big.png", alt: "Arte de píxeles mostrando un personaje de videojuego en 10 poses diferentes. Las primeras 8 forman su ciclo de animación de carrera, la novena tiene al personaje parado, y la décima lo muestra saltando.", width: "6cm"}}}
 
-{{index [animación, "juego de plataforma"]}}
+{{index ["animación", "juego de plataforma"]}}
 
 Alternando qué pose dibujamos, podemos mostrar una animación que parece un personaje caminando.
 
@@ -460,7 +460,7 @@ Sabemos que cada _((sprite))_, cada subimagen, tiene un ancho de 24 ((píxeles))
 </script>
 ```
 
-{{index "operador de resto", "operador %", [animación, "juego de plataforma"]}}
+{{index "operador de resto", "operador %", ["animación", "juego de plataforma"]}}
 
 El enlace `ciclo` sigue nuestra posición en la animación. En cada ((frame)), se incrementa y luego se recorta de nuevo al rango de 0 a 7 usando el operador de resto. Este enlace se utiliza luego para calcular la coordenada x que tiene el sprite para la pose actual en la imagen.
 
@@ -750,7 +750,7 @@ Las casillas de fondo son de 20 por 20 píxeles ya que usaremos la misma escala 
 
 No nos molesta esperar a que se cargue la imagen del sprite. Llamar a `drawImage` con una imagen que aún no se ha cargado simplemente no hará nada. Por lo tanto, podríamos no dibujar correctamente el juego durante los primeros ((cuadro))s, mientras la imagen aún se está cargando, pero eso no es un problema grave. Dado que seguimos actualizando la pantalla, la escena correcta aparecerá tan pronto como termine la carga.
 
-{{index "jugador", [animación, "juego de plataformas"], dibujo}}
+{{index "jugador", ["animación", "juego de plataformas"], dibujo}}
 
 El personaje de movimiento que se mostró anteriormente se utilizará para representar al jugador. El código que lo dibuja necesita seleccionar el ((sprite)) adecuado y la dirección basándose en el movimiento actual del jugador. Los primeros ocho sprites contienen una animación de caminar. Cuando el jugador se está moviendo a lo largo de una superficie, los recorremos según el tiempo actual. Queremos cambiar de fotogramas cada 60 milisegundos, por lo que primero dividimos el ((tiempo)) por 60. Cuando el jugador está quieto, dibujamos el noveno sprite. Durante los saltos, que se reconocen por el hecho de que la velocidad vertical no es cero, usamos el décimo sprite de la derecha.
 
@@ -858,7 +858,7 @@ SVG se puede utilizar para producir ((gráficos)) ((nítidos)) que se ven bien e
 
 Tanto SVG como HTML construyen una estructura de datos (el DOM) que representa tu imagen. Esto hace posible modificar elementos después de ser dibujados. Si necesitas cambiar repetidamente una pequeña parte de una imagen grande en respuesta a lo que está haciendo el usuario o como parte de una ((animación)), hacerlo en un canvas puede ser innecesariamente costoso. El DOM también nos permite registrar manipuladores de eventos de ratón en cada elemento de la imagen (incluso en formas dibujadas con SVG). No puedes hacer eso con canvas.
 
-{{index rendimiento, optimización}}
+{{index rendimiento, "optimización"}}
 
 Pero el enfoque orientado a píxeles de ((canvas)) puede ser una ventaja al dibujar una gran cantidad de elementos pequeños. El hecho de que no construye una estructura de datos, sino que solo dibuja repetidamente sobre la misma superficie de píxeles, hace que canvas tenga un menor costo por forma.
 
@@ -900,7 +900,7 @@ Al mostrar una animación en un canvas, se puede usar el método `clearRect` par
 
 Escribe un programa que dibuje las siguientes ((formas)) en un lienzo ((canvas)):
 
-{{index rotación}}
+{{index "rotación"}}
 
 1. Un ((trapecio)) (un ((rectángulo)) que es más ancho en un lado)
 

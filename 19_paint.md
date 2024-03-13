@@ -1,4 +1,4 @@
-{{meta {load_files: ["code/chapter/19_paint.js"], zip: "html include=["css/paint.css"]"}}}
+{{meta {load_files: ["code/chapter/19_paint.js"], zip: "html include=[\"css/paint.css\"]"}}}
 
 # Proyecto: Editor de Arte Pixelado
 
@@ -134,7 +134,7 @@ Este patrón, en el que el operador de ((spread)) de objetos se utiliza primero 
 
 ## Construcción del DOM
 
-{{index "método `createElement`", "función `elt`", [DOM, construcción]}}
+{{index "método `createElement`", "función `elt`", [DOM, "construcción"]}}
 
 Una de las principales funciones que cumplen los componentes de la interfaz es crear una estructura DOM. Nuevamente, no queremos utilizar directamente los métodos verbosos del DOM para eso, así que aquí tienes una versión ligeramente ampliada de la función `elt`:
 
@@ -704,7 +704,7 @@ La tecnología del navegador es asombrosa. Proporciona un poderoso conjunto de b
 
 Al mismo tiempo, la tecnología del navegador es ridícula. Tienes que aprender una gran cantidad de trucos tontos y hechos oscuros para dominarla, y el modelo de programación predeterminado que ofrece es tan problemático que la mayoría de los programadores prefieren cubrirlo con varias capas de ((abstracción)) en lugar de lidiar con él directamente.
 
-{{index "estándar", evolución}}
+{{index "estándar", "evolución"}}
 
 Y aunque la situación definitivamente está mejorando, en su mayoría lo hace en forma de más elementos que se agregan para abordar deficiencias, creando aún más ((complejidad)). Una característica utilizada por un millón de sitios web realmente no se puede reemplazar. Incluso si se pudiera, sería difícil decidir con qué debiera ser reemplazada.
 

@@ -182,7 +182,9 @@ Por otro lado, si estás haciendo coincidir números para hacer algo con ellos, 
 
 ## Repetir partes de un patrón
 
-{{index ["expresión regular", repetición]}}Ahora sabemos cómo hacer coincidir un solo dígito. ¿Qué tal si queremos hacer coincidir un número entero, una ((secuencia)) de uno o más dígitos?
+{{index ["expresión regular", "repetición"]}}
+
+Ahora sabemos cómo hacer coincidir un solo dígito. ¿Qué tal si queremos hacer coincidir un número entero, una ((secuencia)) de uno o más dígitos?
 
 {{index "carácter de suma", "repetición", "operador +"}}
 
@@ -265,7 +267,7 @@ console.log(coincidencia.index);
 // → 8
 ```
 
-{{index "propiedad de índice", [string, indexación]}}
+{{index "propiedad de índice", [string, "indexación"]}}
 
 Un objeto devuelto por `exec` tiene una propiedad de `index` que nos dice _dónde_ en la cadena comienza la coincidencia exitosa. Aparte de eso, el objeto parece (y de hecho es) un array de strings, cuyo primer elemento es la cadena que coincidió. En el ejemplo anterior, esta es la secuencia de ((dígitos)) que estábamos buscando.
 
@@ -306,7 +308,7 @@ console.log(/(?:na)+/.exec("banana"));
 // → ["nana"]
 ```
 
-{{index "método exec", ["expresión regular", "métodos"], extracción}}
+{{index "método exec", ["expresión regular", "métodos"], "extracción"}}
 
 Los grupos pueden ser útiles para extraer partes de una cadena. Si no solo queremos verificar si una cadena contiene una ((fecha)) sino también extraerla y construir un objeto que la represente, podemos envolver paréntesis alrededor de los patrones de dígitos y seleccionar directamente la fecha del resultado de `exec`.
 
@@ -334,7 +336,7 @@ console.log(new Date(2009, 11, 9, 12, 59, 59, 999));
 // → Mié Dec 09 2009 12:59:59 GMT+0100 (CET)
 ```
 
-{{index "Conteo basado en cero", [interfaz, diseño]}}
+{{index "Conteo basado en cero", [interfaz, "diseño"]}}
 
 JavaScript utiliza una convención donde los números de mes empiezan en cero (por lo que diciembre es 11), pero los números de día comienzan en uno. Esto es confuso y tonto. Ten cuidado.
 
@@ -380,7 +382,7 @@ La vinculación `_` (guion bajo) se ignora y se utiliza solo para omitir el elem
 
 ## Límites y anticipación
 
-{{index matching, ["expresión regular", límite]}}
+{{index matching, ["expresión regular", "límite"]}}
 
 Desafortunadamente, `getDate` también extraerá felizmente una fecha de la cadena `"100-1-30000"`. Una coincidencia puede ocurrir en cualquier parte de la cadena, por lo que en este caso, simplemente empezará en el segundo carácter y terminará en el antepenúltimo carácter.
 
@@ -453,7 +455,7 @@ La expresión regular `/^([01]+b|[\da-f]+h|\d+)$/` coincide ya sea con un númer
 
 {{figure {url: "img/re_number.svg", alt: "Diagrama de ferrocarril para la expresión regular '^([01]+b|\\d+|[\\da-f]+h)$'"}}}
 
-{{index ramificación}}
+{{index "ramificación"}}
 
 Al coincidir con esta expresión, a menudo sucede que se ingresa por la rama superior (binaria) aunque la entrada en realidad no contenga un número binario. Al coincidir con la cadena `"103"`, por ejemplo, solo se aclara en el 3 que estamos en la rama incorrecta. La cadena _coincide_ con la expresión, simplemente no con la rama en la que nos encontramos actualmente.
 
@@ -638,7 +640,7 @@ El método `exec` de manera similar no proporciona una forma conveniente de come
 
 Los objetos de expresión regular tienen propiedades. Una de esas propiedades es `source`, que contiene la cadena de la que se creó la expresión. Otra propiedad es `lastIndex`, que controla, en algunas circunstancias limitadas, desde dónde comenzará la siguiente coincidencia.
 
-{{index [interface, diseño], "método exec", ["expresión regular", global]}}
+{{index [interface, "diseño"], "método exec", ["expresión regular", global]}}
 
 Estas circunstancias implican que la expresión regular debe tener la opción global (`g`) o pegajosa (`y`) activada, y la coincidencia debe ocurrir a través del método `exec`. Nuevamente, una solución menos confusa habría sido simplemente permitir que se pase un argumento adicional a `exec`, pero la confusión es una característica esencial de la interfaz de expresiones regulares de JavaScript.
 
@@ -784,7 +786,7 @@ El código recorre las líneas del archivo y construye un objeto. Las propiedade
 
 Hay dos tipos de líneas significativas: encabezados de sección o líneas de propiedades. Cuando una línea es una propiedad regular, se almacena en la sección actual. Cuando es un encabezado de sección, se crea un nuevo objeto de sección y `section` se establece para apuntar a él.
 
-{{index "carácter indicador", "signo de dólar", límite}}
+{{index "carácter indicador", "signo de dólar", "límite"}}
 
 Observa el uso recurrente de `^` y `$` para asegurarse de que la expresión coincida con toda la línea, no solo parte de ella. Dejarlos fuera resulta en un código que funciona en su mayor parte pero se comporta de manera extraña para algunas entradas, lo que puede ser un error difícil de rastrear.
 

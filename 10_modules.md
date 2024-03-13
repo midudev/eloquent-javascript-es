@@ -42,7 +42,9 @@ Cuando las formas en que los módulos interactúan entre sí son explícitas, un
 
 ## Módulos ES
 
-{{index "ámbito global", [vinculación, global]}}El lenguaje original JavaScript no tenía ningún concepto de un módulo. Todos los scripts se ejecutaban en el mismo ámbito, y acceder a una función definida en otro script se hacía mediante la referencia a las vinculaciones globales creadas por ese script. Esto fomentaba activamente el enredo accidental y difícil de detectar del código e invitaba a problemas como scripts no relacionados que intentaban usar el mismo nombre de vinculación.
+{{index "ámbito global", ["vinculación", global]}}
+
+El lenguaje original JavaScript no tenía ningún concepto de un módulo. Todos los scripts se ejecutaban en el mismo ámbito, y acceder a una función definida en otro script se hacía mediante la referencia a las vinculaciones globales creadas por ese script. Esto fomentaba activamente el enredo accidental y difícil de detectar del código e invitaba a problemas como scripts no relacionados que intentaban usar el mismo nombre de vinculación.
 
 {{index "Módulos de ES"}}
 
@@ -79,7 +81,7 @@ console.log(`Hoy es ${dayName(ahora.getDay())}`);
 
 La palabra clave `import`, seguida de una lista de nombres de vinculación entre llaves, hace que las vinculaciones de otro módulo estén disponibles en el módulo actual. Los módulos se identifican por cadenas entre comillas.
 
-{{index [módulo, "resolución"], "resolución"}}
+{{index ["módulo", "resolución"], "resolución"}}
 
 Cómo se resuelve un nombre de módulo a un programa real difiere según la plataforma. El navegador los trata como direcciones web, mientras que Node.js los resuelve a archivos. Para ejecutar un módulo, se cargan todos los demás módulos en los que depende, y las vinculaciones exportadas se ponen a disposición de los módulos que las importan.
 
@@ -289,7 +291,9 @@ Para hacer esto posible, _compilan_ su código, traduciéndolo desde su dialecto
 
 Incluir un programa modular que consta de 200 archivos diferentes en una ((página web)) produce sus propios problemas. Si recuperar un solo archivo a través de la red lleva 50 milisegundos, cargar todo el programa lleva 10 segundos, o quizás la mitad de eso si puedes cargar varios archivos simultáneamente. Eso es mucho tiempo desperdiciado. Como recuperar un solo archivo grande tiende a ser más rápido que recuperar muchos archivos pequeños, los programadores web han comenzado a usar herramientas que combinan sus programas (que dividieron minuciosamente en módulos) en un solo archivo grande antes de publicarlo en la Web. Estas herramientas se llaman _((bundler))s_.
 
-{{index "tamaño del archivo"}}Y podemos ir más allá. Aparte del número de archivos, el _tamaño_ de los archivos también determina qué tan rápido pueden ser transferidos a través de la red. Por lo tanto, la comunidad de JavaScript ha inventado _((minificador))es_. Estas son herramientas que toman un programa de JavaScript y lo hacen más pequeño al eliminar automáticamente comentarios y espacios en blanco, renombrar enlaces y reemplazar fragmentos de código con código equivalente que ocupa menos espacio.
+{{index "tamaño del archivo"}}
+
+Y podemos ir más allá. Aparte del número de archivos, el _tamaño_ de los archivos también determina qué tan rápido pueden ser transferidos a través de la red. Por lo tanto, la comunidad de JavaScript ha inventado _((minificador))es_. Estas son herramientas que toman un programa de JavaScript y lo hacen más pequeño al eliminar automáticamente comentarios y espacios en blanco, renombrar enlaces y reemplazar fragmentos de código con código equivalente que ocupa menos espacio.
 
 {{index pipeline, herramienta}}
 
@@ -352,7 +356,7 @@ console.log(find_path(graph, "Oficina de Correos", "Cabaña"));
 
 Esto puede ser una barrera para la composición: cuando varios paquetes están utilizando diferentes estructuras de datos para describir cosas similares, combinarlos es difícil. Por lo tanto, si deseas diseñar para la composabilidad, averigua qué ((estructuras de datos)) están utilizando otras personas y, cuando sea posible, sigue su ejemplo.
 
-{{index diseño}}
+{{index "diseño"}}
 
 Diseñar una estructura de módulo adecuada para un programa puede ser difícil. En la fase en la que aún estás explorando el problema, probando diferentes cosas para ver qué funciona, es posible que no quieras preocuparte demasiado por esto, ya que mantener todo organizado puede ser una gran distracción. Una vez que tengas algo que se sienta sólido, es un buen momento para dar un paso atrás y organizarlo.
 
@@ -461,7 +465,9 @@ hint}}
 
 ### Dependencias circulares
 
-{{index dependency, "dependencia circular", "función require"}}Una dependencia circular es una situación en la que el módulo A depende de B, y B también, directa o indirectamente, depende de A. Muchos sistemas de módulos simplemente prohíben esto porque, sin importar el orden que elijas para cargar dichos módulos, no puedes asegurarte de que las dependencias de cada módulo se hayan cargado antes de que se ejecute.
+{{index dependencias, "dependencia circular", "función require"}}
+
+Una dependencia circular es una situación en la que el módulo A depende de B, y B también, directa o indirectamente, depende de A. Muchos sistemas de módulos simplemente prohíben esto porque, sin importar el orden que elijas para cargar dichos módulos, no puedes asegurarte de que las dependencias de cada módulo se hayan cargado antes de que se ejecute.
 
 Los módulos ((CommonJS)) permiten una forma limitada de dependencias cíclicas. Siempre y cuando los módulos no accedan a la interfaz de cada uno hasta después de que terminen de cargarse, las dependencias cíclicas están bien.
 

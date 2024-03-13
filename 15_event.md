@@ -6,7 +6,7 @@ Tienes poder sobre tu mente, no sobre los eventos externos. Date cuenta de esto 
 
 quote}}
 
-{{index estoicismo, "Marco Aurelio", input, cronología}}
+{{index estoicismo, "Marco Aurelio", input, "cronología"}}
 
 {{figure {url: "img/chapter_picture_15.jpg", alt: "Ilustración que muestra una máquina de Rube Goldberg que involucra una pelota, una balanza, un par de tijeras y un martillo, los cuales se afectan en una reacción en cadena que enciende una bombilla.", chapter: "framed"}}}
 
@@ -278,7 +278,9 @@ Para obtener información precisa sobre el lugar donde ocurrió un evento de rat
 
 {{index "border-radius (CSS)", "posicionamiento absoluto", "ejemplo de programa de dibujo"}}
 
-{{id mouse_drawing}}El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver [Capítulo ?](paint) para una aplicación de dibujo menos primitiva.
+{{id "dibujo con ratón"}}
+
+El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver [Capítulo ?](paint) para una aplicación de dibujo menos primitiva.
 
 ```{lang: html}
 <style>
@@ -573,7 +575,7 @@ if (Math.random() < 0.5) { // 50% de probabilidad
 
 La función `cancelAnimationFrame` funciona de la misma manera que `clearTimeout`; llamarla en un valor devuelto por `requestAnimationFrame` cancelará ese fotograma (si no se ha llamado ya).
 
-{{index "función setInterval", "función clearInterval", repetición}}
+{{index "función setInterval", "función clearInterval", "repetición"}}
 
 Un conjunto similar de funciones, `setInterval` y `clearInterval`, se utilizan para programar temporizadores que deben _repetirse_ cada _X_ milisegundos.
 
@@ -654,7 +656,9 @@ El desplazamiento se puede detectar con el evento `"scroll"`, y los cambios de e
 
 ### Globo
 
-{{index "globo (ejercicio)", "tecla de flecha"}}Escribe una página que muestre un ((globo)) (usando el ((emoji)) de globo, 🎈). Cuando presiones la flecha hacia arriba, debería inflarse (crecer) un 10 por ciento, y cuando presiones la flecha hacia abajo, debería desinflarse (encoger) un 10 por ciento.
+{{index "globo (ejercicio)", "tecla de flecha"}}
+
+Escribe una página que muestre un ((globo)) (usando el ((emoji)) de globo, 🎈). Cuando presiones la flecha hacia arriba, debería inflarse (crecer) un 10 por ciento, y cuando presiones la flecha hacia abajo, debería desinflarse (encoger) un 10 por ciento.
 
 {{index "font-size (CSS)"}}
 
@@ -739,7 +743,7 @@ Crear los elementos es mejor hacerlo con un bucle. Adjúntalos al documento para
 
 Recorrerlos se puede hacer manteniendo una variable de contador y sumándole 1 cada vez que se dispare el evento `"mousemove"`. Luego se puede usar el operador de resto (`% elementos.length`) para obtener un índice de array válido para elegir el elemento que deseas posicionar durante un evento dado.
 
-{{index simulation, "requestAnimationFrame function"}}
+{{index "simulación", "requestAnimationFrame function"}}
 
 Otro efecto interesante se puede lograr modelando un simple sistema de ((física)). Usa el evento `"mousemove"` solo para actualizar un par de enlaces que siguen la posición del ratón. Luego utiliza `requestAnimationFrame` para simular que los elementos rastreadores son atraídos a la posición del puntero del ratón. En cada paso de animación, actualiza su posición basándote en su posición relativa al puntero (y, opcionalmente, una velocidad que está almacenada para cada elemento). Descubrir una buena forma de hacer esto queda a tu cargo.
 

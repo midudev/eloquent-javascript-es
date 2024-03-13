@@ -16,7 +16,7 @@ Crear tu propio ((lenguaje de programación)) es sorprendentemente fácil (si no
 
 Lo principal que quiero mostrar en este capítulo es que no hay ((magia)) involucrada en la construcción de un lenguaje de programación. A menudo he sentido que algunas invenciones humanas eran tan inmensamente inteligentes y complicadas que nunca las entendería. Pero con un poco de lectura y experimentación, a menudo resultan ser bastante mundanas.
 
-{{index "Lenguaje Egg", [abstracción, "en Egg"]}}
+{{index "Lenguaje Egg", ["abstracción", "en Egg"]}}
 
 Construiremos un lenguaje de programación llamado Egg. Será un lenguaje simple y diminuto, pero lo suficientemente poderoso como para expresar cualquier cálculo que puedas imaginar. Permitirá una simple ((abstracción)) basada en ((funciones)).
 
@@ -72,13 +72,13 @@ La parte `>(x, 5)` del programa anterior se representaría de la siguiente maner
 }
 ```
 
-{{indexsee "árbol de sintaxis abstracta", "árbol sintáctico", ["estructura de datos", árbol]}}
+{{indexsee "árbol de sintaxis abstracta", "árbol sintáctico", ["estructura de datos", "árbol"]}}
 
 Esta estructura de datos se llama un _((árbol de sintaxis))_. Si te imaginas los objetos como puntos y los enlaces entre ellos como líneas entre esos puntos, tiene una forma similar a un ((árbol)). El hecho de que las expresiones contienen otras expresiones, que a su vez pueden contener más expresiones, es similar a la forma en que las ramas de un árbol se dividen y vuelven a dividir.
 
 {{figure {url: "img/syntax_tree.svg", alt: "Un diagrama que muestra la estructura del árbol de sintaxis del programa de ejemplo. La raíz está etiquetada como 'do' y tiene dos hijos, uno etiquetado como 'define' y otro como 'if'. A su vez, estos tienen más hijos que describen su contenido.", width: "5cm"}}}
 
-{{index "análisis" sintáctico}}
+{{index "análisis" "sintáctico"}}
 
 Contrasta esto con el analizador que escribimos para el formato de archivo de configuración en [Capítulo ?](regexp#ini), que tenía una estructura simple: dividía la entrada en líneas y manejaba esas líneas una a la vez. Solo había algunas formas simples que una línea podía tener.
 

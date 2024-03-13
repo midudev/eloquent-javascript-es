@@ -196,7 +196,9 @@ fetch("ejemplo/datos.txt", {method: "DELETE"}).then(resp => {
 
 El código de estado 405 significa "método no permitido", la forma en que un servidor HTTP dice "Me temo que no puedo hacer eso".
 
-{{index "encabezado de rango", "propiedad cuerpo", "propiedad headers"}}Para agregar un cuerpo de solicitud, puedes incluir una opción `body`. Para establecer cabeceras, está la opción `headers`. Por ejemplo, esta solicitud incluye una cabecera `Range`, que indica al servidor que devuelva solo una parte de un documento.
+{{index "encabezado de rango", "propiedad cuerpo", "propiedad headers"}}
+
+Para agregar un cuerpo de solicitud, puedes incluir una opción `body`. Para establecer cabeceras, está la opción `headers`. Por ejemplo, esta solicitud incluye una cabecera `Range`, que indica al servidor que devuelva solo una parte de un documento.
 
 ```{test: no}
 fetch("ejemplo/datos.txt", {headers: {Range: "bytes=8-19"}})
@@ -275,7 +277,9 @@ Un formulario web consiste en cualquier número de campos de entrada agrupados e
 
 {{index "entrada (etiqueta HTML)", "atributo tipo"}}
 
-Muchos tipos de campos utilizan la etiqueta `<input>`. El atributo `type` de esta etiqueta se utiliza para seleccionar el estilo del campo. Estos son algunos tipos comúnmente utilizados de `<input>`:{{index "campo de contraseña", casilla de verificación, botón de radio, campo de archivo"}}
+Muchos tipos de campos utilizan la etiqueta `<input>`. El atributo `type` de esta etiqueta se utiliza para seleccionar el estilo del campo. Estos son algunos tipos comúnmente utilizados de `<input>`:
+
+{{index "campo de contraseña", "casilla de verificación", "botón de radio", "campo de archivo"}}
 
 {{table {cols: [1,5]}}}
 
@@ -700,7 +704,7 @@ function readFileText(file) {
 
 Páginas simples de ((HTML)) con un poco de JavaScript pueden ser un gran formato para "((mini aplicaciones))" - pequeños programas auxiliares que automatizan tareas básicas. Conectando unos cuantos campos de formulario con controladores de eventos, puedes hacer desde convertir entre centímetros y pulgadas hasta calcular contraseñas a partir de una contraseña maestra y un nombre de sitio web.
 
-{{index persistencia, [vinculación, "como estado"], [navegador, almacenamiento]}}
+{{index persistencia, ["vinculación", "como estado"], [navegador, almacenamiento]}}
 
 Cuando una aplicación así necesita recordar algo entre sesiones, no puedes usar las vinculaciones de JavaScript, ya que estas se descartan cada vez que se cierra la página. Podrías configurar un servidor, conectarlo a Internet y hacer que tu aplicación almacene algo allí. Veremos cómo hacerlo en el [Capítulo ?](node). Pero eso implica mucho trabajo extra y complejidad. A veces es suficiente con mantener los datos en el ((navegador)).
 
