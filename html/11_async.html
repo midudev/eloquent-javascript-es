@@ -375,7 +375,7 @@ jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.
 
 <p><a class="p_ident" id="p-toeS8qCaQC" href="#p-toeS8qCaQC" tabindex="-1" role="presentation"></a>Para poder detener un video en reproducción, el proceso está envuelto en una clase. Esta clase tiene un método asíncrono <code>play</code> que devuelve una promesa que solo se resuelve cuando la reproducción se detiene de nuevo a través del método <code>stop</code>.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-e8QIAV+ZhD" href="#c-e8QIAV+ZhD" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">wait</span>(<span class="tok-definition">time</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9CWs6kw1Nf" href="#c-9CWs6kw1Nf" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">wait</span>(<span class="tok-definition">time</span>) {
   <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Promise(<span class="tok-definition">accept</span> =&gt; setTimeout(accept, time));
 }
 
@@ -398,11 +398,11 @@ jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.
   <span class="tok-definition">stop</span>() {
     <span class="tok-keyword">this</span>.stopped = true;
   }
-}
-<span class="tok-string2">``</span><span class="tok-string2">`La función `</span>wait<span class="tok-string2">` envuelve `</span>setTimeout<span class="tok-string2">` en una promesa que se resuelve después del número de milisegundos especificado. Esto es útil para controlar la velocidad de reproducción.</span>
+}</pre>
 
-<span class="tok-string2">`</span><span class="tok-string2">``</span>{startCode: true}
-<span class="tok-keyword">let</span> <span class="tok-definition">video</span> = <span class="tok-keyword">new</span> VideoPlayer(clipImages, <span class="tok-number">100</span>);
+<p><a class="p_ident" id="p-wKK2/D6QRW" href="#p-wKK2/D6QRW" tabindex="-1" role="presentation"></a>La función <code>wait</code> envuelve <code>setTimeout</code> en una promesa que se resuelve después del número de milisegundos especificado. Esto es útil para controlar la velocidad de reproducción.</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-WIv+1JofkY" href="#c-WIv+1JofkY" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">video</span> = <span class="tok-keyword">new</span> VideoPlayer(clipImages, <span class="tok-number">100</span>);
 video.play().catch(<span class="tok-definition">e</span> =&gt; {
   console.log(<span class="tok-string">&quot;La reproducción falló: &quot;</span> + e);
 });

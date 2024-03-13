@@ -428,8 +428,6 @@ console.log(<span class="tok-string2">`</span>${simpleLevel.width}<span class="t
 
 <p><a class="p_ident" id="p-wWuS/PtsdK" href="#p-wWuS/PtsdK" tabindex="-1" role="presentation"></a>Antes de mover al jugador o un bloque de lava, probamos si el movimiento los llevaría dentro de una pared. Si lo hace, simplemente cancelamos el movimiento por completo. La respuesta a tal colisión depende del tipo de actor. El jugador se detendrá, mientras que un bloque de lava rebotará.</p>
 
-<p><a class="p_ident" id="p-79mMVoA0pC" href="#p-79mMVoA0pC" tabindex="-1" role="presentation"></a>{{index discretización}}</p>
-
 <p><a class="p_ident" id="p-FBDw96yHTk" href="#p-FBDw96yHTk" tabindex="-1" role="presentation"></a>Este enfoque requiere que nuestros pasos de tiempo sean bastante pequeños, ya que hará que el movimiento se detenga antes de que los objetos realmente se toquen. Si los pasos de tiempo (y por lo tanto los pasos de movimiento) son demasiado grandes, el jugador terminaría elevándose a una distancia notable sobre el suelo. Otro enfoque, argumentablemente mejor pero más complicado, sería encontrar el punto exacto de colisión y moverse allí. Tomaremos el enfoque simple y ocultaremos sus problemas asegurando que la animación avance en pasos pequeños.</p>
 
 <p id="touches"><a class="p_ident" id="p-QDNT+CDkqt" href="#p-QDNT+CDkqt" tabindex="-1" role="presentation"></a>Este método nos indica si un rectángulo (especificado por una posición y un tamaño) toca un elemento de rejilla de un tipo dado.</p>
@@ -618,8 +616,6 @@ Player.prototype.update = <span class="tok-keyword">function</span>(<span class=
   }
   requestAnimationFrame(frame);
 }</pre>
-
-<p><a class="p_ident" id="p-ffl7V/nNRH" href="#p-ffl7V/nNRH" tabindex="-1" role="presentation"></a>{{index tiempo, discretización}}</p>
 
 <p><a class="p_ident" id="p-gFgHJEU0sn" href="#p-gFgHJEU0sn" tabindex="-1" role="presentation"></a>He establecido un paso de fotograma máximo de 100 milisegundos (una décima parte de un segundo). Cuando la pestaña del navegador o la ventana con nuestra página está oculta, las llamadas a <code>requestAnimationFrame</code> se suspenden hasta que la pestaña o la ventana se vuelva a mostrar. En este caso, la diferencia entre <code>lastTime</code> y <code>time</code> será todo el tiempo en el que la página estuvo oculta. Avanzar el juego tanto en un solo paso se vería ridículo y podría causar efectos secundarios extraños, como que el jugador caiga a través del suelo.</p>
 

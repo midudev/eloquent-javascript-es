@@ -28,8 +28,6 @@
 
 <h2><a class="h_ident" id="h-Yt9O8dBHYO" href="#h-Yt9O8dBHYO" tabindex="-1" role="presentation"></a>El hombreardilla</h2>
 
-<p><a class="p_ident" id="p-S30iT8Yoj4" href="#p-S30iT8Yoj4" tabindex="-1" role="presentation"></a>{{index “ejemplo hombreardilla”, licantropía}}</p>
-
 <p><a class="p_ident" id="p-Llg6mgOpjE" href="#p-Llg6mgOpjE" tabindex="-1" role="presentation"></a>De vez en cuando, usualmente entre las 8 p. m. y las 10 p. m., Jacques se encuentra transformándose en un pequeño roedor peludo con una cola espesa.</p>
 
 <p><a class="p_ident" id="p-JWDybfL/03" href="#p-JWDybfL/03" tabindex="-1" role="presentation"></a>Por un lado, Jacques está bastante contento de no tener licantropía clásica. Convertirse en una ardilla causa menos problemas que convertirse en un lobo. En lugar de preocuparse por comer accidentalmente al vecino (<em>eso</em> sería incómodo), se preocupa por ser comido por el gato del vecino. Después de dos ocasiones de despertar en una rama precariamente delgada en la copa de un roble, desnudo y desorientado, ha optado por cerrar con llave las puertas y ventanas de su habitación por la noche y poner unas cuantas nueces en el suelo para mantenerse ocupado.</p>
@@ -39,8 +37,6 @@
 <p><a class="p_ident" id="p-pz0x8J1W0J" href="#p-pz0x8J1W0J" tabindex="-1" role="presentation"></a>Cambió a un enfoque más científico, Jacques ha comenzado a llevar un registro diario de todo lo que hace en un día dado y si cambió de forma. Con estos datos, espera estrechar las condiciones que desencadenan las transformaciones.Lo primero que necesita es una estructura de datos para almacenar esta información.</p>
 
 <h2><a class="h_ident" id="h-7lZW6LyfA5" href="#h-7lZW6LyfA5" tabindex="-1" role="presentation"></a>Conjuntos de datos</h2>
-
-<p><a class="p_ident" id="p-KMug6L1qG5" href="#p-KMug6L1qG5" tabindex="-1" role="presentation"></a>{{index [“estructura de datos”, “colección”], [memoria, organización]}}</p>
 
 <p><a class="p_ident" id="p-970mNfCcKX" href="#p-970mNfCcKX" tabindex="-1" role="presentation"></a>Para trabajar con un conjunto de datos digitales, primero tenemos que encontrar una forma de representarlo en la memoria de nuestra máquina. Digamos, por ejemplo, que queremos representar una colección de los números 2, 3, 5, 7 y 11.</p>
 
@@ -55,8 +51,6 @@ console.log(listaDeNumeros[<span class="tok-number">0</span>]);
 <span class="tok-comment">// → 2</span>
 console.log(listaDeNumeros[<span class="tok-number">2</span> - <span class="tok-number">1</span>]);
 <span class="tok-comment">// → 3</span></pre>
-
-<p><a class="p_ident" id="p-h+vepjXyDG" href="#p-h+vepjXyDG" tabindex="-1" role="presentation"></a>{{index &quot;[] (subíndice)”, [array, indexación]}}</p>
 
 <p><a class="p_ident" id="p-ViqdBSDQdu" href="#p-ViqdBSDQdu" tabindex="-1" role="presentation"></a>La notación para acceder a los elementos dentro de un array también utiliza corchetes. Un par de corchetes inmediatamente después de una expresión, con otra expresión dentro de ellos, buscará el elemento en la expresión de la izquierda que corresponde al <em>índice</em> dado por la expresión en los corchetes.</p>
 
@@ -77,9 +71,7 @@ console.log(listaDeNumeros[<span class="tok-number">2</span> - <span class="tok-
 
 <p><a class="p_ident" id="p-ChTe2pKBga" href="#p-ChTe2pKBga" tabindex="-1" role="presentation"></a>Al igual que las cadenas de texto, los arrays tienen una propiedad <code>length</code> que nos dice cuántos elementos tiene el array.</p>
 
-<p><a class="p_ident" id="p-nZw6YaAmfp" href="#p-nZw6YaAmfp" tabindex="-1" role="presentation"></a>{{id métodos}}</p>
-
-<h2><a class="h_ident" id="h-OYddlNFqr1" href="#h-OYddlNFqr1" tabindex="-1" role="presentation"></a>Métodos</h2>
+<h2 id="métodos"><a class="h_ident" id="h-OYddlNFqr1" href="#h-OYddlNFqr1" tabindex="-1" role="presentation"></a>Métodos</h2>
 
 <p><a class="p_ident" id="p-6tlYp26MGo" href="#p-6tlYp26MGo" tabindex="-1" role="presentation"></a>Tanto los valores de cadena como los de array contienen, además de la propiedad <code>length</code>, varias propiedades que contienen valores de función.</p>
 
@@ -95,9 +87,7 @@ console.log(doh.toUpperCase());
 
 <p><a class="p_ident" id="p-weOH3L+kzO" href="#p-weOH3L+kzO" tabindex="-1" role="presentation"></a>Las propiedades que contienen funciones generalmente se llaman <em>métodos</em> del valor al que pertenecen, como en “<code>toUpperCase</code> es un método de una cadena”.</p>
 
-<p><a class="p_ident" id="p-tmt7EoU7xG" href="#p-tmt7EoU7xG" tabindex="-1" role="presentation"></a>{{id métodos_de_array}}</p>
-
-<p><a class="p_ident" id="p-jt+3lZPIHN" href="#p-jt+3lZPIHN" tabindex="-1" role="presentation"></a>Este ejemplo demuestra dos métodos que puedes utilizar para manipular arrays:</p>
+<p id="métodos_de_array"><a class="p_ident" id="p-jt+3lZPIHN" href="#p-jt+3lZPIHN" tabindex="-1" role="presentation"></a>Este ejemplo demuestra dos métodos que puedes utilizar para manipular arrays:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hdp5Ku4pqK" href="#c-hdp5Ku4pqK" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">secuencia</span> = [<span class="tok-number">1</span>, <span class="tok-number">2</span>, <span class="tok-number">3</span>];
 secuencia.push(<span class="tok-number">4</span>);
@@ -115,7 +105,7 @@ console.log(secuencia);
 
 <h2><a class="h_ident" id="h-WSNvRpk0Lx" href="#h-WSNvRpk0Lx" tabindex="-1" role="presentation"></a>Objetos</h2>
 
-<p><a class="p_ident" id="p-HLtionX2Dg" href="#p-HLtionX2Dg" tabindex="-1" role="presentation"></a>{{index diario, “ejemplo weresquirrel”, array, registro}}De vuelta al hombre-ardilla. Un conjunto de entradas de registro diario se puede representar como un array, pero las entradas no consisten solo en un número o una cadena, cada entrada necesita almacenar una lista de actividades y un valor booleano que indique si Jacques se convirtió en ardilla o no. Idealmente, nos gustaría agrupar estos elementos en un único valor y luego poner esos valores agrupados en un array de entradas de registro.</p>
+<p><a class="p_ident" id="p-5YPu3IsKrc" href="#p-5YPu3IsKrc" tabindex="-1" role="presentation"></a>De vuelta al hombre-ardilla. Un conjunto de entradas de registro diario se puede representar como un array, pero las entradas no consisten solo en un número o una cadena, cada entrada necesita almacenar una lista de actividades y un valor booleano que indique si Jacques se convirtió en ardilla o no. Idealmente, nos gustaría agrupar estos elementos en un único valor y luego poner esos valores agrupados en un array de entradas de registro.</p>
 
 <p><a class="p_ident" id="p-ClPqABLBeQ" href="#p-ClPqABLBeQ" tabindex="-1" role="presentation"></a>Los valores del tipo object son colecciones arbitrarias de propiedades. Una forma de crear un objeto es usando llaves como una expresión:</p>
 
@@ -172,8 +162,6 @@ console.log(<span class="tok-string">&quot;derecha&quot;</span> <span class="tok
 Object.assign(objetoA, {<span class="tok-definition">b</span>: <span class="tok-number">3</span>, <span class="tok-definition">c</span>: <span class="tok-number">4</span>});
 console.log(objetoA);
 <span class="tok-comment">// → {a: 1, b: 3, c: 4}</span></pre>
-
-<p><a class="p_ident" id="p-HOj8QkUxmZ" href="#p-HOj8QkUxmZ" tabindex="-1" role="presentation"></a>{{index array, colección}}</p>
 
 <p><a class="p_ident" id="p-yixpDsnrLp" href="#p-yixpDsnrLp" tabindex="-1" role="presentation"></a>Los arrays, entonces, son solo un tipo de objeto especializado para almacenar secuencias de cosas. Si evalúas <code>typeof []</code>, producirá <code>&quot;object&quot;</code>. Puedes visualizar los arrays como pulpos largos y planos con todos sus tentáculos en una fila ordenada, etiquetados con números.</p>
 
@@ -254,8 +242,6 @@ addEntry([<span class="tok-string">&quot;weekend&quot;</span>, <span class="tok-
 
 <p><a class="p_ident" id="p-Hx333U8ZNd" href="#p-Hx333U8ZNd" tabindex="-1" role="presentation"></a>Una vez que tiene suficientes puntos de datos, tiene la intención de utilizar estadísticas para descubrir qué eventos pueden estar relacionados con las transformaciones en ardilla.</p>
 
-<p><a class="p_ident" id="p-zT4u3sHvXe" href="#p-zT4u3sHvXe" tabindex="-1" role="presentation"></a>{{index de correlación}}</p>
-
 <p><a class="p_ident" id="p-M1p8TuDLQo" href="#p-M1p8TuDLQo" tabindex="-1" role="presentation"></a>La <em>correlación</em> es una medida de la dependencia entre variables estadísticas. Una variable estadística no es exactamente igual a una variable de programación. En estadística, típicamente tienes un conjunto de <em>mediciones</em>, y cada variable se mide para cada medición. La correlación entre variables suele expresarse como un valor que va de -1 a 1. Una correlación de cero significa que las variables no están relacionadas. Una correlación de 1 indica que las dos están perfectamente relacionadas: si conoces una, también conoces la otra. Un -1 también significa que las variables están perfectamente relacionadas pero son opuestas: cuando una es verdadera, la otra es falsa.</p>
 
 <p><a class="p_ident" id="p-F2XylLr+TX" href="#p-F2XylLr+TX" tabindex="-1" role="presentation"></a>Para calcular la medida de correlación entre dos variables booleanas, podemos utilizar el <em>coeficiente phi</em> (<em>ϕ</em>). Esta es una fórmula cuya entrada es una tabla de frecuencias que contiene la cantidad de veces que se observaron las diferentes combinaciones de las variables. La salida de la fórmula es un número entre -1 y 1 que describe la correlación.</p>
@@ -272,8 +258,6 @@ addEntry([<span class="tok-string">&quot;weekend&quot;</span>, <span class="tok-
 <p><a class="p_ident" id="p-sqPMROtj1n" href="#p-sqPMROtj1n" tabindex="-1" role="presentation"></a>Entonces para la tabla de pizza, la parte encima de la línea de división (el dividendo) sería 1×76−4×9 = 40, y la parte debajo de ella (el divisor) sería la raíz cuadrada de 5×85×10×80, o √340,000. Esto da un valor de <em>ϕ</em> ≈ 0.069, que es muy pequeño. Comer pizza no parece tener influencia en las transformaciones.</p>
 
 <h2><a class="h_ident" id="h-BLimv2lbPx" href="#h-BLimv2lbPx" tabindex="-1" role="presentation"></a>Calculando la correlación</h2>
-
-<p><a class="p_ident" id="p-2aoyFyeHog" href="#p-2aoyFyeHog" tabindex="-1" role="presentation"></a>{{index [array, “como tabla”], [anidación, “de arrays”]}}</p>
 
 <p><a class="p_ident" id="p-Qw3t7bWwW/" href="#p-Qw3t7bWwW/" tabindex="-1" role="presentation"></a>Podemos representar una tabla dos por dos en JavaScript con un array de cuatro elementos (<code>[76, 9, 4, 1]</code>). También podríamos usar otras representaciones, como un array que contiene dos arrays de dos elementos cada uno (<code>[[76, 9], [4, 1]]</code>) o un objeto con nombres de propiedades como <code>&quot;11&quot;</code> y <code>&quot;01&quot;</code>, pero el array plano es simple y hace que las expresiones que acceden a la tabla sean agradabemente cortas. Interpretaremos los índices del array como números binarios de dos bits, donde el dígito más a la izquierda (más significativo) se refiere a la variable ardilla y el dígito más a la derecha (menos significativo) se refiere a la variable de evento. Por ejemplo, el número binario <code>10</code> se refiere al caso donde Jacques se transformó en ardilla, pero el evento (digamos, “pizza”) no ocurrió. Esto sucedió cuatro veces. Y como <code>10</code> en binario es 2 en notación decimal, almacenaremos este número en el índice 2 del array.</p>
 
@@ -358,7 +342,7 @@ console.log(journalEvents(JOURNAL));
 
 <p><a class="p_ident" id="p-s4bZe5jKvi" href="#p-s4bZe5jKvi" tabindex="-1" role="presentation"></a>Usando esa función, podemos ver todas las correlaciones:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yWt8L/kPau" href="#c-yWt8L/kPau" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">event</span> <span class="tok-keyword">of</span> journalEvents(JOURNAL)) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-G4p9qs25MP" href="#c-G4p9qs25MP" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">event</span> <span class="tok-keyword">of</span> journalEvents(JOURNAL)) {
   console.log(event + <span class="tok-string">&quot;:&quot;</span>, phi(tableFor(event, JOURNAL)));
 }
 <span class="tok-comment">// → zanahoria:   0.0140970969</span>
@@ -366,11 +350,11 @@ console.log(journalEvents(JOURNAL));
 <span class="tok-comment">// → fin de semana:  0.1371988681</span>
 <span class="tok-comment">// → pan:   -0.0757554019</span>
 <span class="tok-comment">// → pudín: -0.0648203724</span>
-<span class="tok-comment">// y así sucesivamente...</span>
-<span class="tok-string2">``</span><span class="tok-string2">`La mayoría de las correlaciones parecen estar cerca de cero. Comer zanahorias, pan o pudín aparentemente no desencadena la licantropía de las ardillas. Las transformaciones parecen ocurrir un poco más a menudo los fines de semana. Filtraremos los resultados para mostrar solo correlaciones mayores que 0.1 o menores que -0.1:</span>
+<span class="tok-comment">// y así sucesivamente...</span></pre>
 
-<span class="tok-string2">`</span><span class="tok-string2">``</span>{test: no, startCode: true}
-<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">event</span> <span class="tok-keyword">of</span> journalEvents(JOURNAL)) {
+<p><a class="p_ident" id="p-faxM9AZjy9" href="#p-faxM9AZjy9" tabindex="-1" role="presentation"></a>La mayoría de las correlaciones parecen estar cerca de cero. Comer zanahorias, pan o pudín aparentemente no desencadena la licantropía de las ardillas. Las transformaciones parecen ocurrir un poco más a menudo los fines de semana. Filtraremos los resultados para mostrar solo correlaciones mayores que 0.1 o menores que -0.1:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ezWFQYT/Ls" href="#c-ezWFQYT/Ls" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">event</span> <span class="tok-keyword">of</span> journalEvents(JOURNAL)) {
   <span class="tok-keyword">let</span> <span class="tok-definition">correlation</span> = phi(tableFor(event, JOURNAL));
   <span class="tok-keyword">if</span> (correlation &gt; <span class="tok-number">0.1</span> || correlation &lt; -<span class="tok-number">0.1</span>) {
     console.log(event + <span class="tok-string">&quot;:&quot;</span>, correlation);
@@ -476,7 +460,7 @@ console.log(<span class="tok-string">&quot;coconut&quot;</span>.indexOf(<span cl
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-xM5/GBnZVG" href="#c-xM5/GBnZVG" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;one two three&quot;</span>.indexOf(<span class="tok-string">&quot;ee&quot;</span>));
 <span class="tok-comment">// → 11</span></pre>
 
-<p><a class="p_ident" id="p-uJh42AOll5" href="#p-uJh42AOll5" tabindex="-1" role="presentation"></a>{{index [whitespace, trimming], “trim method”}}El método <code>trim</code> elimina los espacios en blanco (espacios, saltos de línea, tabulaciones y caracteres similares) del principio y final de una cadena:</p>
+<p><a class="p_ident" id="p-/V2mwaLDMd" href="#p-/V2mwaLDMd" tabindex="-1" role="presentation"></a>El método <code>trim</code> elimina los espacios en blanco (espacios, saltos de línea, tabulaciones y caracteres similares) del principio y final de una cadena:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-0AfLRWyjq0" href="#c-0AfLRWyjq0" tabindex="-1" role="presentation"></a>console.log(<span class="tok-string">&quot;  okay </span><span class="tok-string2">\n</span><span class="tok-string"> &quot;</span>.trim());
 <span class="tok-comment">// → okay</span></pre>

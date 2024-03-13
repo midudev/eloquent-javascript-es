@@ -607,8 +607,6 @@ console.log(parseINI(<span class="tok-string2">`</span>
 <span class="tok-string2">city=Tessaloniki`</span>));
 <span class="tok-comment">// → {name: &quot;Vasilis&quot;, address: {city: &quot;Tessaloniki&quot;}}</span></pre>
 
-<p><a class="p_ident" id="p-uDuoTxf0bm" href="#p-uDuoTxf0bm" tabindex="-1" role="presentation"></a>{{index “función parseINI”, análisis}}</p>
-
 <p><a class="p_ident" id="p-LsLS8mCe4B" href="#p-LsLS8mCe4B" tabindex="-1" role="presentation"></a>El código recorre las líneas del archivo y construye un objeto. Las propiedades en la parte superior se almacenan directamente en ese objeto, mientras que las propiedades encontradas en secciones se almacenan en un objeto de sección separado. El enlace <code>section</code> apunta al objeto para la sección actual.</p>
 
 <p><a class="p_ident" id="p-W38Z15dwza" href="#p-W38Z15dwza" tabindex="-1" role="presentation"></a>Hay dos tipos de líneas significativas: encabezados de sección o líneas de propiedades. Cuando una línea es una propiedad regular, se almacena en la sección actual. Cuando es un encabezado de sección, se crea un nuevo objeto de sección y <code>section</code> se establece para apuntar a él.</p>

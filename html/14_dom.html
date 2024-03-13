@@ -20,8 +20,6 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_14.jpg" alt="Ilustración que muestra un árbol con letras, imágenes y engranajes colgando de sus ramas"></figure>
 
-<p><a class="p_ident" id="p-A1gP04IHfQ" href="#p-A1gP04IHfQ" tabindex="-1" role="presentation"></a>{{index dibujo, análisis}}</p>
-
 <p><a class="p_ident" id="p-VW462YK2br" href="#p-VW462YK2br" tabindex="-1" role="presentation"></a>Cuando abres una página web, tu navegador recupera el texto HTML de la página y lo analiza, de manera similar a como nuestro analizador de <a href="12_language.html#parsing">Capítulo 12</a> analizaba programas. El navegador construye un modelo de la estructura del documento y utiliza este modelo para dibujar la página en la pantalla.</p>
 
 <p><a class="p_ident" id="p-Tut29UcFsf" href="#p-Tut29UcFsf" tabindex="-1" role="presentation"></a>Esta representación del documento es uno de los juguetes que un programa JavaScript tiene disponible en su caja de arena. Es una estructura de datos que puedes leer o modificar. Actúa como una estructura de datos <em>en vivo</em>: cuando se modifica, la página en la pantalla se actualiza para reflejar los cambios.</p>
@@ -73,11 +71,9 @@
 
 <p><a class="p_ident" id="p-d46TYUYjnb" href="#p-d46TYUYjnb" tabindex="-1" role="presentation"></a>Usar códigos numéricos crípticos para representar tipos de nodos no es algo muy propio de JavaScript. Más adelante en este capítulo, veremos que otras partes de la interfaz del DOM también se sienten incómodas y extrañas. La razón de esto es que la interfaz del DOM no fue diseñada exclusivamente para JavaScript. Más bien, intenta ser una interfaz neutral en cuanto a lenguaje que también pueda utilizarse en otros sistemas, no solo para HTML, sino también para XML, que es un formato de datos genérico con una sintaxis similar a HTML.</p>
 
-<p><a class="p_ident" id="p-rWfeNtkrDw" href="#p-rWfeNtkrDw" tabindex="-1" role="presentation"></a>{{index consistencia, integración}}</p>
-
 <p><a class="p_ident" id="p-VodjM/oXmV" href="#p-VodjM/oXmV" tabindex="-1" role="presentation"></a>Esto es lamentable. Los estándares a menudo son útiles. Pero en este caso, la ventaja (consistencia entre lenguajes) no es tan convincente. Tener una interfaz que esté correctamente integrada con el lenguaje que estás utilizando te ahorrará más tiempo que tener una interfaz familiar en varios lenguajes.</p>
 
-<p><a class="p_ident" id="p-Eqlla4o5Qy" href="#p-Eqlla4o5Qy" tabindex="-1" role="presentation"></a>{{index “objeto similar a arreglo”, “tipo NodeList”}}Como ejemplo de esta mala integración, considera la propiedad <code>childNodes</code> que tienen los nodos de elementos en el DOM. Esta propiedad contiene un objeto similar a un array, con una propiedad <code>length</code> y propiedades etiquetadas por números para acceder a los nodos hijos. Pero es una instancia del tipo <code>NodeList</code>, no un array real, por lo que no tiene métodos como <code>slice</code> y <code>map</code>.</p>
+<p><a class="p_ident" id="p-xQFUpUkmCN" href="#p-xQFUpUkmCN" tabindex="-1" role="presentation"></a>Como ejemplo de esta mala integración, considera la propiedad <code>childNodes</code> que tienen los nodos de elementos en el DOM. Esta propiedad contiene un objeto similar a un array, con una propiedad <code>length</code> y propiedades etiquetadas por números para acceder a los nodos hijos. Pero es una instancia del tipo <code>NodeList</code>, no un array real, por lo que no tiene métodos como <code>slice</code> y <code>map</code>.</p>
 
 <p><a class="p_ident" id="p-tzOiNEaMGp" href="#p-tzOiNEaMGp" tabindex="-1" role="presentation"></a>Luego, hay problemas que son simplemente de mala diseño. Por ejemplo, no hay forma de crear un nuevo nodo y agregar inmediatamente hijos o atributos a él. En su lugar, primero tienes que crearlo y luego agregar los hijos y atributos uno por uno, usando efectos secundarios. El código que interactúa mucho con el DOM tiende a ser largo, repetitivo y feo.</p>
 
@@ -307,8 +303,6 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
 
 <p><a class="p_ident" id="p-AYyLF9kYh3" href="#p-AYyLF9kYh3" tabindex="-1" role="presentation"></a>Un atributo de estilo puede contener uno o más <em>declaraciónes</em>, que son una propiedad (como <code>color</code>) seguida de dos puntos y un valor (como <code>verde</code>). Cuando hay más de una declaración, deben separarse por punto y comas, como en <code>&quot;color: rojo; border: ninguno&quot;</code>.</p>
 
-<p><a class="p_ident" id="p-kr4B999bik" href="#p-kr4B999bik" tabindex="-1" role="presentation"></a>{{index “display (CSS)”, diseño}}</p>
-
 <p><a class="p_ident" id="p-jmgtDPsCf2" href="#p-jmgtDPsCf2" tabindex="-1" role="presentation"></a>Muchos aspectos del documento pueden ser influenciados por el estilo. Por ejemplo, la propiedad <code>display</code> controla si un elemento se muestra como un bloque o como un elemento en línea.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-WQQ5vzt2Oo" href="#c-WQQ5vzt2Oo" tabindex="-1" role="presentation"></a>Este texto se muestra de forma &lt;<span class="tok-typeName">strong</span>&gt;en línea&lt;/<span class="tok-typeName">strong</span>&gt;,
@@ -471,7 +465,7 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
   &lt;/<span class="tok-typeName">tr</span>&gt;
 &lt;/<span class="tok-typeName">table</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-EYrJSFXCHN" href="#p-EYrJSFXCHN" tabindex="-1" role="presentation"></a>{{index “tr (etiqueta HTML)”, “th (etiqueta HTML)”, “td (etiqueta HTML)”}}Dado un conjunto de datos de montañas, un array de objetos con propiedades <code>name</code>, <code>height</code>, y <code>place</code>, genera la estructura DOM para una tabla que enumera los objetos. Debería haber una columna por clave y una fila por objeto, además de una fila de encabezado con elementos <code>&lt;th&gt;</code> en la parte superior, enumerando los nombres de las columnas.</p>
+<p><a class="p_ident" id="p-XmKxZkmv87" href="#p-XmKxZkmv87" tabindex="-1" role="presentation"></a>Dado un conjunto de datos de montañas, un array de objetos con propiedades <code>name</code>, <code>height</code>, y <code>place</code>, genera la estructura DOM para una tabla que enumera los objetos. Debería haber una columna por clave y una fila por objeto, además de una fila de encabezado con elementos <code>&lt;th&gt;</code> en la parte superior, enumerando los nombres de las columnas.</p>
 
 <p><a class="p_ident" id="p-jM6gk2QtmI" href="#p-jM6gk2QtmI" tabindex="-1" role="presentation"></a>Escribe esto de manera que las columnas se deriven automáticamente de los objetos, tomando los nombres de las propiedades del primer objeto en los datos.</p>
 

@@ -179,8 +179,6 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
   }
 }</pre>
 
-<p><a class="p_ident" id="p-aDKfEqCSlh" href="#p-aDKfEqCSlh" tabindex="-1" role="presentation"></a>{{index “expresión literal”, ámbito}}</p>
-
 <p><a class="p_ident" id="p-HWNpAazEel" href="#p-HWNpAazEel" tabindex="-1" role="presentation"></a>El evaluador tiene código para cada uno de los tipos de expresión. Una expresión de valor literal produce su valor. (Por ejemplo, la expresión <code>100</code> simplemente se evalúa como el número 100.) Para un enlace, debemos verificar si está realmente definido en el ámbito y, si lo está, obtener el valor del enlace.</p>
 
 <p><a class="p_ident" id="p-NYz/C0Evfv" href="#p-NYz/C0Evfv" tabindex="-1" role="presentation"></a>Las aplicaciones son más complicadas. Si son una forma especial, como <code>if</code>, no evaluamos nada y pasamos las expresiones de argumento, junto con el ámbito, a la función que maneja esta forma. Si es una llamada normal, evaluamos el operador, verificamos que sea una función, y la llamamos con los argumentos evaluados.</p>
@@ -188,8 +186,6 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
 <p><a class="p_ident" id="p-/VWFz5tzb5" href="#p-/VWFz5tzb5" tabindex="-1" role="presentation"></a>Usamos valores de función JavaScript simples para representar los valores de función de Egg. Volveremos a esto <a href="12_language.html#egg_fun">más tarde</a>, cuando se defina la forma especial llamada <code>fun</code>.</p>
 
 <p><a class="p_ident" id="p-yBQx2/sKQH" href="#p-yBQx2/sKQH" tabindex="-1" role="presentation"></a>La estructura recursiva de <code>evaluate</code> se asemeja a la estructura similar del analizador sintáctico, y ambos reflejan la estructura del lenguaje en sí. También sería posible combinar el analizador sintáctico y el evaluador en una sola función, y evaluar durante el análisis sintáctico. Pero dividirlos de esta manera hace que el programa sea más claro y flexible.</p>
-
-<p><a class="p_ident" id="p-r32eYZy07M" href="#p-r32eYZy07M" tabindex="-1" role="presentation"></a>{{index “Lenguaje Egg”, interpretación}}</p>
 
 <p><a class="p_ident" id="p-YL/SkpZx0H" href="#p-YL/SkpZx0H" tabindex="-1" role="presentation"></a>Esto es realmente todo lo que se necesita para interpretar Egg. Es así de simple. Pero sin definir algunas formas especiales y agregar algunos valores útiles al entorno, todavía no puedes hacer mucho con este lenguaje.</p>
 
@@ -237,8 +233,6 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
   }
   <span class="tok-keyword">return</span> valor;
 };</pre>
-
-<p><a class="p_ident" id="p-9XnR4LPwbb" href="#p-9XnR4LPwbb" tabindex="-1" role="presentation"></a>{{index [“operador =&quot;, “en Egg”], [vinculación, “en Egg”]}}</p>
 
 <p><a class="p_ident" id="p-p3K5iHWfUQ" href="#p-p3K5iHWfUQ" tabindex="-1" role="presentation"></a>Para poder crear vinculaciones y darles nuevos valores, también creamos una forma llamada <code>define</code>. Espera una palabra como su primer argumento y una expresión que produzca el valor a asignar a esa palabra como su segundo argumento. Dado que <code>define</code>, al igual que todo, es una expresión, debe devolver un valor. Haremos que devuelva el valor que se asignó (como el operador <code>=</code> de JavaScript).</p>
 
@@ -350,15 +344,11 @@ run(<span class="tok-string2">`</span>
 
 <h2><a class="h_ident" id="h-QZp+1BKgLP" href="#h-QZp+1BKgLP" tabindex="-1" role="presentation"></a>Compilación</h2>
 
-<p><a class="p_ident" id="p-o4645TAlcf" href="#p-o4645TAlcf" tabindex="-1" role="presentation"></a>{{index “interpretación”, compilación}}</p>
-
 <p><a class="p_ident" id="p-pYpmnQkmEE" href="#p-pYpmnQkmEE" tabindex="-1" role="presentation"></a>Lo que hemos construido es un intérprete. Durante la evaluación, actúa directamente sobre la representación del programa producido por el analizador sintáctico.</p>
 
 <p><a class="p_ident" id="p-TqdaU5OIYq" href="#p-TqdaU5OIYq" tabindex="-1" role="presentation"></a><em>La compilación</em> es el proceso de agregar otro paso entre el análisis sintáctico y la ejecución de un programa, que transforma el programa en algo que puede ser evaluado de manera más eficiente al hacer la mayor cantidad de trabajo posible por adelantado. Por ejemplo, en lenguajes bien diseñados, es obvio, para cada uso de un enlace, a qué enlace se hace referencia, sin ejecutar realmente el programa. Esto se puede utilizar para evitar buscar el enlace por nombre cada vez que se accede, en su lugar, recuperándolo directamente desde una ubicación de memoria predeterminada.</p>
 
 <p><a class="p_ident" id="p-MlvKWh44Ts" href="#p-MlvKWh44Ts" tabindex="-1" role="presentation"></a>Tradicionalmente, compilar implica convertir el programa a código máquina, el formato en bruto que un procesador de computadora puede ejecutar. Pero cualquier proceso que convierta un programa a una representación diferente se puede considerar como compilación.</p>
-
-<p><a class="p_ident" id="p-XZWNZya8cg" href="#p-XZWNZya8cg" tabindex="-1" role="presentation"></a>{{index simplicidad, “Constructor de funciones”, transpilación}}</p>
 
 <p><a class="p_ident" id="p-aM2KGsJ5pX" href="#p-aM2KGsJ5pX" tabindex="-1" role="presentation"></a>Sería posible escribir una estrategia de evaluación alternativa para Egg, una que primero convierte el programa a un programa JavaScript, usa <code>Function</code> para invocar el compilador de JavaScript en él, y luego ejecuta el resultado. Cuando se hace correctamente, esto haría que Egg se ejecutara muy rápido y aún así fuera bastante simple de implementar.</p>
 

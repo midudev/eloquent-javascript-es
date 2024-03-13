@@ -304,8 +304,6 @@ router.add(<span class="tok-string">&quot;POST&quot;</span>, <span class="tok-st
   };
 };</pre>
 
-<p><a class="p_ident" id="p-ThLLzsQiQJ" href="#p-ThLLzsQiQJ" tabindex="-1" role="presentation"></a>{{index “cadena de consulta”, “paquete url”, análisis}}</p>
-
 <p><a class="p_ident" id="p-zS6RSzsTLW" href="#p-zS6RSzsTLW" tabindex="-1" role="presentation"></a>El controlador en sí mismo necesita examinar los encabezados de la solicitud para ver si están presentes los encabezados <code>If-None-Match</code> y <code>Prefer</code>. Node almacena los encabezados, cuyos nombres se especifican como insensibles a mayúsculas y minúsculas, bajo sus nombres en minúsculas.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/t9cPK34U3" href="#c-/t9cPK34U3" tabindex="-1" role="presentation"></a>router.add(<span class="tok-string">&quot;GET&quot;</span>, <span class="tok-string2">/^\/talks$/</span>, <span class="tok-keyword">async</span> (<span class="tok-definition">server</span>, <span class="tok-definition">request</span>) =&gt; {
@@ -594,7 +592,7 @@ runApp();</pre>
 
 <h3><a class="i_ident" id="i-Wzk4TuX1PT" href="#i-Wzk4TuX1PT" tabindex="-1" role="presentation"></a>Persistencia en disco</h3>
 
-<p><a class="p_ident" id="p-kDzBjOb+Wo" href="#p-kDzBjOb+Wo" tabindex="-1" role="presentation"></a>{{index “pérdida de datos”, persistencia, [memoria, persistencia]}}El servidor de intercambio de habilidades mantiene sus datos puramente en memoria. Esto significa que cuando se produce un fallo o se reinicia por cualquier motivo, se pierden todas las charlas y comentarios.</p>
+<p><a class="p_ident" id="p-ZLeedVXBoa" href="#p-ZLeedVXBoa" tabindex="-1" role="presentation"></a>El servidor de intercambio de habilidades mantiene sus datos puramente en memoria. Esto significa que cuando se produce un fallo o se reinicia por cualquier motivo, se pierden todas las charlas y comentarios.</p>
 
 <p><a class="p_ident" id="p-vXZfoI1M8e" href="#p-vXZfoI1M8e" tabindex="-1" role="presentation"></a>Extiende el servidor para que almacene los datos de las charlas en disco y vuelva a cargar automáticamente los datos cuando se reinicie. No te preocupes por la eficiencia, haz lo más simple que funcione.</p>
 
