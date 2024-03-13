@@ -1,4 +1,4 @@
-{{meta {load_files: ["code/chapter/19_paint.js"], zip: "html include=[\"css/paint.css\"]"}}}
+{{meta {load_files: ["code/chapter/19_paint.js"], zip: "html include=["css/paint.css"]"}}}
 
 # Proyecto: Editor de Arte Pixelado
 
