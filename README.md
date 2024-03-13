@@ -16,7 +16,7 @@ Traducción de la cuarta edición de [Eloquent JavaScript](https://eloquentjavas
   </li>
 </ul>
       
-## ¿Entoncontraste un error? ¡Colabora!
+## ¿Encontraste un error? ¡Colabora!
 
 **¡No edites los archivos HTML! Estos se generan automáticamente a partir de los archivos Markdown.**
 
