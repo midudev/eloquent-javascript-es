@@ -113,7 +113,7 @@ Tanto los valores de cadena como los de array contienen, además de la propiedad
 ```
 let doh = "Doh";
 console.log(typeof doh.toUpperCase);
-// → función
+// → function
 console.log(doh.toUpperCase());
 // → DOH
 ```
@@ -1112,7 +1112,7 @@ Construir una lista es más fácil cuando se hace de atrás hacia adelante. Por 
 Para recorrer una lista (en `listToArray` y `nth`), se puede utilizar una especificación de bucle `for` de esta forma:
 
 ```
-for (let nodo = lista; nodo; nodo = nodo.rest) {}
+for (let nodo = list; nodo; nodo = nodo.rest) {}
 ```
 
 ¿Puedes ver cómo funciona esto? En cada iteración del bucle, `nodo` apunta a la sublista actual, y el cuerpo puede leer su propiedad `value` para obtener el elemento actual. Al final de una iteración, `nodo` pasa a la siguiente sublista. Cuando eso es nulo, hemos llegado al final de la lista y el bucle ha terminado.
