@@ -75,9 +75,9 @@ console.log(listaDeNumeros[<span class="tok-number">2</span> - <span class="tok-
 
 <p><a class="p_ident" id="p-6tlYp26MGo" href="#p-6tlYp26MGo" tabindex="-1" role="presentation"></a>Tanto los valores de cadena como los de array contienen, además de la propiedad <code>length</code>, varias propiedades que contienen valores de función.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9UzWMN1WOo" href="#c-9UzWMN1WOo" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">doh</span> = <span class="tok-string">&quot;Doh&quot;</span>;
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-prRDc5amqh" href="#c-prRDc5amqh" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">doh</span> = <span class="tok-string">&quot;Doh&quot;</span>;
 console.log(<span class="tok-keyword">typeof</span> doh.toUpperCase);
-<span class="tok-comment">// → función</span>
+<span class="tok-comment">// → function</span>
 console.log(doh.toUpperCase());
 <span class="tok-comment">// → DOH</span></pre>
 
@@ -761,7 +761,7 @@ console.log(nth(arrayToList([<span class="tok-number">10</span>, <span class="to
 
 <p><a class="p_ident" id="p-fiLk2ZIMfG" href="#p-fiLk2ZIMfG" tabindex="-1" role="presentation"></a>Para recorrer una lista (en <code>listToArray</code> y <code>nth</code>), se puede utilizar una especificación de bucle <code>for</code> de esta forma:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-jaOpb1ePyM" href="#c-jaOpb1ePyM" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">nodo</span> = lista; nodo; nodo = nodo.rest) {}</pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-f2Ev/YtyZ+" href="#c-f2Ev/YtyZ+" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">nodo</span> = list; nodo; nodo = nodo.rest) {}</pre>
 
 <p><a class="p_ident" id="p-ycL1FPwmJf" href="#p-ycL1FPwmJf" tabindex="-1" role="presentation"></a>¿Puedes ver cómo funciona esto? En cada iteración del bucle, <code>nodo</code> apunta a la sublista actual, y el cuerpo puede leer su propiedad <code>value</code> para obtener el elemento actual. Al final de una iteración, <code>nodo</code> pasa a la siguiente sublista. Cuando eso es nulo, hemos llegado al final de la lista y el bucle ha terminado.</p>
 
