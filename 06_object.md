@@ -451,7 +451,7 @@ Rabbit.prototype.toString = function() {
   return `un conejo ${this.type}`;
 };
 
-console.log(String(conejoAsesino));
+console.log(String(killerRabbit));
 // → un conejo asesino
 ```
 

@@ -1,3 +1,4 @@
+{{meta {load_files: ["code/scripts.js", "code/chapter/05_higher_order.js", "code/intro.js"], zip: "node/html"}}}
 # Funciones de Orden Superior
 
 _"Hay dos formas de construir un diseño de software: Una forma es hacerlo tan simple que obviamente no haya deficiencias, y la otra forma es hacerlo tan complicado que no haya deficiencias obvias."_
@@ -20,16 +21,16 @@ console.log(total);
 El segundo depende de dos funciones externas y tiene una línea:
 
 ```
-console.log(sum(range(1, 10)));
+console.log(suma(rango(1, 10)));
 ```
 
 ¿Cuál es más probable que contenga un error?
 
-Si contamos el tamaño de las definiciones de `sum` y `range`, el segundo programa también es grande, incluso más que el primero. Pero, aún así, argumentaría que es más probable que sea correcto.
+Si contamos el tamaño de las definiciones de `suma` y `rango`, el segundo programa también es grande, incluso más que el primero. Pero, aún así, argumentaría que es más probable que sea correcto.
 
 Esto se debe a que la solución se expresa en un ((vocabulary)) que corresponde al problema que se está resolviendo. Sumar un rango de números no se trata de bucles y contadores. Se trata de rangos y sumas.
 
-Las definiciones de este vocabulario (las funciones `sum` y `range`) seguirán involucrando bucles, contadores y otros detalles incidentales. Pero debido a que expresan conceptos más simples que el programa en su totalidad, son más fáciles de hacer correctamente.
+Las definiciones de este vocabulario (las funciones `suma` y `rango`) seguirán involucrando bucles, contadores y otros detalles incidentales. Pero debido a que expresan conceptos más simples que el programa en su totalidad, son más fáciles de hacer correctamente.
 
 ## Abstracción
 
@@ -68,35 +69,36 @@ function repeatLog(n) {
   for (let i = 0; i < n; i++) {
     console.log(i);
   }
+}
 ```
 
 ¿Y si queremos hacer algo que no sea solo registrar los números? Dado que "hacer algo" se puede representar como una función y las funciones son solo valores, podemos pasar nuestra acción como un valor de función:
 
 ```{includeCode: "top_lines: 5"}
-function repeat(n, action) {
+function repetir(n, action) {
   for (let i = 0; i < n; i++) {
     action(i);
   }
 }
 
-repeat(3, console.log);
+repetir(3, console.log);
 // → 0
 // → 1
 // → 2
 ```
 
-No tenemos que pasar una función predefinida a `repeat`. A menudo, es más fácil crear un valor de función en el momento:
+No tenemos que pasar una función predefinida a `repetir`. A menudo, es más fácil crear un valor de función en el momento:
 
 ```
 let etiquetas = [];
-repeat(5, i => {
+repetir(5, i => {
   etiquetas.push(`Unidad ${i + 1}`);
 });
 console.log(etiquetas);
 // → ["Unidad 1", "Unidad 2", "Unidad 3", "Unidad 4", "Unidad 5"]
 ```
 
-Esto está estructurado un poco como un `for` loop: primero describe el tipo de loop y luego proporciona un cuerpo. Sin embargo, el cuerpo ahora está escrito como un valor de función, que está envuelto entre los paréntesis de la llamada a `repeat`. Por eso tiene que cerrarse con el corchete de cierre y el paréntesis de cierre. En casos como este ejemplo donde el cuerpo es una sola expresión pequeña, también podrías omitir los corchetes y escribir el bucle en una sola línea.
+Esto está estructurado un poco como un `for` loop: primero describe el tipo de loop y luego proporciona un cuerpo. Sin embargo, el cuerpo ahora está escrito como un valor de función, que está envuelto entre los paréntesis de la llamada a `repetir`. Por eso tiene que cerrarse con el corchete de cierre y el paréntesis de cierre. En casos como este ejemplo donde el cuerpo es una sola expresión pequeña, también podrías omitir los corchetes y escribir el bucle en una sola línea.
 
 Funciones de orden superior
 
