@@ -173,7 +173,7 @@ Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 
 Las cadenas no se pueden dividir, multiplicar o restar. El operador `+` se puede usar en ellas, no para sumar, sino para _concatenar_ —unir dos cadenas. La siguiente línea producirá la cadena `"concatenar"`:
 
 ```{meta: "expr"}
-"con" + "cat" + "e" + "nate"
+"con" + "cat" + "e" + "nar"
 ```
 
 Los valores de cadena tienen una serie de funciones asociadas (_métodos_) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en [Capítulo ?](data#methods).

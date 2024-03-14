@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Proyecto: Un Robot :: Eloquent JavaScript</title>
   <link rel=stylesheet href="css/ejs.css"><script>
-      var page = {"type":"chapter","number":7}</script></head>
+      var page = {"type":"chapter","number":7,"load_files":["code/chapter/07_robot.js","code/animatevillage.js"]}</script></head>
 
 <article>
 <nav><a href="06_object.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="08_error.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
@@ -28,14 +28,14 @@
 
 <p><a class="p_ident" id="p-CoFPYYp5Q2" href="#p-CoFPYYp5Q2" tabindex="-1" role="presentation"></a>El pueblo de Meadowfield no es muy grande. Consiste en 11 lugares con 14 carreteras entre ellos. Se puede describir con este array de carreteras:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Zs4LZxNb9d" href="#c-Zs4LZxNb9d" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">roads</span> = [
-  <span class="tok-string">&quot;Alice's House-Bob's House&quot;</span>,   <span class="tok-string">&quot;Alice's House-Cabin&quot;</span>,
-  <span class="tok-string">&quot;Alice's House-Post Office&quot;</span>,   <span class="tok-string">&quot;Bob's House-Town Hall&quot;</span>,
-  <span class="tok-string">&quot;Daria's House-Ernie's House&quot;</span>, <span class="tok-string">&quot;Daria's House-Town Hall&quot;</span>,
-  <span class="tok-string">&quot;Ernie's House-Grete's House&quot;</span>, <span class="tok-string">&quot;Grete's House-Farm&quot;</span>,
-  <span class="tok-string">&quot;Grete's House-Shop&quot;</span>,          <span class="tok-string">&quot;Marketplace-Farm&quot;</span>,
-  <span class="tok-string">&quot;Marketplace-Post Office&quot;</span>,     <span class="tok-string">&quot;Marketplace-Shop&quot;</span>,
-  <span class="tok-string">&quot;Marketplace-Town Hall&quot;</span>,       <span class="tok-string">&quot;Shop-Town Hall&quot;</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-GE3XA1Ye9G" href="#c-GE3XA1Ye9G" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">roads</span> = [
+  <span class="tok-string">&quot;Casa de Alice-Casa de Bob&quot;</span>,<span class="tok-string">&quot;Casa de Alice-Cabaña&quot;</span>,
+  <span class="tok-string">&quot;Casa de Alice-Oficina de Correos&quot;</span>,<span class="tok-string">&quot;Casa de Bob-Ayuntamiento&quot;</span>,
+  <span class="tok-string">&quot;Casa de Daria-Casa de Ernie&quot;</span>,<span class="tok-string">&quot;Casa de Daria-Ayuntamiento&quot;</span>,
+  <span class="tok-string">&quot;Casa de Ernie-Casa de Grete&quot;</span>,<span class="tok-string">&quot;Casa de Grete-Granja&quot;</span>,
+  <span class="tok-string">&quot;Casa de Grete-Tienda&quot;</span>,<span class="tok-string">&quot;Plaza de Mercado-Granja&quot;</span>,
+  <span class="tok-string">&quot;Plaza de Mercado-Oficina de Correos&quot;</span>,<span class="tok-string">&quot;Plaza de Mercado-Tienda&quot;</span>,
+  <span class="tok-string">&quot;Plaza de Mercado-Ayuntamiento&quot;</span>,<span class="tok-string">&quot;Tienda-Ayuntamiento&quot;</span>
 ];</pre><figure><img src="img/village2x.png" alt="Ilustración de arte pixelado de un pequeño pueblo con 11 ubicaciones, etiquetadas con letras, y carreteras entre ellas"></figure>
 
 <p><a class="p_ident" id="p-z97coTX23j" href="#p-z97coTX23j" tabindex="-1" role="presentation"></a>La red de carreteras en el pueblo forma un <em>gráfico</em>. Un gráfico es una colección de puntos (lugares en el pueblo) con líneas entre ellos (carreteras). Este gráfico será el mundo por el que se moverá nuestro robot.</p>
@@ -179,7 +179,7 @@ console.log(object.value);
 
 <p><a class="p_ident" id="p-TMVPaShA18" href="#p-TMVPaShA18" tabindex="-1" role="presentation"></a>Para poner a trabajar a este sofisticado robot, primero necesitaremos una forma de crear un nuevo estado con algunos paquetes. Un método estático (escrito aquí añadiendo directamente una propiedad al constructor) es un buen lugar para poner esa funcionalidad.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-HRwhJDlYP+" href="#c-HRwhJDlYP+" tabindex="-1" role="presentation"></a>VillageState.random = <span class="tok-keyword">function</span>(<span class="tok-definition">parcelCount</span> = <span class="tok-number">5</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-SEyJ7YaifO" href="#c-SEyJ7YaifO" tabindex="-1" role="presentation"></a>VillageState.random = <span class="tok-keyword">function</span>(<span class="tok-definition">parcelCount</span> = <span class="tok-number">5</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">parcels</span> = [];
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; parcelCount; i++) {
     <span class="tok-keyword">let</span> <span class="tok-definition">address</span> = randomPick(Object.keys(roadGraph));
@@ -189,7 +189,7 @@ console.log(object.value);
     } <span class="tok-keyword">while</span> (place == address);
     parcels.push({<span class="tok-definition">place</span>, <span class="tok-definition">address</span>});
   }
-  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> VillageState(<span class="tok-string">&quot;Oficina Postal&quot;</span>, parcels);
+  <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> VillageState(<span class="tok-string">&quot;Oficina de Correos&quot;</span>, parcels);
 };</pre>
 
 <p><a class="p_ident" id="p-sT2UJuipJb" href="#p-sT2UJuipJb" tabindex="-1" role="presentation"></a>No queremos ningún paquete que sea enviado desde el mismo lugar al que está dirigido. Por esta razón, el bucle <code>do</code> sigue eligiendo nuevos lugares cuando obtiene uno que es igual a la dirección.</p>
@@ -214,8 +214,8 @@ console.log(object.value);
 
 <p><a class="p_ident" id="p-MP2rZBcQkl" href="#p-MP2rZBcQkl" tabindex="-1" role="presentation"></a>Deberíamos poder hacerlo mucho mejor que el robot aleatorio. Una mejora sencilla sería inspirarnos en la forma en que funciona la entrega de correo en el mundo real. Si encontramos una ruta que pase por todos los lugares del pueblo, el robot podría recorrer esa ruta dos veces, momento en que se garantizaría que ha terminado. Aquí tienes una de esas rutas (comenzando desde la oficina de correos):</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hK+K0AeLj0" href="#c-hK+K0AeLj0" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">mailRoute</span> = [
-  <span class="tok-string">&quot;Casa de Alicia&quot;</span>, <span class="tok-string">&quot;Cabaña&quot;</span>, <span class="tok-string">&quot;Casa de Alicia&quot;</span>, <span class="tok-string">&quot;Casa de Bob&quot;</span>,
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yxJq9tnQ+4" href="#c-yxJq9tnQ+4" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">mailRoute</span> = [
+  <span class="tok-string">&quot;Casa de Alice&quot;</span>, <span class="tok-string">&quot;Cabaña&quot;</span>, <span class="tok-string">&quot;Casa de Alice&quot;</span>, <span class="tok-string">&quot;Casa de Bob&quot;</span>,
   <span class="tok-string">&quot;Ayuntamiento&quot;</span>, <span class="tok-string">&quot;Casa de Daria&quot;</span>, <span class="tok-string">&quot;Casa de Ernie&quot;</span>,
   <span class="tok-string">&quot;Casa de Grete&quot;</span>, <span class="tok-string">&quot;Tienda&quot;</span>, <span class="tok-string">&quot;Casa de Grete&quot;</span>, <span class="tok-string">&quot;Granja&quot;</span>,
   <span class="tok-string">&quot;Plaza del Mercado&quot;</span>, <span class="tok-string">&quot;Oficina de Correos&quot;</span>

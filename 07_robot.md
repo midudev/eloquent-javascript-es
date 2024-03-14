@@ -1,3 +1,4 @@
+{{meta {load_files: ["code/chapter/07_robot.js", "code/animatevillage.js"], zip: html}}}
 # Proyecto: Un Robot
 
 {{quote {author: "Edsger Dijkstra", title: "Las amenazas a la ciencia informática", chapter: true}
@@ -24,13 +25,13 @@ El pueblo de ((Meadowfield)) no es muy grande. Consiste en 11 lugares con 14 car
 
 ```{includeCode: true}
 const roads = [
-  "Alice's House-Bob's House",   "Alice's House-Cabin",
-  "Alice's House-Post Office",   "Bob's House-Town Hall",
-  "Daria's House-Ernie's House", "Daria's House-Town Hall",
-  "Ernie's House-Grete's House", "Grete's House-Farm",
-  "Grete's House-Shop",          "Marketplace-Farm",
-  "Marketplace-Post Office",     "Marketplace-Shop",
-  "Marketplace-Town Hall",       "Shop-Town Hall"
+  "Casa de Alice-Casa de Bob","Casa de Alice-Cabaña",
+  "Casa de Alice-Oficina de Correos","Casa de Bob-Ayuntamiento",
+  "Casa de Daria-Casa de Ernie","Casa de Daria-Ayuntamiento",
+  "Casa de Ernie-Casa de Grete","Casa de Grete-Granja",
+  "Casa de Grete-Tienda","Plaza de Mercado-Granja",
+  "Plaza de Mercado-Oficina de Correos","Plaza de Mercado-Tienda",
+  "Plaza de Mercado-Ayuntamiento","Tienda-Ayuntamiento"
 ];
 ```
 
@@ -224,7 +225,7 @@ VillageState.random = function(parcelCount = 5) {
     } while (place == address);
     parcels.push({place, address});
   }
-  return new VillageState("Oficina Postal", parcels);
+  return new VillageState("Oficina de Correos", parcels);
 };
 ```
 
@@ -264,7 +265,7 @@ Deberíamos poder hacerlo mucho mejor que el ((robot)) aleatorio. Una mejora sen
 
 ```{includeCode: true}
 const mailRoute = [
-  "Casa de Alicia", "Cabaña", "Casa de Alicia", "Casa de Bob",
+  "Casa de Alice", "Cabaña", "Casa de Alice", "Casa de Bob",
   "Ayuntamiento", "Casa de Daria", "Casa de Ernie",
   "Casa de Grete", "Tienda", "Casa de Grete", "Granja",
   "Plaza del Mercado", "Oficina de Correos"

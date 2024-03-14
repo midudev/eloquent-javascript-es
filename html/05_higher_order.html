@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Funciones de Orden Superior :: Eloquent JavaScript</title>
   <link rel=stylesheet href="css/ejs.css"><script>
-      var page = {"type":"chapter","number":5}</script></head>
+      var page = {"type":"chapter","number":5,"load_files":["code/scripts.js","code/chapter/05_higher_order.js","code/intro.js"]}</script></head>
 
 <article>
 <nav><a href="04_data.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="06_object.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
@@ -29,15 +29,15 @@ console.log(total);</pre>
 
 <p><a class="p_ident" id="p-XpPbbvrjf7" href="#p-XpPbbvrjf7" tabindex="-1" role="presentation"></a>El segundo depende de dos funciones externas y tiene una línea:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KTbQMmMCli" href="#c-KTbQMmMCli" tabindex="-1" role="presentation"></a>console.log(sum(range(<span class="tok-number">1</span>, <span class="tok-number">10</span>)));</pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-pxsnyeb5dE" href="#c-pxsnyeb5dE" tabindex="-1" role="presentation"></a>console.log(suma(rango(<span class="tok-number">1</span>, <span class="tok-number">10</span>)));</pre>
 
 <p><a class="p_ident" id="p-mQkKtUTj8f" href="#p-mQkKtUTj8f" tabindex="-1" role="presentation"></a>¿Cuál es más probable que contenga un error?</p>
 
-<p><a class="p_ident" id="p-kr8iBt6cDE" href="#p-kr8iBt6cDE" tabindex="-1" role="presentation"></a>Si contamos el tamaño de las definiciones de <code>sum</code> y <code>range</code>, el segundo programa también es grande, incluso más que el primero. Pero, aún así, argumentaría que es más probable que sea correcto.</p>
+<p><a class="p_ident" id="p-kr8iBt6cDE" href="#p-kr8iBt6cDE" tabindex="-1" role="presentation"></a>Si contamos el tamaño de las definiciones de <code>suma</code> y <code>rango</code>, el segundo programa también es grande, incluso más que el primero. Pero, aún así, argumentaría que es más probable que sea correcto.</p>
 
 <p><a class="p_ident" id="p-sdRHhhOglU" href="#p-sdRHhhOglU" tabindex="-1" role="presentation"></a>Esto se debe a que la solución se expresa en un vocabulary que corresponde al problema que se está resolviendo. Sumar un rango de números no se trata de bucles y contadores. Se trata de rangos y sumas.</p>
 
-<p><a class="p_ident" id="p-ZVaOtVwzgJ" href="#p-ZVaOtVwzgJ" tabindex="-1" role="presentation"></a>Las definiciones de este vocabulario (las funciones <code>sum</code> y <code>range</code>) seguirán involucrando bucles, contadores y otros detalles incidentales. Pero debido a que expresan conceptos más simples que el programa en su totalidad, son más fáciles de hacer correctamente.</p>
+<p><a class="p_ident" id="p-ZVaOtVwzgJ" href="#p-ZVaOtVwzgJ" tabindex="-1" role="presentation"></a>Las definiciones de este vocabulario (las funciones <code>suma</code> y <code>rango</code>) seguirán involucrando bucles, contadores y otros detalles incidentales. Pero debido a que expresan conceptos más simples que el programa en su totalidad, son más fáciles de hacer correctamente.</p>
 
 <h2><a class="h_ident" id="h-jeqhU5hoax" href="#h-jeqhU5hoax" tabindex="-1" role="presentation"></a>Abstracción</h2>
 
@@ -69,34 +69,35 @@ console.log(total);</pre>
 
 <p><a class="p_ident" id="p-mYLOzu14uu" href="#p-mYLOzu14uu" tabindex="-1" role="presentation"></a>¿Podemos abstraer “hacer algo <em>N</em> veces” como una función? Bueno, es fácil escribir una función que llame a <code>console.log</code> <em>N</em> veces:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-QQAO5Io87Z" href="#c-QQAO5Io87Z" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">repeatLog</span>(<span class="tok-definition">n</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/gKhlra9P+" href="#c-/gKhlra9P+" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">repeatLog</span>(<span class="tok-definition">n</span>) {
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; n; i++) {
     console.log(i);
-  }</pre>
+  }
+}</pre>
 
 <p><a class="p_ident" id="p-aHRJYV9dtZ" href="#p-aHRJYV9dtZ" tabindex="-1" role="presentation"></a>¿Y si queremos hacer algo que no sea solo registrar los números? Dado que “hacer algo” se puede representar como una función y las funciones son solo valores, podemos pasar nuestra acción como un valor de función:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-p03rPqGmn9" href="#c-p03rPqGmn9" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">repeat</span>(<span class="tok-definition">n</span>, <span class="tok-definition">action</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-7IqCeYcKwP" href="#c-7IqCeYcKwP" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">repetir</span>(<span class="tok-definition">n</span>, <span class="tok-definition">action</span>) {
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; n; i++) {
     action(i);
   }
 }
 
-repeat(<span class="tok-number">3</span>, console.log);
+repetir(<span class="tok-number">3</span>, console.log);
 <span class="tok-comment">// → 0</span>
 <span class="tok-comment">// → 1</span>
 <span class="tok-comment">// → 2</span></pre>
 
-<p><a class="p_ident" id="p-MZU1WHGlo3" href="#p-MZU1WHGlo3" tabindex="-1" role="presentation"></a>No tenemos que pasar una función predefinida a <code>repeat</code>. A menudo, es más fácil crear un valor de función en el momento:</p>
+<p><a class="p_ident" id="p-MZU1WHGlo3" href="#p-MZU1WHGlo3" tabindex="-1" role="presentation"></a>No tenemos que pasar una función predefinida a <code>repetir</code>. A menudo, es más fácil crear un valor de función en el momento:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-TvtkTVhk/v" href="#c-TvtkTVhk/v" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">etiquetas</span> = [];
-repeat(<span class="tok-number">5</span>, <span class="tok-definition">i</span> =&gt; {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-s8RST25oGA" href="#c-s8RST25oGA" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">etiquetas</span> = [];
+repetir(<span class="tok-number">5</span>, <span class="tok-definition">i</span> =&gt; {
   etiquetas.push(<span class="tok-string2">`Unidad </span>${i + <span class="tok-number">1</span>}<span class="tok-string2">`</span>);
 });
 console.log(etiquetas);
 <span class="tok-comment">// → [&quot;Unidad 1&quot;, &quot;Unidad 2&quot;, &quot;Unidad 3&quot;, &quot;Unidad 4&quot;, &quot;Unidad 5&quot;]</span></pre>
 
-<p><a class="p_ident" id="p-ZaxR2WEHob" href="#p-ZaxR2WEHob" tabindex="-1" role="presentation"></a>Esto está estructurado un poco como un <code>for</code> loop: primero describe el tipo de loop y luego proporciona un cuerpo. Sin embargo, el cuerpo ahora está escrito como un valor de función, que está envuelto entre los paréntesis de la llamada a <code>repeat</code>. Por eso tiene que cerrarse con el corchete de cierre y el paréntesis de cierre. En casos como este ejemplo donde el cuerpo es una sola expresión pequeña, también podrías omitir los corchetes y escribir el bucle en una sola línea.</p>
+<p><a class="p_ident" id="p-ZaxR2WEHob" href="#p-ZaxR2WEHob" tabindex="-1" role="presentation"></a>Esto está estructurado un poco como un <code>for</code> loop: primero describe el tipo de loop y luego proporciona un cuerpo. Sin embargo, el cuerpo ahora está escrito como un valor de función, que está envuelto entre los paréntesis de la llamada a <code>repetir</code>. Por eso tiene que cerrarse con el corchete de cierre y el paréntesis de cierre. En casos como este ejemplo donde el cuerpo es una sola expresión pequeña, también podrías omitir los corchetes y escribir el bucle en una sola línea.</p>
 
 <p><a class="p_ident" id="p-sBm/RoOmVE" href="#p-sBm/RoOmVE" tabindex="-1" role="presentation"></a>Funciones de orden superior</p>
 

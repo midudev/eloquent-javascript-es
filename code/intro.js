@@ -1,4 +1,4 @@
-function range(start, end, step) {
+function rango(start, end, step) {
   if (step == null) step = 1;
   var array = [];
 
@@ -12,7 +12,7 @@ function range(start, end, step) {
   return array;
 }
 
-function sum(array) {
+function suma(array) {
   var total = 0;
   for (var i = 0; i < array.length; i++)
     total += array[i];

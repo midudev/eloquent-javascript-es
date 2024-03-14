@@ -560,7 +560,7 @@ Vuelve a la definición del formulario `fun` y explica qué mecanismo hace que e
 
 Una vez más, estamos montando un mecanismo en JavaScript para obtener la característica equivalente en Egg. Los formularios especiales reciben el ámbito local en el que se evalúan para que puedan evaluar sus subformas en ese ámbito. La función devuelta por `fun` tiene acceso al argumento `scope` dado a su función contenedora y lo utiliza para crear el ámbito ((local)) de la función cuando se llama.
 
-{{index compilación}}
+{{index "compilación"}}
 
 Esto significa que el ((prototipo)) del ámbito local será el ámbito en el cual la función fue creada, lo que hace posible acceder a los enlaces en ese ámbito desde la función. Esto es todo lo que se necesita para implementar el cierre (aunque para compilarlo de una manera realmente eficiente, sería necesario hacer un poco más de trabajo).
 
