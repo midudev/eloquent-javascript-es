@@ -16,7 +16,7 @@ En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas 
 
 {{index grammar, [sintaxis, "expresión"], ["código", "estructura de"], "gramática", [JavaScript, sintaxis]}}
 
-En [Capítulo ?](valores), creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
+En [Capítulo 1](01_values), creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
 
 {{index "expresión literal", ["paréntesis", "expresión"]}}
 
