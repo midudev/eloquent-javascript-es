@@ -14,7 +14,7 @@ Este es un libro sobre cómo instruir a ((computadora))s. Las computadoras son t
 
 Si la tarea que tienes para tu computadora es común, bien entendida, como mostrarte tu correo electrónico o actuar como una calculadora, puedes abrir la ((aplicación)) correspondiente y ponerte a trabajar. Pero para tareas únicas o abiertas, a menudo no hay una aplicación adecuada.
 
-Ahí es donde entra en juego la ((programación)). _Programar_ es el acto de construir un _programa_—un conjunto de instrucciones precisas que le dicen a una computadora qué hacer. Debido a que las computadoras son bestias tontas y pedantes, programar es fundamentalmente tedioso y frustrante.
+Ahí es donde entra en juego la programación. _Programar_ es el acto de construir un _programa_—un conjunto de instrucciones precisas que le dicen a una computadora qué hacer. Debido a que las computadoras son bestias tontas y pedantes, programar es fundamentalmente tedioso y frustrante.
 
 {{index ["programación", "la alegría de"], speed}}
 
@@ -34,7 +34,7 @@ Este libro intentará que te familiarices lo suficiente con este lenguaje para h
 
 {{index ["programación", "la dificultad de"]}}
 
-Además de explicar JavaScript, presentaré los principios básicos de la programación. La programación, resulta, es difícil. Las reglas fundamentales son simples y claras, pero los programas construidos sobre estas reglas tienden a volverse lo suficientemente complejos como para introducir sus propias reglas y complejidades. Estás construyendo tu propio laberinto, de alguna manera, y fácilmente puedes perderte en él.
+Además de explicar JavaScript, presentaré los principios básicos de la programación. Resulta que programar es difícil. Las reglas fundamentales son simples y claras, pero los programas construidos sobre estas reglas tienden a volverse lo suficientemente complejos como para introducir sus propias reglas y complejidades. Estás construyendo tu propio laberinto, de alguna manera, y fácilmente puedes perderte en él.
 
 {{index aprendizaje}}
 
