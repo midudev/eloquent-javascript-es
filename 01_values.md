@@ -8,7 +8,7 @@
 
 En el mundo de la computadora, solo existe data. Puedes leer data, modificar data, crear nueva data, pero aquello que no es data no puede ser mencionado. Toda esta data se almacena como largas secuencias de bits y, por lo tanto, es fundamentalmente similar.
 
-_Los bits_ son cualquier tipo de cosas de dos valores, generalmente descritos como ceros y unos. Dentro de la computadora, toman formas como una carga eléctrica alta o baja, una señal fuerte o débil, o un punto brillante o opaco en la superficie de un CD. Cualquier pieza de información discreta puede reducirse a una secuencia de ceros y unos y por lo tanto representarse en bits.
+_Los bits_ son cualquier tipo de cosas de dos valores, generalmente descritos como ceros y unos. Dentro de la computadora, toman formas como una carga eléctrica alta o baja, una señal fuerte o débil, o un punto brillante u opaco en la superficie de un CD. Cualquier pieza de información discreta puede reducirse a una secuencia de ceros y unos y por lo tanto representarse en bits.
 
 Por ejemplo, podemos expresar el número 13 en bits. Esto funciona de la misma manera que un número decimal, pero en lugar de diez ((dígito))s diferentes, tenemos solo 2, y el peso de cada uno aumenta por un factor de 2 de derecha a izquierda. Aquí están los bits que componen el número 13, con los pesos de los dígitos mostrados debajo de ellos:
 

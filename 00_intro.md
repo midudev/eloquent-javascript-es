@@ -4,27 +4,27 @@
 
 {{quote {author: "Ellen Ullman", title: "Cerca de la máquina: Tecnofilia y sus Descontentos", chapter: true}
 
-Creemos que estamos creando el sistema para nuestros propios propósitos. Creemos que lo estamos haciendo a nuestra propia imagen... Pero la computadora en realidad no es como nosotros. Es una proyección de una parte muy delgada de nosotros mismos: esa parte dedicada a la lógica, el orden, la regla y la claridad.
+Creemos que estamos creando el sistema para nuestros propios propósitos. Creemos que lo estamos haciendo a nuestra propia imagen... Pero la computadora en realidad no es como nosotros. Es una proyección de una parte muy pequeña de nosotros mismos: esa parte dedicada a la lógica, el orden, la regla y la claridad.
 
 quote}}
 
 {{figure {url: "img/chapter_picture_00.jpg", alt: "Ilustración de un destornillador junto a una placa de circuitos de aproximadamente el mismo tamaño", chapter: "framed"}}}
 
-Este es un libro sobre cómo instruir a ((computadora))s. Las computadoras son tan comunes como los destornilladores hoy en día, pero son bastante más complejas, y hacer que hagan lo que quieres que hagan no siempre es fácil.
+Este es un libro sobre cómo instruir a ((computadora))s. Las computadoras son tan comunes como los destornilladores hoy en día, pero son bastante más complejas, y hacer que hagan lo que quieres no siempre es fácil.
 
 Si la tarea que tienes para tu computadora es común, bien entendida, como mostrarte tu correo electrónico o actuar como una calculadora, puedes abrir la ((aplicación)) correspondiente y ponerte a trabajar. Pero para tareas únicas o abiertas, a menudo no hay una aplicación adecuada.
 
-Ahí es donde entra en juego la ((programming)). _Programar_ es el acto de construir un _programa_—un conjunto de instrucciones precisas que le dicen a una computadora qué hacer. Debido a que las computadoras son bestias tontas y pedantes, programar es fundamentalmente tedioso y frustrante.
+Ahí es donde entra en juego la ((programación)). _Programar_ es el acto de construir un _programa_—un conjunto de instrucciones precisas que le dicen a una computadora qué hacer. Debido a que las computadoras son bestias tontas y pedantes, programar es fundamentalmente tedioso y frustrante.
 
-{{index [programming, "joy of"], speed}}
+{{index ["programación", "la alegría de"], speed}}
 
-Afortunadamente, si puedes superar ese hecho—e incluso disfrutar del rigor de pensar en términos que las máquinas tontas pueden manejar—programar puede ser gratificante. Te permite hacer cosas en segundos que tardarían _una eternidad_ a mano. Es una forma de hacer que tu herramienta informática haga cosas que antes no podía hacer. Además, se convierte en un maravilloso juego de resolución de acertijos y pensamiento abstracto.
+Por suerte, si puedes superar ese hecho—e incluso disfrutar del rigor de pensar en términos que las máquinas tontas pueden manejar—programar puede ser gratificante. Te permite hacer cosas en segundos que te tomarían _una eternidad_ a mano. Es una forma de hacer que tu herramienta informática haga cosas que antes no podía hacer. Además, se convierte en un maravilloso juego de resolución de acertijos y pensamiento abstracto.
 
 La mayoría de la programación se realiza con ((lenguajes de programación)). Un _lenguaje de programación_ es un lenguaje artificialmente construido utilizado para instruir a las computadoras. Es interesante que la forma más efectiva que hemos encontrado para comunicarnos con una computadora se base tanto en la forma en que nos comunicamos entre nosotros. Al igual que los idiomas humanos, los lenguajes informáticos permiten combinar palabras y frases de nuevas formas, lo que permite expresar conceptos cada vez más nuevos.
 
 {{index [JavaScript, "availability of"], "casual computing"}}
 
-En un momento dado, las interfaces basadas en lenguajes, como los mensajes de BASIC y DOS de los años 1980 y 1990, eran el principal método de interactuar con las computadoras. Para el uso informático rutinario, estas se han reemplazado en gran medida por interfaces visuales, que son más fáciles de aprender pero ofrecen menos libertad. Pero si sabes dónde buscar, los lenguajes todavía están ahí. Uno de ellos, _JavaScript_, está integrado en cada navegador web moderno—y por lo tanto está disponible en casi todos los dispositivos.
+En un momento dado, las interfaces basadas en lenguaje, como los _prompts_ de BASIC y DOS de los años 1980 y 1990, eran el principal método de interactuar con las computadoras. Para el uso informático rutinario, estas se han reemplazado en gran medida por interfaces visuales, que son más fáciles de aprender pero ofrecen menos libertad. Pero si sabes dónde buscar, los lenguajes todavía están ahí. Uno de ellos, _JavaScript_, está integrado en cada navegador web moderno—y por lo tanto está disponible en casi todos los dispositivos.
 
 {{indexsee "web browser", browser}}
 
@@ -32,7 +32,7 @@ Este libro intentará que te familiarices lo suficiente con este lenguaje para h
 
 ## Sobre la programación
 
-{{index [programming, "difficulty of"]}}
+{{index ["programación", "la dificultad de"]}}
 
 Además de explicar JavaScript, presentaré los principios básicos de la programación. La programación, resulta, es difícil. Las reglas fundamentales son simples y claras, pero los programas construidos sobre estas reglas tienden a volverse lo suficientemente complejos como para introducir sus propias reglas y complejidades. Estás construyendo tu propio laberinto, de alguna manera, y fácilmente puedes perderte en él.
 
@@ -66,7 +66,7 @@ Algunos programadores creen que esta complejidad se gestiona mejor utilizando so
 
 {{index experimento}}
 
-Esto no solo es aburrido, sino que es ineficaz. A menudo, nuevos problemas requieren soluciones nuevas. El campo de la programación es joven y aún se está desarrollando rápidamente, y es lo suficientemente variado como para tener espacio para enfoques radicalmente diferentes. Hay muchos errores terribles que cometer en el diseño de programas, y deberías ir y cometerlos al menos una vez para entenderlos. Una noción de cómo es un buen programa se desarrolla con la práctica, no se aprende de una lista de reglas.
+Esto no solo es aburrido, es inefectivo. A menudo, nuevos problemas requieren soluciones nuevas. El campo de la programación es joven y aún se está desarrollando rápidamente, y es lo suficientemente variado como para tener espacio para enfoques radicalmente diferentes. Hay muchos errores terribles que cometer en el diseño de programas, y deberías ir y cometerlos al menos una vez para entenderlos. Una noción de cómo es un buen programa se desarrolla con la práctica, no se aprende de una lista de reglas.
 
 ## Por qué importa el lenguaje
 
@@ -110,7 +110,7 @@ Cada línea del programa anterior contiene una única instrucción. Podría escr
 
 {{index legibilidad, nomenclatura, enlace}}
 
-Aunque eso ya es más legible que la sopa de bits, sigue siendo bastante oscuro. Usar nombres en lugar de números para las instrucciones y las ubicaciones de memoria ayuda:
+Aunque eso ya es más legible que la sopa de bits, sigue siendo bastante confusa. Usar nombres en lugar de números para las instrucciones y las ubicaciones de memoria ayuda:
 
 ```{lang: "null"}
  Establecer “total” en 0.
@@ -159,7 +159,7 @@ console.log(suma(rango(1, 10)));
 
 {{index legibilidad}}
 
-La moraleja de esta historia es que el mismo programa puede expresarse de formas largas y cortas, ilegibles y legibles. La primera versión del programa era extremadamente oscura, mientras que esta última es casi en inglés: `registra` la `suma` del `rango` de números del 1 al 10. (Veremos en [capítulos posteriores](data) cómo definir operaciones como `suma` y `rango`.)
+La moraleja de esta historia es que el mismo programa puede expresarse de formas largas y cortas, ilegibles y legibles. La primera versión del programa era extremadamente críptica, mientras que esta última es casi en inglés: registra (`log`) la `suma` del `rango` de números del 1 al 10. (Veremos en [capítulos posteriores](data) cómo definir operaciones como `suma` y `rango`.)
 
 {{index ["lenguaje de programación", "poder de"], composabilidad}}
 
