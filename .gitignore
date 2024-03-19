@@ -4,7 +4,12 @@
 /nostarch.pdf
 /pdf/[012]*.tex
 /pdf/hints.tex
-/pdf/book.*
+/pdf/book.aux
+/pdf/book.idx
+/pdf/book.ilg
+/pdf/book.ind
+/pdf/book.log
+/pdf/book.toc
 /pdf/book_mobile.*
 /pdf/*.log
 /code/chapter/*
