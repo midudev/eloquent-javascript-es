@@ -152,7 +152,7 @@ function elt(type, props, ...children) {
 
 {{index "método `setAttribute`", "atributo", "propiedad `onclick`", "evento de clic", "manejo de eventos"}}
 
-La diferencia principal entre esta versión y la que usamos en [Capítulo ?](game#domdisplay) es que asigna _propiedades_ a los nodos del DOM, no _atributos_. Esto significa que no podemos usarlo para establecer atributos arbitrarios, pero _sí_ podemos usarlo para configurar propiedades cuyo valor no es una cadena, como `onclick`, que se puede establecer como una función para registrar un controlador de eventos de clic.
+La diferencia principal entre esta versión y la que usamos en el [Capítulo ?](game#domdisplay) es que asigna _propiedades_ a los nodos del DOM, no _atributos_. Esto significa que no podemos usarlo para establecer atributos arbitrarios, pero _sí_ podemos usarlo para configurar propiedades cuyo valor no es una cadena, como `onclick`, que se puede establecer como una función para registrar un controlador de eventos de clic.
 
 {{index "botón (etiqueta HTML)"}}
 

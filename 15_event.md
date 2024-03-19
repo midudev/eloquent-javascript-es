@@ -248,7 +248,7 @@ Las teclas modificadoras como [shift]{keyname}, [control]{keyname}, [alt]{keynam
 
 {{index "button (etiqueta HTML)", "atributo tabindex", [DOM, eventos]}}
 
-El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene ((foco)) cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo `tabindex`, pero cosas como los ((enlace))s, botones y campos de formulario pueden. Volveremos a los campos de formulario en [Capítulo ?](http#forms). Cuando nada en particular tiene foco, `document.body` actúa como el nodo objetivo de los eventos de teclado.
+El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene ((foco)) cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo `tabindex`, pero cosas como los ((enlace))s, botones y campos de formulario pueden. Volveremos a los campos de formulario en el [Capítulo ?](http#forms). Cuando nada en particular tiene foco, `document.body` actúa como el nodo objetivo de los eventos de teclado.
 
 Cuando el usuario está escribiendo texto, utilizar eventos de teclado para averiguar qué se está escribiendo es problemático. Algunas plataformas, especialmente el ((teclado virtual)) en teléfonos ((Android)), no disparan eventos de teclado. Pero incluso cuando se tiene un teclado tradicional, algunos tipos de entrada de texto no coinciden con las pulsaciones de teclas de manera directa, como el software de _editor de método de entrada_ (((IME))) utilizado por personas cuyos guiones no caben en un teclado, donde múltiples pulsaciones de teclas se combinan para crear caracteres.
 
@@ -519,7 +519,7 @@ Cuando se cierra una página o se navega lejos de ella (por ejemplo, al seguir u
 
 {{index "función requestAnimationFrame", "manejo de eventos", timeline, "script (etiqueta HTML)"}}
 
-En el contexto del bucle de eventos, como se discutió en [Capítulo ?](async), los controladores de eventos del navegador se comportan como otras notificaciones asíncronas. Se programan cuando ocurre el evento pero deben esperar a que otros scripts que se estén ejecutando terminen antes de tener la oportunidad de ejecutarse.
+En el contexto del bucle de eventos, como se discutió en el [Capítulo ?](async), los controladores de eventos del navegador se comportan como otras notificaciones asíncronas. Se programan cuando ocurre el evento pero deben esperar a que otros scripts que se estén ejecutando terminen antes de tener la oportunidad de ejecutarse.
 
 El hecho de que los eventos solo se puedan procesar cuando no hay nada más en ejecución significa que, si el bucle de eventos está ocupado con otro trabajo, cualquier interacción con la página (que ocurre a través de eventos) se retrasará hasta que haya tiempo para procesarla. Entonces, si programas demasiado trabajo, ya sea con controladores de eventos de larga duración o con muchos que se ejecutan rápidamente, la página se volverá lenta y pesada de usar.
 
@@ -554,7 +554,7 @@ La función `postMessage` envía un mensaje, lo que causará que se dispare un e
 
 {{index timeout, "función setTimeout"}}
 
-Vimos la función `setTimeout` en [Capítulo ?](async). Programa otra función para que se llame más tarde, después de un cierto número de milisegundos.
+Vimos la función `setTimeout` en el [Capítulo ?](async). Programa otra función para que se llame más tarde, después de un cierto número de milisegundos.
 
 {{index "función clearTimeout"}}
 

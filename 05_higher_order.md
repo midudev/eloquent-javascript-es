@@ -165,7 +165,7 @@ Existe un método incorporado de arrays, `forEach`, que proporciona algo similar
 
 Un área donde las funciones de orden superior destacan es en el procesamiento de datos. Para procesar datos, necesitaremos algunos ejemplos de datos reales. Este capítulo utilizará un ((conjunto de datos)) sobre scripts—sistemas de escritura tales como el latín, cirílico o árabe.
 
-¿Recuerdas ((Unicode)) del [Capítulo ?](valores#unicode), el sistema que asigna un número a cada carácter en lenguaje escrito? La mayoría de estos caracteres están asociados con un script específico. El estándar contiene 140 scripts diferentes, de los cuales 81 aún se utilizan hoy en día y 59 son históricos.
+¿Recuerdas ((Unicode)) del [Capítulo ?](values#unicode), el sistema que asigna un número a cada carácter en lenguaje escrito? La mayoría de estos caracteres están asociados con un script específico. El estándar contiene 140 scripts diferentes, de los cuales 81 aún se utilizan hoy en día y 59 son históricos.
 
 Aunque solo puedo leer con fluidez caracteres latinos, aprecio el hecho de que las personas estén escribiendo textos en al menos otros 80 sistemas de escritura, muchos de los cuales ni siquiera reconocería. Por ejemplo, aquí tienes una muestra de escritura ((Tamil)):
 

@@ -366,7 +366,7 @@ Para la mayoría del código asíncrono, esta notación es más conveniente que 
 
 Esta capacidad de pausar y luego reanudar funciones no es exclusiva de las funciones `async`. JavaScript también tiene una característica llamada _((generador))_ functions. Son similares, pero sin las promesas.
 
-Cuando defines una función con `function*` (colocando un asterisco después de la palabra `function`), se convierte en un generador. Al llamar a un generador, devuelve un ((iterador)), que ya vimos en [Capítulo ?](object).
+Cuando defines una función con `function*` (colocando un asterisco después de la palabra `function`), se convierte en un generador. Al llamar a un generador, devuelve un ((iterador)), que ya vimos en el [Capítulo ?](object).
 
 ```
 function* powers(n) {
@@ -388,7 +388,7 @@ for (let power of powers(3)) {
 
 Inicialmente, al llamar a `powers`, la función se congela desde el principio. Cada vez que llamas a `next` en el iterador, la función se ejecuta hasta que encuentra una expresión `yield`, que la pausa y hace que el valor generado se convierta en el próximo valor producido por el iterador. Cuando la función retorna (la del ejemplo nunca lo hace), el iterador ha terminado.
 
-Escribir iteradores a menudo es mucho más fácil cuando usas funciones generadoras. El iterador para la clase `Group` (del ejercicio en [Capítulo ?](object#group_iterator)) se puede escribir con este generador:
+Escribir iteradores a menudo es mucho más fácil cuando usas funciones generadoras. El iterador para la clase `Group` (del ejercicio en el [Capítulo ?](object#group_iterator)) se puede escribir con este generador:
 
 {{index "Group class"}}
 

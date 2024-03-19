@@ -16,7 +16,7 @@ En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas 
 
 {{index grammar, [sintaxis, "expresión"], ["código", "estructura de"], "gramática", [JavaScript, sintaxis]}}
 
-En [Capítulo 1](01_values), creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
+En [Capítulo ?](values), creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
 
 {{index "expresión literal", ["paréntesis", "expresión"]}}
 
@@ -198,7 +198,7 @@ if}}
 
 {{index [objeto, propiedad], [acceso, propiedad]}}
 
-Aunque los nombres de enlaces no pueden contener ((puntos)), `console.log` tiene uno. Esto se debe a que `console.log` no es un simple enlace, sino una expresión que recupera la propiedad `log` del valor contenido por el enlace `console`. Descubriremos exactamente lo que esto significa en [Capítulo ?](data#propiedades).
+Aunque los nombres de enlaces no pueden contener ((puntos)), `console.log` tiene uno. Esto se debe a que `console.log` no es un simple enlace, sino una expresión que recupera la propiedad `log` del valor contenido por el enlace `console`. Descubriremos exactamente lo que esto significa en el [Capítulo ?](data#properties).
 
 {{id valores_retorno}}
 ## Valores de retorno
@@ -377,7 +377,7 @@ console.log(result);
 // → 1024
 ```
 
-El contador también podría haber comenzado en `1` y haber comprobado si era `<= 10`, pero por razones que se harán evidentes en [Capítulo ?](data#array_indexing), es buena idea acostumbrarse a contar desde 0.
+El contador también podría haber comenzado en `1` y haber comprobado si era `<= 10`, pero por razones que se harán evidentes en el [Capítulo ?](data#array_indexing), es buena idea acostumbrarse a contar desde 0.
 
 {{index "** operador"}}
 
@@ -580,7 +580,7 @@ El primer estilo puede ser difícil de leer. Personalmente me gusta más la apar
 
 {{index "Función Número", constructor}}
 
-En algunos casos, como en la función `Number`, la primera letra de un enlace también está en mayúscula. Esto se hizo para marcar esta función como un constructor. Quedará claro lo que es un constructor en [Capítulo ?](object#constructors). Por ahora, lo importante es no molestarse por esta aparente falta de ((consistencia)).
+En algunos casos, como en la función `Number`, la primera letra de un enlace también está en mayúscula. Esto se hizo para marcar esta función como un constructor. Quedará claro lo que es un constructor en el [Capítulo ?](object#constructors). Por ahora, lo importante es no molestarse por esta aparente falta de ((consistencia)).
 
 ## Comentarios
 
