@@ -753,7 +753,7 @@ Nuestra tarea es convertir una cadena como esta en un objeto cuyas propiedades c
 
 {{index "retorno de carro", "salto de línea", "carácter de nueva línea"}}
 
-Dado que el formato debe procesarse ((línea)) por línea, dividir el archivo en líneas separadas es un buen comienzo. Vimos el método `split` en [Capítulo ?](data#split). Sin embargo, algunos sistemas operativos utilizan no solo un carácter de nueva línea para separar líneas sino un carácter de retorno de carro seguido de una nueva línea (`"\r\n"`). Dado que el método `split` también permite una expresión regular como argumento, podemos usar una expresión regular como `/\r?\n/` para dividir de una manera que permita tanto `"\n"` como `"\r\n"` entre líneas.
+Dado que el formato debe procesarse ((línea)) por línea, dividir el archivo en líneas separadas es un buen comienzo. Vimos el método `split` en el [Capítulo ?](data#split). Sin embargo, algunos sistemas operativos utilizan no solo un carácter de nueva línea para separar líneas sino un carácter de retorno de carro seguido de una nueva línea (`"\r\n"`). Dado que el método `split` también permite una expresión regular como argumento, podemos usar una expresión regular como `/\r?\n/` para dividir de una manera que permita tanto `"\n"` como `"\r\n"` entre líneas.
 
 ```{startCode: true}
 function parseINI(string) {
@@ -799,7 +799,7 @@ Si una línea no es un encabezado de sección o una propiedad, la función verif
 
 ## Unidades de código y caracteres
 
-Otro error de diseño que se ha estandarizado en las expresiones regulares de JavaScript es que, por defecto, operadores como `.` o `?` trabajan en unidades de código, como se discute en [Capítulo ?](higher_order#code_units), no en caracteres reales. Esto significa que los caracteres que están compuestos por dos unidades de código se comportan de manera extraña.
+Otro error de diseño que se ha estandarizado en las expresiones regulares de JavaScript es que, por defecto, operadores como `.` o `?` trabajan en unidades de código, como se discute en el [Capítulo ?](higher_order#code_units), no en caracteres reales. Esto significa que los caracteres que están compuestos por dos unidades de código se comportan de manera extraña.
 
 ```
 console.log(/🍎{3}/.test("🍎🍎🍎"));

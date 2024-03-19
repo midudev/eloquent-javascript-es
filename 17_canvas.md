@@ -914,7 +914,7 @@ Escribe un programa que dibuje las siguientes ((formas)) en un lienzo ((canvas))
 
 {{figure {url: "img/exercise_shapes.png", alt: "Imagen que muestra las formas que se te pide dibujar", width: "8cm"}}}
 
-Cuando dibujes las dos últimas, es posible que quieras consultar la explicación de `Math.cos` y `Math.sin` en [Capítulo ?](dom#sin_cos), que describe cómo obtener coordenadas en un círculo utilizando estas funciones.
+Cuando dibujes las dos últimas, es posible que quieras consultar la explicación de `Math.cos` y `Math.sin` en el [Capítulo ?](dom#sin_cos), que describe cómo obtener coordenadas en un círculo utilizando estas funciones.
 
 {{index legibilidad, "codificación en duro"}}
 
@@ -963,7 +963,7 @@ hint}}
 
 Anteriormente en este capítulo, vimos un programa de ejemplo que dibujaba un gráfico circular. Modifica este programa para que el nombre de cada categoría se muestre junto a la porción que la representa. Intenta encontrar una forma agradable de posicionar automáticamente este texto que funcione también para otros conjuntos de datos. Puedes asumir que las categorías son lo suficientemente grandes como para dejar espacio suficiente para sus etiquetas.
 
-Podrías necesitar `Math.sin` y `Math.cos` de nuevo, que se describen en [Capítulo ?](dom#sin_cos).
+Podrías necesitar `Math.sin` y `Math.cos` de nuevo, que se describen en el [Capítulo ?](dom#sin_cos).
 
 {{if interactive
 
@@ -1014,13 +1014,13 @@ Para `textBaseline`, el valor `"middle"` probablemente sea apropiado al usar est
 
 {{index "Math.cos function"}}
 
-Si no estás seguro de cómo averiguar en qué lado del círculo se encuentra un ángulo dado, consulta la explicación de `Math.cos` en [Capítulo ?](dom#sin_cos). El coseno de un ángulo nos indica qué coordenada x le corresponde, lo que a su vez nos dice exactamente en qué lado del círculo estamos.
+Si no estás seguro de cómo averiguar en qué lado del círculo se encuentra un ángulo dado, consulta la explicación de `Math.cos` en el [Capítulo ?](dom#sin_cos). El coseno de un ángulo nos indica qué coordenada x le corresponde, lo que a su vez nos dice exactamente en qué lado del círculo estamos.
 
 hint}}
 
 ### Una pelota rebotando
 
-Utiliza la técnica de `requestAnimationFrame` que vimos en [Capítulo ?](dom#animationFrame) y [Capítulo ?](game#runAnimation) para dibujar una caja con una pelota rebotando dentro. La pelota se mueve a una velocidad constante y rebota en los lados de la caja cuando los alcanza.
+Utiliza la técnica de `requestAnimationFrame` que vimos en el [Capítulo ?](dom#animationFrame) y [Capítulo ?](game#runAnimation) para dibujar una caja con una pelota rebotando dentro. La pelota se mueve a una velocidad constante y rebota en los lados de la caja cuando los alcanza.
 
 {{if interactive
 

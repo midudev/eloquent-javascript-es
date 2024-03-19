@@ -537,7 +537,7 @@ Dentro de una declaración de clase, los métodos o propiedades que tienen `stat
 
 {{index "bucle for/of", "interfaz iteradora"}}
 
-Mencioné en [Capítulo ?](data#for_of_loop) que un bucle `for`/`of` puede recorrer varios tipos de estructuras de datos. Este es otro caso de polimorfismo: tales bucles esperan que la estructura de datos exponga una interfaz específica, la cual hacen los arrays y las cadenas. ¡Y también podemos agregar esta interfaz a nuestros propios objetos! Pero antes de hacerlo, debemos echar un vistazo breve al tipo de símbolo.
+Mencioné en el [Capítulo ?](data#for_of_loop) que un bucle `for`/`of` puede recorrer varios tipos de estructuras de datos. Este es otro caso de polimorfismo: tales bucles esperan que la estructura de datos exponga una interfaz específica, la cual hacen los arrays y las cadenas. ¡Y también podemos agregar esta interfaz a nuestros propios objetos! Pero antes de hacerlo, debemos echar un vistazo breve al tipo de símbolo.
 
 Es posible que múltiples interfaces utilicen el mismo nombre de propiedad para diferentes cosas. Por ejemplo, en objetos similares a arrays, `length` se refiere a la cantidad de elementos en la colección. Pero una interfaz de objeto que describa una ruta de senderismo podría usar `length` para proporcionar la longitud de la ruta en metros. No sería posible que un objeto cumpla con ambas interfaces.
 
@@ -611,7 +611,7 @@ console.log(okIterador.next());
 
 {{index ["estructura de datos", lista], "lista enlazada", "colección"}}
 
-Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en [Capítulo ?](data). Esta vez escribiremos la lista como una clase.
+Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en el [Capítulo ?](data). Esta vez escribiremos la lista como una clase.
 
 ```{includeCode: true}
 class List {

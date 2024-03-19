@@ -124,7 +124,7 @@ Cada cadena de texto tiene una propiedad `toUpperCase`. Cuando se llama, devolve
 
 {{index "vinculación de this"}}
 
-Curiosamente, aunque la llamada a `toUpperCase` no pasa argumentos, de alguna manera la función tiene acceso a la cadena `"Doh"`, el valor cuya propiedad llamamos. Descubrirás cómo funciona esto en [Capítulo ?](object#obj_methods).
+Curiosamente, aunque la llamada a `toUpperCase` no pasa argumentos, de alguna manera la función tiene acceso a la cadena `"Doh"`, el valor cuya propiedad llamamos. Descubrirás cómo funciona esto en el [Capítulo ?](object#obj_methods).
 
 Las propiedades que contienen funciones generalmente se llaman _métodos_ del valor al que pertenecen, como en "`toUpperCase` es un método de una cadena".
 
@@ -457,7 +457,7 @@ for (let entry of JOURNAL) {
 
 {{index "for/of loop"}}
 
-Cuando un bucle `for` usa la palabra `of` después de la definición de su variable, recorrerá los elementos del valor dado después de `of`. Esto no solo funciona para arrays, sino también para cadenas y algunas otras estructuras de datos. Discutiremos _cómo_ funciona en [Capítulo ?](object).
+Cuando un bucle `for` usa la palabra `of` después de la definición de su variable, recorrerá los elementos del valor dado después de `of`. Esto no solo funciona para arrays, sino también para cadenas y algunas otras estructuras de datos. Discutiremos _cómo_ funciona en el [Capítulo ?](object).
 
 {{id analysis}}
 
@@ -692,7 +692,7 @@ console.log("LA".repeat(3));
 
 {{index ["length property", "for string"], [string, indexing]}}
 
-Ya hemos visto la propiedad `length` del tipo string. Acceder a los caracteres individuales en una cadena se parece a acceder a los elementos de un array (con una complicación que discutiremos en [Capítulo ?](higher_order#code_units)).
+Ya hemos visto la propiedad `length` del tipo string. Acceder a los caracteres individuales en una cadena se parece a acceder a los elementos de un array (con una complicación que discutiremos en el [Capítulo ?](higher_order#code_units)).
 
 ```
 let string = "abc";
@@ -791,7 +791,7 @@ console.log(puntoAleatorioEnCirculo(2));
 // → {x: 0.3667, y: 1.966}
 ```
 
-Si no estás familiarizado con senos y cosenos, no te preocupes. Los explicaré cuando se utilicen en este libro, en [Capítulo ?](dom#sin_cos).
+Si no estás familiarizado con senos y cosenos, no te preocupes. Los explicaré cuando se utilicen en este libro, en el [Capítulo ?](dom#sin_cos).
 
 {{index "Función Math.random", "número aleatorio"}}
 

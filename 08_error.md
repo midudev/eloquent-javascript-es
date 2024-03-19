@@ -394,7 +394,7 @@ Escribir programas que funcionen de manera confiable incluso cuando surgen excep
 
 {{index "excepción no capturada", "manejo de excepciones", "consola de JavaScript", "herramientas para desarrolladores", "pila de llamadas", error}}
 
-Cuando una excepción llega hasta el final de la pila sin ser capturada, es manejada por el entorno. Lo que esto significa difiere según los entornos. En los navegadores, generalmente se escribe una descripción del error en la consola de JavaScript (accesible a través del menú Herramientas o Desarrollador del navegador). Node.js, el entorno de JavaScript sin navegador del que hablaremos en [Capítulo ?](node), es más cuidadoso con la corrupción de datos. Abortará todo el proceso cuando ocurra una excepción no manejada.
+Cuando una excepción llega hasta el final de la pila sin ser capturada, es manejada por el entorno. Lo que esto significa difiere según los entornos. En los navegadores, generalmente se escribe una descripción del error en la consola de JavaScript (accesible a través del menú Herramientas o Desarrollador del navegador). Node.js, el entorno de JavaScript sin navegador del que hablaremos en el [Capítulo ?](node), es más cuidadoso con la corrupción de datos. Abortará todo el proceso cuando ocurra una excepción no manejada.
 
 {{index crash, "manejo de errores"}}
 

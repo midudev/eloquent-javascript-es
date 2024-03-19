@@ -32,7 +32,7 @@ Los _módulos_ son un intento de evitar estos problemas. Un ((módulo)) es una p
 
 {{index "gran bola de barro"}}
 
-Las interfaces de los módulos tienen mucho en común con las interfaces de objetos, como las vimos en [Capítulo ?](object#interface). Permiten que una parte del módulo esté disponible para el mundo exterior y mantienen el resto privado.
+Las interfaces de los módulos tienen mucho en común con las interfaces de objetos, como las vimos en el [Capítulo ?](object#interface). Permiten que una parte del módulo esté disponible para el mundo exterior y mantienen el resto privado.
 
 {{index dependencia}}
 
@@ -135,7 +135,7 @@ NPM es dos cosas: un servicio en línea donde puedes descargar (y subir) paquete
 
 {{index "ini package"}}
 
-En el momento de la escritura, hay más de tres millones de paquetes diferentes disponibles en NPM. Una gran parte de ellos son basura, para ser honesto. Pero casi cada paquete de JavaScript útil y disponible públicamente se puede encontrar en NPM. Por ejemplo, un analizador de archivos INI, similar al que construimos en [Capítulo ?](regexp), está disponible bajo el nombre del paquete `ini`.
+En el momento de la escritura, hay más de tres millones de paquetes diferentes disponibles en NPM. Una gran parte de ellos son basura, para ser honesto. Pero casi cada paquete de JavaScript útil y disponible públicamente se puede encontrar en NPM. Por ejemplo, un analizador de archivos INI, similar al que construimos en el [Capítulo ?](regexp), está disponible bajo el nombre del paquete `ini`.
 
 {{index "command line"}}
 

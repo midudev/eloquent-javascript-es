@@ -128,7 +128,7 @@ Aunque eso ya es más legible que la sopa de bits, sigue siendo bastante confusa
 
 {{index bucle, salto, "ejemplo de suma"}}
 
-¿Puedes ver cómo funciona el programa en este punto? Las dos primeras líneas asignan los valores iniciales a dos ubicaciones de memoria: `total` se utilizará para construir el resultado de la computación, y `count` llevará la cuenta del número que estamos observando en ese momento. Las líneas que utilizan `compare` probablemente sean las más confusas. El programa quiere ver si `count` es igual a 11 para decidir si puede dejar de ejecutarse. Debido a que nuestra máquina hipotética es bastante primitiva, solo puede comprobar si un número es cero y tomar una decisión en función de ese valor. Por lo tanto, utiliza la ubicación de memoria etiquetada como `compare` para calcular el valor de `count - 11` y tomar una decisión basada en ese valor. Las siguientes dos líneas suman el valor de `count` al resultado e incrementan `count` en 1 cada vez que el programa decide que `count` aún no es 11.Aquí está el mismo programa en JavaScript:
+¿Puedes ver cómo funciona el programa en este punto? Las dos primeras líneas asignan los valores iniciales a dos ubicaciones de memoria: `total` se utilizará para construir el resultado de la computación, y `count` llevará la cuenta del número que estamos observando en ese momento. Las líneas que utilizan `compare` probablemente sean las más confusas. El programa quiere ver si `count` es igual a 11 para decidir si puede dejar de ejecutarse. Debido a que nuestra máquina hipotética es bastante primitiva, solo puede comprobar si un número es cero y tomar una decisión en función de ese valor. Por lo tanto, utiliza la ubicación de memoria etiquetada como `compare` para calcular el valor de `count - 11` y tomar una decisión basada en ese valor. Las siguientes dos líneas suman el valor de `count` al resultado e incrementan `count` en 1 cada vez que el programa decide que `count` aún no es 11. Aquí está el mismo programa en JavaScript:
 
 ```
 let total = 0, count = 1;
@@ -187,11 +187,11 @@ Hay quienes dirán cosas _terribles_ sobre JavaScript. Muchas de esas cosas son 
 
 {{index JavaScript, "flexibilidad de"}}
 
-Esta flexibilidad también tiene sus ventajas. Deja espacio para técnicas imposibles en lenguajes más rígidos y permite un estilo de programación agradable e informal. Después de ((aprender)) el lenguaje adecuadamente y trabajar con él durante un tiempo, he llegado a realmente _gustarme_ JavaScript.
+Esta flexibilidad también tiene sus ventajas. Deja espacio para técnicas imposibles en lenguajes más rígidos y permite un estilo de programación agradable e informal. Después de ((aprender)) el lenguaje adecuadamente y trabajar con él durante un tiempo, ha llegado a realmente _gustarme_ JavaScript.
 
 {{index futuro, [JavaScript, "versiones de"], ECMAScript, "ECMAScript 6"}}
 
-Ha habido varias versiones de JavaScript. La versión ECMAScript 3 fue la versión ampliamente soportada durante el ascenso al dominio de JavaScript, aproximadamente entre 2000 y 2010. Durante este tiempo, se estaba trabajando en una versión ambiciosa 4, la cual planeaba una serie de mejoras y extensiones radicales al lenguaje. Cambiar un lenguaje vivo y ampliamente utilizado de esa manera resultó ser políticamente difícil, y el trabajo en la versión 4 fue abandonado en 2008. Una versión mucho menos ambiciosa 5, que solo realizaba algunas mejoras no controversiales, salió en 2009. En 2015, salió la versión 6, una actualización importante que incluía algunas de las ideas previstas para la versión 4. Desde entonces, hemos tenido nuevas actualizaciones pequeñas cada año.
+Ha habido varias versiones de JavaScript. La versión ECMAScript 3 fue la versión ampliamente soportada durante el ascenso al dominio de JavaScript, aproximadamente entre 2000 y 2010. Durante este tiempo, se estaba trabajando en una versión ambiciosa 4, la cual planeaba una serie de mejoras y extensiones radicales al lenguaje. Cambiar un lenguaje vivo y ampliamente utilizado de esa manera resultó ser políticamente difícil, y el trabajo en la versión 4 fue abandonado en 2008. Una versión 5, mucho menos ambiciosa, que solo realizaba algunas mejoras no controversiales, salió en 2009. En 2015, salió la versión 6, una actualización importante que incluía algunas de las ideas previstas para la versión 4. Desde entonces, hemos tenido nuevas actualizaciones pequeñas cada año.
 
 El hecho de que JavaScript esté evolucionando significa que los navegadores tienen que mantenerse constantemente al día. Si estás usando un navegador más antiguo, es posible que no admita todas las funciones. Los diseñadores del lenguaje se aseguran de no realizar cambios que puedan romper programas existentes, por lo que los nuevos navegadores aún pueden ejecutar programas antiguos. En este libro, estoy utilizando la versión 2023 de JavaScript.
 
@@ -207,7 +207,7 @@ El _código_ es el texto que constituye los programas. La mayoría de los capít
 
 {{index "interpretación"}}
 
-Te recomiendo que pruebes tus soluciones a los ejercicios en un intérprete de JavaScript real. De esta manera, obtendrás comentarios inmediatos sobre si lo que estás haciendo funciona, y, espero, te tentarás a ((experimentar)) y a ir más allá de los ejercicios.
+Te recomiendo que pruebes tus soluciones a los ejercicios en un intérprete de JavaScript real. De esta manera, obtendrás comentarios inmediatos sobre si lo que estás haciendo funciona, y, espero, te tentarán a ((experimentar)) y a ir más allá de los ejercicios.
 
 {{if interactive
 
@@ -233,7 +233,7 @@ Este libro consta aproximadamente de tres partes. Los primeros 12 capítulos tra
 
 La parte del lenguaje del libro comienza con cuatro capítulos que introducen la estructura básica del lenguaje JavaScript. Discuten las [estructuras de control](program_structure) (como la palabra `while` que viste en esta introducción), las [funciones](functions) (escribir tus propios bloques de construcción) y las [estructuras de datos](data). Después de estos, serás capaz de escribir programas básicos. Luego, los Capítulos [?](higher_order) y [?](object) introducen técnicas para usar funciones y objetos para escribir código más _abstracto_ y mantener la complejidad bajo control. Después de un [primer capítulo del proyecto](robot) que construye un robot de entrega rudimentario, la parte del lenguaje del libro continúa con capítulos sobre [manejo de errores y corrección de errores](error), [expresiones regulares](regexp) (una herramienta importante para trabajar con texto), [modularidad](modules) (otra defensa contra la complejidad) y [programación asíncrona](async) (tratando con eventos que toman tiempo). El [segundo capítulo del proyecto](language), donde implementamos un lenguaje de programación, concluye la primera parte del libro.
 
-La segunda parte del libro, de los capítulos [?](browser) a [?](paint), describe las herramientas a las que tiene acceso JavaScript en un navegador. Aprenderás a mostrar cosas en la pantalla (Capítulos [?](dom) y [?](canvas)), responder a la entrada del usuario ([Capítulo ?](event)) y comunicarte a través de la red ([Capítulo ?](http)). Nuevamente hay dos capítulos de proyecto en esta parte, construyendo un [juego de plataforma](game) y un [programa de pintura de píxeles](paint).
+La segunda parte del libro, de los capítulos [?](browser) a [?](paint), describe las herramientas a las que tiene acceso JavaScript en un navegador. Aprenderás a mostrar cosas en la pantalla (Capítulos [?](dom) y [?](canvas)), responder a la entrada del usuario ([Capítulo ?](event)) y comunicarte a través de la red ([Capítulo ?](http)). Nuevamente hay dos capítulos de proyecto en esta parte, construyendo un [juego de plataformas](game) y un [programa de pintura de píxeles](paint).
 
 El [Capítulo ?](node) describe Node.js, y el [Capítulo ?](skillsharing) construye un pequeño sitio web utilizando esa herramienta.
 

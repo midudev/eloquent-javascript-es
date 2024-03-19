@@ -43,7 +43,7 @@ Usar esto en un programa hará que el patrón de bits para el número 13 exista 
 
 {{index ["número", "representación"], bit}}
 
-JavaScript utiliza un número fijo de bits, 64 de ellos, para almacenar un único valor numérico. Solo hay tantos patrones que puedes hacer con 64 bits, lo que limita la cantidad de números diferentes que se pueden representar. Con _N_ ((dígitos)) decimales, puedes representar 10^N^ números. De manera similar, dada una cifra de 64 dígitos binarios, puedes representar 2^64^ números diferentes, que son alrededor de 18 mil trillones (un 18 seguido de 18 ceros). Eso es mucho.
+JavaScript utiliza un número fijo de bits, 64 de ellos, para almacenar un único valor numérico. Hay un número limitado de patrones que puedes hacer con 64 bits, lo que limita la cantidad de números diferentes que se pueden representar. Con _N_ ((dígitos)) decimales, puedes representar 10^N^ números. De manera similar, dada una cifra de 64 dígitos binarios, puedes representar 2^64^ números diferentes, que son alrededor de 18 mil trillones (un 18 seguido de 18 ceros). Eso es mucho.
 
 La memoria de la computadora solía ser mucho más pequeña, y la gente solía utilizar grupos de 8 o 16 bits para representar sus números. Era fácil tener un _((desbordamiento))_ accidental con números tan pequeños, terminando con un número que no encajaba en la cantidad dada de bits. Hoy en día, incluso las computadoras que caben en tu bolsillo tienen mucha memoria, por lo que puedes utilizar trozos de 64 bits y solo necesitas preocuparte por el desbordamiento cuando lidias con números realmente astronómicos.
 
@@ -166,7 +166,7 @@ Las cadenas también deben ser modeladas como una serie de bits para poder exist
 
 {{index "UTF-16", emoji}}
 
-Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?](higher_order#code_units).
+Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en el [Capítulo ?](higher_order#code_units).
 
 {{index "operador +", "concatenación"}}
 
@@ -176,7 +176,7 @@ Las cadenas no se pueden dividir, multiplicar o restar. El operador `+` se puede
 "con" + "cat" + "e" + "nar"
 ```
 
-Los valores de cadena tienen una serie de funciones asociadas (_métodos_) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en [Capítulo ?](data#methods).
+Los valores de cadena tienen una serie de funciones asociadas (_métodos_) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en el [Capítulo ?](data#methods).
 
 {{index "interpolación", acento grave}}
 
