@@ -80,7 +80,7 @@ Esta estructura de datos se llama un _((árbol de sintaxis))_. Si te imaginas lo
 
 {{index "análisis" "sintáctico"}}
 
-Contrasta esto con el analizador que escribimos para el formato de archivo de configuración en [Capítulo ?](regexp#ini), que tenía una estructura simple: dividía la entrada en líneas y manejaba esas líneas una a la vez. Solo había algunas formas simples que una línea podía tener.
+Contrasta esto con el analizador que escribimos para el formato de archivo de configuración en el [Capítulo ?](regexp#ini), que tenía una estructura simple: dividía la entrada en líneas y manejaba esas líneas una a la vez. Solo había algunas formas simples que una línea podía tener.
 
 {{index "recursión", [anidamiento, "de expresiones"]}}
 

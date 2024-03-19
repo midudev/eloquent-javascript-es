@@ -54,7 +54,7 @@ Podemos representar el fondo como una tabla ya que es una ((cuadrícula)) inmuta
 
 {{index rendimiento, [DOM, "gráficos"]}}
 
-En juegos y otros programas que deben animar ((gráficos)) y responder a la ((entrada)) del usuario sin retrasos notables, la ((eficiencia)) es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas ((animacione))s en [Capítulo ?](dom#animacion). En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la ((optimización)).
+En juegos y otros programas que deben animar ((gráficos)) y responder a la ((entrada)) del usuario sin retrasos notables, la ((eficiencia)) es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas ((animacione))s en el [Capítulo ?](dom#animacion). En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la ((optimización)).
 
 {{index lienzo, [DOM, "gráficos"]}}
 
@@ -768,7 +768,7 @@ La misma función manejadora se utiliza para ambos tipos de eventos. Esta funci�
 
 {{index "función requestAnimationFrame", ["animación", "juego de plataformas"]}}
 
-La función `requestAnimationFrame`, que vimos en [Capítulo ?](dom#animationFrame), proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a `requestAnimationFrame` nuevamente después de cada fotograma.
+La función `requestAnimationFrame`, que vimos en el [Capítulo ?](dom#animationFrame), proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a `requestAnimationFrame` nuevamente después de cada fotograma.
 
 {{index "función runAnimation", "función de devolución de llamada", ["función", "como valor"], ["función", "de orden superior"], ["animación", "juego de plataformas"]}}
 
@@ -840,7 +840,7 @@ async function runGame(plans, Display) {
 
 {{index "programación asincrónica", "manejo de eventos"}}
 
-Debido a que hicimos que `runLevel` devuelva una promesa, `runGame` puede escribirse utilizando una función `async`, como se muestra en [Capítulo ?](async). Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.
+Debido a que hicimos que `runLevel` devuelva una promesa, `runGame` puede escribirse utilizando una función `async`, como se muestra en el [Capítulo ?](async). Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.
 
 {{index juego, "conjunto de datos GAME_LEVELS"}}
 

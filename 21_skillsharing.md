@@ -207,7 +207,7 @@ Las funciones manejadoras se llaman con el valor `context` dado a `resolve`. Uti
 
 ### Sirviendo archivos
 
-Cuando una solicitud no coincide con ninguno de los tipos de solicitud definidos en nuestro enrutador, el servidor debe interpretarlo como una solicitud de un archivo en el directorio `public`. Sería posible usar el servidor de archivos definido en [Capítulo ?](node#file_server) para servir dichos archivos, pero ni necesitamos ni queremos admitir solicitudes `PUT` y `DELETE` en archivos, y nos gustaría tener funciones avanzadas como el soporte para almacenamiento en caché. Así que usemos en cambio un servidor de archivos estático sólido y bien probado de ((NPM)).
+Cuando una solicitud no coincide con ninguno de los tipos de solicitud definidos en nuestro enrutador, el servidor debe interpretarlo como una solicitud de un archivo en el directorio `public`. Sería posible usar el servidor de archivos definido en el [Capítulo ?](node#file_server) para servir dichos archivos, pero ni necesitamos ni queremos admitir solicitudes `PUT` y `DELETE` en archivos, y nos gustaría tener funciones avanzadas como el soporte para almacenamiento en caché. Así que usemos en cambio un servidor de archivos estático sólido y bien probado de ((NPM)).
 
 {{index "createServer function", "serve-static package"}}
 
@@ -559,7 +559,7 @@ function reportError(error) {
 
 {{index "función renderUserField"}}
 
-Utilizaremos un enfoque similar al que vimos en [Capítulo ?](paint), dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo DOM. Por ejemplo, aquí hay un componente que muestra el campo donde el usuario puede ingresar su nombre:
+Utilizaremos un enfoque similar al que vimos en el [Capítulo ?](paint), dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo DOM. Por ejemplo, aquí hay un componente que muestra el campo donde el usuario puede ingresar su nombre:
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
 function renderUserField(name, dispatch) {
@@ -575,7 +575,7 @@ function renderUserField(name, dispatch) {
 
 {{index "función elt"}}
 
-La función `elt` utilizada para construir elementos DOM es la misma que usamos en [Capítulo ?](paint).
+La función `elt` utilizada para construir elementos DOM es la misma que usamos en el [Capítulo ?](paint).
 
 ```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, hidden: true}
 function elt(type, props, ...children) {

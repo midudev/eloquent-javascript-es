@@ -10,7 +10,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_18.jpg", alt: "Ilustración mostrando un formulario de registro en la web en un pergamino", chapter: "framed"}}}
 
-El _Protocolo de Transferencia de Hipertexto_, mencionado anteriormente en [Capítulo ?](browser#web), es el mecanismo a través del cual se solicita y proporciona datos en la ((World Wide Web)). Este capítulo describe el ((protocolo)) con más detalle y explica la forma en que JavaScript del navegador tiene acceso a él.
+El _Protocolo de Transferencia de Hipertexto_, mencionado anteriormente en el [Capítulo ?](browser#web), es el mecanismo a través del cual se solicita y proporciona datos en la ((World Wide Web)). Este capítulo describe el ((protocolo)) con más detalle y explica la forma en que JavaScript del navegador tiene acceso a él.
 
 ## El protocolo
 
@@ -867,7 +867,7 @@ Construye una interfaz que permita a las personas escribir y ejecutar fragmentos
 
 {{index "textarea (etiqueta HTML)", "button (etiqueta HTML)", "Constructor de Function", "mensaje de error"}}
 
-Coloca un botón al lado de un campo `<textarea>` que, al ser presionado, utilice el constructor `Function` que vimos en [Capítulo ?](modules#eval) para envolver el texto en una función y llamarla. Convierte el valor de retorno de la función, o cualquier error que genere, a una cadena y muéstralo debajo del campo de texto.
+Coloca un botón al lado de un campo `<textarea>` que, al ser presionado, utilice el constructor `Function` que vimos en el [Capítulo ?](modules#eval) para envolver el texto en una función y llamarla. Convierte el valor de retorno de la función, o cualquier error que genere, a una cadena y muéstralo debajo del campo de texto.
 
 {{if interactive
 

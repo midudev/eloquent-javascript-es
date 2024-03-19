@@ -166,7 +166,7 @@ Las cadenas también deben ser modeladas como una serie de bits para poder exist
 
 {{index "UTF-16", emoji}}
 
-Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en [Capítulo ?](higher_order#code_units).
+Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en el [Capítulo ?](higher_order#code_units).
 
 {{index "operador +", "concatenación"}}
 
@@ -176,7 +176,7 @@ Las cadenas no se pueden dividir, multiplicar o restar. El operador `+` se puede
 "con" + "cat" + "e" + "nar"
 ```
 
-Los valores de cadena tienen una serie de funciones asociadas (_métodos_) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en [Capítulo ?](data#methods).
+Los valores de cadena tienen una serie de funciones asociadas (_métodos_) que se pueden utilizar para realizar otras operaciones con ellos. Hablaré más sobre esto en el [Capítulo ?](data#methods).
 
 {{index "interpolación", acento grave}}
 

@@ -101,7 +101,7 @@ Además de los enlaces que mencioné, como `console` y `process`, Node agrega po
 
 {{index "función require"}}
 
-Node comenzó utilizando el sistema de módulos CommonJS, basado en la función `require`, que vimos en [Capítulo ?](modules#commonjs). Aún utilizará este sistema de forma predeterminada cuando cargues un archivo `.js`.
+Node comenzó utilizando el sistema de módulos CommonJS, basado en la función `require`, que vimos en el [Capítulo ?](modules#commonjs). Aún utilizará este sistema de forma predeterminada cuando cargues un archivo `.js`.
 
 {{index "palabra clave import", "módulos ES"}}
 
@@ -153,11 +153,11 @@ tpircSavaJ
 
 {{index NPM, "Node.js", "programa npm", biblioteca}}
 
-NPM, que fue introducido en [Capítulo ?](modules#modules_npm), es un repositorio en línea de ((módulos)) de JavaScript, muchos de los cuales están escritos específicamente para Node. Cuando instalas Node en tu computadora, también obtienes el comando `npm`, que puedes usar para interactuar con este repositorio.
+NPM, que fue introducido en el [Capítulo ?](modules#modules_npm), es un repositorio en línea de ((módulos)) de JavaScript, muchos de los cuales están escritos específicamente para Node. Cuando instalas Node en tu computadora, también obtienes el comando `npm`, que puedes usar para interactuar con este repositorio.
 
 {{index "paquete ini"}}
 
-El uso principal de NPM es ((descargar)) paquetes. Vimos el paquete `ini` en [Capítulo ?](modules#modules_ini). Podemos usar NPM para buscar e instalar ese paquete en nuestra computadora.
+El uso principal de NPM es ((descargar)) paquetes. Vimos el paquete `ini` en el [Capítulo ?](modules#modules_ini). Podemos usar NPM para buscar e instalar ese paquete en nuestra computadora.
 
 ```{lang: null}
 $ npm install ini
@@ -179,7 +179,7 @@ Después de ejecutar `npm install`, ((NPM)) habrá creado un directorio llamado 
 
 Después de ejecutar `npm install` para instalar algún paquete, encontrarás no solo un directorio `node_modules`, sino también un archivo llamado `package.json` en tu directorio actual. Se recomienda tener tal archivo para cada proyecto. Puedes crearlo manualmente o ejecutar `npm init`. Este archivo contiene información sobre el proyecto, como su nombre y ((versión)), y enumera sus dependencias.
 
-La simulación del robot de [Capítulo ?](robot), modularizada en el ejercicio en [Capítulo ?](modules#modular_robot), podría tener un archivo `package.json` como este:
+La simulación del robot de [Capítulo ?](robot), modularizada en el ejercicio en el [Capítulo ?](modules#modular_robot), podría tener un archivo `package.json` como este:
 
 ```{lang: "json"}
 {
@@ -271,7 +271,7 @@ El módulo `node:fs` contiene muchas otras funciones útiles: `readdir` te dará
 
 {{index ["programación asíncrona", "en Node.js"], "Node.js", "manejo de errores", "función de devolución de llamada"}}
 
-La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en [Capítulo ?](async), hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.
+La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en el [Capítulo ?](async), hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.
 
 {{index "Clase Promise", "paquete node:fs/promises"}}
 
@@ -352,7 +352,7 @@ Un verdadero servidor web ((server)) usualmente hace más cosas que el ejemplo; 
 
 {{index "node:http package", "función request", "función fetch", [HTTP, cliente]}}
 
-El módulo `node:http` también provee una función `request`, que se puede usar para hacer solicitudes HTTP. Sin embargo, es mucho más engorroso de usar que `fetch`, que vimos en [Capítulo ?](http). Afortunadamente, `fetch` también está disponible en Node, como un enlace global. A menos que desees hacer algo muy específico, como procesar el documento de respuesta pieza por pieza a medida que llegan los datos a través de la red, recomiendo usar `fetch`.
+El módulo `node:http` también provee una función `request`, que se puede usar para hacer solicitudes HTTP. Sin embargo, es mucho más engorroso de usar que `fetch`, que vimos en el [Capítulo ?](http). Afortunadamente, `fetch` también está disponible en Node, como un enlace global. A menos que desees hacer algo muy específico, como procesar el documento de respuesta pieza por pieza a medida que llegan los datos a través de la red, recomiendo usar `fetch`.
 
 ## Flujos
 
@@ -723,7 +723,7 @@ Escribe una página ((HTML)) básica que incluya un archivo JavaScript sencillo.
 
 Luego, como ejercicio avanzado o incluso como un ((proyecto de fin de semana)), combina todo el conocimiento que has adquirido de este libro para construir una interfaz más amigable para modificar el sitio web—desde _dentro_ del sitio web.
 
-Utiliza un formulario ((HTML)) para editar el contenido de los archivos que conforman el sitio web, permitiendo al usuario actualizarlos en el servidor mediante solicitudes HTTP, como se describe en [Capítulo ?](http).
+Utiliza un formulario ((HTML)) para editar el contenido de los archivos que conforman el sitio web, permitiendo al usuario actualizarlos en el servidor mediante solicitudes HTTP, como se describe en el [Capítulo ?](http).
 
 Comienza permitiendo que solo un archivo sea editable. Luego haz que el usuario pueda seleccionar qué archivo editar. Aprovecha el hecho de que nuestro servidor de archivos devuelve listas de archivos al leer un directorio.
 
