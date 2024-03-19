@@ -234,7 +234,7 @@ const cuerno = () => {
 
 {{index verbosidad}}
 
-No hay una razón profunda para tener tanto funciones de flecha como expresiones `function` en el lenguaje. Aparte de un detalle menor, que discutiremos en el [Capítulo ?](objeto), hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en el [Capítulo ?](orden superior).
+No hay una razón profunda para tener tanto funciones de flecha como expresiones `function` en el lenguaje. Aparte de un detalle menor, que discutiremos en el [Capítulo ?](object), hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en el [Capítulo ?](orden superior).
 
 {{id pila}}
 
@@ -417,7 +417,7 @@ console.log(power(2, 3));
 
 {{index ciclo, legibilidad, "matemáticas"}}
 
-Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en el [Capítulo ?](estructura_programación). La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.
+Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en el [Capítulo ?](program_structure). La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.
 
 {{index ["función", "aplicación"], eficiencia}}
 
