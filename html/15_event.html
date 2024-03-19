@@ -186,7 +186,7 @@
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-2tFLOxDicw" href="#p-2tFLOxDicw" tabindex="-1" role="presentation"></a>El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene foco cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo <code>tabindex</code>, pero cosas como los enlaces, botones y campos de formulario pueden. Volveremos a los campos de formulario en <a href="18_http.html#forms">Capítulo 18</a>. Cuando nada en particular tiene foco, <code>document.body</code> actúa como el nodo objetivo de los eventos de teclado.</p>
+<p><a class="p_ident" id="p-2tFLOxDicw" href="#p-2tFLOxDicw" tabindex="-1" role="presentation"></a>El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene foco cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo <code>tabindex</code>, pero cosas como los enlaces, botones y campos de formulario pueden. Volveremos a los campos de formulario en el <a href="18_http.html#forms">Capítulo 18</a>. Cuando nada en particular tiene foco, <code>document.body</code> actúa como el nodo objetivo de los eventos de teclado.</p>
 
 <p><a class="p_ident" id="p-24lfblPn/F" href="#p-24lfblPn/F" tabindex="-1" role="presentation"></a>Cuando el usuario está escribiendo texto, utilizar eventos de teclado para averiguar qué se está escribiendo es problemático. Algunas plataformas, especialmente el teclado virtual en teléfonos Android, no disparan eventos de teclado. Pero incluso cuando se tiene un teclado tradicional, algunos tipos de entrada de texto no coinciden con las pulsaciones de teclas de manera directa, como el software de <em>editor de método de entrada</em> (IME) utilizado por personas cuyos guiones no caben en un teclado, donde múltiples pulsaciones de teclas se combinan para crear caracteres.</p>
 
@@ -375,7 +375,7 @@
 
 <h2 id="timeline"><a class="h_ident" id="h-h3a3U37DpR" href="#h-h3a3U37DpR" tabindex="-1" role="presentation"></a>Eventos y el bucle de eventos</h2>
 
-<p><a class="p_ident" id="p-XL+MT1/Um5" href="#p-XL+MT1/Um5" tabindex="-1" role="presentation"></a>En el contexto del bucle de eventos, como se discutió en <a href="11_async.html">Capítulo 11</a>, los controladores de eventos del navegador se comportan como otras notificaciones asíncronas. Se programan cuando ocurre el evento pero deben esperar a que otros scripts que se estén ejecutando terminen antes de tener la oportunidad de ejecutarse.</p>
+<p><a class="p_ident" id="p-XL+MT1/Um5" href="#p-XL+MT1/Um5" tabindex="-1" role="presentation"></a>En el contexto del bucle de eventos, como se discutió en el <a href="11_async.html">Capítulo 11</a>, los controladores de eventos del navegador se comportan como otras notificaciones asíncronas. Se programan cuando ocurre el evento pero deben esperar a que otros scripts que se estén ejecutando terminen antes de tener la oportunidad de ejecutarse.</p>
 
 <p><a class="p_ident" id="p-5QVtRn61a1" href="#p-5QVtRn61a1" tabindex="-1" role="presentation"></a>El hecho de que los eventos solo se puedan procesar cuando no hay nada más en ejecución significa que, si el bucle de eventos está ocupado con otro trabajo, cualquier interacción con la página (que ocurre a través de eventos) se retrasará hasta que haya tiempo para procesarla. Entonces, si programas demasiado trabajo, ya sea con controladores de eventos de larga duración o con muchos que se ejecutan rápidamente, la página se volverá lenta y pesada de usar.</p>
 
@@ -402,7 +402,7 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <h2><a class="h_ident" id="h-5Aaz8MIkVH" href="#h-5Aaz8MIkVH" tabindex="-1" role="presentation"></a>Temporizadores</h2>
 
-<p><a class="p_ident" id="p-WV11KfB182" href="#p-WV11KfB182" tabindex="-1" role="presentation"></a>Vimos la función <code>setTimeout</code> en <a href="11_async.html">Capítulo 11</a>. Programa otra función para que se llame más tarde, después de un cierto número de milisegundos.</p>
+<p><a class="p_ident" id="p-WV11KfB182" href="#p-WV11KfB182" tabindex="-1" role="presentation"></a>Vimos la función <code>setTimeout</code> en el <a href="11_async.html">Capítulo 11</a>. Programa otra función para que se llame más tarde, después de un cierto número de milisegundos.</p>
 
 <p><a class="p_ident" id="p-s28yPKVQrw" href="#p-s28yPKVQrw" tabindex="-1" role="presentation"></a>A veces necesitas cancelar una función que has programado. Esto se hace almacenando el valor devuelto por <code>setTimeout</code> y llamando a <code>clearTimeout</code> sobre él.</p>
 

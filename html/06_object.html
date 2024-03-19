@@ -387,7 +387,7 @@ console.log(temp.celsius);
 
 <h2><a class="h_ident" id="h-aB1RPFkM8u" href="#h-aB1RPFkM8u" tabindex="-1" role="presentation"></a>Símbolos</h2>
 
-<p><a class="p_ident" id="p-sIO+lrog1d" href="#p-sIO+lrog1d" tabindex="-1" role="presentation"></a>Mencioné en <a href="04_data.html#for_of_loop">Capítulo 4</a> que un bucle <code>for</code>/<code>of</code> puede recorrer varios tipos de estructuras de datos. Este es otro caso de polimorfismo: tales bucles esperan que la estructura de datos exponga una interfaz específica, la cual hacen los arrays y las cadenas. ¡Y también podemos agregar esta interfaz a nuestros propios objetos! Pero antes de hacerlo, debemos echar un vistazo breve al tipo de símbolo.</p>
+<p><a class="p_ident" id="p-d/50yosRZx" href="#p-d/50yosRZx" tabindex="-1" role="presentation"></a>Mencioné en el <a href="04_data.html#for_of_loop">Capítulo 4</a> que un bucle <code>for</code>/<code>of</code> puede recorrer varios tipos de estructuras de datos. Este es otro caso de polimorfismo: tales bucles esperan que la estructura de datos exponga una interfaz específica, la cual hacen los arrays y las cadenas. ¡Y también podemos agregar esta interfaz a nuestros propios objetos! Pero antes de hacerlo, debemos echar un vistazo breve al tipo de símbolo.</p>
 
 <p><a class="p_ident" id="p-jntaX3QeYC" href="#p-jntaX3QeYC" tabindex="-1" role="presentation"></a>Es posible que múltiples interfaces utilicen el mismo nombre de propiedad para diferentes cosas. Por ejemplo, en objetos similares a arrays, <code>length</code> se refiere a la cantidad de elementos en la colección. Pero una interfaz de objeto que describa una ruta de senderismo podría usar <code>length</code> para proporcionar la longitud de la ruta en metros. No sería posible que un objeto cumpla con ambas interfaces.</p>
 
@@ -443,7 +443,7 @@ console.log(okIterador.next());
 console.log(okIterador.next());
 <span class="tok-comment">// → {value: undefined, done: true}</span></pre>
 
-<p><a class="p_ident" id="p-pWWhlMCrry" href="#p-pWWhlMCrry" tabindex="-1" role="presentation"></a>Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en <a href="datos">Capítulo ?</a>. Esta vez escribiremos la lista como una clase.</p>
+<p><a class="p_ident" id="p-pWWhlMCrry" href="#p-pWWhlMCrry" tabindex="-1" role="presentation"></a>Implementemos una estructura de datos iterable similar a la lista enlazada del ejercicio en el <a href="04_data.html">Capítulo 4</a>. Esta vez escribiremos la lista como una clase.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-gbtYx+2BOB" href="#c-gbtYx+2BOB" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> List {
   <span class="tok-definition">constructor</span>(<span class="tok-definition">value</span>, <span class="tok-definition">rest</span>) {

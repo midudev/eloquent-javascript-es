@@ -44,7 +44,7 @@
 
 <p><a class="p_ident" id="p-waStMtTsQB" href="#p-waStMtTsQB" tabindex="-1" role="presentation"></a>Podemos representar el fondo como una tabla ya que es una cuadrícula inmutable de cuadrados. Los elementos de movimiento libre se pueden superponer utilizando elementos posicionados absolutamente.</p>
 
-<p><a class="p_ident" id="p-JT/4zQXp3g" href="#p-JT/4zQXp3g" tabindex="-1" role="presentation"></a>En juegos y otros programas que deben animar gráficos y responder a la entrada del usuario sin retrasos notables, la eficiencia es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas animaciones en <a href="14_dom.html#animacion">Capítulo 14</a>. En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la optimización.</p>
+<p><a class="p_ident" id="p-JT/4zQXp3g" href="#p-JT/4zQXp3g" tabindex="-1" role="presentation"></a>En juegos y otros programas que deben animar gráficos y responder a la entrada del usuario sin retrasos notables, la eficiencia es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas animaciones en el <a href="14_dom.html#animacion">Capítulo 14</a>. En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la optimización.</p>
 
 <p><a class="p_ident" id="p-3byV0kYq/Y" href="#p-3byV0kYq/Y" tabindex="-1" role="presentation"></a>En el <a href="17_canvas.html">próximo capítulo</a>, exploraremos otra tecnología del navegador, la etiqueta <code>&lt;canvas&gt;</code>, que proporciona una forma más tradicional de dibujar gráficos, trabajando en términos de formas y píxeles en lugar de elementos del DOM.</p>
 
@@ -574,7 +574,7 @@ Player.prototype.update = <span class="tok-keyword">function</span>(<span class=
 
 <h2 id="runAnimation"><a class="h_ident" id="h-HjoMjq9iwV" href="#h-HjoMjq9iwV" tabindex="-1" role="presentation"></a>Ejecutando el juego</h2>
 
-<p><a class="p_ident" id="p-f/JcUlKudG" href="#p-f/JcUlKudG" tabindex="-1" role="presentation"></a>La función <code>requestAnimationFrame</code>, que vimos en <a href="14_dom.html#animationFrame">Capítulo 14</a>, proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a <code>requestAnimationFrame</code> nuevamente después de cada fotograma.</p>
+<p><a class="p_ident" id="p-f/JcUlKudG" href="#p-f/JcUlKudG" tabindex="-1" role="presentation"></a>La función <code>requestAnimationFrame</code>, que vimos en el <a href="14_dom.html#animationFrame">Capítulo 14</a>, proporciona una buena forma de animar un juego. Pero su interfaz es bastante primitiva, ya que su uso requiere que llevemos un registro del momento en que se llamó a nuestra función la última vez y llamemos a <code>requestAnimationFrame</code> nuevamente después de cada fotograma.</p>
 
 <p><a class="p_ident" id="p-/pRqSyclsU" href="#p-/pRqSyclsU" tabindex="-1" role="presentation"></a>Vamos a definir una función auxiliar que envuelva todo eso en una interfaz conveniente y nos permita simplemente llamar a <code>runAnimation</code>, dándole una función que espera una diferencia de tiempo como argumento y dibuja un solo fotograma. Cuando la función de fotograma devuelve el valor <code>false</code>, la animación se detiene.</p>
 
@@ -630,7 +630,7 @@ Player.prototype.update = <span class="tok-keyword">function</span>(<span class=
   console.log(<span class="tok-string">&quot;¡Has ganado!&quot;</span>);
 }</pre>
 
-<p><a class="p_ident" id="p-bs54Xqdm0P" href="#p-bs54Xqdm0P" tabindex="-1" role="presentation"></a>Debido a que hicimos que <code>runLevel</code> devuelva una promesa, <code>runGame</code> puede escribirse utilizando una función <code>async</code>, como se muestra en <a href="11_async.html">Capítulo 11</a>. Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.</p>
+<p><a class="p_ident" id="p-bs54Xqdm0P" href="#p-bs54Xqdm0P" tabindex="-1" role="presentation"></a>Debido a que hicimos que <code>runLevel</code> devuelva una promesa, <code>runGame</code> puede escribirse utilizando una función <code>async</code>, como se muestra en el <a href="11_async.html">Capítulo 11</a>. Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.</p>
 
 <p><a class="p_ident" id="p-SNyu3qp7jx" href="#p-SNyu3qp7jx" tabindex="-1" role="presentation"></a>Hay un conjunto de planes de niveles disponibles en el enlace <code>GAME_LEVELS</code> en el <a href="https://eloquentjavascript.net/code#16">sandbox de este capítulo</a>. Esta página los alimenta a <code>runGame</code>, comenzando un juego real.</p>
 

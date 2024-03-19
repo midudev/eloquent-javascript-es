@@ -616,7 +616,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 </ol><figure><img src="img/exercise_shapes.png" alt="Imagen que muestra las formas que se te pide dibujar"></figure>
 
-<p><a class="p_ident" id="p-Zg0P7TZXO0" href="#p-Zg0P7TZXO0" tabindex="-1" role="presentation"></a>Cuando dibujes las dos últimas, es posible que quieras consultar la explicación de <code>Math.cos</code> y <code>Math.sin</code> en <a href="14_dom.html#sin_cos">Capítulo 14</a>, que describe cómo obtener coordenadas en un círculo utilizando estas funciones.</p>
+<p><a class="p_ident" id="p-Zg0P7TZXO0" href="#p-Zg0P7TZXO0" tabindex="-1" role="presentation"></a>Cuando dibujes las dos últimas, es posible que quieras consultar la explicación de <code>Math.cos</code> y <code>Math.sin</code> en el <a href="14_dom.html#sin_cos">Capítulo 14</a>, que describe cómo obtener coordenadas en un círculo utilizando estas funciones.</p>
 
 <p><a class="p_ident" id="p-5++I4nM1YH" href="#p-5++I4nM1YH" tabindex="-1" role="presentation"></a>Recomiendo crear una función para cada forma. Pasa la posición y opcionalmente otras propiedades como el tamaño o el número de puntos, como parámetros. La alternativa, que es codificar números en todo tu código, tiende a hacer que el código sea innecesariamente difícil de leer y modificar.</p>
 
@@ -649,7 +649,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-6jUrW+U79l" href="#p-6jUrW+U79l" tabindex="-1" role="presentation"></a>Anteriormente en este capítulo, vimos un programa de ejemplo que dibujaba un gráfico circular. Modifica este programa para que el nombre de cada categoría se muestre junto a la porción que la representa. Intenta encontrar una forma agradable de posicionar automáticamente este texto que funcione también para otros conjuntos de datos. Puedes asumir que las categorías son lo suficientemente grandes como para dejar espacio suficiente para sus etiquetas.</p>
 
-<p><a class="p_ident" id="p-wj0eLNPuUB" href="#p-wj0eLNPuUB" tabindex="-1" role="presentation"></a>Podrías necesitar <code>Math.sin</code> y <code>Math.cos</code> de nuevo, que se describen en <a href="14_dom.html#sin_cos">Capítulo 14</a>.</p>
+<p><a class="p_ident" id="p-ydhZmqGWMr" href="#p-ydhZmqGWMr" tabindex="-1" role="presentation"></a>Podrías necesitar <code>Math.sin</code> y <code>Math.cos</code> de nuevo, que se describen en el <a href="14_dom.html#sin_cos">Capítulo 14</a>.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-DTliIvEhY1" href="#c-DTliIvEhY1" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">&quot;600&quot;</span> height=<span class="tok-string">&quot;300&quot;</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -686,13 +686,13 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-icUXr4QXvM" href="#p-icUXr4QXvM" tabindex="-1" role="presentation"></a>Para <code>textBaseline</code>, el valor <code>&quot;middle&quot;</code> probablemente sea apropiado al usar este enfoque. Lo que se debe usar para <code>textAlign</code> depende de en qué lado del círculo nos encontremos. En el lado izquierdo, debería ser <code>&quot;right&quot;</code>, y en el lado derecho, debería ser <code>&quot;left&quot;</code>, de manera que el texto se posicione lejos del círculo.</p>
 
-<p><a class="p_ident" id="p-DWuqvj0Dl2" href="#p-DWuqvj0Dl2" tabindex="-1" role="presentation"></a>Si no estás seguro de cómo averiguar en qué lado del círculo se encuentra un ángulo dado, consulta la explicación de <code>Math.cos</code> en <a href="14_dom.html#sin_cos">Capítulo 14</a>. El coseno de un ángulo nos indica qué coordenada x le corresponde, lo que a su vez nos dice exactamente en qué lado del círculo estamos.</p>
+<p><a class="p_ident" id="p-DWuqvj0Dl2" href="#p-DWuqvj0Dl2" tabindex="-1" role="presentation"></a>Si no estás seguro de cómo averiguar en qué lado del círculo se encuentra un ángulo dado, consulta la explicación de <code>Math.cos</code> en el <a href="14_dom.html#sin_cos">Capítulo 14</a>. El coseno de un ángulo nos indica qué coordenada x le corresponde, lo que a su vez nos dice exactamente en qué lado del círculo estamos.</p>
 
 </div></details>
 
 <h3><a class="i_ident" id="i-V/3ulxW65J" href="#i-V/3ulxW65J" tabindex="-1" role="presentation"></a>Una pelota rebotando</h3>
 
-<p><a class="p_ident" id="p-E0rF74dj7i" href="#p-E0rF74dj7i" tabindex="-1" role="presentation"></a>Utiliza la técnica de <code>requestAnimationFrame</code> que vimos en <a href="14_dom.html#animationFrame">Capítulo 14</a> y <a href="16_game.html#runAnimation">Capítulo 16</a> para dibujar una caja con una pelota rebotando dentro. La pelota se mueve a una velocidad constante y rebota en los lados de la caja cuando los alcanza.</p>
+<p><a class="p_ident" id="p-E0rF74dj7i" href="#p-E0rF74dj7i" tabindex="-1" role="presentation"></a>Utiliza la técnica de <code>requestAnimationFrame</code> que vimos en el <a href="14_dom.html#animationFrame">Capítulo 14</a> y <a href="16_game.html#runAnimation">Capítulo 16</a> para dibujar una caja con una pelota rebotando dentro. La pelota se mueve a una velocidad constante y rebota en los lados de la caja cuando los alcanza.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-gdyoJV+nv2" href="#c-gdyoJV+nv2" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">&quot;400&quot;</span> height=<span class="tok-string">&quot;400&quot;</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;

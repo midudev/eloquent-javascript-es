@@ -151,7 +151,7 @@ Content-Length: 295
 
 <h3><a class="i_ident" id="i-ZUbq5VoJDs" href="#i-ZUbq5VoJDs" tabindex="-1" role="presentation"></a>Sirviendo archivos</h3>
 
-<p><a class="p_ident" id="p-Qfuyl7XyA7" href="#p-Qfuyl7XyA7" tabindex="-1" role="presentation"></a>Cuando una solicitud no coincide con ninguno de los tipos de solicitud definidos en nuestro enrutador, el servidor debe interpretarlo como una solicitud de un archivo en el directorio <code>public</code>. Sería posible usar el servidor de archivos definido en <a href="20_node.html#file_server">Capítulo 20</a> para servir dichos archivos, pero ni necesitamos ni queremos admitir solicitudes <code>PUT</code> y <code>DELETE</code> en archivos, y nos gustaría tener funciones avanzadas como el soporte para almacenamiento en caché. Así que usemos en cambio un servidor de archivos estático sólido y bien probado de NPM.</p>
+<p><a class="p_ident" id="p-Qfuyl7XyA7" href="#p-Qfuyl7XyA7" tabindex="-1" role="presentation"></a>Cuando una solicitud no coincide con ninguno de los tipos de solicitud definidos en nuestro enrutador, el servidor debe interpretarlo como una solicitud de un archivo en el directorio <code>public</code>. Sería posible usar el servidor de archivos definido en el <a href="20_node.html#file_server">Capítulo 20</a> para servir dichos archivos, pero ni necesitamos ni queremos admitir solicitudes <code>PUT</code> y <code>DELETE</code> en archivos, y nos gustaría tener funciones avanzadas como el soporte para almacenamiento en caché. Así que usemos en cambio un servidor de archivos estático sólido y bien probado de NPM.</p>
 
 <p><a class="p_ident" id="p-RmKAuAnSZo" href="#p-RmKAuAnSZo" tabindex="-1" role="presentation"></a>Opté por <code>serve-static</code>. Este no es el único servidor de este tipo en NPM, pero funciona bien y se ajusta a nuestros propósitos. El paquete <code>serve-static</code> exporta una función que puede ser llamada con un directorio raíz para producir una función manipuladora de solicitudes. La función manipuladora acepta los argumentos <code>request</code> y <code>response</code> proporcionados por el servidor de <code>&quot;node:http&quot;</code>, y un tercer argumento, una función que se llamará si ningún archivo coincide con la solicitud. Queremos que nuestro servidor primero compruebe las solicitudes que deberíamos manejar de manera especial, según lo definido en el enrutador, por lo que lo envolvemos en otra función.</p>
 
@@ -425,7 +425,7 @@ router.add(<span class="tok-string">&quot;POST&quot;</span>, <span class="tok-st
 
 <h3><a class="i_ident" id="i-Xb+LQLgwP6" href="#i-Xb+LQLgwP6" tabindex="-1" role="presentation"></a>Renderización de componentes</h3>
 
-<p><a class="p_ident" id="p-Q/3k0gUdfJ" href="#p-Q/3k0gUdfJ" tabindex="-1" role="presentation"></a>Utilizaremos un enfoque similar al que vimos en <a href="19_paint.html">Capítulo 19</a>, dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo DOM. Por ejemplo, aquí hay un componente que muestra el campo donde el usuario puede ingresar su nombre:</p>
+<p><a class="p_ident" id="p-Q/3k0gUdfJ" href="#p-Q/3k0gUdfJ" tabindex="-1" role="presentation"></a>Utilizaremos un enfoque similar al que vimos en el <a href="19_paint.html">Capítulo 19</a>, dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo DOM. Por ejemplo, aquí hay un componente que muestra el campo donde el usuario puede ingresar su nombre:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-whT+DkjYvZ" href="#c-whT+DkjYvZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">renderUserField</span>(<span class="tok-definition">name</span>, <span class="tok-definition">dispatch</span>) {
   <span class="tok-keyword">return</span> elt(<span class="tok-string">&quot;label&quot;</span>, {}, <span class="tok-string">&quot;Tu nombre: &quot;</span>, elt(<span class="tok-string">&quot;input&quot;</span>, {
@@ -437,7 +437,7 @@ router.add(<span class="tok-string">&quot;POST&quot;</span>, <span class="tok-st
   }));
 }</pre>
 
-<p><a class="p_ident" id="p-HFdFBvkVkQ" href="#p-HFdFBvkVkQ" tabindex="-1" role="presentation"></a>La función <code>elt</code> utilizada para construir elementos DOM es la misma que usamos en <a href="19_paint.html">Capítulo 19</a>.</p>
+<p><a class="p_ident" id="p-WsiiGyRrRE" href="#p-WsiiGyRrRE" tabindex="-1" role="presentation"></a>La función <code>elt</code> utilizada para construir elementos DOM es la misma que usamos en el <a href="19_paint.html">Capítulo 19</a>.</p>
 
 <p><a class="p_ident" id="p-ANM2bG067I" href="#p-ANM2bG067I" tabindex="-1" role="presentation"></a>Se utiliza una función similar para renderizar charlas, que incluyen una lista de comentarios y un formulario para agregar un nuevo comentario.</p>
 

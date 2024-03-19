@@ -283,7 +283,7 @@ jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.
 
 <p><a class="p_ident" id="p-vucanJZjN2" href="#p-vucanJZjN2" tabindex="-1" role="presentation"></a>Esta capacidad de pausar y luego reanudar funciones no es exclusiva de las funciones <code>async</code>. JavaScript también tiene una característica llamada <em>generador</em> functions. Son similares, pero sin las promesas.</p>
 
-<p><a class="p_ident" id="p-XRry3BevpR" href="#p-XRry3BevpR" tabindex="-1" role="presentation"></a>Cuando defines una función con <code>function*</code> (colocando un asterisco después de la palabra <code>function</code>), se convierte en un generador. Al llamar a un generador, devuelve un iterador, que ya vimos en <a href="06_object.html">Capítulo 6</a>.</p>
+<p><a class="p_ident" id="p-KhGB+fXocF" href="#p-KhGB+fXocF" tabindex="-1" role="presentation"></a>Cuando defines una función con <code>function*</code> (colocando un asterisco después de la palabra <code>function</code>), se convierte en un generador. Al llamar a un generador, devuelve un iterador, que ya vimos en el <a href="06_object.html">Capítulo 6</a>.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-B4ek89g871" href="#c-B4ek89g871" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span><span class="tok-keyword">*</span> <span class="tok-definition">powers</span>(<span class="tok-definition">n</span>) {
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">current</span> = n;; current *= n) {
@@ -301,7 +301,7 @@ jsonFile(<span class="tok-string">&quot;package.json&quot;</span>).then(console.
 
 <p><a class="p_ident" id="p-aD9V5e562+" href="#p-aD9V5e562+" tabindex="-1" role="presentation"></a>Inicialmente, al llamar a <code>powers</code>, la función se congela desde el principio. Cada vez que llamas a <code>next</code> en el iterador, la función se ejecuta hasta que encuentra una expresión <code>yield</code>, que la pausa y hace que el valor generado se convierta en el próximo valor producido por el iterador. Cuando la función retorna (la del ejemplo nunca lo hace), el iterador ha terminado.</p>
 
-<p><a class="p_ident" id="p-+edzRQNWn2" href="#p-+edzRQNWn2" tabindex="-1" role="presentation"></a>Escribir iteradores a menudo es mucho más fácil cuando usas funciones generadoras. El iterador para la clase <code>Group</code> (del ejercicio en <a href="06_object.html#group_iterator">Capítulo 6</a>) se puede escribir con este generador:</p>
+<p><a class="p_ident" id="p-+edzRQNWn2" href="#p-+edzRQNWn2" tabindex="-1" role="presentation"></a>Escribir iteradores a menudo es mucho más fácil cuando usas funciones generadoras. El iterador para la clase <code>Group</code> (del ejercicio en el <a href="06_object.html#group_iterator">Capítulo 6</a>) se puede escribir con este generador:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-C6OZWjI9EM" href="#c-C6OZWjI9EM" tabindex="-1" role="presentation"></a>Group.prototype[Symbol.iterator] = <span class="tok-keyword">function</span><span class="tok-keyword">*</span>() {
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; <span class="tok-keyword">this</span>.members.length; i++) {

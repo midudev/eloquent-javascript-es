@@ -73,7 +73,7 @@ $</pre>
 
 <p><a class="p_ident" id="p-EJ7yQIM8FP" href="#p-EJ7yQIM8FP" tabindex="-1" role="presentation"></a>Además de los enlaces que mencioné, como <code>console</code> y <code>process</code>, Node agrega pocos enlaces adicionales en el ámbito global. Si deseas acceder a funcionalidades integradas, debes solicitarlas al sistema de módulos.</p>
 
-<p><a class="p_ident" id="p-f49RycnPOb" href="#p-f49RycnPOb" tabindex="-1" role="presentation"></a>Node comenzó utilizando el sistema de módulos CommonJS, basado en la función <code>require</code>, que vimos en <a href="10_modules.html#commonjs">Capítulo 10</a>. Aún utilizará este sistema de forma predeterminada cuando cargues un archivo <code>.js</code>.</p>
+<p><a class="p_ident" id="p-f49RycnPOb" href="#p-f49RycnPOb" tabindex="-1" role="presentation"></a>Node comenzó utilizando el sistema de módulos CommonJS, basado en la función <code>require</code>, que vimos en el <a href="10_modules.html#commonjs">Capítulo 10</a>. Aún utilizará este sistema de forma predeterminada cuando cargues un archivo <code>.js</code>.</p>
 
 <p><a class="p_ident" id="p-JOqjzoG84a" href="#p-JOqjzoG84a" tabindex="-1" role="presentation"></a>Pero también soporta el sistema de módulos ES más moderno. Cuando el nombre de un script termina en <code>.mjs</code>, se considera que es un módulo de este tipo, y puedes usar <code>import</code> y <code>export</code> en él (pero no <code>require</code>). Utilizaremos módulos ES en este capítulo.</p>
 
@@ -105,9 +105,9 @@ tpircSavaJ</pre>
 
 <h2><a class="h_ident" id="h-MoxrdWcLlT" href="#h-MoxrdWcLlT" tabindex="-1" role="presentation"></a>Instalando con NPM</h2>
 
-<p><a class="p_ident" id="p-EdwkPKYJjz" href="#p-EdwkPKYJjz" tabindex="-1" role="presentation"></a>NPM, que fue introducido en <a href="10_modules.html#modules_npm">Capítulo 10</a>, es un repositorio en línea de módulos de JavaScript, muchos de los cuales están escritos específicamente para Node. Cuando instalas Node en tu computadora, también obtienes el comando <code>npm</code>, que puedes usar para interactuar con este repositorio.</p>
+<p><a class="p_ident" id="p-EdwkPKYJjz" href="#p-EdwkPKYJjz" tabindex="-1" role="presentation"></a>NPM, que fue introducido en el <a href="10_modules.html#modules_npm">Capítulo 10</a>, es un repositorio en línea de módulos de JavaScript, muchos de los cuales están escritos específicamente para Node. Cuando instalas Node en tu computadora, también obtienes el comando <code>npm</code>, que puedes usar para interactuar con este repositorio.</p>
 
-<p><a class="p_ident" id="p-eiIjy/CDcA" href="#p-eiIjy/CDcA" tabindex="-1" role="presentation"></a>El uso principal de NPM es descargar paquetes. Vimos el paquete <code>ini</code> en <a href="10_modules.html#modules_ini">Capítulo 10</a>. Podemos usar NPM para buscar e instalar ese paquete en nuestra computadora.</p>
+<p><a class="p_ident" id="p-eiIjy/CDcA" href="#p-eiIjy/CDcA" tabindex="-1" role="presentation"></a>El uso principal de NPM es descargar paquetes. Vimos el paquete <code>ini</code> en el <a href="10_modules.html#modules_ini">Capítulo 10</a>. Podemos usar NPM para buscar e instalar ese paquete en nuestra computadora.</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-/RND8raC5h" href="#c-/RND8raC5h" tabindex="-1" role="presentation"></a>$ npm install ini
 agregado 1 paquete en 723ms
@@ -123,7 +123,7 @@ $ node
 
 <p><a class="p_ident" id="p-FfYB7hx8VS" href="#p-FfYB7hx8VS" tabindex="-1" role="presentation"></a>Después de ejecutar <code>npm install</code> para instalar algún paquete, encontrarás no solo un directorio <code>node_modules</code>, sino también un archivo llamado <code>package.json</code> en tu directorio actual. Se recomienda tener tal archivo para cada proyecto. Puedes crearlo manualmente o ejecutar <code>npm init</code>. Este archivo contiene información sobre el proyecto, como su nombre y versión, y enumera sus dependencias.</p>
 
-<p><a class="p_ident" id="p-wjvaCZSoLl" href="#p-wjvaCZSoLl" tabindex="-1" role="presentation"></a>La simulación del robot de <a href="07_robot.html">Capítulo 7</a>, modularizada en el ejercicio en <a href="10_modules.html#modular_robot">Capítulo 10</a>, podría tener un archivo <code>package.json</code> como este:</p>
+<p><a class="p_ident" id="p-wjvaCZSoLl" href="#p-wjvaCZSoLl" tabindex="-1" role="presentation"></a>La simulación del robot de <a href="07_robot.html">Capítulo 7</a>, modularizada en el ejercicio en el <a href="10_modules.html#modular_robot">Capítulo 10</a>, podría tener un archivo <code>package.json</code> como este:</p>
 
 <pre class="snippet" data-language="json" ><a class="c_ident" id="c-w5ItHEwYvj" href="#c-w5ItHEwYvj" tabindex="-1" role="presentation"></a>{
   <span class="tok-string">&quot;author&quot;</span>: <span class="tok-string">&quot;Marijn Haverbeke&quot;</span>,
@@ -183,7 +183,7 @@ writeFile(<span class="tok-string">&quot;graffiti.txt&quot;</span>, <span class=
 
 <p><a class="p_ident" id="p-2Dle5H5be+" href="#p-2Dle5H5be+" tabindex="-1" role="presentation"></a>El módulo <code>node:fs</code> contiene muchas otras funciones útiles: <code>readdir</code> te dará los archivos en un directorio como un array de cadenas, <code>stat</code> recuperará información sobre un archivo, <code>rename</code> cambiará el nombre de un archivo, <code>unlink</code> lo eliminará, entre otros. Consulta la documentación en <a href="https://nodejs.org"><em>https://nodejs.org</em></a> para obtener detalles específicos.</p>
 
-<p><a class="p_ident" id="p-kpvwRcuKUy" href="#p-kpvwRcuKUy" tabindex="-1" role="presentation"></a>La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en <a href="11_async.html">Capítulo 11</a>, hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.</p>
+<p><a class="p_ident" id="p-kpvwRcuKUy" href="#p-kpvwRcuKUy" tabindex="-1" role="presentation"></a>La mayoría de estas funciones toman una función de devolución de llamada como último parámetro, a la que llaman ya sea con un error (el primer argumento) o con un resultado exitoso (el segundo). Como vimos en el <a href="11_async.html">Capítulo 11</a>, hay desventajas en este estilo de programación, siendo la mayor que el manejo de errores se vuelve verboso y propenso a errores.</p>
 
 <p><a class="p_ident" id="p-5PK4VupJIX" href="#p-5PK4VupJIX" tabindex="-1" role="presentation"></a>El módulo <code>node:fs/promises</code> exporta la mayoría de las mismas funciones que el antiguo módulo <code>node:fs</code>, pero utiliza promesas en lugar de funciones de devolución de llamada.</p>
 
@@ -232,7 +232,7 @@ console.log(<span class="tok-string">&quot;¡Escuchando! (puerto 8000)&quot;</sp
 
 <p><a class="p_ident" id="p-WmCudMYcSj" href="#p-WmCudMYcSj" tabindex="-1" role="presentation"></a>Un verdadero servidor web server usualmente hace más cosas que el ejemplo; examina el método de la solicitud (la propiedad <code>method</code>) para ver qué acción está intentando realizar el cliente y mira el URL de la solicitud para descubrir sobre qué recurso se está realizando esta acción. Veremos un servidor más avanzado <a href="20_node.html#file_server">más adelante en este capítulo</a>.</p>
 
-<p><a class="p_ident" id="p-btbFVE7L41" href="#p-btbFVE7L41" tabindex="-1" role="presentation"></a>El módulo <code>node:http</code> también provee una función <code>request</code>, que se puede usar para hacer solicitudes HTTP. Sin embargo, es mucho más engorroso de usar que <code>fetch</code>, que vimos en <a href="18_http.html">Capítulo 18</a>. Afortunadamente, <code>fetch</code> también está disponible en Node, como un enlace global. A menos que desees hacer algo muy específico, como procesar el documento de respuesta pieza por pieza a medida que llegan los datos a través de la red, recomiendo usar <code>fetch</code>.</p>
+<p><a class="p_ident" id="p-btbFVE7L41" href="#p-btbFVE7L41" tabindex="-1" role="presentation"></a>El módulo <code>node:http</code> también provee una función <code>request</code>, que se puede usar para hacer solicitudes HTTP. Sin embargo, es mucho más engorroso de usar que <code>fetch</code>, que vimos en el <a href="18_http.html">Capítulo 18</a>. Afortunadamente, <code>fetch</code> también está disponible en Node, como un enlace global. A menos que desees hacer algo muy específico, como procesar el documento de respuesta pieza por pieza a medida que llegan los datos a través de la red, recomiendo usar <code>fetch</code>.</p>
 
 <h2><a class="h_ident" id="h-/tdw6BShQX" href="#h-/tdw6BShQX" tabindex="-1" role="presentation"></a>Flujos</h2>
 
@@ -479,7 +479,7 @@ Archivo no encontrado</pre>
 
 <p><a class="p_ident" id="p-dGMy9Ug18P" href="#p-dGMy9Ug18P" tabindex="-1" role="presentation"></a>Luego, como ejercicio avanzado o incluso como un proyecto de fin de semana, combina todo el conocimiento que has adquirido de este libro para construir una interfaz más amigable para modificar el sitio web—desde <em>dentro</em> del sitio web.</p>
 
-<p><a class="p_ident" id="p-/KhLuPZmip" href="#p-/KhLuPZmip" tabindex="-1" role="presentation"></a>Utiliza un formulario HTML para editar el contenido de los archivos que conforman el sitio web, permitiendo al usuario actualizarlos en el servidor mediante solicitudes HTTP, como se describe en <a href="18_http.html">Capítulo 18</a>.</p>
+<p><a class="p_ident" id="p-ZKY31OAsrV" href="#p-ZKY31OAsrV" tabindex="-1" role="presentation"></a>Utiliza un formulario HTML para editar el contenido de los archivos que conforman el sitio web, permitiendo al usuario actualizarlos en el servidor mediante solicitudes HTTP, como se describe en el <a href="18_http.html">Capítulo 18</a>.</p>
 
 <p><a class="p_ident" id="p-Ogr7GZ3+wK" href="#p-Ogr7GZ3+wK" tabindex="-1" role="presentation"></a>Comienza permitiendo que solo un archivo sea editable. Luego haz que el usuario pueda seleccionar qué archivo editar. Aprovecha el hecho de que nuestro servidor de archivos devuelve listas de archivos al leer un directorio.</p>
 

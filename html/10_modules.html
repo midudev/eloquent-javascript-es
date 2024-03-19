@@ -32,7 +32,7 @@
 
 <p><a class="p_ident" id="p-yGNt7m0TYo" href="#p-yGNt7m0TYo" tabindex="-1" role="presentation"></a>Los <em>módulos</em> son un intento de evitar estos problemas. Un módulo es una parte de un programa que especifica en qué otras piezas se basa y qué funcionalidad proporciona para que otros módulos la utilicen (su <em>interfaz</em>).</p>
 
-<p><a class="p_ident" id="p-625KdRW5dL" href="#p-625KdRW5dL" tabindex="-1" role="presentation"></a>Las interfaces de los módulos tienen mucho en común con las interfaces de objetos, como las vimos en <a href="06_object.html#interface">Capítulo 6</a>. Permiten que una parte del módulo esté disponible para el mundo exterior y mantienen el resto privado.</p>
+<p><a class="p_ident" id="p-625KdRW5dL" href="#p-625KdRW5dL" tabindex="-1" role="presentation"></a>Las interfaces de los módulos tienen mucho en común con las interfaces de objetos, como las vimos en el <a href="06_object.html#interface">Capítulo 6</a>. Permiten que una parte del módulo esté disponible para el mundo exterior y mantienen el resto privado.</p>
 
 <p><a class="p_ident" id="p-gChcqY1zpK" href="#p-gChcqY1zpK" tabindex="-1" role="presentation"></a>Pero la interfaz que un módulo proporciona para que otros la utilicen es solo la mitad de la historia. Un buen sistema de módulos también requiere que los módulos especifiquen qué código <em>ellos</em> utilizan de otros módulos. Estas relaciones se llaman <em>dependencias</em>. Si el módulo A utiliza funcionalidad del módulo B, se dice que <em>depende</em> de él. Cuando estas dependencias se especifican claramente en el propio módulo, se pueden utilizar para averiguar qué otros módulos deben estar presentes para poder utilizar un módulo dado y cargar las dependencias automáticamente.</p>
 
@@ -101,7 +101,7 @@ console.log(nomDeJour(<span class="tok-number">3</span>));
 
 <p><a class="p_ident" id="p-kkiTHcsTLq" href="#p-kkiTHcsTLq" tabindex="-1" role="presentation"></a>NPM es dos cosas: un servicio en línea donde puedes descargar (y subir) paquetes y un programa (incluido con Node.js) que te ayuda a instalar y gestionarlos.</p>
 
-<p><a class="p_ident" id="p-tOycnX3WYO" href="#p-tOycnX3WYO" tabindex="-1" role="presentation"></a>En el momento de la escritura, hay más de tres millones de paquetes diferentes disponibles en NPM. Una gran parte de ellos son basura, para ser honesto. Pero casi cada paquete de JavaScript útil y disponible públicamente se puede encontrar en NPM. Por ejemplo, un analizador de archivos INI, similar al que construimos en <a href="09_regexp.html">Capítulo 9</a>, está disponible bajo el nombre del paquete <code>ini</code>.</p>
+<p><a class="p_ident" id="p-tOycnX3WYO" href="#p-tOycnX3WYO" tabindex="-1" role="presentation"></a>En el momento de la escritura, hay más de tres millones de paquetes diferentes disponibles en NPM. Una gran parte de ellos son basura, para ser honesto. Pero casi cada paquete de JavaScript útil y disponible públicamente se puede encontrar en NPM. Por ejemplo, un analizador de archivos INI, similar al que construimos en el <a href="09_regexp.html">Capítulo 9</a>, está disponible bajo el nombre del paquete <code>ini</code>.</p>
 
 <p><a class="p_ident" id="p-yqgOfKlOJr" href="#p-yqgOfKlOJr" tabindex="-1" role="presentation"></a><a href="20_node.html">Capítulo 20</a> mostrará cómo instalar tales paquetes localmente usando el programa de línea de comandos <code>npm</code>.</p>
 
