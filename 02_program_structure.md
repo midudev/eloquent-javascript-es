@@ -16,7 +16,7 @@ En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas 
 
 {{index grammar, [sintaxis, "expresión"], ["código", "estructura de"], "gramática", [JavaScript, sintaxis]}}
 
-En [Capítulo ?](values), creamos valores y aplicamos operadores a ellos para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
+En el [Capítulo ?](values) creamos valores y le aplicamos operadores para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.
 
 {{index "expresión literal", ["paréntesis", "expresión"]}}
 
@@ -24,7 +24,7 @@ Un fragmento de código que produce un valor se llama una _((expresión))_. Cada
 
 {{index [anidamiento, "de expresiones"], "lenguaje humano"}}
 
-Esto muestra parte de la belleza de una interfaz basada en lenguaje. Las expresiones pueden contener otras expresiones de manera similar a cómo las subsentencias en los idiomas humanos están anidadas: una subsentencia puede contener sus propias subsentencias, y así sucesivamente. Esto nos permite construir expresiones que describen cálculos arbitrariamente complejos.
+Esto muestra parte de la belleza de una interfaz basada en un lenguaje. Las expresiones pueden contener otras expresiones de manera similar a cómo las oraciones están anidadas en el lenguaje humano: una oración puede contener sus propias oraciones y así sucesivamente. Esto nos permite construir expresiones que describen cálculos arbitrariamente complejos.
 
 {{index "declaración", punto y coma, programa}}
 
@@ -39,13 +39,13 @@ El tipo más simple de declaración es una expresión con un punto y coma al fin
 !false;
 ```
 
-Sin embargo, es un programa inútil. Una ((expresión)) puede conformarse con simplemente producir un valor, que luego puede ser utilizado por el código que la contiene. Sin embargo, una ((declaración)) se mantiene por sí misma, por lo que si no afecta al mundo, es inútil. Puede mostrar algo en la pantalla, como con `console.log`, o cambiar el estado de la máquina de una manera que afectará a las declaraciones que vienen después de ella. Estos cambios se llaman _((efectos secundarios))_. Las declaraciones en el ejemplo anterior simplemente producen los valores `1` y `verdadero`, y luego los desechan inmediatamente. Esto no deja ninguna impresión en el mundo en absoluto. Cuando ejecutas este programa, no sucede nada observable.
+Sin embargo, es un programa inútil. Una ((expresión)) puede conformarse con simplemente producir un valor, que luego puede ser utilizado por el código que la contiene. Sin embargo, una ((declaración)) se mantiene por sí misma, por lo que si no afecta al mundo, es inútil. Puede mostrar algo en la pantalla, como con `console.log`, o cambiar el estado de la máquina de una manera que afectará a las declaraciones que vienen después de ella. Estos cambios se llaman _((efectos secundarios))_. Las declaraciones en el ejemplo anterior simplemente producen los valores `1` y `verdadero`, y luego los desechan inmediatamente. Esto no deja ninguna impresión en el mundo en absoluto. Cuando ejecutas este programa no sucede nada observable.
 
 {{index "estilo de programación", "inserción automática de punto y coma", punto y coma}}
 
-En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima ((línea)) se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de las omisiones de puntos y comas.
+En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima ((línea)) se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de la omisión del punto y coma.
 
-## Bindings
+## Enlaces
 
 {{indexsee variable, binding}}
 
@@ -59,11 +59,11 @@ let caught = 5 * 5;
 
 {{index "let keyword"}}
 
-Eso nos da un segundo tipo de ((statement)). La palabra especial (_((keyword))_) `let` indica que esta frase va a definir un enlace. Está seguida por el nombre del enlace y, si queremos darle inmediatamente un valor, por un operador `=` y una expresión.
+Eso nos da un segundo tipo de ((declaración)). La palabra clave (_((keyword))_) `let` indica que esta frase va a definir un enlace. Está seguida por el nombre del enlace y, si queremos darle inmediatamente un valor, por un operador `=` y una expresión.
 
-El ejemplo crea un enlace llamado `caught` y lo utiliza para agarrar el número que se produce multiplicando 5 por 5.
+El ejemplo crea un enlace llamado `caught` y lo utiliza para capturar el número que se produce al multiplicar 5 por 5.
 
-Después de que se haya definido un enlace, su nombre se puede usar como una ((expression)). El valor de esa expresión es el valor que el enlace mantiene actualmente. Aquí tienes un ejemplo:
+Después de que se haya definido un enlace, su nombre se puede usar como una ((expresión)). El valor de esa expresión es el valor que el enlace mantiene actualmente. Aquí tienes un ejemplo:
 
 ```
 let ten = 10;
@@ -86,7 +86,7 @@ console.log(mood);
 
 {{index [binding, "modelo de"], "tentáculo (analogía)"}}
 
-Debes imaginarte los enlaces como tentáculos en lugar de cajas. No _contienen_ valores; los _agarran_—dos enlaces pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un tentáculo para aferrarte a él o vuelves a conectar uno de tus tentáculos existentes a él.
+Debes imaginarte los enlaces como tentáculos en lugar de cajas. No _contienen_ valores; los _agarran_—dos enlaces pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un nuevo tentáculo para agarrarlo o lo reconectas con uno de tus tentáculos existentes.
 
 Veamos otro ejemplo. Para recordar la cantidad de dólares que Luigi todavía te debe, creas un enlace. Cuando te paga $35, le das a este enlace un nuevo valor:
 
@@ -115,9 +115,9 @@ Las palabras `var` y `const` también se pueden usar para crear enlaces, de mane
 
 ```
 var name = "Ayda";
-const greeting = "¡Hola ";
+const greeting = "Hola ";
 console.log(greeting + name);
-// → ¡Hola Ayda
+// → Hola Ayda
 ```
 
 {{index "var keyword"}}
@@ -167,10 +167,10 @@ La colección de enlaces y sus valores que existen en un momento dado se llama _
 Muchos de los valores proporcionados en el entorno predeterminado tienen el tipo de _((función))_. Una función es un fragmento de programa envuelto en un valor. Estos valores pueden ser _aplicados_ para ejecutar el programa envuelto. Por ejemplo, en un entorno de navegador, el enlace `prompt` contiene una función que muestra un pequeño ((cuadro de diálogo)) pidiendo la entrada del usuario. Se utiliza de la siguiente manera:
 
 ```
-prompt("Ingrese el código de acceso");
+prompt("Enter passcode");
 ```
 
-{{figure {url: "img/prompt.png", alt: "Un cuadro de diálogo que dice 'ingrese el código de acceso'", width: "8cm"}}}
+{{figure {url: "img/prompt.png", alt: "Un cuadro de diálogo que dice 'Enter passcode'", width: "8cm"}}}
 
 {{index "parámetro", ["función", "aplicación"], ["paréntesis", argumentos]}}
 
@@ -221,7 +221,7 @@ console.log(Math.min(2, 4) + 100);
 // → 102
 ```
 
-[Capítulo ?](functions) explicará cómo escribir tus propias funciones.
+El [Capítulo ?](functions) explicará cómo escribir tus propias funciones.
 
 ## Control de flujo
 
@@ -356,15 +356,15 @@ while (numero <= 12) {
 
 {{index "while loop", Boolean, [parentheses, statement]}}
 
-Un ((statement)) que comienza con la palabra clave `while` crea un bucle. La palabra `while` va seguida de una ((expresión)) entre paréntesis y luego un enunciado, similar a `if`. El bucle sigue ejecutando ese enunciado mientras la expresión produzca un valor que se convierta en `true` al convertirse a Booleano.
+Una ((sentencia)) que comienza con la palabra clave `while` crea un bucle. La palabra `while` va seguida de una ((expresión)) entre paréntesis y luego un enunciado, similar a `if`. El bucle sigue ejecutando ese enunciado mientras la expresión produzca un valor que se convierta en `true` al convertirse a Booleano.
 
 {{index [estado, "en enlace"], [enlace, "como estado"]}}
 
-El enlace 'number' demuestra la forma en que un ((enlace)) puede seguir el progreso de un programa. Cada vez que se repite el bucle, 'number' obtiene un valor que es 2 más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.
+El enlace 'numero' demuestra la forma en que un ((enlace)) puede seguir el progreso de un programa. Cada vez que se repite el bucle, 'numero' obtiene un valor que es 2 más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.
 
 {{index "exponenciación"}}
 
-Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2^10^ (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ha alcanzado 10 aún y, si no, actualiza ambos enlaces.
+Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2^10^ (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ya ha alcanzado 10 y, si no, actualiza ambos enlaces.
 
 ```
 let result = 1;
@@ -381,7 +381,7 @@ El contador también podría haber comenzado en `1` y haber comprobado si era `<
 
 {{index "** operador"}}
 
-Ten en cuenta que JavaScript también tiene un operador para la exponenciación (`2 ** 10`), que usarías para calcular esto en un código real, pero eso habría arruinado el ejemplo.
+Ten en cuenta que JavaScript también tiene un operador para la potencia (`2 ** 10`), que usarías para calcular esto en un código real, pero eso habría arruinado el ejemplo.
 
 {{index "cuerpo del bucle", "bucle do", ["flujo de control", bucle]}}
 
@@ -510,7 +510,7 @@ JavaScript proporciona un atajo para esto:
 counter += 1;
 ```
 
-Atajos similares funcionan para muchos otros operadores, como `result *= 2` para duplicar `result` o `counter -= 1` para contar hacia abajo.
+Atajos similares funcionan para muchos otros operadores, como `result *= 2` para duplicar `result` o `counter -= 1` para contar hacia atrás.
 
 Esto nos permite acortar aún más nuestro ejemplo de contar:
 
@@ -561,7 +561,7 @@ switch (prompt("¿Cómo está el clima?")) {
 
 Puedes colocar cualquier cantidad de etiquetas `case` dentro del bloque abierto por `switch`. El programa comenzará a ejecutarse en la etiqueta que corresponda al valor que se le dio a `switch`, o en `default` si no se encuentra ningún valor coincidente. Continuará ejecutándose, incluso a través de otras etiquetas, hasta que alcance una declaración `break`. En algunos casos, como el caso `"soleado"` en el ejemplo, esto se puede usar para compartir algo de código entre casos (recomienda salir al exterior tanto para el clima soleado como para el nublado). Sin embargo, ten cuidado, es fácil olvidar un `break` de este tipo, lo que hará que el programa ejecute código que no deseas ejecutar.
 
-## Capitalización
+## Uso de mayúsculas
 
 {{index "capitalización", [binding, nombrar], [espacios en blanco, sintaxis]}}
 
@@ -576,7 +576,7 @@ fuzzyLittleTurtle
 
 {{index "camel case", "estilo de programación", "carácter de subrayado"}}
 
-El primer estilo puede ser difícil de leer. Personalmente me gusta más la apariencia de los guiones bajos, aunque ese estilo es un poco difícil de escribir. Las funciones estándar de ((JavaScript)) y la mayoría de los programadores de JavaScript siguen el último estilo: capitalizan cada palabra excepto la primera. No es difícil acostumbrarse a pequeñas cosas como esa, y el código con estilos de nombrado mixtos puede resultar molesto de leer, así que seguimos esta ((convención)).
+El primer estilo puede ser difícil de leer. Personalmente me gusta más la apariencia de los guiones bajos, aunque ese estilo es un poco difícil de escribir. Las funciones estándar de ((JavaScript)) y la mayoría de los programadores de JavaScript siguen el último estilo: escriben con mayúscula cada palabra excepto la primera. No es difícil acostumbrarse a pequeñas cosas como esa, y el código con estilos de nombrado mixtos puede resultar molesto de leer, así que seguimos esta ((convención)).
 
 {{index "Función Número", constructor}}
 
@@ -619,9 +619,9 @@ const miNumero = 11213;
 
 ## Resumen
 
-Ahora sabes que un programa está construido a partir de declaraciones, que a veces contienen más declaraciones. Las declaraciones tienden a contener expresiones, que a su vez pueden estar construidas a partir de expresiones más pequeñas.Poner declaraciones una después de la otra te da un programa que se ejecuta de arriba hacia abajo. Puedes introducir alteraciones en el flujo de control usando declaraciones condicionales (`if`, `else` y `switch`) y bucles (`while`, `do` y `for`).
+Ahora sabes que un programa está construido a partir de declaraciones, que a veces contienen más declaraciones. Las declaraciones tienden a contener expresiones, que a su vez pueden estar construidas a partir de expresiones más pequeñas. Poner declaraciones una después de la otra te da un programa que se ejecuta de arriba hacia abajo. Puedes introducir alteraciones en el flujo de control usando declaraciones condicionales (`if`, `else` y `switch`) y bucles (`while`, `do` y `for`).
 
-Las uniones se pueden usar para guardar fragmentos de datos bajo un nombre, y son útiles para hacer un seguimiento del estado en tu programa. El entorno es el conjunto de uniones que están definidas. Los sistemas de JavaScript siempre colocan varias uniones estándar útiles en tu entorno.
+Los enlaces se pueden usar para guardar fragmentos de datos bajo un nombre, y son útiles para hacer un seguimiento del estado en tu programa. El entorno es el conjunto de enlaces que están definidos. Los sistemas de JavaScript siempre colocan varios enlaces estándar útiles en tu entorno.
 
 Las funciones son valores especiales que encapsulan un fragmento de programa. Puedes invocarlas escribiendo `nombreDeFuncion(argumento1, argumento2)`. Dicha llamada a función es una expresión y puede producir un valor.
 
