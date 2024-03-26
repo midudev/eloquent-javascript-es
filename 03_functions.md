@@ -14,7 +14,7 @@ quote}}
 
 Las funciones son una de las herramientas más centrales en la programación en JavaScript. El concepto de envolver un fragmento de programa en un valor tiene muchos usos. Nos proporciona una manera de estructurar programas más grandes, de reducir la repetición, de asociar nombres con subprogramas y de aislar estos subprogramas entre sí.
 
-La aplicación más evidente de las funciones es definir nuevo ((vocabulario)). Crear nuevas palabras en prosa suele ser de mal estilo, pero en la programación es indispensable.
+La aplicación más evidente de las funciones es definir nuevo ((vocabulario)). Crear palabras nuevas en el lenguaje escrito suele ser de mal gusto, pero en programación es indispensable.
 
 {{index "abstracción", vocabulario}}
 
