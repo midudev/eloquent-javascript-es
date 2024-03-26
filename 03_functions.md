@@ -143,7 +143,7 @@ const hummus = function(factor) {
 
 El código dentro de la función `ingredient` puede ver el enlace `factor` desde la función exterior, pero sus enlaces locales, como `unit` o `ingredientAmount`, no son visibles en la función exterior.
 
-El conjunto de enlaces visibles dentro de un bloque está determinado por el lugar de ese bloque en el texto del programa. Cada bloque local también puede ver todos los bloques locales que lo contienen, y todos los bloques pueden ver el bloque global. Este enfoque de visibilidad de enlaces se llama _((lexicografía))_.
+El conjunto de enlaces visibles dentro de un bloque está determinado por el lugar de ese bloque en el texto del programa. Cada bloque local también puede ver todos los bloques locales que lo contienen, y todos los bloques pueden ver el bloque global. Este enfoque de la visibilidad de los enlaces se denomina _((alcance léxico))_.
 
 ## Funciones como valores
 
