@@ -75,7 +75,7 @@ Los parámetros de una función se comportan como ligaduras regulares, pero sus 
 {{indexsee "ámbito de nivel superior", "ámbito global"}}
 {{index "palabra clave var", "ámbito global", [ligadura, global], [ligadura, "ámbito de"]}}
 
-Cada ligadura tiene un _((ámbito))_, que es la parte del programa en la que la ligadura es visible. Para las ligaduras definidas fuera de cualquier función, bloque o módulo (ver [Capítulo ?](módulos)), el ámbito es todo el programa—puedes hacer referencia a esas ligaduras donde quieras. Estas se llaman _globales_.
+Cada ligadura tiene un _((ámbito))_, que es la parte del programa en la que la ligadura es visible. Para las ligaduras definidas fuera de cualquier función, bloque o módulo (ver [Capítulo ?](modules)), el ámbito es todo el programa—puedes hacer referencia a esas ligaduras donde quieras. Estas se llaman _globales_.
 
 {{index "ámbito local", [ligadura, local]}}
 
@@ -341,7 +341,7 @@ console.log(roundTo(4.5, 2));
 
 {{index "console.log"}}
 
-[El próximo capítulo](datos#rest_parameters) introducirá una forma en que un cuerpo de función puede acceder a la lista completa de argumentos que se le pasaron. Esto es útil porque le permite a una función aceptar cualquier número de argumentos. Por ejemplo, `console.log` lo hace, mostrando todos los valores que se le dan:
+[El próximo capítulo](data#rest_parameters) introducirá una forma en que un cuerpo de función puede acceder a la lista completa de argumentos que se le pasaron. Esto es útil porque le permite a una función aceptar cualquier número de argumentos. Por ejemplo, `console.log` lo hace, mostrando todos los valores que se le dan:
 
 ```
 console.log("C", "O", 2);
