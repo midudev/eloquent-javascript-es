@@ -14,11 +14,11 @@ quote}}
 
 Las funciones son una de las herramientas más centrales en la programación en JavaScript. El concepto de envolver un fragmento de programa en un valor tiene muchos usos. Nos proporciona una manera de estructurar programas más grandes, de reducir la repetición, de asociar nombres con subprogramas y de aislar estos subprogramas entre sí.
 
-La aplicación más evidente de las funciones es definir nuevos ((vocabulario)). Crear nuevas palabras en prosa suele ser de mal estilo, pero en la programación es indispensable.
+La aplicación más evidente de las funciones es definir nuevo ((vocabulario)). Crear palabras nuevas en el lenguaje escrito suele ser de mal gusto, pero en programación es indispensable.
 
 {{index "abstracción", vocabulario}}
 
-Los hablantes de inglés adultos típicos tienen alrededor de 20,000 palabras en su vocabulario. Pocas lenguajes de programación vienen con 20,000 comandos incorporados. Y el vocabulario que _está_ disponible tiende a estar más precisamente definido, y por lo tanto menos flexible, que en el lenguaje humano. Por lo tanto, _tenemos_ que introducir nuevas palabras para evitar la verbosidad excesiva.
+Los hablantes de inglés adultos típicos tienen alrededor de 20,000 palabras en su vocabulario. Pocos lenguajes de programación vienen con 20,000 comandos incorporados. Y el vocabulario que _está_ disponible tiende a estar más precisamente definido, y por lo tanto menos flexible, que en el lenguaje humano. Por lo tanto, _tenemos_ que introducir nuevas palabras para evitar la verbosidad excesiva.
 
 ## Definir una función
 
@@ -75,11 +75,11 @@ Los parámetros de una función se comportan como ligaduras regulares, pero sus 
 {{indexsee "ámbito de nivel superior", "ámbito global"}}
 {{index "palabra clave var", "ámbito global", [ligadura, global], [ligadura, "ámbito de"]}}
 
-Cada ligadura tiene un _((ámbito))_, que es la parte del programa en la que la ligadura es visible. Para las ligaduras definidas fuera de cualquier función, bloque o módulo (ver [Capítulo ?](módulos)), el ámbito es todo el programa—puedes hacer referencia a esas ligaduras donde quieras. Estas se llaman _globales_.
+Cada ligadura tiene un _((ámbito))_, que es la parte del programa en la que la ligadura es visible. Para las ligaduras definidas fuera de cualquier función, bloque o módulo (ver [Capítulo ?](modules)), el ámbito es todo el programa—puedes hacer referencia a esas ligaduras donde quieras. Estas se llaman _globales_.
 
 {{index "ámbito local", [ligadura, local]}}
 
-Las ligaduras creadas para los parámetros de una función o declaradas dentro de una función solo pueden ser referenciadas en esa función, por lo que se conocen como ligaduras _locales_. Cada vez que se llama a la función, se crean nuevas instancias de estas ligaduras. Esto proporciona cierto aislamiento entre funciones—cada llamada a función actúa en su propio pequeño mundo (su entorno local) y a menudo se puede entender sin saber mucho sobre lo que está sucediendo en el entorno global.
+Las ligaduras creadas para los parámetros de una función o declaradas dentro de una función solo pueden ser referenciadas en esa función, por lo que se conocen como ligaduras _locales_. Cada vez que se llama a la función, se crean nuevas instancias de estas ligaduras. Esto proporciona cierto aislamiento entre funciones—cada llamada a la función actúa en su propio pequeño mundo (su entorno local) y a menudo se puede entender sin saber mucho sobre lo que está sucediendo en el entorno global.
 
 {{index "palabra clave let", "palabra clave const", "palabra clave var"}}
 
@@ -143,7 +143,7 @@ const hummus = function(factor) {
 
 El código dentro de la función `ingredient` puede ver el enlace `factor` desde la función exterior, pero sus enlaces locales, como `unit` o `ingredientAmount`, no son visibles en la función exterior.
 
-El conjunto de enlaces visibles dentro de un bloque está determinado por el lugar de ese bloque en el texto del programa. Cada bloque local también puede ver todos los bloques locales que lo contienen, y todos los bloques pueden ver el bloque global. Este enfoque de visibilidad de enlaces se llama _((lexicografía))_.
+El conjunto de enlaces visibles dentro de un bloque está determinado por el lugar de ese bloque en el texto del programa. Cada bloque local también puede ver todos los bloques locales que lo contienen, y todos los bloques pueden ver el bloque global. Este enfoque de la visibilidad de los enlaces se denomina _((alcance léxico))_.
 
 ## Funciones como valores
 
@@ -211,7 +211,7 @@ const roundTo = (n, step) => {
 
 {{index [function, body]}}
 
-La flecha viene _después_ de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como "esta entrada (los ((parámetros))s) produce este resultado (el cuerpo)".
+La flecha viene _después_ de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como "esta entrada (los ((parámetros))) produce este resultado (el cuerpo)".
 
 {{index [braces, "function body"], "ejemplo de exponente", ["paréntesis", argumentos]}}
 
@@ -341,7 +341,7 @@ console.log(roundTo(4.5, 2));
 
 {{index "console.log"}}
 
-[El próximo capítulo](datos#rest_parameters) introducirá una forma en que un cuerpo de función puede acceder a la lista completa de argumentos que se le pasaron. Esto es útil porque le permite a una función aceptar cualquier número de argumentos. Por ejemplo, `console.log` lo hace, mostrando todos los valores que se le dan:
+[El próximo capítulo](data#rest_parameters) introducirá una forma en que un cuerpo de función puede acceder a la lista completa de argumentos que se le pasaron. Esto es útil porque le permite a una función aceptar cualquier número de argumentos. Por ejemplo, `console.log` lo hace, mostrando todos los valores que se le dan:
 
 ```
 console.log("C", "O", 2);
@@ -352,7 +352,7 @@ console.log("C", "O", 2);
 
 {{index "pila de llamadas", "vinculación local", ["función", "como valor"], alcance}}
 
-La capacidad de tratar las funciones como valores, combinada con el hecho de que las vinculaciones locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con las vinculaciones locales cuando la llamada a la función que las creó ya no está activa?El siguiente código muestra un ejemplo de esto. Define una función, `wrapValue`, que crea un enlace local. Luego devuelve una función que accede y devuelve este enlace local:
+La capacidad de tratar las funciones como valores, combinada con el hecho de que las vinculaciones locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con las vinculaciones locales cuando la llamada a la función que las creó ya no está activa? El siguiente código muestra un ejemplo de esto. Define una función, `wrapValue`, que crea un enlace local. Luego devuelve una función que accede y devuelve este enlace local:
 
 ```
 function wrapValue(n) {
@@ -469,7 +469,7 @@ console.log(findSolution(24));
 
 Ten en cuenta que este programa no necesariamente encuentra la secuencia de operaciones más _corta_. Se conforma con encontrar cualquier secuencia en absoluto.
 
-No te preocupes si no ves cómo funciona este código de inmediato. Vamos a trabajar juntos, ya que es un gran ejercicio de pensamiento recursivo.La función interna `find` es la que realiza la recursión real. Toma dos argumentos: el número actual y una cadena que registra cómo llegamos a este número. Si encuentra una solución, devuelve una cadena que muestra cómo llegar al objetivo. Si no puede encontrar una solución comenzando desde este número, devuelve `null`.
+No te preocupes si no ves cómo funciona este código de inmediato. Vamos a trabajar juntos, ya que es un gran ejercicio de pensamiento recursivo. La función interna `find` es la que realiza la recursión real. Toma dos argumentos: el número actual y una cadena que registra cómo llegamos a este número. Si encuentra una solución, devuelve una cadena que muestra cómo llegar al objetivo. Si no puede encontrar una solución comenzando desde este número, devuelve `null`.
 
 {{index null, "operador ??", "evaluación de circuito corto"}}
 
@@ -544,7 +544,7 @@ imprimirInventarioGranja(7, 11);
 
 Escribir `.length` después de una expresión de cadena nos dará la longitud de esa cadena. Por lo tanto, los bucles `while` siguen añadiendo ceros delante de las cadenas de números hasta que tengan al menos tres caracteres de longitud.
 
-¡Misión cumplida! Pero justo cuando estamos a punto de enviarle al granjero el código (junto con una jugosa factura), ella llama y nos dice que también ha comenzado a criar cerdos, ¿podríamos extender el software para imprimir también los cerdos?
+¡Misión cumplida! Pero justo cuando estamos a punto de enviarle a la granjera el código (junto con una jugosa factura), ella llama y nos dice que también ha comenzado a criar cerdos, ¿podríamos extender el software para imprimir también los cerdos?
 
 {{index "programación copiar y pegar"}}
 
