@@ -14,17 +14,17 @@ quote}}
 
 Las funciones son una de las herramientas más centrales en la programación en JavaScript. El concepto de envolver un fragmento de programa en un valor tiene muchos usos. Nos proporciona una manera de estructurar programas más grandes, de reducir la repetición, de asociar nombres con subprogramas y de aislar estos subprogramas entre sí.
 
-La aplicación más evidente de las funciones es definir nuevos ((vocabulario)). Crear nuevas palabras en prosa suele ser de mal estilo, pero en la programación es indispensable.
+La aplicación más evidente de las funciones es definir nuevo ((vocabulario)). Crear nuevas palabras en prosa suele ser de mal estilo, pero en la programación es indispensable.
 
 {{index "abstracción", vocabulario}}
 
-Los hablantes de inglés adultos típicos tienen alrededor de 20,000 palabras en su vocabulario. Pocas lenguajes de programación vienen con 20,000 comandos incorporados. Y el vocabulario que _está_ disponible tiende a estar más precisamente definido, y por lo tanto menos flexible, que en el lenguaje humano. Por lo tanto, _tenemos_ que introducir nuevas palabras para evitar la verbosidad excesiva.
+Los hablantes adultos de inglés típicos tienen alrededor de 20,000 palabras en su vocabulario. Pocos lenguajes de programación vienen con 20,000 comandos incorporados. El vocabulario que _está_ disponible tiende a estar más precisamente definido, y por lo tanto menos flexible, que en el lenguaje humano. Por lo tanto, _tenemos_ que introducir nuevas palabras para evitar la verbosidad excesiva.
 
 ## Definir una función
 
-{{index "ejemplo de cuadrado", ["función", "definición"], ["vinculación", "definición"]}}
+{{index "ejemplo de cuadrado", ["función", "definición"], ["enlace", "definición"]}}
 
-Una definición de función es una vinculación regular donde el valor de la vinculación es una función. Por ejemplo, este código define `square` para que se refiera a una función que produce el cuadrado de un número dado:
+Una definición de función es un enlace habitual donde el valor del enlace es una función. Por ejemplo, este código define `square` para que se refiera a una función que produce el cuadrado de un número dado:
 
 ```
 const square = function(x) {
@@ -66,24 +66,24 @@ console.log(roundTo(23, 10));
 
 Algunas funciones, como `roundTo` y `square`, producen un valor, y otras no, como `makeNoise`, cuyo único resultado es un ((efecto secundario)). Una instrucción `return` determina el valor que devuelve la función. Cuando el control llega a una instrucción de ese tipo, salta inmediatamente fuera de la función actual y le da el valor devuelto al código que llamó a la función. Una palabra clave `return` sin una expresión después de ella hará que la función devuelva `undefined`. Las funciones que no tienen ninguna instrucción `return` en absoluto, como `makeNoise`, devuelven igualmente `undefined`.
 
-{{index "parámetro", ["función", "aplicación"], [ligadura, "desde parámetro"]}}
+{{index "parámetro", ["función", "aplicación"], [enlace, "desde parámetro"]}}
 
-Los parámetros de una función se comportan como ligaduras regulares, pero sus valores iniciales son dados por el _llamador_ de la función, no por el código en la función en sí misma.
+Los parámetros de una función se comportan como enlaces habituales, pero sus valores iniciales son dados por el _llamador_ de la función, no por el código en la función en sí misma.
 
-## Ligaduras y ámbitos
+## Enlaces y ámbitos
 
 {{indexsee "ámbito de nivel superior", "ámbito global"}}
-{{index "palabra clave var", "ámbito global", [ligadura, global], [ligadura, "ámbito de"]}}
+{{index "palabra clave var", "ámbito global", [enlace, global], [enlace, "ámbito de"]}}
 
-Cada ligadura tiene un _((ámbito))_, que es la parte del programa en la que la ligadura es visible. Para las ligaduras definidas fuera de cualquier función, bloque o módulo (ver [Capítulo ?](módulos)), el ámbito es todo el programa—puedes hacer referencia a esas ligaduras donde quieras. Estas se llaman _globales_.
+Cada enlace tiene un _((ámbito))_, que es la parte del programa en la que el enlace es visible. Para los enlaces definidos fuera de cualquier función, bloque o módulo (ver [Capítulo ?](modules)), el ámbito es todo el programa—puedes hacer referencia a esos enlaces donde quieras. Estos se llaman _globales_.
 
-{{index "ámbito local", [ligadura, local]}}
+{{index "ámbito local", [enlace, local]}}
 
-Las ligaduras creadas para los parámetros de una función o declaradas dentro de una función solo pueden ser referenciadas en esa función, por lo que se conocen como ligaduras _locales_. Cada vez que se llama a la función, se crean nuevas instancias de estas ligaduras. Esto proporciona cierto aislamiento entre funciones—cada llamada a función actúa en su propio pequeño mundo (su entorno local) y a menudo se puede entender sin saber mucho sobre lo que está sucediendo en el entorno global.
+Los enlaces creados para los parámetros de una función o declarados dentro de una función solo pueden ser referenciados en esa función, por lo que se conocen como enlaces _locales_. Cada vez que se llama a la función, se crean nuevas instancias de estos enlaces. Esto proporciona cierto aislamiento entre funciones—cada llamada a función actúa en su propio pequeño mundo (su entorno local) y a menudo se puede entender sin saber mucho sobre lo que está sucediendo en el entorno global.
 
 {{index "palabra clave let", "palabra clave const", "palabra clave var"}}
 
-Las ligaduras declaradas con `let` y `const` en realidad son locales al _((bloque))_ en el que se declaran, por lo que si creas una de esas dentro de un bucle, el código antes y después del bucle no puede "verla". En JavaScript anterior a 2015, solo las funciones creaban nuevos ámbitos, por lo que las ligaduras de estilo antiguo, creadas con la palabra clave `var`, son visibles en toda la función en la que aparecen—o en todo el ámbito global, si no están dentro de una función.
+Los enlaces declarados con `let` y `const` en realidad son locales al _((bloque))_ en el que se declaran, por lo que si creas uno de ellos dentro de un bucle, el código antes y después del bucle no puede "verlo". En JavaScript anterior a 2015, solo las funciones creaban nuevos ámbitos, por lo que los enlaces de estilo antiguo, creados con la palabra clave `var`, son visibles en toda función en la que aparecen—o en todo el ámbito global, si no están dentro de una función.
 
 ```
 let x = 10;   // global
@@ -93,9 +93,9 @@ if (true) {
 }
 ```
 
-{{index [ligadura, visibilidad]}}
+{{index [enlace, visibilidad]}}
 
-Cada ((ámbito)) puede "mirar hacia afuera" al ámbito que lo rodea, por lo que `x` es visible dentro del bloque en el ejemplo. La excepción es cuando múltiples ligaduras tienen el mismo nombre—en ese caso, el código solo puede ver la más interna. Por ejemplo, cuando el código dentro de la función `halve` hace referencia a `n`, está viendo su _propio_ `n`, no el `n` global.
+Cada ((ámbito)) puede "mirar hacia afuera" al ámbito que lo rodea, por lo que `x` es visible dentro del bloque en el ejemplo. La excepción es cuando múltiples enlaces tienen el mismo nombre—en ese caso, el código solo puede ver el más interno. Por ejemplo, cuando el código dentro de la función `halve` hace referencia a `n`, está viendo su _propio_ `n`, no el `n` global.
 
 ```
 const halve = function(n) {
@@ -115,7 +115,7 @@ console.log(n);
 
 {{index [anidamiento, "de funciones"], [anidamiento, "de ámbito"], "ámbito", "función interna", "ámbito léxico"}}
 
-JavaScript distingue no solo entre ligaduras globales y locales. Bloques y funciones pueden ser creados dentro de otros bloques y funciones, produciendo múltiples grados de localidad.
+JavaScript distingue no solo entre enlaces globales y locales. Bloques y funciones pueden ser creados dentro de otros bloques y funciones, produciendo múltiples grados de localidad.
 
 {{index "ejemplo de paisaje"}}
 
@@ -141,19 +141,19 @@ const hummus = function(factor) {
 
 {{index ["función", alcance], alcance}}
 
-El código dentro de la función `ingredient` puede ver el enlace `factor` desde la función exterior, pero sus enlaces locales, como `unit` o `ingredientAmount`, no son visibles en la función exterior.
+El código dentro de la función `ingredient` puede ver el enlace `factor` de la función exterior, pero sus enlaces locales, como `unit` o `ingredientAmount`, no son visibles en la función exterior.
 
-El conjunto de enlaces visibles dentro de un bloque está determinado por el lugar de ese bloque en el texto del programa. Cada bloque local también puede ver todos los bloques locales que lo contienen, y todos los bloques pueden ver el bloque global. Este enfoque de visibilidad de enlaces se llama _((lexicografía))_.
+El conjunto de enlaces visibles dentro de un bloque está determinado por el lugar de ese bloque en el texto del programa. Cada bloque local también puede ver todos los bloques locales que lo contienen, y todos los bloques pueden ver el bloque global. Este enfoque de visibilidad de enlaces se llama _((ámbito léxico))_.
 
 ## Funciones como valores
 
 {{index ["función", "como valor"], [enlace, "definición"]}}
 
-Un enlace de función generalmente simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.
+Generalmente un enlace de función simplemente actúa como un nombre para una parte específica del programa. Este enlace se define una vez y nunca se cambia. Esto hace que sea fácil confundir la función y su nombre.
 
 {{index [enlace, "asignación"]}}
 
-Pero los dos son diferentes. Un valor de función puede hacer todas las cosas que pueden hacer otros valores: se puede utilizar en expresiones arbitrarias, no solo llamarlo. Es posible almacenar un valor de función en un nuevo enlace, pasarlo como argumento a una función, etc. De manera similar, un enlace que contiene una función sigue siendo solo un enlace regular y, si no es constante, se le puede asignar un nuevo valor, así:
+Pero los dos son diferentes. Un valor de función puede hacer todas las cosas que pueden hacer otros valores: se puede utilizar en expresiones arbitrarias, no solo llamarlo. Es posible almacenar un valor de función en un nuevo enlace, pasarlo como argumento a una función, etc. De manera similar, un enlace que contiene una función sigue siendo solo un enlace habitual y, si no es constante, se le puede asignar un nuevo valor, así:
 
 ```{test: no}
 let launchMissiles = function() {
@@ -166,7 +166,7 @@ if (safeMode) {
 
 {{index ["función", "de orden superior"]}}
 
-En [Capítulo ?](higher_order), discutiremos las cosas interesantes que podemos hacer al pasar valores de función a otras funciones.
+En el [Capítulo ?](higher_order), discutiremos las cosas interesantes que podemos hacer al pasar valores de función a otras funciones.
 
 ## Notación de declaración
 
@@ -211,7 +211,7 @@ const roundTo = (n, step) => {
 
 {{index [function, body]}}
 
-La flecha viene _después_ de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como "esta entrada (los ((parámetros))s) produce este resultado (el cuerpo)".
+La flecha viene _después_ de la lista de parámetros y es seguida por el cuerpo de la función. Expresa algo así como "esta entrada (los ((parámetros))) produce este resultado (el cuerpo)".
 
 {{index [braces, "function body"], "ejemplo de exponente", ["paréntesis", argumentos]}}
 
@@ -234,7 +234,7 @@ const cuerno = () => {
 
 {{index verbosidad}}
 
-No hay una razón profunda para tener tanto funciones de flecha como expresiones `function` en el lenguaje. Aparte de un detalle menor, que discutiremos en el [Capítulo ?](object), hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en el [Capítulo ?](orden superior).
+No hay una razón profunda para tener tanto funciones de flecha como expresiones `function` en el lenguaje. Aparte de un detalle menor, que discutiremos en el [Capítulo ?](object), hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en el [Capítulo ?](higher_order) .
 
 {{id pila}}
 
@@ -246,8 +246,8 @@ No hay una razón profunda para tener tanto funciones de flecha como expresiones
 La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:
 
 ```
-function saludar(quién) {
-  console.log("Hola " + quién);
+function saludar(quien) {
+  console.log("Hola " + quien);
 }
 saludar("Harry");
 console.log("Adiós");
@@ -341,7 +341,7 @@ console.log(roundTo(4.5, 2));
 
 {{index "console.log"}}
 
-[El próximo capítulo](datos#rest_parameters) introducirá una forma en que un cuerpo de función puede acceder a la lista completa de argumentos que se le pasaron. Esto es útil porque le permite a una función aceptar cualquier número de argumentos. Por ejemplo, `console.log` lo hace, mostrando todos los valores que se le dan:
+[El próximo capítulo](data#rest_parameters) introducirá una forma en que un cuerpo de función puede acceder a la lista completa de argumentos que se le pasaron. Esto es útil porque le permite a una función aceptar cualquier número de argumentos. Por ejemplo, `console.log` lo hace, mostrando todos los valores que se le dan:
 
 ```
 console.log("C", "O", 2);
@@ -352,7 +352,7 @@ console.log("C", "O", 2);
 
 {{index "pila de llamadas", "vinculación local", ["función", "como valor"], alcance}}
 
-La capacidad de tratar las funciones como valores, combinada con el hecho de que las vinculaciones locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con las vinculaciones locales cuando la llamada a la función que las creó ya no está activa?El siguiente código muestra un ejemplo de esto. Define una función, `wrapValue`, que crea un enlace local. Luego devuelve una función que accede y devuelve este enlace local:
+La capacidad de tratar las funciones como valores, combinada con el hecho de que los enlaces locales se recrean cada vez que se llama a una función, plantea una pregunta interesante: ¿qué sucede con los enlaces locales cuando la llamada a la función que los creó ya no está activa?El siguiente código muestra un ejemplo de esto. Define una función, `wrapValue`, que crea un enlace local. Luego devuelve una función que accede a este enlace local y lo devuelve:
 
 ```
 function wrapValue(n) {
@@ -400,7 +400,7 @@ En el ejemplo anterior, se llama a `multiplier` y crea un entorno en el que su p
 
 {{index "ejemplo de potencia", "desbordamiento de pila", "recursión", ["función", "aplicación"]}}
 
-Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama _recursiva_. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función `power`, que hace lo mismo que el operador `**` (exponenciación):
+Es perfectamente válido que una función se llame a sí misma, siempre y cuando no lo haga tan a menudo que desborde la pila. Una función que se llama a sí misma se llama _recursiva_. La recursión permite que algunas funciones se escriban de una manera diferente. Toma, por ejemplo, esta función `power`, que hace lo mismo que el operador `**` (potenciación):
 
 ```{test: wrap}
 function power(base, exponent) {
@@ -417,17 +417,17 @@ console.log(power(2, 3));
 
 {{index ciclo, legibilidad, "matemáticas"}}
 
-Esto se asemeja bastante a la forma en que los matemáticos definen la exponenciación y describe el concepto de manera más clara que el bucle que usamos en el [Capítulo ?](program_structure). La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.
+Esto se asemeja bastante a la forma en que los matemáticos definen la potenciación y describe el concepto de manera más clara que el bucle que usamos en el [Capítulo ?](program_structure). La función se llama a sí misma varias veces con exponentes cada vez más pequeños para lograr la multiplicación repetida.
 
 {{index ["función", "aplicación"], eficiencia}}
 
-Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un `for` loop. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.
+Sin embargo, esta implementación tiene un problema: en implementaciones típicas de JavaScript, es aproximadamente tres veces más lenta que una versión que utiliza un bucle `for`. Recorrer un simple bucle suele ser más económico que llamar a una función múltiples veces.
 
 {{index "optimización"}}
 
-El dilema de velocidad versus ((elegancia)) es interesante. Se puede ver como una especie de continuo entre amigabilidad humana y amigabilidad de máquina. Casi cualquier programa puede ser acelerado haciendo que sea más extenso y complicado. El programador debe encontrar un equilibrio apropiado.
+El dilema de velocidad versus ((elegancia)) es interesante. Se puede ver como una especie de continuo entre la compatibilidad con los humanos y las máquinas. Casi cualquier programa puede ser acelerado haciendo que sea más extenso y complicado. El programador debe encontrar un equilibrio apropiado.
 
-En el caso de la función `potencia`, una versión poco elegante (con bucles) sigue siendo bastante simple y fácil de leer. No tiene mucho sentido reemplazarla con una función recursiva. Sin embargo, a menudo un programa trata con conceptos tan complejos que renunciar a algo de eficiencia para hacer que el programa sea más directo es útil.
+En el caso de la función `power`, una versión poco elegante (con bucles) sigue siendo bastante simple y fácil de leer. No tiene mucho sentido reemplazarla con una función recursiva. Sin embargo, a menudo un programa trata con conceptos tan complejos que es útil renunciar a algo de eficiencia para hacer que el programa sea más sencillo.
 
 {{index perfilado}}
 
@@ -449,53 +449,53 @@ Considera este rompecabezas: al comenzar desde el número 1 y repetidamente suma
 Aquí tienes una solución recursiva:
 
 ```
-function findSolution(objetivo) {
-  function find(actual, historial) {
+function encontrarSolucion(objetivo) {
+  function encontrar(actual, historial) {
     if (actual === objetivo) {
       return historial;
     } else if (actual > objetivo) {
       return null;
     } else {
-      return find(actual + 5, `(${historial} + 5)`) ??
-             find(actual * 3, `(${historial} * 3)`);
+      return encontrar(actual + 5, `(${historial} + 5)`) ??
+             encontrar(actual * 3, `(${historial} * 3)`);
     }
   }
-  return find(1, "1");
+  return encontrar(1, "1");
 }
 
-console.log(findSolution(24));
+console.log(encontrarSolucion(24));
 // → (((1 * 3) + 5) * 3)
 ```
 
-Ten en cuenta que este programa no necesariamente encuentra la secuencia de operaciones más _corta_. Se conforma con encontrar cualquier secuencia en absoluto.
+Ten en cuenta que este programa no necesariamente encuentra la secuencia de operaciones más _corta_. Se conforma con encontrar cualquier secuencia.
 
-No te preocupes si no ves cómo funciona este código de inmediato. Vamos a trabajar juntos, ya que es un gran ejercicio de pensamiento recursivo.La función interna `find` es la que realiza la recursión real. Toma dos argumentos: el número actual y una cadena que registra cómo llegamos a este número. Si encuentra una solución, devuelve una cadena que muestra cómo llegar al objetivo. Si no puede encontrar una solución comenzando desde este número, devuelve `null`.
+No te preocupes si no ves cómo funciona este código de inmediato. Vamos a trabajar juntos, ya que es un gran ejercicio de pensamiento recursivo. La función interna `encontrar` es la que realiza la recursión real. Toma dos argumentos: el número actual y una cadena que registra cómo llegamos a este número. Si encuentra una solución, devuelve una cadena que muestra cómo llegar al objetivo. Si no puede encontrar una solución comenzando desde este número, devuelve `null`.
 
-{{index null, "operador ??", "evaluación de circuito corto"}}
+{{index null, "operador ??", "evaluación de cortocircuito"}}
 
 Para hacer esto, la función realiza una de tres acciones. Si el número actual es el número objetivo, el historial actual es una forma de alcanzar ese objetivo, por lo que se devuelve. Si el número actual es mayor que el objetivo, no tiene sentido explorar más esta rama porque tanto la suma como la multiplicación solo harán que el número sea más grande, por lo que devuelve `null`. Finalmente, si aún estamos por debajo del número objetivo, la función prueba ambas rutas posibles que parten del número actual llamándose a sí misma dos veces, una vez para la suma y otra vez para la multiplicación. Si la primera llamada devuelve algo que no es `null`, se devuelve. De lo contrario, se devuelve la segunda llamada, independientemente de si produce una cadena o `null`.
 
 {{index "pila de llamadas"}}
 
-Para entender mejor cómo esta función produce el efecto que estamos buscando, veamos todas las llamadas a `find` que se hacen al buscar una solución para el número 13:
+Para entender mejor cómo esta función produce el efecto que estamos buscando, veamos todas las llamadas a `encontrar` que se hacen al buscar una solución para el número 13:
 
 ```{lang: null}
-find(1, "1")
-  find(6, "(1 + 5)")
-    find(11, "((1 + 5) + 5)")
-      find(16, "(((1 + 5) + 5) + 5)")
+encontrar(1, "1")
+  encontrar(6, "(1 + 5)")
+    encontrar(11, "((1 + 5) + 5)")
+      encontrar(16, "(((1 + 5) + 5) + 5)")
         demasiado grande
-      find(33, "(((1 + 5) + 5) * 3)")
+      encontrar(33, "(((1 + 5) + 5) * 3)")
         demasiado grande
-    find(18, "((1 + 5) * 3)")
+    encontrar(18, "((1 + 5) * 3)")
       demasiado grande
-  find(3, "(1 * 3)")
-    find(8, "((1 * 3) + 5)")
-      find(13, "(((1 * 3) + 5) + 5)")
+  encontrar(3, "(1 * 3)")
+    encontrar(8, "((1 * 3) + 5)")
+      encontrar(13, "(((1 * 3) + 5) + 5)")
         ¡encontrado!
 ```
 
-La sangría indica la profundidad de la pila de llamadas. La primera vez que se llama a `find`, la función comienza llamándose a sí misma para explorar la solución que comienza con `(1 + 5)`. Esa llamada seguirá recursivamente para explorar _cada_ solución continua que produzca un número menor o igual al número objetivo. Como no encuentra uno que alcance el objetivo, devuelve `null` a la primera llamada. Allí, el operador `??` hace que ocurra la llamada que explora `(1 * 3)`. Esta búsqueda tiene más suerte: su primera llamada recursiva, a través de otra llamada recursiva, alcanza el número objetivo. Esa llamada más interna devuelve una cadena, y cada uno de los operadores `??` en las llamadas intermedias pasa esa cadena, devolviendo en última instancia la solución.
+La sangría indica la profundidad de la pila de llamadas. La primera vez que se llama a `encontrar`, la función comienza llamándose a sí misma para explorar la solución que comienza con `(1 + 5)`. Esa llamada seguirá recursivamente para explorar _cada_ solución a continuación que produzca un número menor o igual al número objetivo. Como no encuentra uno que alcance el objetivo, devuelve `null` a la primera llamada. Allí, el operador `??` hace que ocurra la llamada que explora `(1 * 3)`. Esta búsqueda tiene más suerte: su primera llamada recursiva, a través de otra llamada recursiva, alcanza el número objetivo. Esa llamada más interna devuelve una cadena, y cada uno de los operadores `??` en las llamadas intermedias pasa esa cadena, devolviendo en última instancia la solución.
 
 ## Crecimiento de funciones
 
@@ -511,7 +511,7 @@ La segunda forma es que te das cuenta de que necesitas alguna funcionalidad que 
 
 {{index ["función", nombramiento], [variable, nombramiento]}}
 
-Lo difícil que es encontrar un buen nombre para una función es una buena indicación de lo claro que es el concepto que estás tratando de envolver. Vamos a través de un ejemplo.
+Lo difícil que es encontrar un buen nombre para una función es una buena indicación de lo claro que es el concepto que estás tratando de envolver con ella. Vamos a través de un ejemplo.
 
 {{index "ejemplo de granja"}}
 
@@ -544,7 +544,7 @@ imprimirInventarioGranja(7, 11);
 
 Escribir `.length` después de una expresión de cadena nos dará la longitud de esa cadena. Por lo tanto, los bucles `while` siguen añadiendo ceros delante de las cadenas de números hasta que tengan al menos tres caracteres de longitud.
 
-¡Misión cumplida! Pero justo cuando estamos a punto de enviarle al granjero el código (junto con una jugosa factura), ella llama y nos dice que también ha comenzado a criar cerdos, ¿podríamos extender el software para imprimir también los cerdos?
+¡Misión cumplida! Pero justo cuando estamos a punto de enviarle a la granjera el código (junto con una jugosa factura), ella llama y nos dice que también ha comenzado a criar cerdos, ¿podríamos extender el software para imprimir también los cerdos?
 
 {{index "programación copiar y pegar"}}
 
@@ -572,7 +572,7 @@ imprimirInventarioGranja(7, 11, 3);
 
 ¡Funciona! Pero ese nombre, `imprimirConRellenoYEtiqueta`, es un poco incómodo. Confluye tres cosas: imprimir, rellenar con ceros y añadir una etiqueta, en una sola función.
 
-{{index "función zeroPad"}}
+{{index "función rellenarConCeros"}}
 
 En lugar de sacar la parte repetida de nuestro programa completamente, intentemos sacar un solo _concepto_:
 
@@ -600,9 +600,9 @@ Una función con un nombre claro y obvio como `rellenarConCeros` hace que sea m�
 
 {{index [interfaz, "diseño"]}}
 
-¿Qué tan inteligente y versátil _debería_ ser nuestra función? Podríamos escribir cualquier cosa, desde una función terriblemente simple que solo puede rellenar un número para que tenga tres caracteres de ancho hasta un sistema de formato de números generalizado complicado que maneje números fraccionarios, números negativos, alineación de puntos decimales, relleno con diferentes caracteres, y más.
+¿Qué tan inteligente y versátil _debería_ ser nuestra función? Podríamos escribir cualquier cosa, desde una función terriblemente simple que solo puede rellenar un número para que tenga tres caracteres de ancho hasta un sistema complejo de formato de números general que maneje números fraccionarios, números negativos, alineación de puntos decimales, relleno con diferentes caracteres y más.
 
-Un principio útil es abstenerse de agregar ingenio a menos que estés absolutamente seguro de que lo vas a necesitar. Puede ser tentador escribir "((marcos de trabajo))" generales para cada trozo de funcionalidad que te encuentres. Resiste esa tentación. No lograrás hacer ningún trabajo real: estarás demasiado ocupado escribiendo código que nunca usas.
+Un principio útil es abstenerse de agregar ingenio a menos que estés absolutamente seguro de que lo vas a necesitar. Puede ser tentador escribir "((frameworks))" genéricos para cada trozo de funcionalidad que te encuentres. Resiste esa tentación. No lograrás hacer ningún trabajo real: estarás demasiado ocupado escribiendo código que nunca usarás.
 
 {{id puro}}
 
@@ -614,11 +614,11 @@ Las funciones pueden dividirse aproximadamente en aquellas que se llaman por sus
 
 {{index "reutilización"}}
 
-La primera función auxiliar en el ((ejemplo de la granja)), `imprimirRellenadoConEtiqueta`, se llama por su efecto secundario: imprime una línea. La segunda versión, `rellenarConCero`, se llama por su valor de retorno. No es casualidad que la segunda sea útil en más situaciones que la primera. Las funciones que crean valores son más fáciles de combinar de nuevas formas que las funciones que realizan efectos secundarios directamente.
+La primera función auxiliar en el ((ejemplo de la granja)), `imprimirConRellenoYEtiqueta`, se llama por su efecto secundario: imprime una línea. La segunda versión, `rellenarConCeros`, se llama por su valor de retorno. No es casualidad que la segunda sea útil en más situaciones que la primera. Las funciones que crean valores son más fáciles de combinar de nuevas formas que las funciones que realizan efectos secundarios directamente.
 
 {{index "sustitución"}}
 
-Una función _pura_ es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de que una función pura esté funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.
+Una función _pura_ es un tipo específico de función productora de valor que no solo no tiene efectos secundarios, sino que tampoco depende de efectos secundarios de otro código, por ejemplo, no lee enlaces globales cuyo valor podría cambiar. Una función pura tiene la agradable propiedad de que, al llamarla con los mismos argumentos, siempre produce el mismo valor (y no hace nada más). Una llamada a tal función puede sustituirse por su valor de retorno sin cambiar el significado del código. Cuando no estás seguro de si una función pura está funcionando correctamente, puedes probarla llamándola y saber que si funciona en ese contexto, funcionará en cualquier otro. Las funciones no puras tienden a requerir más andamiaje para probarlas.
 
 {{index "optimización", "console.log"}}
 
@@ -643,7 +643,7 @@ function g(a, b) {
 let h = a => a % 3;
 ```
 
-Una parte clave para entender las funciones es comprender los ámbitos (scopes). Cada bloque crea un nuevo ámbito. Los parámetros y las vinculaciones declaradas en un ámbito dado son locales y no son visibles desde el exterior. Las vinculaciones declaradas con `var` se comportan de manera diferente: terminan en el ámbito de la función más cercana o en el ámbito global.
+Una parte clave para entender las funciones es comprender los ámbitos (scopes). Cada bloque crea un nuevo ámbito. Los parámetros y los enlaces declarados en un ámbito dado son locales y no son visibles desde el exterior. Los enlaces declarados con `var` se comportan de manera diferente: terminan en el ámbito de la función más cercana o en el ámbito global.
 
 Separar las tareas que realiza tu programa en diferentes funciones es útil. No tendrás que repetirte tanto, y las funciones pueden ayudar a organizar un programa agrupando el código en piezas que hacen cosas específicas.
 
@@ -716,7 +716,7 @@ if}}
 
 {{index "isEven (exercise)", ["if keyword", chaining], recursion}}
 
-Es probable que tu función se parezca en cierta medida a la función interna `find` en el ejemplo recursivo `findSolution` [ejemplo](functions#recursive_puzzle) de este capítulo, con una cadena `if`/`else if`/`else` que prueba cuál de los tres casos aplica. El `else` final, correspondiente al tercer caso, realiza la llamada recursiva. Cada una de las ramas debe contener una declaración `return` o de alguna otra manera asegurarse de que se devuelva un valor específico.
+Es probable que tu función se parezca en cierta medida a la función interna `encontrar` en el ejemplo recursivo `encontrarSolucion` [ejemplo](functions#recursive_puzzle) de este capítulo, con una cadena `if`/`else if`/`else` que prueba cuál de los tres casos aplica. El `else` final, correspondiente al tercer caso, realiza la llamada recursiva. Cada una de las ramas debe contener una declaración `return` o de alguna otra manera asegurarse de que se devuelva un valor específico.
 
 {{index "stack overflow"}}
 
