@@ -30,9 +30,9 @@ if}}
 
 {{index "ejemplo hombreardilla", "licantropía"}}
 
-De vez en cuando, usualmente entre las 8 p. m. y las 10 p. m., ((Jacques)) se encuentra transformándose en un pequeño roedor peludo con una cola espesa.
+De vez en cuando, usualmente entre las 8 p. m. y las 10 p. m., ((Jacques)) se transforma en un pequeño roedor peludo con una cola espesa.
 
-Por un lado, Jacques está bastante contento de no tener licantropía clásica. Convertirse en una ardilla causa menos problemas que convertirse en un lobo. En lugar de preocuparse por comer accidentalmente al vecino (_eso_ sería incómodo), se preocupa por ser comido por el gato del vecino. Después de dos ocasiones de despertar en una rama precariamente delgada en la copa de un roble, desnudo y desorientado, ha optado por cerrar con llave las puertas y ventanas de su habitación por la noche y poner unas cuantas nueces en el suelo para mantenerse ocupado.
+Por un lado, Jacques está bastante contento de no tener licantropía clásica. Convertirse en una ardilla causa menos problemas que convertirse en un lobo. En lugar de preocuparse por comer accidentalmente al vecino (_eso_ sería incómodo), se preocupa por ser comido por el gato del vecino. Después de dos ocasiones de despertar en una rama peligrosamente delgada en la copa de un roble, desnudo y desorientado, ha optado por cerrar con llave las puertas y ventanas de su habitación por la noche y poner unas cuantas nueces en el suelo para mantenerse ocupado.
 
 Pero Jacques preferiría deshacerse por completo de su condición. Las ocurrencias irregulares de la transformación hacen que sospeche que podrían ser desencadenadas por algo. Durante un tiempo, creyó que sucedía solo en días en los que había estado cerca de robles. Sin embargo, evitar los robles no resolvió el problema.
 
@@ -72,7 +72,7 @@ La notación para acceder a los elementos dentro de un array también utiliza ((
 
 {{index "conteo basado en cero"}}
 
-El primer índice de un array es cero, no uno, por lo que el primer elemento se recupera con `listaDeNumeros[0]`. El conteo basado en cero tiene una larga tradición en tecnología y de ciertas maneras tiene mucho sentido, pero requiere cierta acostumbrarse. Piensa en el índice como el número de elementos a omitir, contando desde el inicio del array.
+El primer índice de un array es cero, no uno, por lo que el primer elemento se recupera con `listaDeNumeros[0]`. El conteo basado en cero tiene una larga tradición en tecnología y, de cierta manera, tiene mucho sentido, pero se necesita un poco de tiempo para acostumbrarse. Piensa en el índice como el número de elementos a omitir, contando desde el inicio del array.
 
 {{id propiedades}}
 
@@ -183,7 +183,7 @@ let descripciones = {
 };
 ```
 
-Esto significa que las llaves tienen _dos_ significados en JavaScript. Al principio de una ((sentencia)), comienzan un ((bloque)) de sentencias. En cualquier otra posición, describen un objeto. Afortunadamente, rara vez es útil comenzar una sentencia con un objeto entre llaves, por lo que la ambigüedad entre estos dos casos no es gran problema. El único caso en el que esto surge es cuando quiere devolver un objeto desde una función flecha abreviada: no puede escribir `n => {prop: n}`, ya que las llaves se interpretarán como el cuerpo de una función. En cambio, debe poner un conjunto de paréntesis alrededor del objeto para dejar claro que es una expresión.
+Esto significa que las llaves tienen _dos_ significados en JavaScript. Al principio de una ((sentencia)), comienzan un ((bloque)) de sentencias. En cualquier otra posición, describen un objeto. Afortunadamente, rara vez es útil comenzar una sentencia con un objeto entre llaves, por lo que la ambigüedad entre estos dos casos no es gran problema. El único caso en el que esto surge es cuando quiere devolver un objeto desde una función flecha abreviada: no se puede escribir `n => {prop: n}`, ya que las llaves se interpretarán como el cuerpo de una función. En cambio, se debe poner un conjunto de paréntesis alrededor del objeto para dejar claro que es una expresión.
 
 Al leer una propiedad que no existe, obtendrás el valor `undefined`.
 
@@ -208,7 +208,7 @@ console.log("derecha" in unObjeto);
 
 {{index "operador in", [propiedad, "prueba de"], objeto}}
 
-El operador binario `in`, cuando se aplica a una cadena y un objeto, te dice si ese objeto tiene una propiedad con ese nombre. La diferencia entre establecer una propiedad como `undefined` y realmente borrarla es que, en el primer caso, el objeto todavía _tiene_ la propiedad (simplemente no tiene un valor muy interesante), mientras que en el segundo caso la propiedad ya no está presente y `in` devolverá `false`.
+El operador binario `in`, cuando se aplica a una cadena y a un objeto, te dice si ese objeto tiene una propiedad con ese nombre. La diferencia entre establecer una propiedad como `undefined` y realmente borrarla es que, en el primer caso, el objeto todavía _tiene_ la propiedad (simplemente no tiene un valor muy interesante), mientras que en el segundo caso la propiedad ya no está presente y `in` devolverá `false`.
 
 {{index "función Object.keys"}}
 
@@ -361,7 +361,7 @@ if}}
 
 (Si en este punto estás dejando el libro para concentrarte en un terrible flashback a la clase de matemáticas de décimo grado, ¡espera! No pretendo torturarte con interminables páginas de notación críptica, solo es esta fórmula por ahora. Y incluso con esta, todo lo que haremos es convertirla en JavaScript).
 
-La notación [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} indica la cantidad de mediciones donde la primera variable (ardillez) es falsa (0) y la segunda variable (pizza) es verdadera (1). En la tabla de pizza, [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} es 9.El valor [_n_~1•~]{if html}[[$n_{1\bullet}$]{latex}]{if tex} se refiere a la suma de todas las mediciones donde la primera variable es verdadera, que es 5 en el ejemplo de la tabla. De manera similar, [_n_~•0~]{if html}[[$n_{\bullet0}$]{latex}]{if tex} se refiere a la suma de las mediciones donde la segunda variable es falsa.
+La notación [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} indica la cantidad de mediciones donde la primera variable (ardilla) es falsa (0) y la segunda variable (pizza) es verdadera (1). En la tabla de pizza, [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} es 9.El valor [_n_~1•~]{if html}[[$n_{1\bullet}$]{latex}]{if tex} se refiere a la suma de todas las mediciones donde la primera variable es verdadera, que es 5 en el ejemplo de la tabla. De manera similar, [_n_~•0~]{if html}[[$n_{\bullet0}$]{latex}]{if tex} se refiere a la suma de las mediciones donde la segunda variable es falsa.
 
 {{index "correlación", "coeficiente phi"}}
 
@@ -402,7 +402,7 @@ Jacques mantiene su diario por tres meses. El ((conjunto de datos)) resultante e
 
 {{index "función tableFor"}}
 
-Para extraer una tabla dos por dos para un evento específico del diario, debemos recorrer todas las entradas y contar cuántas veces ocurre el evento en relación con las transformaciones de ardilla:
+Para extraer una tabla dos por dos para un evento específico del diario, debemos recorrer todas las entradas y contar cuántas veces ocurre el evento en relación con las transformaciones a ardilla:
 
 ```{includeCode: strip_log}
 function tableFor(event, journal) {
@@ -942,7 +942,7 @@ console.log(JSON.parse(string).events);
 
 Los objetos y arrays proporcionan formas de agrupar varios valores en un único valor. Esto nos permite poner un montón de cosas relacionadas en una bolsa y correr con la bolsa en lugar de envolver nuestros brazos alrededor de cada una de las cosas individuales e intentar sostenerlas por separado.
 
-La mayoría de los valores en JavaScript tienen propiedades, con las excepciones siendo `null` y `undefined`. Las propiedades se acceden usando `valor.prop` o `valor["prop"]`. Los objetos tienden a usar nombres para sus propiedades y almacenan más o menos un conjunto fijo de ellas. Los arrays, por otro lado, suelen contener cantidades variables de valores conceptualmente idénticos y usan números (comenzando desde 0) como los nombres de sus propiedades.
+La mayoría de los valores en JavaScript tienen propiedades, con las excepciones de `null` y `undefined`. Las propiedades se acceden usando `valor.prop` o `valor["prop"]`. Los objetos tienden a usar nombres para sus propiedades y almacenan más o menos un conjunto fijo de ellas. Los arrays, por otro lado, suelen contener cantidades variables de valores conceptualmente idénticos y usan números (comenzando desde 0) como los nombres de sus propiedades.
 
 Sí _hay_ algunas propiedades nombradas en arrays, como `length` y varios métodos. Los métodos son funciones que viven en propiedades y (usualmente) actúan sobre el valor del cual son una propiedad.
 
