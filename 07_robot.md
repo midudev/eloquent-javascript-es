@@ -29,9 +29,9 @@ const roads = [
   "Casa de Alice-Oficina de Correos","Casa de Bob-Ayuntamiento",
   "Casa de Daria-Casa de Ernie","Casa de Daria-Ayuntamiento",
   "Casa de Ernie-Casa de Grete","Casa de Grete-Granja",
-  "Casa de Grete-Tienda","Plaza de Mercado-Granja",
-  "Plaza de Mercado-Oficina de Correos","Plaza de Mercado-Tienda",
-  "Plaza de Mercado-Ayuntamiento","Tienda-Ayuntamiento"
+  "Casa de Grete-Tienda","Plaza del Mercado-Granja",
+  "Plaza del Mercado-Oficina de Correos","Plaza del Mercado-Tienda",
+  "Plaza del Mercado-Ayuntamiento","Tienda-Ayuntamiento"
 ];
 ```
 
