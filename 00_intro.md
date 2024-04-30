@@ -96,7 +96,7 @@ Por supuesto, introducir manualmente estos patrones arcanos de bits (los unos y 
 
 {{index memoria, "instrucción"}}
 
-Cada línea del programa anterior contiene una única instrucción. Podría escribirse en inglés de la siguiente manera:
+Cada línea del programa anterior contiene una única instrucción. Podría escribirse en español de la siguiente manera:
 
  1. Almacena el número 0 en la ubicación de memoria 0.
  2. Almacena el número 1 en la ubicación de memoria 1.
