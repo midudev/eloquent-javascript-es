@@ -1,7 +1,10 @@
 # Valores, Tipos y Operadores
 
-"Debajo de la superficie de la máquina, el programa se mueve. Sin esfuerzo, se expande y contrae. En gran armonía, los electrones se dispersan y se reagrupan. Las formas en el monitor no son más que ondas en el agua. La esencia permanece invisible debajo."  
-—Master Yuan-Ma, _El Libro de la Programación_
+{{quote {author: "Master Yuan-Ma", title: "El Libro de la Programación", chapter: true}
+
+Debajo de la superficie de la máquina, el programa se mueve. Sin esfuerzo, se expande y contrae. En gran armonía, los electrones se dispersan y se reagrupan. Las formas en el monitor no son más que ondas en el agua. La esencia permanece invisible debajo.
+
+quote}}
 
 {{figure {url: "img/chapter_picture_1.jpg", alt: "Una foto de un mar de bits", chapter: "framed"}}}
 
