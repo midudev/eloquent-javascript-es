@@ -392,7 +392,7 @@ createServer((solicitud, respuesta) => {
 
 {{index "clase Buffer", "método toString"}}
 
-El valor `chunk` pasado al controlador de datos será un `Buffer` binario. Podemos convertir esto a una cadena decodificándolo como caracteres codificados en UTF-8 con su método `toString`.
+El valor `chunk` pasado al manejador de datos será un `Buffer` binario. Podemos convertir esto a una cadena decodificándolo como caracteres codificados en UTF-8 con su método `toString`.
 
 El siguiente fragmento de código, cuando se ejecuta con el servidor de mayúsculas activo, enviará una solicitud a ese servidor y escribirá la respuesta que recibe:
 
@@ -422,7 +422,7 @@ Probablemente no queramos compartir todo nuestro sistema de archivos, por lo que
 
 {{index "ejemplo de servidor de archivos", "Node.js", "objeto methods", "clase Promise"}}
 
-Construiremos el programa paso a paso, utilizando un objeto llamado `methods` para almacenar las funciones que manejan los diferentes métodos HTTP. Los controladores de métodos son funciones `async` que reciben el objeto de solicitud como argumento y devuelven una promesa que se resuelve a un objeto que describe la respuesta.
+Construiremos el programa paso a paso, utilizando un objeto llamado `methods` para almacenar las funciones que manejan los diferentes métodos HTTP. Los manejadores de métodos son funciones `async` que reciben el objeto de solicitud como argumento y devuelven una promesa que se resuelve a un objeto que describe la respuesta.
 
 ```{includeCode: ">code/file_server.mjs"}
 import {createServer} from "node:http";
@@ -455,7 +455,7 @@ Esto inicia un servidor que simplemente devuelve respuestas de error 405, que es
 
 {{index "500 (código de estado HTTP)", "manejo de errores", "respuesta de error"}}
 
-Cuando la promesa de un controlador de solicitud es rechazada, la llamada a `catch` traduce el error en un objeto de respuesta, si aún no lo es, para que el servidor pueda enviar una respuesta de error para informar al cliente que no pudo manejar la solicitud.
+Cuando la promesa de un manejador de solicitud es rechazada, la llamada a `catch` traduce el error en un objeto de respuesta, si aún no lo es, para que el servidor pueda enviar una respuesta de error para informar al cliente que no pudo manejar la solicitud.
 
 {{index "200 (código de estado HTTP)", "encabezado Content-Type"}}
 
