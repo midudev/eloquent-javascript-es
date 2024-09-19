@@ -18,13 +18,13 @@ Ahí es donde entra en juego la programación. _Programar_ es el acto de constru
 
 {{index ["programación", "la alegría de"], speed}}
 
-Por suerte, si puedes superar ese hecho—e incluso disfrutar del rigor de pensar en términos que las máquinas tontas pueden manejar—programar puede ser gratificante. Te permite hacer cosas en segundos que te tomarían _una eternidad_ a mano. Es una forma de hacer que tu herramienta informática haga cosas que antes no podía hacer. Además, se convierte en un maravilloso juego de resolución de acertijos y pensamiento abstracto.
+Por suerte, si puedes superar ese hecho, e incluso disfrutar del rigor de pensar en términos que las máquinas tontas pueden manejar, programar puede ser gratificante. Te permite hacer cosas en segundos que te tomarían _una eternidad_ a mano. Es una forma de hacer que tu herramienta informática haga cosas que antes no podía hacer. Además, se convierte en un maravilloso juego de resolución de acertijos y pensamiento abstracto.
 
 La mayoría de la programación se realiza con ((lenguajes de programación)). Un _lenguaje de programación_ es un lenguaje artificialmente construido utilizado para instruir a las computadoras. Es interesante que la forma más efectiva que hemos encontrado para comunicarnos con una computadora se base tanto en la forma en que nos comunicamos entre nosotros. Al igual que los idiomas humanos, los lenguajes informáticos permiten combinar palabras y frases de nuevas formas, lo que permite expresar conceptos cada vez más nuevos.
 
 {{index [JavaScript, "availability of"], "casual computing"}}
 
-En un momento dado, las interfaces basadas en lenguaje, como los _prompts_ de BASIC y DOS de los años 1980 y 1990, eran el principal método de interactuar con las computadoras. Para el uso informático rutinario, estas se han reemplazado en gran medida por interfaces visuales, que son más fáciles de aprender pero ofrecen menos libertad. Pero si sabes dónde buscar, los lenguajes todavía están ahí. Uno de ellos, _JavaScript_, está integrado en cada navegador web moderno—y por lo tanto está disponible en casi todos los dispositivos.
+En un momento dado, las interfaces basadas en lenguaje, como los _prompts_ de BASIC y DOS de los años 1980 y 1990, eran el principal método de interactuar con las computadoras. Para el uso informático rutinario, estas se han reemplazado en gran medida por interfaces visuales, que son más fáciles de aprender pero ofrecen menos libertad. Pero si sabes dónde buscar, los lenguajes todavía están ahí. Uno de ellos, _JavaScript_, está integrado en cada navegador web moderno y por lo tanto está disponible en casi todos los dispositivos.
 
 {{indexsee "web browser", browser}}
 
