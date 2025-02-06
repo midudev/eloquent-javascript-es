@@ -22,6 +22,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "acorn": "^8.0.0",
     "acorn-walk": "^8.0.0",
+    "chokidar-cli": "^3.0.0",
     "codemirror": "^6.0.0",
     "jszip": "^3.10.0",
     "markdown-it": "^14.0.0",
