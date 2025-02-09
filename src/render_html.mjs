@@ -149,6 +149,10 @@ const renderer = {
   sup_open () { return '<sup>' },
   sup_close () { return '</sup>' },
 
+//   blockquote_open () { return '\n\n<blockquote>'; },
+//   blockquote_close () { return '</blockquote>'; },
+
+
   link_open (token) {
     const alt = token.attrGet('alt'); let href = token.attrGet('href')
     const maybeChapter = /^(\w+)(#.*)?$/.exec(href)
@@ -182,7 +186,14 @@ const renderer = {
   meta_keyname_close () { return '</span>' },
 
   meta_hint_open () { return '\n\n<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">' },
-  meta_hint_close () { return '\n\n</div></details>' }
+  meta_hint_close () { return '\n\n</div></details>' },
+
+  meta_note_open (token) {
+    return '\n\n<div class="translator-note"><p>' + token.content + '</p>';
+  },
+  meta_note_close () {
+    return '</div>';
+  }
 }
 
 function renderArray (tokens) {

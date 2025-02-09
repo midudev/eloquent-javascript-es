@@ -118,8 +118,13 @@ export function transformTokens(tokens, options) {
       else if (type == "fence")
         tok.hashID = "c-" + hash(tok.content)
 
-      if (tok.children) tok.children = transformInline(tok.children, options, tokens[i - 1].type)
 
+      if (tok.children) tok.children = transformInline(tok.children, options, tokens[i - 1].type)
+      // Mantener meta_note_open y meta_note_close
+      if (type == "meta_note_open" || type == "meta_note_close") {
+        result.push(tok)
+		continue
+      }
       result.push(tok)
     }
   }

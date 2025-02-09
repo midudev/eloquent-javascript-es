@@ -158,3 +158,20 @@ ol li p {
 .cm-atom {color: #219;}
 .cm-number {color: #164;}
 .cm-def {color: #00f;}
+
+
+.translator-note {
+  background-color: #f8f9fa;
+  border-left: 4px solid #e9da0875;
+  padding: 0px 12px;
+  font-size: medium;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri,   'Trebuchet MS', sans-serif;
+  word-spacing: 0.2em;
+  margin: 10px 0;
+  font-style: italic;
+}
+.translator-note code {
+  font-size: inherit;
+  font-family: 'Courier New', Courier, monospace;    
+  background-color: #f1f1f100;
+}

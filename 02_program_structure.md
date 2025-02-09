@@ -28,7 +28,7 @@ Esto muestra parte de la belleza de una interfaz basada en un lenguaje. Las expr
 
 {{index "declaración", punto y coma, programa}}
 
-Si una expresión corresponde a un fragmento de oración, una _declaración_ (o sentencia) de JavaScript corresponde a una oración completa. Un programa es una lista de declaraciones.
+Si una expresión corresponde a un fragmento de oración, una _declaración_ (o sentencia, o instrucción) de JavaScript corresponde a una oración completa. Un programa es una lista de declaraciones.
 
 {{index [sintaxis, "declaración"]}}
 
