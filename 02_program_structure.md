@@ -367,13 +367,13 @@ El enlace `numero` demuestra la forma en que un ((enlace)) puede seguir el progr
 Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2^10^ (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ya ha alcanzado 10 y, si no, actualiza ambos enlaces.
 
 ```
-let result = 1;
-let counter = 0;
-while (counter < 10) {
-  result = result * 2;
-  counter = counter + 1;
+let resultado = 1;
+let contador = 0;
+while (contador < 10) {
+  resultado = resultado * 2;
+  contador = contador + 1;
 }
-console.log(result);
+console.log(resultado);
 // → 1024
 ```
 
@@ -501,28 +501,28 @@ La palabra clave `continue` es similar a `break` en que influye en el progreso d
 Especialmente al hacer bucles, un programa a menudo necesita "actualizar" un enlace para que contenga un valor basado en el valor anterior de ese enlace.
 
 ```{test: no}
-counter = counter + 1;
+contador = contador + 1;
 ```
 
 JavaScript proporciona un atajo para esto:
 
 ```{test: no}
-counter += 1;
+contador += 1;
 ```
 
-Para muchos otros operadores hay atajos similares, como `result *= 2` para duplicar `result` o `counter -= 1` para contar hacia atrás.
+Para muchos otros operadores hay atajos similares, como `resultado *= 2` para duplicar `resultado` o `contador -= 1` para contar hacia atrás.
 
 Esto nos permite acortar aún más nuestro ejemplo de contar:
 
 ```
-for (let number = 0; number <= 12; number += 2) {
-  console.log(number);
+for (let número = 0; número <= 12; número += 2) {
+  console.log(número);
 }
 ```
 
 {{index "++ operator", "-- operator"}}
 
-Para `counter += 1` y `counter -= 1`, existen equivalentes más cortos aún: `counter++` y `counter--`.
+Para `contador += 1` y `contador -= 1`, existen equivalentes más cortos aún: `contador++` y `contador--`.
 
 ## Despachar según un valor con switch
 

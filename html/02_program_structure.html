@@ -240,13 +240,13 @@ console.log(<span class="tok-number">12</span>);</pre>
 
 <p><a class="p_ident" id="p-IhKlP4aMVK" href="#p-IhKlP4aMVK" tabindex="-1" role="presentation"></a>Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2<sup>10</sup> (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ya ha alcanzado 10 y, si no, actualiza ambos enlaces.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9AxUm9n4M9" href="#c-9AxUm9n4M9" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">result</span> = <span class="tok-number">1</span>;
-<span class="tok-keyword">let</span> <span class="tok-definition">counter</span> = <span class="tok-number">0</span>;
-<span class="tok-keyword">while</span> (counter &lt; <span class="tok-number">10</span>) {
-  result = result * <span class="tok-number">2</span>;
-  counter = counter + <span class="tok-number">1</span>;
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9qGtVj9Vr2" href="#c-9qGtVj9Vr2" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">resultado</span> = <span class="tok-number">1</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">contador</span> = <span class="tok-number">0</span>;
+<span class="tok-keyword">while</span> (contador &lt; <span class="tok-number">10</span>) {
+  resultado = resultado * <span class="tok-number">2</span>;
+  contador = contador + <span class="tok-number">1</span>;
 }
-console.log(result);
+console.log(resultado);
 <span class="tok-comment">// → 1024</span></pre>
 
 <p><a class="p_ident" id="p-Ca1o09ICca" href="#p-Ca1o09ICca" tabindex="-1" role="presentation"></a>El contador también podría haber comenzado en <code>1</code> y haber comprobado si era <code>&lt;= 10</code>, pero por razones que se harán evidentes en el <a href="04_data.html#array_indexing">Capítulo 4</a>, conviene acostumbrarse a contar desde 0.</p>
@@ -330,21 +330,21 @@ console.log(resultado);
 
 <p><a class="p_ident" id="p-OmbzX4bGUg" href="#p-OmbzX4bGUg" tabindex="-1" role="presentation"></a>Especialmente al hacer bucles, un programa a menudo necesita “actualizar” un enlace para que contenga un valor basado en el valor anterior de ese enlace.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-aegdj8V5XM" href="#c-aegdj8V5XM" tabindex="-1" role="presentation"></a>counter = counter + <span class="tok-number">1</span>;</pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VGviBLlVDb" href="#c-VGviBLlVDb" tabindex="-1" role="presentation"></a>contador = contador + <span class="tok-number">1</span>;</pre>
 
 <p><a class="p_ident" id="p-vQO+HtxGdF" href="#p-vQO+HtxGdF" tabindex="-1" role="presentation"></a>JavaScript proporciona un atajo para esto:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/XU8FyoU4+" href="#c-/XU8FyoU4+" tabindex="-1" role="presentation"></a>counter += <span class="tok-number">1</span>;</pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VzxL+w9AHp" href="#c-VzxL+w9AHp" tabindex="-1" role="presentation"></a>contador += <span class="tok-number">1</span>;</pre>
 
-<p><a class="p_ident" id="p-k9sYK52irQ" href="#p-k9sYK52irQ" tabindex="-1" role="presentation"></a>Para muchos otros operadores hay atajos similares, como <code>result *= 2</code> para duplicar <code>result</code> o <code>counter -= 1</code> para contar hacia atrás.</p>
+<p><a class="p_ident" id="p-k9sYK52irQ" href="#p-k9sYK52irQ" tabindex="-1" role="presentation"></a>Para muchos otros operadores hay atajos similares, como <code>resultado *= 2</code> para duplicar <code>resultado</code> o <code>contador -= 1</code> para contar hacia atrás.</p>
 
 <p><a class="p_ident" id="p-2jbBcAR3za" href="#p-2jbBcAR3za" tabindex="-1" role="presentation"></a>Esto nos permite acortar aún más nuestro ejemplo de contar:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-h8HkwMM+IM" href="#c-h8HkwMM+IM" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">number</span> = <span class="tok-number">0</span>; number &lt;= <span class="tok-number">12</span>; number += <span class="tok-number">2</span>) {
-  console.log(number);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-WDAcfdyHyg" href="#c-WDAcfdyHyg" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">número</span> = <span class="tok-number">0</span>; número &lt;= <span class="tok-number">12</span>; número += <span class="tok-number">2</span>) {
+  console.log(número);
 }</pre>
 
-<p><a class="p_ident" id="p-7MweW6WlSL" href="#p-7MweW6WlSL" tabindex="-1" role="presentation"></a>Para <code>counter += 1</code> y <code>counter -= 1</code>, existen equivalentes más cortos aún: <code>counter++</code> y <code>counter--</code>.</p>
+<p><a class="p_ident" id="p-7MweW6WlSL" href="#p-7MweW6WlSL" tabindex="-1" role="presentation"></a>Para <code>contador += 1</code> y <code>contador -= 1</code>, existen equivalentes más cortos aún: <code>contador++</code> y <code>contador--</code>.</p>
 
 <h2><a class="h_ident" id="h-eZRVlMfTEH" href="#h-eZRVlMfTEH" tabindex="-1" role="presentation"></a>Despachar según un valor con switch</h2>
 
