@@ -12,7 +12,7 @@ const TRANSLATIONS_MAP = {
   '02_3_tablero_de_ajedrez.js': '02_3_chessboard.js',
   '03_1_mnimo.js': '03_1_minimum.js',
   '03_2_recursin.js': '03_2_recursion.js',
-  '03_3_contando_frijoles.js': '03_3_bean_counting.js',
+  '03_3_contando_minuciosamente.js': '03_3_bean_counting.js',
   '04_1_la_suma_de_un_rango.js': '04_1_the_sum_of_a_range.js',
   '04_2_reversin_de_un_array.js': '04_2_reversing_an_array.js',
   '04_3_lista.js': '04_3_a_list.js',
