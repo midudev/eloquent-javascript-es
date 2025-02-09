@@ -71,7 +71,7 @@ Algunas funciones, como `redondearA` y `cuadrado`, producen un valor, y otras no
 
 Los parámetros de una función se comportan como asociaciones habituales, pero sus valores iniciales son dados por el _llamador_ de la función, no por el propio código de la función.
 
-## Enlaces y ámbitos
+## Asociaciones y ámbitos
 
 {{indexsee "ámbito de nivel superior", "ámbito global"}}
 {{index "palabra clave var", "ámbito global", [enlace, global], [enlace, "ámbito de"]}}
