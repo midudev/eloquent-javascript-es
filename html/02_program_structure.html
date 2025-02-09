@@ -43,21 +43,24 @@
 
 <h2><a class="h_ident" id="h-MCmlRffKOG" href="#h-MCmlRffKOG" tabindex="-1" role="presentation"></a>Enlaces</h2>
 
-<p><a class="p_ident" id="p-38bl8CNA5y" href="#p-38bl8CNA5y" tabindex="-1" role="presentation"></a>¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no modifica los valores originales. Además, el nuevo valor debe utilizarse inmediatamente o desaparecerá tan pronto aparezca. Para atrapar y retener valores, JavaScript nos da algo llamado <em>enlace</em>, o <em>variable</em>:</p>
+<p><a class="p_ident" id="p-38bl8CNA5y" href="#p-38bl8CNA5y" tabindex="-1" role="presentation"></a>¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no modifica los valores originales. Además, el nuevo valor debe utilizarse inmediatamente o desaparecerá tan pronto aparezca. Para atrapar y retener valores, JavaScript nos da algo llamado <em>asociación</em>, o <em>enlace</em>, o <em>variable</em>:</p>
+
+<div class="translator-note"><p><strong>N. del T.:</strong> El uso de la palabra <strong>variable</strong> para denotar este concepto es muy común, aunque puede llegar a resultar confusa. En la versión original de este libro, el autor elige usar la palabra <strong>bind</strong> en lugar de <strong>variable</strong> para referirse a estas entidades. Nosotros haremos lo mismo utilizando la palabra <strong>asociación</strong>, aunque, en ocasiones, también se usará la palabra <strong>enlace</strong>. Rara vez usaremos la palabra <strong>variable</strong>, que se reservará en general para un tipo concreto de enlace. Veremos más sobre las diferencias entre cada tipo de asociación en este y el <a href="functions">siguiente capítulo</a></p>
+</div>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-aT9yLxdY/V" href="#c-aT9yLxdY/V" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">caught</span> = <span class="tok-number">5</span> * <span class="tok-number">5</span>;</pre>
 
-<p><a class="p_ident" id="p-X/x/ckvx7F" href="#p-X/x/ckvx7F" tabindex="-1" role="presentation"></a>Eso nos da un segundo tipo de declaración. La palabra clave (<em>keyword</em>) <code>let</code> indica que esta frase va a definir una variable (o enlace). Está seguida por el nombre de la variable y, si queremos darle inmediatamente un valor, por un operador <code>=</code> y una expresión.</p>
+<p><a class="p_ident" id="p-X/x/ckvx7F" href="#p-X/x/ckvx7F" tabindex="-1" role="presentation"></a>Eso nos da un segundo tipo de declaración. La palabra clave (<em>keyword</em>) <code>let</code> indica que esta frase va a definir una variable (o asociación). Está seguida por el nombre de la variable y, si queremos darle inmediatamente un valor, por un operador <code>=</code> y una expresión.</p>
 
-<p><a class="p_ident" id="p-AT3mFhUtnW" href="#p-AT3mFhUtnW" tabindex="-1" role="presentation"></a>En el ejemplo se crea un enlace llamado <code>caught</code> y se utiliza para capturar el número que se produce al multiplicar 5 por 5.</p>
+<p><a class="p_ident" id="p-AT3mFhUtnW" href="#p-AT3mFhUtnW" tabindex="-1" role="presentation"></a>En el ejemplo se crea una asociación llamada <code>caught</code> y se utiliza para capturar el número que se produce al multiplicar 5 por 5.</p>
 
-<p><a class="p_ident" id="p-K3pByXEqHE" href="#p-K3pByXEqHE" tabindex="-1" role="presentation"></a>Después de que se haya definido un enlace, su nombre se puede usar como una expresión. El valor de esa expresión es el valor que el enlace guarda actualmente. Aquí tienes un ejemplo:</p>
+<p><a class="p_ident" id="p-K3pByXEqHE" href="#p-K3pByXEqHE" tabindex="-1" role="presentation"></a>Después de que se haya definido una asociación, su nombre se puede usar como una expresión. El valor de esa expresión es el valor que la asociación guarda actualmente. Aquí tienes un ejemplo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FfLIqaoaFx" href="#c-FfLIqaoaFx" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">ten</span> = <span class="tok-number">10</span>;
 console.log(ten * ten);
 <span class="tok-comment">// → 100</span></pre>
 
-<p><a class="p_ident" id="p-AvjTHEDvCk" href="#p-AvjTHEDvCk" tabindex="-1" role="presentation"></a>Cuando un enlace apunta a un valor, eso no significa que esté atado a ese valor para siempre. El operador <code>=</code> se puede usar en cualquier momento en enlaces existentes para desconectarlos de su valor actual y hacer que apunten a uno nuevo:</p>
+<p><a class="p_ident" id="p-2GPt2tymia" href="#p-2GPt2tymia" tabindex="-1" role="presentation"></a>Cuando una asociación apunta a un valor, eso no significa que esté atada a ese valor para siempre. El operador <code>=</code> se puede usar en cualquier momento en asociaciones existentes para desconectarlas de su valor actual y hacer que apunten a uno nuevo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FiZBrHz3CX" href="#c-FiZBrHz3CX" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">mood</span> = <span class="tok-string">&quot;light&quot;</span>;
 console.log(mood);
@@ -66,39 +69,39 @@ mood = <span class="tok-string">&quot;dark&quot;</span>;
 console.log(mood);
 <span class="tok-comment">// → dark</span></pre>
 
-<p><a class="p_ident" id="p-/t6Rp11+gu" href="#p-/t6Rp11+gu" tabindex="-1" role="presentation"></a>Debes imaginarte los enlaces como tentáculos más que como cajas. No <em>contienen</em> valores; los <em>agarran</em>—dos enlaces pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un nuevo tentáculo para agarrarlo o lo reconectas con uno de tus tentáculos existentes.</p>
+<p><a class="p_ident" id="p-F8iWo5Sq8i" href="#p-F8iWo5Sq8i" tabindex="-1" role="presentation"></a>Debes imaginarte las asociaciones como tentáculos más que como cajas. No <em>contienen</em> valores; los <em>agarran</em> —dos asociaciones pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un nuevo tentáculo para agarrarlo o lo reconectas con uno de tus tentáculos existentes.</p>
 
-<p><a class="p_ident" id="p-rQptflTqgB" href="#p-rQptflTqgB" tabindex="-1" role="presentation"></a>Veamos otro ejemplo. Para recordar la cantidad de dólares que Luigi todavía te debe, creas un enlace. Cuando te paga $35, le das a este enlace un nuevo valor:</p>
+<p><a class="p_ident" id="p-rQptflTqgB" href="#p-rQptflTqgB" tabindex="-1" role="presentation"></a>Veamos otro ejemplo. Para recordar la cantidad de dólares que Luigi todavía te debe, creas una asociación. Cuando te paga $35, le das a esta asociación un nuevo valor:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-UpFQBNACng" href="#c-UpFQBNACng" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">luigisDebt</span> = <span class="tok-number">140</span>;
 luigisDebt = luigisDebt - <span class="tok-number">35</span>;
 console.log(luigisDebt);
 <span class="tok-comment">// → 105</span></pre>
 
-<p><a class="p_ident" id="p-kDETpjHlkv" href="#p-kDETpjHlkv" tabindex="-1" role="presentation"></a>Cuando defines un enlace sin darle un valor, el tentáculo no tiene nada que agarrar, por lo que termina en el aire. Si solicitas el valor de un enlace vacío, obtendrás el valor <code>undefined</code>.</p>
+<p><a class="p_ident" id="p-frevBaVx3D" href="#p-frevBaVx3D" tabindex="-1" role="presentation"></a>Cuando defines una asociación sin darle un valor, el tentáculo no tiene nada que agarrar, por lo que termina en el aire. Si solicitas el valor de un enlace vacío, obtendrás el valor <code>undefined</code>.</p>
 
-<p><a class="p_ident" id="p-i2sMZlYPHm" href="#p-i2sMZlYPHm" tabindex="-1" role="presentation"></a>Una sola instrucción <code>let</code> puede definir múltiples enlaces. Las definiciones deben estar separadas por comas:</p>
+<p><a class="p_ident" id="p-i2sMZlYPHm" href="#p-i2sMZlYPHm" tabindex="-1" role="presentation"></a>Una sola instrucción <code>let</code> puede definir múltiples asociaciones. Las definiciones deben estar separadas por comas:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-pT4pqev8kx" href="#c-pT4pqev8kx" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">one</span> = <span class="tok-number">1</span>, <span class="tok-definition">two</span> = <span class="tok-number">2</span>;
 console.log(one + two);
 <span class="tok-comment">// → 3</span></pre>
 
-<p><a class="p_ident" id="p-8J5hlJwJL/" href="#p-8J5hlJwJL/" tabindex="-1" role="presentation"></a>Las palabras <code>var</code> y <code>const</code> también se pueden usar para crear enlaces de manera similar a como lo hace <code>let</code>:</p>
+<p><a class="p_ident" id="p-8J5hlJwJL/" href="#p-8J5hlJwJL/" tabindex="-1" role="presentation"></a>Las palabras <code>var</code> y <code>const</code> también se pueden usar para crear asociaciones de manera similar a como lo hace <code>let</code>:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-MMmzlomlXC" href="#c-MMmzlomlXC" tabindex="-1" role="presentation"></a><span class="tok-keyword">var</span> <span class="tok-definition">name</span> = <span class="tok-string">&quot;Ayda&quot;</span>;
 <span class="tok-keyword">const</span> <span class="tok-definition">greeting</span> = <span class="tok-string">&quot;Hola &quot;</span>;
 console.log(greeting + name);
 <span class="tok-comment">// → Hola Ayda</span></pre>
 
-<p><a class="p_ident" id="p-MRfMa48ppd" href="#p-MRfMa48ppd" tabindex="-1" role="presentation"></a>La primera de estas, <code>var</code> (abreviatura de “variable”), es la forma en que se declaraban los enlaces en JavaScript anterior a 2015, cuando aún no existía <code>let</code>. Veremos la forma precisa en que difiere de <code>let</code> en el <a href="03_functions.html">próximo capítulo</a>. Por ahora, recuerda que en su mayoría hace lo mismo, pero rara vez lo usaremos en este libro porque se comporta de manera extraña en algunas situaciones.</p>
+<p><a class="p_ident" id="p-MRfMa48ppd" href="#p-MRfMa48ppd" tabindex="-1" role="presentation"></a>La primera de estas, <code>var</code> (abreviatura de “variable”), es la forma en que se declaraban las asociaciones en JavaScript anterior a 2015, cuando aún no existía <code>let</code>. Veremos la forma precisa en que difiere de <code>let</code> en el <a href="03_functions.html">próximo capítulo</a>. Por ahora, recuerda que en su mayoría hace lo mismo, pero rara vez la usaremos en este libro porque se comporta de manera extraña en algunas situaciones.</p>
 
-<p><a class="p_ident" id="p-De7FCWnS3+" href="#p-De7FCWnS3+" tabindex="-1" role="presentation"></a>La palabra <code>const</code> significa <em>constante</em>. Define un enlace constante, que apunta al mismo valor mientras exista. Esto es útil para enlaces que solo dan un nombre a un valor de manera que más tarde puedas referirte fácilmente a él.</p>
+<p><a class="p_ident" id="p-De7FCWnS3+" href="#p-De7FCWnS3+" tabindex="-1" role="presentation"></a>La palabra <code>const</code> significa <em>constante</em>. Define una asociación constante, que apunta al mismo valor mientras exista. Esto es útil para asociaciones que solo dan un nombre a un valor de manera que más tarde puedas referirte fácilmente a él.</p>
 
 <h2><a class="h_ident" id="h-FHPw62JANA" href="#h-FHPw62JANA" tabindex="-1" role="presentation"></a>Nombres de enlaces</h2>
 
-<p><a class="p_ident" id="p-zmdNm4zBdm" href="#p-zmdNm4zBdm" tabindex="-1" role="presentation"></a>Los nombres de enlaces pueden ser cualquier secuencia de una o más letras. Podemos incluir dígitos como parte del nombre de un enlace —<code>catch22</code> es un nombre válido, por ejemplo—, siempre y cuando el nombre no empiece por uno de ellos. Un nombre de enlace puede incluir signos de dólar (<code>$</code>) o subrayados (<code>_</code>), pero ningún otro caracter especial o signo de puntuación.</p>
+<p><a class="p_ident" id="p-zmdNm4zBdm" href="#p-zmdNm4zBdm" tabindex="-1" role="presentation"></a>Los nombres de asociaciones o enlaces pueden ser cualquier secuencia de una o más letras. Podemos incluir dígitos como parte del nombre de un enlace —<code>catch22</code> es un nombre válido, por ejemplo—, siempre y cuando el nombre no empiece por uno de ellos. Un nombre de enlace puede incluir signos de dólar (<code>$</code>) o subrayados (<code>_</code>), pero ningún otro caracter especial o signo de puntuación.</p>
 
-<p><a class="p_ident" id="p-twMqL1Xqqf" href="#p-twMqL1Xqqf" tabindex="-1" role="presentation"></a>Cualquier palabra con un significado especial, como <code>let</code>, es una <em>palabra clave</em>, y no puede ser usada como nombre de un enlace. También hay una serie de palabras que están “reservadas para su uso” en futuras versiones de JavaScript, las cuales tampoco se pueden usar como nombres de enlaces. La lista completa de palabras clave y palabras reservadas es bastante larga:</p>
+<p><a class="p_ident" id="p-twMqL1Xqqf" href="#p-twMqL1Xqqf" tabindex="-1" role="presentation"></a>Cualquier palabra con un significado especial, como <code>let</code>, es una <em>palabra clave</em>, y no puede ser usada como nombre de una asociación. También hay una serie de palabras que están “reservadas para su uso” en futuras versiones de JavaScript, las cuales tampoco se pueden usar como nombres de asociaciones. La lista completa de palabras clave y palabras reservadas es bastante larga:</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-7BGolnv7qC" href="#c-7BGolnv7qC" tabindex="-1" role="presentation"></a>break case catch class const continue debugger default
 delete do else enum export extends false finally for
@@ -106,7 +109,7 @@ function if implements import interface in instanceof let
 new package private protected public return static super
 switch this throw true try typeof var void while with yield</pre>
 
-<p><a class="p_ident" id="p-X1tpMP4uiz" href="#p-X1tpMP4uiz" tabindex="-1" role="presentation"></a>No te entretengas en memorizar esta lista. Simplemente, cuando al crear un enlace se produzca un error de sintaxis inesperado, comprueba si estás intentando definir una palabra reservada.</p>
+<p><a class="p_ident" id="p-X1tpMP4uiz" href="#p-X1tpMP4uiz" tabindex="-1" role="presentation"></a>No te entretengas en memorizar esta lista. Simplemente, cuando al crear una asociación se produzca un error de sintaxis inesperado, comprueba si estás intentando definir una palabra reservada.</p>
 
 <h2><a class="h_ident" id="h-QDYVZFuV/L" href="#h-QDYVZFuV/L" tabindex="-1" role="presentation"></a>El entorno</h2>
 
@@ -132,7 +135,7 @@ switch this throw true try typeof var void while with yield</pre>
 console.log(<span class="tok-string">&quot;el valor de x es&quot;</span>, x);
 <span class="tok-comment">// → el valor de x es 30</span></pre>
 
-<p><a class="p_ident" id="p-1QcFA54MdF" href="#p-1QcFA54MdF" tabindex="-1" role="presentation"></a>Aunque los nombres de enlaces no pueden contener puntos, <code>console.log</code> tiene uno. Esto se debe a que <code>console.log</code> no es un simple enlace, sino una expresión que recupera la propiedad <code>log</code> del valor contenido por el enlace <code>console</code>. Descubriremos exactamente lo que esto significa en el <a href="04_data.html#properties">Capítulo 4</a>.</p>
+<p><a class="p_ident" id="p-1QcFA54MdF" href="#p-1QcFA54MdF" tabindex="-1" role="presentation"></a>Aunque los nombres de asociaciones no pueden contener puntos, <code>console.log</code> tiene uno. Esto se debe a que <code>console.log</code> no es un simple enlace, sino una expresión que recupera la propiedad <code>log</code> del valor contenido por el enlace <code>console</code>. Descubriremos exactamente lo que esto significa en el <a href="04_data.html#properties">Capítulo 4</a>.</p>
 
 <h2 id="valores_retorno"><a class="h_ident" id="h-xdOUAXPBXv" href="#h-xdOUAXPBXv" tabindex="-1" role="presentation"></a>Valores de retorno</h2>
 
@@ -375,7 +378,7 @@ console.log(resultado);
 
 <h2><a class="h_ident" id="h-uaN9rBKlOx" href="#h-uaN9rBKlOx" tabindex="-1" role="presentation"></a>Uso de mayúsculas</h2>
 
-<p><a class="p_ident" id="p-LPEByvMVpz" href="#p-LPEByvMVpz" tabindex="-1" role="presentation"></a>Los nombres de los enlaces no pueden contener espacios, aunque a menudo es útil usar varias palabras para describir claramente lo que representa el enlace. Estas son básicamente tus opciones para escribir un nombre de enlace con varias palabras:</p>
+<p><a class="p_ident" id="p-LPEByvMVpz" href="#p-LPEByvMVpz" tabindex="-1" role="presentation"></a>Los nombres de los asociaciones no pueden contener espacios, aunque a menudo es útil usar varias palabras para describir claramente lo que representa la asociación. Estas son básicamente tus opciones para escribir un nombre de asociación con varias palabras:</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-HtUFwP9TF9" href="#c-HtUFwP9TF9" tabindex="-1" role="presentation"></a>fuzzylittleturtle
 fuzzy_little_turtle

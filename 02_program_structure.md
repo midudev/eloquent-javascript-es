@@ -51,7 +51,9 @@ A veces, JavaScript te permite omitir el punto y coma al final de una declaraci�
 
 {{index [syntax, statement], [binding, definition], "side effect", ["memoría", "organización"], [estado, in binding]}}
 
-¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no modifica los valores originales. Además, el nuevo valor debe utilizarse inmediatamente o desaparecerá tan pronto aparezca. Para atrapar y retener valores, JavaScript nos da algo llamado _enlace_, o _variable_:
+¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no modifica los valores originales. Además, el nuevo valor debe utilizarse inmediatamente o desaparecerá tan pronto aparezca. Para atrapar y retener valores, JavaScript nos da algo llamado _asociación_, o _enlace_, o _variable_:
+
+{{note "**N. del T.:** El uso de la palabra **variable** para denotar este concepto es muy común, aunque puede llegar a resultar confusa. En la versión original de este libro, el autor elige usar la palabra **bind** en lugar de **variable** para referirse a estas entidades. Nosotros haremos lo mismo utilizando la palabra **asociación**, aunque, en ocasiones, también se usará la palabra **enlace**. Rara vez usaremos la palabra **variable**, que se reservará en general para un tipo concreto de enlace. Veremos más sobre las diferencias entre cada tipo de asociación en este y el [siguiente capítulo](functions)"}}
 
 ```
 let caught = 5 * 5;
@@ -59,11 +61,11 @@ let caught = 5 * 5;
 
 {{index "let keyword"}}
 
-Eso nos da un segundo tipo de ((declaración)). La palabra clave (_((keyword))_) `let` indica que esta frase va a definir una variable (o enlace). Está seguida por el nombre de la variable y, si queremos darle inmediatamente un valor, por un operador `=` y una expresión.
+Eso nos da un segundo tipo de ((declaración)). La palabra clave (_((keyword))_) `let` indica que esta frase va a definir una variable (o asociación). Está seguida por el nombre de la variable y, si queremos darle inmediatamente un valor, por un operador `=` y una expresión.
 
-En el ejemplo se crea un enlace llamado `caught` y se utiliza para capturar el número que se produce al multiplicar 5 por 5.
+En el ejemplo se crea una asociación llamada `caught` y se utiliza para capturar el número que se produce al multiplicar 5 por 5.
 
-Después de que se haya definido un enlace, su nombre se puede usar como una ((expresión)). El valor de esa expresión es el valor que el enlace guarda actualmente. Aquí tienes un ejemplo:
+Después de que se haya definido una asociación, su nombre se puede usar como una ((expresión)). El valor de esa expresión es el valor que la asociación guarda actualmente. Aquí tienes un ejemplo:
 
 ```
 let ten = 10;
@@ -73,7 +75,7 @@ console.log(ten * ten);
 
 {{index "= operator", "asignación", [binding, "asignación"]}}
 
-Cuando un enlace apunta a un valor, eso no significa que esté atado a ese valor para siempre. El operador `=` se puede usar en cualquier momento en enlaces existentes para desconectarlos de su valor actual y hacer que apunten a uno nuevo:
+Cuando una asociación apunta a un valor, eso no significa que esté atada a ese valor para siempre. El operador `=` se puede usar en cualquier momento en asociaciones existentes para desconectarlas de su valor actual y hacer que apunten a uno nuevo:
 
 ```
 let mood = "light";
@@ -86,9 +88,9 @@ console.log(mood);
 
 {{index [binding, "modelo de"], "tentáculo (analogía)"}}
 
-Debes imaginarte los enlaces como tentáculos más que como cajas. No _contienen_ valores; los _agarran_—dos enlaces pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un nuevo tentáculo para agarrarlo o lo reconectas con uno de tus tentáculos existentes.
+Debes imaginarte las asociaciones como tentáculos más que como cajas. No _contienen_ valores; los _agarran_ —dos asociaciones pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un nuevo tentáculo para agarrarlo o lo reconectas con uno de tus tentáculos existentes.
 
-Veamos otro ejemplo. Para recordar la cantidad de dólares que Luigi todavía te debe, creas un enlace. Cuando te paga $35, le das a este enlace un nuevo valor:
+Veamos otro ejemplo. Para recordar la cantidad de dólares que Luigi todavía te debe, creas una asociación. Cuando te paga $35, le das a esta asociación un nuevo valor:
 
 ```
 let luigisDebt = 140;
@@ -99,11 +101,11 @@ console.log(luigisDebt);
 
 {{index undefined}}
 
-Cuando defines un enlace sin darle un valor, el tentáculo no tiene nada que agarrar, por lo que termina en el aire. Si solicitas el valor de un enlace vacío, obtendrás el valor `undefined`.
+Cuando defines una asociación sin darle un valor, el tentáculo no tiene nada que agarrar, por lo que termina en el aire. Si solicitas el valor de un enlace vacío, obtendrás el valor `undefined`.
 
 {{index "let keyword"}}
 
-Una sola instrucción `let` puede definir múltiples enlaces. Las definiciones deben estar separadas por comas:
+Una sola instrucción `let` puede definir múltiples asociaciones. Las definiciones deben estar separadas por comas:
 
 ```
 let one = 1, two = 2;
@@ -111,7 +113,7 @@ console.log(one + two);
 // → 3
 ```
 
-Las palabras `var` y `const` también se pueden usar para crear enlaces de manera similar a como lo hace `let`:
+Las palabras `var` y `const` también se pueden usar para crear asociaciones de manera similar a como lo hace `let`:
 
 ```
 var name = "Ayda";
@@ -122,21 +124,21 @@ console.log(greeting + name);
 
 {{index "var keyword"}}
 
-La primera de estas, `var` (abreviatura de "variable"), es la forma en que se declaraban los enlaces en JavaScript anterior a 2015, cuando aún no existía `let`. Veremos la forma precisa en que difiere de `let` en el [próximo capítulo](functions). Por ahora, recuerda que en su mayoría hace lo mismo, pero rara vez lo usaremos en este libro porque se comporta de manera extraña en algunas situaciones.
+La primera de estas, `var` (abreviatura de "variable"), es la forma en que se declaraban las asociaciones en JavaScript anterior a 2015, cuando aún no existía `let`. Veremos la forma precisa en que difiere de `let` en el [próximo capítulo](functions). Por ahora, recuerda que en su mayoría hace lo mismo, pero rara vez la usaremos en este libro porque se comporta de manera extraña en algunas situaciones.
 
 {{index "palabra clave const", "nomenclatura"}}
 
-La palabra `const` significa _((constante))_. Define un enlace constante, que apunta al mismo valor mientras exista. Esto es útil para enlaces que solo dan un nombre a un valor de manera que más tarde puedas referirte fácilmente a él.
+La palabra `const` significa _((constante))_. Define una asociación constante, que apunta al mismo valor mientras exista. Esto es útil para asociaciones que solo dan un nombre a un valor de manera que más tarde puedas referirte fácilmente a él.
 
 ## Nombres de enlaces
 
 {{index "carácter de subrayado", "signo de dólar", [enlace, nomenclatura]}}
 
-Los nombres de enlaces pueden ser cualquier secuencia de una o más letras. Podemos incluir dígitos como parte del nombre de un enlace —`catch22` es un nombre válido, por ejemplo—, siempre y cuando el nombre no empiece por uno de ellos. Un nombre de enlace puede incluir signos de dólar (`$`) o subrayados (`_`), pero ningún otro caracter especial o signo de puntuación.
+Los nombres de asociaciones o enlaces pueden ser cualquier secuencia de una o más letras. Podemos incluir dígitos como parte del nombre de un enlace —`catch22` es un nombre válido, por ejemplo—, siempre y cuando el nombre no empiece por uno de ellos. Un nombre de enlace puede incluir signos de dólar (`$`) o subrayados (`_`), pero ningún otro caracter especial o signo de puntuación.
 
 {{index [sintaxis, identificador], "implements (palabra reservada)", "interface (palabra reservada)", "package (palabra reservada)", "private (palabra reservada)", "protected (palabra reservada)", "public (palabra reservada)", "static (palabra reservada)", "operador void", "yield (palabra reservada)", "enum (palabra reservada)", "palabra reservada", [enlace, nomenclatura]}}
 
-Cualquier palabra con un significado especial, como `let`, es una _((palabra clave))_, y no puede ser usada como nombre de un enlace. También hay una serie de palabras que están "reservadas para su uso" en ((futuras)) versiones de JavaScript, las cuales tampoco se pueden usar como nombres de enlaces. La lista completa de palabras clave y palabras reservadas es bastante larga:
+Cualquier palabra con un significado especial, como `let`, es una _((palabra clave))_, y no puede ser usada como nombre de una asociación. También hay una serie de palabras que están "reservadas para su uso" en ((futuras)) versiones de JavaScript, las cuales tampoco se pueden usar como nombres de asociaciones. La lista completa de palabras clave y palabras reservadas es bastante larga:
 
 ```{lang: "null"}
 break case catch class const continue debugger default
@@ -148,7 +150,7 @@ switch this throw true try typeof var void while with yield
 
 {{index [sintaxis, error]}}
 
-No te entretengas en memorizar esta lista. Simplemente, cuando al crear un enlace se produzca un error de sintaxis inesperado, comprueba si estás intentando definir una palabra reservada.
+No te entretengas en memorizar esta lista. Simplemente, cuando al crear una asociación se produzca un error de sintaxis inesperado, comprueba si estás intentando definir una palabra reservada.
 
 ## El entorno
 
@@ -198,7 +200,7 @@ if}}
 
 {{index [objeto, propiedad], [acceso, propiedad]}}
 
-Aunque los nombres de enlaces no pueden contener ((puntos)), `console.log` tiene uno. Esto se debe a que `console.log` no es un simple enlace, sino una expresión que recupera la propiedad `log` del valor contenido por el enlace `console`. Descubriremos exactamente lo que esto significa en el [Capítulo ?](data#properties).
+Aunque los nombres de asociaciones no pueden contener ((puntos)), `console.log` tiene uno. Esto se debe a que `console.log` no es un simple enlace, sino una expresión que recupera la propiedad `log` del valor contenido por el enlace `console`. Descubriremos exactamente lo que esto significa en el [Capítulo ?](data#properties).
 
 {{id valores_retorno}}
 ## Valores de retorno
@@ -565,7 +567,7 @@ Puedes colocar cualquier cantidad de etiquetas `case` dentro del cuerpo de `swit
 
 {{index "capitalización", [binding, nombrar], [espacios en blanco, sintaxis]}}
 
-Los nombres de los enlaces no pueden contener espacios, aunque a menudo es útil usar varias palabras para describir claramente lo que representa el enlace. Estas son básicamente tus opciones para escribir un nombre de enlace con varias palabras:
+Los nombres de los asociaciones no pueden contener espacios, aunque a menudo es útil usar varias palabras para describir claramente lo que representa la asociación. Estas son básicamente tus opciones para escribir un nombre de asociación con varias palabras:
 
 ```{lang: null}
 fuzzylittleturtle
