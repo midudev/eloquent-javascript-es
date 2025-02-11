@@ -53,7 +53,7 @@ A veces, JavaScript te permite omitir el punto y coma al final de una declaraci�
 
 ¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no modifica los valores originales. Además, el nuevo valor debe utilizarse inmediatamente o desaparecerá tan pronto aparezca. Para atrapar y retener valores, JavaScript nos da algo llamado _asociación_, o _enlace_, o _variable_:
 
-{{note "**N. del T.:** El uso de la palabra **variable** para denotar este concepto es muy común, aunque puede llegar a resultar confusa. En la versión original de este libro, el autor elige usar la palabra **bind** en lugar de **variable** para referirse a estas entidades. Nosotros haremos lo mismo utilizando la palabra **asociación**, aunque, en ocasiones, también se usará la palabra **enlace**. Rara vez usaremos la palabra **variable**, que se reservará en general para un tipo concreto de enlace. Veremos más sobre las diferencias entre cada tipo de asociación en este y el [siguiente capítulo](functions)"}}
+{{note "**N. del T.:** El uso de la palabra **variable** para denotar este concepto es muy común, aunque puede llegar a resultar confusa. En la versión original de este libro, el autor elige usar la palabra **bind** en lugar de **variable** para referirse a estas entidades. Nosotros haremos lo mismo utilizando la palabra **asociación**, aunque, en ocasiones, también se usará la palabra **enlace** o **asignación**. Rara vez usaremos la palabra **variable**, que se reservará en general para un tipo concreto de enlace. Veremos más sobre las diferencias entre cada tipo de asociación en este y el [siguiente capítulo](functions)"}}
 
 ```
 let caught = 5 * 5;
