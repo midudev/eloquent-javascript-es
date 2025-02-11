@@ -256,7 +256,7 @@ createServer((<span class="tok-definition">solicitud</span>, <span class="tok-de
   solicitud.on(<span class="tok-string">&quot;end&quot;</span>, () =&gt; respuesta.end());
 }).listen(<span class="tok-number">8000</span>);</pre>
 
-<p><a class="p_ident" id="p-uGKPxOs3On" href="#p-uGKPxOs3On" tabindex="-1" role="presentation"></a>El valor <code>chunk</code> pasado al controlador de datos será un <code>Buffer</code> binario. Podemos convertir esto a una cadena decodificándolo como caracteres codificados en UTF-8 con su método <code>toString</code>.</p>
+<p><a class="p_ident" id="p-uGKPxOs3On" href="#p-uGKPxOs3On" tabindex="-1" role="presentation"></a>El valor <code>chunk</code> pasado al manejador de datos será un <code>Buffer</code> binario. Podemos convertir esto a una cadena decodificándolo como caracteres codificados en UTF-8 con su método <code>toString</code>.</p>
 
 <p><a class="p_ident" id="p-raOCi6Y4Ip" href="#p-raOCi6Y4Ip" tabindex="-1" role="presentation"></a>El siguiente fragmento de código, cuando se ejecuta con el servidor de mayúsculas activo, enviará una solicitud a ese servidor y escribirá la respuesta que recibe:</p>
 
@@ -274,7 +274,7 @@ createServer((<span class="tok-definition">solicitud</span>, <span class="tok-de
 
 <p><a class="p_ident" id="p-x6JgKfdaZz" href="#p-x6JgKfdaZz" tabindex="-1" role="presentation"></a>Probablemente no queramos compartir todo nuestro sistema de archivos, por lo que interpretaremos estas rutas como comenzando en el directorio de trabajo del servidor, que es el directorio en el que se inició. Si ejecuté el servidor desde <code>/tmp/public/</code> (o <code>C:\tmp\public\</code> en Windows), entonces una solicitud para <code>/file.txt</code> debería referirse a <code>/<wbr>tmp/<wbr>public/<wbr>file.<wbr>txt</code> (o <code>C:\tmp\public\file.<wbr>txt</code>).</p>
 
-<p><a class="p_ident" id="p-oUNTEGADKj" href="#p-oUNTEGADKj" tabindex="-1" role="presentation"></a>Construiremos el programa paso a paso, utilizando un objeto llamado <code>methods</code> para almacenar las funciones que manejan los diferentes métodos HTTP. Los controladores de métodos son funciones <code>async</code> que reciben el objeto de solicitud como argumento y devuelven una promesa que se resuelve a un objeto que describe la respuesta.</p>
+<p><a class="p_ident" id="p-oUNTEGADKj" href="#p-oUNTEGADKj" tabindex="-1" role="presentation"></a>Construiremos el programa paso a paso, utilizando un objeto llamado <code>methods</code> para almacenar las funciones que manejan los diferentes métodos HTTP. Los manejadores de métodos son funciones <code>async</code> que reciben el objeto de solicitud como argumento y devuelven una promesa que se resuelve a un objeto que describe la respuesta.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-t1jsLbJd7n" href="#c-t1jsLbJd7n" tabindex="-1" role="presentation"></a><span class="tok-keyword">import</span> {<span class="tok-definition">createServer</span>} <span class="tok-keyword">from</span> <span class="tok-string">&quot;node:http&quot;</span>;
 
@@ -301,7 +301,7 @@ createServer((<span class="tok-definition">request</span>, <span class="tok-defi
 
 <p><a class="p_ident" id="p-+zXJyjiv+x" href="#p-+zXJyjiv+x" tabindex="-1" role="presentation"></a>Esto inicia un servidor que simplemente devuelve respuestas de error 405, que es el código utilizado para indicar que el servidor se niega a manejar un método determinado.</p>
 
-<p><a class="p_ident" id="p-LQFPuDuYA9" href="#p-LQFPuDuYA9" tabindex="-1" role="presentation"></a>Cuando la promesa de un controlador de solicitud es rechazada, la llamada a <code>catch</code> traduce el error en un objeto de respuesta, si aún no lo es, para que el servidor pueda enviar una respuesta de error para informar al cliente que no pudo manejar la solicitud.</p>
+<p><a class="p_ident" id="p-LQFPuDuYA9" href="#p-LQFPuDuYA9" tabindex="-1" role="presentation"></a>Cuando la promesa de un manejador de solicitud es rechazada, la llamada a <code>catch</code> traduce el error en un objeto de respuesta, si aún no lo es, para que el servidor pueda enviar una respuesta de error para informar al cliente que no pudo manejar la solicitud.</p>
 
 <p><a class="p_ident" id="p-1mh3Zz7i88" href="#p-1mh3Zz7i88" tabindex="-1" role="presentation"></a>El campo <code>status</code> de la descripción de la respuesta puede omitirse, en cuyo caso se establece en 200 (OK) por defecto. El tipo de contenido, en la propiedad <code>type</code>, también puede omitirse, en cuyo caso se asume que la respuesta es texto plano.</p>
 

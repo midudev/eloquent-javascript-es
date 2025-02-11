@@ -115,14 +115,14 @@ const renderer = {
 
   heading_open (token, _i, _t, newlines) {
     const breaks = paraBreak(newlines)
-    if (token.tag == 'h1') return `\\${!['hints', 'intro'].includes(chapter[1]) ? 'chapter' : noStarch ? 'chapter*' : 'addchap'}{`
-    if (token.tag == 'h2') return `${breaks}${id(token)}\\section{`
-    if (token.tag == 'h3') return `${breaks}${id(token)}\\subsection{`
-    if (token.tag == 'h4') return `${breaks}${id(token)}\\subsubsection{`
+    if (token.tag === 'h1') return `\\${!['hints', 'intro'].includes(chapter[1]) ? 'chapter' : noStarch ? 'chapter*' : 'addchap'}{`
+    if (token.tag === 'h2') return `${breaks}${id(token)}\\section{`
+    if (token.tag === 'h3') return `${breaks}${id(token)}\\subsection{`
+    if (token.tag === 'h4') return `${breaks}${id(token)}\\subsubsection{`
     throw new Error("Can't handle heading tag " + token.tag)
   },
   heading_close (token) {
-    if (token.tag == 'h1') return `}\\label{${chapter[1]}}`
+    if (token.tag === 'h1') return `}\\label{${chapter[1]}}`
     return '}'
   },
 

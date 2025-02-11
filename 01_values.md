@@ -1,12 +1,15 @@
 # Valores, Tipos y Operadores
 
-"Debajo de la superficie de la máquina, el programa se mueve. Sin esfuerzo, se expande y contrae. En gran armonía, los electrones se dispersan y se reagrupan. Las formas en el monitor no son más que ondas en el agua. La esencia permanece invisible debajo."  
-—Master Yuan-Ma, _El Libro de la Programación_
+{{quote {author: "Master Yuan-Ma", title: "El Libro de la Programación", chapter: true}
+
+Debajo de la superficie de la máquina, el programa se mueve. Sin esfuerzo, se expande y contrae. En gran armonía, los electrones se dispersan y se reagrupan. Las formas en el monitor no son más que ondas en el agua. La esencia permanece invisible debajo.
+
+quote}}
 
 {{figure {url: "img/chapter_picture_1.jpg", alt: "Una foto de un mar de bits", chapter: "framed"}}}
 
 
-En el mundo de la computadora, solo existe data. Puedes leer data, modificar data, crear nueva data, pero aquello que no es data no puede ser mencionado. Toda esta data se almacena como largas secuencias de bits y, por lo tanto, es fundamentalmente similar.
+En el mundo de la computadora, solo existen datos. Puedes leer datos, modificar datos, crear nuevos datos, pero aquello que no son datos no puede ser mencionado. Todos estos datos se almacenan como largas secuencias de bits y, por lo tanto, es fundamentalmente similar.
 
 _Los bits_ son cualquier tipo de cosas de dos valores, generalmente descritos como ceros y unos. Dentro de la computadora, toman formas como una carga eléctrica alta o baja, una señal fuerte o débil, o un punto brillante u opaco en la superficie de un CD. Cualquier pieza de información discreta puede reducirse a una secuencia de ceros y unos y por lo tanto representarse en bits.
 
@@ -49,7 +52,7 @@ La memoria de la computadora solía ser mucho más pequeña, y la gente solía u
 
 {{index signo, "número de punto flotante", "bit de signo"}}
 
-Sin embargo, no todos los números enteros menores que 18 mil trillones encajan en un número de JavaScript. Esos bits también almacenan números negativos, por lo que un bit indica el signo del número. Un problema más grande es representar números no enteros. Para hacer esto, algunos de los bits se utilizan para almacenar la posición del punto decimal. El número entero máximo real que se puede almacenar está más en el rango de 9 cuatrillones (15 ceros), que sigue siendo increíblemente grande.
+Sin embargo, no todos los números enteros menores que 18 mil trillones encajan en un número de JavaScript. Esos bits también almacenan números negativos, por lo que un bit indica el signo del número. Un problema más grande es representar números no enteros. Para hacer esto, algunos de los bits se utilizan para almacenar la posición del punto decimal. El número entero máximo real que se puede almacenar está más en el rango de 9 mil billones (15 ceros), que sigue siendo increíblemente grande.
 
 {{index ["número", "notación"], "número fraccionario"}}
 
@@ -71,7 +74,7 @@ Eso es 2.998 × 10^8^ = 299,800,000.
 
 {{index pi, ["número", "precisión de"], "número de punto flotante"}}
 
-Los cálculos con números enteros (también llamados _((enteros))_) que son más pequeños que los mencionados 9 cuatrillones siempre serán precisos. Desafortunadamente, los cálculos con números fraccionarios generalmente no lo son. Así como π (pi) no puede expresarse con precisión mediante un número finito de dígitos decimales, muchos números pierden algo de precisión cuando solo están disponibles 64 bits para almacenarlos. Es una lástima, pero solo causa problemas prácticos en situaciones específicas. Lo importante es ser consciente de esto y tratar los números digitales fraccionarios como aproximaciones, no como valores precisos.
+Se garantiza que los cálculos con números enteros (también llamados _((enteros))_) menores que los 9 mil billones antes mencionados siempre serán precisos. Desafortunadamente, los cálculos con números fraccionarios generalmente no lo son. Así como π (pi) no puede expresarse con precisión mediante un número finito de dígitos decimales, muchos números pierden algo de precisión cuando solo están disponibles 64 bits para almacenarlos. Es una lástima, pero solo causa problemas prácticos en situaciones específicas. Lo importante es ser consciente de esto y tratar los números digitales fraccionarios como aproximaciones, no como valores precisos.
 
 ### Aritmética
 
@@ -89,7 +92,7 @@ Los símbolos `+` y `*` se llaman _operadores_. El primero representa la suma y 
 
 {{index "agrupación", "paréntesis", precedencia}}
 
-¿Significa este ejemplo "Sumar 4 y 100, y luego multiplicar el resultado por 11", o se realiza primero la multiplicación antes de la suma? Como habrás adivinado, la multiplicación se realiza primero. Como en matemáticas, puedes cambiar esto envolviendo la suma entre paréntesis:
+¿Significa este ejemplo "Sumar 4 y 100, y luego multiplicar el resultado por 11", o se realiza primero la multiplicación antes de la suma? Como habrás adivinado, la multiplicación se realiza primero. Pero igual que en matemáticas, puedes cambiar esto envolviendo la suma entre paréntesis:
 
 ```{meta: "expr"}
 (100 + 4) * 11
@@ -115,7 +118,7 @@ Hay tres valores especiales en JavaScript que se consideran números pero no se 
 
 {{index NaN, "no es un número", "división por cero"}}
 
-`NaN` significa "no es un número", aunque _es_ un valor del tipo numérico. Obtendrás este resultado cuando, por ejemplo, intentes calcular `0 / 0` (cero dividido por cero), `Infinity - Infinity`, u cualquier otra operación numérica que no produzca un resultado significativo.
+`NaN` significa "no es un número", aunque _es_ un valor del tipo numérico. Obtendrás este resultado cuando, por ejemplo, intentes calcular `0 / 0` (cero dividido por cero), `Infinity - Infinity`, o cualquier otra operación numérica que no produzca un resultado significativo.
 
 ## Cadenas
 
@@ -166,11 +169,11 @@ Las cadenas también deben ser modeladas como una serie de bits para poder exist
 
 {{index "UTF-16", emoji}}
 
-Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en el [Capítulo ?](higher_order#code_units).
+Pero hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2^16^ caracteres diferentes. Sin embargo, Unicode define más caracteres que eso (aproximadamente el doble), en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos "posiciones de caracteres" en las cadenas de JavaScript. Volveremos a esto en el [Capítulo ?](higher_order#code_units).
 
 {{index "operador +", "concatenación"}}
 
-Las cadenas no se pueden dividir, multiplicar o restar. El operador `+` se puede usar en ellas, no para sumar, sino para _concatenar_ —unir dos cadenas. La siguiente línea producirá la cadena `"concatenar"`:
+Las cadenas no se pueden dividir, multiplicar o restar. El operador `+` se puede usar en ellas, no para sumar, sino para _concatenar_ (unir dos cadenas). La siguiente línea producirá la cadena `"concatenar"`:
 
 ```{meta: "expr"}
 "con" + "cat" + "e" + "nar"
