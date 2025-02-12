@@ -960,11 +960,11 @@ Puedes iterar sobre arrays usando un tipo especial de bucle `for`: `for (let ele
 
 ## Ejercicios
 
-### La suma de un rango
+### La suma de un intervalo
 
 {{index "summing (exercise)"}}
 
-La [introducción](intro) de este libro insinuó lo siguiente como una forma agradable de calcular la suma de un rango de números:
+La [introducción](intro) de este libro insinuó lo siguiente como una forma cómoda de calcular la suma de un intervalo (o rango) de números enteros:
 
 ```{test: no}
 console.log(suma(rango(1, 10)));
@@ -972,24 +972,26 @@ console.log(suma(rango(1, 10)));
 
 {{index "range function", "sum function"}}
 
-Escribe una función `rango` que tome dos argumentos, `inicio` y `fin`, y devuelva un array que contenga todos los números desde `inicio` hasta `fin`, incluyendo `fin`.
+Escribe una función `range` que tome dos argumentos, `inicio` y `fin`, y devuelva un array que contenga todos los números desde `inicio` hasta `fin`, incluyendo `fin`.
 
-Luego, escribe una función `suma` que tome un array de números y devuelva la suma de estos números. Ejecuta el programa de ejemplo y verifica si realmente devuelve 55.
+{{note "**N. del T.:** Recordamos aquí la decisión de mantener en el idioma original los nombres de elementos que se vayan a utilizar en la resolución de ejercicios. Por tanto, aquí, `rango` será `range` y `suma` será `sum`."}}
+
+Luego, escribe una función `sum` que tome un array de números y devuelva la suma de estos números. Ejecuta el programa de ejemplo y verifica si realmente devuelve 55.
 
 {{index "optional argument"}}
 
-Como bonus, modifica tu función `rango` para que tome un tercer argumento opcional que indique el valor de "paso" utilizado al construir el array. Si no se proporciona un paso, los elementos deberían aumentar en incrementos de uno, correspondiendo al comportamiento anterior. La llamada a la función `range(1, 10, 2)` debería devolver `[1, 3, 5, 7, 9]`. Asegúrate de que esto también funcione con valores de paso negativos, de modo que `range(5, 2, -1)` produzca `[5, 4, 3, 2]`.
+Como bonus, modifica tu función `range` para que tome un tercer argumento opcional que indique el valor de "paso" utilizado al construir el array. Si no se proporciona un paso, los elementos deberían aumentar en incrementos de uno, correspondiendo al comportamiento anterior. La llamada a la función `range(1, 10, 2)` debería devolver `[1, 3, 5, 7, 9]`. Asegúrate de que esto también funcione con valores de paso negativos, de modo que `range(5, 2, -1)` produzca `[5, 4, 3, 2]`.
 
 {{if interactive
 
 ```{test: no}
 // Tu código aquí.
 
-console.log(rango(1, 10));
+console.log(range(1, 10));
 // → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-console.log(rango(5, 2, -1));
+console.log(range(5, 2, -1));
 // → [5, 4, 3, 2]
-console.log(suma(rango(1, 10)));
+console.log(sum(range(1, 10)));
 // → 55
 ```
 
@@ -1011,21 +1013,21 @@ El parámetro de paso puede ser un parámetro opcional que por defecto (usando e
 
 {{index "range function", "for loop"}}
 
-Hacer que `rango` comprenda valores negativos de paso probablemente sea mejor haciendo escribiendo dos bucles separados: uno para contar hacia arriba y otro para contar hacia abajo, porque la comparación que verifica si el bucle ha terminado necesita ser `>=` en lugar de `<=` al contar hacia abajo.
+Hacer que `range` comprenda valores negativos de paso probablemente sea mejor haciendo escribiendo dos bucles separados: uno para contar hacia arriba y otro para contar hacia abajo, porque la comparación que verifica si el bucle ha terminado necesita ser `>=` en lugar de `<=` al contar hacia abajo.
 
-También puede valer la pena usar un paso predeterminado diferente, es decir, -1, cuando el final del rango es menor que el principio. De esa manera, `rango(5, 2)` devuelve algo con sentido, en lugar de quedarse atascado en un ((bucle infinito)). Es posible hacer referencia a parámetros anteriores en el valor predeterminado de un parámetro.
+También puede valer la pena usar un paso predeterminado diferente, es decir, -1, cuando el final del rango es menor que el principio. De esa manera, `range(5, 2)` devuelve algo con sentido, en lugar de quedarse atascado en un ((bucle infinito)). Es posible hacer referencia a parámetros anteriores en el valor predeterminado de un parámetro.
 
 hint}}
 
-### Reversión de un array
+### Dando la vuelta a un array
 
 {{index "reversing (exercise)", "método reverse", [array, "métodos"]}}
 
-Los arrays tienen un método `reverse` que modifica el array invirtiendo el orden en el que aparecen sus elementos. Para este ejercicio, escribe dos funciones, `reverseArray` y `reverseArrayInPlace`. La primera, `reverseArray`, debería tomar un array como argumento y producir un _nuevo_ array que tenga los mismos elementos en orden inverso. La segunda, `reverseArrayInPlace`, debería hacer lo que hace el método `reverse`: _modificar_ el array dado como argumento invirtiendo sus elementos. Ninguna de las funciones puede utilizar el método `reverse` estándar.
+Los arrays tienen un método `reverse` que modifica el array invirtiendo el orden en el que aparecen sus elementos. Para este ejercicio, escribe dos funciones: `reverseArray` y `reverseArrayInPlace`. La primera, `reverseArray`, debería tomar un array como argumento y producir un _nuevo_ array que tenga los mismos elementos pero en orden inverso. La segunda, `reverseArrayInPlace`, debería hacer lo que hace el método `reverse`: _modificar_ el array dado como argumento invirtiendo sus elementos. Ninguna de las funciones puede utilizar el método `reverse` estándar.
 
 {{index eficiencia, "función pura", "efecto secundario"}}
 
-Recordando las notas sobre efectos secundarios y funciones puras del [capítulo anterior](functions#pure), ¿qué variante esperas que sea útil en más situaciones? ¿Cuál se ejecuta más rápido?
+Pensando en la parte sobre efectos secundarios y funciones puras del [capítulo anterior](functions#pure), ¿qué variante esperas que sea útil en más situaciones? ¿Cuál se ejecuta más rápido?
 
 {{if interactive
 
@@ -1053,9 +1055,9 @@ Hay dos formas obvias de implementar `reverseArray`. La primera es simplemente r
 
 {{index "método slice"}}
 
-Invertir el array en su lugar es más difícil. Debes tener cuidado de no sobrescribir elementos que necesitarás más adelante. Utilizar `reverseArray` o, si no, copiar todo el array (usar `array.slice()` es una buena forma de copiar un array) funciona pero es hacer trampa.
+Invertir el array en sí (modificando el objeto) es más difícil. Debes tener cuidado de no sobrescribir elementos que necesitarás más adelante. Utilizar `reverseArray` o copiar todo el array (usar `array.slice()` es una buena forma de copiar un array) funciona pero es hacer trampa.
 
-El truco consiste en _intercambiar_ el primer y último elementos, luego el segundo y el penúltimo, y así sucesivamente. Puedes hacer esto recorriendo la mitad de la longitud del array (utiliza `Math.floor` para redondear hacia abajo, no necesitas tocar el elemento central en un array con un número impar de elementos) e intercambiando el elemento en la posición `i` con el que está en la posición `array.length - 1 - i`. Puedes utilizar una asignación local para retener brevemente uno de los elementos, sobrescribirlo con su imagen reflejada, y luego colocar el valor de la asignación local en el lugar donde antes estaba la imagen reflejada.
+El truco consiste en _intercambiar_ el primer elemento con el último, luego el segundo con el penúltimo, y así sucesivamente. Puedes hacer esto recorriendo la mitad de la longitud del array (utiliza `Math.floor` para redondear hacia abajo —no necesitas tocar el elemento central en un array con un número impar de elementos—) e intercambiando el elemento en la posición `i` con el que está en la posición `array.length - 1 - i`. Puedes utilizar una asignación local para retener brevemente uno de los elementos, sobrescribirlo con el elemento que toca, y luego colocar el valor de la asignación local en el lugar donde antes estaba el otro elemento.
 
 hint}}
 
@@ -1086,9 +1088,9 @@ Los objetos resultantes forman una cadena, como se muestra en el siguiente diagr
 
 {{index "structure sharing", [memory, structure sharing]}}
 
-Una ventaja de las listas es que pueden compartir partes de su estructura. Por ejemplo, si creo dos nuevos valores `{value: 0, rest: list}` y `{value: -1, rest: list}` (siendo `list` la referencia definida anteriormente), son listas independientes, pero comparten la estructura que conforma sus últimos tres elementos. La lista original también sigue siendo válida como una lista de tres elementos.
+Una ventaja de las listas es que pueden compartir partes de su estructura. Por ejemplo, si creo dos nuevos valores `{value: 0, rest: list}` y `{value: -1, rest: list}` (siendo `list` la referencia definida anteriormente), son listas independientes, pero comparten la estructura que conforma sus últimos tres elementos. La lista original también sigue siendo válida como lista (de tres elementos).
 
-Escribe una función `arrayToList` que construya una estructura de lista como la mostrada cuando se le da `[1, 2, 3]` como argumento. También escribe una función `listToArray` que produzca un array a partir de una lista. Agrega las funciones auxiliares `prepend`, que toma un elemento y una lista y crea una nueva lista que añade el elemento al principio de la lista de entrada, y `nth`, que toma una lista y un número y devuelve el elemento en la posición dada en la lista (siendo cero el primer elemento) o `undefined` cuando no hay tal elemento.
+Escribe una función `arrayToList` que construya una estructura de lista como la mostrada cuando se le da `[1, 2, 3]` como argumento. También escribe una función `listToArray` que produzca un array a partir de una lista. Agrega las funciones auxiliares `prepend`, que toma un elemento y una lista y crea una nueva lista que añade el elemento al principio de la lista de entrada, y `nth`, que toma una lista y un número y devuelve el elemento de la lista en la posición dada (siendo cero el primer elemento) o `undefined` cuando no hay tal elemento.
 
 {{index recursion}}
 
@@ -1115,7 +1117,7 @@ if}}
 
 {{index "list (exercise)", "linked list"}}
 
-Construir una lista es más fácil cuando se hace de atrás hacia adelante. Por lo tanto, `arrayToList` podría iterar sobre el array de atrás para alante (ver el ejercicio anterior) y, para cada elemento, agregar un objeto a la lista. Puedes usar un enlace local para mantener la parte de la lista que se ha construido hasta el momento y usar una asignación como `lista = {value: X, rest: lista}` para añadir un elemento.
+Construir una lista es más fácil cuando se hace de atrás hacia adelante. Por lo tanto, `arrayToList` podría iterar sobre el array de atrás para alante (ver el ejercicio anterior) y, para cada elemento, agregar un objeto a la lista. Puedes usar una variable local para mantener la parte de la lista que se ha construido hasta el momento y hacer una reasignación del estilo `list = {value: X, rest: list}` para añadir un elemento.
 
 {{index "for loop"}}
 
@@ -1125,11 +1127,11 @@ Para recorrer una lista (en `listToArray` y `nth`), se puede utilizar una especi
 for (let nodo = list; nodo; nodo = nodo.rest) {}
 ```
 
-¿Puedes ver cómo funciona esto? En cada iteración del bucle, `nodo` apunta a la sublista actual, y el cuerpo puede leer su propiedad `value` para obtener el elemento actual. Al final de una iteración, `nodo` pasa a la siguiente sublista. Cuando esta asignación de nulo, hemos llegado al final de la lista y el bucle ha terminado.
+¿Entiendes cómo funciona? En cada iteración del bucle, `nodo` apunta a la sublista actual, y el cuerpo puede leer su propiedad `value` para obtener el elemento actual. Al final de una iteración, `nodo` pasa a la siguiente sublista. Cuando esta asignación dé nulo, hemos llegado al final de la lista y el bucle acaba.
 
 {{index recursion}}
 
-La versión recursiva de `nth` mirará de manera similar una parte cada vez más pequeña de la "cola" de la lista y al mismo tiempo contará hacia abajo el índice hasta llegar a cero, momento en el que puede devolver la propiedad `value` del nodo que está observando. Para obtener el elemento cero de una lista, simplemente tomas la propiedad `value` de su nodo principal. Para obtener el elemento _N_ + 1, tomas el elemento *N*-ésimo de la lista que se encuentra en la propiedad `rest` de esta lista.
+La versión recursiva de `nth` mirará de manera similar una parte cada vez más pequeña de la "cola" de la lista y al mismo tiempo irá disminuyendo el valor del índice hasta llegar a cero, momento en el que puede devolver la propiedad `value` del nodo que está observando. Para obtener el elemento cero de una lista, simplemente tomas la propiedad `value` de su nodo principal. Para obtener el elemento _N_ + 1, tomas *N*-ésimo elemento de la lista que se encuentra en la propiedad `rest` de esta lista.
 
 hint}}
 
@@ -1137,11 +1139,11 @@ hint}}
 
 ### Comparación profunda
 
-El operador `==` compara objetos por identidad, pero a veces preferirías comparar los valores de sus propiedades reales.
+El operador `==` compara objetos por identidad, pero a veces preferirías comparar los valores de sus propiedades.
 
-Escribe una función `deepEqual` que tome dos valores y devuelva true solo si son el mismo valor o son objetos con las mismas propiedades, donde los valores de las propiedades son iguales cuando se comparan con una llamada recursiva a `deepEqual`.
+Escribe una función `deepEqual` que tome dos valores y devuelva true solo si son el mismo valor o son objetos con las mismas propiedades, donde los valores de las propiedades son iguales cuando lo son al comparar con una llamada recursiva a `deepEqual`.
 
-Para saber si los valores deben compararse directamente (usando el operador `===` para eso) o si sus propiedades deben compararse, puedes usar el operador `typeof`. Si produce `"object"` para ambos valores, deberías hacer una comparación profunda. Pero debes tener en cuenta una excepción absurda: debido a un accidente histórico, `typeof null` también produce `"object"`.
+Para saber si los valores deben compararse directamente (usando el operador `===` para eso) o si sus propiedades deben compararse, puedes usar el operador `typeof`. Si produce `"object"` para ambos valores, deberías hacer una comparación profunda. Pero debes tener en cuenta una excepción: debido a un accidente histórico, `typeof null` también produce `"object"`.
 
 La función `Object.keys` será útil cuando necesites recorrer las propiedades de los objetos para compararlas.
 
@@ -1169,7 +1171,7 @@ Tu comprobación para determinar si estás tratando con un objeto real tendrá u
 
 {{index "Object.keys function"}}
 
-Utiliza `Object.keys` para recorrer las propiedades. Necesitas comprobar si ambos objetos tienen el mismo conjunto de nombres de propiedades y si esas propiedades tienen valores idénticos. Una forma de hacerlo es asegurarse de que ambos objetos tengan el mismo número de propiedades (las longitudes de las listas de propiedades son iguales). Y luego, al recorrer las propiedades de uno de los objetos para compararlas, asegúrate siempre primero de que el otro realmente tenga una propiedad con ese nombre. Si tienen el mismo número de propiedades y todas las propiedades en uno también existen en el otro, tienen el mismo conjunto de nombres de propiedades.
+Utiliza `Object.keys` para recorrer las propiedades. Necesitas comprobar si ambos objetos tienen el mismo conjunto de nombres de propiedades y si esas propiedades tienen valores idénticos. Una forma de hacerlo es asegurarse de que ambos objetos tengan el mismo número de propiedades (que las longitudes de las listas de propiedades sean iguales). Y luego, al recorrer las propiedades de uno de los objetos para compararlas, asegúrate siempre primero de que el otro realmente tenga una propiedad con ese nombre. Si tienen el mismo número de propiedades y todas las propiedades en uno también existen en el otro, entonces tienen el mismo conjunto de nombres de propiedades.
 
 {{index "return value"}}
 

@@ -150,7 +150,7 @@ Al final del programa, después de que la construcción `while` haya terminado, 
 
 {{index "función de suma", "función de rango", "abstracción", "función"}}
 
-Finalmente, así es como podría verse el programa si tuviéramos a nuestra disposición las útiles operaciones `rango` y `suma`, que crean una colección de números dentro de un rango y calculan la suma de una colección de números, respectivamente:
+Finalmente, así es como podría verse el programa si tuviéramos a nuestra disposición las útiles operaciones `rango` y `suma`, que crean una colección de números enteros dentro de un intervalo (o rango) y calculan la suma de una colección de números, respectivamente:
 
 ```{startCode: true}
 console.log(suma(rango(1, 10)));

@@ -700,7 +700,7 @@ Hemos visto que podemos usar `%` (el operador de resto) para verificar si un nú
 
 - Para cualquier otro número _N_, su paridad es la misma que la de _N_ - 2.
 
-Define una función recursiva `esPar` que corresponda a esta descripción. La función debe aceptar un solo parámetro (un número entero positivo) y devolver un booleano.
+Define una función recursiva `isEven` que corresponda a esta descripción. La función debe aceptar un solo parámetro (un número entero positivo) y devolver un booleano.
 
 {{index "stack overflow"}}
 
@@ -711,15 +711,17 @@ Pruébalo con 50 y 75. Observa cómo se comporta con -1. ¿Por qué? ¿Puedes pe
 ```{test: no}
 // Tu código aquí.
 
-console.log(esPar(50));
+console.log(isEven(50));
 // → true
-console.log(esPar(75));
+console.log(isEven(75));
 // → false
-console.log(esPar(-1));
+console.log(isEven(-1));
 // → ??
 ```
 
 if}}
+
+{{note "**N. del T.:** En esta traducción se mantendrán en inglés los nombres de funciones, asociaciones y otros que aparezcan como parte del enunciado de un ejercicio. De este modo, se mantiene el buen funcionamiento de los recursos relacionados con la resolución de los mismos."}}
 
 {{hint
 
@@ -739,18 +741,18 @@ hint}}
 
 Puedes obtener el N-ésimo caracter, o letra, de una cadena escribiendo `[N]` después de la cadena (por ejemplo, `cadena[2]`). El valor resultante será una cadena que contiene solo un carácter (por ejemplo, `"b"`). El primer carácter tiene la posición 0, lo que hace que el último se encuentre en la posición `cadena.length - 1`. En otras palabras, una cadena de dos caracteres tiene longitud 2, y sus caracteres tienen posiciones 0 y 1.
 
-Escribe una función `contarBs` que tome una cadena como único argumento y devuelva un número que indique cuántos caracteres B en mayúscula hay en la cadena.
+Escribe una función `countBs` (contarBs) que tome una cadena como único argumento y devuelva un número que indique cuántos caracteres B en mayúscula hay en la cadena.
 
-A continuación, escribe una función llamada `contarCaracter` que se comporte como `contarBs`, excepto que toma un segundo argumento que indica el carácter que se va a contar (en lugar de contar solo caracteres B en mayúscula). Reescribe `contarBs` para hacer uso de esta nueva función.
+A continuación, escribe una función llamada `countChar` (contarCaracter) que se comporte como `countBs`, excepto que toma un segundo argumento que indica el carácter que se va a contar (en lugar de contar solo caracteres B en mayúscula). Reescribe `countBs` para hacer uso de esta nueva función.
 
 {{if interactive
 
 ```{test: no}
 // Tu código aquí.
 
-console.log(contarBs("BOB"));
+console.log(countBs("BOB"));
 // → 2
-console.log(contarCaracter("kakkerlak", "k"));
+console.log(countChar("kakkerlak", "k"));
 // → 4
 ```
 
@@ -760,7 +762,7 @@ if}}
 
 {{index "bean counting (exercise)", ["length property", "for string"], "counter variable"}}
 
-Tu función necesita un ((bucle)) que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (`< string.length`). Si el caracter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.
+Tu función necesita un ((bucle)) que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (`< cadena.length`). Si el caracter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.
 
 {{index "local binding"}}
 

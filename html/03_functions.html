@@ -515,18 +515,21 @@ console.log(min(<span class="tok-number">0</span>, -<span class="tok-number">10<
 
 <p><a class="p_ident" id="p-dNxvDqgaxD" href="#p-dNxvDqgaxD" tabindex="-1" role="presentation"></a>Para cualquier otro número <em>N</em>, su paridad es la misma que la de <em>N</em> - 2.</p></li></ul>
 
-<p><a class="p_ident" id="p-1AgC7/UeM8" href="#p-1AgC7/UeM8" tabindex="-1" role="presentation"></a>Define una función recursiva <code>esPar</code> que corresponda a esta descripción. La función debe aceptar un solo parámetro (un número entero positivo) y devolver un booleano.</p>
+<p><a class="p_ident" id="p-1AgC7/UeM8" href="#p-1AgC7/UeM8" tabindex="-1" role="presentation"></a>Define una función recursiva <code>isEven</code> que corresponda a esta descripción. La función debe aceptar un solo parámetro (un número entero positivo) y devolver un booleano.</p>
 
 <p><a class="p_ident" id="p-31CyWM+ggI" href="#p-31CyWM+ggI" tabindex="-1" role="presentation"></a>Pruébalo con 50 y 75. Observa cómo se comporta con -1. ¿Por qué? ¿Puedes pensar en una forma de solucionarlo?</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-iAvrYEqtAI" href="#c-iAvrYEqtAI" tabindex="-1" role="presentation"></a><span class="tok-comment">// Tu código aquí.</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-C/0z/P0DFi" href="#c-C/0z/P0DFi" tabindex="-1" role="presentation"></a><span class="tok-comment">// Tu código aquí.</span>
 
-console.log(esPar(<span class="tok-number">50</span>));
+console.log(isEven(<span class="tok-number">50</span>));
 <span class="tok-comment">// → true</span>
-console.log(esPar(<span class="tok-number">75</span>));
+console.log(isEven(<span class="tok-number">75</span>));
 <span class="tok-comment">// → false</span>
-console.log(esPar(-<span class="tok-number">1</span>));
+console.log(isEven(-<span class="tok-number">1</span>));
 <span class="tok-comment">// → ??</span></pre>
+
+<div class="translator-note"><p><strong>N. del T.:</strong> En esta traducción se mantendrán en inglés los nombres de funciones, asociaciones y otros que aparezcan como parte del enunciado de un ejercicio. De este modo, se mantiene el buen funcionamiento de los recursos relacionados con la resolución de los mismos.</p>
+</div>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
@@ -540,20 +543,20 @@ console.log(esPar(-<span class="tok-number">1</span>));
 
 <p><a class="p_ident" id="p-oTwY6Ez8Oj" href="#p-oTwY6Ez8Oj" tabindex="-1" role="presentation"></a>Puedes obtener el N-ésimo caracter, o letra, de una cadena escribiendo <code>[N]</code> después de la cadena (por ejemplo, <code>cadena[2]</code>). El valor resultante será una cadena que contiene solo un carácter (por ejemplo, <code>&quot;b&quot;</code>). El primer carácter tiene la posición 0, lo que hace que el último se encuentre en la posición <code>cadena.<wbr>length - 1</code>. En otras palabras, una cadena de dos caracteres tiene longitud 2, y sus caracteres tienen posiciones 0 y 1.</p>
 
-<p><a class="p_ident" id="p-w7W3kFYAvT" href="#p-w7W3kFYAvT" tabindex="-1" role="presentation"></a>Escribe una función <code>contarBs</code> que tome una cadena como único argumento y devuelva un número que indique cuántos caracteres B en mayúscula hay en la cadena.</p>
+<p><a class="p_ident" id="p-w7W3kFYAvT" href="#p-w7W3kFYAvT" tabindex="-1" role="presentation"></a>Escribe una función <code>countBs</code> (contarBs) que tome una cadena como único argumento y devuelva un número que indique cuántos caracteres B en mayúscula hay en la cadena.</p>
 
-<p><a class="p_ident" id="p-ogbJyesqnN" href="#p-ogbJyesqnN" tabindex="-1" role="presentation"></a>A continuación, escribe una función llamada <code>contarCaracter</code> que se comporte como <code>contarBs</code>, excepto que toma un segundo argumento que indica el carácter que se va a contar (en lugar de contar solo caracteres B en mayúscula). Reescribe <code>contarBs</code> para hacer uso de esta nueva función.</p>
+<p><a class="p_ident" id="p-ogbJyesqnN" href="#p-ogbJyesqnN" tabindex="-1" role="presentation"></a>A continuación, escribe una función llamada <code>countChar</code> (contarCaracter) que se comporte como <code>countBs</code>, excepto que toma un segundo argumento que indica el carácter que se va a contar (en lugar de contar solo caracteres B en mayúscula). Reescribe <code>countBs</code> para hacer uso de esta nueva función.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yx0cWLE/WM" href="#c-yx0cWLE/WM" tabindex="-1" role="presentation"></a><span class="tok-comment">// Tu código aquí.</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-xGa4lbtrtf" href="#c-xGa4lbtrtf" tabindex="-1" role="presentation"></a><span class="tok-comment">// Tu código aquí.</span>
 
-console.log(contarBs(<span class="tok-string">&quot;BOB&quot;</span>));
+console.log(countBs(<span class="tok-string">&quot;BOB&quot;</span>));
 <span class="tok-comment">// → 2</span>
-console.log(contarCaracter(<span class="tok-string">&quot;kakkerlak&quot;</span>, <span class="tok-string">&quot;k&quot;</span>));
+console.log(countChar(<span class="tok-string">&quot;kakkerlak&quot;</span>, <span class="tok-string">&quot;k&quot;</span>));
 <span class="tok-comment">// → 4</span></pre>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-N+elrvhLar" href="#p-N+elrvhLar" tabindex="-1" role="presentation"></a>Tu función necesita un bucle que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (<code>&lt; string.<wbr>length</code>). Si el caracter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.</p>
+<p><a class="p_ident" id="p-N+elrvhLar" href="#p-N+elrvhLar" tabindex="-1" role="presentation"></a>Tu función necesita un bucle que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (<code>&lt; cadena.<wbr>length</code>). Si el caracter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.</p>
 
 <p><a class="p_ident" id="p-DijC5CkxO1" href="#p-DijC5CkxO1" tabindex="-1" role="presentation"></a>Ten cuidado de que todas las asociaciones utilizadas en la función sean <em>locales</em> a la función, declarándolas correctamente con la palabra clave <code>let</code> o <code>const</code>.</p>
 
