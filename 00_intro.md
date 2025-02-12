@@ -114,13 +114,13 @@ Aunque eso ya es más legible que la sopa de bits anterior, sigue siendo bastant
 
 ```{lang: "null"}
  Establecer “total” en 0.
- Establecer “count” en 1.
+ Establecer “contador” en 1.
 [bucle]
- Establecer “compare” en “count”.
- Restar 11 de “compare”.
- Si “compare” es cero, continuar en [fin].
- Sumar “count” a “total”.
- Añadir 1 a “count”.
+ Establecer “comparación” en “contador”.
+ Restar 11 de “comparación”.
+ Si “comparación” es cero, continuar en [fin].
+ Sumar “contador” a “total”.
+ Añadir 1 a “contador”.
  Continuar en [bucle].
 [fin]
  Mostrar “total”.
@@ -128,13 +128,13 @@ Aunque eso ya es más legible que la sopa de bits anterior, sigue siendo bastant
 
 {{index bucle, salto, "ejemplo de suma"}}
 
-¿Puedes ver cómo funciona el programa en este punto? Las dos primeras líneas asignan los valores iniciales a dos ubicaciones de memoria: `total` se utilizará para construir el resultado de la suma, y `count` llevará la cuenta del número que estamos observando en ese momento. Las líneas que utilizan `compare` probablemente sean las más confusas. El programa quiere ver si `count` es igual a 11 para decidir si puede parar de ejecutarse. Debido a que nuestra máquina hipotética es bastante primitiva, solo puede comprobar si un número es cero y tomar una decisión en función de ese valor. Por lo tanto, utiliza la ubicación de memoria etiquetada como `compare` para calcular el valor de `count - 11` y tomar una decisión basada en el resultado. Las siguientes dos líneas suman el valor de `count` al resultado e incrementan `count` en 1 cada vez que el programa decide que `count` aún no vale 11. Aquí está el mismo programa en JavaScript:
+¿Puedes ver cómo funciona el programa en este punto? Las dos primeras líneas asignan los valores iniciales a dos ubicaciones de memoria: `total` se utilizará para construir el resultado de la suma, y `contador` llevará la cuenta del número que estamos observando en ese momento. Las líneas que utilizan `comparación` probablemente sean las más confusas. El programa quiere ver si `contador` es igual a 11 para decidir si puede parar de ejecutarse. Debido a que nuestra máquina hipotética es bastante primitiva, solo puede comprobar si un número es cero y tomar una decisión en función de ese valor. Por lo tanto, utiliza la ubicación de memoria etiquetada como `comparación` para calcular el valor de `contador - 11` y tomar una decisión basada en el resultado. Las siguientes dos líneas suman el valor de `contador` al resultado e incrementan `contador` en 1 cada vez que el programa decide que `contador` aún no vale 11. Aquí está el mismo programa en JavaScript:
 
 ```
-let total = 0, count = 1;
-while (count <= 10) {
-  total += count;
-  count += 1;
+let total = 0, contador = 1;
+while (contador <= 10) {
+  total += contador;
+  contador += 1;
 }
 console.log(total);
 // → 55
@@ -142,7 +142,7 @@ console.log(total);
 
 {{index "bucle while", bucle, [llaves, bloque]}}
 
-Esta versión nos proporciona algunas mejoras más. Lo más importante es que ya no es necesario especificar la forma en que queremos que el programa salte hacia adelante y hacia atrás; la construcción `while` se encarga de eso. Continúa ejecutando el bloque (entre llaves) debajo de él siempre y cuando se cumpla la condición que se le ha dado. Esa condición es `count <= 10`, lo que significa "el recuento es menor o igual a 10". Ya no tenemos que crear un valor temporal y compararlo con cero, lo cual era simplemente un detalle carente de interés. Parte del poder de los lenguajes de programación es que pueden encargarse de los detalles que no nos interesan.
+Esta versión nos proporciona algunas mejoras más. Lo más importante es que ya no es necesario especificar la forma en que queremos que el programa salte hacia adelante y hacia atrás; la construcción `while` se encarga de eso. Continúa ejecutando el bloque (entre llaves) debajo de él siempre y cuando se cumpla la condición que se le ha dado. Esa condición es `contador <= 10`, lo que significa "el recuento es menor o igual a 10". Ya no tenemos que crear un valor temporal y compararlo con cero, lo cual era simplemente un detalle carente de interés. Parte del poder de los lenguajes de programación es que pueden encargarse de los detalles que no nos interesan.
 
 {{index "console.log"}}
 

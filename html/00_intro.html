@@ -120,29 +120,29 @@
 
 <p><a class="p_ident" id="p-8IC8S1UXRk" href="#p-8IC8S1UXRk" tabindex="-1" role="presentation"></a>Aunque eso ya es más legible que la sopa de bits anterior, sigue siendo bastante confuso. Usar nombres en lugar de números para las instrucciones y las ubicaciones de memoria ayuda:</p>
 
-<pre class="snippet" data-language="null" ><a class="c_ident" id="c-cKkkJHQLZK" href="#c-cKkkJHQLZK" tabindex="-1" role="presentation"></a> Establecer “total” en 0.
- Establecer “count” en 1.
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-CGVe9pDADg" href="#c-CGVe9pDADg" tabindex="-1" role="presentation"></a> Establecer “total” en 0.
+ Establecer “contador” en 1.
 [bucle]
- Establecer “compare” en “count”.
- Restar 11 de “compare”.
- Si “compare” es cero, continuar en [fin].
- Sumar “count” a “total”.
- Añadir 1 a “count”.
+ Establecer “comparación” en “contador”.
+ Restar 11 de “comparación”.
+ Si “comparación” es cero, continuar en [fin].
+ Sumar “contador” a “total”.
+ Añadir 1 a “contador”.
  Continuar en [bucle].
 [fin]
  Mostrar “total”.</pre>
 
-<p><a class="p_ident" id="p-s8J4Dp+dt3" href="#p-s8J4Dp+dt3" tabindex="-1" role="presentation"></a>¿Puedes ver cómo funciona el programa en este punto? Las dos primeras líneas asignan los valores iniciales a dos ubicaciones de memoria: <code>total</code> se utilizará para construir el resultado de la suma, y <code>count</code> llevará la cuenta del número que estamos observando en ese momento. Las líneas que utilizan <code>compare</code> probablemente sean las más confusas. El programa quiere ver si <code>count</code> es igual a 11 para decidir si puede parar de ejecutarse. Debido a que nuestra máquina hipotética es bastante primitiva, solo puede comprobar si un número es cero y tomar una decisión en función de ese valor. Por lo tanto, utiliza la ubicación de memoria etiquetada como <code>compare</code> para calcular el valor de <code>count - 11</code> y tomar una decisión basada en el resultado. Las siguientes dos líneas suman el valor de <code>count</code> al resultado e incrementan <code>count</code> en 1 cada vez que el programa decide que <code>count</code> aún no vale 11. Aquí está el mismo programa en JavaScript:</p>
+<p><a class="p_ident" id="p-s8J4Dp+dt3" href="#p-s8J4Dp+dt3" tabindex="-1" role="presentation"></a>¿Puedes ver cómo funciona el programa en este punto? Las dos primeras líneas asignan los valores iniciales a dos ubicaciones de memoria: <code>total</code> se utilizará para construir el resultado de la suma, y <code>contador</code> llevará la cuenta del número que estamos observando en ese momento. Las líneas que utilizan <code>comparación</code> probablemente sean las más confusas. El programa quiere ver si <code>contador</code> es igual a 11 para decidir si puede parar de ejecutarse. Debido a que nuestra máquina hipotética es bastante primitiva, solo puede comprobar si un número es cero y tomar una decisión en función de ese valor. Por lo tanto, utiliza la ubicación de memoria etiquetada como <code>comparación</code> para calcular el valor de <code>contador - 11</code> y tomar una decisión basada en el resultado. Las siguientes dos líneas suman el valor de <code>contador</code> al resultado e incrementan <code>contador</code> en 1 cada vez que el programa decide que <code>contador</code> aún no vale 11. Aquí está el mismo programa en JavaScript:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KfhVPRGaZ0" href="#c-KfhVPRGaZ0" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">total</span> = <span class="tok-number">0</span>, <span class="tok-definition">count</span> = <span class="tok-number">1</span>;
-<span class="tok-keyword">while</span> (count &lt;= <span class="tok-number">10</span>) {
-  total += count;
-  count += <span class="tok-number">1</span>;
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-iM8PtaIM37" href="#c-iM8PtaIM37" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">total</span> = <span class="tok-number">0</span>, <span class="tok-definition">contador</span> = <span class="tok-number">1</span>;
+<span class="tok-keyword">while</span> (contador &lt;= <span class="tok-number">10</span>) {
+  total += contador;
+  contador += <span class="tok-number">1</span>;
 }
 console.log(total);
 <span class="tok-comment">// → 55</span></pre>
 
-<p><a class="p_ident" id="p-UcYthLYDcQ" href="#p-UcYthLYDcQ" tabindex="-1" role="presentation"></a>Esta versión nos proporciona algunas mejoras más. Lo más importante es que ya no es necesario especificar la forma en que queremos que el programa salte hacia adelante y hacia atrás; la construcción <code>while</code> se encarga de eso. Continúa ejecutando el bloque (entre llaves) debajo de él siempre y cuando se cumpla la condición que se le ha dado. Esa condición es <code>count &lt;= 10</code>, lo que significa “el recuento es menor o igual a 10”. Ya no tenemos que crear un valor temporal y compararlo con cero, lo cual era simplemente un detalle carente de interés. Parte del poder de los lenguajes de programación es que pueden encargarse de los detalles que no nos interesan.</p>
+<p><a class="p_ident" id="p-UcYthLYDcQ" href="#p-UcYthLYDcQ" tabindex="-1" role="presentation"></a>Esta versión nos proporciona algunas mejoras más. Lo más importante es que ya no es necesario especificar la forma en que queremos que el programa salte hacia adelante y hacia atrás; la construcción <code>while</code> se encarga de eso. Continúa ejecutando el bloque (entre llaves) debajo de él siempre y cuando se cumpla la condición que se le ha dado. Esa condición es <code>contador &lt;= 10</code>, lo que significa “el recuento es menor o igual a 10”. Ya no tenemos que crear un valor temporal y compararlo con cero, lo cual era simplemente un detalle carente de interés. Parte del poder de los lenguajes de programación es que pueden encargarse de los detalles que no nos interesan.</p>
 
 <p><a class="p_ident" id="p-vx/hH46gXD" href="#p-vx/hH46gXD" tabindex="-1" role="presentation"></a>Al final del programa, después de que la construcción <code>while</code> haya terminado, se utiliza la operación <code>console.log</code> para mostrar el resultado.</p>
 
