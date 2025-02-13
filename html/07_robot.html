@@ -14,19 +14,19 @@
 
 <blockquote>
 
-<p><a class="p_ident" id="p-/Oc+pQbX3S" href="#p-/Oc+pQbX3S" tabindex="-1" role="presentation"></a>[...] la pregunta de si las Máquinas Pueden Pensar [...] es tan relevante como la pregunta de si los Submarinos Pueden Nadar.</p>
+<p><a class="p_ident" id="p-DpY4TSZBO0" href="#p-DpY4TSZBO0" tabindex="-1" role="presentation"></a>La cuestión de si las Máquinas Pueden Pensar [...] es tan relevante como la cuestión de si los Submarinos Pueden Nadar.</p>
 
-<footer>Edsger Dijkstra, <cite>Las amenazas a la ciencia informática</cite></footer>
+<footer>Edsger Dijkstra, <cite>The Threats to Computing Science</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_7.jpg" alt="Ilustración de un robot sosteniendo una pila de paquetes"></figure>
 
-<p><a class="p_ident" id="p-0PBWKq6GYO" href="#p-0PBWKq6GYO" tabindex="-1" role="presentation"></a>En los capítulos del “proyecto”, dejaré de golpearte con nueva teoría por un breve momento, y en su lugar trabajaremos en un programa juntos. La teoría es necesaria para aprender a programar, pero leer y entender programas reales es igual de importante.</p>
+<p><a class="p_ident" id="p-0PBWKq6GYO" href="#p-0PBWKq6GYO" tabindex="-1" role="presentation"></a>En los capítulos “proyecto”, dejaré de bombardearte con nueva teoría por un momento y, en su lugar, trabajaremos juntos en un programa. La teoría es necesaria para aprender a programar, pero leer y entender programas reales es igual de importante.</p>
 
 <p><a class="p_ident" id="p-1ftX4jVXFE" href="#p-1ftX4jVXFE" tabindex="-1" role="presentation"></a>Nuestro proyecto en este capítulo es construir un autómata, un pequeño programa que realiza una tarea en un mundo virtual. Nuestro autómata será un robot de entrega de correo que recoge y deja paquetes.</p>
 
 <h2><a class="h_ident" id="h-UmFK5fYed8" href="#h-UmFK5fYed8" tabindex="-1" role="presentation"></a>Meadowfield</h2>
 
-<p><a class="p_ident" id="p-CoFPYYp5Q2" href="#p-CoFPYYp5Q2" tabindex="-1" role="presentation"></a>El pueblo de Meadowfield no es muy grande. Consiste en 11 lugares con 14 carreteras entre ellos. Se puede describir con este array de carreteras:</p>
+<p><a class="p_ident" id="p-6SFWJuvltH" href="#p-6SFWJuvltH" tabindex="-1" role="presentation"></a>El pueblo de Meadowfield no es muy grande. Consiste en 11 lugares conectados por 14 caminos. Se puede describir con este array de caminos:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NplCaNzuvn" href="#c-NplCaNzuvn" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">roads</span> = [
   <span class="tok-string">&quot;Casa de Alice-Casa de Bob&quot;</span>,<span class="tok-string">&quot;Casa de Alice-Cabaña&quot;</span>,
@@ -36,11 +36,11 @@
   <span class="tok-string">&quot;Casa de Grete-Tienda&quot;</span>,<span class="tok-string">&quot;Plaza del Mercado-Granja&quot;</span>,
   <span class="tok-string">&quot;Plaza del Mercado-Oficina de Correos&quot;</span>,<span class="tok-string">&quot;Plaza del Mercado-Tienda&quot;</span>,
   <span class="tok-string">&quot;Plaza del Mercado-Ayuntamiento&quot;</span>,<span class="tok-string">&quot;Tienda-Ayuntamiento&quot;</span>
-];</pre><figure><img src="img/village2x.png" alt="Ilustración de arte pixelado de un pequeño pueblo con 11 ubicaciones, etiquetadas con letras, y carreteras entre ellas"></figure>
+];</pre><figure><img src="img/village2x.png" alt="Ilustración de estilo pixel-art de un pequeño pueblo con 11 ubicaciones, etiquetadas con letras, y carreteras entre ellas"></figure>
 
-<p><a class="p_ident" id="p-z97coTX23j" href="#p-z97coTX23j" tabindex="-1" role="presentation"></a>La red de carreteras en el pueblo forma un <em>gráfico</em>. Un gráfico es una colección de puntos (lugares en el pueblo) con líneas entre ellos (carreteras). Este gráfico será el mundo por el que se moverá nuestro robot.</p>
+<p><a class="p_ident" id="p-z97coTX23j" href="#p-z97coTX23j" tabindex="-1" role="presentation"></a>La red de carreteras en el pueblo forma un <em>grafo</em>. Un grafo es una colección de puntos (lugares en el pueblo) con líneas entre ellos (caminos). Este grafo será el mundo por el que se moverá nuestro robot.</p>
 
-<p><a class="p_ident" id="p-Hw3WY9bviH" href="#p-Hw3WY9bviH" tabindex="-1" role="presentation"></a>El array de cadenas no es muy fácil de trabajar. Lo que nos interesa son los destinos a los que podemos llegar desde un lugar dado. Vamos a convertir la lista de carreteras en una estructura de datos que, para cada lugar, nos diga qué se puede alcanzar desde allí.</p>
+<p><a class="p_ident" id="p-sR36P4HEt1" href="#p-sR36P4HEt1" tabindex="-1" role="presentation"></a>No es muy sencillo trabajar con el array de cadenas anterior. Lo que nos interesa son los destinos a los que podemos llegar desde un lugar dado. Vamos a convertir la lista de carreteras en una estructura de datos que, para cada lugar, nos diga qué se puede alcanzar desde allí.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-k8seJpRr5W" href="#c-k8seJpRr5W" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">buildGraph</span>(<span class="tok-definition">edges</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">graph</span> = Object.create(<span class="tok-keyword">null</span>);
@@ -62,7 +62,7 @@
 
 <p><a class="p_ident" id="p-jL6/RvPMt+" href="#p-jL6/RvPMt+" tabindex="-1" role="presentation"></a>Dado un array de aristas, <code>buildGraph</code> crea un objeto de mapa que, para cada nodo, almacena un array de nodos conectados.</p>
 
-<p><a class="p_ident" id="p-ibN0Rbh4w2" href="#p-ibN0Rbh4w2" tabindex="-1" role="presentation"></a>Utiliza el método <code>split</code> para pasar de las cadenas de carreteras, que tienen la forma <code>&quot;Inicio-Fin&quot;</code>, a arrays de dos elementos que contienen el inicio y el fin como cadenas separadas.</p>
+<p><a class="p_ident" id="p-ibN0Rbh4w2" href="#p-ibN0Rbh4w2" tabindex="-1" role="presentation"></a>Utiliza el método <code>split</code> para pasar de las cadenas representando caminos, que tienen la forma <code>&quot;Inicio-Fin&quot;</code>, a arrays de dos elementos que contienen el inicio y el fin como cadenas separadas.</p>
 
 <h2><a class="h_ident" id="h-ZcNPR9BKaF" href="#h-ZcNPR9BKaF" tabindex="-1" role="presentation"></a>La tarea</h2>
 
@@ -74,11 +74,11 @@
 
 <p><a class="p_ident" id="p-ImUqv6bngP" href="#p-ImUqv6bngP" tabindex="-1" role="presentation"></a>Si estás pensando en términos de programación orientada a objetos, tu primer impulso podría ser empezar a definir objetos para los diferentes elementos en el mundo: una clase para el robot, una para un paquete, tal vez una para lugares. Estos podrían tener propiedades que describen su estado actual, como la pila de paquetes en un lugar, que podríamos cambiar al actualizar el mundo.</p>
 
-<p><a class="p_ident" id="p-C/Z3QwwroQ" href="#p-C/Z3QwwroQ" tabindex="-1" role="presentation"></a>Esto es incorrecto. Al menos, usualmente lo es. El hecho de que algo suene como un objeto no significa automáticamente que deba ser un objeto en tu programa. Escribir reflexivamente clases para cada concepto en tu aplicación tiende a dejarte con una colección de objetos interconectados que tienen su propio estado interno cambiable. Estos programas a menudo son difíciles de entender y, por lo tanto, fáciles de romper.</p>
+<p><a class="p_ident" id="p-8g3eWGEJEl" href="#p-8g3eWGEJEl" tabindex="-1" role="presentation"></a>Esto es un error. O, al menos, suele serlo. El hecho de que algo suene como un objeto no significa automáticamente que deba representarse como un objeto en tu programa. Escribir clases de forma mecánica para cada concepto en una aplicación suele dar lugar a una colección de objetos interconectados, cada uno con su propio estado interno y cambiante. Este tipo de programas suelen ser difíciles de comprender y, por lo tanto, fáciles de romper.</p>
 
 <p><a class="p_ident" id="p-5099+VupJV" href="#p-5099+VupJV" tabindex="-1" role="presentation"></a>En lugar de eso, vamos a condensar el estado del pueblo en el conjunto mínimo de valores que lo define. Está la ubicación actual del robot y la colección de paquetes no entregados, cada uno de los cuales tiene una ubicación actual y una dirección de destino. Eso es todo.</p>
 
-<p><a class="p_ident" id="p-P5OPIi9FfW" href="#p-P5OPIi9FfW" tabindex="-1" role="presentation"></a>Y mientras lo hacemos, hagamos que no <em>cambiemos</em> este estado cuando el robot se mueve, sino que calculemos un <em>nuevo</em> estado para la situación después del movimiento.</p>
+<p><a class="p_ident" id="p-ndhWCdxz4M" href="#p-ndhWCdxz4M" tabindex="-1" role="presentation"></a>Ya que estamos, hagamos que este estado no <em>cambie</em> cuando el robot se mueve, sino que en su lugar se calcule un <em>nuevo</em> estado para la situación después del movimiento.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VcDNIi1lcV" href="#c-VcDNIi1lcV" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> VillageState {
   <span class="tok-definition">constructor</span>(<span class="tok-definition">place</span>, <span class="tok-definition">parcels</span>) {
@@ -99,11 +99,11 @@
   }
 }</pre>
 
-<p><a class="p_ident" id="p-dEEiTFRt0X" href="#p-dEEiTFRt0X" tabindex="-1" role="presentation"></a>El método <code>move</code> es donde ocurre la acción. Primero verifica si hay un camino desde el lugar actual hasta el destino, y si no lo hay, devuelve el estado anterior ya que este no es un movimiento válido.</p>
+<p><a class="p_ident" id="p-dEEiTFRt0X" href="#p-dEEiTFRt0X" tabindex="-1" role="presentation"></a>El método <code>move</code> es donde ocurre la acción. Primero verifica si hay un camino desde el lugar actual hasta el destino y, si no lo hay, devuelve el estado anterior ya que este no es un movimiento válido.</p>
 
-<p><a class="p_ident" id="p-YeKbjqCqtC" href="#p-YeKbjqCqtC" tabindex="-1" role="presentation"></a>Luego crea un nuevo estado con el destino como el nuevo lugar del robot. Pero también necesita crear un nuevo conjunto de paquetes: los paquetes que lleva el robot (que están en el lugar actual del robot) deben ser trasladados al nuevo lugar. Y los paquetes dirigidos al nuevo lugar deben ser entregados, es decir, deben ser eliminados del conjunto de paquetes no entregados. La llamada a <code>map</code> se encarga del traslado y la llamada a <code>filter</code> de la entrega.</p>
+<p><a class="p_ident" id="p-t6cEL0QbmG" href="#p-t6cEL0QbmG" tabindex="-1" role="presentation"></a>Si sí, crea un nuevo estado con el destino que se pasa como parámetro a <code>move</code> como nueva posición para el robot. Pero también necesita crear un nuevo conjunto de paquetes: los paquetes que lleva el robot (que están en el lugar actual del robot) deben ser trasladados al nuevo lugar. Y los paquetes dirigidos al nuevo lugar deben ser entregados, es decir, deben ser eliminados del conjunto de paquetes por entregar. La llamada a <code>map</code> se encarga del traslado y la llamada a <code>filter</code> de la entrega.</p>
 
-<p><a class="p_ident" id="p-3lMuPCNKYP" href="#p-3lMuPCNKYP" tabindex="-1" role="presentation"></a>Los objetos de parcela no se modifican cuando se mueven, sino que se vuelven a crear. El método <code>move</code> nos proporciona un nuevo estado de aldea pero deja intacto por completo el anterior.</p>
+<p><a class="p_ident" id="p-PkzzJ4X0Zs" href="#p-PkzzJ4X0Zs" tabindex="-1" role="presentation"></a>Los objetos que representan los paquetes (<code>parcels</code>) no se modifican cuando se mueven, sino que se vuelven a crear. El método <code>move</code> nos proporciona un nuevo estado del pueblo pero deja intacto por completo el anterior.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-rRgQCtG7hr" href="#c-rRgQCtG7hr" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">first</span> = <span class="tok-keyword">new</span> VillageState(
   <span class="tok-string">&quot;Oficina de Correos&quot;</span>,
@@ -118,30 +118,28 @@ console.log(next.parcels);
 console.log(first.place);
 <span class="tok-comment">// → Oficina de Correos</span></pre>
 
-<p><a class="p_ident" id="p-Myxbdg6oBC" href="#p-Myxbdg6oBC" tabindex="-1" role="presentation"></a>El movimiento hace que la parcela se entregue, y esto se refleja en el siguiente estado. Pero el estado inicial sigue describiendo la situación en la que el robot está en la oficina de correos y la parcela no se ha entregado.</p>
+<p><a class="p_ident" id="p-M8MMrzFIaV" href="#p-M8MMrzFIaV" tabindex="-1" role="presentation"></a>El movimiento hace que el paquete se entregue, y esto se refleja en el siguiente estado. Pero el estado inicial sigue describiendo la situación en la que el robot está en la oficina de correos y el paquete está aún por entregar.</p>
 
 <h2><a class="h_ident" id="h-TZqUeD/4Kg" href="#h-TZqUeD/4Kg" tabindex="-1" role="presentation"></a>Datos persistentes</h2>
 
 <p><a class="p_ident" id="p-FhP/ZMbXxd" href="#p-FhP/ZMbXxd" tabindex="-1" role="presentation"></a>Las estructuras de datos que no cambian se llaman <em>inmutables</em> o <em>persistentes</em>. Se comportan de manera similar a las cadenas de texto y los números en el sentido de que son lo que son y se mantienen así, en lugar de contener cosas diferentes en momentos diferentes.</p>
 
-<p><a class="p_ident" id="p-jM2h5YhXld" href="#p-jM2h5YhXld" tabindex="-1" role="presentation"></a>En JavaScript, casi todo <em>puede</em> cambiarse, por lo que trabajar con valores que se supone que son persistentes requiere cierta moderación. Existe una función llamada <code>Object.freeze</code> que cambia un objeto para que la escritura en sus propiedades sea ignorada. Podrías usar esto para asegurarte de que tus objetos no se modifiquen, si así lo deseas. Congelar requiere que la computadora realice un trabajo adicional, y que las actualizaciones se ignoren es casi tan propenso a confundir a alguien como hacer que hagan lo incorrecto. Por lo tanto, suelo preferir simplemente decirle a las personas que un objeto dado no debe ser modificado y esperar que lo recuerden.</p>
+<p><a class="p_ident" id="p-jM2h5YhXld" href="#p-jM2h5YhXld" tabindex="-1" role="presentation"></a>En JavaScript, casi todo <em>puede</em> modificarse, por lo que trabajar con valores que deberían ser persistentes requiere cierta disciplina. Existe una función llamada <code>Object.freeze</code> que cambia un objeto para que la escritura en sus propiedades sea ignorada. Si quieres, puedes usar esto para asegurarte de que tus objetos no se modifiquen. Congelar requiere que la computadora realice un trabajo adicional, y que las actualizaciones se ignoren es casi tan propenso a confundir a alguien como hacer que hagan lo incorrecto. Por lo tanto, yo suelo preferir simplemente decirle a la gente que un objeto dado no debe ser modificado y esperar que lo recuerden.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-tzmey+74SE" href="#c-tzmey+74SE" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">object</span> = Object.freeze({<span class="tok-definition">value</span>: <span class="tok-number">5</span>});
 object.value = <span class="tok-number">10</span>;
 console.log(object.value);
 <span class="tok-comment">// → 5</span></pre>
 
-<p><a class="p_ident" id="p-3ZcXSzHegg" href="#p-3ZcXSzHegg" tabindex="-1" role="presentation"></a>¿Por qué me estoy esforzando tanto en no cambiar los objetos cuando el lenguaje obviamente espera que lo haga?</p>
+<p><a class="p_ident" id="p-YBylhtk2TD" href="#p-YBylhtk2TD" tabindex="-1" role="presentation"></a>¿Por qué me estoy esforzando tanto en no cambiar los objetos cuando el lenguaje obviamente espera que lo haga? Porque me ayuda a entender mis programas. Una vez más, se trata de gestionar la complejidad. Cuando los objetos en mi sistema son cosas fijas y estables, puedo considerar operaciones sobre ellos de forma aislada: moverse a la casa de Alice desde un estado inicial dado siempre produce el mismo nuevo estado. Cuando los objetos cambian con el tiempo se añade toda una nueva dimensión de complejidad a este tipo de razonamiento.</p>
 
-<p><a class="p_ident" id="p-1ihsgYZ82c" href="#p-1ihsgYZ82c" tabindex="-1" role="presentation"></a>Porque me ayuda a entender mis programas. Una vez más, esto se trata de gestionar la complejidad. Cuando los objetos en mi sistema son cosas fijas y estables, puedo considerar operaciones sobre ellos de forma aislada: moverse a la casa de Alice desde un estado inicial dado siempre produce el mismo nuevo estado. Cuando los objetos cambian con el tiempo, eso añade toda una nueva dimensión de complejidad a este tipo de razonamiento.</p>
+<p><a class="p_ident" id="p-FW5kl43Zwa" href="#p-FW5kl43Zwa" tabindex="-1" role="presentation"></a>Para un sistema pequeño como el que estamos construyendo en este capítulo, podríamos manejar este poquito de complejidad extra. Pero el límite más importante respecto a qué tipo de sistemas podemos construir es cuánto podemos entender. Cualquier cosa que haga que tu código sea más fácil de entender te permite construir un sistema más ambicioso.</p>
 
-<p><a class="p_ident" id="p-FW5kl43Zwa" href="#p-FW5kl43Zwa" tabindex="-1" role="presentation"></a>Para un sistema pequeño como el que estamos construyendo en este capítulo, podríamos manejar ese poco de complejidad extra. Pero el límite más importante respecto a qué tipo de sistemas podemos construir es cuánto podemos entender. Cualquier cosa que haga que tu código sea más fácil de entender te permite construir un sistema más ambicioso.</p>
-
-<p><a class="p_ident" id="p-T1HGdD5GjP" href="#p-T1HGdD5GjP" tabindex="-1" role="presentation"></a>Desafortunadamente, aunque entender un sistema construido sobre estructuras de datos persistentes es más fácil, <em>diseñar</em> uno, especialmente cuando tu lenguaje de programación no ayuda, puede ser un poco más difícil. Buscaremos oportunidades para usar estructuras de datos persistentes en este libro, pero también usaremos aquellas que pueden cambiar.</p>
+<p><a class="p_ident" id="p-T+JjyzLpmb" href="#p-T+JjyzLpmb" tabindex="-1" role="presentation"></a>Por desgracia, aunque entender un sistema construido sobre estructuras de datos persistentes es más fácil, <em>diseñar</em> uno, especialmente cuando tu lenguaje de programación no ayuda, puede ser un poco más difícil. En este libro, buscaremos oportunidades para usar estructuras de datos persistentes, pero también utilizaremos estructuras modificables.</p>
 
 <h2><a class="h_ident" id="h-NngWObDYaj" href="#h-NngWObDYaj" tabindex="-1" role="presentation"></a>Simulación</h2>
 
-<p><a class="p_ident" id="p-Lt1p8txGDL" href="#p-Lt1p8txGDL" tabindex="-1" role="presentation"></a>Un robot de entrega observa el mundo y decide en qué dirección quiere moverse. Como tal, podríamos decir que un robot es una función que toma un objeto <code>VillageState</code> y devuelve el nombre de un lugar cercano.</p>
+<p><a class="p_ident" id="p-Lt1p8txGDL" href="#p-Lt1p8txGDL" tabindex="-1" role="presentation"></a>Un robot de entrega observa el mundo y decide en qué dirección quiere moverse. O sea que podríamos decir que un robot es una función que toma un objeto <code>VillageState</code> y devuelve el nombre de un lugar cercano.</p>
 
 <p><a class="p_ident" id="p-pbn2tWD1Al" href="#p-pbn2tWD1Al" tabindex="-1" role="presentation"></a>Dado que queremos que los robots puedan recordar cosas, para que puedan hacer y ejecutar planes, también les pasamos su memoria y les permitimos devolver una nueva memoria. Por lo tanto, lo que un robot devuelve es un objeto que contiene tanto la dirección en la que quiere moverse como un valor de memoria que se le dará la próxima vez que se llame.</p>
 
@@ -162,7 +160,7 @@ console.log(object.value);
 
 <p><a class="p_ident" id="p-5bsdqun/8W" href="#p-5bsdqun/8W" tabindex="-1" role="presentation"></a>¿Cuál es la estrategia más tonta que podría funcionar? El robot podría simplemente caminar en una dirección aleatoria en cada turno. Eso significa que, con gran probabilidad, eventualmente se topará con todos los paquetes y en algún momento también llegará al lugar donde deben ser entregados.</p>
 
-<p><a class="p_ident" id="p-SlxnfWOsG9" href="#p-SlxnfWOsG9" tabindex="-1" role="presentation"></a>Esto es cómo podría lucir eso:</p>
+<p><a class="p_ident" id="p-jKsOJPz4Lp" href="#p-jKsOJPz4Lp" tabindex="-1" role="presentation"></a>Esta es la pinta que podría tener algo así:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-eldzpwzhOB" href="#c-eldzpwzhOB" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">randomPick</span>(<span class="tok-definition">array</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">choice</span> = Math.floor(Math.random() * array.length);
@@ -173,7 +171,7 @@ console.log(object.value);
   <span class="tok-keyword">return</span> {<span class="tok-definition">direction</span>: randomPick(roadGraph[state.place])};
 }</pre>
 
-<p><a class="p_ident" id="p-iGtbW23NAf" href="#p-iGtbW23NAf" tabindex="-1" role="presentation"></a>Recuerda que <code>Math.random()</code> devuelve un número entre cero y uno, pero siempre por debajo de uno. Multiplicar dicho número por la longitud de un array y luego aplicarle <code>Math.floor</code> nos da un índice aleatorio para el array.</p>
+<p><a class="p_ident" id="p-iGtbW23NAf" href="#p-iGtbW23NAf" tabindex="-1" role="presentation"></a>Recuerda que <code>Math.random()</code> devuelve un número entre cero y uno, pero siempre por debajo de uno. Al multiplicar dicho número por la longitud de un array y luego aplicarle <code>Math.floor</code>, obtenemos un índice aleatorio para el array.</p>
 
 <p><a class="p_ident" id="p-/n/qSIuoNM" href="#p-/n/qSIuoNM" tabindex="-1" role="presentation"></a>Dado que este robot no necesita recordar nada, ignora su segundo argumento (recuerda que las funciones de JavaScript pueden ser llamadas con argumentos adicionales sin efectos adversos) y omite la propiedad <code>memory</code> en su objeto devuelto.</p>
 
@@ -221,7 +219,7 @@ console.log(object.value);
   <span class="tok-string">&quot;Plaza del Mercado&quot;</span>, <span class="tok-string">&quot;Oficina de Correos&quot;</span>
 ];</pre>
 
-<p><a class="p_ident" id="p-NuQQdtHsp+" href="#p-NuQQdtHsp+" tabindex="-1" role="presentation"></a>Para implementar el robot que sigue la ruta, necesitaremos hacer uso de la memoria del robot. El robot guarda el resto de su ruta en su memoria y deja caer el primer elemento en cada turno.</p>
+<p><a class="p_ident" id="p-NuQQdtHsp+" href="#p-NuQQdtHsp+" tabindex="-1" role="presentation"></a>Para implementar el robot que sigue la ruta, necesitaremos hacer uso de la memoria del robot. El robot guarda el resto de su ruta en su memoria y se desprende del primer elemento de la ruta en cada turno.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FlV5rBgCYM" href="#c-FlV5rBgCYM" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">routeRobot</span>(<span class="tok-definition">state</span>, <span class="tok-definition">memory</span>) {
   <span class="tok-keyword">if</span> (memory.length == <span class="tok-number">0</span>) {
@@ -236,15 +234,17 @@ console.log(object.value);
 
 <h2><a class="h_ident" id="h-Qr/SzElzir" href="#h-Qr/SzElzir" tabindex="-1" role="presentation"></a>Búsqueda de caminos</h2>
 
-<p><a class="p_ident" id="p-+h0jpYRuOH" href="#p-+h0jpYRuOH" tabindex="-1" role="presentation"></a>Aún así, no llamaría a seguir ciegamente una ruta fija un comportamiento inteligente. Sería más eficiente si el robot ajustara su comportamiento a la tarea real que debe realizarse.</p>
+<p><a class="p_ident" id="p-+h0jpYRuOH" href="#p-+h0jpYRuOH" tabindex="-1" role="presentation"></a>Aún así, no creo que sea muy inteligente seguir ciegamente una ruta fija. Sería más eficiente si el robot ajustara su comportamiento a la tarea real que debe realizarse.</p>
 
-<p><a class="p_ident" id="p-Qq4JUaMcE0" href="#p-Qq4JUaMcE0" tabindex="-1" role="presentation"></a>Para hacer eso, tiene que poder moverse deliberadamente hacia un paquete dado o hacia la ubicación donde se debe entregar un paquete. Hacer eso, incluso cuando el objetivo está a más de un movimiento de distancia, requerirá algún tipo de función de búsqueda de ruta.</p>
+<p><a class="p_ident" id="p-Qq4JUaMcE0" href="#p-Qq4JUaMcE0" tabindex="-1" role="presentation"></a>Para hacer eso, tiene que poder moverse deliberadamente hacia un destino dado o hacia la ubicación donde se debe entregar un paquete. Hacer eso, incluso cuando el objetivo está a más de un movimiento de distancia, requerirá algún tipo de función de búsqueda de ruta.</p>
 
-<p><a class="p_ident" id="p-PxJJwn/RDt" href="#p-PxJJwn/RDt" tabindex="-1" role="presentation"></a>El problema de encontrar una ruta a través de un grafo es un <em>problema de búsqueda</em> típico. Podemos determinar si una solución dada (una ruta) es una solución válida, pero no podemos calcular directamente la solución como podríamos hacerlo para 2 + 2. En su lugar, debemos seguir creando soluciones potenciales hasta encontrar una que funcione.</p>
+<p><a class="p_ident" id="p-PxJJwn/RDt" href="#p-PxJJwn/RDt" tabindex="-1" role="presentation"></a>El problema de encontrar una ruta a través de un grafo es un <em>problema de búsqueda</em> típico. Podemos determinar si una solución dada (es decir, una ruta) es una solución válida, pero no podemos hacer un cálculo directo de la solución como podríamos hacerlo para 2 + 2. En su lugar, debemos seguir creando soluciones potenciales hasta encontrar una que funcione.</p>
 
-<p><a class="p_ident" id="p-shDyhu90T5" href="#p-shDyhu90T5" tabindex="-1" role="presentation"></a>El número de rutas posibles a través de un grafo es infinito. Pero al buscar una ruta de <em>A</em> a <em>B</em>, solo estamos interesados en aquellas que comienzan en <em>A</em>. Además, no nos importan las rutas que visiten el mismo lugar dos veces, esas definitivamente no son las rutas más eficientes en ningún lugar. Así que eso reduce la cantidad de rutas que el buscador de rutas debe considerar.De hecho, estamos mayormente interesados en la ruta <em>más corta</em>. Por lo tanto, queremos asegurarnos de buscar rutas cortas antes de mirar las más largas. Un buen enfoque sería “expandir” rutas desde el punto de inicio, explorando cada lugar alcanzable que aún no haya sido visitado, hasta que una ruta llegue al objetivo. De esta manera, solo exploraremos rutas que sean potencialmente interesantes, y sabremos que la primera ruta que encontremos es la ruta más corta (o una de las rutas más cortas, si hay más de una).</p>
+<p><a class="p_ident" id="p-HqXJNn2t7A" href="#p-HqXJNn2t7A" tabindex="-1" role="presentation"></a>El número de rutas posibles a través de un grafo es enorme. Pero al buscar una ruta de <em>A</em> a <em>B</em>, solo estamos interesados en aquellas que comienzan en <em>A</em>. Además, no nos importan las rutas que visiten el mismo lugar dos veces —esas claramente no son las rutas más eficientes hacia ningún lugar. Así que eso reduce la cantidad de rutas que el buscador de rutas debe considerar.</p>
 
-<p id="findRoute"><a class="p_ident" id="p-HzB02WYPFY" href="#p-HzB02WYPFY" tabindex="-1" role="presentation"></a>Aquí hay una función que hace esto:</p>
+<p><a class="p_ident" id="p-KfzXn7zEZy" href="#p-KfzXn7zEZy" tabindex="-1" role="presentation"></a>De hecho, estamos sobre todo interesados en la ruta <em>más corta</em>. Por lo tanto, queremos asegurarnos de buscar rutas cortas antes de mirar las más largas. Un buen enfoque sería “expandir” rutas desde el punto de inicio, explorando cada lugar alcanzable que aún no haya sido visitado, hasta que una ruta llegue al objetivo. De esta manera, solo exploraremos rutas que sean potencialmente interesantes, y sabremos que la primera ruta que encontremos es la ruta más corta (o una de las rutas más cortas, si hay más de una).</p>
+
+<p id="findRoute"><a class="p_ident" id="p-xfOXrXlBkY" href="#p-xfOXrXlBkY" tabindex="-1" role="presentation"></a>Aquí, una función que hace esto:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qT/+IETEgM" href="#c-qT/+IETEgM" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">findRoute</span>(<span class="tok-definition">graph</span>, <span class="tok-definition">from</span>, <span class="tok-definition">to</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">work</span> = [{<span class="tok-definition">at</span>: from, <span class="tok-definition">route</span>: []}];
@@ -261,13 +261,13 @@ console.log(object.value);
 
 <p><a class="p_ident" id="p-xVUWEP9k6b" href="#p-xVUWEP9k6b" tabindex="-1" role="presentation"></a>La exploración debe realizarse en el orden correcto: los lugares que se alcanzaron primero deben explorarse primero. No podemos explorar de inmediato un lugar tan pronto como lleguemos a él porque eso significaría que los lugares alcanzados <em>desde allí</em> también se explorarían de inmediato, y así sucesivamente, incluso si puede haber otros caminos más cortos que aún no se han explorado.</p>
 
-<p><a class="p_ident" id="p-9iy0XgVHaG" href="#p-9iy0XgVHaG" tabindex="-1" role="presentation"></a>Por lo tanto, la función mantiene una <em>lista de trabajo</em>. Esta es una matriz de lugares que deben ser explorados a continuación, junto con la ruta que nos llevó allí. Comienza con solo la posición de inicio y una ruta vacía.</p>
+<p><a class="p_ident" id="p-9iy0XgVHaG" href="#p-9iy0XgVHaG" tabindex="-1" role="presentation"></a>Por lo tanto, la función mantiene una <em>lista de trabajo</em>: un array de lugares que deben ser explorados a continuación, junto con la ruta que nos llevó allí. Comienza con solo la posición de inicio y una ruta vacía.</p>
 
 <p><a class="p_ident" id="p-vY5At+m4ct" href="#p-vY5At+m4ct" tabindex="-1" role="presentation"></a>La búsqueda luego opera tomando el siguiente elemento en la lista y explorándolo, lo que significa que se ven todas las rutas que salen de ese lugar. Si una de ellas es el objetivo, se puede devolver una ruta terminada. De lo contrario, si no hemos mirado este lugar antes, se agrega un nuevo elemento a la lista. Si lo hemos mirado antes, dado que estamos buscando rutas cortas primero, hemos encontrado o bien una ruta más larga a ese lugar o una exactamente tan larga como la existente, y no necesitamos explorarla.</p>
 
-<p><a class="p_ident" id="p-nSmvyFJjX5" href="#p-nSmvyFJjX5" tabindex="-1" role="presentation"></a>Puedes imaginar visualmente esto como una red de rutas conocidas que se extienden desde la ubicación de inicio, creciendo de manera uniforme en todos los lados (pero nunca enredándose de nuevo en sí misma). Tan pronto como el primer hilo alcance la ubicación objetivo, ese hilo se rastrea de vuelta al inicio, dándonos nuestra ruta.</p>
+<p><a class="p_ident" id="p-nSmvyFJjX5" href="#p-nSmvyFJjX5" tabindex="-1" role="presentation"></a>Puedes imaginar visualmente esto como una red de rutas conocidas que se extienden desde la ubicación de inicio, creciendo de manera uniforme hacia todas partes (pero nunca enredándose de nuevo en sí misma). Tan pronto como el primer hilo alcance la ubicación objetivo, ese hilo se rastrea de vuelta al inicio, dándonos nuestra ruta.</p>
 
-<p><a class="p_ident" id="p-8xtuFs30lw" href="#p-8xtuFs30lw" tabindex="-1" role="presentation"></a>Nuestro código no maneja la situación en la que no hay más elementos de trabajo en la lista de trabajo porque sabemos que nuestro gráfico está <em>conectado</em>, lo que significa que se puede llegar a cada ubicación desde todas las demás ubicaciones. Siempre podremos encontrar una ruta entre dos puntos, y la búsqueda no puede fallar.</p>
+<p><a class="p_ident" id="p-8xtuFs30lw" href="#p-8xtuFs30lw" tabindex="-1" role="presentation"></a>Nuestro código no maneja la situación en la que no hay más elementos de trabajo en la lista de trabajo porque sabemos que nuestro grafo está <em>conectado</em>, lo que significa que se puede llegar a cada ubicación desde todas las demás ubicaciones. Siempre podremos encontrar una ruta entre dos puntos, y la búsqueda no puede fallar.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-RJgvG9cgxq" href="#c-RJgvG9cgxq" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">goalOrientedRobot</span>({place, parcels}, <span class="tok-definition">route</span>) {
   <span class="tok-keyword">if</span> (route.length == <span class="tok-number">0</span>) {
@@ -281,14 +281,14 @@ console.log(object.value);
   <span class="tok-keyword">return</span> {<span class="tok-definition">direction</span>: route[<span class="tok-number">0</span>], <span class="tok-definition">memory</span>: route.slice(<span class="tok-number">1</span>)};
 }</pre>
 
-<p><a class="p_ident" id="p-SgSFCewRHC" href="#p-SgSFCewRHC" tabindex="-1" role="presentation"></a>Este robot utiliza el valor de su memoria como una lista de direcciones en las que moverse, al igual que el robot que sigue la ruta. Cuando esa lista está vacía, debe averiguar qué hacer a continuación. Toma el primer paquete no entregado del conjunto y, si ese paquete aún no ha sido recogido, traza una ruta hacia él. Si el paquete ya ha sido recogido, todavía necesita ser entregado, por lo que el robot crea una ruta hacia la dirección de entrega.</p>
+<p><a class="p_ident" id="p-SgSFCewRHC" href="#p-SgSFCewRHC" tabindex="-1" role="presentation"></a>Este robot utiliza el valor de su memoria como una lista de direcciones a las que moverse, como con el robot que simplemente seguía rutas. Cuando esa lista está vacía, debe averiguar qué hacer a continuación. Toma el primer paquete no entregado del conjunto y, si ese paquete aún no ha sido recogido, traza una ruta hacia él. Si el paquete ya ha sido recogido, todavía necesita ser entregado, por lo que el robot crea una ruta hacia la dirección de entrega.</p>
 
 <p><a class="p_ident" id="p-HSmURF+mCI" href="#p-HSmURF+mCI" tabindex="-1" role="presentation"></a>Veamos cómo lo hace.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yYuNlgXLX9" href="#c-yYuNlgXLX9" tabindex="-1" role="presentation"></a>runRobotAnimation(VillageState.random(),
                   goalOrientedRobot, []);</pre>
 
-<p><a class="p_ident" id="p-+YpJ1wVO73" href="#p-+YpJ1wVO73" tabindex="-1" role="presentation"></a>Este robot suele terminar la tarea de entregar 5 paquetes en aproximadamente 16 turnos. Eso es ligeramente mejor que <code>routeRobot</code> pero definitivamente no es óptimo.</p>
+<p><a class="p_ident" id="p-+YpJ1wVO73" href="#p-+YpJ1wVO73" tabindex="-1" role="presentation"></a>Este robot suele terminar la tarea de entregar 5 paquetes en aproximadamente 16 turnos. Eso es ligeramente mejor que <code>routeRobot</code> pero está claro que no es óptimo.</p>
 
 <h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
 
@@ -298,7 +298,7 @@ console.log(object.value);
 
 <p><a class="p_ident" id="p-vvltSTdEem" href="#p-vvltSTdEem" tabindex="-1" role="presentation"></a>Escribe una función <code>compareRobots</code> que tome dos robots (y su memoria inicial). Debería generar 100 tareas y permitir que cada uno de los robots resuelva cada una de estas tareas. Cuando termine, debería mostrar el número promedio de pasos que cada robot dio por tarea.</p>
 
-<p><a class="p_ident" id="p-Y+3Np8UuLO" href="#p-Y+3Np8UuLO" tabindex="-1" role="presentation"></a>Por el bien de la equidad, asegúrate de darle a cada tarea a ambos robots, en lugar de generar tareas diferentes por robot.</p>
+<p><a class="p_ident" id="p-SJoPoN5vJL" href="#p-SJoPoN5vJL" tabindex="-1" role="presentation"></a>Para que sea una comparación justa, asegúrate de darle a cada tarea a ambos robots, en lugar de generar tareas diferentes por robot.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-kWSW2DNAYZ" href="#c-kWSW2DNAYZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">compareRobots</span>(<span class="tok-definition">robot1</span>, <span class="tok-definition">memory1</span>, <span class="tok-definition">robot2</span>, <span class="tok-definition">memory2</span>) {
   <span class="tok-comment">// Tu código aquí</span>
@@ -310,13 +310,13 @@ compareRobots(routeRobot, [], goalOrientedRobot, []);</pre>
 
 <p><a class="p_ident" id="p-kcCXvCKFts" href="#p-kcCXvCKFts" tabindex="-1" role="presentation"></a>Tendrás que escribir una variante de la función <code>runRobot</code> que, en lugar de registrar los eventos en la consola, devuelva el número de pasos que el robot tomó para completar la tarea.</p>
 
-<p><a class="p_ident" id="p-Xr248zBbAN" href="#p-Xr248zBbAN" tabindex="-1" role="presentation"></a>Tu función de medición puede, entonces, en un bucle, generar nuevos estados y contar los pasos que toma cada uno de los robots. Cuando haya generado suficientes mediciones, puede usar <code>console.log</code> para mostrar el promedio de cada robot, que es el número total de pasos tomados dividido por el número de mediciones.</p>
+<p><a class="p_ident" id="p-Xr248zBbAN" href="#p-Xr248zBbAN" tabindex="-1" role="presentation"></a>Tu función de medición puede, entonces, en un bucle, generar nuevos estados y contar los pasos que toma cada uno de los robots. Cuando haya generado suficientes mediciones, puede usar <code>console.log</code> para mostrar el promedio de cada robot, que es el número total de pasos dados dividido por el número de mediciones.</p>
 
 </div></details>
 
 <h3><a class="i_ident" id="i-XtZPo4zIj3" href="#i-XtZPo4zIj3" tabindex="-1" role="presentation"></a>Eficiencia del robot</h3>
 
-<p><a class="p_ident" id="p-ekiPq8jgZ7" href="#p-ekiPq8jgZ7" tabindex="-1" role="presentation"></a>¿Puedes escribir un robot que termine la tarea de entrega más rápido que <code>goalOrientedRobot</code>? Si observas el comportamiento de ese robot, ¿qué cosas claramente absurdas hace? ¿Cómo podrían mejorarse?</p>
+<p><a class="p_ident" id="p-ekiPq8jgZ7" href="#p-ekiPq8jgZ7" tabindex="-1" role="presentation"></a>¿Puedes escribir un robot que termine la tarea de entrega más rápido que <code>goalOrientedRobot</code>? Si observas el comportamiento de ese robot, ¿qué cosas evidentemente absurdas está haciendo? ¿Cómo podrían mejorarse?</p>
 
 <p><a class="p_ident" id="p-WHsjtdy1wY" href="#p-WHsjtdy1wY" tabindex="-1" role="presentation"></a>Si resolviste el ejercicio anterior, es posible que desees utilizar tu función <code>compareRobots</code> para verificar si mejoraste el robot.</p>
 
@@ -326,9 +326,9 @@ runRobotAnimation(VillageState.random(), tuRobot, memoria);</pre>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-sRXTWyzdOx" href="#p-sRXTWyzdOx" tabindex="-1" role="presentation"></a>La principal limitación de <code>goalOrientedRobot</code> es que solo considera un paquete a la vez. A menudo caminará de un lado a otro del pueblo porque el paquete en el que está centrando su atención sucede que está en el otro lado del mapa, incluso si hay otros mucho más cerca.</p>
+<p><a class="p_ident" id="p-sRXTWyzdOx" href="#p-sRXTWyzdOx" tabindex="-1" role="presentation"></a>La principal limitación de <code>goalOrientedRobot</code> es que considera los paquetes de uno en uno. A menudo caminará de un lado a otro del pueblo porque el paquete en el que está centrando su atención sucede que está en el otro lado del mapa, incluso si hay otros mucho más cerca.</p>
 
-<p><a class="p_ident" id="p-h8Mq8+DtKj" href="#p-h8Mq8+DtKj" tabindex="-1" role="presentation"></a>Una posible solución sería calcular rutas para todos paquetes y luego tomar la más corta. Se pueden obtener resultados aún mejores, si hay múltiples rutas más cortas, al preferir aquellas que van a recoger un paquete en lugar de entregarlo.</p>
+<p><a class="p_ident" id="p-wemFc7+Eow" href="#p-wemFc7+Eow" tabindex="-1" role="presentation"></a>Una posible solución sería calcular rutas para todos paquetes y luego tomar la más corta. Se pueden obtener resultados aún mejores, si hay múltiples rutas más cortas, prefiriendo las que van a recoger un paquete en vez de entregarlo.</p>
 
 </div></details>
 
@@ -340,7 +340,7 @@ runRobotAnimation(VillageState.random(), tuRobot, memoria);</pre>
 
 <p><a class="p_ident" id="p-3XYr611b0/" href="#p-3XYr611b0/" tabindex="-1" role="presentation"></a>Sin embargo, su método <code>add</code> debería devolver una <em>nueva</em> instancia de <code>PGroup</code> con el miembro dado añadido y dejar la anterior sin cambios. De manera similar, <code>delete</code> crea una nueva instancia sin un miembro dado.</p>
 
-<p><a class="p_ident" id="p-OqTz+KTGUf" href="#p-OqTz+KTGUf" tabindex="-1" role="presentation"></a>La clase debería funcionar para valores de cualquier tipo, no solo para strings. No tiene que ser eficiente cuando se utiliza con grandes cantidades de valores.</p>
+<p><a class="p_ident" id="p-OqTz+KTGUf" href="#p-OqTz+KTGUf" tabindex="-1" role="presentation"></a>La clase debería funcionar para valores de cualquier tipo, no solo para strings. <em>No</em> tiene que ser eficiente cuando se utiliza con grandes cantidades de valores.</p>
 
 <p><a class="p_ident" id="p-xZHWaBEuTQ" href="#p-xZHWaBEuTQ" tabindex="-1" role="presentation"></a>El constructor no debería ser parte de la interfaz de la clase (aunque definitivamente querrás usarlo internamente). En su lugar, hay una instancia vacía, <code>PGroup.empty</code>, que se puede usar como valor inicial.</p>
 
