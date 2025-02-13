@@ -545,7 +545,7 @@ console.log(ListaLongitud.fromArray([<span class="tok-number">1</span>, <span cl
 
 <h2><a class="h_ident" id="h-bPUPRLPX+i" href="#h-bPUPRLPX+i" tabindex="-1" role="presentation"></a>El operador instanceof</h2>
 
-<p><a class="p_ident" id="p-xHBw7+XALS" href="#p-xHBw7+XALS" tabindex="-1" role="presentation"></a>A veces es útil saber si un objeto se derivó de una clase específica. Para esto, JavaScript proporciona un operador binario llamado <code>instanceof</code>.</p>
+<p><a class="p_ident" id="p-xHBw7+XALS" href="#p-xHBw7+XALS" tabindex="-1" role="presentation"></a>A veces es útil saber si un objeto hereda de una clase específica. Para esto, JavaScript proporciona un operador binario llamado <code>instanceof</code>.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-CLrKEM6k+W" href="#c-CLrKEM6k+W" tabindex="-1" role="presentation"></a>console.log(
   <span class="tok-keyword">new</span> ListaLongitud(<span class="tok-number">1</span>, <span class="tok-keyword">null</span>) <span class="tok-keyword">instanceof</span> ListaLongitud);
@@ -561,27 +561,27 @@ console.log([<span class="tok-number">1</span>] <span class="tok-keyword">instan
 
 <h2><a class="h_ident" id="h-NUFOUyK+lw" href="#h-NUFOUyK+lw" tabindex="-1" role="presentation"></a>Resumen</h2>
 
-<p><a class="p_ident" id="p-0qRY8zu5VE" href="#p-0qRY8zu5VE" tabindex="-1" role="presentation"></a>Los objetos hacen más que simplemente contener sus propias propiedades. Tienen prototipos, que son otros objetos. Actuarán como si tuvieran propiedades que no tienen siempre y cuando su prototipo tenga esa propiedad. Los objetos simples tienen <code>Object.prototype</code> como su prototipo.</p>
+<p><a class="p_ident" id="p-0WnxZM+B+h" href="#p-0WnxZM+B+h" tabindex="-1" role="presentation"></a>Los objetos son más que simples contenedores de sus propias propiedades. Tienen prototipos, que son otros objetos. Actuarán como si tuvieran propiedades que no tienen siempre y cuando su prototipo tenga esa propiedad. Los objetos simples tienen el prototipo <code>Object.prototype</code>.</p>
 
-<p><a class="p_ident" id="p-4mpQle7DxG" href="#p-4mpQle7DxG" tabindex="-1" role="presentation"></a>Los constructores, que son funciones cuyos nombres generalmente comienzan con una letra mayúscula, se pueden usar con el operador <code>new</code> para crear nuevos objetos. El prototipo del nuevo objeto será el objeto encontrado en la propiedad <code>prototype</code> del constructor. Puedes sacar buen provecho de esto poniendo las propiedades que comparten todos los valores de un tipo dado en su prototipo. Existe una notación de <code>class</code> que proporciona una forma clara de definir un constructor y su prototipo.</p>
+<p><a class="p_ident" id="p-4mpQle7DxG" href="#p-4mpQle7DxG" tabindex="-1" role="presentation"></a>Los constructores, que son funciones cuyos nombres generalmente comienzan con una letra mayúscula, se pueden usar con el operador <code>new</code> para crear nuevos objetos. El prototipo del nuevo objeto será el objeto encontrado en la propiedad <code>prototype</code> del constructor. Puedes aprovechar esto poniendo poniendo las propiedades que comparten todos los valores de un tipo dado en su prototipo. Existe una notación de <code>class</code> que proporciona una forma clara de definir un constructor y su prototipo.</p>
 
-<p><a class="p_ident" id="p-ufZoyPJWEE" href="#p-ufZoyPJWEE" tabindex="-1" role="presentation"></a>Puedes definir getters y setters para llamar secretamente a métodos cada vez que se accede a una propiedad de un objeto. Los métodos estáticos son métodos almacenados en el constructor de una clase, en lugar de en su prototipo.</p>
+<p><a class="p_ident" id="p-ufZoyPJWEE" href="#p-ufZoyPJWEE" tabindex="-1" role="presentation"></a>Puedes definir getters y setters para llamar implícitamente a métodos cada vez que se accede a una propiedad de un objeto. Los métodos estáticos son métodos almacenados en el constructor de una clase, en lugar de en su prototipo.</p>
 
 <p><a class="p_ident" id="p-V4iOZ7bWJx" href="#p-V4iOZ7bWJx" tabindex="-1" role="presentation"></a>El operador <code>instanceof</code> puede, dado un objeto y un constructor, decirte si ese objeto es una instancia de ese constructor.</p>
 
-<p><a class="p_ident" id="p-5cNIF5voif" href="#p-5cNIF5voif" tabindex="-1" role="presentation"></a>Una cosa útil que se puede hacer con objetos es especificar una interfaz para ellos y decirle a todo el mundo que se supone que deben comunicarse con tu objeto solo a través de esa interfaz. El resto de los detalles que componen tu objeto están ahora <em>encapsulados</em>, escondidos detrás de la interfaz. Puedes usar propiedades privadas para ocultar una parte de tu objeto del mundo exterior.</p>
+<p><a class="p_ident" id="p-iqieXpU7pW" href="#p-iqieXpU7pW" tabindex="-1" role="presentation"></a>Algo útil que se puede hacer con objetos es especificar una interfaz para ellos y decirle a todo el mundo que se supone que deben comunicarse con tu objeto solo a través de esa interfaz. El resto de los detalles que componen tu objeto están ahora <em>encapsulados</em>, escondidos detrás de la interfaz. Puedes usar propiedades privadas para ocultar una parte de tu objeto al mundo exterior.</p>
 
-<p><a class="p_ident" id="p-7n4enOfcU6" href="#p-7n4enOfcU6" tabindex="-1" role="presentation"></a>Más de un tipo puede implementar la misma interfaz. El código escrito para usar una interfaz automáticamente sabe cómo trabajar con cualquier número de objetos diferentes que proporcionen la interfaz. Esto se llama <em>polimorfismo</em>.</p>
+<p><a class="p_ident" id="p-8vs0kW8IjA" href="#p-8vs0kW8IjA" tabindex="-1" role="presentation"></a>Una interfaz puede ser implementada por más de un tipo. Un código escrito para utilizar una interfaz automáticamente sabe cómo tratar con cualquier objeto que implemente la misma interfaz. Esto se llama <em>polimorfismo</em>.</p>
 
 <p><a class="p_ident" id="p-kqIe6aGWXO" href="#p-kqIe6aGWXO" tabindex="-1" role="presentation"></a>Cuando se implementan múltiples clases que difieren solo en algunos detalles, puede ser útil escribir las nuevas clases como <em>subclases</em> de una clase existente, <em>heredando</em> parte de su comportamiento.</p>
 
 <h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
 
-<h3 id="exercise_vector"><a class="i_ident" id="i-k7TRkMJ5GZ" href="#i-k7TRkMJ5GZ" tabindex="-1" role="presentation"></a>Un tipo de vector</h3>
+<h3 id="exercise_vector"><a class="i_ident" id="i-RXP1a4qVB4" href="#i-RXP1a4qVB4" tabindex="-1" role="presentation"></a>Un tipo vector</h3>
 
 <p><a class="p_ident" id="p-F9C1LVy+Xt" href="#p-F9C1LVy+Xt" tabindex="-1" role="presentation"></a>Escribe una clase <code>Vec</code> que represente un vector en el espacio bidimensional. Toma los parámetros <code>x</code> e <code>y</code> (números), que debería guardar en propiedades del mismo nombre.</p>
 
-<p><a class="p_ident" id="p-O2b2V/Nzyc" href="#p-O2b2V/Nzyc" tabindex="-1" role="presentation"></a>Dale a la clase <code>Vec</code> dos métodos en su prototipo, <code>plus</code> y <code>minus</code>, que tomen otro vector como parámetro y devuelvan un nuevo vector que tenga la suma o la diferencia de los valores <em>x</em> e <em>y</em> de los dos vectores (<code>this</code> y el parámetro).</p>
+<p><a class="p_ident" id="p-4KF0oH4nly" href="#p-4KF0oH4nly" tabindex="-1" role="presentation"></a>Dale al prototipo de <code>Vec</code> dos métodos, <code>plus</code> y <code>minus</code>, que tomen otro vector como parámetro y devuelvan un nuevo vector que tenga la suma o la diferencia de los valores <em>x</em> e <em>y</em> de los dos vectores (<code>this</code> y el parámetro).</p>
 
 <p><a class="p_ident" id="p-NRjy/7e22k" href="#p-NRjy/7e22k" tabindex="-1" role="presentation"></a>Agrega una propiedad getter <code>length</code> al prototipo que calcule la longitud del vector, es decir, la distancia del punto (<em>x</em>, <em>y</em>) desde el origen (0, 0).</p>
 
@@ -596,17 +596,17 @@ console.log(<span class="tok-keyword">new</span> Vec(<span class="tok-number">3<
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-yPiKiyo2sU" href="#p-yPiKiyo2sU" tabindex="-1" role="presentation"></a>Mira de nuevo el ejemplo de la clase <code>Rabbit</code> si no estás seguro de cómo se ven las declaraciones de <code>class</code>.</p>
+<p><a class="p_ident" id="p-yPiKiyo2sU" href="#p-yPiKiyo2sU" tabindex="-1" role="presentation"></a>Mira de nuevo el ejemplo de la clase <code>Conejo</code> si no estás seguro de cómo se ven las declaraciones de <code>class</code>.</p>
 
-<p><a class="p_ident" id="p-t2AaqFHh1u" href="#p-t2AaqFHh1u" tabindex="-1" role="presentation"></a>Agregar una propiedad getter al constructor se puede hacer poniendo la palabra <code>get</code> antes del nombre del método. Para calcular la distancia desde (0, 0) hasta (x, y), puedes usar el teorema de Pitágoras, que dice que el cuadrado de la distancia que estamos buscando es igual al cuadrado de la coordenada x más el cuadrado de la coordenada y. Por lo tanto, √(x<sup>2</sup> + y<sup>2</sup>) es el número que buscas. <code>Math.sqrt</code> es la forma de calcular una raíz cuadrada en JavaScript y <code>x ** 2</code> se puede usar para elevar al cuadrado un número.</p>
+<p><a class="p_ident" id="p-t2AaqFHh1u" href="#p-t2AaqFHh1u" tabindex="-1" role="presentation"></a>Agregar una propiedad getter al constructor se puede hacer poniendo la palabra <code>get</code> antes del nombre del método. Para calcular la distancia desde (0, 0) hasta (<em>x</em>, <em>y</em>), puedes usar el teorema de Pitágoras, que dice que el cuadrado de la distancia que estamos buscando es igual al cuadrado de la coordenada <em>x</em> más el cuadrado de la coordenada <em>y</em>. Por lo tanto, √(<em>x</em><sup>2</sup> + <em>y</em><sup>2</sup>) es el número que buscas. <code>Math.sqrt</code> es la forma de calcular una raíz cuadrada en JavaScript y <code>x ** 2</code> se puede usar para elevar al cuadrado un número.</p>
 
 </div></details>
 
 <h3><a class="i_ident" id="i-g/PrvGqpxG" href="#i-g/PrvGqpxG" tabindex="-1" role="presentation"></a>Grupos</h3>
 
-<p id="groups"><a class="p_ident" id="p-0LFs4AAQ5b" href="#p-0LFs4AAQ5b" tabindex="-1" role="presentation"></a>El entorno estándar de JavaScript proporciona otra estructura de datos llamada <code>Set</code>. Al igual que una instancia de <code>Map</code>, un conjunto contiene una colección de valores. A diferencia de <code>Map</code>, no asocia otros valores con esos, solo realiza un seguimiento de qué valores forman parte del conjunto. Un valor puede formar parte de un conjunto solo una vez: agregarlo nuevamente no tiene ningún efecto.</p>
+<p id="groups"><a class="p_ident" id="p-0LFs4AAQ5b" href="#p-0LFs4AAQ5b" tabindex="-1" role="presentation"></a>El entorno estándar de JavaScript proporciona otra estructura de datos llamada <code>Set</code>. Al igual que una instancia de <code>Map</code>, un conjunto contiene una colección de valores. A diferencia de <code>Map</code>, no asocia otros valores con ellos, solo realiza un seguimiento de qué valores forman parte del conjunto. Un valor puede formar parte de un conjunto solo una vez: agregarlo nuevamente no tiene ningún efecto.</p>
 
-<p><a class="p_ident" id="p-o2kNQq27/9" href="#p-o2kNQq27/9" tabindex="-1" role="presentation"></a>Escribe una clase llamada <code>Group</code> (ya que <code>Set</code> está siendo utilizado). Al igual que <code>Set</code>, tiene los métodos <code>add</code>, <code>delete</code> y <code>has</code>. Su constructor crea un grupo vacío, <code>add</code> agrega un valor al grupo (pero solo si aún no es miembro), <code>delete</code> elimina su argumento del grupo (si era miembro), y <code>has</code> devuelve un valor booleano que indica si su argumento es miembro del grupo.</p>
+<p><a class="p_ident" id="p-o2kNQq27/9" href="#p-o2kNQq27/9" tabindex="-1" role="presentation"></a>Escribe una clase llamada <code>Group</code> (ya que <code>Set</code> está siendo utilizado). Como <code>Set</code>, tiene que tener los métodos <code>add</code>, <code>delete</code> y <code>has</code>. Su constructor crea un grupo vacío, <code>add</code> agrega un valor al grupo (pero solo si aún no es miembro), <code>delete</code> elimina su argumento del grupo (si era miembro), y <code>has</code> devuelve un valor booleano que indica si su argumento es miembro del grupo.</p>
 
 <p><a class="p_ident" id="p-YdE9RBfWsV" href="#p-YdE9RBfWsV" tabindex="-1" role="presentation"></a>Usa el operador <code>===</code>, o algo equivalente como <code>indexOf</code>, para determinar si dos valores son iguales.</p>
 
@@ -630,7 +630,7 @@ console.log(group.has(<span class="tok-number">10</span>));
 
 <p><a class="p_ident" id="p-7oedrRBDw1" href="#p-7oedrRBDw1" tabindex="-1" role="presentation"></a>La forma más sencilla de hacer esto es almacenar un array de miembros del grupo en una propiedad de instancia. Los métodos <code>includes</code> o <code>indexOf</code> se pueden usar para verificar si un valor dado está en el array.</p>
 
-<p><a class="p_ident" id="p-HEN3NaL8rR" href="#p-HEN3NaL8rR" tabindex="-1" role="presentation"></a>El constructor de tu clase puede establecer la colección de miembros en un array vacío. Cuando se llama a <code>add</code>, debe verificar si el valor dado está en el array o agregarlo, por ejemplo con <code>push</code>, de lo contrario.</p>
+<p><a class="p_ident" id="p-HEN3NaL8rR" href="#p-HEN3NaL8rR" tabindex="-1" role="presentation"></a>El constructor de tu clase puede establecer la colección de miembros en un array vacío. Cuando se llama a <code>add</code>, debe verificar si el valor dado está en el array y agregarlo, por ejemplo con <code>push</code>, de lo contrario.</p>
 
 <p><a class="p_ident" id="p-+nb0kbrnJv" href="#p-+nb0kbrnJv" tabindex="-1" role="presentation"></a>Eliminar un elemento de un array, en <code>delete</code>, es menos directo, pero puedes usar <code>filter</code> para crear un nuevo array sin el valor. No olvides sobrescribir la propiedad que contiene los miembros con la nueva versión filtrada del array.</p>
 
@@ -640,11 +640,11 @@ console.log(group.has(<span class="tok-number">10</span>));
 
 <h3><a class="i_ident" id="i-HCxu3+WnnE" href="#i-HCxu3+WnnE" tabindex="-1" role="presentation"></a>Grupos iterables</h3>
 
-<p id="group_iterator"><a class="p_ident" id="p-J+eIbxDczY" href="#p-J+eIbxDczY" tabindex="-1" role="presentation"></a>Haz que la clase <code>Group</code> del ejercicio anterior sea iterable. Refiérete a la sección sobre la interfaz del iterador anteriormente en el capítulo si no tienes claro la forma exacta de la interfaz.</p>
+<p id="group_iterator"><a class="p_ident" id="p-J+eIbxDczY" href="#p-J+eIbxDczY" tabindex="-1" role="presentation"></a>Haz que la clase <code>Group</code> del ejercicio anterior sea iterable. Mira la sección sobre la interfaz iterador anteriormente en el capítulo si no tienes claro la forma exacta de la interfaz.</p>
 
-<p><a class="p_ident" id="p-4GK8DWwORP" href="#p-4GK8DWwORP" tabindex="-1" role="presentation"></a>Si utilizaste un array para representar los miembros del grupo, no devuelvas simplemente el iterador creado al llamar al método <code>Symbol.iterator</code> en el array. Eso funcionaría, pero va en contra del propósito de este ejercicio.</p>
+<p><a class="p_ident" id="p-UVQ3SuwlK7" href="#p-UVQ3SuwlK7" tabindex="-1" role="presentation"></a>Si usaste un array para representar los miembros del grupo, no devuelvas simplemente el iterador creado al llamar al método <code>Symbol.iterator</code> en el array. Eso funcionaría, pero va en contra del propósito de este ejercicio.</p>
 
-<p><a class="p_ident" id="p-8RHrsgBfOU" href="#p-8RHrsgBfOU" tabindex="-1" role="presentation"></a>Está bien si tu iterador se comporta de manera extraña cuando el grupo se modifica durante la iteración.</p>
+<p><a class="p_ident" id="p-VT1bqMWagS" href="#p-VT1bqMWagS" tabindex="-1" role="presentation"></a>No pasa nada si tu iterador se comporta de manera extraña cuando el grupo se modifica durante la iteración.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NyqSAtbB/S" href="#c-NyqSAtbB/S" tabindex="-1" role="presentation"></a><span class="tok-comment">// Tu código aquí (y el código del ejercicio anterior)</span>
 
@@ -659,7 +659,7 @@ console.log(group.has(<span class="tok-number">10</span>));
 
 <p><a class="p_ident" id="p-jIMj/I0gM7" href="#p-jIMj/I0gM7" tabindex="-1" role="presentation"></a>Probablemente valga la pena definir una nueva clase <code>GroupIterator</code>. Las instancias del iterador deberían tener una propiedad que rastree la posición actual en el grupo. Cada vez que se llama a <code>next</code>, verifica si ha terminado y, si no, avanza más allá del valor actual y lo devuelve.</p>
 
-<p><a class="p_ident" id="p-EVpsWuCbsg" href="#p-EVpsWuCbsg" tabindex="-1" role="presentation"></a>La clase <code>Group</code> en sí misma obtiene un método nombrado <code>Symbol.iterator</code> que, al ser llamado, devuelve una nueva instancia de la clase iteradora para ese grupo.</p>
+<p><a class="p_ident" id="p-EVpsWuCbsg" href="#p-EVpsWuCbsg" tabindex="-1" role="presentation"></a>La clase <code>Group</code> en sí misma obtiene un método llamado <code>Symbol.iterator</code> que, al ser llamado, devuelve una nueva instancia de la clase iteradora para ese grupo.</p>
 
 </div></details><nav><a href="05_higher_order.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="07_robot.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
 </nav>

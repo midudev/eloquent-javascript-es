@@ -20,7 +20,7 @@ const TRANSLATIONS_MAP = {
   '05_1_aplanamiento.js': '05_1_flattening.js',
   '05_2_tu_propio_bucle.js': '05_2_your_own_loop.js',
   '05_4_direccin_de_escritura_dominante.js': '05_4_dominant_writing_direction.js',
-  '06_1_un_tipo_de_vector.js': '06_1_a_vector_type.js',
+  '06_1_un_tipo_vector.js': '06_1_a_vector_type.js',
   '06_2_grupos.js': '06_2_groups.js',
   '06_3_grupos_iterables.js': '06_3_iterable_groups.js',
   '07_1_medicin_de_un_robot.js': '07_1_measuring_a_robot.js',

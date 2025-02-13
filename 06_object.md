@@ -738,7 +738,7 @@ Mientras que ((encapsulación)) y polimorfismo se pueden utilizar para _separar_
 
 {{index tipo, "operador instanceof", constructor, objeto}}
 
-A veces es útil saber si un objeto se derivó de una clase específica. Para esto, JavaScript proporciona un operador binario llamado `instanceof`.
+A veces es útil saber si un objeto hereda de una clase específica. Para esto, JavaScript proporciona un operador binario llamado `instanceof`.
 
 ```
 console.log(
@@ -758,17 +758,17 @@ El operador podrá ver a través de tipos heredados, por lo que un `ListaLongitu
 
 ## Resumen
 
-Los objetos hacen más que simplemente contener sus propias propiedades. Tienen prototipos, que son otros objetos. Actuarán como si tuvieran propiedades que no tienen siempre y cuando su prototipo tenga esa propiedad. Los objetos simples tienen `Object.prototype` como su prototipo.
+Los objetos son más que simples contenedores de sus propias propiedades. Tienen prototipos, que son otros objetos. Actuarán como si tuvieran propiedades que no tienen siempre y cuando su prototipo tenga esa propiedad. Los objetos simples tienen el prototipo `Object.prototype`.
 
-Los constructores, que son funciones cuyos nombres generalmente comienzan con una letra mayúscula, se pueden usar con el operador `new` para crear nuevos objetos. El prototipo del nuevo objeto será el objeto encontrado en la propiedad `prototype` del constructor. Puedes sacar buen provecho de esto poniendo las propiedades que comparten todos los valores de un tipo dado en su prototipo. Existe una notación de `class` que proporciona una forma clara de definir un constructor y su prototipo.
+Los constructores, que son funciones cuyos nombres generalmente comienzan con una letra mayúscula, se pueden usar con el operador `new` para crear nuevos objetos. El prototipo del nuevo objeto será el objeto encontrado en la propiedad `prototype` del constructor. Puedes aprovechar esto poniendo poniendo las propiedades que comparten todos los valores de un tipo dado en su prototipo. Existe una notación de `class` que proporciona una forma clara de definir un constructor y su prototipo.
 
-Puedes definir getters y setters para llamar secretamente a métodos cada vez que se accede a una propiedad de un objeto. Los métodos estáticos son métodos almacenados en el constructor de una clase, en lugar de en su prototipo.
+Puedes definir getters y setters para llamar implícitamente a métodos cada vez que se accede a una propiedad de un objeto. Los métodos estáticos son métodos almacenados en el constructor de una clase, en lugar de en su prototipo.
 
 El operador `instanceof` puede, dado un objeto y un constructor, decirte si ese objeto es una instancia de ese constructor.
 
-Una cosa útil que se puede hacer con objetos es especificar una interfaz para ellos y decirle a todo el mundo que se supone que deben comunicarse con tu objeto solo a través de esa interfaz. El resto de los detalles que componen tu objeto están ahora _encapsulados_, escondidos detrás de la interfaz. Puedes usar propiedades privadas para ocultar una parte de tu objeto del mundo exterior.
+Algo útil que se puede hacer con objetos es especificar una interfaz para ellos y decirle a todo el mundo que se supone que deben comunicarse con tu objeto solo a través de esa interfaz. El resto de los detalles que componen tu objeto están ahora _encapsulados_, escondidos detrás de la interfaz. Puedes usar propiedades privadas para ocultar una parte de tu objeto al mundo exterior.
 
-Más de un tipo puede implementar la misma interfaz. El código escrito para usar una interfaz automáticamente sabe cómo trabajar con cualquier número de objetos diferentes que proporcionen la interfaz. Esto se llama _polimorfismo_.
+Una interfaz puede ser implementada por más de un tipo. Un código escrito para utilizar una interfaz automáticamente sabe cómo tratar con cualquier objeto que implemente la misma interfaz. Esto se llama _polimorfismo_.
 
 Cuando se implementan múltiples clases que difieren solo en algunos detalles, puede ser útil escribir las nuevas clases como _subclases_ de una clase existente, _heredando_ parte de su comportamiento.
 
@@ -776,7 +776,7 @@ Cuando se implementan múltiples clases que difieren solo en algunos detalles, p
 
 {{id exercise_vector}}
 
-### Un tipo de vector
+### Un tipo vector
 
 {{index dimensions, "Clase Vec", coordenadas, "vector (ejercicio)"}}
 
@@ -784,7 +784,7 @@ Escribe una clase `Vec` que represente un vector en el espacio bidimensional. To
 
 {{index "adición", "sustracción"}}
 
-Dale a la clase `Vec` dos métodos en su prototipo, `plus` y `minus`, que tomen otro vector como parámetro y devuelvan un nuevo vector que tenga la suma o la diferencia de los valores _x_ e _y_ de los dos vectores (`this` y el parámetro).
+Dale al prototipo de `Vec` dos métodos, `plus` y `minus`, que tomen otro vector como parámetro y devuelvan un nuevo vector que tenga la suma o la diferencia de los valores _x_ e _y_ de los dos vectores (`this` y el parámetro).
 
 Agrega una propiedad ((getter)) `length` al prototipo que calcule la longitud del vector, es decir, la distancia del punto (_x_, _y_) desde el origen (0, 0).
 
@@ -806,11 +806,11 @@ if}}
 
 {{index "vector (exercise)"}}
 
-Mira de nuevo el ejemplo de la clase `Rabbit` si no estás seguro de cómo se ven las declaraciones de `class`.
+Mira de nuevo el ejemplo de la clase `Conejo` si no estás seguro de cómo se ven las declaraciones de `class`.
 
 {{index "Pitágoras", "defineProperty function", "raíz cuadrada", "Math.sqrt function"}}
 
-Agregar una propiedad getter al constructor se puede hacer poniendo la palabra `get` antes del nombre del método. Para calcular la distancia desde (0, 0) hasta (x, y), puedes usar el teorema de Pitágoras, que dice que el cuadrado de la distancia que estamos buscando es igual al cuadrado de la coordenada x más el cuadrado de la coordenada y. Por lo tanto, [√(x^2^ + y^2^)]{if html}[[$\sqrt{x^2 + y^2}$]{latex}]{if tex} es el número que buscas. `Math.sqrt` es la forma de calcular una raíz cuadrada en JavaScript y `x ** 2` se puede usar para elevar al cuadrado un número.
+Agregar una propiedad getter al constructor se puede hacer poniendo la palabra `get` antes del nombre del método. Para calcular la distancia desde (0, 0) hasta (_x_, _y_), puedes usar el teorema de Pitágoras, que dice que el cuadrado de la distancia que estamos buscando es igual al cuadrado de la coordenada _x_ más el cuadrado de la coordenada _y_. Por lo tanto, [√(_x_^2^ + _y_^2^)]{if html}[[$\sqrt{x^2 + y^2}$]{latex}]{if tex} es el número que buscas. `Math.sqrt` es la forma de calcular una raíz cuadrada en JavaScript y `x ** 2` se puede usar para elevar al cuadrado un número.
 
 hint}}
 
@@ -820,11 +820,11 @@ hint}}
 
 {{id groups}}
 
-El entorno estándar de JavaScript proporciona otra estructura de datos llamada `Set`. Al igual que una instancia de `Map`, un conjunto contiene una colección de valores. A diferencia de `Map`, no asocia otros valores con esos, solo realiza un seguimiento de qué valores forman parte del conjunto. Un valor puede formar parte de un conjunto solo una vez: agregarlo nuevamente no tiene ningún efecto.
+El entorno estándar de JavaScript proporciona otra estructura de datos llamada `Set`. Al igual que una instancia de `Map`, un conjunto contiene una colección de valores. A diferencia de `Map`, no asocia otros valores con ellos, solo realiza un seguimiento de qué valores forman parte del conjunto. Un valor puede formar parte de un conjunto solo una vez: agregarlo nuevamente no tiene ningún efecto.
 
 {{index "método add", "método delete", "método has"}}
 
-Escribe una clase llamada `Group` (ya que `Set` está siendo utilizado). Al igual que `Set`, tiene los métodos `add`, `delete` y `has`. Su constructor crea un grupo vacío, `add` agrega un valor al grupo (pero solo si aún no es miembro), `delete` elimina su argumento del grupo (si era miembro), y `has` devuelve un valor booleano que indica si su argumento es miembro del grupo.
+Escribe una clase llamada `Group` (ya que `Set` está siendo utilizado). Como `Set`, tiene que tener los métodos `add`, `delete` y `has`. Su constructor crea un grupo vacío, `add` agrega un valor al grupo (pero solo si aún no es miembro), `delete` elimina su argumento del grupo (si era miembro), y `has` devuelve un valor booleano que indica si su argumento es miembro del grupo.
 
 {{index "operador ===", "método indexOf"}}
 
@@ -862,7 +862,7 @@ La forma más sencilla de hacer esto es almacenar un array de miembros del grupo
 
 {{index "método push"}}
 
-El constructor de tu clase puede establecer la colección de miembros en un array vacío. Cuando se llama a `add`, debe verificar si el valor dado está en el array o agregarlo, por ejemplo con `push`, de lo contrario.
+El constructor de tu clase puede establecer la colección de miembros en un array vacío. Cuando se llama a `add`, debe verificar si el valor dado está en el array y agregarlo, por ejemplo con `push`, de lo contrario.
 
 {{index "método filter"}}
 
@@ -880,11 +880,11 @@ hint}}
 
 {{id group_iterator}}
 
-Haz que la clase `Group` del ejercicio anterior sea iterable. Refiérete a la sección sobre la interfaz del iterador anteriormente en el capítulo si no tienes claro la forma exacta de la interfaz.
+Haz que la clase `Group` del ejercicio anterior sea iterable. Mira la sección sobre la interfaz iterador anteriormente en el capítulo si no tienes claro la forma exacta de la interfaz.
 
-Si utilizaste un array para representar los miembros del grupo, no devuelvas simplemente el iterador creado al llamar al método `Symbol.iterator` en el array. Eso funcionaría, pero va en contra del propósito de este ejercicio.
+Si usaste un array para representar los miembros del grupo, no devuelvas simplemente el iterador creado al llamar al método `Symbol.iterator` en el array. Eso funcionaría, pero va en contra del propósito de este ejercicio.
 
-Está bien si tu iterador se comporta de manera extraña cuando el grupo se modifica durante la iteración.
+No pasa nada si tu iterador se comporta de manera extraña cuando el grupo se modifica durante la iteración.
 
 {{if interactive
 
@@ -907,6 +907,6 @@ if}}
 
 Probablemente valga la pena definir una nueva clase `GroupIterator`. Las instancias del iterador deberían tener una propiedad que rastree la posición actual en el grupo. Cada vez que se llama a `next`, verifica si ha terminado y, si no, avanza más allá del valor actual y lo devuelve.
 
-La clase `Group` en sí misma obtiene un método nombrado `Symbol.iterator` que, al ser llamado, devuelve una nueva instancia de la clase iteradora para ese grupo.
+La clase `Group` en sí misma obtiene un método llamado `Symbol.iterator` que, al ser llamado, devuelve una nueva instancia de la clase iteradora para ese grupo.
 
 hint}}
