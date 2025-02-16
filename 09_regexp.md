@@ -758,7 +758,7 @@ Nuestra tarea es convertir una cadena como esta en un objeto cuyas propiedades c
 Dado que el formato debe procesarse ((línea)) por línea, dividir el archivo en líneas separadas es un buen comienzo. Vimos el método `split` en el [Capítulo ?](data#split). Sin embargo, algunos sistemas operativos utilizan no solo un carácter de nueva línea para separar líneas sino un carácter de retorno de carro seguido de una nueva línea (`"\r\n"`). Dado que el método `split` también permite una expresión regular como argumento, podemos usar una expresión regular como `/\r?\n/` para dividir de una manera que permita tanto `"\n"` como `"\r\n"` entre líneas.
 
 ```{startCode: true}
-function procesaINI(cadena) {
+function procesarINI(cadena) {
   // Comenzar con un objeto para contener los campos de nivel superior
   let resultado = {};
   let sección = resultado;
@@ -775,7 +775,7 @@ function procesaINI(cadena) {
   return resultado;
 }
 
-console.log(procesaINI(`
+console.log(procesarINI(`
 nombre=Vasilis
 [dirección]
 ciudad=Tessaloniki`));

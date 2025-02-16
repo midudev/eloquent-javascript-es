@@ -573,7 +573,7 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
 
 <p><a class="p_ident" id="p-7z9fdAqy4R" href="#p-7z9fdAqy4R" tabindex="-1" role="presentation"></a>Dado que el formato debe procesarse línea por línea, dividir el archivo en líneas separadas es un buen comienzo. Vimos el método <code>split</code> en el <a href="04_data.html#split">Capítulo 4</a>. Sin embargo, algunos sistemas operativos utilizan no solo un carácter de nueva línea para separar líneas sino un carácter de retorno de carro seguido de una nueva línea (<code>&quot;\r\n&quot;</code>). Dado que el método <code>split</code> también permite una expresión regular como argumento, podemos usar una expresión regular como <code>/\r?\n/</code> para dividir de una manera que permita tanto <code>&quot;\n&quot;</code> como <code>&quot;\r\n&quot;</code> entre líneas.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-4iUCcd0DZ4" href="#c-4iUCcd0DZ4" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">procesaINI</span>(<span class="tok-definition">cadena</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ojVLY1ywVD" href="#c-ojVLY1ywVD" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">procesarINI</span>(<span class="tok-definition">cadena</span>) {
   <span class="tok-comment">// Comenzar con un objeto para contener los campos de nivel superior</span>
   <span class="tok-keyword">let</span> <span class="tok-definition">resultado</span> = {};
   <span class="tok-keyword">let</span> <span class="tok-definition">sección</span> = resultado;
@@ -590,7 +590,7 @@ outputdir=/home/marijn/enemies/davaeorn</pre>
   <span class="tok-keyword">return</span> resultado;
 }
 
-console.log(procesaINI(<span class="tok-string2">`</span>
+console.log(procesarINI(<span class="tok-string2">`</span>
 <span class="tok-string2">nombre=Vasilis</span>
 <span class="tok-string2">[dirección]</span>
 <span class="tok-string2">ciudad=Tessaloniki`</span>));

@@ -67,19 +67,19 @@ module.exports = {
   pm: 'PM'
 };`)
 
-require.preload("./dayname.js", String.raw`
-const names = ["Sunday", "Monday", "Tuesday", "Wednesday",
-               "Thursday", "Friday", "Saturday"];
+require.preload("./nombredia.js", String.raw`
+const nombres = ["Domingo", "Lunes", "Martes", "Miércoles",
+               "Jueves", "Viernes", "Sábado"];
 
-exports.dayName = function(number) {
-  return names[number];
+exports.nombreDía = function(número) {
+  return nombres[número];
 }
-exports.dayNumber = function(name) {
-  return names.indexOf(name);
+exports.númeroDía = function(nombre) {
+  return nombres.indexOf(nombre);
 }`)
 
-require.preload("./seasonname.js", String.raw`
-module.exports = ["Winter", "Spring", "Summer", "Autumn"];`)
+require.preload("./nombresestaciones.js", String.raw`
+module.exports = ["Invierno", "Primavera", "Verano", "Otoño"];`)
 
 /* ini 1.3.5: https://github.com/npm/ini
 
