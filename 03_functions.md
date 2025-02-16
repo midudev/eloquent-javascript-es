@@ -207,7 +207,7 @@ El código anterior funciona, incluso aunque la función esté definida _debajo_
 
 {{index "función", "función flecha"}}
 
-Hay una tercera notación para funciones que tiene un aspecto muy diferente a las otras. En lugar de la palabra clave `function`, utiliza una flecha (`=>`) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe `>=`):
+Hay una tercera notación para funciones que tiene un aspecto muy diferente a las otras. En lugar de la palabra clave `function`, utiliza una flecha (`=>`) compuesta por un signo igual y un carácter mayor que (no confundir con el operador mayor o igual, que se escribe `>=`):
 
 ```{test: wrap}
 const redondearA = (n, paso) => {
@@ -739,7 +739,7 @@ hint}}
 
 {{index "bean counting (exercise)", [string, indexing], "zero-based counting", ["length property", "for string"]}}
 
-Puedes obtener el N-ésimo caracter, o letra, de una cadena escribiendo `[N]` después de la cadena (por ejemplo, `cadena[2]`). El valor resultante será una cadena que contiene solo un carácter (por ejemplo, `"b"`). El primer carácter tiene la posición 0, lo que hace que el último se encuentre en la posición `cadena.length - 1`. En otras palabras, una cadena de dos caracteres tiene longitud 2, y sus caracteres tienen posiciones 0 y 1.
+Puedes obtener el N-ésimo carácter, o letra, de una cadena escribiendo `[N]` después de la cadena (por ejemplo, `cadena[2]`). El valor resultante será una cadena que contiene solo un carácter (por ejemplo, `"b"`). El primer carácter tiene la posición 0, lo que hace que el último se encuentre en la posición `cadena.length - 1`. En otras palabras, una cadena de dos caracteres tiene longitud 2, y sus caracteres tienen posiciones 0 y 1.
 
 Escribe una función `countBs` (contarBs) que tome una cadena como único argumento y devuelva un número que indique cuántos caracteres B en mayúscula hay en la cadena.
 
@@ -762,7 +762,7 @@ if}}
 
 {{index "bean counting (exercise)", ["length property", "for string"], "counter variable"}}
 
-Tu función necesita un ((bucle)) que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (`< cadena.length`). Si el caracter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.
+Tu función necesita un ((bucle)) que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (`< cadena.length`). Si el carácter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.
 
 {{index "local binding"}}
 

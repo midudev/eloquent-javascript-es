@@ -134,7 +134,7 @@ La palabra `const` significa _((constante))_. Define una asociación constante, 
 
 {{index "carácter de subrayado", "signo de dólar", [enlace, nomenclatura]}}
 
-Los nombres de asociaciones o enlaces pueden ser cualquier secuencia de una o más letras. Podemos incluir dígitos como parte del nombre de un enlace —`catch22` es un nombre válido, por ejemplo—, siempre y cuando el nombre no empiece por uno de ellos. Un nombre de enlace puede incluir signos de dólar (`$`) o subrayados (`_`), pero ningún otro caracter especial o signo de puntuación.
+Los nombres de asociaciones o enlaces pueden ser cualquier secuencia de una o más letras. Podemos incluir dígitos como parte del nombre de un enlace —`catch22` es un nombre válido, por ejemplo—, siempre y cuando el nombre no empiece por uno de ellos. Un nombre de enlace puede incluir signos de dólar (`$`) o subrayados (`_`), pero ningún otro carácter especial o signo de puntuación.
 
 {{index [sintaxis, identificador], "implements (palabra reservada)", "interface (palabra reservada)", "package (palabra reservada)", "private (palabra reservada)", "protected (palabra reservada)", "public (palabra reservada)", "static (palabra reservada)", "operador void", "yield (palabra reservada)", "enum (palabra reservada)", "palabra reservada", [enlace, nomenclatura]}}
 

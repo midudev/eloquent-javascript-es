@@ -419,7 +419,7 @@ El método `some` es otra función de orden superior. Toma una función de compr
 
 Pero, ¿cómo obtenemos los códigos de caracteres en una cadena?
 
-En el [Capítulo ?](values) mencioné que las cadenas de JavaScript están codificadas como una secuencia de números de 16 bits. Estos se llaman _((unidades de código))_. Al principio, se suponía que un código de caracter Unicode cabía dentro de tal unidad (lo que te da algo más de 65000 caracteres). Cuando quedó claro que eso no iba a ser suficiente, mucha gente se mostró reacia a la necesidad de usar más memoria por caracter. Para abordar estas preocupaciones, se inventó ((UTF-16)), el formato que usan las cadenas de JavaScript. Describe la mayoría de los caracteres comunes usando una única unidad de código de 16 bits, pero usa un par de dos unidades de dicho tipo para otros.
+En el [Capítulo ?](values) mencioné que las cadenas de JavaScript están codificadas como una secuencia de números de 16 bits. Estos se llaman _((unidades de código))_. Al principio, se suponía que un código de carácter Unicode cabía dentro de tal unidad (lo que te da algo más de 65000 caracteres). Cuando quedó claro que eso no iba a ser suficiente, mucha gente se mostró reacia a la necesidad de usar más memoria por carácter. Para abordar estas preocupaciones, se inventó ((UTF-16)), el formato que usan las cadenas de JavaScript. Describe la mayoría de los caracteres comunes usando una única unidad de código de 16 bits, pero usa un par de dos unidades de dicho tipo para otros.
 
 {{index error}}
 
@@ -435,7 +435,7 @@ let caballoZapato = "🐴👟";
 console.log(caballoZapato.length);
 // → 4
 console.log(caballoZapato[0]);
-// → (Mitad de caracter inválida)
+// → (Mitad de carácter inválida)
 console.log(caballoZapato.charCodeAt(0));
 // → 55357 (Código de la mitad de caracter)
 console.log(caballoZapato.codePointAt(0));
@@ -452,14 +452,14 @@ En el [capítulo anterior](datos#bucle_for_of), mencioné que un bucle `for`/`of
 
 ```
 let rosaDragón = "🌹🐉";
-for (let caracter of rosaDragón) {
+for (let carácter of rosaDragón) {
   console.log(caracter);
 }
 // → 🌹
 // → 🐉
 ```
 
-Si tienes un caracter (que será una cadena de una o dos unidades de código), puedes usar `codePointAt(0)` para obtener su código.
+Si tienes un carácter (que será una cadena de una o dos unidades de código), puedes usar `codePointAt(0)` para obtener su código.
 
 ## Reconociendo texto
 
@@ -498,8 +498,8 @@ Usando `contarPor`, podemos escribir la función que nos dice qué sistemas de e
 
 ```{includeCode: strip_log, startCode: true}
 function sistemasTexto(texto) {
-  let sistemas = contarPor(texto, caracter => {
-    let sistema = sistemaCaracteres(caracter.codePointAt(0));
+  let sistemas = contarPor(texto, carácter => {
+    let sistema = sistemaCaracteres(carácter.codePointAt(0));
     return sistema ? sistema.name : "ninguno";
   }).filter(({nombre}) => nombre != "ninguno");
 

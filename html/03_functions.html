@@ -154,7 +154,7 @@ console.log(n);
 
 <h2><a class="h_ident" id="h-lYx5RZeXoX" href="#h-lYx5RZeXoX" tabindex="-1" role="presentation"></a>Funciones flecha</h2>
 
-<p><a class="p_ident" id="p-qp+SShPV+r" href="#p-qp+SShPV+r" tabindex="-1" role="presentation"></a>Hay una tercera notación para funciones que tiene un aspecto muy diferente a las otras. En lugar de la palabra clave <code>function</code>, utiliza una flecha (<code>=&gt;</code>) compuesta por un signo igual y un caracter mayor que (no confundir con el operador mayor o igual, que se escribe <code>&gt;=</code>):</p>
+<p><a class="p_ident" id="p-qp+SShPV+r" href="#p-qp+SShPV+r" tabindex="-1" role="presentation"></a>Hay una tercera notación para funciones que tiene un aspecto muy diferente a las otras. En lugar de la palabra clave <code>function</code>, utiliza una flecha (<code>=&gt;</code>) compuesta por un signo igual y un carácter mayor que (no confundir con el operador mayor o igual, que se escribe <code>&gt;=</code>):</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-k1xMAvcKB3" href="#c-k1xMAvcKB3" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">redondearA</span> = (<span class="tok-definition">n</span>, <span class="tok-definition">paso</span>) =&gt; {
   <span class="tok-keyword">let</span> <span class="tok-definition">resto</span> = n % paso;
@@ -541,7 +541,7 @@ console.log(isEven(-<span class="tok-number">1</span>));
 
 <h3><a class="i_ident" id="i-VbRGT/6ZvL" href="#i-VbRGT/6ZvL" tabindex="-1" role="presentation"></a>Contando minuciosamente</h3>
 
-<p><a class="p_ident" id="p-oTwY6Ez8Oj" href="#p-oTwY6Ez8Oj" tabindex="-1" role="presentation"></a>Puedes obtener el N-ésimo caracter, o letra, de una cadena escribiendo <code>[N]</code> después de la cadena (por ejemplo, <code>cadena[2]</code>). El valor resultante será una cadena que contiene solo un carácter (por ejemplo, <code>&quot;b&quot;</code>). El primer carácter tiene la posición 0, lo que hace que el último se encuentre en la posición <code>cadena.<wbr>length - 1</code>. En otras palabras, una cadena de dos caracteres tiene longitud 2, y sus caracteres tienen posiciones 0 y 1.</p>
+<p><a class="p_ident" id="p-oTwY6Ez8Oj" href="#p-oTwY6Ez8Oj" tabindex="-1" role="presentation"></a>Puedes obtener el N-ésimo carácter, o letra, de una cadena escribiendo <code>[N]</code> después de la cadena (por ejemplo, <code>cadena[2]</code>). El valor resultante será una cadena que contiene solo un carácter (por ejemplo, <code>&quot;b&quot;</code>). El primer carácter tiene la posición 0, lo que hace que el último se encuentre en la posición <code>cadena.<wbr>length - 1</code>. En otras palabras, una cadena de dos caracteres tiene longitud 2, y sus caracteres tienen posiciones 0 y 1.</p>
 
 <p><a class="p_ident" id="p-w7W3kFYAvT" href="#p-w7W3kFYAvT" tabindex="-1" role="presentation"></a>Escribe una función <code>countBs</code> (contarBs) que tome una cadena como único argumento y devuelva un número que indique cuántos caracteres B en mayúscula hay en la cadena.</p>
 
@@ -556,7 +556,7 @@ console.log(countChar(<span class="tok-string">&quot;kakkerlak&quot;</span>, <sp
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-N+elrvhLar" href="#p-N+elrvhLar" tabindex="-1" role="presentation"></a>Tu función necesita un bucle que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (<code>&lt; cadena.<wbr>length</code>). Si el caracter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.</p>
+<p><a class="p_ident" id="p-N+elrvhLar" href="#p-N+elrvhLar" tabindex="-1" role="presentation"></a>Tu función necesita un bucle que mire cada carácter en la cadena. Puede recorrer un índice desde cero hasta uno menos que su longitud (<code>&lt; cadena.<wbr>length</code>). Si el carácter en la posición actual es el mismo que el que la función está buscando, agrega 1 a una variable contadora. Una vez que el bucle ha terminado, el contador puede ser devuelto.</p>
 
 <p><a class="p_ident" id="p-DijC5CkxO1" href="#p-DijC5CkxO1" tabindex="-1" role="presentation"></a>Ten cuidado de que todas las asociaciones utilizadas en la función sean <em>locales</em> a la función, declarándolas correctamente con la palabra clave <code>let</code> o <code>const</code>.</p>
 

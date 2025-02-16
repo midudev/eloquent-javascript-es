@@ -669,7 +669,7 @@ console.log("  de acuerdo \n ".trim());
 
 {{id padStart}}
 
-La función `rellenarConCeros` del [capítulo anterior](functions) también existe como un método. Se llama `padStart` y recibe la longitud deseada y el caracter de relleno como argumentos:
+La función `rellenarConCeros` del [capítulo anterior](functions) también existe como un método. Se llama `padStart` y recibe la longitud deseada y el carácter de relleno como argumentos:
 
 ```
 console.log(String(6).padStart(3, "0"));

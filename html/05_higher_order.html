@@ -340,18 +340,18 @@ console.log(sistemaCaracteres(<span class="tok-number">121</span>));
 
 <p id="code_units"><a class="p_ident" id="p-xwqTjYNDg/" href="#p-xwqTjYNDg/" tabindex="-1" role="presentation"></a>Pero, ¿cómo obtenemos los códigos de caracteres en una cadena?</p>
 
-<p><a class="p_ident" id="p-QaWyxrrWcl" href="#p-QaWyxrrWcl" tabindex="-1" role="presentation"></a>En el <a href="01_values.html">Capítulo 1</a> mencioné que las cadenas de JavaScript están codificadas como una secuencia de números de 16 bits. Estos se llaman <em>unidades de código</em>. Al principio, se suponía que un código de caracter Unicode cabía dentro de tal unidad (lo que te da algo más de 65000 caracteres). Cuando quedó claro que eso no iba a ser suficiente, mucha gente se mostró reacia a la necesidad de usar más memoria por caracter. Para abordar estas preocupaciones, se inventó UTF-16, el formato que usan las cadenas de JavaScript. Describe la mayoría de los caracteres comunes usando una única unidad de código de 16 bits, pero usa un par de dos unidades de dicho tipo para otros.</p>
+<p><a class="p_ident" id="p-QaWyxrrWcl" href="#p-QaWyxrrWcl" tabindex="-1" role="presentation"></a>En el <a href="01_values.html">Capítulo 1</a> mencioné que las cadenas de JavaScript están codificadas como una secuencia de números de 16 bits. Estos se llaman <em>unidades de código</em>. Al principio, se suponía que un código de carácter Unicode cabía dentro de tal unidad (lo que te da algo más de 65000 caracteres). Cuando quedó claro que eso no iba a ser suficiente, mucha gente se mostró reacia a la necesidad de usar más memoria por carácter. Para abordar estas preocupaciones, se inventó UTF-16, el formato que usan las cadenas de JavaScript. Describe la mayoría de los caracteres comunes usando una única unidad de código de 16 bits, pero usa un par de dos unidades de dicho tipo para otros.</p>
 
 <p><a class="p_ident" id="p-giEN4jUd0U" href="#p-giEN4jUd0U" tabindex="-1" role="presentation"></a>UTF-16 generalmente se considera una mala idea hoy en día. Parece casi diseñado intencionalmente para provocar errores. Es fácil escribir programas que asuman que las unidades de código y los caracteres son lo mismo. Y si tu lenguaje no utiliza caracteres de dos unidades, eso parecerá funcionar perfectamente. Pero tan pronto como alguien intente usar dicho programa con algunos caracteres menos comunes como los chinos, fallará. Por suerte, con la llegada de los emoji, todo el mundo ha comenzado a usar caracteres de dos unidades, y tratar con tales problemas se está haciendo más llevadero.</p>
 
 <p><a class="p_ident" id="p-cIimdGgzlf" href="#p-cIimdGgzlf" tabindex="-1" role="presentation"></a>Lamentablemente, las operaciones obvias en las cadenas de JavaScript, como obtener su longitud a través de la propiedad <code>length</code> y acceder a su contenido usando corchetes cuadrados, tratan solo con unidades de código.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-0S7zvXJ8dS" href="#c-0S7zvXJ8dS" tabindex="-1" role="presentation"></a><span class="tok-comment">// Dos caracteres emoji, caballo y zapato</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-y07dTF1oUr" href="#c-y07dTF1oUr" tabindex="-1" role="presentation"></a><span class="tok-comment">// Dos caracteres emoji, caballo y zapato</span>
 <span class="tok-keyword">let</span> <span class="tok-definition">caballoZapato</span> = <span class="tok-string">&quot;🐴👟&quot;</span>;
 console.log(caballoZapato.length);
 <span class="tok-comment">// → 4</span>
 console.log(caballoZapato[<span class="tok-number">0</span>]);
-<span class="tok-comment">// → (Mitad de caracter inválida)</span>
+<span class="tok-comment">// → (Mitad de carácter inválida)</span>
 console.log(caballoZapato.charCodeAt(<span class="tok-number">0</span>));
 <span class="tok-comment">// → 55357 (Código de la mitad de caracter)</span>
 console.log(caballoZapato.codePointAt(<span class="tok-number">0</span>));
@@ -361,14 +361,14 @@ console.log(caballoZapato.codePointAt(<span class="tok-number">0</span>));
 
 <p><a class="p_ident" id="p-+k9Io/S3re" href="#p-+k9Io/S3re" tabindex="-1" role="presentation"></a>En el <a href="datos#bucle_for_of">capítulo anterior</a>, mencioné que un bucle <code>for</code>/<code>of</code> también se puede usar en cadenas. Al igual que <code>codePointAt</code>, este tipo de bucle se introdujo en un momento en que la gente era muy consciente de los problemas con UTF-16. Cuando lo usas para recorrer una cadena, te proporciona caracteres reales, no unidades de código:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-TixHLJZiE/" href="#c-TixHLJZiE/" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">rosaDragón</span> = <span class="tok-string">&quot;🌹🐉&quot;</span>;
-<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">caracter</span> <span class="tok-keyword">of</span> rosaDragón) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-5IPW3Z/swv" href="#c-5IPW3Z/swv" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">rosaDragón</span> = <span class="tok-string">&quot;🌹🐉&quot;</span>;
+<span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">carácter</span> <span class="tok-keyword">of</span> rosaDragón) {
   console.log(caracter);
 }
 <span class="tok-comment">// → 🌹</span>
 <span class="tok-comment">// → 🐉</span></pre>
 
-<p><a class="p_ident" id="p-crnlwccTvb" href="#p-crnlwccTvb" tabindex="-1" role="presentation"></a>Si tienes un caracter (que será una cadena de una o dos unidades de código), puedes usar <code>codePointAt(0)</code> para obtener su código.</p>
+<p><a class="p_ident" id="p-crnlwccTvb" href="#p-crnlwccTvb" tabindex="-1" role="presentation"></a>Si tienes un carácter (que será una cadena de una o dos unidades de código), puedes usar <code>codePointAt(0)</code> para obtener su código.</p>
 
 <h2><a class="h_ident" id="h-6v14c/pbJh" href="#h-6v14c/pbJh" tabindex="-1" role="presentation"></a>Reconociendo texto</h2>
 
@@ -397,9 +397,9 @@ console.log(contarPor([<span class="tok-number">1</span>, <span class="tok-numbe
 
 <p><a class="p_ident" id="p-cOB6KMMgRg" href="#p-cOB6KMMgRg" tabindex="-1" role="presentation"></a>Usando <code>contarPor</code>, podemos escribir la función que nos dice qué sistemas de escritura se utilizan en un fragmento de texto:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-M5osBMA3Ac" href="#c-M5osBMA3Ac" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">sistemasTexto</span>(<span class="tok-definition">texto</span>) {
-  <span class="tok-keyword">let</span> <span class="tok-definition">sistemas</span> = contarPor(texto, <span class="tok-definition">caracter</span> =&gt; {
-    <span class="tok-keyword">let</span> <span class="tok-definition">sistema</span> = sistemaCaracteres(caracter.codePointAt(<span class="tok-number">0</span>));
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-IBybQjGQ9Z" href="#c-IBybQjGQ9Z" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">sistemasTexto</span>(<span class="tok-definition">texto</span>) {
+  <span class="tok-keyword">let</span> <span class="tok-definition">sistemas</span> = contarPor(texto, <span class="tok-definition">carácter</span> =&gt; {
+    <span class="tok-keyword">let</span> <span class="tok-definition">sistema</span> = sistemaCaracteres(carácter.codePointAt(<span class="tok-number">0</span>));
     <span class="tok-keyword">return</span> sistema ? sistema.name : <span class="tok-string">&quot;ninguno&quot;</span>;
   }).filter(({nombre}) =&gt; nombre != <span class="tok-string">&quot;ninguno&quot;</span>);
 
