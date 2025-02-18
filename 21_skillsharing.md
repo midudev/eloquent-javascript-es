@@ -688,7 +688,7 @@ async function pollTalks(update) {
 }
 ```
 
-{{index "función asincrónica"}}
+{{index "función asíncrona"}}
 
 Esta es una función `async` para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.
 

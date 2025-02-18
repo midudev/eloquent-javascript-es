@@ -32,13 +32,13 @@ Si deseas seguir y ejecutar el código en este capítulo, necesitarás instalar 
 
 Cuando se construyen sistemas que se comunican a través de la red, la forma en que gestionas la entrada y el ((output))—es decir, la lectura y escritura de datos desde y hacia la red y el ((disco duro))—puede marcar una gran diferencia en cuán rápido responde un sistema al usuario o a las solicitudes de red.
 
-{{index ["programación asincrónica", "en Node.js"]}}
+{{index ["programación asíncrona", "en Node.js"]}}
 
-En tales programas, la programación asincrónica a menudo es útil. Permite que el programa envíe y reciba datos desde y hacia múltiples dispositivos al mismo tiempo sin una complicada gestión de hilos y sincronización.
+En tales programas, la programación asíncrona a menudo es útil. Permite que el programa envíe y reciba datos desde y hacia múltiples dispositivos al mismo tiempo sin una complicada gestión de hilos y sincronización.
 
 {{index "lenguaje de programación", "Node.js", "estándar"}}
 
-Node fue concebido inicialmente con el propósito de hacer que la programación asincrónica sea fácil y conveniente. JavaScript se presta bien a un sistema como Node. Es uno de los pocos lenguajes de programación que no tiene una forma incorporada de manejar la entrada y salida. Por lo tanto, JavaScript podría adaptarse al enfoque algo excéntrico de Node para la programación de red y sistemas de archivos sin terminar con dos interfaces inconsistentes. En 2009, cuando se diseñaba Node, la gente ya estaba realizando programación basada en callbacks en el navegador, por lo que la ((comunidad)) alrededor del lenguaje estaba acostumbrada a un estilo de programación asincrónica.
+Node fue concebido inicialmente con el propósito de hacer que la programación asíncrona sea fácil y conveniente. JavaScript se presta bien a un sistema como Node. Es uno de los pocos lenguajes de programación que no tiene una forma incorporada de manejar la entrada y salida. Por lo tanto, JavaScript podría adaptarse al enfoque algo excéntrico de Node para la programación de red y sistemas de archivos sin terminar con dos interfaces inconsistentes. En 2009, cuando se diseñaba Node, la gente ya estaba realizando programación basada en callbacks en el navegador, por lo que la ((comunidad)) alrededor del lenguaje estaba acostumbrada a un estilo de programación asíncrona.
 
 ## El comando node
 
@@ -356,7 +356,7 @@ El módulo `node:http` también provee una función `request`, que se puede usar
 
 ## Flujos
 
-{{index  "Node.js", stream, "flujo de escritura", "función de devolución de llamada", ["programación asincrónica", "en Node.js"], "método write", "método end", "clase Buffer"}}
+{{index  "Node.js", stream, "flujo de escritura", "función de devolución de llamada", ["programación asíncrona", "en Node.js"], "método write", "método end", "clase Buffer"}}
 
 El objeto de respuesta al que el servidor HTTP podría escribir es un ejemplo de un objeto de _flujo de escritura_, que es un concepto ampliamente usado en Node. Estos objetos tienen un método `write` al que se puede pasar una cadena o un objeto `Buffer` para escribir algo en el flujo. Su método `end` cierra el flujo y opcionalmente toma un valor para escribir en el flujo antes de cerrarlo. Ambos métodos también pueden recibir una devolución de llamada como argumento adicional, que se llamará cuando la escritura o el cierre hayan finalizado.
 

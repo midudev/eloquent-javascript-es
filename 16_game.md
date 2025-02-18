@@ -838,7 +838,7 @@ async function runGame(plans, Display) {
 }
 ```
 
-{{index "programación asincrónica", "manejo de eventos"}}
+{{index "programación asíncrona", "manejo de eventos"}}
 
 Debido a que hicimos que `runLevel` devuelva una promesa, `runGame` puede escribirse utilizando una función `async`, como se muestra en el [Capítulo ?](async). Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.
 
