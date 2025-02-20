@@ -281,7 +281,7 @@ Otra cosa común que hacer con arrays es calcular un único valor a partir de el
 
 La operación de orden superior que representa esta idea se llama _reduce_ (a veces también llamada _fold_). Construye un valor tomando repetidamente un único elemento del array y combinándolo con el valor actual. Al sumar números empezarías con el número cero y añadirías cada elemento a la suma.
 
-Los parámetros de `reduce` son, además del array, una función de combinación y un valor inicial. Esta función es un poco menos directa que `filter` y `map`, así que obsérva detenidamente:
+Los parámetros de `reduce` son, además del array, una función de combinación y un valor inicial. Esta función es un poco menos directa que `filter` y `map`, así que observa detenidamente:
 
 ```
 function reducir(array, combinación, principio) {

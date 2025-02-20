@@ -671,11 +671,11 @@ La programación asíncrona se facilita gracias a las promesas, que son objetos 
 
 {{index "momentos de tranquilidad (ejercicio)", "cámara de seguridad", "Carla la urraca", "función async"}}
 
-Hay una cámara de seguridad cerca del laboratorio de Carla que se activa con un sensor de movimiento. Está conectada a la red y comienza a enviar un flujo de video cuando está activa. Como prefiere no ser descubierta, Carla ha configurado un sistema que detecta este tipo de tráfico de red inalámbrico y enciende una luz en su guarida cada vez que hay actividad afuera, de modo que sepa cuándo mantenerse en silencio.
+Cerca del laboratorio de Carla hay una cámara de seguridad  que se activa con un sensor de movimiento. Está conectada a la red y comienza a enviar un flujo de vídeo cuando está activa. Como prefiere no ser descubierta, Carla ha configurado un sistema que detecta este tipo de tráfico de red inalámbrico y enciende una luz en su guarida cada vez que hay actividad afuera, de modo que sepa cuándo estar tranquila.
 
 {{index "clase Date", "función Date.now", marca de tiempo}}
 
-También ha estado registrando los momentos en que la cámara se activa desde hace un tiempo, y quiere utilizar esta información para visualizar qué momentos, en una semana promedio, tienden a ser tranquilos y cuáles tienden a no serlo. El registro se almacena en archivos que contienen un número de marca de tiempo por línea (como devuelto por `Date.now()`).
+También ha estado registrando los momentos en que la cámara se activa desde hace un tiempo, y quiere utilizar esta información para visualizar qué momentos, en una semana promedio, tienden a ser tranquilos y cuáles tienden a no serlo. El registro se almacena en archivos que contienen un número de marca de tiempo por línea (como los que proporciona `Date.now()`).
 
 ```{lang: null}
 1695709940692
@@ -689,14 +689,14 @@ La función `activityGraph`, proporcionada por el sandbox, resume dicha tabla en
 
 {{index "función textFile"}}
 
-Utiliza la función `textFile` definida anteriormente, que al recibir un nombre de archivo devuelve una promesa que se resuelve en el contenido del archivo. Recuerda que `new Date(marcaDeTiempo)` crea un objeto `Date` para ese momento, que tiene métodos `getDay` y `getHours` que devuelven el día de la semana y la hora del día.
+Utiliza la función `textFile` ( o `archivoTexto`) definida anteriormente, que al recibir un nombre de archivo devuelve una promesa que se resuelve en el contenido del archivo. Recuerda que `new Date(marcaDeTiempo)` crea un objeto `Date` para ese momento, que tiene métodos `getDay` y `getHours` que devuelven el día de la semana y la hora del día.
 
 Ambos tipos de archivos —la lista de archivos de registro y los propios archivos de registro— tienen cada dato en una línea, separados por caracteres de nueva línea (`"\n"`).
 
 {{if interactive
 
 ```{test: no}
-async function activityTable(day) {
+async function activityTable(día) {
   let logFileList = await textFile("camera_logs.txt");
   // Tu código aquí
 }
@@ -711,7 +711,7 @@ if}}
 
 {{index "momentos de tranquilidad (ejercicio)", "método split", "función textFile", "clase Date"}}
 
-Necesitarás convertir el contenido de estos archivos en un array. La forma más fácil de hacerlo es utilizando el método `split` en la cadena producida por `textFile`. Ten en cuenta que para los archivos de registro, eso te dará un array de cadenas, que debes convertir a números antes de pasarlos a `new Date`.
+Necesitarás convertir el contenido de estos archivos en un array. La forma más fácil de hacerlo es utilizando el método `split` en la cadena producida por `textFile` ( o `archivoTexto`). Ten en cuenta que para los archivos de registro, eso te dará un array de cadenas, que debes convertir a números antes de pasarlos a `new Date`.
 
 Resumir todos los puntos temporales en una tabla de horas se puede hacer creando una tabla (array) que contenga un número para cada hora del día. Luego puedes recorrer todas las marcas de tiempo (de los archivos de registro y los números en cada archivo de registro) y, para cada uno, si sucedió en el día correcto, tomar la hora en que ocurrió y sumar uno al número correspondiente en la tabla.
 
@@ -736,7 +736,7 @@ function activityTable(día) {
 }
 
 activityTable(6)
-  .then(tabla => console.log(gráficoActividad(tabla)));
+  .then(tabla => console.log(activityGraph(tabla)));
 ```
 
 if}}
@@ -761,7 +761,7 @@ Ahora tenemos una promesa que devuelve un array de archivos de registro. Podemos
 
 ```{test: no}
 function activityTable(día) {
-  return archivoTexto("registros_camara.txt").then(archivos => {
+  return archivoTexto("camera_logs.txt").then(archivos => {
     return Promise.all(archivos.split("\n").map(archivoTexto));
   }).then(logs => {
     // analizar...

@@ -513,9 +513,9 @@ console.log(<span class="tok-string">&quot;¡Yo primero!&quot;</span>);
 
 <h3><a class="i_ident" id="i-+uVmJAkWrn" href="#i-+uVmJAkWrn" tabindex="-1" role="presentation"></a>Momentos de tranquilidad</h3>
 
-<p><a class="p_ident" id="p-6ZL6bHpqZH" href="#p-6ZL6bHpqZH" tabindex="-1" role="presentation"></a>Hay una cámara de seguridad cerca del laboratorio de Carla que se activa con un sensor de movimiento. Está conectada a la red y comienza a enviar un flujo de video cuando está activa. Como prefiere no ser descubierta, Carla ha configurado un sistema que detecta este tipo de tráfico de red inalámbrico y enciende una luz en su guarida cada vez que hay actividad afuera, de modo que sepa cuándo mantenerse en silencio.</p>
+<p><a class="p_ident" id="p-C4ZGbkY1j7" href="#p-C4ZGbkY1j7" tabindex="-1" role="presentation"></a>Cerca del laboratorio de Carla hay una cámara de seguridad  que se activa con un sensor de movimiento. Está conectada a la red y comienza a enviar un flujo de vídeo cuando está activa. Como prefiere no ser descubierta, Carla ha configurado un sistema que detecta este tipo de tráfico de red inalámbrico y enciende una luz en su guarida cada vez que hay actividad afuera, de modo que sepa cuándo estar tranquila.</p>
 
-<p><a class="p_ident" id="p-0yy81tIz2h" href="#p-0yy81tIz2h" tabindex="-1" role="presentation"></a>También ha estado registrando los momentos en que la cámara se activa desde hace un tiempo, y quiere utilizar esta información para visualizar qué momentos, en una semana promedio, tienden a ser tranquilos y cuáles tienden a no serlo. El registro se almacena en archivos que contienen un número de marca de tiempo por línea (como devuelto por <code>Date.now()</code>).</p>
+<p><a class="p_ident" id="p-UQByW5u5se" href="#p-UQByW5u5se" tabindex="-1" role="presentation"></a>También ha estado registrando los momentos en que la cámara se activa desde hace un tiempo, y quiere utilizar esta información para visualizar qué momentos, en una semana promedio, tienden a ser tranquilos y cuáles tienden a no serlo. El registro se almacena en archivos que contienen un número de marca de tiempo por línea (como los que proporciona <code>Date.now()</code>).</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-oYpYSTh/9y" href="#c-oYpYSTh/9y" tabindex="-1" role="presentation"></a>1695709940692
 1695701068331
@@ -525,11 +525,11 @@ console.log(<span class="tok-string">&quot;¡Yo primero!&quot;</span>);
 
 <p><a class="p_ident" id="p-nq7jr1mWcA" href="#p-nq7jr1mWcA" tabindex="-1" role="presentation"></a>La función <code>activityGraph</code>, proporcionada por el sandbox, resume dicha tabla en una cadena.</p>
 
-<p><a class="p_ident" id="p-4EjrIsWVmx" href="#p-4EjrIsWVmx" tabindex="-1" role="presentation"></a>Utiliza la función <code>textFile</code> definida anteriormente, que al recibir un nombre de archivo devuelve una promesa que se resuelve en el contenido del archivo. Recuerda que <code>new Date(marcaDeTiempo)</code> crea un objeto <code>Date</code> para ese momento, que tiene métodos <code>getDay</code> y <code>getHours</code> que devuelven el día de la semana y la hora del día.</p>
+<p><a class="p_ident" id="p-4EjrIsWVmx" href="#p-4EjrIsWVmx" tabindex="-1" role="presentation"></a>Utiliza la función <code>textFile</code> ( o <code>archivoTexto</code>) definida anteriormente, que al recibir un nombre de archivo devuelve una promesa que se resuelve en el contenido del archivo. Recuerda que <code>new Date(marcaDeTiempo)</code> crea un objeto <code>Date</code> para ese momento, que tiene métodos <code>getDay</code> y <code>getHours</code> que devuelven el día de la semana y la hora del día.</p>
 
 <p><a class="p_ident" id="p-oVU7j47Kad" href="#p-oVU7j47Kad" tabindex="-1" role="presentation"></a>Ambos tipos de archivos —la lista de archivos de registro y los propios archivos de registro— tienen cada dato en una línea, separados por caracteres de nueva línea (<code>&quot;\n&quot;</code>).</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-lwkjHlEwNf" href="#c-lwkjHlEwNf" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">day</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-AjUhoPZKxz" href="#c-AjUhoPZKxz" tabindex="-1" role="presentation"></a><span class="tok-keyword">async</span> <span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">logFileList</span> = <span class="tok-keyword">await</span> textFile(<span class="tok-string">&quot;camera_logs.txt&quot;</span>);
   <span class="tok-comment">// Tu código aquí</span>
 }
@@ -539,7 +539,7 @@ activityTable(<span class="tok-number">1</span>)
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-jZ7OykMDrT" href="#p-jZ7OykMDrT" tabindex="-1" role="presentation"></a>Necesitarás convertir el contenido de estos archivos en un array. La forma más fácil de hacerlo es utilizando el método <code>split</code> en la cadena producida por <code>textFile</code>. Ten en cuenta que para los archivos de registro, eso te dará un array de cadenas, que debes convertir a números antes de pasarlos a <code>new Date</code>.</p>
+<p><a class="p_ident" id="p-jZ7OykMDrT" href="#p-jZ7OykMDrT" tabindex="-1" role="presentation"></a>Necesitarás convertir el contenido de estos archivos en un array. La forma más fácil de hacerlo es utilizando el método <code>split</code> en la cadena producida por <code>textFile</code> ( o <code>archivoTexto</code>). Ten en cuenta que para los archivos de registro, eso te dará un array de cadenas, que debes convertir a números antes de pasarlos a <code>new Date</code>.</p>
 
 <p><a class="p_ident" id="p-9fBqjU8ju+" href="#p-9fBqjU8ju+" tabindex="-1" role="presentation"></a>Resumir todos los puntos temporales en una tabla de horas se puede hacer creando una tabla (array) que contenga un número para cada hora del día. Luego puedes recorrer todas las marcas de tiempo (de los archivos de registro y los números en cada archivo de registro) y, para cada uno, si sucedió en el día correcto, tomar la hora en que ocurrió y sumar uno al número correspondiente en la tabla.</p>
 
@@ -551,12 +551,12 @@ activityTable(<span class="tok-number">1</span>)
 
 <p><a class="p_ident" id="p-vfx72TWCka" href="#p-vfx72TWCka" tabindex="-1" role="presentation"></a>Reescribe la función del ejercicio anterior sin <code>async</code>/<code>await</code>, utilizando métodos simples de <code>Promise</code>.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-3oGelkObvZ" href="#c-3oGelkObvZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-W6rAArkArS" href="#c-W6rAArkArS" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
   <span class="tok-comment">// Tu código aquí</span>
 }
 
 activityTable(<span class="tok-number">6</span>)
-  .then(<span class="tok-definition">tabla</span> =&gt; console.log(gráficoActividad(tabla)));</pre>
+  .then(<span class="tok-definition">tabla</span> =&gt; console.log(activityGraph(tabla)));</pre>
 
 <p><a class="p_ident" id="p-BGph0/UdzK" href="#p-BGph0/UdzK" tabindex="-1" role="presentation"></a>En este estilo, usar <code>Promise.all</code> será más conveniente que intentar modelar un bucle sobre los archivos de registro. En la función <code>async</code>, simplemente usar <code>await</code> en un bucle es más simple. Si leer un archivo lleva un tiempo, ¿cuál de estos dos enfoques necesitará menos tiempo para ejecutarse?</p>
 
@@ -568,8 +568,8 @@ activityTable(<span class="tok-number">6</span>)
 
 <p><a class="p_ident" id="p-XLfKUPx5h8" href="#p-XLfKUPx5h8" tabindex="-1" role="presentation"></a>Ahora tenemos una promesa que devuelve un array de archivos de registro. Podemos llamar a <code>then</code> nuevamente en eso, y poner la lógica de recuento de marcas de tiempo allí. Algo así:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Ug27KX4oO7" href="#c-Ug27KX4oO7" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
-  <span class="tok-keyword">return</span> archivoTexto(<span class="tok-string">&quot;registros_camara.txt&quot;</span>).then(<span class="tok-definition">archivos</span> =&gt; {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-XVz2i5dZDr" href="#c-XVz2i5dZDr" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">activityTable</span>(<span class="tok-definition">día</span>) {
+  <span class="tok-keyword">return</span> archivoTexto(<span class="tok-string">&quot;camera_logs.txt&quot;</span>).then(<span class="tok-definition">archivos</span> =&gt; {
     <span class="tok-keyword">return</span> Promise.all(archivos.split(<span class="tok-string">&quot;</span><span class="tok-string2">\n</span><span class="tok-string">&quot;</span>).map(archivoTexto));
   }).then(<span class="tok-definition">logs</span> =&gt; {
     <span class="tok-comment">// analizar...</span>
