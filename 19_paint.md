@@ -8,7 +8,7 @@ Observo los muchos colores ante mí. Observo mi lienzo en blanco. Luego, intento
 
 quote}}
 
-{{index "Miro, Joan", "ejemplo de programa de dibujo", "capítulo del proyecto"}}
+{{index "Miro, Joan", "ejemplo de programa de dibujo", "capítulo de proyecto"}}
 
 {{figure {url: "img/chapter_picture_19.jpg", alt: "Ilustración que muestra un mosaico de baldosas negras, con tarros de otras baldosas junto a él", chapter: "framed"}}}
 

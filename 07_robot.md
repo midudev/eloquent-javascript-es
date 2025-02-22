@@ -11,7 +11,7 @@ quote}}
 
 {{figure {url: "img/chapter_picture_7.jpg", alt: "Ilustración de un robot sosteniendo una pila de paquetes", chapter: framed}}}
 
-{{index "capítulo del proyecto", "leyendo código", "escribiendo código"}}
+{{index "capítulo de proyecto", "leyendo código", "escribiendo código"}}
 
 En los capítulos "proyecto", dejaré de bombardearte con nueva teoría por un momento y, en su lugar, trabajaremos juntos en un programa. La teoría es necesaria para aprender a programar, pero leer y entender programas reales es igual de importante.
 

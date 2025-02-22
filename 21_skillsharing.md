@@ -8,13 +8,13 @@ Si tienes conocimiento, permite que otros enciendan sus velas en él.
 
 quote}}
 
-{{index "proyecto de intercambio de habilidades", meetup, "capítulo del proyecto"}}
+{{index "proyecto de intercambio de habilidades", meetup, "capítulo de proyecto"}}
 
 {{figure {url: "img/chapter_picture_21.jpg", alt: "Ilustración que muestra dos monociclos apoyados en un buzón", chapter: "framed"}}}
 
 Una reunión de ((intercambio de habilidades)) es un evento en el que personas con un interés compartido se reúnen y dan pequeñas presentaciones informales sobre cosas que saben. En una reunión de intercambio de habilidades de ((jardinería)), alguien podría explicar cómo cultivar ((apio)). O en un grupo de intercambio de habilidades de programación, podrías pasar y contarles a la gente sobre Node.js.
 
-En este último capítulo del proyecto, nuestro objetivo es configurar un ((sitio web)) para gestionar las ((charla))s impartidas en una reunión de intercambio de habilidades. Imagina un pequeño grupo de personas que se reúnen regularmente en la oficina de uno de los miembros para hablar sobre ((monociclos)). El organizador anterior de las reuniones se mudó a otra ciudad y nadie se ofreció a asumir esta tarea. Queremos un sistema que permita a los participantes proponer y discutir charlas entre ellos, sin un organizador activo.
+En este último capítulo de proyecto, nuestro objetivo es configurar un ((sitio web)) para gestionar las ((charla))s impartidas en una reunión de intercambio de habilidades. Imagina un pequeño grupo de personas que se reúnen regularmente en la oficina de uno de los miembros para hablar sobre ((monociclos)). El organizador anterior de las reuniones se mudó a otra ciudad y nadie se ofreció a asumir esta tarea. Queremos un sistema que permita a los participantes proponer y discutir charlas entre ellos, sin un organizador activo.
 
 [Al igual que en el [capítulo anterior](node), parte del código en este capítulo está escrito para Node.js y es poco probable que funcione si se ejecuta directamente en la página HTML que estás viendo.]{if interactive} El código completo del proyecto se puede ((descargar)) desde [_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip).
 

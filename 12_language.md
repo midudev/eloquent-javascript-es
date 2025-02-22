@@ -8,7 +8,7 @@ El evaluador, que determina el significado de expresiones en un lenguaje de prog
 
 quote}}
 
-{{index "Abelson, Hal", "Sussman, Gerald", SICP, "capítulo del proyecto"}}
+{{index "Abelson, Hal", "Sussman, Gerald", SICP, "capítulo de proyecto"}}
 
 {{figure {url: "img/chapter_picture_12.jpg", alt: "Ilustración que muestra un huevo con agujeros, mostrando huevos más pequeños dentro, que a su vez tienen huevos aún más pequeños dentro de ellos, y así sucesivamente", chapter: "framed"}}}
 

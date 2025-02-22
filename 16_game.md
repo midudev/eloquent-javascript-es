@@ -1,3 +1,5 @@
+{{meta {load_files: ["code/chapter/16_game.js", "code/levels.js", "code/stop_keys.js"], zip: "html", include: ["css/game.css"]}}}
+
 # Proyecto: Un juego de plataformas
 
 {{quote {author: "Iain Banks", title: "The Player of Games", chapter: true}
@@ -6,29 +8,29 @@ Toda la realidad es un juego.
 
 quote}}
 
-{{index "Banks, Ian", "capítulo del proyecto", "simulación"}}
+{{index "Banks, Ian", "capítulo de proyecto", "simulación"}}
 
 {{figure {url: "img/chapter_picture_16.jpg", alt: "Ilustración que muestra un personaje de un juego de computadora saltando sobre lava en un mundo bidimensional", chapter: "framed"}}}
 
-Gran parte de mi fascinación inicial con las computadoras, al igual que la de muchos niños nerds, tenía que ver con los ((juegos)) de computadora. Me sentía atraído por los diminutos ((mundos)) simulados que podía manipular y en los que se desarrollaban historias (más o menos), supongo, debido a la forma en que proyectaba mi ((imaginación)) en ellos más que por las posibilidades que realmente ofrecían.
+Gran parte de mi fascinación inicial con las computadoras, al igual que la de muchos niños _nerds_, tenía que ver con los ((juegos)) de computadora. Me sentía atraído por los diminutos ((mundos)) simulados que podía manipular y en los que se desarrollaban historias (más o menos), supongo, debido a la forma en que proyectaba mi ((imaginación)) en ellos más que por las posibilidades que realmente ofrecían.
 
-No le desearía a nadie una ((carrera)) en programación de juegos. Al igual que la industria de la ((música)), la discrepancia entre la cantidad de jóvenes entusiastas que desean trabajar en ella y la demanda real de tales personas crea un entorno bastante insalubre. Pero escribir juegos por diversión resulta entretenido.
+No le desearía a nadie una ((carrera)) en programación de juegos. Al igual que la industria de la ((música)), la discrepancia entre la cantidad de jóvenes entusiastas que desean trabajar en ella y la demanda real de tales personas crea un entorno bastante insalubre. Pero escribir juegos por diversión resulta ser entretenido.
 
 {{index "juego de saltos y carreras", dimensiones}}
 
-Este capítulo guiará a través de la implementación de un pequeño ((juego de plataformas)). Los juegos de plataformas (o juegos de "saltos y carreras") son juegos que esperan que el ((jugador)) mueva una figura a través de un ((mundo)), que generalmente es bidimensional y se ve desde el lado, mientras salta sobre y sobre cosas.
+Este capítulo guiará a través de la implementación de un pequeño ((juego de plataformas)). Los juegos de plataformas (o juegos de "saltos y carreras") son juegos que esperan que el ((jugador)) mueva una figura a través de un ((mundo)), que generalmente es bidimensional y se ve desde un lado, mientras salta cosas y sobre cosas.
 
 ## El juego
 
 {{index minimalismo, "Palef, Thomas", "Dark Blue (juego)"}}
 
-Nuestro ((juego)) estará basado aproximadamente en [Dark Blue](http://www.lessmilk.com/games/10)[ (_www.lessmilk.com/games/10_)]{if book} de Thomas Palef. Elegí ese juego porque es entretenido, minimalista y se puede construir sin mucho ((código)). Se ve así:
+Nuestro ((juego)) estará basado más o menos en [Dark Blue](http://www.lessmilk.com/games/10)[ (_www.lessmilk.com/games/10_)]{if book} de Thomas Palef. He elegido ese juego porque es entretenido, minimalista y se puede construir sin mucho ((código)). Tiene esta pinta:
 
-{{figure {url: "img/darkblue.png", alt: "Captura de pantalla del juego 'Dark Blue', mostrando un mundo hecho de cajas de colores. Hay una caja negra que representa al jugador, de pie sobre líneas blancas en un fondo azul. Pequeñas monedas amarillas flotan en el aire, y algunas partes del fondo son rojas, representando lava."}}}
+{{figure {url: "img/darkblue.png", alt: "Captura de pantalla del juego 'Dark Blue', mostrando un mundo hecho de cajas de colores. Hay una caja negra que representa al jugador, de pie sobre líneas blancas en un fondo azul. Pequeñas monedas amarillas flotan en el aire, y hay algunas partes rojas en el fondo que representan lava."}}}
 
 {{index moneda, lava}}
 
-La caja oscura representa al ((jugador)), cuya tarea es recolectar las cajas amarillas (monedas) evitando las cosas rojas (lava). Un ((nivel)) se completa cuando se han recolectado todas las monedas.
+La caja negra representa al ((jugador)), cuya tarea es recolectar las cajas amarillas (monedas) evitando las cosas rojas (lava). Un ((nivel)) se completa cuando se han recolectado todas las monedas.
 
 {{index teclado, saltos}}
 
@@ -36,7 +38,7 @@ El jugador puede moverse con las teclas de flecha izquierda y derecha y puede sa
 
 {{index "número fraccionario", "discretización", "vida artificial", "vida electrónica"}}
 
-El ((juego)) consiste en un ((fondo)) estático, dispuesto como una ((rejilla)), con los elementos móviles superpuestos en ese fondo. Cada campo en la rejilla está vacío, sólido o es ((lava)). Los elementos móviles son el jugador, las monedas y ciertas piezas de lava. Las posiciones de estos elementos no están restringidas a la rejilla: sus coordenadas pueden ser fraccionarias, permitiendo un ((movimiento)) suave.
+El ((juego)) consiste en un ((fondo)) estático, dispuesto como una ((rejilla)), con los elementos móviles superpuestos en ese fondo. Cada campo en la rejilla puede ser vacío, sólido o ((lava)). Los elementos móviles son el jugador, las monedas y ciertas piezas de lava. Las posiciones de estos elementos no están restringidas a la rejilla: sus coordenadas pueden ser fraccionarias, permitiendo un ((movimiento)) suave.
 
 ## La tecnología
 
@@ -54,7 +56,7 @@ Podemos representar el fondo como una tabla ya que es una ((cuadrícula)) inmuta
 
 {{index rendimiento, [DOM, "gráficos"]}}
 
-En juegos y otros programas que deben animar ((gráficos)) y responder a la ((entrada)) del usuario sin retrasos notables, la ((eficiencia)) es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas ((animacione))s en el [Capítulo ?](dom#animacion). En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la ((optimización)).
+En juegos y otros programas que deben animar ((gráficos)) y responder a la ((entrada)) del usuario sin retrasos notables, la ((eficiencia)) es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperarte. Viste algunas ((animacione))s en el [Capítulo ?](dom#animation). En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la ((optimización)).
 
 {{index lienzo, [DOM, "gráficos"]}}
 
@@ -64,9 +66,9 @@ En el [próximo capítulo](canvas), exploraremos otra tecnología del ((navegado
 
 {{index dimensiones}}
 
-Queremos una forma legible y editable por humanos para especificar niveles. Dado que está bien que todo comience en una cuadrícula, podríamos usar cadenas grandes en las que cada carácter represente un elemento, ya sea una parte de la cuadrícula de fondo o un elemento móvil.
+Queremos una forma legible y editable por humanos para especificar niveles. Como podemos empezar a construir todo a partir de una cuadrícula, podríamos usar cadenas grandes en las que cada carácter represente un elemento, ya sea una parte de la cuadrícula de fondo o un elemento móvil.
 
-El plan para un nivel pequeño podría verse así:
+El plan para un nivel pequeño podría tener este aspecto:
 
 ```{includeCode: true}
 let simpleLevelPlan = `
@@ -87,7 +89,7 @@ Los puntos representan un espacio vacío, los caracteres de almohadilla (`#`) so
 
 {{index rebotar}}
 
-Además de las dos formas adicionales de lava en movimiento, el carácter de tubería (`|`) crea blobs que se mueven verticalmente, y `v` indica lava goteante: lava que se mueve verticalmente y no rebota de un lado a otro, solo se mueve hacia abajo, volviendo a su posición de inicio cuando golpea el suelo.
+Además, vamos a admitir dos formas más de lava en movimiento: el carácter de barra vertical (`|`) crea gotas que se mueven verticalmente, y `v` indica lava goteante: lava que se mueve verticalmente y no rebota de un lado a otro, solo se mueve hacia abajo, volviendo a su posición de inicio cuando golpea el suelo.
 
 Un ((juego)) completo consta de varios ((nivel))es que el ((jugador)) debe completar. Un nivel se completa cuando se han recolectado todas las ((moneda))s. Si el jugador toca la ((lava)), el nivel actual se restablece a su posición inicial y el jugador puede intentarlo de nuevo.
 
@@ -124,11 +126,11 @@ class Level {
 
 {{index "método trim", "método split", [espacios en blanco, recorte]}}
 
-El método `trim` se utiliza para eliminar los espacios en blanco al principio y al final de la cadena de plan. Esto permite que nuestro plan de ejemplo comience con una nueva línea para que todas las líneas estén directamente debajo unas de otras. La cadena restante se divide en líneas en ((caracteres de nueva línea)), y cada línea se convierte en un array, produciendo arrays de caracteres.
+El método `trim` se utiliza para eliminar los espacios en blanco al principio y al final de la cadena de `plan`. Esto permite que nuestro plan de ejemplo comience con una nueva línea para que todas las líneas estén directamente debajo unas de otras. La cadena restante se divide en líneas en ((caracteres de nueva línea)), y cada línea se convierte en un array, produciendo arrays de caracteres.
 
 {{index [array, "como matriz"]}}
 
-Entonces, `rows` contiene un array de arrays de caracteres, las filas del plan. Podemos derivar el ancho y alto del nivel a partir de estos. Pero aún debemos separar los elementos móviles de la cuadrícula de fondo. Llamaremos a los elementos móviles _actores_. Se almacenarán en un array de objetos. El fondo será un array de arrays de cadenas, que contienen tipos de campo como `"empty"`, `"wall"`, o `"lava"`.
+Entonces, `rows` contiene un array de arrays de caracteres, las filas del plan. Podemos obtener el ancho y alto del nivel a partir de estos. Pero aún debemos separar los elementos móviles de la cuadrícula de fondo. Llamaremos a los elementos móviles _actores_. Se almacenarán en un array de objetos. El fondo será un array de arrays de cadenas, que contienen tipos de campo como `"empty"`, `"wall"`, o `"lava"`.
 
 {{index "método map"}}
 
@@ -166,7 +168,7 @@ class State {
 
 La propiedad `status` cambiará a `"lost"` o `"won"` cuando el juego haya terminado.
 
-Este es nuevamente una estructura de datos persistente: actualizar el estado del juego crea un nuevo estado y deja intacto el anterior.
+Esta es nuevamente una estructura de datos persistente: actualizar el estado del juego crea un nuevo estado y deja intacto el anterior.
 
 ## Actores
 
@@ -228,11 +230,11 @@ Player.prototype.size = new Vec(0.8, 1.5);
 
 Dado que un jugador tiene una altura de un cuadro y medio, su posición inicial se establece medio cuadro por encima de la posición donde apareció el carácter `@`. De esta manera, su parte inferior se alinea con la parte inferior del cuadro en el que apareció.
 
-La propiedad `size` es la misma para todas las instancias de `Player`, por lo que la almacenamos en el prototipo en lugar de en las propias instancias. Podríamos haber utilizado un ((getter)) como `type`, pero eso crearía y devolvería un nuevo objeto `Vec` cada vez que se lee la propiedad, lo cual sería derrochador. (Las cadenas, al ser ((inmutables)), no tienen que ser recreadas cada vez que se evalúan).
+La propiedad `size` es la misma para todas las instancias de `Player`, por lo que la almacenamos en el prototipo en lugar de en las propias instancias. Podríamos haber utilizado un ((getter)) como `type`, pero eso crearía y devolvería un nuevo objeto `Vec` cada vez que se lee la propiedad, lo cual sería derrochador (las cadenas, al ser ((inmutables)), no tienen que ser recreadas cada vez que se evalúan).
 
 {{index "Clase Lava", "rebotando"}}
 
-Al construir un actor `Lava`, necesitamos inicializar el objeto de manera diferente dependiendo del personaje en el que se base. La lava dinámica se mueve a lo largo de su velocidad actual hasta que choca con un obstáculo. En ese momento, si tiene una propiedad de `reset`, saltará de nuevo a su posición de inicio (goteando). Si no la tiene, invertirá su velocidad y continuará en la otra dirección (rebotando).
+Al construir un actor `Lava`, necesitamos inicializar el objeto de manera diferente dependiendo del personaje en el que se base. La lava dinámica se mueve a lo largo de su velocidad actual hasta que choca con un obstáculo. En ese momento, si tiene una propiedad de `reset`, saltará de nuevo a su posición de inicio (esto sirve para el efecto de goteo). Si no la tiene, invertirá su velocidad y continuará en la otra dirección (rebotando).
 
 El método `create` mira el carácter que pasa el constructor de `Level` y crea el actor de lava apropiado.
 
@@ -286,11 +288,11 @@ Coin.prototype.size = new Vec(0.6, 0.6);
 
 {{index "Función Math.random", "número aleatorio", "Función Math.sin", seno, onda}}
 
-En [Capítulo ?](dom#sin_cos), vimos que `Math.sin` nos da la coordenada y de un punto en un círculo. Esa coordenada va de ida y vuelta en una forma de onda suave a medida que nos movemos a lo largo del círculo, lo que hace que la función seno sea útil para modelar un movimiento ondulado.
+En [Capítulo ?](dom#sin_cos), vimos que `Math.sin` nos da la coordenada y de un punto en un círculo. Esa coordenada va de ida y vuelta en una forma de onda suave a medida que nos movemos a lo largo del círculo, lo que hace que la función seno sea útil para modelar un movimiento de vaivén.
 
 {{index pi}}
 
-Para evitar una situación en la que todas las monedas se mueven hacia arriba y hacia abajo sincrónicamente, la fase inicial de cada moneda se aleatoriza. El periodo de la onda de `Math.sin`, el ancho de una onda que produce, es 2π. Multiplicamos el valor devuelto por `Math.random` por ese número para darle a la moneda una posición inicial aleatoria en la onda.
+Para evitar una situación en la que todas las monedas se mueven hacia arriba y hacia abajo sincrónicamente, la fase inicial de cada moneda se aleatoriza. El periodo de la onda de `Math.sin`, el ancho de una onda que produce, es 2π. Multiplicamos el valor devuelto por `Math.random` por ese número para darle a la moneda una posición inicial aleatoria en el  vaivén.
 
 {{index map, [objeto, "como mapa"]}}
 
@@ -308,11 +310,11 @@ Esto nos brinda todas las partes necesarias para crear una instancia de `Level`.
 
 ```{includeCode: strip_log}
 let simpleLevel = new Level(simpleLevelPlan);
-console.log(`${simpleLevel.width} by ${simpleLevel.height}`);
-// → 22 by 9
+console.log(`${simpleLevel.width} por ${simpleLevel.height}`);
+// → 22 por 9
 ```
 
-La tarea por delante es mostrar esos niveles en pantalla y modelar el tiempo y movimiento dentro de ellos.
+Ahora toca mostrar esos niveles en pantalla y modelar el tiempo y movimiento dentro de ellos.
 
 {{id domdisplay}}
 
@@ -326,15 +328,15 @@ Un objeto de visualización de juego dibuja un nivel y estado dados. Pasamos su 
 
 {{index "atributo de estilo", CSS}}
 
-Utilizaremos una hoja de estilo para establecer los colores reales y otras propiedades fijas de los elementos que conforman el juego. También sería posible asignar directamente a la propiedad `style` de los elementos al crearlos, pero eso produciría programas más verbosos.
+Utilizaremos una hoja de estilo para establecer los colores y otras propiedades fijas de los elementos que conforman el juego. También sería posible asignarlos directamente a la propiedad `style` de los elementos al crearlos, pero eso produciría programas más verbosos.
 
 {{index "atributo de clase"}}
 
 La siguiente función auxiliar proporciona una forma concisa de crear un elemento y darle algunos atributos y nodos secundarios:
 
 ```{includeCode: true}
-function elt(nombre, attrs, ...children) {
-  let dom = document.createElement(nombre);
+function elt(name, attrs, ...children) {
+  let dom = document.createElement(name);
   for (let attr of Object.keys(attrs)) {
     dom.setAttribute(attr, attrs[attr]);
   }
@@ -349,10 +351,10 @@ Una visualización se crea dándole un elemento padre al que debe adjuntarse y u
 
 ```{includeCode: true}
 class DOMDisplay {
-  constructor(padre, nivel) {
-    this.dom = elt("div", {class: "game"}, dibujarGrid(nivel));
+  constructor(parent, level) {
+    this.dom = elt("div", {class: "game"}, drawGrid(level));
     this.actorLayer = null;
-    padre.appendChild(this.dom);
+    parent.appendChild(this.dom);
   }
 
   clear() { this.dom.remove(); }
@@ -365,25 +367,25 @@ La cuadrícula de fondo del nivel, que nunca cambia, se dibuja una vez. Los acto
 
 {{index scaling, "Clase DOMDisplay"}}
 
-Nuestras coordenadas y tamaños se rastrean en unidades de cuadrícula, donde un tamaño o distancia de 1 significa un bloque de cuadrícula. Al establecer tamaños de píxeles, tendremos que escalar estas coordenadas: todo en el juego sería ridículamente pequeño con un solo píxel por cuadrado. La constante `scale` indica el número de píxeles que una unidad ocupa en la pantalla.
+Nuestras coordenadas y tamaños se miden en unidades de cuadrícula, donde un tamaño o distancia de 1 significa un bloque de cuadrícula. Al establecer tamaños de píxeles, tendremos que escalar estas coordenadas: todo en el juego sería ridículamente pequeño con un solo píxel por cuadrado. La constante `scale` indica el número de píxeles que una unidad ocupa en la pantalla.
 
 ```{includeCode: true}
-const escala = 20;
+const scale = 20;
 
-function dibujarGrid(nivel) {
+function drawGrid(level) {
   return elt("table", {
     class: "background",
-    style: `width: ${nivel.width * escala}px`
-  }, ...nivel.rows.map(fila =>
-    elt("tr", {style: `height: ${escala}px`},
-        ...fila.map(tipo => elt("td", {class: tipo})))
+    style: `width: ${level.width * scale}px`
+  }, ...level.rows.map(row =>
+    elt("tr", {style: `height: ${scale}px`},
+        ...row.map(type => elt("td", {class: type})))
   ));
 }
 ```
 
 {{index "table (etiqueta HTML)", "tr (etiqueta HTML)", "td (etiqueta HTML)", "operador de propagación"}}
 
-El elemento `<table>` se corresponde bien con la estructura de la propiedad `rows` del nivel: cada fila de la cuadrícula se convierte en una fila de tabla (`<tr>`). Las cadenas en la cuadrícula se usan como nombres de clase para los elementos de celda de tabla (`<td>`). El código utiliza el operador de propagación (triple punto) para pasar matrices de nodos secundarios a `elt` como argumentos separados.El siguiente ((CSS)) hace que la tabla se vea como el fondo que queremos:
+El elemento `<table>` se corresponde bien con la estructura de la propiedad `rows` del nivel: cada fila de la cuadrícula se convierte en una fila de tabla (`<tr>`). Las cadenas en la cuadrícula se usan como nombres de clase para los elementos de celda de tabla (`<td>`). El código utiliza el operador de propagación (triple punto) para pasar arrays de nodos secundarios a `elt` como argumentos separados.El siguiente ((CSS)) hace que la tabla se vea como el fondo que queremos:
 
 ```{lang: "css"}
 .background    { background: rgb(52, 166, 251);
@@ -398,7 +400,7 @@ Algunos de estos (`table-layout`, `border-spacing` y `padding`) se utilizan para
 
 La regla `background` establece el color de fondo. CSS permite que los colores se especifiquen tanto como palabras (`white`) como con un formato como `rgb(R, G, B)`, donde los componentes rojo, verde y azul del color se separan en tres números de 0 a 255. Por lo tanto, en `rgb(52, 166, 251)`, el componente rojo es 52, el verde es 166 y el azul es 251. Dado que el componente azul es el más grande, el color resultante será azulado. En la regla `.lava`, el primer número (rojo) es el más grande.
 
-Dibujamos cada ((actor)) creando un elemento DOM para él y estableciendo la posición y el tamaño de ese elemento en función de las propiedades del actor. Los valores tienen que ser multiplicados por `scale` para pasar de unidades de juego a píxeles.
+Dibujamos cada ((actor)) creando un elemento DOM para él y estableciendo la posición y el tamaño de ese elemento en función de las propiedades del actor. Los valores tienen que ser multiplicados por `scale` para pasar de unidades del juego a píxeles.
 
 ```{includeCode: true}
 function drawActors(actors) {
@@ -413,7 +415,7 @@ function drawActors(actors) {
 }
 ```
 
-Para agregar más de una clase a un elemento, separamos los nombres de las clases por espacios. En el siguiente código ((CSS)) mostrado a continuación, la clase `actor` da a los actores su posición absoluta. El nombre de su tipo se utiliza como una clase adicional para darles un color. No tenemos que definir la clase `lava` de nuevo porque estamos reutilizando la clase para las casillas de lava de la cuadrícula que definimos anteriormente.
+Para agregar más de una clase a un elemento, separamos los nombres de las clases por espacios. En el siguiente código ((CSS)), la clase `actor` da a los actores su posición absoluta. El nombre de su tipo se utiliza como una clase adicional para darles un color. No tenemos que definir la clase `lava` de nuevo porque estamos reutilizando la clase para las casillas de lava de la cuadrícula que definimos anteriormente.
 
 ```{lang: "css"}
 .actor  { position: absolute;            }
@@ -421,7 +423,7 @@ Para agregar más de una clase a un elemento, separamos los nombres de las clase
 .player { background: rgb(64, 64, 64);   }
 ```
 
-El método `syncState` se utiliza para que la pantalla muestre un estado dado. Primero elimina los gráficos de actores antiguos, si los hay, y luego vuelve a dibujar los actores en sus nuevas posiciones. Puede ser tentador intentar reutilizar los elementos DOM para actores, pero para que eso funcione, necesitaríamos mucho más trabajo adicional para asociar actores con elementos DOM y asegurarnos de que eliminamos elementos cuando sus actores desaparecen. Dado que típicamente habrá solo un puñado de actores en el juego, volver a dibujar todos ellos no es costoso.
+El método `syncState` se utiliza para que la pantalla muestre un estado dado. Primero elimina los gráficos de actores antiguos, si los hay, y luego vuelve a dibujar los actores en sus nuevas posiciones. Puede ser tentador intentar reutilizar los elementos DOM para actores, pero para que eso funcione, necesitaríamos mucho más trabajo adicional para asociar actores con elementos DOM y asegurarnos de que eliminamos elementos cuando sus actores desaparecen. Como normalmente habrá solo un puñado de actores en el juego, volver a dibujar todos ellos no resulta costoso.
 
 ```{includeCode: true}
 DOMDisplay.prototype.syncState = function(state) {
@@ -528,7 +530,7 @@ if}}
 
 {{index "enlace (etiqueta HTML)", CSS}}
 
-La etiqueta `<link>`, cuando se utiliza con `rel="stylesheet"`, es una forma de cargar un archivo CSS en una página. El archivo `game.css` contiene los estilos necesarios para nuestro juego.
+La etiqueta `<link>`, cuando se utiliza con `rel="stylesheet"`, proporciona una forma de cargar un archivo CSS en una página. El archivo `game.css` contiene los estilos necesarios para nuestro juego.
 
 ## Movimiento y colisión
 
@@ -538,17 +540,17 @@ Ahora estamos en el punto en el que podemos comenzar a agregar movimiento. El en
 
 {{index "obstáculo", "detección de colisión"}}
 
-Mover cosas es fácil. La parte difícil es lidiar con las interacciones entre los elementos. Cuando el jugador golpea una pared o el suelo, no debería simplemente atravesarlo. El juego debe notar cuando un movimiento dado hace que un objeto golpee a otro objeto y responder en consecuencia. Para las paredes, el movimiento debe detenerse. Al golpear una moneda, esa moneda debe ser recogida. Al tocar lava, el juego debería perderse.
+Mover cosas es fácil. La parte difícil es lidiar con las interacciones entre los elementos. Cuando el jugador golpea una pared o el suelo, este no debería atravesarlos. El juego debe notar cuándo un movimiento dado hace que un objeto golpee a otro objeto y responder en consecuencia. Para las paredes, el movimiento debe detenerse. Al golpear una moneda, esa moneda debe ser recogida. Al tocar lava, la partida debería acabarse.
 
-Resolver esto para el caso general es una tarea grande. Puedes encontrar bibliotecas, generalmente llamadas _((motores físicos))_, que simulan la interacción entre objetos físicos en dos o tres ((dimensiones)). Tomaremos un enfoque más modesto en este capítulo, manejando solo colisiones entre objetos rectangulares y manejándolas de una manera bastante simplista.
+Resolver esto para un caso general es una tarea complicada. Puedes encontrar bibliotecas, generalmente llamadas _((motores físicos))_, que simulan la interacción entre objetos físicos en dos o tres ((dimensiones)). Adoptaremos un enfoque más modesto en este capítulo, manejando solo colisiones entre objetos rectangulares y manejándolas de una manera bastante simplista.
 
 {{index rebote, "detección de colisión", ["animación", "juego de plataformas"]}}
 
-Antes de mover al ((jugador)) o un bloque de ((lava)), probamos si el movimiento los llevaría dentro de una pared. Si lo hace, simplemente cancelamos el movimiento por completo. La respuesta a tal colisión depende del tipo de actor. El jugador se detendrá, mientras que un bloque de lava rebotará.
+Antes de mover al ((jugador)) o un bloque de ((lava)), probamos si el movimiento los llevaría dentro de una pared. Si lo hace, simplemente cancelamos el movimiento. La respuesta a tal colisión depende del tipo de actor. Si se trata del jugador, este se detendrá, mientras que un bloque de lava rebotará.
 
 {{index "discretización"}}
 
-Este enfoque requiere que nuestros pasos de ((tiempo)) sean bastante pequeños, ya que hará que el movimiento se detenga antes de que los objetos realmente se toquen. Si los pasos de tiempo (y por lo tanto los pasos de movimiento) son demasiado grandes, el jugador terminaría elevándose a una distancia notable sobre el suelo. Otro enfoque, argumentablemente mejor pero más complicado, sería encontrar el punto exacto de colisión y moverse allí. Tomaremos el enfoque simple y ocultaremos sus problemas asegurando que la animación avance en pasos pequeños.
+Este enfoque requiere que nuestros pasos de ((tiempo)) sean bastante pequeños, ya que hará que el movimiento se detenga antes de que los objetos realmente se toquen. Si los pasos de tiempo (y por lo tanto los pasos de movimiento) son demasiado grandes, el jugador terminaría flotando a una distancia notable sobre el suelo. Otro enfoque, bastante mejor pero más complicado, sería encontrar el punto exacto de colisión y moverse allí. Tomaremos el enfoque simple y ocultaremos sus problemas asegurando que la animación avance en pasos pequeños.
 
 {{index "obstáculo", "método touches", "detección de colisiones"}}
 
@@ -577,9 +579,9 @@ Level.prototype.touches = function(pos, size, type) {
 
 {{index "función Math.floor", "función Math.ceil"}}
 
-El método calcula el conjunto de cuadrados de rejilla con los que el cuerpo se ((superpone)) utilizando `Math.floor` y `Math.ceil` en sus ((coordenadas)). Recuerda que los cuadrados de la ((rejilla)) son de tamaño 1 por 1 unidad. Al ((redondear)) los lados de un cuadro hacia arriba y hacia abajo, obtenemos el rango de cuadrados de ((fondo)) que el cuadro toca.
+El método calcula el conjunto de cuadrados de rejilla con los que el cuerpo se ((superpone)) utilizando `Math.floor` y `Math.ceil` en sus ((coordenadas)). Recuerda que los cuadrados de la ((rejilla)) son de tamaño 1 por 1 unidad. Al ((redondear)) los lados de un cuadro hacia arriba y hacia abajo, obtenemos el rango de cuadrados del ((fondo)) que el rectángulo toca.
 
-{{figure {url: "img/game-grid.svg", alt: "Diagrama que muestra una rejilla con un cuadro negro superpuesto. Todos los cuadrados de la rejilla que están parcialmente cubiertos por el bloque están marcados.", width: "3cm"}}}
+{{figure {url: "img/game-grid.svg", alt: "Diagrama que muestra una rejilla con un bloque negro superpuesto. Todos los cuadrados de la rejilla que están parcialmente cubiertos por el bloque están marcados.", width: "3cm"}}}
 
 Recorremos el bloque de cuadrados de ((rejilla)) encontrado al ((redondear)) las ((coordenadas)) y devolvemos `true` cuando se encuentra un cuadro coincidente. Los cuadrados fuera del nivel siempre se tratan como `"wall"` para asegurar que el jugador no pueda salir del mundo y que no intentemos leer fuera de los límites de nuestra matriz `rows`.
 
@@ -607,16 +609,16 @@ State.prototype.update = function(time, keys) {
 };
 ```
 
-El método recibe un paso de tiempo y una estructura de datos que le indica qué teclas se mantienen presionadas. Lo primero que hace es llamar al método `update` en todos los actores, produciendo un array de actores actualizados. Los actores también reciben el paso de tiempo, las teclas y el estado, para que puedan basar su actualización en esos valores. Solo el jugador realmente lee las teclas, ya que es el único actor controlado por el teclado.
+El método recibe un paso de tiempo y una estructura de datos que le indica qué teclas se mantienen presionadas. Lo primero que hace es llamar al método `update` en todos los actores, produciendo un array de actores actualizados. Los actores también reciben el paso de tiempo, las teclas y el estado, para que puedan basar su actualización en esos valores. Solo el jugador lee realmente las teclas, ya que es el único actor controlado por el teclado.
 
 Si el juego ya ha terminado, no es necesario realizar más procesamiento (no se puede ganar el juego después de haber perdido, o viceversa). De lo contrario, el método prueba si el jugador está tocando lava de fondo. Si es así, se pierde el juego y hemos terminado. Finalmente, si el juego sigue en curso, verifica si algún otro actor se superpone al jugador.La superposición entre actores se detecta con la función `overlap`. Toma dos objetos actor y devuelve true cuando se tocan, lo cual sucede cuando se superponen tanto a lo largo del eje x como a lo largo del eje y.
 
 ```{includeCode: true}
 function overlap(actor1, actor2) {
   return actor1.pos.x + actor1.size.x > actor2.pos.x &&
-  actor1.pos.x < actor2.pos.x + actor2.size.x &&
-  actor1.pos.y + actor1.size.y > actor2.pos.y &&
-  actor1.pos.y < actor2.pos.y + actor2.size.y;
+         actor1.pos.x < actor2.pos.x + actor2.size.x &&
+         actor1.pos.y + actor1.size.y > actor2.pos.y &&
+         actor1.pos.y < actor2.pos.y + actor2.size.y;
 }
 ```
 
@@ -641,7 +643,7 @@ Coin.prototype.collide = function(state) {
 
 {{index actor, "Clase Lava", lava}}
 
-Los métodos `update` de los objetos actor toman como argumentos el paso de tiempo, el objeto de estado y un objeto `keys`. El de tipo actor `Lava` ignora el objeto `keys`.
+Los métodos `update` de los objetos actor toman como argumentos el paso de tiempo, el objeto de estado y un objeto `keys`. El actor de tipo `Lava` ignora el objeto `keys`.
 
 ```{includeCode: true}
 Lava.prototype.update = function(time, state) {
@@ -658,7 +660,7 @@ Lava.prototype.update = function(time, state) {
 
 {{index rebotante, "multiplicación", "Clase Vec", "detección de colisiones"}}
 
-Este método `update` calcula una nueva posición agregando el producto del paso de tiempo y la velocidad actual a su posición anterior. Si no hay obstáculos que bloqueen esa nueva posición, se mueve allí. Si hay un obstáculo, el comportamiento depende del tipo de bloque de ((lava))—la lava goteante tiene una posición de `reset` a la que regresa cuando golpea algo. La lava rebotante invierte su velocidad multiplicándola por -1 para que comience a moverse en la dirección opuesta.
+Este método `update` calcula una nueva posición agregando el producto del paso de tiempo y la velocidad actual a su posición anterior. Si no hay obstáculos que bloqueen esa nueva posición, se mueve allí. Si hay un obstáculo, el comportamiento depende del tipo de bloque de ((lava)) —la lava goteante tiene una posición de `reset` a la que regresa cuando golpea algo. La lava rebotante invierte su velocidad multiplicándola por -1 para que comience a moverse en el sentido opuesto.
 
 {{index "Clase Coin", coin, wave}}
 
@@ -677,11 +679,11 @@ Coin.prototype.update = function(time) {
 
 {{index "Función Math.sin", seno, fase}}
 
-La propiedad `wobble` se incrementa para hacer un seguimiento del tiempo y luego se utiliza como argumento para `Math.sin` para encontrar la nueva posición en la ((onda)). La posición actual de la moneda se calcula a partir de su posición base y un desplazamiento basado en esta onda.
+La propiedad `wobble` se incrementa para hacer un seguimiento del tiempo y luego se utiliza como argumento para `Math.sin` para encontrar la nueva posición en el ((vaivén)). La posición actual de la moneda se calcula a partir de su posición base y un desplazamiento basado en esta onda.
 
 {{index "detección de colisiones", "clase Jugador"}}
 
-Eso deja al ((jugador)) en sí. El movimiento del jugador se maneja por separado por ((eje)) porque golpear el suelo no debería impedir el movimiento horizontal, y golpear una pared no debería detener el movimiento de caída o de salto.
+Ya solo nos queda el ((jugador)). El movimiento del jugador se maneja por separado por cada ((eje)), porque golpear el suelo no debería impedir el movimiento horizontal, y golpear una pared no debería detener el movimiento de caída o de salto.
 
 ```{includeCode: true}
 const playerXSpeed = 7;
@@ -723,7 +725,7 @@ El movimiento vertical funciona de manera similar pero tiene que simular ((salto
 
 Comprobamos las paredes nuevamente. Si no golpeamos ninguna, se usa la nueva posición. Si _hay_ una pared, hay dos posibles resultados. Cuando se presiona la flecha hacia arriba _y_ estamos bajando (lo que significa que lo que golpeamos está debajo de nosotros), la velocidad se establece en un valor negativo relativamente grande. Esto hace que el jugador salte. Si ese no es el caso, el jugador simplemente chocó con algo y la velocidad se establece en cero.
 
-La fuerza de la gravedad, la velocidad de ((salto)) y otras ((constantes)) en el juego se determinaron simplemente probando algunos números y viendo cuáles se sentían correctos. Puedes experimentar con ellos.
+La fuerza de la gravedad, la velocidad de ((salto)) y otras ((constantes)) en el juego se determinaron simplemente probando algunos números y viendo cuáles se sentían más correctos. Puedes experimentar con ellos.
 
 ## Seguimiento de teclas
 
@@ -752,11 +754,11 @@ function trackKeys(keys) {
   window.addEventListener("keyup", track);
   return down;
 }
+
+const arrowKeys =
+  trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
 ```
 
-```
-const arrowKeys = trackKeys(["ArrowLeft", "ArrowRight", "ArrowUp"]);
-```
 
 {{index "evento keydown", "evento keyup"}}
 
@@ -797,7 +799,7 @@ La función también convierte los pasos de tiempo a segundos, que son una canti
 
 {{index "función de devolución de llamada", "función runLevel", ["animación", "juego de plataformas"]}}
 
-La función `runLevel` toma un objeto `Level` y un constructor de ((display)) y devuelve una promesa. Muestra el nivel (en `document.body`) y permite al usuario jugar a través de él. Cuando el nivel termina (perdido o ganado), `runLevel` espera un segundo más (para que el usuario vea qué sucede), luego borra la pantalla, detiene la animación y resuelve la promesa con el estado final del juego.
+La función `runLevel` toma un objeto `Level` y un constructor de ((display)) y devuelve una promesa. Muestra el nivel (en `document.body`) y permite al usuario jugar a través de él. Cuando el nivel termina (perdiendo o ganando), `runLevel` espera un segundo más (para que el usuario vea qué sucede), luego borra la pantalla, detiene la animación y resuelve la promesa con el estado final del juego.
 
 ```{includeCode: true}
 function runLevel(level, Display) {
@@ -825,26 +827,26 @@ function runLevel(level, Display) {
 
 {{index "función runGame"}}
 
-Un juego es una secuencia de ((niveles)). Cada vez que el ((jugador)) muere, el nivel actual se reinicia. Cuando se completa un nivel, pasamos al siguiente nivel. Esto se puede expresar mediante la siguiente función, que toma un array de planes de nivel (cadenas) y un constructor de ((display)):
+Un juego es una secuencia de ((niveles)). Cada vez que el ((jugador)) muere, el nivel actual se reinicia. Cuando se completa un nivel, pasamos al siguiente nivel. Esto se puede expresar mediante la siguiente función, que toma un array de planos de nivel (cadenas) y un constructor de ((display)):
 
 ```{includeCode: true}
 async function runGame(plans, Display) {
   for (let level = 0; level < plans.length;) {
     let status = await runLevel(new Level(plans[level]),
                                 Display);
-    if (status == "ganado") level++;
+    if (status == "won") level++;
   }
-  console.log("¡Has ganado!");
+  console.log("You've won!");
 }
 ```
 
 {{index "programación asíncrona", "manejo de eventos"}}
 
-Debido a que hicimos que `runLevel` devuelva una promesa, `runGame` puede escribirse utilizando una función `async`, como se muestra en el [Capítulo ?](async). Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.
+Como hemos hecho que `runLevel` devuelva una promesa, `runGame` puede escribirse utilizando una función `async`, como se muestra en el [Capítulo ?](async). Devuelve otra promesa, que se resuelve cuando el jugador termina el juego.
 
 {{index juego, "conjunto de datos GAME_LEVELS"}}
 
-Hay un conjunto de planes de ((niveles)) disponibles en el enlace `GAME_LEVELS` en el [sandbox de este capítulo](https://eloquentjavascript.net/code#16)[ ([_https://eloquentjavascript.net/code#16_](https://eloquentjavascript.net/code#16))]{if book}. Esta página los alimenta a `runGame`, comenzando un juego real.
+Hay un conjunto de planos de ((niveles)) disponibles en la asociación `GAME_LEVELS` en el [sandbox de este capítulo](https://eloquentjavascript.net/code#16)[ ([_https://eloquentjavascript.net/code#16_](https://eloquentjavascript.net/code#16))]{if book}. Esta página los alimenta a `runGame`, comenzando un juego real.
 
 ```{sandbox: null, focus: yes, lang: html, startCode: true}
 <link rel="stylesheet" href="css/game.css">
@@ -858,17 +860,17 @@ Hay un conjunto de planes de ((niveles)) disponibles en el enlace `GAME_LEVELS` 
 
 {{if interactive
 
-Intenta vencerlos. Me divertí construyéndolos.
+Intenta pasártelos. Yo me he divertido construyéndolos.
 
 if}}
 
 ## Ejercicios
 
-### Juego terminado
+### Fin del juego
 
 {{index "vidas (ejercicio)", juego}}
 
-Es tradicional que los ((juegos de plataformas)) hagan que el jugador comience con un número limitado de _vidas_ y resten una vida cada vez que mueren. Cuando el jugador se queda sin vidas, el juego se reinicia desde el principio.
+Es tradición que los ((juegos de plataformas)) hagan que el jugador comience con un número limitado de _vidas_ y resten una vida cada vez que mueren. Cuando el jugador se queda sin vidas, el juego se reinicia desde el principio.
 
 {{index "función runGame"}}
 
@@ -901,7 +903,7 @@ if}}
 
 {{index "pausa (ejercicio)", "tecla de escape", teclado}}
 
-Haz posible pausar y despausar el juego presionando la tecla Esc.
+Haz que se pueda pausar y reanudar el juego presionando la tecla Esc.
 
 {{index "función runLevel", "manejo de eventos"}}
 
@@ -913,7 +915,7 @@ La interfaz de `runAnimation` puede no parecer adecuada para esto a primera vist
 
 {{index [enlace, global], "función trackKeys"}}
 
-Cuando tengas eso funcionando, hay algo más que podrías intentar. La forma en que hemos estado registrando los controladores de eventos de teclado es algo problemática. El objeto `arrowKeys` es actualmente una asignación global, y sus controladores de eventos se mantienen incluso cuando no hay ningún juego en ejecución. Podrías decir que _escapan_ de nuestro sistema. Amplía `trackKeys` para proporcionar una forma de anular el registro de sus controladores y luego cambia `runLevel` para registrar sus controladores cuando comienza y desregistrarlos nuevamente cuando termine.
+Cuando eso esté funcionando, hay algo más que podrías intentar. La forma en que hemos estado registrando los controladores de eventos de teclado es algo problemática. El objeto `arrowKeys` es actualmente una asignación global, y sus controladores de eventos se mantienen incluso cuando no hay ningún juego en ejecución. Podrías decir que _escapan_ de nuestro sistema. Amplía `trackKeys` para proporcionar una forma de anular el registro de sus controladores y luego cambia `runLevel` para registrar sus controladores cuando comienza y desregistrarlos nuevamente cuando termine.
 
 {{if interactive
 
@@ -963,7 +965,7 @@ Así que necesitamos comunicar el hecho de que estamos pausando el juego a la fu
 
 {{index "event handling", "removeEventListener method", [function, "as value"]}}
 
-Al encontrar una forma de anular los controladores registrados por `trackKeys`, recuerda que el valor de función _exactamente_ igual que se pasó a `addEventListener` debe pasarse a `removeEventListener` para quitar con éxito un controlador. Por lo tanto, el valor de función `handler` creado en `trackKeys` debe estar disponible para el código que anula los controladores.
+Al encontrar una forma de anular los controladores registrados por `trackKeys`, recuerda que _exactamente_ el mismo valor de función que se pasó a `addEventListener` debe pasarse a `removeEventListener` para quitar con éxito un controlador. Por lo tanto, el valor de función `handler` creado en `trackKeys` debe estar disponible para el código que anula los controladores.
 
 Puedes agregar una propiedad al objeto devuelto por `trackKeys`, que contenga ese valor de función o un método que maneje la anulación directamente.
 
@@ -973,11 +975,11 @@ hint}}
 
 {{index "monster (exercise)"}}
 
-Es tradicional que los juegos de plataformas tengan enemigos a los que puedes saltar encima para derrotar. Este ejercicio te pide que agregues un tipo de actor así al juego.
+Es tradición que los juegos de plataformas tengan enemigos a los que puedes saltar encima para derrotar. Este ejercicio te pide que agregues un tipo de actor así al juego.
 
 Lo llamaremos monstruo. Los monstruos se mueven solo horizontalmente. Puedes hacer que se muevan en la dirección del jugador, que reboten de un lado a otro como lava horizontal, o tengan cualquier patrón de movimiento que desees. La clase no tiene que manejar caídas, pero debe asegurarse de que el monstruo no atraviese paredes.
 
-Cuando un monstruo toca al jugador, el efecto depende de si el jugador está saltando encima de ellos o no. Puedes aproximarlo comprobando si el final del jugador está cerca de la parte superior del monstruo. Si este es el caso, el monstruo desaparece. Si no, el juego se pierde.
+Cuando un monstruo toca al jugador, el efecto depende de si el jugador está saltando encima de ellos o no. Puedes aproximarlo comprobando si el final del jugador está cerca de la parte superior del monstruo. Si este es el caso, el monstruo desaparece. Si no, la partida termina.
 
 {{if interactive
 
