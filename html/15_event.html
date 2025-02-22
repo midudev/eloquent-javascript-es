@@ -14,74 +14,74 @@
 
 <blockquote>
 
-<p><a class="p_ident" id="p-VUZeGAxBS+" href="#p-VUZeGAxBS+" tabindex="-1" role="presentation"></a>Tienes poder sobre tu mente, no sobre los eventos externos. Date cuenta de esto y encontrarás fuerza.</p>
+<p><a class="p_ident" id="p-bIbmS/SOgJ" href="#p-bIbmS/SOgJ" tabindex="-1" role="presentation"></a>Tienes poder sobre tu mente, no sobre los eventos externos. Comprende esto y hallarás la fuerza.</p>
 
 <footer>Marco Aurelio, <cite>Meditaciones</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_15.jpg" alt="Ilustración que muestra una máquina de Rube Goldberg que involucra una pelota, una balanza, un par de tijeras y un martillo, los cuales se afectan en una reacción en cadena que enciende una bombilla."></figure>
 
-<p><a class="p_ident" id="p-7buioHYYih" href="#p-7buioHYYih" tabindex="-1" role="presentation"></a>Algunos programas trabajan con la entrada directa del usuario, como acciones del ratón y del teclado. Ese tipo de entrada no está disponible de antemano, como una estructura de datos bien organizada, llega pieza por pieza, en tiempo real, y el programa debe responder a medida que sucede.</p>
+<p><a class="p_ident" id="p-7buioHYYih" href="#p-7buioHYYih" tabindex="-1" role="presentation"></a>Algunos programas trabajan directamente con la interacción del usuario, como acciones del ratón o del teclado. Ese tipo de entrada no está disponible de antemano como una estructura de datos bien organizada —llega pieza poco a poco, en tiempo real, y el programa debe responder a medida que sucede.</p>
 
 <h2><a class="h_ident" id="h-FRSr58jqPG" href="#h-FRSr58jqPG" tabindex="-1" role="presentation"></a>Controladores de Eventos</h2>
 
-<p><a class="p_ident" id="p-8Rhq4iuO+f" href="#p-8Rhq4iuO+f" tabindex="-1" role="presentation"></a>Imagina una interfaz donde la única forma de saber si una tecla en el teclado está siendo presionada es leyendo el estado actual de esa tecla. Para poder reaccionar a las pulsaciones de teclas, tendrías que leer constantemente el estado de la tecla para capturarla antes de que se libere nuevamente. Sería peligroso realizar otras computaciones intensivas en tiempo, ya que podrías perder una pulsación de tecla.</p>
+<p><a class="p_ident" id="p-lkuLsIRCh+" href="#p-lkuLsIRCh+" tabindex="-1" role="presentation"></a>Imagina una interfaz donde la única forma de saber si una tecla en el teclado está siendo presionada es leyendo el estado actual de esa tecla. Para poder reaccionar a las pulsaciones de teclas, tendrías que leer constantemente el estado de la tecla para capturarla antes de que se libere nuevamente. Sería peligroso realizar otros procedimientos intensivos en cuanto a tiempo, ya que podrías perder una pulsación de tecla por el camino.</p>
 
-<p><a class="p_ident" id="p-VP41tPOvsN" href="#p-VP41tPOvsN" tabindex="-1" role="presentation"></a>Algunas máquinas primitivas manejan la entrada de esa manera. Un paso adelante sería que el hardware o el sistema operativo noten la pulsación de tecla y la pongan en una cola. Un programa puede luego verificar periódicamente la cola en busca de nuevos eventos y reaccionar a lo que encuentre allí.</p>
+<p><a class="p_ident" id="p-VP41tPOvsN" href="#p-VP41tPOvsN" tabindex="-1" role="presentation"></a>Algunas máquinas primitivas manejan este tipo de entrada de esa manera. Un paso adelante sería que el hardware o el sistema operativo noten la pulsación de tecla y la pongan en una cola. Un programa puede luego verificar periódicamente la cola en busca de nuevos eventos y reaccionar a lo que encuentre allí.</p>
 
-<p><a class="p_ident" id="p-OA4r/1sP4t" href="#p-OA4r/1sP4t" tabindex="-1" role="presentation"></a>Por supuesto, tiene que recordar mirar la cola y hacerlo a menudo, porque cualquier tiempo transcurrido entre la presión de la tecla y la notificación del evento por parte del programa hará que el software se sienta sin respuesta. Este enfoque se llama <em>sondeo</em>. La mayoría de los programadores prefieren evitarlo.</p>
+<p><a class="p_ident" id="p-OA4r/1sP4t" href="#p-OA4r/1sP4t" tabindex="-1" role="presentation"></a>Por supuesto, tiene que recordar mirar la cola y hacerlo a menudo, porque cualquier tiempo transcurrido entre la presión de la tecla y la notificación del evento por parte del programa hará que el software se sienta como sin respuesta. Este enfoque se llama <em>sondeo</em>. La mayoría de los programadores prefieren evitarlo.</p>
 
 <p><a class="p_ident" id="p-2XkwGPIiX5" href="#p-2XkwGPIiX5" tabindex="-1" role="presentation"></a>Un mecanismo mejor es que el sistema notifique activamente a nuestro código cuando ocurre un evento. Los navegadores hacen esto al permitirnos registrar funciones como <em>manejadores</em> para eventos específicos.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-oVekYvwKVN" href="#c-oVekYvwKVN" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Haz clic en este documento para activar el manejador.&lt;/<span class="tok-typeName">p</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-MmG75mNTKc" href="#c-MmG75mNTKc" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Haz clic en este documento para activar el manejador.&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   window.addEventListener(<span class="tok-string">&quot;click&quot;</span>, () =&gt; {
-    console.log(<span class="tok-string">&quot;¿Llamaste?&quot;</span>);
+    console.log(<span class="tok-string">&quot;¿Quién es?&quot;</span>);
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
 <p><a class="p_ident" id="p-sMSFJq6kop" href="#p-sMSFJq6kop" tabindex="-1" role="presentation"></a>La asignación <code>window</code> se refiere a un objeto integrado proporcionado por el navegador. Representa la ventana del navegador que contiene el documento. Llamar a su método <code>addEventListener</code> registra el segundo argumento para que se llame cada vez que ocurra el evento descrito por su primer argumento.</p>
 
-<h2><a class="h_ident" id="h-i1TmEKGPGX" href="#h-i1TmEKGPGX" tabindex="-1" role="presentation"></a>Eventos y nodos DOM</h2>
+<h2><a class="h_ident" id="h-DVNLj0NT/B" href="#h-DVNLj0NT/B" tabindex="-1" role="presentation"></a>Eventos y nodos del DOM</h2>
 
-<p><a class="p_ident" id="p-KozqhnfqX8" href="#p-KozqhnfqX8" tabindex="-1" role="presentation"></a>Cada controlador de eventos del navegador se registra en un contexto. En el ejemplo anterior llamamos a <code>addEventListener</code> en el objeto <code>window</code> para registrar un controlador para toda la ventana. Un método similar también se encuentra en elementos del DOM y algunos otros tipos de objetos. Los escuchas de eventos solo se llaman cuando el evento ocurre en el contexto del objeto en el que están registrados.</p>
+<p><a class="p_ident" id="p-KozqhnfqX8" href="#p-KozqhnfqX8" tabindex="-1" role="presentation"></a>Cada controlador de eventos del navegador se registra en un contexto. En el ejemplo anterior llamamos a <code>addEventListener</code> en el objeto <code>window</code> para registrar un controlador para toda la ventana. También podemos encontrar un método similar en elementos del DOM y algunos otros tipos de objetos. Los escuchas de eventos solo se llaman cuando el evento ocurre en el contexto del objeto en el que están registrados.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-cgGEoZtMBf" href="#c-cgGEoZtMBf" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">button</span>&gt;Haz clic&lt;/<span class="tok-typeName">button</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-Ap1y9/gxo1" href="#c-Ap1y9/gxo1" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">button</span>&gt;Haz clic&lt;/<span class="tok-typeName">button</span>&gt;
 &lt;<span class="tok-typeName">p</span>&gt;No hay manejador aquí.&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">button</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
-  button.addEventListener(<span class="tok-string">&quot;click&quot;</span>, () =&gt; {
-    console.log(<span class="tok-string">&quot;Botón clickeado.&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">botón</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
+  botón.addEventListener(<span class="tok-string">&quot;click&quot;</span>, () =&gt; {
+    console.log(<span class="tok-string">&quot;Botón cliqueado.&quot;</span>);
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-qcV8LJi52o" href="#p-qcV8LJi52o" tabindex="-1" role="presentation"></a>Ese ejemplo adjunta un manejador al nodo del botón. Los clics en el botón hacen que se ejecute ese manejador, pero los clics en el resto del documento no lo hacen.</p>
+<p><a class="p_ident" id="p-n9SHftwR5M" href="#p-n9SHftwR5M" tabindex="-1" role="presentation"></a>En este ejemplo se adjunta un manejador al nodo del botón. Los clics en el botón hacen que se ejecute ese manejador, pero los clics en el resto del documento no lo hacen.</p>
 
 <p><a class="p_ident" id="p-ULEZ9TcmUH" href="#p-ULEZ9TcmUH" tabindex="-1" role="presentation"></a>Darle a un nodo un atributo <code>onclick</code> tiene un efecto similar. Esto funciona para la mayoría de tipos de eventos: puedes adjuntar un manejador a través del atributo cuyo nombre es el nombre del evento con <code>on</code> al inicio.</p>
 
 <p><a class="p_ident" id="p-jwX/IrUZx/" href="#p-jwX/IrUZx/" tabindex="-1" role="presentation"></a>Pero un nodo solo puede tener un atributo <code>onclick</code>, por lo que solo puedes registrar un manejador por nodo de esa manera. El método <code>addEventListener</code> te permite agregar cualquier cantidad de manejadores, por lo que es seguro agregar manejadores incluso si ya hay otro manejador en el elemento.</p>
 
-<p><a class="p_ident" id="p-/4LnTySpGj" href="#p-/4LnTySpGj" tabindex="-1" role="presentation"></a>El método <code>removeEventListener</code>, llamado con argumentos similares a <code>addEventListener</code>, remueve un manejador.</p>
+<p><a class="p_ident" id="p-l/iOEDcKAk" href="#p-l/iOEDcKAk" tabindex="-1" role="presentation"></a>El método <code>removeEventListener</code>, llamado con argumentos similares a <code>addEventListener</code>, elimina un manejador.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-BYy+V/MPJt" href="#c-BYy+V/MPJt" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">button</span>&gt;Botón de acción única&lt;/<span class="tok-typeName">button</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-FX0B07eIDd" href="#c-FX0B07eIDd" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">button</span>&gt;Botón de acción única&lt;/<span class="tok-typeName">button</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">button</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">botón</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
   <span class="tok-keyword">function</span> <span class="tok-definition">unaVez</span>() {
     console.log(<span class="tok-string">&quot;¡Hecho!&quot;</span>);
-    button.removeEventListener(<span class="tok-string">&quot;click&quot;</span>, unaVez);
+    botón.removeEventListener(<span class="tok-string">&quot;click&quot;</span>, unaVez);
   }
-  button.addEventListener(<span class="tok-string">&quot;click&quot;</span>, unaVez);
+  botón.addEventListener(<span class="tok-string">&quot;click&quot;</span>, unaVez);
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-8jkibmkt7W" href="#p-8jkibmkt7W" tabindex="-1" role="presentation"></a>La función proporcionada a <code>removeEventListener</code> debe ser el mismo valor de función que se proporcionó a <code>addEventListener</code>. Por lo tanto, para anular el registro de un manejador, querrás darle un nombre a la función (<code>unaVez</code>, en el ejemplo) para poder pasar el mismo valor de función a ambos métodos.</p>
+<p><a class="p_ident" id="p-8jkibmkt7W" href="#p-8jkibmkt7W" tabindex="-1" role="presentation"></a>La función proporcionada a <code>removeEventListener</code> debe ser el mismo valor de función que se proporcionó a <code>addEventListener</code>. Por lo tanto, para anular el registro de un manejador, tendrás que darle un nombre a la función (<code>unaVez</code>, en el ejemplo) para poder pasar el mismo valor de función a ambos métodos.</p>
 
 <h2><a class="h_ident" id="h-KlpBrbTtf/" href="#h-KlpBrbTtf/" tabindex="-1" role="presentation"></a>Objetos de eventos</h2>
 
-<p><a class="p_ident" id="p-EfRG8R9jxW" href="#p-EfRG8R9jxW" tabindex="-1" role="presentation"></a>Aunque lo hemos ignorado hasta ahora, las funciones de manejadores de eventos reciben un argumento: el <em>objeto de evento</em>. Este objeto contiene información adicional sobre el evento. Por ejemplo, si queremos saber <em>cuál</em> botón del mouse se presionó, podemos mirar la propiedad <code>button</code> del objeto de evento.</p>
+<p><a class="p_ident" id="p-EfRG8R9jxW" href="#p-EfRG8R9jxW" tabindex="-1" role="presentation"></a>Aunque lo hemos ignorado hasta ahora, las funciones de manejadores de eventos reciben un argumento: el <em>objeto de evento</em>. Este objeto contiene información adicional sobre el evento. Por ejemplo, si queremos saber <em>qué</em> botón del ratón se presionó, podemos mirar la propiedad <code>button</code> del objeto de evento.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-1XU8X2K94Z" href="#c-1XU8X2K94Z" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">button</span>&gt;Haz clic como quieras&lt;/<span class="tok-typeName">button</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-L8AjbiBWiF" href="#c-L8AjbiBWiF" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">button</span>&gt;Haz clic como quieras&lt;/<span class="tok-typeName">button</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">button</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
-  button.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, <span class="tok-definition">event</span> =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">botón</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
+  botón.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, <span class="tok-definition">event</span> =&gt; {
     <span class="tok-keyword">if</span> (event.button == <span class="tok-number">0</span>) {
       console.log(<span class="tok-string">&quot;Botón izquierdo&quot;</span>);
     } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (event.button == <span class="tok-number">1</span>) {
@@ -98,20 +98,20 @@
 
 <p><a class="p_ident" id="p-eiMQVYI0Vr" href="#p-eiMQVYI0Vr" tabindex="-1" role="presentation"></a>Para la mayoría de tipos de evento, los manejadores registrados en nodos con hijos también recibirán eventos que ocurran en los hijos. Si se hace clic en un botón dentro de un párrafo, los manejadores de eventos en el párrafo también verán el evento de clic.</p>
 
-<p><a class="p_ident" id="p-LrSHxLbszG" href="#p-LrSHxLbszG" tabindex="-1" role="presentation"></a>Pero si tanto el párrafo como el botón tienen un controlador, el controlador más específico —el del botón— tiene prioridad para ejecutarse primero. Se dice que el evento <em>se propaga</em> hacia afuera, desde el nodo donde ocurrió hacia el nodo padre de ese nodo y hasta la raíz del documento. Finalmente, después de que todos los controladores registrados en un nodo específico hayan tenido su turno, los controladores registrados en toda la ventana tienen la oportunidad de responder al evento.</p>
+<p><a class="p_ident" id="p-LrSHxLbszG" href="#p-LrSHxLbszG" tabindex="-1" role="presentation"></a>Pero si tanto el párrafo como el botón tienen un controlador, el controlador más específico —el del botón— tiene prioridad para ejecutarse primero. Se dice que el evento <em>se propaga</em> hacia afuera, desde el nodo donde ocurrió hacia el nodo padre de ese nodo y hasta la raíz del documento. Finalmente, después de que todos los manejadores registrados en un nodo específico hayan tenido su turno, los manejadores registrados en toda la ventana tienen la oportunidad de responder al evento.</p>
 
 <p><a class="p_ident" id="p-bLFObMVe5V" href="#p-bLFObMVe5V" tabindex="-1" role="presentation"></a>En cualquier momento, un controlador de eventos puede llamar al método <code>stopPropagation</code> en el objeto de evento para evitar que los controladores superiores reciban el evento. Esto puede ser útil cuando, por ejemplo, tienes un botón dentro de otro elemento clickeable y no quieres que los clics en el botón activen el comportamiento de click del elemento externo.</p>
 
-<p><a class="p_ident" id="p-VouwaRKuxI" href="#p-VouwaRKuxI" tabindex="-1" role="presentation"></a>El siguiente ejemplo registra controladores de <code>&quot;mousedown&quot;</code> tanto en un botón como en el párrafo que lo rodea. Cuando se hace clic con el botón derecho del ratón, el controlador del botón llama a <code>stopPropagation</code>, lo que evitará que se ejecute el controlador en el párrafo. Cuando el botón se hace clic con otro botón del ratón, ambos controladores se ejecutarán.</p>
+<p><a class="p_ident" id="p-VouwaRKuxI" href="#p-VouwaRKuxI" tabindex="-1" role="presentation"></a>El siguiente ejemplo registra manejadores de <code>&quot;mousedown&quot;</code> tanto en un botón como en el párrafo que lo rodea. Cuando se hace clic con el botón derecho del ratón, el manejador del botón llama a <code>stopPropagation</code>, lo que evitará que se ejecute el manejador en el párrafo. Cuando se hace clic en el botón con otro botón del ratón, ambos manejadores se ejecutarán.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-VU+8jIYijA" href="#c-VU+8jIYijA" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Un párrafo con un &lt;<span class="tok-typeName">button</span>&gt;botón&lt;/<span class="tok-typeName">button</span>&gt;.&lt;/<span class="tok-typeName">p</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-w+JAotaejk" href="#c-w+JAotaejk" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Un párrafo con un &lt;<span class="tok-typeName">button</span>&gt;botón&lt;/<span class="tok-typeName">button</span>&gt;.&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">para</span> = document.querySelector(<span class="tok-string">&quot;p&quot;</span>);
-  <span class="tok-keyword">let</span> <span class="tok-definition">button</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
-  para.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, () =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">parr</span> = document.querySelector(<span class="tok-string">&quot;p&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">botón</span> = document.querySelector(<span class="tok-string">&quot;button&quot;</span>);
+  parr.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, () =&gt; {
     console.log(<span class="tok-string">&quot;Controlador para el párrafo.&quot;</span>);
   });
-  button.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, <span class="tok-definition">event</span> =&gt; {
+  botón.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, <span class="tok-definition">event</span> =&gt; {
     console.log(<span class="tok-string">&quot;Controlador para el botón.&quot;</span>);
     <span class="tok-keyword">if</span> (event.button == <span class="tok-number">2</span>) event.stopPropagation();
   });
@@ -134,24 +134,24 @@
 
 <h2><a class="h_ident" id="h-6R7Ptf/aVU" href="#h-6R7Ptf/aVU" tabindex="-1" role="presentation"></a>Acciones predeterminadas</h2>
 
-<p><a class="p_ident" id="p-R2pr2N9dn+" href="#p-R2pr2N9dn+" tabindex="-1" role="presentation"></a>Muchos eventos tienen una acción predeterminada asociada a ellos. Si haces clic en un enlace, serás llevado al destino del enlace. Si presionas la flecha hacia abajo, el navegador desplazará la página hacia abajo. Si haces clic derecho, obtendrás un menú contextual. Y así sucesivamente.</p>
+<p><a class="p_ident" id="p-0YxDwtCaUT" href="#p-0YxDwtCaUT" tabindex="-1" role="presentation"></a>Muchos eventos tienen una acción predeterminada asociada a ellos. Si haces clic en un enlace, serás llevado al destino del enlace. Si presionas la flecha hacia abajo, el navegador desplazará la página hacia abajo. Si haces clic derecho, obtendrás un menú contextual. Y así con todo.</p>
 
-<p><a class="p_ident" id="p-eCArhCpoYq" href="#p-eCArhCpoYq" tabindex="-1" role="presentation"></a>Para la mayoría de los tipos de eventos, los controladores de eventos de JavaScript se ejecutan <em>antes</em> de que ocurra el comportamiento predeterminado. Si el controlador no desea que este comportamiento normal ocurra, típicamente porque ya se encargó de manejar el evento, puede llamar al método <code>preventDefault</code> en el objeto de evento.</p>
+<p><a class="p_ident" id="p-eCArhCpoYq" href="#p-eCArhCpoYq" tabindex="-1" role="presentation"></a>Para la mayoría de los tipos de eventos, los manejadores de eventos de JavaScript se ejecutan <em>antes</em> de que ocurra el comportamiento predeterminado. Si el manejador no desea que este comportamiento normal ocurra, usualmente porque ya se ha encargado de manejar el evento, puede llamar al método <code>preventDefault</code> en el objeto de evento.</p>
 
 <p><a class="p_ident" id="p-RY97vdby+n" href="#p-RY97vdby+n" tabindex="-1" role="presentation"></a>Esto se puede utilizar para implementar tus propios atajos de teclado o menús contextuales. También se puede usar para interferir de manera molesta con el comportamiento que los usuarios esperan. Por ejemplo, aquí hay un enlace que no se puede seguir:</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-sGqQCQuHVQ" href="#c-sGqQCQuHVQ" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">a</span> href=<span class="tok-string">&quot;https://developer.mozilla.org/&quot;</span>&gt;MDN&lt;/<span class="tok-typeName">a</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-Gj9esZ/lnR" href="#c-Gj9esZ/lnR" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">a</span> href=<span class="tok-string">&quot;https://developer.mozilla.org/&quot;</span>&gt;MDN&lt;/<span class="tok-typeName">a</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">link</span> = document.querySelector(<span class="tok-string">&quot;a&quot;</span>);
-  link.addEventListener(<span class="tok-string">&quot;click&quot;</span>, <span class="tok-definition">event</span> =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">enlace</span> = document.querySelector(<span class="tok-string">&quot;a&quot;</span>);
+  enlace.addEventListener(<span class="tok-string">&quot;click&quot;</span>, <span class="tok-definition">event</span> =&gt; {
     console.log(<span class="tok-string">&quot;¡Incorrecto!&quot;</span>);
     event.preventDefault();
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-H9L0J5B5xg" href="#p-H9L0J5B5xg" tabindex="-1" role="presentation"></a>Trata de no hacer este tipo de cosas a menos que tengas una razón realmente válida. Será desagradable para las personas que utilicen tu página cuando se rompa el comportamiento esperado.</p>
+<p><a class="p_ident" id="p-H9L0J5B5xg" href="#p-H9L0J5B5xg" tabindex="-1" role="presentation"></a>Trata de no hacer este tipo de cosas a menos que tengas una buena razón para hacerlo. Será desagradable para las personas que utilicen tu página cuando se rompa el comportamiento esperado.</p>
 
-<p><a class="p_ident" id="p-eCmiVPHlxu" href="#p-eCmiVPHlxu" tabindex="-1" role="presentation"></a>Dependiendo del navegador, algunos eventos no se pueden interceptar en absoluto. En Chrome, por ejemplo, el atajo de teclado para cerrar la pestaña actual (control-W o command-W) no se puede manejar con JavaScript.</p>
+<p><a class="p_ident" id="p-eCmiVPHlxu" href="#p-eCmiVPHlxu" tabindex="-1" role="presentation"></a>Dependiendo del navegador, algunos eventos no se pueden interceptar. En Chrome, por ejemplo, el atajo de teclado para cerrar la pestaña actual (<span class="keyname">control</span>-<span class="keyname">W</span> o <span class="keyname">command</span>-<span class="keyname">W</span>) no se puede manejar con JavaScript.</p>
 
 <h2><a class="h_ident" id="h-eLNw0KdiHA" href="#h-eLNw0KdiHA" tabindex="-1" role="presentation"></a>Eventos de teclado</h2>
 
@@ -171,11 +171,11 @@
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-/uBKiqvFy0" href="#p-/uBKiqvFy0" tabindex="-1" role="presentation"></a>A pesar de su nombre, <code>&quot;keydown&quot;</code> se dispara no solo cuando la tecla se presiona físicamente hacia abajo. Cuando se presiona y se mantiene una tecla, el evento se vuelve a disparar cada vez que la tecla <em>se repite</em>. A veces tienes que tener cuidado con esto. Por ejemplo, si agregas un botón al DOM cuando se presiona una tecla y lo eliminas de nuevo cuando se suelta la tecla, podrías agregar accidentalmente cientos de botones cuando se mantiene presionada la tecla durante más tiempo.</p>
+<p><a class="p_ident" id="p-/uBKiqvFy0" href="#p-/uBKiqvFy0" tabindex="-1" role="presentation"></a>A pesar de su nombre, <code>&quot;keydown&quot;</code> se dispara no solo cuando la tecla se presiona físicamente hacia abajo. Cuando se presiona y se mantiene una tecla, el evento se vuelve a disparar cada vez que la tecla <em>se repite</em>. A veces tienes que tener cuidado con esto. Por ejemplo, si agregas un botón al DOM cuando se presiona una tecla y lo eliminas de nuevo cuando se suelta la tecla, podrías agregar sin querer cientos de botones al mantener presionada la tecla durante más tiempo.</p>
 
-<p><a class="p_ident" id="p-I4C4KO6VjA" href="#p-I4C4KO6VjA" tabindex="-1" role="presentation"></a>El ejemplo observó la propiedad <code>key</code> del objeto evento para ver sobre qué tecla es el evento. Esta propiedad contiene una cadena que, para la mayoría de las teclas, corresponde a lo que escribirías al presionar esa tecla. Para teclas especiales como <span class="keyname">enter</span>, contiene una cadena que nombra la tecla (<code>&quot;Enter&quot;</code>, en este caso). Si mantienes presionado <span class="keyname">shift</span> mientras presionas una tecla, eso también puede influir en el nombre de la tecla: <code>&quot;v&quot;</code> se convierte en <code>&quot;V&quot;</code>, y <code>&quot;1&quot;</code> puede convertirse en <code>&quot;!&quot;</code>, si eso es lo que produce al presionar <span class="keyname">shift</span>-1 en tu teclado.</p>
+<p><a class="p_ident" id="p-I4C4KO6VjA" href="#p-I4C4KO6VjA" tabindex="-1" role="presentation"></a>El ejemplo observó la propiedad <code>key</code> del objeto evento para ver sobre qué tecla es el evento. Esta propiedad contiene una cadena que, para la mayoría de las teclas, corresponde a lo que escribirías al presionar esa tecla. Para teclas especiales como <span class="keyname">enter</span>, contiene una cadena que nombra la tecla (<code>&quot;Enter&quot;</code>, en este caso). Si mantienes presionado <span class="keyname">shift</span> mientras presionas una tecla, eso también puede influir en el nombre de la tecla: <code>&quot;v&quot;</code> se convierte en <code>&quot;V&quot;</code>, y <code>&quot;1&quot;</code> puede convertirse en <code>&quot;!&quot;</code>, si eso es lo que se produce al presionar <span class="keyname">shift</span>-1 en tu teclado.</p>
 
-<p><a class="p_ident" id="p-GTiYNx18vJ" href="#p-GTiYNx18vJ" tabindex="-1" role="presentation"></a>Las teclas modificadoras como <span class="keyname">shift</span>, <span class="keyname">control</span>, <span class="keyname">alt</span> y <span class="keyname">meta</span> (command en Mac) generan eventos de tecla igual que las teclas normales. Pero al buscar combinaciones de teclas, también puedes averiguar si estas teclas se mantienen presionadas mirando las propiedades <code>shiftKey</code>, <code>ctrlKey</code>, <code>altKey</code> y <code>metaKey</code> de los eventos de teclado y ratón.</p>
+<p><a class="p_ident" id="p-GTiYNx18vJ" href="#p-GTiYNx18vJ" tabindex="-1" role="presentation"></a>Las teclas modificadoras como <span class="keyname">shift</span>, <span class="keyname">control</span>, <span class="keyname">alt</span> y <span class="keyname">meta</span> (<span class="keyname">command</span> en Mac) generan eventos de tecla igual que las teclas normales. Pero al buscar combinaciones de teclas, también puedes averiguar si estas teclas se mantienen presionadas mirando las propiedades <code>shiftKey</code>, <code>ctrlKey</code>, <code>altKey</code> y <code>metaKey</code> de los eventos de teclado y ratón.</p>
 
 <pre tabindex="0" class="snippet" data-language="html"  data-focus="true"><a class="c_ident" id="c-8SxxAoGtUO" href="#c-8SxxAoGtUO" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Pulsa Control-Espacio para continuar.&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -186,15 +186,15 @@
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-2tFLOxDicw" href="#p-2tFLOxDicw" tabindex="-1" role="presentation"></a>El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene foco cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo <code>tabindex</code>, pero cosas como los enlaces, botones y campos de formulario pueden. Volveremos a los campos de formulario en el <a href="18_http.html#forms">Capítulo 18</a>. Cuando nada en particular tiene foco, <code>document.body</code> actúa como el nodo objetivo de los eventos de teclado.</p>
+<p><a class="p_ident" id="p-2tFLOxDicw" href="#p-2tFLOxDicw" tabindex="-1" role="presentation"></a>El nodo del DOM donde se origina un evento de teclado depende del elemento que tiene foco cuando se presiona la tecla. La mayoría de los nodos no pueden tener foco a menos que les des un atributo <code>tabindex</code>, pero cosas como los enlaces, botones y campos de formulario sí pueden. Volveremos a los campos de formulario en el <a href="18_http.html#forms">Capítulo 18</a>. Cuando no hay nada en particular con foco, <code>document.body</code> actúa como el nodo objetivo de los eventos de teclado.</p>
 
-<p><a class="p_ident" id="p-24lfblPn/F" href="#p-24lfblPn/F" tabindex="-1" role="presentation"></a>Cuando el usuario está escribiendo texto, utilizar eventos de teclado para averiguar qué se está escribiendo es problemático. Algunas plataformas, especialmente el teclado virtual en teléfonos Android, no disparan eventos de teclado. Pero incluso cuando se tiene un teclado tradicional, algunos tipos de entrada de texto no coinciden con las pulsaciones de teclas de manera directa, como el software de <em>editor de método de entrada</em> (IME) utilizado por personas cuyos guiones no caben en un teclado, donde múltiples pulsaciones de teclas se combinan para crear caracteres.</p>
+<p><a class="p_ident" id="p-24lfblPn/F" href="#p-24lfblPn/F" tabindex="-1" role="presentation"></a>Cuando el usuario está escribiendo texto, utilizar eventos de teclado para averiguar qué se está escribiendo es problemático. Algunas plataformas, especialmente el teclado virtual en teléfonos Android, no disparan eventos de teclado. Pero incluso cuando se tiene un teclado tradicional, algunos tipos de entrada de texto no coinciden con las pulsaciones de teclas de manera directa, como el software de <em>editor de método de entrada</em> (IME) utilizado por personas cuyos sistemas de escritura no caben en un teclado, donde múltiples pulsaciones de teclas se combinan para crear caracteres.</p>
 
-<p><a class="p_ident" id="p-PQJVGZpm4G" href="#p-PQJVGZpm4G" tabindex="-1" role="presentation"></a>Para detectar cuando se ha escrito algo, los elementos en los que se puede escribir, como las etiquetas <code>&lt;input&gt;</code> y <code>&lt;textarea&gt;</code>, activan eventos <code>&quot;input&quot;</code> cada vez que el usuario cambia su contenido. Para obtener el contenido real que se ha escrito, lo mejor es leerlo directamente del campo enfocado. <a href="18_http.html#forms">Capítulo 18</a> mostrará cómo hacerlo.</p>
+<p><a class="p_ident" id="p-PQJVGZpm4G" href="#p-PQJVGZpm4G" tabindex="-1" role="presentation"></a>Para detectar cuando se ha escrito algo, los elementos en los que se puede escribir, como las etiquetas <code>&lt;input&gt;</code> y <code>&lt;textarea&gt;</code>, activan eventos <code>&quot;input&quot;</code> cada vez que el usuario cambia su contenido. Para obtener el contenido real que se ha escrito, lo mejor es leerlo directamente del campo enfocado. El <a href="18_http.html#forms">Capítulo 18</a> mostrará cómo hacerlo.</p>
 
 <h2><a class="h_ident" id="h-AYhl2kjrOW" href="#h-AYhl2kjrOW" tabindex="-1" role="presentation"></a>Eventos de puntero</h2>
 
-<p><a class="p_ident" id="p-6Y0Y9AhTlQ" href="#p-6Y0Y9AhTlQ" tabindex="-1" role="presentation"></a>Actualmente existen dos formas ampliamente utilizadas de señalar cosas en una pantalla: los ratones (incluyendo dispositivos que actúan como ratones, como touchpads y trackballs) y las pantallas táctiles. Estas producen diferentes tipos de eventos.</p>
+<p><a class="p_ident" id="p-6Y0Y9AhTlQ" href="#p-6Y0Y9AhTlQ" tabindex="-1" role="presentation"></a>Actualmente existen dos formas ampliamente utilizadas de señalar cosas en una pantalla: los ratones (incluyendo dispositivos que actúan como ratones, como touchpads y trackballs) y las pantallas táctiles. Ambas producen diferentes tipos de eventos.</p>
 
 <h3><a class="i_ident" id="i-ld4kHyEZCM" href="#i-ld4kHyEZCM" tabindex="-1" role="presentation"></a>Clics de ratón</h3>
 
@@ -204,16 +204,16 @@
 
 <p><a class="p_ident" id="p-VTiFjJPIru" href="#p-VTiFjJPIru" tabindex="-1" role="presentation"></a>Si dos clics ocurren cerca uno del otro, también se dispara un evento <code>&quot;dblclick&quot;</code> (doble clic), después del segundo evento de clic.</p>
 
-<p><a class="p_ident" id="p-bCo6gVY4HL" href="#p-bCo6gVY4HL" tabindex="-1" role="presentation"></a>Para obtener información precisa sobre el lugar donde ocurrió un evento de ratón, puedes mirar sus propiedades <code>clientX</code> y <code>clientY</code>, que contienen las coordenadas del evento (en píxeles) relativas a la esquina superior izquierda de la ventana, o <code>pageX</code> y <code>pageY</code>, que son relativas a la esquina superior izquierda de todo el documento (lo cual puede ser diferente cuando la ventana ha sido desplazada).</p>
+<p><a class="p_ident" id="p-bCo6gVY4HL" href="#p-bCo6gVY4HL" tabindex="-1" role="presentation"></a>Para obtener información precisa sobre el lugar donde ocurrió un evento de ratón, puedes mirar sus propiedades <code>clientX</code> y <code>clientY</code>, que contienen las coordenadas del evento (en píxeles) relativas a la esquina superior izquierda de la ventana, o <code>pageX</code> y <code>pageY</code>, que son relativas a la esquina superior izquierda de todo el documento (estas pueden ser diferentes cuando la ventana ha sido desplazada).</p>
 
-<p id="dibujo con ratón"><a class="p_ident" id="p-u6ObYcInxf" href="#p-u6ObYcInxf" tabindex="-1" role="presentation"></a>El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver <a href="19_paint.html">Capítulo 19</a> para una aplicación de dibujo menos primitiva.</p>
+<p id="dibujo_con_ratón"><a class="p_ident" id="p-u6ObYcInxf" href="#p-u6ObYcInxf" tabindex="-1" role="presentation"></a>El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver <a href="19_paint.html">Capítulo 19</a> para una aplicación de dibujo menos primitiva.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-vLkN71+z+e" href="#c-vLkN71+z+e" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">style</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-TjedoBBIL0" href="#c-TjedoBBIL0" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">style</span>&gt;
   <span class="tok-typeName">body</span> {
     height: <span class="tok-number">200</span><span class="tok-keyword">px</span>;
     background: <span class="tok-atom">beige</span>;
   }
-  .dot {
+  .punto {
     height: <span class="tok-number">8</span><span class="tok-keyword">px</span>; width: <span class="tok-number">8</span><span class="tok-keyword">px</span>;
     border-radius: <span class="tok-number">4</span><span class="tok-keyword">px</span>; <span class="tok-comment">/* redondea las esquinas */</span>
     background: <span class="tok-atom">teal</span>;
@@ -222,11 +222,11 @@
 &lt;/<span class="tok-typeName">style</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   window.addEventListener(<span class="tok-string">&quot;click&quot;</span>, <span class="tok-definition">event</span> =&gt; {
-    <span class="tok-keyword">let</span> <span class="tok-definition">dot</span> = document.createElement(<span class="tok-string">&quot;div&quot;</span>);
-    dot.className = <span class="tok-string">&quot;dot&quot;</span>;
-    dot.style.left = (event.pageX - <span class="tok-number">4</span>) + <span class="tok-string">&quot;px&quot;</span>;
-    dot.style.top = (event.pageY - <span class="tok-number">4</span>) + <span class="tok-string">&quot;px&quot;</span>;
-    document.body.appendChild(dot);
+    <span class="tok-keyword">let</span> <span class="tok-definition">punto</span> = document.createElement(<span class="tok-string">&quot;div&quot;</span>);
+    punto.className = <span class="tok-string">&quot;punto&quot;</span>;
+    punto.style.left = (event.pageX - <span class="tok-number">4</span>) + <span class="tok-string">&quot;px&quot;</span>;
+    punto.style.top = (event.pageY - <span class="tok-number">4</span>) + <span class="tok-string">&quot;px&quot;</span>;
+    document.body.appendChild(punto);
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
@@ -234,133 +234,133 @@
 
 <p><a class="p_ident" id="p-wmFbB/1fGJ" href="#p-wmFbB/1fGJ" tabindex="-1" role="presentation"></a>Cada vez que el puntero del ratón se mueve, se dispara un evento <code>&quot;mousemove&quot;</code>. Este evento se puede usar para rastrear la posición del ratón. Una situación común en la que esto es útil es al implementar algún tipo de funcionalidad de arrastrar y soltar con el ratón.</p>
 
-<p><a class="p_ident" id="p-2QDCAMGt0z" href="#p-2QDCAMGt0z" tabindex="-1" role="presentation"></a>Como ejemplo, el siguiente programa muestra una barra y configura controladores de eventos para que al arrastrar hacia la izquierda o hacia la derecha en esta barra, se haga más estrecha o más ancha:</p>
+<p><a class="p_ident" id="p-2QDCAMGt0z" href="#p-2QDCAMGt0z" tabindex="-1" role="presentation"></a>Como ejemplo, el siguiente programa muestra una barra y configura manejadores de eventos para que al arrastrar hacia la izquierda o hacia la derecha en esta barra, se haga más estrecha o más ancha:</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-UTKlG/Tbre" href="#c-UTKlG/Tbre" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Arrastra la barra para cambiar su anchura:&lt;/<span class="tok-typeName">p</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-7ahXgKwwQV" href="#c-7ahXgKwwQV" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Arrastra la barra para cambiar su anchura:&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">div</span> style=<span class="tok-string">&quot;</span>background: <span class="tok-atom">orange</span>; width: <span class="tok-number">60</span><span class="tok-keyword">px</span>; height: <span class="tok-number">20</span><span class="tok-keyword">px</span><span class="tok-string">&quot;</span>&gt;
 &lt;/<span class="tok-typeName">div</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">lastX</span>; <span class="tok-comment">// Rastrea la última posición X del ratón observada</span>
-  <span class="tok-keyword">let</span> <span class="tok-definition">bar</span> = document.querySelector(<span class="tok-string">&quot;div&quot;</span>);
-  bar.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, <span class="tok-definition">event</span> =&gt; {
+  <span class="tok-keyword">let</span> <span class="tok-definition">últimaX</span>; <span class="tok-comment">// Rastrea la última posición X del ratón observada</span>
+  <span class="tok-keyword">let</span> <span class="tok-definition">barra</span> = document.querySelector(<span class="tok-string">&quot;div&quot;</span>);
+  barra.addEventListener(<span class="tok-string">&quot;mousedown&quot;</span>, <span class="tok-definition">event</span> =&gt; {
     <span class="tok-keyword">if</span> (event.button == <span class="tok-number">0</span>) {
-      lastX = event.clientX;
-      window.addEventListener(<span class="tok-string">&quot;mousemove&quot;</span>, moved);
-      event.preventDefault(); <span class="tok-comment">// Prevenir selección</span>
+      últimaX = event.clientX;
+      window.addEventListener(<span class="tok-string">&quot;mousemove&quot;</span>, movido);
+      event.preventDefault(); <span class="tok-comment">// Evitar selección</span>
     }
   });
 
-  <span class="tok-keyword">function</span> <span class="tok-definition">moved</span>(<span class="tok-definition">event</span>) {
-    <span class="tok-keyword">if</span> (event.buttons == <span class="tok-number">0</span>) {
-      window.removeEventListener(<span class="tok-string">&quot;mousemove&quot;</span>, moved);
+  <span class="tok-keyword">function</span> <span class="tok-definition">movido</span>(<span class="tok-definition">evento</span>) {
+    <span class="tok-keyword">if</span> (evento.buttons == <span class="tok-number">0</span>) {
+      window.removeEventListener(<span class="tok-string">&quot;mousemove&quot;</span>, movido);
     } <span class="tok-keyword">else</span> {
-      <span class="tok-keyword">let</span> <span class="tok-definition">dist</span> = event.clientX - lastX;
-      <span class="tok-keyword">let</span> <span class="tok-definition">newWidth</span> = Math.max(<span class="tok-number">10</span>, bar.offsetWidth + dist);
-      bar.style.width = newWidth + <span class="tok-string">&quot;px&quot;</span>;
-      lastX = event.clientX;
+      <span class="tok-keyword">let</span> <span class="tok-definition">dist</span> = event.clientX - últimaX;
+      <span class="tok-keyword">let</span> <span class="tok-definition">nuevoAncho</span> = Math.max(<span class="tok-number">10</span>, barra.offsetWidth + dist);
+      barra.style.width = nuevoAncho + <span class="tok-string">&quot;px&quot;</span>;
+      últimaX = event.clientX;
     }
   }
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-fI+m6ASEUA" href="#p-fI+m6ASEUA" tabindex="-1" role="presentation"></a>Ten en cuenta que el controlador <code>&quot;mousemove&quot;</code> está registrado en toda la window. Incluso si el ratón sale de la barra durante el cambio de tamaño, mientras el botón se mantenga presionado todavía queremos actualizar su tamaño.</p>
+<p><a class="p_ident" id="p-fI+m6ASEUA" href="#p-fI+m6ASEUA" tabindex="-1" role="presentation"></a>Ten en cuenta que el controlador <code>&quot;mousemove&quot;</code> está registrado en toda la ventana. Incluso si el ratón sale de la barra durante el cambio de tamaño, mientras el botón se mantenga presionado todavía queremos actualizar su tamaño.</p>
 
-<p><a class="p_ident" id="p-khR2v5y/R0" href="#p-khR2v5y/R0" tabindex="-1" role="presentation"></a>Debemos detener el cambio de tamaño de la barra cuando se libere el botón del ratón. Para eso, podemos usar la propiedad <code>buttons</code> (notar el plural), que nos indica qué botones están actualmente presionados. Cuando este valor es cero, ningún botón está presionado. Cuando se mantienen presionados botones, su valor es la suma de los códigos de esos botones—el botón izquierdo tiene el código 1, el derecho 2 y el central 4. Con el botón izquierdo y el derecho presionados, por ejemplo, el valor de <code>buttons</code> será 3.</p>
+<p><a class="p_ident" id="p-khR2v5y/R0" href="#p-khR2v5y/R0" tabindex="-1" role="presentation"></a>Debemos detener el cambio de tamaño de la barra cuando se libere el botón del ratón. Para eso, podemos usar la propiedad <code>buttons</code> (atención al plural), que nos indica qué botones están actualmente presionados. Cuando este valor es cero, ningún botón está presionado. Cuando se mantienen presionados botones, su valor es la suma de los códigos de esos botones—el botón izquierdo tiene el código 1, el derecho 2 y el central 4. Con el botón izquierdo y el derecho presionados, por ejemplo, el valor de <code>buttons</code> será 3.</p>
 
 <p><a class="p_ident" id="p-lvY87c8VFr" href="#p-lvY87c8VFr" tabindex="-1" role="presentation"></a>Es importante destacar que el orden de estos códigos es diferente al utilizado por <code>button</code>, donde el botón central venía antes que el derecho. Como se mencionó, la consistencia no es realmente un punto fuerte de la interfaz de programación del navegador.</p>
 
 <h3><a class="i_ident" id="i-QH29N+27Jo" href="#i-QH29N+27Jo" tabindex="-1" role="presentation"></a>Eventos táctiles</h3>
 
-<p><a class="p_ident" id="p-3qJEJXxC/X" href="#p-3qJEJXxC/X" tabindex="-1" role="presentation"></a>El estilo de navegador gráfico que usamos fue diseñado pensando en interfaces de ratón, en una época donde las pantallas táctiles eran raras. Para hacer que la web “funcione” en los primeros teléfonos con pantalla táctil, los navegadores de esos dispositivos fingían, hasta cierto punto, que los eventos táctiles eran eventos de ratón. Si tocas la pantalla, recibirás eventos de <code>&quot;mousedown&quot;</code>, <code>&quot;mouseup&quot;</code> y <code>&quot;click&quot;</code>.</p>
+<p><a class="p_ident" id="p-3qJEJXxC/X" href="#p-3qJEJXxC/X" tabindex="-1" role="presentation"></a>El estilo de navegador gráfico que usamos fue diseñado pensando en interfaces de ratón, en una época donde las pantallas táctiles no eran muy comunes. Para hacer que la web “funcione” en los primeros teléfonos con pantalla táctil, los navegadores de esos dispositivos fingían, hasta cierto punto, que los eventos táctiles eran eventos de ratón. Si tocas la pantalla, recibirás eventos de <code>&quot;mousedown&quot;</code>, <code>&quot;mouseup&quot;</code> y <code>&quot;click&quot;</code>.</p>
 
 <p><a class="p_ident" id="p-FMkG1NPMsu" href="#p-FMkG1NPMsu" tabindex="-1" role="presentation"></a>Pero esta ilusión no es muy robusta. Una pantalla táctil funciona de manera diferente a un ratón: no tiene múltiples botones, no se puede rastrear el dedo cuando no está en la pantalla (para simular <code>&quot;mousemove&quot;</code>), y permite que varios dedos estén en la pantalla al mismo tiempo.</p>
 
 <p><a class="p_ident" id="p-h68paN5HEy" href="#p-h68paN5HEy" tabindex="-1" role="presentation"></a>Los eventos de ratón solo cubren la interacción táctil en casos sencillos: si agregas un controlador de <code>&quot;click&quot;</code> a un botón, los usuarios táctiles aún podrán usarlo. Pero algo como la barra redimensionable del ejemplo anterior no funciona en una pantalla táctil.</p>
 
-<p><a class="p_ident" id="p-n2OW5CUnrz" href="#p-n2OW5CUnrz" tabindex="-1" role="presentation"></a>Existen tipos específicos de eventos disparados por la interacción táctil. Cuando un dedo comienza a tocar la pantalla, se genera un evento <code>&quot;touchstart&quot;</code>. Cuando se mueve mientras toca, se generan eventos <code>&quot;touchmove&quot;</code>. Finalmente, cuando deja de tocar la pantalla, verás un evento <code>&quot;touchend&quot;</code>.</p>
+<p><a class="p_ident" id="p-n2OW5CUnrz" href="#p-n2OW5CUnrz" tabindex="-1" role="presentation"></a>Existen tipos específicos de eventos que se disparan por la interacción táctil. Cuando un dedo comienza a tocar la pantalla, se genera un evento <code>&quot;touchstart&quot;</code>. Cuando se mueve mientras toca, se generan eventos <code>&quot;touchmove&quot;</code>. Finalmente, cuando deja de tocar la pantalla, verás un evento <code>&quot;touchend&quot;</code>.</p>
 
-<p><a class="p_ident" id="p-RgqmyZVECT" href="#p-RgqmyZVECT" tabindex="-1" role="presentation"></a>Debido a que muchas pantallas táctiles pueden detectar varios dedos al mismo tiempo, estos eventos no tienen un único conjunto de coordenadas asociadas. Más bien, sus objetos de eventos tienen una propiedad <code>touches</code>, que contiene un objeto similar a un array de puntos, cada uno con sus propias propiedades <code>clientX</code>, <code>clientY</code>, <code>pageX</code> y <code>pageY</code>.</p>
+<p><a class="p_ident" id="p-RgqmyZVECT" href="#p-RgqmyZVECT" tabindex="-1" role="presentation"></a>Debido a que muchas pantallas táctiles pueden detectar varios dedos al mismo tiempo, estos eventos no tienen un único conjunto de coordenadas asociadas. Más bien, sus objetos de eventos tienen una propiedad <code>touches</code>, que contiene un objeto parecido a un array de puntos, cada uno con sus propias propiedades <code>clientX</code>, <code>clientY</code>, <code>pageX</code> y <code>pageY</code>.</p>
 
 <p><a class="p_ident" id="p-ye0cXsCzXJ" href="#p-ye0cXsCzXJ" tabindex="-1" role="presentation"></a>Podrías hacer algo como esto para mostrar círculos rojos alrededor de cada dedo que toca:</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-o5U4LM42M9" href="#c-o5U4LM42M9" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">style</span>&gt;
-  <span class="tok-typeName">dot</span> { position: <span class="tok-atom">absolute</span>; display: <span class="tok-atom">block</span>;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-ftkqLabATg" href="#c-ftkqLabATg" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">style</span>&gt;
+  <span class="tok-typeName">punto</span> { position: <span class="tok-atom">absolute</span>; display: <span class="tok-atom">block</span>;
         border: <span class="tok-number">2</span><span class="tok-keyword">px</span> <span class="tok-atom">solid</span> <span class="tok-atom">red</span>; border-radius: <span class="tok-number">50</span><span class="tok-keyword">px</span>;
         height: <span class="tok-number">100</span><span class="tok-keyword">px</span>; width: <span class="tok-number">100</span><span class="tok-keyword">px</span>; }
 &lt;/<span class="tok-typeName">style</span>&gt;
 &lt;<span class="tok-typeName">p</span>&gt;Toca esta página&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">function</span> <span class="tok-definition">update</span>(<span class="tok-definition">event</span>) {
-    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">dot</span>; dot = document.querySelector(<span class="tok-string">&quot;dot&quot;</span>);) {
-      dot.remove();
+  <span class="tok-keyword">function</span> <span class="tok-definition">actualizar</span>(<span class="tok-definition">evento</span>) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">punto</span>; punto = document.querySelector(<span class="tok-string">&quot;punto&quot;</span>);) {
+      punto.remove();
     }
-    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; event.touches.length; i++) {
-      <span class="tok-keyword">let</span> {pageX, pageY} = event.touches[i];
-      <span class="tok-keyword">let</span> <span class="tok-definition">dot</span> = document.createElement(<span class="tok-string">&quot;dot&quot;</span>);
-      dot.style.left = (pageX - <span class="tok-number">50</span>) + <span class="tok-string">&quot;px&quot;</span>;
-      dot.style.top = (pageY - <span class="tok-number">50</span>) + <span class="tok-string">&quot;px&quot;</span>;
-      document.body.appendChild(dot);
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; evento.touches.length; i++) {
+      <span class="tok-keyword">let</span> {pageX, pageY} = evento.touches[i];
+      <span class="tok-keyword">let</span> <span class="tok-definition">punto</span> = document.createElement(<span class="tok-string">&quot;punto&quot;</span>);
+      punto.style.left = (pageX - <span class="tok-number">50</span>) + <span class="tok-string">&quot;px&quot;</span>;
+      punto.style.top = (pageY - <span class="tok-number">50</span>) + <span class="tok-string">&quot;px&quot;</span>;
+      document.body.appendChild(punto);
     }
   }
-  window.addEventListener(<span class="tok-string">&quot;touchstart&quot;</span>, update);
-  window.addEventListener(<span class="tok-string">&quot;touchmove&quot;</span>, update);
-  window.addEventListener(<span class="tok-string">&quot;touchend&quot;</span>, update);
+  window.addEventListener(<span class="tok-string">&quot;touchstart&quot;</span>, actualizar);
+  window.addEventListener(<span class="tok-string">&quot;touchmove&quot;</span>, actualizar);
+  window.addEventListener(<span class="tok-string">&quot;touchend&quot;</span>, actualizar);
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
 <p><a class="p_ident" id="p-3HLdUVc1+r" href="#p-3HLdUVc1+r" tabindex="-1" role="presentation"></a>A menudo querrás llamar a <code>preventDefault</code> en los controladores de eventos táctiles para anular el comportamiento predeterminado del navegador (que puede incluir desplazar la página al deslizar) y evitar que se generen eventos de ratón, para los cuales también puedes tener un controlador.</p>
 
 <h2><a class="h_ident" id="h-GirMfi5LMB" href="#h-GirMfi5LMB" tabindex="-1" role="presentation"></a>Eventos de desplazamiento</h2>
 
-<p><a class="p_ident" id="p-53ahV1ZLJz" href="#p-53ahV1ZLJz" tabindex="-1" role="presentation"></a>Cada vez que un elemento se desplaza, se dispara un evento <code>&quot;scroll&quot;</code>. Esto tiene varios usos, como saber qué está viendo actualmente el usuario (para desactivar animaciones fuera de la pantalla o enviar informes de vigilancia a tu malvada sede) o mostrar alguna indicación de progreso (resaltando parte de una tabla de contenidos o mostrando un número de página).El siguiente ejemplo dibuja una barra de progreso sobre el documento y la actualiza para llenarla a medida que se desplaza hacia abajo:</p>
+<p><a class="p_ident" id="p-53ahV1ZLJz" href="#p-53ahV1ZLJz" tabindex="-1" role="presentation"></a>Cada vez que un elemento se desplaza, se dispara un evento <code>&quot;scroll&quot;</code>. Esto tiene varios usos, como saber qué está viendo actualmente el usuario (para desactivar animaciones fuera de la pantalla o enviar informes de vigilancia a tu malvado cuartel general) o mostrar alguna indicación de progreso (resaltando parte de una tabla de contenidos o mostrando un número de página).El siguiente ejemplo dibuja una barra de progreso sobre el documento y la actualiza para llenarla a medida que se desplaza hacia abajo:</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-7tyBZD/B1O" href="#c-7tyBZD/B1O" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">style</span>&gt;
-  #progress {
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-UPP+elrWis" href="#c-UPP+elrWis" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">style</span>&gt;
+  #progreso {
     border-bottom: <span class="tok-number">2</span><span class="tok-keyword">px</span> <span class="tok-atom">solid</span> <span class="tok-atom">blue</span>;
     width: <span class="tok-number">0</span>;
     position: <span class="tok-atom">fixed</span>;
     top: <span class="tok-number">0</span>; left: <span class="tok-number">0</span>;
   }
 &lt;/<span class="tok-typeName">style</span>&gt;
-&lt;<span class="tok-typeName">div</span> id=<span class="tok-string">&quot;progress&quot;</span>&gt;&lt;/<span class="tok-typeName">div</span>&gt;
+&lt;<span class="tok-typeName">div</span> id=<span class="tok-string">&quot;progreso&quot;</span>&gt;&lt;/<span class="tok-typeName">div</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-comment">// Create some content</span>
   document.body.appendChild(document.createTextNode(
-    <span class="tok-string">&quot;supercalifragilisticexpialidocious &quot;</span>.repeat(<span class="tok-number">1000</span>)));
+    <span class="tok-string">&quot;supercalifragilisticoespialidoso &quot;</span>.repeat(<span class="tok-number">1000</span>)));
 
-  <span class="tok-keyword">let</span> <span class="tok-definition">bar</span> = document.querySelector(<span class="tok-string">&quot;#progress&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">barra</span> = document.querySelector(<span class="tok-string">&quot;#progreso&quot;</span>);
   window.addEventListener(<span class="tok-string">&quot;scroll&quot;</span>, () =&gt; {
     <span class="tok-keyword">let</span> <span class="tok-definition">max</span> = document.body.scrollHeight - innerHeight;
-    bar.style.width = <span class="tok-string2">`</span>${(pageYOffset / max) * <span class="tok-number">100</span>}<span class="tok-string2">%`</span>;
+    barra.style.width = <span class="tok-string2">`</span>${(pageYOffset / max) * <span class="tok-number">100</span>}<span class="tok-string2">%`</span>;
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
 <p><a class="p_ident" id="p-wyaK3qXoPQ" href="#p-wyaK3qXoPQ" tabindex="-1" role="presentation"></a>Darle a un elemento una <code>position</code> de <code>fixed</code> actúa de manera similar a una posición <code>absolute</code>, pero también evita que se desplace junto con el resto del documento. El efecto es hacer que nuestra barra de progreso permanezca en la parte superior. Su ancho se cambia para indicar el progreso actual. Usamos <code>%</code>, en lugar de <code>px</code>, como unidad al establecer el ancho para que el elemento tenga un tamaño relativo al ancho de la página.</p>
 
-<p><a class="p_ident" id="p-ZC4hff5qkY" href="#p-ZC4hff5qkY" tabindex="-1" role="presentation"></a>El enlace global <code>innerHeight</code> nos da la altura de la ventana, que debemos restar de la altura total desplazable, ya que no se puede seguir desplazando cuando se llega al final del documento. También existe un <code>innerWidth</code> para el ancho de la ventana. Al dividir <code>pageYOffset</code>, la posición actual de desplazamiento, por la posición máxima de desplazamiento y multiplicar por 100, obtenemos el porcentaje para la barra de progreso.</p>
+<p><a class="p_ident" id="p-b6nSYl2fJh" href="#p-b6nSYl2fJh" tabindex="-1" role="presentation"></a>La variable global <code>innerHeight</code> nos da la altura de la ventana, que debemos restar de la altura total desplazable, ya que no se puede seguir desplazando cuando se llega al final del documento. También existe un <code>innerWidth</code> para el ancho de la ventana. Al dividir <code>pageYOffset</code>, la posición actual de desplazamiento, por la posición máxima de desplazamiento y multiplicar por 100, obtenemos el porcentaje para la barra de progreso.</p>
 
-<p><a class="p_ident" id="p-+d2fsgi/S8" href="#p-+d2fsgi/S8" tabindex="-1" role="presentation"></a>Llamar a <code>preventDefault</code> en un evento de desplazamiento no impide que ocurra el desplazamiento. De hecho, el controlador de eventos se llama solo <em>después</em> de que ocurre el desplazamiento.</p>
+<p><a class="p_ident" id="p-eZ9Mlz5NRI" href="#p-eZ9Mlz5NRI" tabindex="-1" role="presentation"></a>Llamar a <code>preventDefault</code> en un evento de desplazamiento no impide que ocurra el desplazamiento. De hecho, el controlador de eventos se llama justo <em>después</em> de que ocurra el desplazamiento.</p>
 
 <h2><a class="h_ident" id="h-Hax528+TkG" href="#h-Hax528+TkG" tabindex="-1" role="presentation"></a>Eventos de enfoque</h2>
 
 <p><a class="p_ident" id="p-PRA9P1NtZm" href="#p-PRA9P1NtZm" tabindex="-1" role="presentation"></a>Cuando un elemento recibe el enfoque, el navegador dispara un evento <code>&quot;focus&quot;</code> en él. Cuando pierde el enfoque, el elemento recibe un evento <code>&quot;blur&quot;</code>.</p>
 
-<p><a class="p_ident" id="p-8kzN7NKw/2" href="#p-8kzN7NKw/2" tabindex="-1" role="presentation"></a>A diferencia de los eventos discutidos anteriormente, estos dos eventos no se propagan. Un controlador en un elemento padre no recibe notificaciones cuando un elemento hijo recibe o pierde el enfoque.</p>
+<p><a class="p_ident" id="p-8kzN7NKw/2" href="#p-8kzN7NKw/2" tabindex="-1" role="presentation"></a>A diferencia de los eventos discutidos anteriormente, estos dos eventos no se propagan. Un manejador en un elemento padre no recibe notificaciones cuando un elemento hijo recibe o pierde el enfoque.</p>
 
 <p><a class="p_ident" id="p-D8wyq1oJ5u" href="#p-D8wyq1oJ5u" tabindex="-1" role="presentation"></a>El siguiente ejemplo muestra texto de ayuda para el campo de texto que actualmente tiene el foco:</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-WCzW7hyh0Y" href="#c-WCzW7hyh0Y" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Nombre: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> data-help=<span class="tok-string">&quot;Tu nombre completo&quot;</span>&gt;&lt;/<span class="tok-typeName">p</span>&gt;
-&lt;<span class="tok-typeName">p</span>&gt;Edad: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> data-help=<span class="tok-string">&quot;Tu edad en años&quot;</span>&gt;&lt;/<span class="tok-typeName">p</span>&gt;
-&lt;<span class="tok-typeName">p</span> id=<span class="tok-string">&quot;help&quot;</span>&gt;&lt;/<span class="tok-typeName">p</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-xiEiHXW4DO" href="#c-xiEiHXW4DO" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Nombre: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> data-ayuda=<span class="tok-string">&quot;Tu nombre completo&quot;</span>&gt;&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">p</span>&gt;Edad: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> data-ayuda=<span class="tok-string">&quot;Tu edad en años&quot;</span>&gt;&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">p</span> id=<span class="tok-string">&quot;ayuda&quot;</span>&gt;&lt;/<span class="tok-typeName">p</span>&gt;
 
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">help</span> = document.querySelector(<span class="tok-string">&quot;#help&quot;</span>);
-  <span class="tok-keyword">let</span> <span class="tok-definition">fields</span> = document.querySelectorAll(<span class="tok-string">&quot;input&quot;</span>);
-  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">field</span> <span class="tok-keyword">of</span> Array.from(fields)) {
-    field.addEventListener(<span class="tok-string">&quot;focus&quot;</span>, <span class="tok-definition">event</span> =&gt; {
-      <span class="tok-keyword">let</span> <span class="tok-definition">text</span> = event.target.getAttribute(<span class="tok-string">&quot;data-help&quot;</span>);
-      help.textContent = text;
+  <span class="tok-keyword">let</span> <span class="tok-definition">ayuda</span> = document.querySelector(<span class="tok-string">&quot;#ayuda&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">campos</span> = document.querySelectorAll(<span class="tok-string">&quot;input&quot;</span>);
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">campo</span> <span class="tok-keyword">of</span> Array.from(campos)) {
+    campo.addEventListener(<span class="tok-string">&quot;focus&quot;</span>, <span class="tok-definition">event</span> =&gt; {
+      <span class="tok-keyword">let</span> <span class="tok-definition">texto</span> = event.target.getAttribute(<span class="tok-string">&quot;data-ayuda&quot;</span>);
+      ayuda.textContent = texto;
     });
-    field.addEventListener(<span class="tok-string">&quot;blur&quot;</span>, <span class="tok-definition">event</span> =&gt; {
-      help.textContent = <span class="tok-string">&quot;&quot;</span>;
+    campo.addEventListener(<span class="tok-string">&quot;blur&quot;</span>, <span class="tok-definition">evento</span> =&gt; {
+      ayuda.textContent = <span class="tok-string">&quot;&quot;</span>;
     });
   }
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
@@ -371,11 +371,11 @@
 
 <p><a class="p_ident" id="p-p/L0xopzQf" href="#p-p/L0xopzQf" tabindex="-1" role="presentation"></a>Elementos como imágenes y etiquetas de script que cargan un archivo externo también tienen un evento <code>&quot;load&quot;</code> que indica que se cargaron los archivos a los que hacen referencia. Al igual que los eventos relacionados con el enfoque, los eventos de carga no se propagan.</p>
 
-<p><a class="p_ident" id="p-UoAZklI9NR" href="#p-UoAZklI9NR" tabindex="-1" role="presentation"></a>Cuando se cierra una página o se navega lejos de ella (por ejemplo, al seguir un enlace), se dispara un evento <code>&quot;beforeunload&quot;</code>. El uso principal de este evento es evitar que el usuario pierda accidentalmente su trabajo al cerrar un documento. Si previenes el comportamiento predeterminado en este evento <em>y</em> estableces la propiedad <code>returnValue</code> en el objeto de evento a una cadena, el navegador mostrará al usuario un cuadro de diálogo preguntando si realmente desea abandonar la página. Ese cuadro de diálogo podría incluir tu cadena, pero debido a que algunos sitios maliciosos intentan usar estos cuadros de diálogo para confundir a las personas y hacer que se queden en su página para ver anuncios de pérdida de peso dudosos, la mayoría de los navegadores ya no los muestran.</p>
+<p><a class="p_ident" id="p-UoAZklI9NR" href="#p-UoAZklI9NR" tabindex="-1" role="presentation"></a>Cuando se cierra una página o se navega lejos de ella (por ejemplo, al seguir un enlace), se dispara un evento <code>&quot;beforeunload&quot;</code>. El uso principal de este evento es evitar que el usuario pierda accidentalmente su trabajo al cerrar un documento. Si evitas el comportamiento predeterminado en este evento <em>y</em> estableces la propiedad <code>returnValue</code> en el objeto de evento a una cadena, el navegador mostrará al usuario un cuadro de diálogo preguntando si realmente desea abandonar la página. Ese cuadro de diálogo podría incluir tu cadena, pero debido a que algunos sitios maliciosos intentan usar estos cuadros de diálogo para confundir a las personas y hacer que se queden en su página para ver dudosos anuncios de pérdida de peso, la mayoría de los navegadores ya no los muestran.</p>
 
 <h2 id="timeline"><a class="h_ident" id="h-h3a3U37DpR" href="#h-h3a3U37DpR" tabindex="-1" role="presentation"></a>Eventos y el bucle de eventos</h2>
 
-<p><a class="p_ident" id="p-XL+MT1/Um5" href="#p-XL+MT1/Um5" tabindex="-1" role="presentation"></a>En el contexto del bucle de eventos, como se discutió en el <a href="11_async.html">Capítulo 11</a>, los controladores de eventos del navegador se comportan como otras notificaciones asíncronas. Se programan cuando ocurre el evento pero deben esperar a que otros scripts que se estén ejecutando terminen antes de tener la oportunidad de ejecutarse.</p>
+<p><a class="p_ident" id="p-ZLVJyKWam2" href="#p-ZLVJyKWam2" tabindex="-1" role="presentation"></a>En el contexto del bucle de eventos, como se discutió en el <a href="11_async.html">Capítulo 11</a>, los manejadores de eventos del navegador se comportan como cualquier otra notificación asíncrona. Se programan cuando ocurre el evento pero antes de tener la oportunidad de ejecutarse deben esperar a que otros scripts que se estén ejecutando terminen.</p>
 
 <p><a class="p_ident" id="p-5QVtRn61a1" href="#p-5QVtRn61a1" tabindex="-1" role="presentation"></a>El hecho de que los eventos solo se puedan procesar cuando no hay nada más en ejecución significa que, si el bucle de eventos está ocupado con otro trabajo, cualquier interacción con la página (que ocurre a través de eventos) se retrasará hasta que haya tiempo para procesarla. Entonces, si programas demasiado trabajo, ya sea con controladores de eventos de larga duración o con muchos que se ejecutan rápidamente, la página se volverá lenta y pesada de usar.</p>
 
@@ -383,17 +383,17 @@
 
 <p><a class="p_ident" id="p-ES+9mz3Jrf" href="#p-ES+9mz3Jrf" tabindex="-1" role="presentation"></a>Imagina que elevar al cuadrado un número es una computación pesada y de larga duración que queremos realizar en un hilo separado. Podríamos escribir un archivo llamado <code>code/<wbr>squareworker.<wbr>js</code> que responda a mensajes calculando un cuadrado y enviando un mensaje de vuelta.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FgmodjGwd9" href="#c-FgmodjGwd9" tabindex="-1" role="presentation"></a>addEventListener(<span class="tok-string">&quot;message&quot;</span>, <span class="tok-definition">event</span> =&gt; {
-  postMessage(event.data * event.data);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VjpRQ7Nm5N" href="#c-VjpRQ7Nm5N" tabindex="-1" role="presentation"></a>addEventListener(<span class="tok-string">&quot;message&quot;</span>, <span class="tok-definition">evento</span> =&gt; {
+  postMessage(evento.data * evento.data);
 });</pre>
 
-<p><a class="p_ident" id="p-Ir+TqGr7+e" href="#p-Ir+TqGr7+e" tabindex="-1" role="presentation"></a>Para evitar los problemas de tener múltiples hilos tocando los mismos datos, los workers no comparten su alcance global ni ningún otro dato con el entorno del script principal. En cambio, debes comunicarte con ellos enviando mensajes de ida y vuelta.</p>
+<p><a class="p_ident" id="p-Ir+TqGr7+e" href="#p-Ir+TqGr7+e" tabindex="-1" role="presentation"></a>Para evitar los problemas de tener múltiples hilos tocando los mismos datos, los workers no comparten su alcance global ni ningún otro dato con el entorno del script principal. En vez de eso, debes comunicarte con ellos enviando mensajes de ida y vuelta.</p>
 
 <p><a class="p_ident" id="p-N2CbRaMg8i" href="#p-N2CbRaMg8i" tabindex="-1" role="presentation"></a>Este código genera un worker que ejecuta ese script, le envía algunos mensajes y muestra las respuestas.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KE8jyaemjH" href="#c-KE8jyaemjH" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">squareWorker</span> = <span class="tok-keyword">new</span> Worker(<span class="tok-string">&quot;code/squareworker.js&quot;</span>);
-squareWorker.addEventListener(<span class="tok-string">&quot;message&quot;</span>, <span class="tok-definition">event</span> =&gt; {
-  console.log(<span class="tok-string">&quot;El worker respondió:&quot;</span>, event.data);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-yYWAWANAa1" href="#c-yYWAWANAa1" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">squareWorker</span> = <span class="tok-keyword">new</span> Worker(<span class="tok-string">&quot;code/squareworker.js&quot;</span>);
+squareWorker.addEventListener(<span class="tok-string">&quot;message&quot;</span>, <span class="tok-definition">evento</span> =&gt; {
+  console.log(<span class="tok-string">&quot;El worker respondió:&quot;</span>, evento.data);
 });
 squareWorker.postMessage(<span class="tok-number">10</span>);
 squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
@@ -402,17 +402,17 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <h2><a class="h_ident" id="h-5Aaz8MIkVH" href="#h-5Aaz8MIkVH" tabindex="-1" role="presentation"></a>Temporizadores</h2>
 
-<p><a class="p_ident" id="p-WV11KfB182" href="#p-WV11KfB182" tabindex="-1" role="presentation"></a>Vimos la función <code>setTimeout</code> en el <a href="11_async.html">Capítulo 11</a>. Programa otra función para que se llame más tarde, después de un cierto número de milisegundos.</p>
+<p><a class="p_ident" id="p-o4RsdFMCro" href="#p-o4RsdFMCro" tabindex="-1" role="presentation"></a>La función <code>setTimeout</code> que vimos en el <a href="11_async.html">Capítulo 11</a> programa otra función para que se llame más tarde, después de un cierto número de milisegundos.</p>
 
 <p><a class="p_ident" id="p-s28yPKVQrw" href="#p-s28yPKVQrw" tabindex="-1" role="presentation"></a>A veces necesitas cancelar una función que has programado. Esto se hace almacenando el valor devuelto por <code>setTimeout</code> y llamando a <code>clearTimeout</code> sobre él.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-KtFpcnxPz3" href="#c-KtFpcnxPz3" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">bombTimer</span> = setTimeout(() =&gt; {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ixzmDqjymJ" href="#c-ixzmDqjymJ" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">temporizadorBomba</span> = setTimeout(() =&gt; {
   console.log(<span class="tok-string">&quot;¡BOOM!&quot;</span>);
 }, <span class="tok-number">500</span>);
 
 <span class="tok-keyword">if</span> (Math.random() &lt; <span class="tok-number">0.5</span>) { <span class="tok-comment">// 50% de probabilidad</span>
   console.log(<span class="tok-string">&quot;Desactivado.&quot;</span>);
-  clearTimeout(bombTimer);
+  clearTimeout(temporizadorBomba);
 }</pre>
 
 <p><a class="p_ident" id="p-FuxjnPqka7" href="#p-FuxjnPqka7" tabindex="-1" role="presentation"></a>La función <code>cancelAnimationFrame</code> funciona de la misma manera que <code>clearTimeout</code>; llamarla en un valor devuelto por <code>requestAnimationFrame</code> cancelará ese fotograma (si no se ha llamado ya).</p>
@@ -430,19 +430,19 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <h2><a class="h_ident" id="h-AOVmaqj10I" href="#h-AOVmaqj10I" tabindex="-1" role="presentation"></a>Debouncing</h2>
 
-<p><a class="p_ident" id="p-5gp2VkgPZ9" href="#p-5gp2VkgPZ9" tabindex="-1" role="presentation"></a>Algunos tipos de eventos pueden activarse rápidamente, muchas veces seguidas (como los eventos <code>&quot;mousemove&quot;</code> y <code>&quot;scroll&quot;</code>, por ejemplo). Al manejar tales eventos, debes tener cuidado de no hacer nada que consuma demasiado tiempo, ya que tu controlador tomará tanto tiempo que la interacción con el documento comenzará a sentirse lenta.</p>
+<p><a class="p_ident" id="p-YafxB42U8H" href="#p-YafxB42U8H" tabindex="-1" role="presentation"></a>Algunos tipos de eventos pueden activarse rápidamente, muchas veces seguidas (como los eventos <code>&quot;mousemove&quot;</code> y <code>&quot;scroll&quot;</code>, por ejemplo). Al manejar tales eventos, debes tener cuidado de no hacer nada que consuma demasiado tiempo, ya que tu manejador tomará tanto tiempo que la interacción con el documento comenzará a percibirse como lenta.</p>
 
-<p><a class="p_ident" id="p-7uuS+8eiFw" href="#p-7uuS+8eiFw" tabindex="-1" role="presentation"></a>Si necesitas hacer algo importante en un controlador de este tipo, puedes usar <code>setTimeout</code> para asegurarte de que no lo estás haciendo con demasiada frecuencia. Esto suele llamarse <em>debouncing</em> el evento. Hay varios enfoques ligeramente diferentes para esto.</p>
+<p><a class="p_ident" id="p-7uuS+8eiFw" href="#p-7uuS+8eiFw" tabindex="-1" role="presentation"></a>Si necesitas hacer algo importante en un manejador de este tipo, puedes usar <code>setTimeout</code> para asegurarte de que no lo estás haciendo con demasiada frecuencia. Esto suele llamarse limitación (o <em>debouncing</em>, en inglés) del evento. Hay varios enfoques ligeramente diferentes para esto.</p>
 
 <p><a class="p_ident" id="p-+/dVlFxtVJ" href="#p-+/dVlFxtVJ" tabindex="-1" role="presentation"></a>En el primer ejemplo, queremos reaccionar cuando el usuario ha escrito algo, pero no queremos hacerlo inmediatamente para cada evento de entrada. Cuando están escribiendo rápidamente, solo queremos esperar hasta que ocurra una pausa. En lugar de realizar inmediatamente una acción en el controlador de eventos, establecemos un tiempo de espera. También limpiamos el tiempo de espera anterior (si existe) para que cuando los eventos ocurran cerca uno del otro (más cerca de nuestro retraso de tiempo de espera), el tiempo de espera del evento anterior se cancele.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-3gKPMnlx9a" href="#c-3gKPMnlx9a" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">textarea</span>&gt;Escribe algo aquí...&lt;/<span class="tok-typeName">textarea</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-TRSiPoBEGD" href="#c-TRSiPoBEGD" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">textarea</span>&gt;Escribe algo aquí...&lt;/<span class="tok-typeName">textarea</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">textarea</span> = document.querySelector(<span class="tok-string">&quot;textarea&quot;</span>);
-  <span class="tok-keyword">let</span> <span class="tok-definition">timeout</span>;
+  <span class="tok-keyword">let</span> <span class="tok-definition">espera</span>;
   textarea.addEventListener(<span class="tok-string">&quot;input&quot;</span>, () =&gt; {
-    clearTimeout(timeout);
-    timeout = setTimeout(() =&gt; console.log(<span class="tok-string">&quot;¡Escrito!&quot;</span>), <span class="tok-number">500</span>);
+    clearTimeout(espera);
+    espera = setTimeout(() =&gt; console.log(<span class="tok-string">&quot;¡Escrito!&quot;</span>), <span class="tok-number">500</span>);
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
@@ -450,9 +450,9 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <p><a class="p_ident" id="p-XG0GpvZAFO" href="#p-XG0GpvZAFO" tabindex="-1" role="presentation"></a>Podemos usar un patrón ligeramente diferente si queremos espaciar las respuestas para que estén separadas por al menos una cierta longitud de tiempo, pero queremos activarlas <em>durante</em> una serie de eventos, no solo después. Por ejemplo, podríamos querer responder a eventos <code>&quot;mousemove&quot;</code> mostrando las coordenadas actuales del mouse pero solo cada 250 milisegundos.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-iNs9SdbBE1" href="#c-iNs9SdbBE1" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">script</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-RIoFhPnId3" href="#c-RIoFhPnId3" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">programado</span> = <span class="tok-keyword">null</span>;
-  window.addEventListener(<span class="tok-string">&quot;mousemove&quot;</span>, <span class="tok-definition">event</span> =&gt; {
+  window.addEventListener(<span class="tok-string">&quot;mousemove&quot;</span>, <span class="tok-definition">evento</span> =&gt; {
     <span class="tok-keyword">if</span> (!programado) {
       setTimeout(() =&gt; {
         document.body.textContent =
@@ -460,17 +460,17 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
         programado = <span class="tok-keyword">null</span>;
       }, <span class="tok-number">250</span>);
     }
-    programado = event;
+    programado = evento;
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
 <h2><a class="h_ident" id="h-NUFOUyK+lw" href="#h-NUFOUyK+lw" tabindex="-1" role="presentation"></a>Resumen</h2>
 
-<p><a class="p_ident" id="p-DHLQ6WkIIW" href="#p-DHLQ6WkIIW" tabindex="-1" role="presentation"></a>Los controladores de eventos hacen posible detectar y reaccionar a eventos que ocurren en nuestra página web. El método <code>addEventListener</code> se utiliza para registrar dicho controlador.</p>
+<p><a class="p_ident" id="p-Etnpwznq9T" href="#p-Etnpwznq9T" tabindex="-1" role="presentation"></a>Los manejadores de eventos hacen posible detectar y reaccionar a eventos que ocurren en nuestra página web. El método <code>addEventListener</code> se utiliza para registrar dicho manejador.</p>
 
-<p><a class="p_ident" id="p-BqgD0KonPh" href="#p-BqgD0KonPh" tabindex="-1" role="presentation"></a>Cada evento tiene un tipo (<code>&quot;keydown&quot;</code>, <code>&quot;focus&quot;</code>, y así sucesivamente) que lo identifica. La mayoría de los eventos se activan en un elemento DOM específico y luego se <em>propagan</em> a los ancestros de ese elemento, lo que permite que los controladores asociados a esos elementos los manejen.</p>
+<p><a class="p_ident" id="p-BqgD0KonPh" href="#p-BqgD0KonPh" tabindex="-1" role="presentation"></a>Cada evento tiene un tipo (<code>&quot;keydown&quot;</code>, <code>&quot;focus&quot;</code>, etc) que lo identifica. La mayoría de los eventos se activan en un elemento DOM específico y luego se <em>propagan</em> a los ancestros de ese elemento, lo que permite que los manejadores asociados a esos elementos los manejen.</p>
 
-<p><a class="p_ident" id="p-h/n+rs4rlN" href="#p-h/n+rs4rlN" tabindex="-1" role="presentation"></a>Cuando se llama a un controlador de eventos, se le pasa un objeto de evento con información adicional sobre el evento. Este objeto también tiene métodos que nos permiten detener una mayor propagación (<code>stopPropagation</code>) y evitar el manejo predeterminado del evento por parte del navegador (<code>preventDefault</code>).</p>
+<p><a class="p_ident" id="p-h/n+rs4rlN" href="#p-h/n+rs4rlN" tabindex="-1" role="presentation"></a>Cuando se llama a un manejador de eventos, se le pasa un objeto de evento con información adicional sobre el evento. Este objeto también tiene métodos que nos permiten detener una mayor propagación (<code>stopPropagation</code>) y evitar el manejo predeterminado del evento por parte del navegador (<code>preventDefault</code>).</p>
 
 <p><a class="p_ident" id="p-AyW1QVWdzT" href="#p-AyW1QVWdzT" tabindex="-1" role="presentation"></a>Presionar una tecla dispara eventos <code>&quot;keydown&quot;</code> y <code>&quot;keyup&quot;</code>. Presionar un botón del mouse dispara eventos <code>&quot;mousedown&quot;</code>, <code>&quot;mouseup&quot;</code> y <code>&quot;click&quot;</code>. Mover el mouse dispara eventos <code>&quot;mousemove&quot;</code>. La interacción con pantallas táctiles dará lugar a eventos <code>&quot;touchstart&quot;</code>, <code>&quot;touchmove&quot;</code> y <code>&quot;touchend&quot;</code>.</p>
 
@@ -482,7 +482,7 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <p><a class="p_ident" id="p-b3Hqo7husK" href="#p-b3Hqo7husK" tabindex="-1" role="presentation"></a>Escribe una página que muestre un globo (usando el emoji de globo, 🎈). Cuando presiones la flecha hacia arriba, debería inflarse (crecer) un 10 por ciento, y cuando presiones la flecha hacia abajo, debería desinflarse (encoger) un 10 por ciento.</p>
 
-<p><a class="p_ident" id="p-IEP4Bro5Ql" href="#p-IEP4Bro5Ql" tabindex="-1" role="presentation"></a>Puedes controlar el tamaño del texto (los emoji son texto) estableciendo la propiedad CSS <code>font-size</code> (<code>style.fontSize</code>) en su elemento padre. Recuerda incluir una unidad en el valor, por ejemplo, píxeles (<code>10px</code>).</p>
+<p><a class="p_ident" id="p-IEP4Bro5Ql" href="#p-IEP4Bro5Ql" tabindex="-1" role="presentation"></a>Puedes controlar el tamaño del texto (los emoji son texto) estableciendo la propiedad CSS <code>font-size</code> (<code>style.fontSize</code>) en su elemento padre. Recuerda incluir las unidades en el valor, por ejemplo, píxeles (<code>10px</code>).</p>
 
 <p><a class="p_ident" id="p-SyLfo0cRkh" href="#p-SyLfo0cRkh" tabindex="-1" role="presentation"></a>Los nombres de las teclas de flecha son <code>&quot;ArrowUp&quot;</code> y <code>&quot;ArrowDown&quot;</code>. Asegúrate de que las teclas cambien solo el globo, sin hacer scroll en la página.</p>
 
@@ -496,9 +496,9 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-GvD67qYWif" href="#p-GvD67qYWif" tabindex="-1" role="presentation"></a>Querrás registrar un manejador para el evento <code>&quot;keydown&quot;</code> y mirar <code>event.key</code> para saber si se presionó la tecla de flecha hacia arriba o hacia abajo.</p>
+<p><a class="p_ident" id="p-hk0ZoK3F3l" href="#p-hk0ZoK3F3l" tabindex="-1" role="presentation"></a>Tendrás que registrar un manejador para el evento <code>&quot;keydown&quot;</code> y mirar <code>event.key</code> para saber si se presionó la tecla de flecha hacia arriba o hacia abajo.</p>
 
-<p><a class="p_ident" id="p-FChVTGCUI7" href="#p-FChVTGCUI7" tabindex="-1" role="presentation"></a>El tamaño actual se puede mantener en un enlace para que puedas basarte en él para el nuevo tamaño. Será útil definir una función que actualice el tamaño, tanto el enlace como el estilo del globo en el DOM, para que puedas llamarla desde tu manejador de eventos, y posiblemente también una vez al inicio, para establecer el tamaño inicial.</p>
+<p><a class="p_ident" id="p-FChVTGCUI7" href="#p-FChVTGCUI7" tabindex="-1" role="presentation"></a>El tamaño actual se puede mantener en una variable para que puedas basarte en ella para el nuevo tamaño. Será útil definir una función que actualice el tamaño —tanto la variable como el estilo del globo en el DOM— para que puedas llamarla desde tu manejador de eventos, y posiblemente también una vez al inicio, para establecer el tamaño inicial.</p>
 
 <p><a class="p_ident" id="p-CMyziBQORi" href="#p-CMyziBQORi" tabindex="-1" role="presentation"></a>Puedes cambiar el globo por una explosión reemplazando el nodo de texto por otro (usando <code>replaceChild</code>) o estableciendo la propiedad <code>textContent</code> de su nodo padre en una nueva cadena.</p>
 
@@ -510,7 +510,7 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <p><a class="p_ident" id="p-SIIG63wuy4" href="#p-SIIG63wuy4" tabindex="-1" role="presentation"></a>Una de estas era la <em>estela del ratón</em> —una serie de elementos que seguirían al puntero del ratón mientras lo movías por la página.</p>
 
-<p><a class="p_ident" id="p-o0XuQJDBDN" href="#p-o0XuQJDBDN" tabindex="-1" role="presentation"></a>En este ejercicio, quiero que implementes una estela del ratón. Utiliza elementos <code>&lt;div&gt;</code> con posición absoluta y un tamaño fijo y color de fondo (consulta el <a href="15_event.html#mouse_drawing">código</a> en la sección de “Clics de ratón” para un ejemplo). Crea un montón de estos elementos y, al mover el ratón, muéstralos en la estela del puntero del ratón.</p>
+<p><a class="p_ident" id="p-o0XuQJDBDN" href="#p-o0XuQJDBDN" tabindex="-1" role="presentation"></a>En este ejercicio, quiero que implementes una estela del ratón. Utiliza elementos <code>&lt;div&gt;</code> con posición absoluta y un tamaño fijo y color de fondo (consulta el <a href="15_event.html#dibujo_con_rat%C3%B3n">código</a> en la sección de “Clics de ratón” para un ejemplo). Crea un montón de estos elementos y, al mover el ratón, muéstralos en la estela del puntero del ratón.</p>
 
 <p><a class="p_ident" id="p-bPEwHFdsMX" href="#p-bPEwHFdsMX" tabindex="-1" role="presentation"></a>Hay varias aproximaciones posibles aquí. Puedes hacer tu solución tan simple o tan compleja como desees. Una solución simple para empezar es mantener un número fijo de elementos de estela y recorrerlos, moviendo el siguiente a la posición actual del ratón cada vez que ocurra un evento <code>&quot;mousemove&quot;</code>.</p>
 
@@ -533,11 +533,11 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-4AFLKpPOlK" href="#p-4AFLKpPOlK" tabindex="-1" role="presentation"></a>Crear los elementos es mejor hacerlo con un bucle. Adjúntalos al documento para que aparezcan. Para poder acceder a ellos más tarde y cambiar su posición, querrás almacenar los elementos en un array.</p>
+<p><a class="p_ident" id="p-wtT6dYme/v" href="#p-wtT6dYme/v" tabindex="-1" role="presentation"></a>Para crear los elementos lo mejor es hacerlo con un bucle. Adjúntalos al documento para que aparezcan. Para poder acceder a ellos más tarde y cambiar su posición, tendrás que almacenar los elementos en un array.</p>
 
-<p><a class="p_ident" id="p-O7Vg4b4/gp" href="#p-O7Vg4b4/gp" tabindex="-1" role="presentation"></a>Recorrerlos se puede hacer manteniendo una variable de contador y sumándole 1 cada vez que se dispare el evento <code>&quot;mousemove&quot;</code>. Luego se puede usar el operador de resto (<code>% elementos.<wbr>length</code>) para obtener un índice de array válido para elegir el elemento que deseas posicionar durante un evento dado.</p>
+<p><a class="p_ident" id="p-GN6/P07OXe" href="#p-GN6/P07OXe" tabindex="-1" role="presentation"></a>Puedes recorrerlos manteniendo una variable de contador y sumándole 1 cada vez que se dispare el evento <code>&quot;mousemove&quot;</code>. Luego se puede usar el operador de resto (<code>% elementos.<wbr>length</code>) para obtener un índice de array válido para elegir el elemento que deseas posicionar durante un evento dado.</p>
 
-<p><a class="p_ident" id="p-sJ/RGv4SnV" href="#p-sJ/RGv4SnV" tabindex="-1" role="presentation"></a>Otro efecto interesante se puede lograr modelando un simple sistema de física. Usa el evento <code>&quot;mousemove&quot;</code> solo para actualizar un par de enlaces que siguen la posición del ratón. Luego utiliza <code>requestAnimationFrame</code> para simular que los elementos rastreadores son atraídos a la posición del puntero del ratón. En cada paso de animación, actualiza su posición basándote en su posición relativa al puntero (y, opcionalmente, una velocidad que está almacenada para cada elemento). Descubrir una buena forma de hacer esto queda a tu cargo.</p>
+<p><a class="p_ident" id="p-YKNUV599Bt" href="#p-YKNUV599Bt" tabindex="-1" role="presentation"></a>Otro efecto interesante se puede lograr modelando un simple sistema de física. Usa el evento <code>&quot;mousemove&quot;</code> solo para actualizar un par de enlaces que siguen la posición del ratón. Luego utiliza <code>requestAnimationFrame</code> para simular que los elementos rastreadores son atraídos a la posición del puntero del ratón. En cada paso de animación, actualiza su posición basándote en su posición relativa al puntero (y, opcionalmente, una velocidad que está almacenada para cada elemento). En tu mano está el descubrir una buena forma de hacer esto.</p>
 
 </div></details>
 
@@ -547,7 +547,7 @@ squareWorker.postMessage(<span class="tok-number">24</span>);</pre>
 
 <p><a class="p_ident" id="p-oCfJg8pvnS" href="#p-oCfJg8pvnS" tabindex="-1" role="presentation"></a>En este ejercicio debes implementar una interfaz de pestañas simple. Escribe una función, <code>asTabs</code>, que tome un nodo DOM y cree una interfaz de pestañas que muestre los elementos secundarios de ese nodo. Debería insertar una lista de elementos <code>&lt;button&gt;</code> en la parte superior del nodo, uno por cada elemento secundario, conteniendo el texto recuperado del atributo <code>data-tabname</code> del hijo. Todos los hijos originales excepto uno deben estar ocultos (con un estilo <code>display</code> de <code>none</code>). El nodo actualmente visible se puede seleccionar haciendo clic en los botones.</p>
 
-<p><a class="p_ident" id="p-A5yNkNAmF9" href="#p-A5yNkNAmF9" tabindex="-1" role="presentation"></a>Cuando funcione, extiéndelo para dar estilo al botón de la pestaña actualmente seleccionada de manera diferente para que sea obvio cuál pestaña está seleccionada.</p>
+<p><a class="p_ident" id="p-A5yNkNAmF9" href="#p-A5yNkNAmF9" tabindex="-1" role="presentation"></a>Cuando funcione, extiéndelo para dar estilo al botón de la pestaña actualmente seleccionada de manera diferente para que sea obvio qué pestaña está seleccionada.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-IPOlbViOlf" href="#c-IPOlbViOlf" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">tab-panel</span>&gt;
   &lt;<span class="tok-typeName">div</span> data-tabname=<span class="tok-string">&quot;one&quot;</span>&gt;Pestaña uno&lt;/<span class="tok-typeName">div</span>&gt;
