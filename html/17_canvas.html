@@ -20,17 +20,17 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_17.jpg" alt="Ilustración que muestra un brazo robótico con aspecto industrial dibujando una ciudad en un trozo de papel"></figure>
 
-<p><a class="p_ident" id="p-WsH95+AeJX" href="#p-WsH95+AeJX" tabindex="-1" role="presentation"></a>Los navegadores nos ofrecen varias formas de mostrar gráficos. La forma más simple es usar estilos para posicionar y colorear elementos DOM regulares. Esto puede llevarnos bastante lejos, como mostró el juego en el <a href="16_game.html">capítulo anterior</a>. Al agregar imágenes de fondo parcialmente transparentes a los nodos, podemos hacer que se vean exactamente como queremos. Incluso es posible rotar o sesgar nodos con el estilo <code>transform</code>.</p>
+<p><a class="p_ident" id="p-WsH95+AeJX" href="#p-WsH95+AeJX" tabindex="-1" role="presentation"></a>Los navegadores nos ofrecen varias formas de mostrar gráficos. La forma más simple es usar estilos para posicionar y colorear elementos normales del DOM. Esto puede llevarnos bastante lejos, como mostró el juego del <a href="16_game.html">capítulo anterior</a>. Al agregar imágenes de fondo parcialmente transparentes a los nodos, podemos hacer que se vean exactamente como queremos. Incluso es posible rotar o sesgar nodos con el estilo <code>transform</code>.</p>
 
-<p><a class="p_ident" id="p-VaIkI2Lvrr" href="#p-VaIkI2Lvrr" tabindex="-1" role="presentation"></a>Pero estaríamos utilizando el DOM para algo para lo que no fue diseñado originalmente. Algunas tareas, como dibujar una línea entre puntos arbitrarios, son extremadamente incómodas de hacer con elementos HTML regulares.</p>
+<p><a class="p_ident" id="p-0ElNKbsPjW" href="#p-0ElNKbsPjW" tabindex="-1" role="presentation"></a>Pero estaríamos utilizando el DOM para algo para lo que no fue diseñado originalmente. Algunas tareas, como dibujar una línea entre puntos arbitrarios, son extremadamente incómodas de hacer con elementos usuales de HTML.</p>
 
-<p><a class="p_ident" id="p-8EN87JsadZ" href="#p-8EN87JsadZ" tabindex="-1" role="presentation"></a>Hay dos alternativas. La primera es basada en el DOM pero utiliza <em>Gráficos Vectoriales Escalables</em> (SVG), en lugar de HTML. Piensa en SVG como un dialecto de marcado de documento que se centra en las formas en lugar de en el texto. Puedes incrustar un documento SVG directamente en un documento HTML o incluirlo con una etiqueta <code>&lt;img&gt;</code>.</p>
+<p><a class="p_ident" id="p-8EN87JsadZ" href="#p-8EN87JsadZ" tabindex="-1" role="presentation"></a>Hay dos alternativas. La primera es basada en el DOM pero utiliza <em>Gráficos Vectoriales Escalables</em> (SVG, por sus siglas en inglés), en lugar de HTML. Piensa en SVG como un dialecto de marcado de documento que se centra en las formas en lugar de en el texto. Puedes incrustar un documento SVG directamente en un documento HTML o incluirlo con una etiqueta <code>&lt;img&gt;</code>.</p>
 
-<p><a class="p_ident" id="p-5ipuOzKaXl" href="#p-5ipuOzKaXl" tabindex="-1" role="presentation"></a>La segunda alternativa se llama <em>lienzo</em>. Un lienzo es un solo elemento DOM que encapsula una imagen. Proporciona una interfaz de programación para dibujar formas en el espacio ocupado por el nodo. La principal diferencia entre un lienzo y una imagen SVG es que en SVG se conserva la descripción original de las formas para que puedan moverse o redimensionarse en cualquier momento. Un lienzo, por otro lado, convierte las formas en píxels (puntos de color en una cuadrícula) en cuanto se dibujan y no recuerda qué representan estos píxeles. La única forma de mover una forma en un lienzo es borrar el lienzo (o la parte del lienzo alrededor de la forma) y volver a dibujarlo con la forma en una nueva posición.</p>
+<p><a class="p_ident" id="p-5ipuOzKaXl" href="#p-5ipuOzKaXl" tabindex="-1" role="presentation"></a>La segunda alternativa se llama <em>lienzo</em> (o <em>canvas</em>). Un lienzo es un elemento del DOM que encapsula una imagen. Proporciona una interfaz de programación para dibujar formas en el espacio ocupado por el nodo. La principal diferencia entre un lienzo y una imagen SVG es que en SVG se conserva la descripción original de las formas para que puedan moverse o redimensionarse en cualquier momento. Un lienzo, por otro lado, convierte las formas en píxels (puntos de color en una cuadrícula) en cuanto se dibujan y no recuerda qué representan estos píxeles. La única forma de mover una forma en un lienzo es borrar el lienzo (o la parte del lienzo alrededor de la forma) y volver a dibujarlo con la forma en una nueva posición.</p>
 
 <h2><a class="h_ident" id="h-UPzm0CiZhQ" href="#h-UPzm0CiZhQ" tabindex="-1" role="presentation"></a>SVG</h2>
 
-<p><a class="p_ident" id="p-qX100BfTD/" href="#p-qX100BfTD/" tabindex="-1" role="presentation"></a>Este libro no se adentrará en detalles sobre SVG, pero explicaré brevemente cómo funciona. Al <a href="17_canvas.html#tradeoffs_graficos">final del capítulo</a>, volveré a los compromisos que debes considerar al decidir qué mecanismo de dibujo es adecuado para una aplicación determinada.</p>
+<p><a class="p_ident" id="p-qX100BfTD/" href="#p-qX100BfTD/" tabindex="-1" role="presentation"></a>Este libro no ahondará en detalles sobre SVG, pero explicaré brevemente cómo funciona. Al <a href="17_canvas.html#tradeoffs_graficos">final del capítulo</a>, volveré a los compromisos que debes considerar al decidir qué mecanismo de dibujo es adecuado para una aplicación determinada.</p>
 
 <p><a class="p_ident" id="p-GYntGFJZWA" href="#p-GYntGFJZWA" tabindex="-1" role="presentation"></a>Este es un documento HTML con una sencilla imagen SVG en él:</p>
 
@@ -43,8 +43,8 @@
 
 <p><a class="p_ident" id="p-nP9GmCkWpk" href="#p-nP9GmCkWpk" tabindex="-1" role="presentation"></a>Estas etiquetas crean elementos del DOM, al igual que las etiquetas HTML, con las que los scripts pueden interactuar. Por ejemplo, esto cambia el elemento <code>&lt;circle&gt;</code> para que se coloree de cian:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="svg"><a class="c_ident" id="c-jx+UOHRvDL" href="#c-jx+UOHRvDL" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">circle</span> = document.querySelector(<span class="tok-string">&quot;circle&quot;</span>);
-circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span class="tok-string">&quot;cyan&quot;</span>);</pre>
+<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="svg"><a class="c_ident" id="c-q+UenGnYa6" href="#c-q+UenGnYa6" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">círculo</span> = document.querySelector(<span class="tok-string">&quot;circle&quot;</span>);
+círculo.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span class="tok-string">&quot;cyan&quot;</span>);</pre>
 
 <h2><a class="h_ident" id="h-IHgXAPlRoi" href="#h-IHgXAPlRoi" tabindex="-1" role="presentation"></a>El elemento canvas</h2>
 
@@ -54,18 +54,18 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-zuEJbhu4U0" href="#p-zuEJbhu4U0" tabindex="-1" role="presentation"></a>La etiqueta <code>&lt;canvas&gt;</code> está destinada a permitir diferentes estilos de dibujo. Para acceder a una interfaz de dibujo real, primero necesitamos crear un <em>contexto</em>, un objeto cuyos métodos proporcionan la interfaz de dibujo. Actualmente existen tres estilos de dibujo ampliamente compatibles: <code>&quot;2d&quot;</code> para gráficos bidimensionales, <code>&quot;webgl&quot;</code> para gráficos tridimensionales a través de la interfaz OpenGL, y <code>&quot;webgpu&quot;</code>, una alternativa más moderna y flexible a WebGL.</p>
 
-<p><a class="p_ident" id="p-s3Qi60Vb/g" href="#p-s3Qi60Vb/g" tabindex="-1" role="presentation"></a>Este libro no discutirá WebGL ni WebGPU—nos mantendremos en dos dimensiones. Pero si estás interesado en gráficos tridimensionales, te animo a investigar sobre WebGPU. Proporciona una interfaz directa al hardware gráfico y te permite renderizar escenas incluso complicadas de manera eficiente, utilizando JavaScript.</p>
+<p><a class="p_ident" id="p-s3Qi60Vb/g" href="#p-s3Qi60Vb/g" tabindex="-1" role="presentation"></a>Este libro no discutirá WebGL ni WebGPU —nos mantendremos en dos dimensiones. Pero si estás interesado en gráficos tridimensionales, te animo a investigar sobre WebGPU. Proporciona una interfaz directa al hardware gráfico y te permite incluso renderizar escenas complicadas de manera eficiente, utilizando JavaScript.</p>
 
 <p><a class="p_ident" id="p-MEgOg5Mvt7" href="#p-MEgOg5Mvt7" tabindex="-1" role="presentation"></a>Creas un contexto con el método <code>getContext</code> en el elemento DOM <code>&lt;canvas&gt;</code>.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-5f0tu/efaY" href="#c-5f0tu/efaY" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Antes del lienzo.&lt;/<span class="tok-typeName">p</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-hV/wD/kYGY" href="#c-hV/wD/kYGY" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;Antes del lienzo.&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">&quot;120&quot;</span> height=<span class="tok-string">&quot;60&quot;</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">p</span>&gt;Después del lienzo.&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">canvas</span> = document.querySelector(<span class="tok-string">&quot;canvas&quot;</span>);
-  <span class="tok-keyword">let</span> <span class="tok-definition">context</span> = canvas.getContext(<span class="tok-string">&quot;2d&quot;</span>);
-  context.fillStyle = <span class="tok-string">&quot;red&quot;</span>;
-  context.fillRect(<span class="tok-number">10</span>, <span class="tok-number">10</span>, <span class="tok-number">100</span>, <span class="tok-number">50</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">lienzo</span> = document.querySelector(<span class="tok-string">&quot;canvas&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">contexto</span> = lienzo.getContext(<span class="tok-string">&quot;2d&quot;</span>);
+  contexto.fillStyle = <span class="tok-string">&quot;red&quot;</span>;
+  contexto.fillRect(<span class="tok-number">10</span>, <span class="tok-number">10</span>, <span class="tok-number">100</span>, <span class="tok-number">50</span>);
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
 <p><a class="p_ident" id="p-Z8FbmAPx0e" href="#p-Z8FbmAPx0e" tabindex="-1" role="presentation"></a>Después de crear el objeto de contexto, el ejemplo dibuja un rectángulo rojo de 100 píxeles de ancho y 50 píxeles de alto, con su esquina superior izquierda en las coordenadas (10,10).</p>
@@ -74,15 +74,15 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <h2 id="fill_stroke"><a class="h_ident" id="h-pjhQhwBlI5" href="#h-pjhQhwBlI5" tabindex="-1" role="presentation"></a>Líneas y superficies</h2>
 
-<p><a class="p_ident" id="p-O6DYJslVdE" href="#p-O6DYJslVdE" tabindex="-1" role="presentation"></a>En la interfaz de lienzo, una forma puede ser <em>rellenada</em>, lo que significa que su área recibe un color o patrón determinado, o puede ser <em>trazada</em>, lo que significa que se dibuja una línea a lo largo de su borde. La misma terminología se utiliza en SVG.</p>
+<p><a class="p_ident" id="p-7qnMn5EIVa" href="#p-7qnMn5EIVa" tabindex="-1" role="presentation"></a>En la interfaz de lienzo, una forma puede ser <em>rellenada</em>, lo que significa que su área recibe un color o patrón determinado, o puede ser <em>trazada</em>, lo que significa que se dibuja una línea a lo largo de su borde. En SVG se utiliza la misma terminología.</p>
 
-<p><a class="p_ident" id="p-0VT8ruNYTo" href="#p-0VT8ruNYTo" tabindex="-1" role="presentation"></a>El método <code>fillRect</code> rellena un rectángulo. Primero toma las coordenadas x e y de la esquina superior izquierda del rectángulo, luego su ancho y finalmente su altura. Un método similar llamado <code>strokeRect</code> dibuja el contorno de un rectángulo.</p>
+<p><a class="p_ident" id="p-0VT8ruNYTo" href="#p-0VT8ruNYTo" tabindex="-1" role="presentation"></a>El método <code>fillRect</code> rellena un rectángulo. Primero toma las coordenadas x e y de la esquina superior izquierda del rectángulo, luego su ancho y finalmente su altura. Un método similar, llamado <code>strokeRect</code> dibuja el contorno de un rectángulo.</p>
 
 <p><a class="p_ident" id="p-RfsD8lcuyO" href="#p-RfsD8lcuyO" tabindex="-1" role="presentation"></a>Ninguno de los métodos toma más parámetros. El color del relleno, el grosor del trazo, y demás, no son determinados por un argumento del método, como podrías esperar razonablemente, sino por propiedades del objeto contexto.</p>
 
 <p><a class="p_ident" id="p-3Koe6zpld5" href="#p-3Koe6zpld5" tabindex="-1" role="presentation"></a>La propiedad <code>fillStyle</code> controla la forma en que se rellenan las formas. Puede establecerse como una cadena que especifica un color, utilizando la notación de color utilizada por CSS.</p>
 
-<p><a class="p_ident" id="p-SGPqnpLFJH" href="#p-SGPqnpLFJH" tabindex="-1" role="presentation"></a>La propiedad <code>strokeStyle</code> funciona de manera similar, pero determina el color utilizado para una línea contorneada. El ancho de esa línea se determina mediante la propiedad <code>lineWidth</code>, que puede contener cualquier número positivo.</p>
+<p><a class="p_ident" id="p-SGPqnpLFJH" href="#p-SGPqnpLFJH" tabindex="-1" role="presentation"></a>La propiedad <code>strokeStyle</code> funciona de manera similar, pero determina el color utilizado para una línea de contorno. El ancho de esa línea se determina mediante la propiedad <code>lineWidth</code>, que puede contener cualquier número positivo.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-RXlmHDTr07" href="#c-RXlmHDTr07" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -97,7 +97,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <h2><a class="h_ident" id="h-Z7qInlh67F" href="#h-Z7qInlh67F" tabindex="-1" role="presentation"></a>Caminos</h2>
 
-<p><a class="p_ident" id="p-5k991wc6m3" href="#p-5k991wc6m3" tabindex="-1" role="presentation"></a>Un camino es una secuencia de líneas. La interfaz del canvas 2D toma un enfoque peculiar para describir un camino. Se realiza completamente a través de efecto secundarios. Los caminos no son valores que se puedan almacenar y pasar. En su lugar, si deseas hacer algo con un camino, haces una secuencia de llamadas a métodos para describir su forma.</p>
+<p><a class="p_ident" id="p-5k991wc6m3" href="#p-5k991wc6m3" tabindex="-1" role="presentation"></a>Un camino es una secuencia de líneas. La interfaz del canvas 2D toma un enfoque peculiar para describir un camino. Se realiza completamente a través de efectos secundarios. Los caminos no son valores que se puedan almacenar y pasar. En vez de eso, si deseas hacer algo con un camino, haces una secuencia de llamadas a métodos para describir su forma.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-q5tyCN7mU3" href="#c-q5tyCN7mU3" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -112,7 +112,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-FIflUFp6Ac" href="#p-FIflUFp6Ac" tabindex="-1" role="presentation"></a>Este ejemplo crea un camino con varios segmentos horizontales de línea y luego lo traza usando el método <code>stroke</code>. Cada segmento creado con <code>lineTo</code> comienza en la posición <em>actual</em> del camino. Esa posición suele ser el final del último segmento, a menos que se haya llamado a <code>moveTo</code>. En ese caso, el siguiente segmento comenzaría en la posición pasada a <code>moveTo</code>.</p>
 
-<p><a class="p_ident" id="p-iJK0Cor0G1" href="#p-iJK0Cor0G1" tabindex="-1" role="presentation"></a>Cuando se rellena un camino (usando el método <code>fill</code>), cada forma se llena por separado. Un camino puede contener múltiples formas—cada movimiento de <code>moveTo</code> inicia una nueva forma. Pero el camino necesita estar <em>cerrado</em> (significando que su inicio y final están en la misma posición) antes de poder ser rellenado. Si el camino aún no está cerrado, se agrega una línea desde su final hasta su inicio, y se rellena la forma encerrada por el camino completado.</p>
+<p><a class="p_ident" id="p-iJK0Cor0G1" href="#p-iJK0Cor0G1" tabindex="-1" role="presentation"></a>Cuando se rellena un camino (usando el método <code>fill</code>), cada forma se llena por separado. Un camino puede contener múltiples formas —cada movimiento de <code>moveTo</code> inicia una nueva forma. Pero el camino necesita estar <em>cerrado</em> (significando que su inicio y final están en la misma posición) antes de poder ser rellenado. Si el camino aún no está cerrado, se agrega una línea desde su final hasta su inicio, y se rellena la forma encerrada por el camino completado.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-dKfK5v1gw2" href="#c-dKfK5v1gw2" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -124,15 +124,15 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   cx.fill();
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-pS4j/40SI7" href="#p-pS4j/40SI7" tabindex="-1" role="presentation"></a>Este ejemplo dibuja un triángulo relleno. Ten en cuenta que solo se dibujan explícitamente dos de los lados del triángulo. El tercero, desde la esquina inferior derecha de regreso a la parte superior, se da por implícito y no estaría allí cuando se traze el recorrido.</p>
+<p><a class="p_ident" id="p-6RsBqrwic6" href="#p-6RsBqrwic6" tabindex="-1" role="presentation"></a>Este ejemplo dibuja un triángulo relleno. Ten en cuenta que solo se dibujan explícitamente dos de los lados del triángulo. El tercero, desde la esquina inferior derecha de regreso a la parte superior, se da por implícito y no estaría allí si trazaras el camino.</p>
 
-<p><a class="p_ident" id="p-Tk2aVSsGnM" href="#p-Tk2aVSsGnM" tabindex="-1" role="presentation"></a>También puedes usar el método <code>closePath</code> para cerrar explícitamente un recorrido agregando un segmento real line de vuelta al inicio del recorrido. Este segmento <em>se</em> dibuja cuando se traza el recorrido.</p>
+<p><a class="p_ident" id="p-Tk2aVSsGnM" href="#p-Tk2aVSsGnM" tabindex="-1" role="presentation"></a>También puedes usar el método <code>closePath</code> para cerrar explícitamente un recorrido agregando un segmento real (<em>line</em>) de vuelta al inicio del recorrido. Este segmento <em>se dibuja</em> cuando se traza el recorrido.</p>
 
 <h2><a class="h_ident" id="h-9hC2009SxC" href="#h-9hC2009SxC" tabindex="-1" role="presentation"></a>Curvas</h2>
 
 <p><a class="p_ident" id="p-WSTFQiXLdY" href="#p-WSTFQiXLdY" tabindex="-1" role="presentation"></a>Un recorrido también puede contener líneas curvadas. Lamentablemente, estas son un poco más complicadas de dibujar.</p>
 
-<p><a class="p_ident" id="p-3OHms/qYjY" href="#p-3OHms/qYjY" tabindex="-1" role="presentation"></a>El método <code>quadraticCurveTo</code> dibuja una curva hacia un punto dado. Para determinar la curvatura de la línea, el método recibe un punto de control así como un punto de destino. Imagina este punto de control como <em>atrayendo</em> la línea, dándole su curva. La línea no pasará por el punto de control, pero su dirección en los puntos de inicio y fin será tal que una línea recta en esa dirección apuntaría hacia el punto de control. El siguiente ejemplo ilustra esto:</p>
+<p><a class="p_ident" id="p-3OHms/qYjY" href="#p-3OHms/qYjY" tabindex="-1" role="presentation"></a>El método <code>quadraticCurveTo</code> dibuja una curva hacia un punto dado. Para determinar la curvatura de la línea, el método recibe un punto de control así como un punto de destino. Imagina este punto de control como <em>atrayendo</em> la línea, dándole su curvatura. La línea no pasará por el punto de control, pero su dirección en los puntos de inicio y fin será tal que una línea recta en esa dirección apuntaría hacia el punto de control. El siguiente ejemplo ilustra esto:</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-SD49jQshd2" href="#c-SD49jQshd2" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -146,9 +146,9 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   cx.stroke();
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-0Do2D1mx/8" href="#p-0Do2D1mx/8" tabindex="-1" role="presentation"></a>Dibujamos una curva cuadrática de izquierda a derecha, con (60,10) como punto de control, y luego dibujamos dos segmentos line que pasan por ese punto de control y vuelven al inicio de la línea. El resultado se asemeja a un emblema de <em>Star Trek</em>. Puedes ver el efecto del punto de control: las líneas que salen de las esquinas inferiores comienzan en la dirección del punto de control y luego se curvan hacia su objetivo.</p>
+<p><a class="p_ident" id="p-0Do2D1mx/8" href="#p-0Do2D1mx/8" tabindex="-1" role="presentation"></a>Dibujamos una curva cuadrática de izquierda a derecha, con (60,10) como punto de control, y luego dibujamos dos segmentos line que pasan por ese punto de control y vuelven al inicio de la línea. El resultado se parece a un emblema de <em>Star Trek</em>. Puedes ver el efecto del punto de control: las líneas que salen de las esquinas inferiores comienzan en la dirección del punto de control y luego se curvan hacia su objetivo.</p>
 
-<p><a class="p_ident" id="p-dtLc0HxcsU" href="#p-dtLc0HxcsU" tabindex="-1" role="presentation"></a>El método <code>bezierCurveTo</code> dibuja un tipo de curva similar. En lugar de un único punto de control, este tiene dos—uno para cada uno de los extremos de la línea. Aquí hay un boceto similar para ilustrar el comportamiento de dicha curva:</p>
+<p><a class="p_ident" id="p-dtLc0HxcsU" href="#p-dtLc0HxcsU" tabindex="-1" role="presentation"></a>El método <code>bezierCurveTo</code> dibuja un tipo de curva parecida. En lugar de un único punto de control, este tiene dos —uno para cada uno de los extremos de la línea. Aquí hay un boceto similar para ilustrar el comportamiento de dicha curva:</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-0UOWPJLGDV" href="#c-0UOWPJLGDV" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -163,9 +163,9 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   cx.stroke();
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-nzyix6jR0u" href="#p-nzyix6jR0u" tabindex="-1" role="presentation"></a>Los dos puntos de control especifican la dirección en ambos extremos de la curva. Cuanto más separados estén de su punto correspondiente, más la curva “abultará&quot; en esa dirección.</p>
+<p><a class="p_ident" id="p-nzyix6jR0u" href="#p-nzyix6jR0u" tabindex="-1" role="presentation"></a>Los dos puntos de control especifican la dirección en ambos extremos de la curva. Cuanto más separados estén de su punto correspondiente, más se “abultará&quot; la curva en esa dirección.</p>
 
-<p><a class="p_ident" id="p-tELXhF/ylX" href="#p-tELXhF/ylX" tabindex="-1" role="presentation"></a>curves como estas pueden ser difíciles de trabajar, no siempre es claro cómo encontrar los control points que proporcionan la forma que estás buscando. A veces puedes calcularlos y a veces simplemente tendrás que encontrar un valor adecuado mediante prueba y error.</p>
+<p><a class="p_ident" id="p-TJZ04KrhxG" href="#p-TJZ04KrhxG" tabindex="-1" role="presentation"></a>Curvas como estas pueden ser difíciles de trabajar, no siempre es claro cómo encontrar los puntos de control que proporcionan la forma que estás buscando. A veces puedes calcularlos y a veces simplemente tendrás que encontrar un valor adecuado mediante prueba y error.</p>
 
 <p><a class="p_ident" id="p-1rScitaxyO" href="#p-1rScitaxyO" tabindex="-1" role="presentation"></a>El método <code>arc</code> es una forma de dibujar una línea que se curva a lo largo del borde de un círculo. Toma un par de coordenadas para el centro del arco, un radio, y luego un ángulo de inicio y un ángulo final.</p>
 
@@ -182,7 +182,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   cx.stroke();
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-jkO8t0wU0c" href="#p-jkO8t0wU0c" tabindex="-1" role="presentation"></a>La imagen resultante contiene una línea desde la derecha del círculo completo (primer llamado a <code>arc</code>) hasta la derecha del cuarto del círculo (segundo llamado). Al igual que otros métodos de dibujo de trayectos, una línea dibujada con <code>arc</code> está conectada al segmento de trayecto anterior. Puedes llamar a <code>moveTo</code> o comenzar un nuevo trayecto para evitar esto.</p>
+<p><a class="p_ident" id="p-jkO8t0wU0c" href="#p-jkO8t0wU0c" tabindex="-1" role="presentation"></a>La imagen resultante contiene una línea desde la derecha del círculo completo (primera llamada a <code>arc</code>) hasta la derecha del cuarto del círculo (segunda llamada). Al igual que otros métodos de dibujo de trayectos, una línea dibujada con <code>arc</code> está conectada al segmento de trayecto anterior. Puedes llamar a <code>moveTo</code> o comenzar un nuevo trayecto para evitar esto.</p>
 
 <h2 id="diagrama_sectores"><a class="h_ident" id="h-wGotxOQ6Zk" href="#h-wGotxOQ6Zk" tabindex="-1" role="presentation"></a>Dibujo de un diagrama de sectores</h2>
 
@@ -190,7 +190,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-dUxzE17XwV" href="#p-dUxzE17XwV" tabindex="-1" role="presentation"></a>El enlace <code>results</code> contiene una matriz de objetos que representan las respuestas de la encuesta.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="pie"><a class="c_ident" id="c-xc7hhd8RrM" href="#c-xc7hhd8RrM" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">results</span> = [
+<pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="pie"><a class="c_ident" id="c-XBt5Q5QA9R" href="#c-XBt5Q5QA9R" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">resultados</span> = [
   {<span class="tok-definition">name</span>: <span class="tok-string">&quot;Satisfecho&quot;</span>, <span class="tok-definition">count</span>: <span class="tok-number">1043</span>, <span class="tok-definition">color</span>: <span class="tok-string">&quot;lightblue&quot;</span>},
   {<span class="tok-definition">name</span>: <span class="tok-string">&quot;Neutral&quot;</span>, <span class="tok-definition">count</span>: <span class="tok-number">563</span>, <span class="tok-definition">color</span>: <span class="tok-string">&quot;lightgreen&quot;</span>},
   {<span class="tok-definition">name</span>: <span class="tok-string">&quot;Insatisfecho&quot;</span>, <span class="tok-definition">count</span>: <span class="tok-number">510</span>, <span class="tok-definition">color</span>: <span class="tok-string">&quot;pink&quot;</span>},
@@ -199,15 +199,15 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-+20FYXG99L" href="#p-+20FYXG99L" tabindex="-1" role="presentation"></a>Para dibujar un diagrama de sectores, dibujamos una serie de sectores circulares, cada uno compuesto por un arco y un par de líneas hacia el centro de ese arco. Podemos calcular el ángulo ocupado por cada arco dividiendo un círculo completo (2π) por el número total de respuestas y luego multiplicando ese número (el ángulo por respuesta) por el número de personas que eligieron una opción determinada.</p>
 
-<pre tabindex="0" class="snippet" data-language="html"  data-sandbox="pie"><a class="c_ident" id="c-ULeWDvZXon" href="#c-ULeWDvZXon" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">&quot;200&quot;</span> height=<span class="tok-string">&quot;200&quot;</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html"  data-sandbox="pie"><a class="c_ident" id="c-Qzt0tiBO/6" href="#c-Qzt0tiBO/6" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">&quot;200&quot;</span> height=<span class="tok-string">&quot;200&quot;</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">&quot;canvas&quot;</span>).getContext(<span class="tok-string">&quot;2d&quot;</span>);
-  <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = results
+  <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = resultados
     .reduce((<span class="tok-definition">sum</span>, {count}) =&gt; sum + count, <span class="tok-number">0</span>);
   <span class="tok-comment">// Comenzar en la parte superior</span>
   <span class="tok-keyword">let</span> <span class="tok-definition">currentAngle</span> = -<span class="tok-number">0.5</span> * Math.PI;
-  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">result</span> <span class="tok-keyword">of</span> results) {
-    <span class="tok-keyword">let</span> <span class="tok-definition">sliceAngle</span> = (result.count / total) * <span class="tok-number">2</span> * Math.PI;
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">resultado</span> <span class="tok-keyword">of</span> resultados) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">sliceAngle</span> = (resultado.count / total) * <span class="tok-number">2</span> * Math.PI;
     cx.beginPath();
     <span class="tok-comment">// centro=100,100, radio=100</span>
     <span class="tok-comment">// desde el ángulo actual, en sentido horario por el ángulo del sector</span>
@@ -215,7 +215,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
            currentAngle, currentAngle + sliceAngle);
     currentAngle += sliceAngle;
     cx.lineTo(<span class="tok-number">100</span>, <span class="tok-number">100</span>);
-    cx.fillStyle = result.color;
+    cx.fillStyle = resultado.color;
     cx.fill();
   }
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
@@ -226,7 +226,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-jqhT5gaaJR" href="#p-jqhT5gaaJR" tabindex="-1" role="presentation"></a>Un contexto de dibujo en lienzo 2D proporciona los métodos <code>fillText</code> y <code>strokeText</code>. Este último puede ser útil para contornear letras, pero generalmente <code>fillText</code> es lo que necesitas. Este llenará el contorno del texto dado con el <code>fillStyle</code> actual.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-tAzTaI8U1M" href="#c-tAzTaI8U1M" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-KDOHFsdpiF" href="#c-KDOHFsdpiF" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">&quot;420&quot;</span> height=<span class="tok-string">&quot;60&quot;</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">&quot;canvas&quot;</span>).getContext(<span class="tok-string">&quot;2d&quot;</span>);
   cx.font = <span class="tok-string">&quot;28px Georgia&quot;</span>;
@@ -234,15 +234,15 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   cx.fillText(<span class="tok-string">&quot;¡También puedo dibujar texto!&quot;</span>, <span class="tok-number">10</span>, <span class="tok-number">50</span>);
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-Y8lIKRMGXQ" href="#p-Y8lIKRMGXQ" tabindex="-1" role="presentation"></a>Puedes especificar el tamaño, estilo y fuente del texto con la propiedad <code>font</code>. Este ejemplo solo da un tamaño de fuente y un nombre de familia. También es posible agregar <code>italic</code> o <code>bold</code> al comienzo de la cadena para seleccionar un estilo.</p>
+<p><a class="p_ident" id="p-Y8lIKRMGXQ" href="#p-Y8lIKRMGXQ" tabindex="-1" role="presentation"></a>Puedes especificar el tamaño, estilo y fuente del texto con la propiedad <code>font</code>. En este ejemplo solo se da un tamaño de fuente y un nombre de familia. También es posible agregar <code>italic</code> o <code>bold</code> al comienzo de la cadena para seleccionar un estilo.</p>
 
-<p><a class="p_ident" id="p-rhCNRQsUbN" href="#p-rhCNRQsUbN" tabindex="-1" role="presentation"></a>Los dos últimos argumentos de <code>fillText</code> y <code>strokeText</code> proporcionan la posición en la que se dibuja la fuente. Por defecto, indican la posición del inicio de la línea alfabética del texto, que es la línea en la que las letras “se paran”, sin contar las partes colgantes en letras como la <em>j</em> o la <em>p</em>. Puedes cambiar la posición horizontal configurando la propiedad <code>textAlign</code> en <code>&quot;end&quot;</code> o <code>&quot;center&quot;</code> y la posición vertical configurando <code>textBaseline</code> en <code>&quot;top&quot;</code>, <code>&quot;middle&quot;</code> o <code>&quot;bottom&quot;</code>.</p>
+<p><a class="p_ident" id="p-rhCNRQsUbN" href="#p-rhCNRQsUbN" tabindex="-1" role="presentation"></a>Los dos últimos argumentos de <code>fillText</code> y <code>strokeText</code> proporcionan la posición en la que se dibuja la fuente. Por defecto, indican la posición del inicio de la línea base alfabética del texto, que es la línea sobre la que las letras se “apoyan”, sin contar las partes colgantes en letras como la <em>j</em> o la <em>p</em>. Puedes cambiar la posición horizontal configurando la propiedad <code>textAlign</code> en <code>&quot;end&quot;</code> o <code>&quot;center&quot;</code> y la posición vertical configurando <code>textBaseline</code> en <code>&quot;top&quot;</code>, <code>&quot;middle&quot;</code> o <code>&quot;bottom&quot;</code>.</p>
 
 <p><a class="p_ident" id="p-2Nlk49Yj28" href="#p-2Nlk49Yj28" tabindex="-1" role="presentation"></a>Volveremos a nuestro gráfico circular y al problema de etiquetar las porciones, en los <a href="17_canvas.html#exercise_pie_chart">ejercicios</a> al final del capítulo.</p>
 
 <h2><a class="h_ident" id="h-By2JQsVi0D" href="#h-By2JQsVi0D" tabindex="-1" role="presentation"></a>Imágenes</h2>
 
-<p><a class="p_ident" id="p-fUHn+F0MIN" href="#p-fUHn+F0MIN" tabindex="-1" role="presentation"></a>En gráficos por computadora, a menudo se hace una distinción entre gráficos <em>vectoriales</em> y gráficos <em>de mapa de bits</em>. El primero es lo que hemos estado haciendo hasta ahora en este capítulo: especificar una imagen dando una descripción lógica de las formas. Los gráficos de mapa de bits, por otro lado, no especifican formas reales, sino que trabajan con datos de píxel (rasteros de puntos de colores).</p>
+<p><a class="p_ident" id="p-fUHn+F0MIN" href="#p-fUHn+F0MIN" tabindex="-1" role="presentation"></a>En gráficos por computadora, a menudo se hace una distinción entre gráficos <em>vectoriales</em> y gráficos <em>de mapa de bits</em>. El primero es lo que hemos estado haciendo hasta ahora en este capítulo: especificar una imagen dando una descripción lógica de las formas. Los gráficos de mapa de bits, por otro lado, no especifican formas reales, sino que trabajan con datos de píxel (matrices de puntos de colores).</p>
 
 <p><a class="p_ident" id="p-8mi7vOkN1m" href="#p-8mi7vOkN1m" tabindex="-1" role="presentation"></a>El método <code>drawImage</code> nos permite dibujar datos de píxel en un canvas. Estos datos de píxel pueden originarse desde un elemento <code>&lt;img&gt;</code> o desde otro lienzo. El siguiente ejemplo crea un elemento <code>&lt;img&gt;</code> independiente y carga un archivo de imagen en él. Pero no podemos comenzar a dibujar inmediatamente desde esta imagen porque es posible que el navegador aún no la haya cargado. Para manejar esto, registramos un controlador de eventos <code>&quot;load&quot;</code> y hacemos el dibujo después de que la imagen se haya cargado.</p>
 
@@ -258,11 +258,11 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-QY3iTHAR+O" href="#p-QY3iTHAR+O" tabindex="-1" role="presentation"></a>Por defecto, <code>drawImage</code> dibujará la imagen a su tamaño original. También se le pueden proporcionar dos argumentos adicionales para establecer un ancho y alto diferente.</p>
+<p><a class="p_ident" id="p-l9RhGaCiSU" href="#p-l9RhGaCiSU" tabindex="-1" role="presentation"></a>Por defecto, <code>drawImage</code> dibujará la imagen a su tamaño original. También se le pueden proporcionar dos argumentos adicionales para establecer un ancho y alto diferentes.</p>
 
 <p><a class="p_ident" id="p-PhR2+0pqld" href="#p-PhR2+0pqld" tabindex="-1" role="presentation"></a>Cuando se utilizan <em>nueve</em> argumentos en <code>drawImage</code>, se puede usar para dibujar solo un fragmento de una imagen. Los argumentos segundo a quinto indican el rectángulo (x, y, ancho y alto) en la imagen de origen que se debería copiar, y los argumentos sexto a noveno indican el rectángulo (en el lienzo) en el cual se debería copiar.</p>
 
-<p><a class="p_ident" id="p-OGnn92PfqV" href="#p-OGnn92PfqV" tabindex="-1" role="presentation"></a>Esto se puede utilizar para empaquetar varios <em>sprites</em> (elementos de imagen) en un único archivo de imagen y luego dibujar solo la parte que se necesita. Por ejemplo, tenemos esta imagen que contiene un personaje de juego en múltiples poses:</p><figure><img src="img/player_big.png" alt="Arte de píxeles mostrando un personaje de videojuego en 10 poses diferentes. Las primeras 8 forman su ciclo de animación de carrera, la novena tiene al personaje parado, y la décima lo muestra saltando."></figure>
+<p><a class="p_ident" id="p-OGnn92PfqV" href="#p-OGnn92PfqV" tabindex="-1" role="presentation"></a>Esto se puede utilizar para empaquetar varios <em>sprites</em> (elementos de imagen) en un único archivo de imagen y luego dibujar solo la parte que se necesita. Por ejemplo, tenemos esta imagen que contiene un personaje de juego en múltiples poses:</p><figure><img src="img/player_big.png" alt="Píxel art mostrando un personaje de videojuego en 10 poses diferentes. Las primeras 8 forman su ciclo de animación de carrera, la novena tiene al personaje parado, y la décima lo muestra saltando."></figure>
 
 <p><a class="p_ident" id="p-irGio/b5/R" href="#p-irGio/b5/R" tabindex="-1" role="presentation"></a>Alternando qué pose dibujamos, podemos mostrar una animación que parece un personaje caminando.</p>
 
@@ -290,11 +290,11 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-/TzcCCetH2" href="#p-/TzcCCetH2" tabindex="-1" role="presentation"></a>El enlace <code>ciclo</code> sigue nuestra posición en la animación. En cada frame, se incrementa y luego se recorta de nuevo al rango de 0 a 7 usando el operador de resto. Este enlace se utiliza luego para calcular la coordenada x que tiene el sprite para la pose actual en la imagen.</p>
+<p><a class="p_ident" id="p-JnRunDuR7n" href="#p-JnRunDuR7n" tabindex="-1" role="presentation"></a>La variable <code>ciclo</code> sigue nuestra posición en la animación. En cada frame, se incrementa y luego se recorta de nuevo al rango de 0 a 7 usando el operador de resto. Esta variable se utiliza luego para calcular la coordenada x que tiene el sprite para la pose actual en la imagen.</p>
 
 <h2><a class="h_ident" id="h-rW64MvxCiy" href="#h-rW64MvxCiy" tabindex="-1" role="presentation"></a>Transformación</h2>
 
-<p><a class="p_ident" id="p-IDnpmjkIIi" href="#p-IDnpmjkIIi" tabindex="-1" role="presentation"></a>Pero, ¿qué pasa si queremos que nuestro personaje camine hacia la izquierda en lugar de hacia la derecha? Podríamos dibujar otro conjunto de sprites, por supuesto. Pero también podemos instruir al lienzo para que dibuje la imagen en sentido contrario.</p>
+<p><a class="p_ident" id="p-IDnpmjkIIi" href="#p-IDnpmjkIIi" tabindex="-1" role="presentation"></a>Pero, ¿qué pasa si queremos que nuestro personaje camine hacia la izquierda en lugar de hacia la derecha? Podríamos dibujar otro conjunto de sprites, por supuesto. Pero también podemos decirle al lienzo que dibuje la imagen en sentido contrario.</p>
 
 <p><a class="p_ident" id="p-k/kT+1q0Jm" href="#p-k/kT+1q0Jm" tabindex="-1" role="presentation"></a>Llamar al método <code>scale</code> hará que todo lo que se dibuje después de él se escale. Este método toma dos parámetros, uno para establecer una escala horizontal y otro para establecer una escala vertical.</p>
 
@@ -308,35 +308,35 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   cx.stroke();
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-giUMO7YZVM" href="#p-giUMO7YZVM" tabindex="-1" role="presentation"></a>Escalar hará que todo en la imagen dibujada, incluyendo el grosor de línea, se estire o se comprima como se especifique. Escalar por una cantidad negativa volteará la imagen. La volteadura ocurre alrededor del punto (0,0), lo que significa que también volteará la dirección del sistema de coordenadas. Cuando se aplica una escala horizontal de -1, una forma dibujada en la posición x 100 terminará en lo que solía ser la posición -100.</p>
+<p><a class="p_ident" id="p-giUMO7YZVM" href="#p-giUMO7YZVM" tabindex="-1" role="presentation"></a>Escalar hará que todo en la imagen dibujada, incluyendo el grosor de línea, se estire o se comprima como se especifique. Escalar por una cantidad negativa volteará la imagen. Esta transformación ocurre alrededor del punto (0,0), lo que significa que también volteará la dirección del sistema de coordenadas. Cuando se aplica una escala horizontal de -1, una forma dibujada en la posición x 100 terminará en lo que solía ser la posición -100.</p>
 
 <p><a class="p_ident" id="p-aFXzkU34ds" href="#p-aFXzkU34ds" tabindex="-1" role="presentation"></a>Así que para voltear una imagen, no podemos simplemente agregar <code>cx.scale(-1, 1)</code> antes de la llamada a <code>drawImage</code> porque eso movería nuestra imagen fuera del lienzo, donde no sería visible. Podrías ajustar las coordenadas dadas a <code>drawImage</code> para compensar esto dibujando la imagen en la posición x -50 en lugar de 0. Otra solución, que no requiere que el código que hace el dibujo sepa sobre el cambio de escala, es ajustar el eje alrededor del cual ocurre el escalado.</p>
 
-<p><a class="p_ident" id="p-NsPf5RT0UM" href="#p-NsPf5RT0UM" tabindex="-1" role="presentation"></a>Hay varios otros métodos además de <code>scale</code> que influyen en el sistema de coordenadas de un lienzo. Puedes rotar formas dibujadas posteriormente con el método <code>rotate</code> y moverlas con el método <code>translate</code>. Lo interesante—y confuso—es que estas transformaciones <em>se apilan</em>, lo que significa que cada una ocurre relativa a las transformaciones anteriores.</p>
+<p><a class="p_ident" id="p-NsPf5RT0UM" href="#p-NsPf5RT0UM" tabindex="-1" role="presentation"></a>Hay varios otros métodos además de <code>scale</code> que influyen en el sistema de coordenadas de un lienzo. Puedes rotar formas dibujadas posteriormente con el método <code>rotate</code> y moverlas con el método <code>translate</code>. Lo interesante —y confuso— es que estas transformaciones <em>se apilan</em>, lo que significa que cada una ocurre relativa a las transformaciones anteriores.</p>
 
-<p><a class="p_ident" id="p-MQX9G34XVb" href="#p-MQX9G34XVb" tabindex="-1" role="presentation"></a>Entonces, si traducimos por 10 píxeles horizontales dos veces, todo se dibujará 20 píxeles a la derecha. Si primero movemos el centro del sistema de coordenadas a (50,50) y luego rotamos por 20 grados (aproximadamente 0.1π radianes), esa rotación ocurrirá <em>alrededor</em> del punto (50,50).</p><figure><img src="img/transform.svg" alt="Diagrama que muestra el resultado de apilar transformaciones. El primer diagrama traduce y luego rota, causando que la traducción ocurra normalmente y la rotación alrededor del objetivo de la traducción. El segundo diagrama primero rota y luego traduce, causando que la rotación ocurra alrededor del origen y la dirección de traducción se incline por esa rotación."></figure>
+<p><a class="p_ident" id="p-6E8AncvQtV" href="#p-6E8AncvQtV" tabindex="-1" role="presentation"></a>Entonces, si trasladamos por 10 píxeles horizontales dos veces, todo se dibujará 20 píxeles a la derecha. Si primero movemos el centro del sistema de coordenadas a (50,50) y luego rotamos por 20 grados (aproximadamente 0.1π radianes), esa rotación ocurrirá <em>alrededor</em> del punto (50,50).</p><figure><img src="img/transform.svg" alt="Diagrama que muestra el resultado de apilar transformaciones. El primer diagrama traslada y luego rota, causando que la traslación ocurra normalmente y la rotación alrededor del objetivo de la traslación. El segundo diagrama primero rota y luego traslada, causando que la rotación ocurra alrededor del origen y la dirección de traslación se incline por esa rotación."></figure>
 
-<p><a class="p_ident" id="p-mKDS7oclkz" href="#p-mKDS7oclkz" tabindex="-1" role="presentation"></a>Pero si <em>primero</em> rotamos 20 grados y <em>luego</em> traducimos por (50,50), la traducción ocurrirá en el sistema de coordenadas rotado y producirá una orientación diferente. El orden en el que se aplican las transformaciones es importante.</p>
+<p><a class="p_ident" id="p-mKDS7oclkz" href="#p-mKDS7oclkz" tabindex="-1" role="presentation"></a>Pero si <em>primero</em> rotamos 20 grados y <em>luego</em> trasladamos por (50,50), la traslación ocurrirá en el sistema de coordenadas rotado y producirá una orientación diferente. El orden en el que se aplican las transformaciones es importante.</p>
 
 <p><a class="p_ident" id="p-MKg3FxKQhR" href="#p-MKg3FxKQhR" tabindex="-1" role="presentation"></a>Para voltear una imagen alrededor de la línea vertical en una posición x dada, podemos hacer lo siguiente:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-gPWtMqSBLU" href="#c-gPWtMqSBLU" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">flipHorizontally</span>(<span class="tok-definition">context</span>, <span class="tok-definition">around</span>) {
-  context.translate(around, <span class="tok-number">0</span>);
-  context.scale(-<span class="tok-number">1</span>, <span class="tok-number">1</span>);
-  context.translate(-around, <span class="tok-number">0</span>);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-LCPTAUKa8v" href="#c-LCPTAUKa8v" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">flipHorizontally</span>(<span class="tok-definition">contexto</span>, <span class="tok-definition">alrededorDe</span>) {
+  contexto.translate(alrededorDe, <span class="tok-number">0</span>);
+  contexto.scale(-<span class="tok-number">1</span>, <span class="tok-number">1</span>);
+  contexto.translate(-alrededorDe, <span class="tok-number">0</span>);
 }</pre>
 
 <p><a class="p_ident" id="p-vp1fsWT2Uu" href="#p-vp1fsWT2Uu" tabindex="-1" role="presentation"></a>Movemos el eje y a donde queremos que esté nuestro espejo, aplicamos el efecto de espejo y finalmente devolvemos el eje y a su lugar adecuado en el universo espejado. La siguiente imagen explica por qué esto funciona:</p><figure><img src="img/mirror.svg" alt="Diagrama que muestra el efecto de trasladar y espejar un triángulo"></figure>
 
-<p><a class="p_ident" id="p-iQ7XKEQztk" href="#p-iQ7XKEQztk" tabindex="-1" role="presentation"></a>Esto muestra los sistemas de coordenadas antes y después del espejo a través de la línea central. Los triángulos están numerados para ilustrar cada paso. Si dibujamos un triángulo en una posición x positiva, por defecto estaría en el lugar donde se encuentra el triángulo 1. Una llamada a <code>flipHorizontally</code> primero realiza una traslación a la derecha, lo que nos lleva al triángulo 2. Luego escala, volteando el triángulo a la posición 3. Esto no es donde debería estar, si estuviera reflejado en la línea dada. La segunda llamada a <code>translate</code> corrige esto, “cancela” la traslación inicial y hace que el triángulo 4 aparezca exactamente donde debería.</p>
+<p><a class="p_ident" id="p-iQ7XKEQztk" href="#p-iQ7XKEQztk" tabindex="-1" role="presentation"></a>Esto muestra los sistemas de coordenadas antes y después del espejo a través de la línea central. Los triángulos están numerados para ilustrar cada paso. Si dibujamos un triángulo en una posición x positiva, por defecto estaría en el lugar donde se encuentra el triángulo 1. Una llamada a <code>flipHorizontally</code> primero realiza una traslación a la derecha, lo que nos lleva al triángulo 2. Luego escala, volteando el triángulo a la posición 3. Aquí no es donde debería estar, si estuviera reflejado en la línea dada. La segunda llamada a <code>translate</code> corrige esto, “cancela” la traslación inicial y hace que el triángulo 4 aparezca exactamente donde debería.</p>
 
-<p><a class="p_ident" id="p-IewluZ2i85" href="#p-IewluZ2i85" tabindex="-1" role="presentation"></a>Ahora podemos dibujar un personaje espejado en la posición (100,0) volteando el mundo alrededor del centro vertical del personaje.</p>
+<p><a class="p_ident" id="p-IewluZ2i85" href="#p-IewluZ2i85" tabindex="-1" role="presentation"></a>Ahora podemos dibujar un personaje reflejado en la posición (100,0) volteando el mundo alrededor del centro vertical del personaje.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-D9HyHgZKCz" href="#c-D9HyHgZKCz" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-dmV/R5ifO7" href="#c-dmV/R5ifO7" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">&quot;canvas&quot;</span>).getContext(<span class="tok-string">&quot;2d&quot;</span>);
   <span class="tok-keyword">let</span> <span class="tok-definition">img</span> = document.createElement(<span class="tok-string">&quot;img&quot;</span>);
-  img.src = <span class="tok-string">&quot;img/jugador.png&quot;</span>;
+  img.src = <span class="tok-string">&quot;img/player.png&quot;</span>;
   <span class="tok-keyword">let</span> <span class="tok-definition">spriteW</span> = <span class="tok-number">24</span>, <span class="tok-definition">spriteH</span> = <span class="tok-number">30</span>;
   img.addEventListener(<span class="tok-string">&quot;load&quot;</span>, () =&gt; {
     flipHorizontally(cx, <span class="tok-number">100</span> + spriteW / <span class="tok-number">2</span>);
@@ -353,7 +353,9 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-weTFB7xTVK" href="#p-weTFB7xTVK" tabindex="-1" role="presentation"></a>Los métodos <code>save</code> y <code>restore</code> en el contexto 2D del lienzo hacen este manejo de transformaciones. Conceptualmente mantienen una pila de estados de transformación. Cuando llamas a <code>save</code>, el estado actual se apila, y cuando llamas a <code>restore</code>, se elimina el estado de la cima de la pila y se usa como la transformación actual del contexto. También puedes llamar a <code>resetTransform</code> para restablecer completamente la transformación.</p>
 
-<p><a class="p_ident" id="p-MLYFMEHl9N" href="#p-MLYFMEHl9N" tabindex="-1" role="presentation"></a>La función <code>branch</code> en el siguiente ejemplo ilustra lo que puedes hacer con una función que cambia la transformación y luego llama a una función (en este caso a sí misma), que continúa dibujando con la transformación dada.Esta función dibuja una forma parecida a un árbol dibujando una línea, moviendo el centro del sistema de coordenadas al final de la línea, y llamándose a sí misma dos veces, primero rotada a la izquierda y luego rotada a la derecha. Cada llamada reduce la longitud de la rama dibujada, y la recursividad se detiene cuando la longitud desciende por debajo de 8.</p>
+<p><a class="p_ident" id="p-EVb85HFdgx" href="#p-EVb85HFdgx" tabindex="-1" role="presentation"></a>La función <code>branch</code> en el siguiente ejemplo ilustra lo que puedes hacer con una función que cambia la transformación y luego llama a una función (en este caso a sí misma), que continúa dibujando con la transformación dada.</p>
+
+<p><a class="p_ident" id="p-vI78HzPMTt" href="#p-vI78HzPMTt" tabindex="-1" role="presentation"></a>Esta función dibuja una forma parecida a un árbol dibujando una línea, moviendo el centro del sistema de coordenadas al final de la línea, y llamándose a sí misma dos veces, primero rotada a la izquierda y luego rotada a la derecha. Cada llamada reduce la longitud de la rama dibujada, y la recursividad se detiene cuando la longitud desciende por debajo de 8.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-TvoVOvq541" href="#c-TvoVOvq541" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">canvas</span> width=<span class="tok-string">&quot;600&quot;</span> height=<span class="tok-string">&quot;300&quot;</span>&gt;&lt;/<span class="tok-typeName">canvas</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
@@ -373,15 +375,15 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
   branch(<span class="tok-number">60</span>, <span class="tok-number">0.5</span>, <span class="tok-number">0.8</span>);
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-brpP2b1pSn" href="#p-brpP2b1pSn" tabindex="-1" role="presentation"></a>Si las llamadas a <code>save</code> y <code>restore</code> no estuvieran allí, la segunda llamada recursiva a <code>branch</code> terminaría con la posición y rotación creadas por la primera llamada. No estaría conectada a la rama actual sino más bien a la rama más interna y a la derecha dibujada por la primera llamada. La forma resultante podría ser interesante, pero definitivamente no sería un árbol.</p>
+<p><a class="p_ident" id="p-brpP2b1pSn" href="#p-brpP2b1pSn" tabindex="-1" role="presentation"></a>Si las llamadas a <code>save</code> y <code>restore</code> no estuvieran allí, la segunda llamada recursiva a <code>branch</code> terminaría con la posición y rotación creadas por la primera llamada. No estaría conectada a la rama actual sino más bien a la rama más interna y a la derecha dibujada por la primera llamada. La forma resultante podría ser interesante, pero, desde luego, no sería un árbol.</p>
 
 <h2 id="canvasdisplay"><a class="h_ident" id="h-5rj4QZAZI1" href="#h-5rj4QZAZI1" tabindex="-1" role="presentation"></a>De vuelta al juego</h2>
 
-<p><a class="p_ident" id="p-Uhavxryl5K" href="#p-Uhavxryl5K" tabindex="-1" role="presentation"></a>Ahora sabemos lo suficiente sobre el dibujo en canvas para empezar a trabajar en un sistema de display basado en canvas para el juego del <a href="16_game.html">capítulo anterior</a>. El nuevo display ya no mostrará solo cajas de colores. En su lugar, usaremos <code>drawImage</code> para dibujar imágenes que representen los elementos del juego.</p>
+<p><a class="p_ident" id="p-Uhavxryl5K" href="#p-Uhavxryl5K" tabindex="-1" role="presentation"></a>Ahora sabemos lo suficiente sobre el dibujo en el canvas para empezar a trabajar en un sistema de display basado en canvas para el juego del <a href="16_game.html">capítulo anterior</a>. El nuevo display ya no mostrará solo cajas de colores. En su lugar, usaremos <code>drawImage</code> para dibujar imágenes que representen los elementos del juego.</p>
 
 <p><a class="p_ident" id="p-c0RKUCIK0E" href="#p-c0RKUCIK0E" tabindex="-1" role="presentation"></a>Definimos otro tipo de objeto de display llamado <code>CanvasDisplay</code>, que soporta la misma interfaz que <code>DOMDisplay</code> del <a href="16_game.html#domdisplay">Capítulo 16</a>, es decir, los métodos <code>syncState</code> y <code>clear</code>.</p>
 
-<p><a class="p_ident" id="p-QpuEer5cNQ" href="#p-QpuEer5cNQ" tabindex="-1" role="presentation"></a>Este objeto mantiene un poco más de información que <code>DOMDisplay</code>. En lugar de utilizar la posición de desplazamiento de su elemento DOM, realiza un seguimiento de su propio viewport, que nos indica qué parte del nivel estamos viendo actualmente. Por último, mantiene una propiedad <code>flipPlayer</code> para que incluso cuando el jugador esté quieto, siga mirando en la dirección en la que se movió por última vez.</p>
+<p><a class="p_ident" id="p-QpuEer5cNQ" href="#p-QpuEer5cNQ" tabindex="-1" role="presentation"></a>Este objeto mantiene un poco más de información que <code>DOMDisplay</code>. En lugar de utilizar la posición de desplazamiento de su elemento del DOM, realiza un seguimiento de su propio viewport, que nos indica qué parte del nivel estamos viendo actualmente. Por último, mantiene una propiedad <code>flipPlayer</code> para que incluso cuando el jugador esté quieto, siga mirando en la dirección en la que se movió por última vez.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c-0YCIeiiRNE" href="#c-0YCIeiiRNE" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> CanvasDisplay {
   <span class="tok-definition">constructor</span>(<span class="tok-definition">parent</span>, <span class="tok-definition">level</span>) {
@@ -440,7 +442,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 
 <p><a class="p_ident" id="p-LTvt7zghYT" href="#p-LTvt7zghYT" tabindex="-1" role="presentation"></a>Las llamadas a <code>Math.max</code> y <code>Math.min</code> aseguran que el <strong>viewport</strong> no termine mostrando espacio fuera del nivel. <code>Math.max(x, 0)</code> se asegura de que el número resultante no sea menor que cero. <code>Math.min</code> garantiza de manera similar que un valor se mantenga por debajo de un límite dado.</p>
 
-<p><a class="p_ident" id="p-ciYesmCNwa" href="#p-ciYesmCNwa" tabindex="-1" role="presentation"></a>Al <strong>limpiar</strong> la visualización, usaremos un color ligeramente diferente según si el juego se ha ganado (más brillante) o perdido (más oscuro).</p>
+<p><a class="p_ident" id="p-ciYesmCNwa" href="#p-ciYesmCNwa" tabindex="-1" role="presentation"></a>Al <strong>limpiar</strong> la visualización, usaremos un color ligeramente diferente según si el juego termina con éxito (más brillante) o no (más oscuro).</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript"  data-sandbox="game"><a class="c_ident" id="c-P43rIXnt0B" href="#c-P43rIXnt0B" tabindex="-1" role="presentation"></a>CanvasDisplay.prototype.clearDisplay = <span class="tok-keyword">function</span>(<span class="tok-definition">status</span>) {
   <span class="tok-keyword">if</span> (status == <span class="tok-string">&quot;won&quot;</span>) {
@@ -480,13 +482,13 @@ CanvasDisplay.prototype.drawBackground = <span class="tok-keyword">function</spa
   }
 };</pre>
 
-<p><a class="p_ident" id="p-EitgnSjUGR" href="#p-EitgnSjUGR" tabindex="-1" role="presentation"></a>Las casillas que no están vacías se dibujan con <code>drawImage</code>. La imagen <code>otherSprites</code> contiene las imágenes utilizadas para elementos que no son el jugador. Contiene, de izquierda a derecha, la casilla de pared, la casilla de lava y el sprite de una moneda.</p><figure><img src="img/sprites_big.png" alt="Arte pixelado que muestra tres sprites: una pieza de pared, hecha de pequeñas piedras blancas, un cuadrado de lava naranja y una moneda redonda."></figure>
+<p><a class="p_ident" id="p-EitgnSjUGR" href="#p-EitgnSjUGR" tabindex="-1" role="presentation"></a>Las casillas que no están vacías se dibujan con <code>drawImage</code>. La imagen <code>otherSprites</code> contiene las imágenes utilizadas para elementos que no son el jugador. Contiene, de izquierda a derecha, la casilla de pared, la casilla de lava y el sprite de una moneda.</p><figure><img src="img/sprites_big.png" alt="Píxel art que muestra tres sprites: una pieza de pared, hecha de pequeñas piedras blancas, un cuadrado de lava naranja y una moneda redonda."></figure>
 
-<p><a class="p_ident" id="p-pZ+9buT79l" href="#p-pZ+9buT79l" tabindex="-1" role="presentation"></a>Las casillas de fondo son de 20 por 20 píxeles ya que usaremos la misma escala que en <code>DOMDisplay</code>. Por lo tanto, el desplazamiento para las casillas de lava es 20 (el valor del enlace <code>scale</code>), y el desplazamiento para las paredes es 0.</p>
+<p><a class="p_ident" id="p-pZ+9buT79l" href="#p-pZ+9buT79l" tabindex="-1" role="presentation"></a>Las casillas de fondo son de 20 por 20 píxeles ya que usaremos la misma escala que en <code>DOMDisplay</code>. Por lo tanto, el desplazamiento para las casillas de lava es 20 (el valor de la variable <code>scale</code>), y el desplazamiento para las paredes es 0.</p>
 
-<p><a class="p_ident" id="p-ZcJ4ygukyJ" href="#p-ZcJ4ygukyJ" tabindex="-1" role="presentation"></a>No nos molesta esperar a que se cargue la imagen del sprite. Llamar a <code>drawImage</code> con una imagen que aún no se ha cargado simplemente no hará nada. Por lo tanto, podríamos no dibujar correctamente el juego durante los primeros cuadros, mientras la imagen aún se está cargando, pero eso no es un problema grave. Dado que seguimos actualizando la pantalla, la escena correcta aparecerá tan pronto como termine la carga.</p>
+<p><a class="p_ident" id="p-x/lOxujgJO" href="#p-x/lOxujgJO" tabindex="-1" role="presentation"></a>No nos importa esperar a que se cargue la imagen del sprite. Llamar a <code>drawImage</code> con una imagen que aún no se ha cargado simplemente no hará nada. Por lo tanto, podríamos no dibujar correctamente el juego durante los primeros frames, mientras la imagen aún se está cargando, pero eso no es un problema grave. Como seguimos actualizando la pantalla, la escena correcta aparecerá tan pronto como termine la carga.</p>
 
-<p><a class="p_ident" id="p-ORq0xRxiNO" href="#p-ORq0xRxiNO" tabindex="-1" role="presentation"></a>El personaje de movimiento que se mostró anteriormente se utilizará para representar al jugador. El código que lo dibuja necesita seleccionar el sprite adecuado y la dirección basándose en el movimiento actual del jugador. Los primeros ocho sprites contienen una animación de caminar. Cuando el jugador se está moviendo a lo largo de una superficie, los recorremos según el tiempo actual. Queremos cambiar de fotogramas cada 60 milisegundos, por lo que primero dividimos el tiempo por 60. Cuando el jugador está quieto, dibujamos el noveno sprite. Durante los saltos, que se reconocen por el hecho de que la velocidad vertical no es cero, usamos el décimo sprite de la derecha.</p>
+<p><a class="p_ident" id="p-7j4A77OX2O" href="#p-7j4A77OX2O" tabindex="-1" role="presentation"></a>El personaje caminando que se mostró anteriormente se utilizará para representar al jugador. El código que lo dibuja necesita seleccionar el sprite adecuado y la dirección basándose en el movimiento actual del jugador. Los primeros ocho sprites contienen una animación de caminar. Cuando el jugador se está moviendo a lo largo de una superficie, los recorremos según el tiempo actual. Queremos cambiar de fotogramas cada 60 milisegundos, por lo que primero dividimos el tiempo por 60. Cuando el jugador está quieto, dibujamos el noveno sprite. Durante los saltos, que se reconocen por el hecho de que la velocidad vertical no es cero, usamos el décimo sprite de la derecha.</p>
 
 <p><a class="p_ident" id="p-0A/X02lHnK" href="#p-0A/X02lHnK" tabindex="-1" role="presentation"></a>Dado que los sprites son ligeramente más anchos que el objeto del jugador—24 en lugar de 16 píxeles para permitir algo de espacio para los pies y los brazos—el método debe ajustar la coordenada x y el ancho por una cantidad dada (<code>playerXOverlap</code>).</p>
 
@@ -538,7 +540,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
   }
 };</pre>
 
-<p><a class="p_ident" id="p-mYmRBqJrsx" href="#p-mYmRBqJrsx" tabindex="-1" role="presentation"></a>Cuando se está dibujando algo que no es el jugador, miramos su tipo para encontrar el desplazamiento del sprite correcto. El tile de lava se encuentra en el desplazamiento 20, y el sprite de la moneda se encuentra en 40 (dos veces <code>scale</code>).</p>
+<p><a class="p_ident" id="p-mYmRBqJrsx" href="#p-mYmRBqJrsx" tabindex="-1" role="presentation"></a>Cuando se está dibujando algo que no es el jugador, miramos su tipo para encontrar el desplazamiento del sprite correcto. El dibujo de la lava se encuentra en el desplazamiento 20, y el sprite de la moneda se encuentra en 40 (dos veces <code>scale</code>).</p>
 
 <p><a class="p_ident" id="p-l9WGkcrpyc" href="#p-l9WGkcrpyc" tabindex="-1" role="presentation"></a>Tenemos que restar la posición del viewport al calcular la posición del actor, ya que (0,0) en nuestro canvas corresponde a la esquina superior izquierda del viewport, no a la esquina superior izquierda del nivel. También podríamos haber usado <code>translate</code> para esto. De ambas maneras funciona.</p>
 
@@ -552,7 +554,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <h2 id="graphics_tradeoffs"><a class="h_ident" id="h-7mCVVOn6Wy" href="#h-7mCVVOn6Wy" tabindex="-1" role="presentation"></a>Elección de una interfaz gráfica</h2>
 
-<p><a class="p_ident" id="p-cuNTHd8qgs" href="#p-cuNTHd8qgs" tabindex="-1" role="presentation"></a>Por lo tanto, cuando necesitas generar gráficos en el navegador, puedes elegir entre HTML simple, SVG y canvas. No hay un enfoque único <em>mejor</em> que funcione en todas las situaciones. Cada opción tiene sus fortalezas y debilidades.</p>
+<p><a class="p_ident" id="p-utyJuLTIwI" href="#p-utyJuLTIwI" tabindex="-1" role="presentation"></a>Así que, cuando necesitas generar gráficos en el navegador, puedes elegir entre HTML simple, SVG y canvas. No hay un único <em>mejor</em> enfoque que funcione en todas las situaciones. Cada opción tiene sus fortalezas y debilidades.</p>
 
 <p><a class="p_ident" id="p-a0Iu5/ZW5u" href="#p-a0Iu5/ZW5u" tabindex="-1" role="presentation"></a>HTML simple tiene la ventaja de ser simple. También se integra bien con texto. Tanto SVG como canvas te permiten dibujar texto, pero no te ayudarán a posicionar ese texto o envolverlo cuando ocupa más de una línea. En una imagen basada en HTML, es mucho más fácil incluir bloques de texto.</p>
 
@@ -562,7 +564,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-RRzI6Zv0v1" href="#p-RRzI6Zv0v1" tabindex="-1" role="presentation"></a>Pero el enfoque orientado a píxeles de canvas puede ser una ventaja al dibujar una gran cantidad de elementos pequeños. El hecho de que no construye una estructura de datos, sino que solo dibuja repetidamente sobre la misma superficie de píxeles, hace que canvas tenga un menor costo por forma.</p>
 
-<p><a class="p_ident" id="p-JcCiSu5oeu" href="#p-JcCiSu5oeu" tabindex="-1" role="presentation"></a>También hay efectos, como renderizar una escena píxel por píxel (por ejemplo, usando un ray tracer) o procesar una imagen con JavaScript (desenfocarla o distorsionarla), que solo son prácticos con un elemento canvas.</p>
+<p><a class="p_ident" id="p-JcCiSu5oeu" href="#p-JcCiSu5oeu" tabindex="-1" role="presentation"></a>También hay efectos, como renderizar una escena píxel por píxel (por ejemplo, usando un <em>ray tracer</em>) o procesar una imagen con JavaScript (desenfocarla o distorsionarla), que solo son prácticos con un elemento canvas.</p>
 
 <p><a class="p_ident" id="p-N6EbEIQTYy" href="#p-N6EbEIQTYy" tabindex="-1" role="presentation"></a>En algunos casos, puede que desees combinar varias de estas técnicas. Por ejemplo, podrías dibujar un gráfico con SVG o canvas pero mostrar información textual posicionando un elemento HTML encima de la imagen.</p>
 
@@ -576,7 +578,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-xBzY0lpQ5o" href="#p-xBzY0lpQ5o" tabindex="-1" role="presentation"></a>La interfaz de dibujo 2D nos permite rellenar y trazar varias formas. La propiedad <code>fillStyle</code> del contexto determina cómo se rellenan las formas. Las propiedades <code>strokeStyle</code> y <code>lineWidth</code> controlan la forma en que se dibujan las líneas.</p>
 
-<p><a class="p_ident" id="p-pzTbA34IPz" href="#p-pzTbA34IPz" tabindex="-1" role="presentation"></a>Los rectángulos y trozos de texto se pueden dibujar con una sola llamada a método. Los métodos <code>fillRect</code> y <code>strokeRect</code> dibujan rectángulos, y los métodos <code>fillText</code> y <code>strokeText</code> dibujan texto. Para crear formas personalizadas, primero debemos construir un camino.</p>
+<p><a class="p_ident" id="p-pzTbA34IPz" href="#p-pzTbA34IPz" tabindex="-1" role="presentation"></a>Los rectángulos y trozos de texto se pueden dibujar con una sola llamada a un método. Los métodos <code>fillRect</code> y <code>strokeRect</code> dibujan rectángulos, y los métodos <code>fillText</code> y <code>strokeText</code> dibujan texto. Para crear formas personalizadas, primero debemos construir un camino.</p>
 
 <p><a class="p_ident" id="p-gNJPCbDPHb" href="#p-gNJPCbDPHb" tabindex="-1" role="presentation"></a>Llamar a <code>beginPath</code> inicia un nuevo camino. Varios otros métodos agregan líneas y curvas al camino actual. Por ejemplo, <code>lineTo</code> puede agregar una línea recta. Cuando un camino está terminado, se puede rellenar con el método <code>fill</code> o trazarse con el método <code>stroke</code>.</p>
 
@@ -633,7 +635,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-5H/3njUG1K" href="#p-5H/3njUG1K" tabindex="-1" role="presentation"></a>{{index “función flipHorizontally”, rotación}}</p>
 
-<p><a class="p_ident" id="p-v4JHTMrZvY" href="#p-v4JHTMrZvY" tabindex="-1" role="presentation"></a>El diamante diamond (2) se puede dibujar de forma directa, con un recorrido, o de forma interesante, con una transformación de <code>rotación</code>. Para usar la rotación, tendrás que aplicar un truco similar al que hicimos en la función <code>flipHorizontally</code>. Debido a que quieres rotar alrededor del centro de tu rectángulo y no alrededor del punto (0,0), primero debes <code>translate</code> allí, luego rotar, y luego volver a trasladar.</p>
+<p><a class="p_ident" id="p-v4JHTMrZvY" href="#p-v4JHTMrZvY" tabindex="-1" role="presentation"></a>El diamante diamond (2) se puede dibujar de forma directa, con un recorrido, o de forma interesante, con una transformación de <code>rotación</code>. Para usar la rotación, tendrás que aplicar un truco similar al que hicimos en la función <code>flipHorizontally</code>. Como tienes que rotar alrededor del centro de tu rectángulo y no alrededor del punto (0,0), primero debes hacer <code>translate</code> hasta allí, luego rotar, y luego volver a trasladar.</p>
 
 <p><a class="p_ident" id="p-UT6K3d6lOT" href="#p-UT6K3d6lOT" tabindex="-1" role="presentation"></a>Asegúrate de restablecer la transformación después de dibujar cualquier forma que la cree.</p>
 
@@ -641,7 +643,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <p><a class="p_ident" id="p-3DikRGSFgr" href="#p-3DikRGSFgr" tabindex="-1" role="presentation"></a>También necesitarás un bucle para la espiral (4). Si dibujas una serie de puntos, con cada punto moviéndose más lejos a lo largo de un círculo alrededor del centro de la espiral, obtienes un círculo. Si, durante el bucle, varías el radio del círculo en el que estás poniendo el punto actual y das más de una vuelta, el resultado es una espiral.</p>
 
-<p><a class="p_ident" id="p-nnbEXh4bjC" href="#p-nnbEXh4bjC" tabindex="-1" role="presentation"></a>La estrella (5) representada está construida con líneas <code>quadraticCurveTo</code>. También podrías dibujar una con líneas rectas. Divide un círculo en ocho piezas para una estrella con ocho puntas, o cuantas piezas desees. Dibuja líneas entre estos puntos, haciéndolas curvar hacia el centro de la estrella. Con <code>quadraticCurveTo</code>, puedes usar el centro como punto de control.</p>
+<p><a class="p_ident" id="p-nnbEXh4bjC" href="#p-nnbEXh4bjC" tabindex="-1" role="presentation"></a>La estrella (5) representada está construida con líneas <code>quadraticCurveTo</code>. También podrías dibujar una con líneas rectas. Divide un círculo en ocho piezas para una estrella con ocho puntas, o cuantas piezas desees. Dibuja líneas entre estos puntos, haciéndolas curvarse hacia el centro de la estrella. Con <code>quadraticCurveTo</code>, puedes usar el centro como punto de control.</p>
 
 </div></details>
 
@@ -725,7 +727,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 
 <h3><a class="i_ident" id="i-bWN6DLs80w" href="#i-bWN6DLs80w" tabindex="-1" role="presentation"></a>Reflejo precalculado</h3>
 
-<p><a class="p_ident" id="p-kI8Y5v6gUy" href="#p-kI8Y5v6gUy" tabindex="-1" role="presentation"></a>Una desventaja de las transformaciones es que ralentizan el dibujo de mapas de bits. La posición y el tamaño de cada píxel deben ser transformados, y aunque es posible que los navegadores se vuelvan más inteligentes sobre las transformaciones en el futuro, actualmente causan un aumento medible en el tiempo que lleva dibujar un mapa de bits.</p>
+<p><a class="p_ident" id="p-kI8Y5v6gUy" href="#p-kI8Y5v6gUy" tabindex="-1" role="presentation"></a>Una desventaja de las transformaciones es que ralentizan el dibujo de mapas de bits. La posición y el tamaño de cada píxel deben ser transformados, y aunque es posible que los navegadores se vuelvan más inteligentes en cuanto a las transformaciones en el futuro, actualmente causan un aumento medible en el tiempo que lleva dibujar un mapa de bits.</p>
 
 <p><a class="p_ident" id="p-NG42ekOsOP" href="#p-NG42ekOsOP" tabindex="-1" role="presentation"></a>En un juego como el nuestro, en el que solo estamos dibujando un sprite transformado, esto no es un problema. Pero imagina que necesitamos dibujar cientos de personajes o miles de partículas giratorias de una explosión.</p>
 

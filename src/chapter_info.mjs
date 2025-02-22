@@ -42,7 +42,7 @@ const TRANSLATIONS_MAP = {
   '15_1_globo.html': '15_1_balloon.html',
   '15_2_estela_del_ratn.html': '15_2_mouse_trail.html',
   '15_3_pestaas.html': '15_3_tabs.html',
-  '16_1_juego_terminado.html': '16_1_game_over.html',
+  '16_1_fin_del_juego.html': '16_1_game_over.html',
   '16_2_pausar_el_juego.html': '16_2_pausing_the_game.html',
   '16_3_un_monstruo.html': '16_3_a_monster.html',
   '17_1_formas.html': '17_1_shapes.html',
