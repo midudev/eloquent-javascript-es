@@ -2,7 +2,7 @@
 
 {{quote {author: "Tim Berners-Lee", chapter: true}
 
-Lo que a menudo resultaba difícil para las personas entender sobre el diseño era que no había nada más allá de las URL, HTTP y HTML. No había una computadora central "controlando" la Web, no existía una sola red en la que funcionaran estos protocolos, ni siquiera una organización en algún lugar que "dirigiera" la Web. La Web no era una "cosa" física que existía en un cierto "lugar". Era un "espacio" en el que la información podía existir.
+Lo que más le costaba a la gente entender sobre el diseño era que no había nada más allá de las URL, HTTP y HTML. No había una computadora central "controlando" la Web, no existía una sola red en la que funcionaran estos protocolos, ni siquiera una organización en algún lugar que "dirigiera" la Web. La Web no era una "cosa" física que existía en un cierto "lugar". Era un "espacio" en el que la información podía existir.
 
 quote}}
 
@@ -10,13 +10,13 @@ quote}}
 
 {{figure {url: "img/chapter_picture_18.jpg", alt: "Ilustración mostrando un formulario de registro en la web en un pergamino", chapter: "framed"}}}
 
-El _Protocolo de Transferencia de Hipertexto_, mencionado anteriormente en el [Capítulo ?](browser#web), es el mecanismo a través del cual se solicita y proporciona datos en la ((World Wide Web)). Este capítulo describe el ((protocolo)) con más detalle y explica la forma en que JavaScript del navegador tiene acceso a él.
+El _Protocolo de Transferencia de Hipertexto_, mencionado anteriormente en el [Capítulo ?](browser#web), es el mecanismo a través del cual se solicita y proporciona la información en la ((World Wide Web)). Este capítulo describe el ((protocolo)) con más detalle y explica la forma en que el JavaScript del navegador tiene acceso a él.
 
 ## El protocolo
 
 Si escribes _eloquentjavascript.net/18_http.html_ en la barra de direcciones de tu navegador, el ((navegador)) primero busca la ((dirección)) del servidor asociado con _eloquentjavascript.net_ e intenta abrir una ((conexión)) ((TCP)) con él en el ((puerto)) 80, el puerto predeterminado para el tráfico ((HTTP)). Si el ((servidor)) existe y acepta la conexión, el navegador podría enviar algo como esto:
 
-```http
+```{lang: http}
 GET /18_http.html HTTP/1.1
 Host: eloquentjavascript.net
 User-Agent: Nombre de tu navegador
@@ -24,7 +24,7 @@ User-Agent: Nombre de tu navegador
 
 Luego el servidor responde, a través de esa misma conexión.
 
-```http
+```{lang: http}
 HTTP/1.1 200 OK
 Content-Length: 87320
 Content-Type: text/html
@@ -34,19 +34,21 @@ Last-Modified: Vie, 13 Oct 2023 10:05:41 GMT
 ... el resto del documento
 ```
 
-El navegador toma la parte de la ((respuesta)) después de la línea en blanco, su _cuerpo_ (no confundir con la etiqueta HTML `<body>`), y lo muestra como un documento ((HTML)).
+El navegador toma la parte de la ((respuesta)) después de la línea en blanco —su _cuerpo_ (no confundir con la etiqueta HTML `<body>`)— y lo muestra como un documento ((HTML)).
 
 La información enviada por el cliente se llama la _((solicitud))_. Comienza con esta línea:
 
-```http
+```{lang: http}
 GET /18_http.html HTTP/1.1
 ```
 
-La primera palabra es el _método_ de la ((solicitud)). `GET` significa que queremos _obtener_ el recurso especificado. Otros métodos comunes son `DELETE` para eliminar un recurso, `PUT` para crearlo o reemplazarlo, y `POST` para enviar información a él. Cabe destacar que el ((servidor)) no está obligado a llevar a cabo cada solicitud que recibe. Si te acercas a un sitio web aleatorio y le dices que `DELETE` su página principal, probablemente se negará.
+La primera palabra es el _método_ de la ((solicitud)). `GET` significa que queremos _obtener_ el recurso especificado. Otros métodos comunes son `DELETE` para eliminar un recurso, `PUT` para crearlo o reemplazarlo, y `POST` para enviarle información. Cabe destacar que el ((servidor)) no está obligado a llevar a cabo cada solicitud que recibe. Si vas a un sitio web aleatorio y le dices que haga `DELETE` de su página principal, probablemente se negará.
 
-La parte después del nombre del método es la ruta del _((recurso))_ al que aplica la solicitud. En el caso más simple, un recurso es simplemente un archivo en el ((servidor)), pero el protocolo no lo requiere así. Un recurso puede ser cualquier cosa que pueda transferirse _como si fuera_ un archivo. Muchos servidores generan las respuestas que producen al vuelo. Por ejemplo, si abres [_https://github.com/marijnh_](https://github.com/marijnh), el servidor buscará en su base de datos un usuario llamado "marijnh", y si lo encuentra, generará una página de perfil para ese usuario.Después de la ruta del recurso, la primera línea de la solicitud menciona `HTTP/1.1` para indicar la versión del protocolo HTTP que está utilizando.
+La parte después del nombre del método es la ruta del _((recurso))_ al que aplica la solicitud. En el caso más simple, un recurso es simplemente un archivo en el ((servidor)), pero el protocolo no lo requiere así. Un recurso puede ser cualquier cosa que pueda transferirse _como si fuera_ un archivo. Muchos servidores generan las respuestas que producen al vuelo. Por ejemplo, si abres [_https://github.com/marijnh_](https://github.com/marijnh), el servidor buscará en su base de datos un usuario llamado "marijnh" y, si lo encuentra, generará una página de perfil para ese usuario.
 
-En la práctica, muchos sitios utilizan la versión 2 de HTTP, que soporta los mismos conceptos que la versión 1.1 pero es mucho más complicada para que pueda ser más rápida. Los navegadores cambiarán automáticamente a la versión de protocolo adecuada al comunicarse con un servidor dado, y el resultado de una solicitud es el mismo independientemente de la versión utilizada. Dado que la versión 1.1 es más directa y más fácil de entender, la usaremos para ilustrar el protocolo.
+Después de la ruta del recurso, la primera línea de la solicitud dice `HTTP/1.1` para indicar la versión del protocolo HTTP que está utilizando.
+
+En la práctica, muchos sitios utilizan la versión 2 de HTTP, que soporta los mismos conceptos que la versión 1.1 pero es mucho más complicada para que pueda ser más rápida. Los navegadores cambiarán automáticamente a la versión de protocolo adecuada al comunicarse con un servidor dado, y el resultado de una solicitud es el mismo independientemente de la versión utilizada. Dado que la versión 1.1 es más directa y más fácil de entender, es la que usaremos para ilustrar el protocolo.
 
 {{index "código de estado"}}
 
@@ -58,13 +60,13 @@ HTTP/1.1 200 OK
 
 {{index "200 (código de estado de HTTP)", "respuesta de error", "404 (código de estado de HTTP)"}}
 
-Los códigos de estado que comienzan con 2 indican que la solicitud tuvo éxito. Los códigos que comienzan con 4 significan que hubo un problema con la solicitud. El 404 es probablemente el código de estado de HTTP más famoso, lo que significa que el recurso no se pudo encontrar. Los códigos que comienzan con 5 indican que ocurrió un error en el servidor y la solicitud no es la responsable.
+Los códigos de estado que comienzan con 2 indican que la solicitud tuvo éxito. Los códigos que comienzan con 4 significan que hubo un problema con la solicitud. El 404 es probablemente el código de estado de HTTP más famoso, y significa que el recurso no se pudo encontrar. Los códigos que comienzan con 5 indican que ocurrió un error en el servidor y la solicitud no es la responsable.
 
 {{index HTTP}}
 
 {{id headers}}
 
-La primera línea de una solicitud o respuesta puede ir seguida de cualquier número de _cabeceras_. Estas son líneas en la forma `nombre: valor` que especifican información adicional sobre la solicitud o respuesta. Estas cabeceras eran parte del ejemplo de respuesta:
+La primera línea de una solicitud o respuesta puede ir seguida de cualquier número de _cabeceras_. Estas son líneas en la forma `nombre: valor` que especifican información adicional sobre la solicitud o respuesta. Estas cabeceras eran parte del ejemplo de respuesta de antes:
 
 ```{lang: null}
 Content-Length: 87320
@@ -74,9 +76,9 @@ Last-Modified: Fri, 13 Oct 2023 10:05:41 GMT
 
 {{index "cabecera Content-Length", "cabecera Content-Type", "cabecera Last-Modified"}}
 
-Esto nos indica el tamaño y tipo del documento de respuesta. En este caso, es un documento HTML de 87,320 bytes. También nos dice cuándo se modificó por última vez ese documento.
+Esto nos indica el tamaño y tipo del documento de respuesta. En este caso, es un documento HTML de 87320 bytes. También nos dice cuándo se modificó por última vez ese documento.
 
-El cliente y servidor son libres de decidir qué cabeceras incluir en sus solicitudes o respuestas. Sin embargo, algunas de ellas son necesarias para que todo funcione. Por ejemplo, sin la cabecera `Content-Type` en la respuesta, el navegador no sabrá cómo mostrar el documento.
+El cliente y el servidor son libres de decidir qué cabeceras incluir en sus solicitudes o respuestas. Sin embargo, algunas de ellas son necesarias para que todo funcione. Por ejemplo, sin la cabecera `Content-Type` en la respuesta, el navegador no sabrá cómo mostrar el documento.
 
 {{index "método GET", "método DELETE", "método PUT", "método POST", "cuerpo (HTTP)"}}
 
@@ -90,7 +92,9 @@ Como vimos, un navegador hará una solicitud cuando introducimos una URL en la b
 
 {{index paralelismo, "método GET"}}
 
-Un sitio web moderadamente complicado puede incluir fácilmente entre 10 y 200 recursos. Para poder obtenerlos rápidamente, los navegadores harán varias solicitudes `GET` simultáneamente en lugar de esperar las respuestas una por una.Las páginas HTML pueden incluir formularios, que permiten al usuario completar información y enviarla al servidor. A continuación se muestra un ejemplo de un formulario:
+Un sitio web moderadamente complicado puede incluir fácilmente entre 10 y 200 recursos. Para poder obtenerlos rápidamente, los navegadores harán varias solicitudes `GET` simultáneamente en lugar de esperar las respuestas una por una.
+
+Las páginas HTML pueden incluir formularios, que permiten al usuario rellenar información y enviarla al servidor. A continuación se muestra un ejemplo de un formulario:
 
 ```{lang: html}
 <form method="GET" action="example/message.html">
@@ -137,7 +141,9 @@ Content-type: application/x-www-form-urlencoded
 name=Jean&message=Yes%3F
 ```
 
-Las solicitudes `GET` deben utilizarse para solicitudes que no tengan efectos secundarios, sino simplemente para solicitar información. Las solicitudes que cambian algo en el servidor, como por ejemplo crear una nueva cuenta o publicar un mensaje, deben expresarse con otros métodos, como `POST`. El software del lado del cliente, como un navegador, sabe que no debe hacer solicitudes `POST` a ciegas, pero a menudo implícitamente realiza solicitudes `GET`, por ejemplo, para precargar un recurso que cree que pronto el usuario necesitará.Volveremos a hablar de formularios y cómo interactuar con ellos desde JavaScript [más adelante en el capítulo](http#forms).
+Las solicitudes `GET` deben utilizarse para solicitudes que no tengan efectos secundarios, sino simplemente para solicitar información. Las solicitudes que cambian algo en el servidor, como por ejemplo crear una nueva cuenta o publicar un mensaje, deben expresarse con otros métodos, como `POST`. El software del lado del cliente, como un navegador, sabe que no debe hacer solicitudes `POST` a ciegas, pero a menudo implícitamente realiza solicitudes `GET`, por ejemplo, para precargar un recurso que cree que pronto el usuario necesitará.
+
+Volveremos a hablar de formularios y cómo interactuar con ellos desde JavaScript [más adelante en el capítulo](http#formularios).
 
 {{id fetch}}
 
@@ -145,20 +151,20 @@ Las solicitudes `GET` deben utilizarse para solicitudes que no tengan efectos se
 
 {{index "función fetch", "clase Promise", [interfaz, "módulo"]}}
 
-La interfaz a través de la cual JavaScript del navegador puede hacer solicitudes HTTP se llama `fetch`.
+La interfaz a través de la cual el JavaScript del navegador puede hacer solicitudes HTTP se llama `fetch`.
 
 ```{test: no}
-fetch("ejemplo/datos.txt").then(response => {
-  console.log(response.status);
+fetch("example/data.txt").then(respuesta => {
+  console.log(respuesta.status);
   // → 200
-  console.log(response.headers.get("Content-Type"));
+  console.log(respuesta.headers.get("Content-Type"));
   // → text/plain
 });
 ```
 
 {{index "clase Response", "propiedad status", "propiedad headers"}}
 
-Llamar a `fetch` devuelve una promesa que se resuelve en un objeto `Response` que contiene información sobre la respuesta del servidor, como su código de estado y sus encabezados. Los encabezados están envueltos en un objeto similar a un `Map` que trata sus claves (los nombres de los encabezados) como insensibles a mayúsculas y minúsculas porque los nombres de los encabezados no deben ser sensibles a mayúsculas y minúsculas. Esto significa que `headers.get("Content-Type")` y `headers.get("content-TYPE")` devolverán el mismo valor.
+Llamar a `fetch` devuelve una promesa que se resuelve en un objeto `Response` que contiene información sobre la respuesta del servidor, como su código de estado y sus encabezados. Los encabezados están envueltos en un objeto similar a un `Map` que trata sus claves (los nombres de los encabezados) como insensibles a mayúsculas y minúsculas porque los nombres de los encabezados no deben serlo. Esto significa que `headers.get("Content-Type")` y `headers.get("content-TYPE")` devolverán el mismo valor.
 
 Ten en cuenta que la promesa devuelta por `fetch` se resuelve con éxito incluso si el servidor responde con un código de error. También puede ser rechazada si hay un error de red o si el ((servidor)) al que se dirige la solicitud no se puede encontrar.
 
@@ -168,7 +174,7 @@ El primer argumento de `fetch` es la URL que se debe solicitar. Cuando esa ((URL
 
 {{index "método text", "cuerpo (HTTP)", "clase Promise"}}
 
-Para acceder al contenido real de una respuesta, puedes usar su método `text`. Debido a que la promesa inicial se resuelve tan pronto como se han recibido los encabezados de la respuesta y porque leer el cuerpo de la respuesta podría llevar un poco más de tiempo, esto devuelve nuevamente una promesa.
+Para acceder al contenido en sí de una respuesta, puedes usar su método `text`. Como la promesa inicial se resuelve tan pronto como se reciben los encabezados de la respuesta y dado que leer el cuerpo de la respuesta podría llevar un poco más de tiempo, esto devuelve nuevamente una promesa.
 
 ```{test: no}
 fetch("ejemplo/datos.txt")
@@ -183,10 +189,10 @@ Un método similar, llamado `json`, devuelve una promesa que se resuelve al valo
 
 {{index "método GET", "cuerpo (HTTP)", "método DELETE", "propiedad método"}}
 
-Por defecto, `fetch` utiliza el método `GET` para realizar su solicitud y no incluye un cuerpo de solicitud. Puedes configurarlo de manera diferente pasando un objeto con opciones adicionales como segundo argumento. Por ejemplo, esta solicitud intenta eliminar `ejemplo/datos.txt`:
+Por defecto, `fetch` utiliza el método `GET` para realizar su solicitud y no incluye un cuerpo de solicitud. Puedes configurarlo de manera diferente pasando un objeto con opciones adicionales como segundo argumento. Por ejemplo, esta solicitud intenta eliminar `example/data.txt`:
 
 ```{test: no}
-fetch("ejemplo/datos.txt", {method: "DELETE"}).then(resp => {
+fetch("example/data.txt", {method: "DELETE"}).then(resp => {
   console.log(resp.status);
   // → 405
 });
@@ -201,13 +207,13 @@ El código de estado 405 significa "método no permitido", la forma en que un se
 Para agregar un cuerpo de solicitud, puedes incluir una opción `body`. Para establecer cabeceras, está la opción `headers`. Por ejemplo, esta solicitud incluye una cabecera `Range`, que indica al servidor que devuelva solo una parte de un documento.
 
 ```{test: no}
-fetch("ejemplo/datos.txt", {headers: {Range: "bytes=8-19"}})
+fetch("example/data.txt", {headers: {Range: "bytes=8-19"}})
   .then(resp => resp.text())
   .then(console.log);
-// → el contenido
+// → the content
 ```
 
-El navegador automáticamente añadirá algunas cabeceras de solicitud, como "Host" y aquellas necesarias para que el servidor pueda determinar el tamaño del cuerpo. Sin embargo, añadir tus propias cabeceras es muchas veces útil para incluir cosas como información de autenticación o para indicar al servidor en qué formato de archivo te gustaría recibir.
+El navegador automáticamente añadirá algunas cabeceras de solicitud, como "Host" y aquellas necesarias para que el servidor pueda determinar el tamaño del cuerpo. Sin embargo, añadir tus propias cabeceras es muchas veces útil para incluir cosas como información de autenticación o para indicar al servidor qué formato de archivo te gustaría recibir.
 
 {{id http_sandbox}}
 
@@ -215,7 +221,7 @@ El navegador automáticamente añadirá algunas cabeceras de solicitud, como "Ho
 
 {{index sandbox, [navegador, seguridad]}}
 
-Realizar solicitudes ((HTTP)) en scripts de páginas web plantea nuevamente preocupaciones sobre ((seguridad)). La persona que controla el script puede no tener los mismos intereses que la persona en cuya computadora se está ejecutando. Específicamente, si visito _themafia.org_, no quiero que sus scripts puedan hacer una solicitud a _mybank.com_, utilizando información de identificación de mi navegador, con instrucciones para transferir todo mi dinero.
+Realizar solicitudes ((HTTP)) en scripts de páginas web plantea preocupaciones sobre ((seguridad)). La persona que controla el script puede no tener los mismos intereses que la persona en cuya computadora se está ejecutando. Específicamente, si visito _themafia.org_, no quiero que sus scripts puedan hacer una solicitud a _mybank.com_, utilizando información de identificación de mi navegador, con instrucciones para transferir todo mi dinero.
 
 Por esta razón, los navegadores nos protegen al impedir que los scripts hagan solicitudes HTTP a otros ((dominios)) (nombres como _themafia.org_ y _mybank.com_).
 
@@ -235,13 +241,15 @@ Cuando se construye un sistema que requiere ((comunicación)) entre un programa 
 
 {{index [red, "abstracción"], "abstracción"}}
 
-Un modelo comúnmente utilizado es el de las _llamadas de procedimiento remoto_. En este modelo, la comunicación sigue los patrones de llamadas de función normales, excepto que la función en realidad se está ejecutando en otra máquina. Llamarla implica hacer una solicitud al servidor que incluye el nombre de la función y sus argumentos. La respuesta a esa solicitud contiene el valor devuelto.
+Un modelo comúnmente utilizado es el de las _llamadas de procedimiento remoto_. En este modelo, la comunicación sigue los patrones de llamadas de función normales, excepto por que la función en realidad se está ejecutando en otra máquina. Llamarla implica hacer una solicitud al servidor que incluye el nombre de la función y sus argumentos. La respuesta a esa solicitud contiene el valor devuelto.
 
 Cuando se piensa en términos de llamadas de procedimiento remoto, HTTP es simplemente un vehículo de comunicación, y es muy probable que escribas una capa de abstracción que lo oculte por completo.
 
 {{index "tipo de medio", "formato del documento", ["método", HTTP]}}
 
-Otro enfoque es construir tu comunicación en torno al concepto de ((recurso))s y métodos ((HTTP)). En lugar de un procedimiento remoto llamado `addUser`, usas una solicitud `PUT` a `/usuarios/larry`. En lugar de codificar las propiedades de ese usuario en argumentos de función, defines un formato de documento JSON (o utilizas un formato existente) que represente a un usuario. El cuerpo de la solicitud `PUT` para crear un nuevo recurso es entonces dicho documento. Se obtiene un recurso realizando una solicitud `GET` a la URL del recurso (por ejemplo, `/usuario/larry`), que de nuevo devuelve el documento que representa al recurso.Este segundo enfoque facilita el uso de algunas de las características que proporciona HTTP, como el soporte para la caché de recursos (mantener una copia de un recurso en el cliente para un acceso rápido). Los conceptos utilizados en HTTP, que están bien diseñados, pueden proporcionar un conjunto útil de principios para diseñar la interfaz de tu servidor.
+Otro enfoque es construir tu comunicación en torno al concepto de ((recurso))s y métodos ((HTTP)). En lugar de un procedimiento remoto llamado `addUser`, usas una solicitud `PUT` a `/usuarios/larry`. En lugar de codificar las propiedades de ese usuario en argumentos de función, defines un formato de documento JSON (o utilizas un formato existente) que represente a un usuario. El cuerpo de la solicitud `PUT` para crear un nuevo recurso es entonces dicho documento. Se obtiene un recurso realizando una solicitud `GET` a la URL del recurso (por ejemplo, `/usuario/larry`), que de nuevo devuelve el documento que representa al recurso.
+
+Este segundo enfoque facilita el uso de algunas de las características que proporciona HTTP, como el soporte para la caché de recursos (mantener una copia de un recurso en el cliente para un acceso rápido). Los conceptos utilizados en HTTP, que están bien diseñados, pueden proporcionar un conjunto útil de principios para diseñar la interfaz de tu servidor.
 
 ## Seguridad y HTTPS
 
@@ -251,25 +259,25 @@ Los datos que viajan por Internet tienden a seguir un largo y peligroso camino. 
 
 {{index "manipulación"}}
 
-Si es importante que algo se mantenga en secreto, como la ((contraseña)) de tu cuenta de ((correo electrónico)), o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, HTTP simple no es suficiente.
+Si es importante que algo se mantenga en secreto, como la ((contraseña)) de tu cuenta de ((correo electrónico)), o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, el HTTP simple no es suficiente.
 
 {{index "criptografía", cifrado}}
 
 {{indexsee "HTTP seguro", HTTPS, [navegador, seguridad]}}
 
-El protocolo seguro ((HTTP)), utilizado para ((URL))s que comienzan con _https://_, envuelve el tráfico HTTP de una manera que dificulta su lectura y manipulación. Antes de intercambiar datos, el cliente verifica que el servidor sea quien dice ser, solicitándole que demuestre que tiene un ((certificado)) criptográfico emitido por una autoridad de certificación que el navegador reconoce. Luego, todos los datos que pasan por la ((conexión)) están encriptados de una manera que debería evitar el espionaje y la manipulación.
+El protocolo seguro de ((HTTP)), utilizado para ((URL))s que comienzan con _https://_, envuelve el tráfico HTTP de una manera que dificulta su lectura y manipulación. Antes de intercambiar datos, el cliente verifica que el servidor sea quien dice ser, solicitándole que demuestre que tiene un ((certificado)) criptográfico emitido por una autoridad de certificación que el navegador reconoce. Luego, todos los datos que pasan por la ((conexión)) están encriptados de una manera que debería evitar el espionaje y la manipulación.
 
-Así, cuando funciona correctamente, ((HTTPS)) evita que otras personas se hagan pasar por el sitio web con el que estás intentando comunicarte _y_ que espíen tu comunicación. No es perfecto, y ha habido varios incidentes en los que HTTPS falló debido a certificados falsificados o robados y software defectuoso, pero es _mucho_ más seguro que el simple HTTP.
+Así, cuando funciona correctamente, ((HTTPS)) evita que otras personas se hagan pasar por el sitio web con el que estás intentando comunicarte _y_ que espíen tu comunicación. No es perfecto, y ha habido varios incidentes en los que HTTPS falló debido a certificados falsificados o robados y software defectuoso, pero es _mucho_ más seguro que el HTTP simple.
 
 {{id formularios}}
 
 ## Campos de formulario
 
-Los formularios fueron diseñados originalmente para la Web pre-JavaScript para permitir que los sitios web envíen información enviada por el usuario en una solicitud HTTP. Este diseño asume que la interacción con el servidor siempre ocurre navegando a una nueva página.
+Los formularios fueron diseñados originalmente para la Web pre-JavaScript para permitir que los sitios web envíen información del usuario en una solicitud HTTP. Este diseño asume que la interacción con el servidor siempre ocurre navegando a una nueva página.
 
 {{index [DOM, campos]}}
 
-Pero sus elementos son parte del DOM al igual que el resto de la página, y los elementos DOM que representan los campos de formulario admiten una serie de propiedades y eventos que no están presentes en otros elementos. Esto hace posible inspeccionar y controlar dichos campos de entrada con programas JavaScript y hacer cosas como agregar nueva funcionalidad a un formulario o utilizar formularios y campos como bloques de construcción en una aplicación JavaScript.
+Pero sus elementos son parte del DOM al igual que el resto de la página, y los elementos del DOM que representan los campos de formulario admiten una serie de propiedades y eventos que no están presentes en otros elementos. Esto hace posible inspeccionar y controlar dichos campos de entrada con programas JavaScript y hacer cosas como agregar nueva funcionalidad a un formulario o utilizar formularios y campos como bloques de construcción en una aplicación JavaScript.
 
 {{index "formulario (etiqueta HTML)"}}
 
@@ -283,33 +291,33 @@ Muchos tipos de campos utilizan la etiqueta `<input>`. El atributo `type` de est
 
 {{table {cols: [1,5]}}}
 
-| `texto`    | Un campo de una línea ((campo de texto))
-| `contraseña` | Igual que `texto` pero oculta el texto que se escribe
-| `casilla de verificación` | Un interruptor de encendido/apagado
+| `text`    | Un campo de una línea ((campo de texto))
+| `password` | Igual que `text` pero oculta el texto que se escribe
+| `checkbox` | Un interruptor de encendido/apagado
 | `color`   | Un color
-| `fecha`   | Una fecha de calendario
+| `date`   | Una fecha de calendario
 | `radio`   | (Parte de) un campo de ((opción múltiple))
-| `archivo` | Permite al usuario elegir un archivo de su computadora
+| `file` | Permite al usuario elegir un archivo de su computadora
 
 {{index "atributo valor", "atributo marcado", "formulario (etiqueta HTML)"}}
 
 Los campos de formulario no necesariamente tienen que aparecer en una etiqueta `<form>`. Puedes ponerlos en cualquier parte de una página. Campos sin formulario no pueden ser ((enviado))s (solo un formulario en su totalidad puede), pero al responder a la entrada con JavaScript, a menudo no queremos enviar nuestros campos de forma normal de todos modos.
 
 ```{lang: html}
-<p><input type="texto" value="abc"> (texto)</p>
-<p><input type="contraseña" value="abc"> (contraseña)</p>
-<p><input type="casilla de verificación" checked> (casilla de verificación)</p>
+<p><input type="text" value="abc"> (texto)</p>
+<p><input type="password" value="abc"> (contraseña)</p>
+<p><input type="checkbox" checked> (casilla de verificación)</p>
 <p><input type="color" value="naranja"> (color)</p>
-<p><input type="fecha" value="2023-10-13"> (fecha)</p>
+<p><input type="date" value="2023-10-13"> (fecha)</p>
 <p><input type="radio" value="A" name="elección">
    <input type="radio" value="B" name="elección" checked>
    <input type="radio" value="C" name="elección"> (radio)</p>
-<p><input type="archivo"> (archivo)</p>
+<p><input type="file"> (archivo)</p>
 ```
 
 {{if book
 
-Los campos creados con este código HTML lucen así:
+Los campos creados con este código HTML tienen este aspecto:
 
 {{figure {url: "img/form_fields.png", alt: "Captura de pantalla que muestra varios tipos de etiquetas de entrada", width: "4cm"}}}
 
@@ -319,7 +327,7 @@ La interfaz de JavaScript para estos elementos difiere según el tipo de element
 
 {{index "área de texto (etiqueta HTML)", "campo de texto"}}
 
-Los campos de texto de varias líneas tienen su propia etiqueta, `<textarea>`, principalmente porque sería incómodo utilizar un atributo para especificar un valor de inicio de varias líneas. La etiqueta `<textarea>` requiere una etiqueta de cierre `</textarea>` coincidente y utiliza el texto entre esas dos etiquetas, en lugar del atributo `valor`, como texto de inicio.
+Los campos de texto de varias líneas tienen su propia etiqueta, `<textarea>`, principalmente porque sería incómodo utilizar un atributo para especificar un valor de inicio de varias líneas. La etiqueta `<textarea>` requiere una etiqueta de cierre `</textarea>` y utiliza el texto entre esas dos etiquetas, en lugar del atributo `valor`, como texto de inicio.
 
 ```{lang: html}
 <textarea>
@@ -343,7 +351,7 @@ Finalmente, la etiqueta `<select>` se usa para crear un campo que permite al usu
 
 {{if book
 
-Dicho campo luce así:
+Dicho campo tiene esta pinta:
 
 {{figure {url: "img/form_select.png", alt: "Captura de pantalla que muestra un campo de selección", width: "4cm"}}}
 
@@ -351,7 +359,7 @@ if}}
 
 {{index "evento de cambio"}}
 
-Cada vez que cambia el valor de un campo de formulario, se desencadenará un evento `"cambio"`.
+Cada vez que cambia el valor de un campo de formulario, se desencadenará un evento "`change`".
 
 ## Enfoque
 
@@ -359,7 +367,7 @@ Cada vez que cambia el valor de un campo de formulario, se desencadenará un eve
 
 {{indexsee "enfoque del teclado", enfoque}}
 
-A diferencia de la mayoría de elementos en documentos HTML, los campos de formulario pueden obtener _((enfoque)) de teclado_. Cuando se hace clic, se mueve con la tecla [tab]{keyname}, o se activa de alguna otra manera, se convierten en el elemento activo actual y en el receptor de la ((entrada)) de teclado.
+A diferencia de la mayoría de elementos en documentos HTML, los campos de formulario pueden obtener _((enfoque)) de teclado_. Cuando se hace clic en ellos, se utiliza la tecla [tab]{keyname} para navegar hasta ellos, o se activan de alguna otra manera, se convierten en el elemento activo actual y en el receptor de la ((entrada)) de teclado.
 
 {{index "option (etiqueta HTML)", "select (etiqueta HTML)"}}
 
@@ -409,7 +417,7 @@ Todos los campos de ((formulario)) pueden ser _deshabilitados_ a través de su a
 <button disabled>Estoy fuera</button>
 ```
 
-Los campos deshabilitados no pueden ser ((enfocar))dos ni modificados, y los navegadores los muestran de color gris y atenuados.
+Los campos deshabilitados no pueden se pueden ((enfocar)) ni modificar, y los navegadores los muestran de color gris y atenuados.
 
 {{if book
 
@@ -419,20 +427,20 @@ if}}
 
 {{index "experiencia del usuario"}}
 
-Cuando un programa está en proceso de manejar una acción provocada por algún ((botón)) u otro control que podría requerir comunicación con el servidor y por lo tanto llevar un tiempo, puede ser una buena idea deshabilitar el control hasta que la acción haya terminado. De esta forma, cuando el usuario se impaciente y hace clic nuevamente, no repiten accidentalmente su acción.
+Cuando un programa está en proceso de manejar una acción provocada por algún ((botón)) u otro control que podría requerir comunicación con el servidor y por lo tanto llevar un tiempo, puede ser una buena idea deshabilitar el control hasta que la acción haya terminado. De esta forma, cuando el usuario se impaciente y haga clic nuevamente, no repetirán accidentalmente su acción.
 
 ## El formulario en su totalidad
 
 {{index "objeto similar a un array", "formulario (etiqueta HTML)", "propiedad formulario", "propiedad elementos"}}
 
-Cuando un ((field)) está contenido en un elemento `<form>`, su elemento DOM tendrá una propiedad `form` que enlaza de vuelta al elemento DOM del formulario. El elemento `<form>`, a su vez, tiene una propiedad llamada `elements` que contiene una colección similar a un array de los campos dentro de él.
+Cuando un ((field)) está contenido en un elemento `<form>`, su elemento del DOM tendrá una propiedad `form` que enlaza de vuelta al elemento del DOM del formulario. El elemento `<form>`, a su vez, tiene una propiedad llamada `elements` que contiene una colección parecida a un array de los campos dentro de él.
 
 {{index "elements property", "name attribute"}}
 
-El atributo `name` de un campo de formulario determina la forma en que se identificará su valor cuando se ((submit))ee el formulario. También se puede utilizar como nombre de propiedad al acceder a la propiedad `elements` del formulario, la cual actúa tanto como un objeto similar a un array (accesible por número) como un ((mapa)) (accesible por nombre).
+El atributo `name` de un campo de formulario determina la forma en que se identificará su valor cuando se ((entrega)) el formulario. También se puede utilizar como nombre de propiedad al acceder a la propiedad `elements` del formulario, la cual actúa como un objeto parecido a un array (es decir, accesible por número) y a su vez como un ((mapa)) (accesible por nombre).
 
 ```{lang: html}
-<form action="ejemplo/enviar.html">
+<form action="example/submit.html">
   Nombre: <input type="text" name="nombre"><br>
   Contraseña: <input type="password" name="contraseña"><br>
   <button type="submit">Ingresar</button>
@@ -450,11 +458,11 @@ El atributo `name` de un campo de formulario determina la forma en que se identi
 
 {{index "button (HTML tag)", "type attribute", submit, "enter key"}}
 
-Un botón con un atributo `type` de `submit` hará que, al presionarlo, se submita el formulario. Presionar [enter]{keyname} cuando un campo de formulario está enfocado tendrá el mismo efecto.
+Un botón con un atributo `type` de `submit` hará que, al presionarlo, se entregue el formulario. Presionar [enter]{keyname} cuando un campo de formulario está enfocado tendrá el mismo efecto.
 
 {{index "submit event", "event handling", "preventDefault method", "page reload", "GET method", "POST method"}}
 
-Enviar un ((form))ulario normalmente significa que el ((navegador)) se dirige a la página indicada por el atributo `action` del formulario, utilizando ya sea una solicitud `GET` o `POST`. Pero antes de que eso ocurra, se dispara un evento `"submit"`. Puedes manejar este evento con JavaScript y prevenir este comportamiento por defecto llamando a `preventDefault` en el objeto de evento.
+Enviar un ((form))ulario normalmente significa que el ((navegador)) se dirige a la página indicada por el atributo `action` del formulario, utilizando ya sea una solicitud `GET` o `POST`. Pero antes de que eso ocurra, se dispara un evento `"submit"`. Puedes manejar este evento con JavaScript y evitar este comportamiento por defecto llamando a `preventDefault` en el objeto de evento.
 
 ```{lang: html}
 <form>
@@ -472,13 +480,13 @@ Enviar un ((form))ulario normalmente significa que el ((navegador)) se dirige a 
 
 {{index "submit event", validation}}
 
-Interceptar los eventos `"submit"` en JavaScript tiene varios usos. Podemos escribir código para verificar que los valores ingresados por el usuario tengan sentido y mostrar inmediatamente un mensaje de error en lugar de enviar el formulario. O podemos deshabilitar completamente la forma regular de enviar el formulario, como en el ejemplo, y hacer que nuestro programa maneje la entrada, posiblemente utilizando `fetch` para enviarla a un servidor sin recargar la página.
+Interceptar los eventos `"submit"` en JavaScript tiene varios usos. Podemos escribir código para verificar que los valores ingresados por el usuario tengan sentido y mostrar inmediatamente un mensaje de error en lugar de enviar el formulario. O podemos deshabilitar completamente la forma usual de enviar el formulario, como en el ejemplo, y hacer que nuestro programa maneje la entrada, posiblemente utilizando `fetch` para enviarla a un servidor sin recargar la página.
 
 ## Campos de texto
 
 {{index "value attribute", "input (HTML tag)", "text field", "textarea (HTML tag)", [DOM, fields], [interface, object]}}
 
-Los campos creados por etiquetas `<textarea>`, o etiquetas `<input>` con un tipo de `text` o `password`, comparten una interfaz común. Sus elementos DOM tienen una propiedad `value` que contiene su contenido actual como un valor de cadena. Establecer esta propiedad a otra cadena cambia el contenido del campo.
+Los campos creados por etiquetas `<textarea>`, o etiquetas `<input>` con un tipo de `text` o `password`, comparten una interfaz común. Sus elementos del DOM tienen una propiedad `value` que contiene su contenido actual como un valor de cadena. Establecer esta propiedad a otra cadena cambia el contenido del campo.
 
 {{index "selectionStart property", "selectionEnd property"}}
 
@@ -491,20 +499,20 @@ Imagina que estás escribiendo un artículo sobre Khasekhemwy pero tienes proble
 ```{lang: html}
 <textarea></textarea>
 <script>
-  let textarea = document.querySelector("textarea");
-  textarea.addEventListener("keydown", event => {
-    if (event.key == "F2") {
-      replaceSelection(textarea, "Khasekhemwy");
-      event.preventDefault();
+  let áreaDeTexto = document.querySelector("textarea");
+  áreaDeTexto.addEventListener("keydown", evento => {
+    if (evento.key == "F2") {
+      replaceSelection(áreaDeTexto, "Khasekhemwy");
+      evento.preventDefault();
     }
   });
-  function replaceSelection(field, word) {
-    let from = field.selectionStart, to = field.selectionEnd;
-    field.value = field.value.slice(0, from) + word +
-                  field.value.slice(to);
+  function replaceSelection(campo, palabra) {
+    let desde = campo.selectionStart, hasta = campo.selectionEnd;
+    campo.value = campo.value.slice(0, desde) + palabra +
+                  campo.value.slice(hasta);
     // Coloca el cursor después de la palabra
-    field.selectionStart = from + word.length;
-    field.selectionEnd = from + word.length;
+    campo.selectionStart = desde + palabra.length;
+    campo.selectionEnd = desde + palabra.length;
   }
 </script>
 ```
@@ -515,7 +523,7 @@ La función `replaceSelection` reemplaza la parte actualmente seleccionada del c
 
 {{index "evento change", "evento input"}}
 
-El evento `"change"` para un ((campo de texto)) no se activa cada vez que se escribe algo. En cambio, se activa cuando el campo pierde el ((enfoque)) después de que su contenido haya cambiado. Para responder de inmediato a los cambios en un campo de texto, se debe registrar un controlador para el evento `"input"`, que se activa cada vez que el usuario escribe un carácter, elimina texto o de otra manera manipula el contenido del campo.
+El evento `"change"` para un ((campo de texto)) no se activa cada vez que se escribe algo. En cambio, se activa cuando el campo pierde el ((enfoque)) después de que su contenido haya cambiado. Para responder de inmediato a los cambios en un campo de texto, se debe registrar un controlador para el evento `"input"`, que se activa cada vez que el usuario escribe un carácter, elimina texto o manipula de otra manera el contenido del campo.
 
 El siguiente ejemplo muestra un campo de texto y un contador que muestra la longitud actual del texto en el campo:
 
@@ -551,7 +559,7 @@ Un campo de ((casilla de verificación)) es un interruptor binario. Su valor se 
 
 {{index "for attribute", "id attribute", focus, "label (HTML tag)", labeling}}
 
-La etiqueta `<label>` asocia un fragmento de documento con un campo de entrada. Hacer clic en cualquier parte de la etiqueta activará el campo, lo enfocará e invertirá su valor cuando sea un casilla de verificación o un botón de radio.
+La etiqueta `<label>` asocia un fragmento de documento con un campo de entrada. Hacer clic en cualquier parte de la etiqueta activará el campo, lo enfocará e invertirá su valor cuando sea una casilla de verificación o un botón de radio.
 
 {{index "input (HTML tag)", "multiple-choice"}}
 
@@ -569,10 +577,10 @@ Color:
   <input type="radio" name="color" value="lightblue"> Azul claro
 </label>
 <script>
-  let buttons = document.querySelectorAll("[name=color]");
-  for (let button of Array.from(buttons)) {
-    button.addEventListener("change", () => {
-      document.body.style.background = button.value;
+  let botones = document.querySelectorAll("[name=color]");
+  for (let botón of Array.from(botones)) {
+    botón.addEventListener("change", () => {
+      document.body.style.background = botón.value;
     });
   }
 </script>
@@ -590,7 +598,7 @@ Los campos de selección son conceptualmente similares a los botones de radio, y
 
 {{index "multiple attribute", "drop-down menu"}}
 
-Los campos de selección también tienen una variante que se asemeja más a una lista de casillas de verificación que a botones de radio. Cuando se le otorga el atributo `multiple`, una etiqueta `<select>` permitirá al usuario seleccionar cualquier número de opciones, en lugar de una sola opción. Mientras que un campo de selección regular se muestra como un control de _lista desplegable_, que muestra las opciones inactivas solo cuando lo abres, un campo con `multiple` habilitado muestra múltiples opciones al mismo tiempo, permitiendo al usuario habilitar o deshabilitarlas individualmente.
+Los campos de selección también tienen una variante que se asemeja más a una lista de casillas de verificación que a botones de radio. Cuando se le otorga el atributo `multiple`, una etiqueta `<select>` permitirá al usuario seleccionar cualquier número de opciones, en lugar de una sola opción. Mientras que un campo de selección normal se muestra como un control de _lista desplegable_, que muestra las opciones inactivas solo cuando lo abres, un campo con `multiple` habilitado muestra múltiples opciones al mismo tiempo, permitiendo al usuario habilitarlas o deshabilitarlas individualmente.
 
 {{index "option (HTML tag)", "value attribute"}}
 
@@ -610,18 +618,18 @@ Este ejemplo extrae los valores seleccionados de un campo de selección `multipl
   <option value="2">0010</option>
   <option value="4">0100</option>
   <option value="8">1000</option>
-</select> = <span id="output">0</span>
+</select> = <span id="salida">0</span>
 <script>
   let select = document.querySelector("select");
-  let output = document.querySelector("#output");
+  let salida = document.querySelector("#salida");
   select.addEventListener("change", () => {
-    let number = 0;
-    for (let option of Array.from(select.options)) {
-      if (option.selected) {
-        number += Number(option.value);
+    let número = 0;
+    for (let opción of Array.from(select.options)) {
+      if (opción.selected) {
+        número += Number(opción.value);
       }
     }
-    output.textContent = number;
+    salida.textContent = número;
   });
 </script>
 ```
@@ -640,9 +648,9 @@ Un campo de archivo suele parecerse a un botón etiquetado con algo como "elegir
   let input = document.querySelector("input");
   input.addEventListener("change", () => {
     if (input.files.length > 0) {
-      let file = input.files[0];
-      console.log("Has elegido", file.name);
-      if (file.type) console.log("Tiene tipo", file.type);
+      let archivo = input.files[0];
+      console.log("Has elegido", archivo.name);
+      if (archivo.type) console.log("Tiene tipo", archivo.type);
     }
   });
 </script>
@@ -650,7 +658,7 @@ Un campo de archivo suele parecerse a un botón etiquetado con algo como "elegir
 
 {{index "multiple attribute", "files property"}}
 
-La propiedad `files` de un elemento ((campo de archivo)) es un objeto similar a un arreglo (una vez más, no es un arreglo real) que contiene los archivos elegidos en el campo. Inicialmente está vacío. La razón por la que no hay simplemente una propiedad `file` es que los campos de archivo también admiten un atributo `multiple`, lo que permite seleccionar varios archivos al mismo tiempo.
+La propiedad `files` de un elemento ((campo de archivo)) es un objeto similar a un array (una vez más, no es un array de verdad) que contiene los archivos elegidos en el campo. Inicialmente está vacío. La razón por la que no hay simplemente una propiedad `file` es que los campos de archivo también admiten un atributo `multiple`, lo que permite seleccionar varios archivos al mismo tiempo.
 
 {{index "File type"}}
 
@@ -660,20 +668,20 @@ Los objetos en `files` tienen propiedades como `name` (el nombre de archivo), `s
 
 {{id filereader}}
 
-Lo que no tiene es una propiedad que contenga el contenido del archivo. Acceder a eso es un poco más complicado. Dado que leer un archivo desde el disco puede llevar tiempo, la interfaz es asíncrona para evitar que se congele la ventana.
+Lo que no tiene es una propiedad que contenga el contenido del archivo. Acceder a eso es un poco más complicado. Como leer un archivo desde el disco puede llevar tiempo, la interfaz es asíncrona para evitar que se congele la ventana.
 
 ```{lang: html}
 <input type="file" multiple>
 <script>
   let input = document.querySelector("input");
   input.addEventListener("change", () => {
-    for (let file of Array.from(input.files)) {
-      let reader = new FileReader();
-      reader.addEventListener("load", () => {
-        console.log("El archivo", file.name, "comienza con",
-                    reader.result.slice(0, 20));
+    for (let archivo of Array.from(input.files)) {
+      let lector = new FileReader();
+      lector.addEventListener("load", () => {
+        console.log("El archivo", archivo.name, "comienza con",
+                    lector.result.slice(0, 20));
       });
-      reader.readAsText(file);
+      lector.readAsText(archivo);
     }
   });
 </script>
@@ -704,11 +712,11 @@ function readFileText(file) {
 
 {{index "aplicación web"}}
 
-Páginas simples de ((HTML)) con un poco de JavaScript pueden ser un gran formato para "((mini aplicaciones))" - pequeños programas auxiliares que automatizan tareas básicas. Conectando unos cuantos campos de formulario con controladores de eventos, puedes hacer desde convertir entre centímetros y pulgadas hasta calcular contraseñas a partir de una contraseña maestra y un nombre de sitio web.
+Páginas simples de ((HTML)) con un poco de JavaScript pueden ser un gran formato para "((mini aplicaciones))" —pequeños programas auxiliares que automatizan tareas básicas. Conectando unos cuantos campos de formulario con controladores de eventos, puedes hacer desde un conversor entre centímetros y pulgadas hasta calcular contraseñas a partir de una contraseña maestra y un nombre de sitio web.
 
 {{index persistencia, ["vinculación", "como estado"], [navegador, almacenamiento]}}
 
-Cuando una aplicación así necesita recordar algo entre sesiones, no puedes usar las vinculaciones de JavaScript, ya que estas se descartan cada vez que se cierra la página. Podrías configurar un servidor, conectarlo a Internet y hacer que tu aplicación almacene algo allí. Veremos cómo hacerlo en el [Capítulo ?](node). Pero eso implica mucho trabajo extra y complejidad. A veces es suficiente con mantener los datos en el ((navegador)).
+Cuando una aplicación así necesita recordar algo entre sesiones, no puedes usar las asociaciones (o variables) de JavaScript, ya que estas se descartan cada vez que se cierra la página. Podrías configurar un servidor, conectarlo a Internet y hacer que tu aplicación almacene algo allí. Veremos cómo hacerlo en el [Capítulo ?](node). Pero eso implica mucho trabajo extra y complejidad. A veces es suficiente con mantener los datos en el ((navegador)).
 
 {{index "objeto localStorage", "método setItem", "método getItem", "método removeItem"}}
 
@@ -742,35 +750,35 @@ Notas: <select></select> <button>Añadir</button><br>
 <textarea style="width: 100%"></textarea>
 
 <script>
-  let list = document.querySelector("select");
-  let note = document.querySelector("textarea");
+  let lista = document.querySelector("select");
+  let nota = document.querySelector("textarea");
 
-  let state;
+  let estado;
   function setState(nuevoEstado) {
-    list.textContent = "";
+    lista.textContent = "";
     for (let nombre of Object.keys(nuevoEstado.notes)) {
-      let option = document.createElement("option");
-      option.textContent = nombre;
-      if (nuevoEstado.selected == nombre) option.selected = true;
-      list.appendChild(option);
+      let opción = document.createElement("option");
+      opción.textContent = nombre;
+      if (nuevoEstado.selected == nombre) opción.selected = true;
+      lista.appendChild(opción);
     }
-    note.value = nuevoEstado.notes[nuevoEstado.selected];
+    nota.value = nuevoEstado.notes[nuevoEstado.selected];
 
     localStorage.setItem("Notas", JSON.stringify(nuevoEstado));
-    state = nuevoEstado;
+    estado = nuevoEstado;
   }
   setState(JSON.parse(localStorage.getItem("Notas")) ?? {
     notes: {"lista de compras": "Zanahorias\nPasas"},
     selected: "lista de compras"
   });
 
-  list.addEventListener("change", () => {
-    setState({notes: state.notes, selected: list.value});
+  lista.addEventListener("change", () => {
+    setState({notes: estado.notes, selected: lista.value});
   });
-  note.addEventListener("change", () => {
-    let {selected} = state;
+  nota.addEventListener("change", () => {
+    let {selected} = estado;
     setState({
-      notes: {...state.notes, [selected]: note.value},
+      notes: {...estado.notes, [selected]: nota.value},
       selected
     });
   });
@@ -778,7 +786,7 @@ Notas: <select></select> <button>Añadir</button><br>
     .addEventListener("click", () => {
       let nombre = prompt("Nombre de la nota");
       if (nombre) setState({
-        notes: {...state.notes, [nombre]: ""},
+        notes: {...estado.notes, [nombre]: ""},
         selected: nombre
       });
     });
@@ -787,13 +795,13 @@ Notas: <select></select> <button>Añadir</button><br>
 
 {{index "método getItem", JSON, "operador ??", "valor predeterminado"}}
 
-El script obtiene su estado inicial del valor `"Notas"` almacenado en `localStorage` o, si está ausente, crea un estado de ejemplo que solo contiene una lista de compras. Leer un campo que no existe en `localStorage` devolverá `null`. Pasar `null` a `JSON.parse` hará que analice la cadena `"null"` y devuelva `null`. Por tanto, en una situación como esta se puede utilizar el operador `??` para proporcionar un valor predeterminado.
+El script obtiene su estado inicial del valor `"Notas"` almacenado en `localStorage` o, si este no existe, crea un estado de ejemplo que solo contiene una lista de compras. Leer un campo que no existe en `localStorage` devolverá `null`. Pasar `null` a `JSON.parse` hará que analice la cadena `"null"` y devuelva `null`. Por tanto, en una situación como esta se puede utilizar el operador `??` para proporcionar un valor predeterminado.
 
 El método `setState` se asegura de que el DOM muestre un estado dado y almacena el nuevo estado en `localStorage`. Los controladores de eventos llaman a esta función para moverse a un nuevo estado.
 
 {{index [objeto, "creación"], propiedad, "propiedad computada"}}
 
-La sintaxis `...` en el ejemplo se utiliza para crear un nuevo objeto que es un clon del antiguo `state.notes`, pero con una propiedad añadida o sobrescrita. Utiliza la sintaxis ((spread)) para primero añadir las propiedades del objeto antiguo y luego establecer una nueva propiedad. La notación de ((corchetes cuadrados)) en el literal del objeto se utiliza para crear una propiedad cuyo nombre se basa en algún valor dinámico.
+La sintaxis `...` en el ejemplo se utiliza para crear un nuevo objeto que es un clon del antiguo `estado.notes`, pero con una propiedad añadida o sobrescrita. Utiliza la sintaxis de ((expansión)) para primero añadir las propiedades del objeto antiguo y luego establecer una nueva propiedad. La notación de ((corchetes cuadrados)) en el literal del objeto se utiliza para crear una propiedad cuyo nombre se basa en algún valor dinámico.
 
 {{index "objeto sessionStorage", [navegador, almacenamiento]}}
 
@@ -801,11 +809,13 @@ Existe otro objeto, similar a `localStorage`, llamado `sessionStorage`. La difer
 
 ## Resumen
 
-En este capítulo, discutimos cómo funciona el protocolo HTTP. Un _cliente_ envía una solicitud, que contiene un método (generalmente `GET`) y una ruta que identifica un recurso. El _servidor_ luego decide qué hacer con la solicitud y responde con un código de estado y un cuerpo de respuesta. Tanto las solicitudes como las respuestas pueden contener encabezados que proporcionan información adicional.La interfaz a través de la cual JavaScript del navegador puede realizar solicitudes HTTP se llama `fetch`. Realizar una solicitud se ve así:
+En este capítulo, discutimos cómo funciona el protocolo HTTP. Un _cliente_ envía una solicitud, que contiene un método (generalmente `GET`) y una ruta que identifica un recurso. El _servidor_ luego decide qué hacer con la solicitud y responde con un código de estado y un cuerpo de respuesta. Tanto las solicitudes como las respuestas pueden contener encabezados que proporcionan información adicional.
+
+La interfaz a través de la cual el JavaScript del navegador puede realizar solicitudes HTTP se llama `fetch`. Este es el aspecto que tiene una tal solicitud:
 
 ```js
-fetch("/18_http.html").then(r => r.text()).then(text => {
-  console.log(`La página comienza con ${text.slice(0, 15)}`);
+fetch("/18_http.html").then(r => r.text()).then(texto => {
+  console.log(`La página comienza con ${texto.slice(0, 15)}`);
 });
 ```
 
@@ -851,11 +861,11 @@ if}}
 
 {{index "negociación de contenido (ejercicio)"}}
 
-Basate en los ejemplos de `fetch` [anteriores en el capítulo](http#fetch).
+Básate en los ejemplos de `fetch` [que vimos antes en el capítulo](http#fetch).
 
 {{index "406 (código de estado HTTP)", "encabezado Accept"}}
 
-Al solicitar un tipo de medio falso devolverá una respuesta con el código 406, "No aceptable", que es el código que un servidor debería devolver cuando no puede cumplir con el encabezado `Accept`.
+Solicitar un tipo de medio falso devolverá una respuesta con el código 406, "No aceptable", que es el código que un servidor debería devolver cuando no puede cumplir con el encabezado `Accept`.
 
 hint}}
 
@@ -895,7 +905,7 @@ Asegúrate de envolver tanto la llamada a `Function` como la llamada a su result
 
 {{index "propiedad textContent", output, texto, "método createTextNode", "carácter de nueva línea"}}
 
-La propiedad `textContent` del elemento de salida se puede utilizar para llenarlo con un mensaje de cadena. O, si deseas mantener el contenido anterior, crea un nuevo nodo de texto utilizando `document.createTextNode` y apéndelo al elemento. Recuerda agregar un carácter de nueva línea al final para que no aparezca toda la salida en una sola línea.
+La propiedad `textContent` del elemento de salida se puede utilizar para llenarlo con un mensaje de cadena. O, si deseas mantener el contenido anterior, crea un nuevo nodo de texto utilizando `document.createTextNode` y añádelo al elemento. Recuerda agregar un carácter de nueva línea al final para que no aparezca toda la salida en una sola línea.
 
 hint}}
 
@@ -903,19 +913,19 @@ hint}}
 
 {{index "juego de la vida (ejercicio)", "vida artificial", "Juego de la vida de Conway"}}
 
-El Juego de la vida de Conway es una ((simulación)) simple que crea "vida" artificial en una ((rejilla)), donde cada celda puede estar viva o no. En cada ((generación)) (turno), se aplican las siguientes reglas:
+El Juego de la vida de Conway es una ((simulación)) simple que crea "vida" artificial en una ((rejilla)), donde cada célula puede estar viva o no. En cada ((generación)) (turno), se aplican las siguientes reglas:
 
-* Cualquier celda viva con menos de dos o más de tres vecinos vivos muere.
+* Cualquier célula viva con menos de dos o más de tres vecinos vivos muere.
 
-* Cualquier celda viva con dos o tres vecinos vivos sigue viva en la siguiente generación.
+* Cualquier célula viva con dos o tres vecinos vivos sigue viva en la siguiente generación.
 
-* Cualquier celda muerta con exactamente tres vecinos vivos se convierte en una celda viva.
+* Cualquier célula muerta con exactamente tres vecinos vivos se convierte en una célula viva.
 
-Un _vecino_ se define como cualquier celda adyacente, incluidas las células adyacentes en diagonal.
+Un _vecino_ se define como cualquier célula adyacente, incluidas las célula adyacentes en diagonal.
 
 {{index "función pura"}}
 
-Ten en cuenta que estas reglas se aplican a toda la rejilla de una vez, no cuadrado por cuadrado. Eso significa que el recuento de vecinos se basa en la situación al comienzo de la generación, y los cambios que ocurran en las células vecinas durante esta generación no deberían influir en el nuevo estado de una celda dada.
+Ten en cuenta que estas reglas se aplican a toda la rejilla a la vez, no cuadrado por cuadrado. Eso significa que el recuento de vecinos se basa en la situación al comienzo de la generación, y los cambios que ocurran en las células vecinas durante esta generación no deberían influir en el nuevo estado de una célula dada.
 
 {{index "función Math.random"}}
 
@@ -940,16 +950,16 @@ if}}
 
 Para resolver el problema de que los cambios ocurran conceptualmente al mismo tiempo, intenta ver la computación de una ((generación)) como una ((función pura)), la cual toma un ((grid)) y produce un nuevo grid que representa el siguiente turno.
 
-La representación de la matriz se puede hacer con un solo array de elementos de ancho × alto, almacenando valores fila por fila, por lo que, por ejemplo, el tercer elemento en la quinta fila se almacena en la posición 4 × _ancho_ + 2 (usando indexación basada en cero). Puedes contar los ((vecinos)) vivos con dos bucles anidados, recorriendo coordenadas adyacentes en ambas dimensiones. Asegúrate de no contar celdas fuera del campo e ignorar la celda en el centro, cuyos vecinos estamos contando.
+La representación de la matriz se puede hacer con un solo array de elementos de ancho × alto, almacenando valores fila por fila, por lo que, por ejemplo, el tercer elemento en la quinta fila se almacena en la posición 4 × _ancho_ + 2 (usando indexación basada en cero). Puedes contar los ((vecinos)) vivos con dos bucles anidados, recorriendo coordenadas adyacentes en ambas dimensiones. Asegúrate de no contar célula fuera del campo e ignorar la célula en el centro, cuyos vecinos estamos contando.
 
 {{index "manejo de eventos", "evento de cambio"}}
 
-Asegurarse de que los cambios en los ((checkbox)) tengan efecto en la siguiente generación se puede hacer de dos maneras. Un manejador de eventos podría notar estos cambios y actualizar el grid actual para reflejarlos, o podrías generar un grid nuevo a partir de los valores de los checkboxes antes de calcular el siguiente turno.
+Asegurarse de que los cambios en los ((checkbox)) tengan efecto en la siguiente generación es algo que se puede hacer de dos maneras. Un manejador de eventos podría notar estos cambios y actualizar el grid actual para reflejarlos, o podrías generar un grid nuevo a partir de los valores de los checkboxes antes de calcular el siguiente turno.
 
-Si decides utilizar manejadores de eventos, es posible que desees adjuntar ((atributo))s que identifiquen la posición a la que corresponde cada checkbox para que sea fácil saber qué celda cambiar.
+Si decides utilizar manejadores de eventos, es posible que desees adjuntar ((atributo))s que identifiquen la posición a la que corresponde cada checkbox para que sea fácil saber qué célula cambiar.
 
 {{index dibujo, "tabla (etiqueta HTML)", "br (etiqueta HTML)"}}
 
-Para dibujar el grid de checkboxes, puedes usar un elemento `<table>` (ver [Capítulo ?](dom#ejercicio_table)) o simplemente colocar todos en el mismo elemento y poner elementos `<br>` (salto de línea) entre las filas.
+Para dibujar el grid de checkboxes, puedes usar un elemento `<table>` (ver [Capítulo ?](dom#exercise_table)) o simplemente colocar todos en el mismo elemento y poner elementos `<br>` (salto de línea) entre las filas.
 
 hint}}

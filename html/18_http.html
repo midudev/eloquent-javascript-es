@@ -14,59 +14,61 @@
 
 <blockquote>
 
-<p><a class="p_ident" id="p-ZOa+obbqlf" href="#p-ZOa+obbqlf" tabindex="-1" role="presentation"></a>Lo que a menudo resultaba difícil para las personas entender sobre el diseño era que no había nada más allá de las URL, HTTP y HTML. No había una computadora central “controlando” la Web, no existía una sola red en la que funcionaran estos protocolos, ni siquiera una organización en algún lugar que “dirigiera” la Web. La Web no era una “cosa” física que existía en un cierto “lugar”. Era un “espacio” en el que la información podía existir.</p>
+<p><a class="p_ident" id="p-f0gipy3BQx" href="#p-f0gipy3BQx" tabindex="-1" role="presentation"></a>Lo que más le costaba a la gente entender sobre el diseño era que no había nada más allá de las URL, HTTP y HTML. No había una computadora central “controlando” la Web, no existía una sola red en la que funcionaran estos protocolos, ni siquiera una organización en algún lugar que “dirigiera” la Web. La Web no era una “cosa” física que existía en un cierto “lugar”. Era un “espacio” en el que la información podía existir.</p>
 
 <footer>Tim Berners-Lee</footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_18.jpg" alt="Ilustración mostrando un formulario de registro en la web en un pergamino"></figure>
 
-<p><a class="p_ident" id="p-2aFcOtKP1P" href="#p-2aFcOtKP1P" tabindex="-1" role="presentation"></a>El <em>Protocolo de Transferencia de Hipertexto</em>, mencionado anteriormente en el <a href="13_browser.html#web">Capítulo 13</a>, es el mecanismo a través del cual se solicita y proporciona datos en la World Wide Web. Este capítulo describe el protocolo con más detalle y explica la forma en que JavaScript del navegador tiene acceso a él.</p>
+<p><a class="p_ident" id="p-2aFcOtKP1P" href="#p-2aFcOtKP1P" tabindex="-1" role="presentation"></a>El <em>Protocolo de Transferencia de Hipertexto</em>, mencionado anteriormente en el <a href="13_browser.html#web">Capítulo 13</a>, es el mecanismo a través del cual se solicita y proporciona la información en la World Wide Web. Este capítulo describe el protocolo con más detalle y explica la forma en que el JavaScript del navegador tiene acceso a él.</p>
 
 <h2><a class="h_ident" id="h-HKv2ecvyyl" href="#h-HKv2ecvyyl" tabindex="-1" role="presentation"></a>El protocolo</h2>
 
 <p><a class="p_ident" id="p-brhpZDFXCC" href="#p-brhpZDFXCC" tabindex="-1" role="presentation"></a>Si escribes <em>eloquentjavascript.net/18_http.html</em> en la barra de direcciones de tu navegador, el navegador primero busca la dirección del servidor asociado con <em>eloquentjavascript.net</em> e intenta abrir una conexión TCP con él en el puerto 80, el puerto predeterminado para el tráfico HTTP. Si el servidor existe y acepta la conexión, el navegador podría enviar algo como esto:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-UwbXbfsfNi" href="#c-UwbXbfsfNi" tabindex="-1" role="presentation"></a>GET /<span class="tok-number">18_</span>http.html HTTP/<span class="tok-number">1.1</span>
-Host: eloquentjavascript.net
-User-Agent: Nombre de tu navegador</pre>
+<pre class="snippet" data-language="http" ><a class="c_ident" id="c-UwbXbfsfNi" href="#c-UwbXbfsfNi" tabindex="-1" role="presentation"></a><span class="tok-keyword">GET</span> <span class="tok-string2">/18_http.html</span> <span class="tok-keyword">HTTP/1.1</span>
+<span class="tok-atom">Host:</span><span class="tok-string"> eloquentjavascript.net</span>
+<span class="tok-atom">User-Agent:</span><span class="tok-string"> Nombre de tu navegador</span></pre>
 
 <p><a class="p_ident" id="p-JguTDR8pO3" href="#p-JguTDR8pO3" tabindex="-1" role="presentation"></a>Luego el servidor responde, a través de esa misma conexión.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-BGoNd9zHG8" href="#c-BGoNd9zHG8" tabindex="-1" role="presentation"></a>HTTP/<span class="tok-number">1.1</span> <span class="tok-number">200</span> OK
-Content-Length: <span class="tok-number">87320</span>
-Content-Type: text/html
-Last-Modified: Vie, <span class="tok-number">13</span> Oct <span class="tok-number">2023</span> <span class="tok-number">10</span>:<span class="tok-number">05</span>:<span class="tok-number">41</span> GMT
+<pre class="snippet" data-language="http" ><a class="c_ident" id="c-BGoNd9zHG8" href="#c-BGoNd9zHG8" tabindex="-1" role="presentation"></a><span class="tok-keyword">HTTP/1.1</span> <span class="tok-atom">200</span> OK
+<span class="tok-atom">Content-Length:</span><span class="tok-string"> 87320</span>
+<span class="tok-atom">Content-Type:</span><span class="tok-string"> text/html</span>
+<span class="tok-atom">Last-Modified:</span><span class="tok-string"> Vie, 13 Oct 2023 10:05:41 GMT</span>
 
 &lt;!doctype html&gt;
 ... el resto del documento</pre>
 
-<p><a class="p_ident" id="p-gi+KMNQ407" href="#p-gi+KMNQ407" tabindex="-1" role="presentation"></a>El navegador toma la parte de la respuesta después de la línea en blanco, su <em>cuerpo</em> (no confundir con la etiqueta HTML <code>&lt;body&gt;</code>), y lo muestra como un documento HTML.</p>
+<p><a class="p_ident" id="p-gi+KMNQ407" href="#p-gi+KMNQ407" tabindex="-1" role="presentation"></a>El navegador toma la parte de la respuesta después de la línea en blanco —su <em>cuerpo</em> (no confundir con la etiqueta HTML <code>&lt;body&gt;</code>)— y lo muestra como un documento HTML.</p>
 
 <p><a class="p_ident" id="p-xL+6D3ieyU" href="#p-xL+6D3ieyU" tabindex="-1" role="presentation"></a>La información enviada por el cliente se llama la <em>solicitud</em>. Comienza con esta línea:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-q82hekYuxl" href="#c-q82hekYuxl" tabindex="-1" role="presentation"></a>GET /<span class="tok-number">18_</span>http.html HTTP/<span class="tok-number">1.1</span></pre>
+<pre class="snippet" data-language="http" ><a class="c_ident" id="c-q82hekYuxl" href="#c-q82hekYuxl" tabindex="-1" role="presentation"></a><span class="tok-keyword">GET</span> <span class="tok-string2">/18_http.html</span> <span class="tok-keyword">HTTP/1.1</span></pre>
 
-<p><a class="p_ident" id="p-qV3nDEt1J3" href="#p-qV3nDEt1J3" tabindex="-1" role="presentation"></a>La primera palabra es el <em>método</em> de la solicitud. <code>GET</code> significa que queremos <em>obtener</em> el recurso especificado. Otros métodos comunes son <code>DELETE</code> para eliminar un recurso, <code>PUT</code> para crearlo o reemplazarlo, y <code>POST</code> para enviar información a él. Cabe destacar que el servidor no está obligado a llevar a cabo cada solicitud que recibe. Si te acercas a un sitio web aleatorio y le dices que <code>DELETE</code> su página principal, probablemente se negará.</p>
+<p><a class="p_ident" id="p-qV3nDEt1J3" href="#p-qV3nDEt1J3" tabindex="-1" role="presentation"></a>La primera palabra es el <em>método</em> de la solicitud. <code>GET</code> significa que queremos <em>obtener</em> el recurso especificado. Otros métodos comunes son <code>DELETE</code> para eliminar un recurso, <code>PUT</code> para crearlo o reemplazarlo, y <code>POST</code> para enviarle información. Cabe destacar que el servidor no está obligado a llevar a cabo cada solicitud que recibe. Si vas a un sitio web aleatorio y le dices que haga <code>DELETE</code> de su página principal, probablemente se negará.</p>
 
-<p><a class="p_ident" id="p-5IgrNNd912" href="#p-5IgrNNd912" tabindex="-1" role="presentation"></a>La parte después del nombre del método es la ruta del <em>recurso</em> al que aplica la solicitud. En el caso más simple, un recurso es simplemente un archivo en el servidor, pero el protocolo no lo requiere así. Un recurso puede ser cualquier cosa que pueda transferirse <em>como si fuera</em> un archivo. Muchos servidores generan las respuestas que producen al vuelo. Por ejemplo, si abres <a href="https://github.com/marijnh"><em>https://github.com/marijnh</em></a>, el servidor buscará en su base de datos un usuario llamado “marijnh”, y si lo encuentra, generará una página de perfil para ese usuario.Después de la ruta del recurso, la primera línea de la solicitud menciona <code>HTTP/1.1</code> para indicar la versión del protocolo HTTP que está utilizando.</p>
+<p><a class="p_ident" id="p-zXboswq37W" href="#p-zXboswq37W" tabindex="-1" role="presentation"></a>La parte después del nombre del método es la ruta del <em>recurso</em> al que aplica la solicitud. En el caso más simple, un recurso es simplemente un archivo en el servidor, pero el protocolo no lo requiere así. Un recurso puede ser cualquier cosa que pueda transferirse <em>como si fuera</em> un archivo. Muchos servidores generan las respuestas que producen al vuelo. Por ejemplo, si abres <a href="https://github.com/marijnh"><em>https://github.com/marijnh</em></a>, el servidor buscará en su base de datos un usuario llamado “marijnh” y, si lo encuentra, generará una página de perfil para ese usuario.</p>
 
-<p><a class="p_ident" id="p-YR9q/NKjNZ" href="#p-YR9q/NKjNZ" tabindex="-1" role="presentation"></a>En la práctica, muchos sitios utilizan la versión 2 de HTTP, que soporta los mismos conceptos que la versión 1.1 pero es mucho más complicada para que pueda ser más rápida. Los navegadores cambiarán automáticamente a la versión de protocolo adecuada al comunicarse con un servidor dado, y el resultado de una solicitud es el mismo independientemente de la versión utilizada. Dado que la versión 1.1 es más directa y más fácil de entender, la usaremos para ilustrar el protocolo.</p>
+<p><a class="p_ident" id="p-RHYp09fcSY" href="#p-RHYp09fcSY" tabindex="-1" role="presentation"></a>Después de la ruta del recurso, la primera línea de la solicitud dice <code>HTTP/1.1</code> para indicar la versión del protocolo HTTP que está utilizando.</p>
+
+<p><a class="p_ident" id="p-YR9q/NKjNZ" href="#p-YR9q/NKjNZ" tabindex="-1" role="presentation"></a>En la práctica, muchos sitios utilizan la versión 2 de HTTP, que soporta los mismos conceptos que la versión 1.1 pero es mucho más complicada para que pueda ser más rápida. Los navegadores cambiarán automáticamente a la versión de protocolo adecuada al comunicarse con un servidor dado, y el resultado de una solicitud es el mismo independientemente de la versión utilizada. Dado que la versión 1.1 es más directa y más fácil de entender, es la que usaremos para ilustrar el protocolo.</p>
 
 <p><a class="p_ident" id="p-grXfHJYoNS" href="#p-grXfHJYoNS" tabindex="-1" role="presentation"></a>La respuesta del servidor comenzará también con una versión, seguida del estado de la respuesta, primero como un código de estado de tres dígitos y luego como una cadena legible por humanos.</p>
 
 <pre class="snippet" data-language="http" ><a class="c_ident" id="c-A6dkQ5Qg2b" href="#c-A6dkQ5Qg2b" tabindex="-1" role="presentation"></a><span class="tok-keyword">HTTP/1.1</span> <span class="tok-atom">200</span> OK</pre>
 
-<p><a class="p_ident" id="p-Vf6jwTapru" href="#p-Vf6jwTapru" tabindex="-1" role="presentation"></a>Los códigos de estado que comienzan con 2 indican que la solicitud tuvo éxito. Los códigos que comienzan con 4 significan que hubo un problema con la solicitud. El 404 es probablemente el código de estado de HTTP más famoso, lo que significa que el recurso no se pudo encontrar. Los códigos que comienzan con 5 indican que ocurrió un error en el servidor y la solicitud no es la responsable.</p>
+<p><a class="p_ident" id="p-Vf6jwTapru" href="#p-Vf6jwTapru" tabindex="-1" role="presentation"></a>Los códigos de estado que comienzan con 2 indican que la solicitud tuvo éxito. Los códigos que comienzan con 4 significan que hubo un problema con la solicitud. El 404 es probablemente el código de estado de HTTP más famoso, y significa que el recurso no se pudo encontrar. Los códigos que comienzan con 5 indican que ocurrió un error en el servidor y la solicitud no es la responsable.</p>
 
-<p id="headers"><a class="p_ident" id="p-3bEgc7fYoy" href="#p-3bEgc7fYoy" tabindex="-1" role="presentation"></a>La primera línea de una solicitud o respuesta puede ir seguida de cualquier número de <em>cabeceras</em>. Estas son líneas en la forma <code>nombre: valor</code> que especifican información adicional sobre la solicitud o respuesta. Estas cabeceras eran parte del ejemplo de respuesta:</p>
+<p id="headers"><a class="p_ident" id="p-OJRvH7+9b5" href="#p-OJRvH7+9b5" tabindex="-1" role="presentation"></a>La primera línea de una solicitud o respuesta puede ir seguida de cualquier número de <em>cabeceras</em>. Estas son líneas en la forma <code>nombre: valor</code> que especifican información adicional sobre la solicitud o respuesta. Estas cabeceras eran parte del ejemplo de respuesta de antes:</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-R3sNWYeP1y" href="#c-R3sNWYeP1y" tabindex="-1" role="presentation"></a>Content-Length: 87320
 Content-Type: text/html
 Last-Modified: Fri, 13 Oct 2023 10:05:41 GMT</pre>
 
-<p><a class="p_ident" id="p-A3ZMAKjMlb" href="#p-A3ZMAKjMlb" tabindex="-1" role="presentation"></a>Esto nos indica el tamaño y tipo del documento de respuesta. En este caso, es un documento HTML de 87,320 bytes. También nos dice cuándo se modificó por última vez ese documento.</p>
+<p><a class="p_ident" id="p-A3ZMAKjMlb" href="#p-A3ZMAKjMlb" tabindex="-1" role="presentation"></a>Esto nos indica el tamaño y tipo del documento de respuesta. En este caso, es un documento HTML de 87320 bytes. También nos dice cuándo se modificó por última vez ese documento.</p>
 
-<p><a class="p_ident" id="p-DT9FQ93OKH" href="#p-DT9FQ93OKH" tabindex="-1" role="presentation"></a>El cliente y servidor son libres de decidir qué cabeceras incluir en sus solicitudes o respuestas. Sin embargo, algunas de ellas son necesarias para que todo funcione. Por ejemplo, sin la cabecera <code>Content-Type</code> en la respuesta, el navegador no sabrá cómo mostrar el documento.</p>
+<p><a class="p_ident" id="p-DT9FQ93OKH" href="#p-DT9FQ93OKH" tabindex="-1" role="presentation"></a>El cliente y el servidor son libres de decidir qué cabeceras incluir en sus solicitudes o respuestas. Sin embargo, algunas de ellas son necesarias para que todo funcione. Por ejemplo, sin la cabecera <code>Content-Type</code> en la respuesta, el navegador no sabrá cómo mostrar el documento.</p>
 
 <p><a class="p_ident" id="p-PMy+17Nlv+" href="#p-PMy+17Nlv+" tabindex="-1" role="presentation"></a>Después de las cabeceras, tanto las solicitudes como las respuestas pueden incluir una línea en blanco seguida de un cuerpo, que contiene el documento real que se envía. Las solicitudes <code>GET</code> y <code>DELETE</code> no envían ningún dato, pero las solicitudes <code>PUT</code> y <code>POST</code> sí lo hacen. Algunos tipos de respuestas, como las respuestas de error, tampoco requieren un cuerpo.</p>
 
@@ -74,7 +76,9 @@ Last-Modified: Fri, 13 Oct 2023 10:05:41 GMT</pre>
 
 <p><a class="p_ident" id="p-WW33cPPUpo" href="#p-WW33cPPUpo" tabindex="-1" role="presentation"></a>Como vimos, un navegador hará una solicitud cuando introducimos una URL en la barra de direcciones. Cuando la página HTML resultante hace referencia a otros archivos, como imágenes y archivos de JavaScript, el navegador los recuperará también.</p>
 
-<p><a class="p_ident" id="p-Qbd1w9I35s" href="#p-Qbd1w9I35s" tabindex="-1" role="presentation"></a>Un sitio web moderadamente complicado puede incluir fácilmente entre 10 y 200 recursos. Para poder obtenerlos rápidamente, los navegadores harán varias solicitudes <code>GET</code> simultáneamente en lugar de esperar las respuestas una por una.Las páginas HTML pueden incluir formularios, que permiten al usuario completar información y enviarla al servidor. A continuación se muestra un ejemplo de un formulario:</p>
+<p><a class="p_ident" id="p-2Vwcxm5Dhy" href="#p-2Vwcxm5Dhy" tabindex="-1" role="presentation"></a>Un sitio web moderadamente complicado puede incluir fácilmente entre 10 y 200 recursos. Para poder obtenerlos rápidamente, los navegadores harán varias solicitudes <code>GET</code> simultáneamente en lugar de esperar las respuestas una por una.</p>
+
+<p><a class="p_ident" id="p-D0XFTzCQHq" href="#p-D0XFTzCQHq" tabindex="-1" role="presentation"></a>Las páginas HTML pueden incluir formularios, que permiten al usuario rellenar información y enviarla al servidor. A continuación se muestra un ejemplo de un formulario:</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-gna75opS++" href="#c-gna75opS++" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">form</span> method=<span class="tok-string">&quot;GET&quot;</span> action=<span class="tok-string">&quot;example/message.html&quot;</span>&gt;
   &lt;<span class="tok-typeName">p</span>&gt;Nombre: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> name=<span class="tok-string">&quot;name&quot;</span>&gt;&lt;/<span class="tok-typeName">p</span>&gt;
@@ -105,26 +109,28 @@ console.log(decodeURIComponent(<span class="tok-string">&quot;Yes%3F&quot;</span
 
 name=Jean&amp;message=Yes%3F</pre>
 
-<p><a class="p_ident" id="p-r3xJ1+nxWh" href="#p-r3xJ1+nxWh" tabindex="-1" role="presentation"></a>Las solicitudes <code>GET</code> deben utilizarse para solicitudes que no tengan efectos secundarios, sino simplemente para solicitar información. Las solicitudes que cambian algo en el servidor, como por ejemplo crear una nueva cuenta o publicar un mensaje, deben expresarse con otros métodos, como <code>POST</code>. El software del lado del cliente, como un navegador, sabe que no debe hacer solicitudes <code>POST</code> a ciegas, pero a menudo implícitamente realiza solicitudes <code>GET</code>, por ejemplo, para precargar un recurso que cree que pronto el usuario necesitará.Volveremos a hablar de formularios y cómo interactuar con ellos desde JavaScript <a href="18_http.html#forms">más adelante en el capítulo</a>.</p>
+<p><a class="p_ident" id="p-RWCy4TTFSd" href="#p-RWCy4TTFSd" tabindex="-1" role="presentation"></a>Las solicitudes <code>GET</code> deben utilizarse para solicitudes que no tengan efectos secundarios, sino simplemente para solicitar información. Las solicitudes que cambian algo en el servidor, como por ejemplo crear una nueva cuenta o publicar un mensaje, deben expresarse con otros métodos, como <code>POST</code>. El software del lado del cliente, como un navegador, sabe que no debe hacer solicitudes <code>POST</code> a ciegas, pero a menudo implícitamente realiza solicitudes <code>GET</code>, por ejemplo, para precargar un recurso que cree que pronto el usuario necesitará.</p>
+
+<p><a class="p_ident" id="p-AdKfIb+y28" href="#p-AdKfIb+y28" tabindex="-1" role="presentation"></a>Volveremos a hablar de formularios y cómo interactuar con ellos desde JavaScript <a href="18_http.html#formularios">más adelante en el capítulo</a>.</p>
 
 <h2 id="fetch"><a class="h_ident" id="h-1Iqv5okrKE" href="#h-1Iqv5okrKE" tabindex="-1" role="presentation"></a>Fetch</h2>
 
-<p><a class="p_ident" id="p-B4ntAb3zzU" href="#p-B4ntAb3zzU" tabindex="-1" role="presentation"></a>La interfaz a través de la cual JavaScript del navegador puede hacer solicitudes HTTP se llama <code>fetch</code>.</p>
+<p><a class="p_ident" id="p-B4ntAb3zzU" href="#p-B4ntAb3zzU" tabindex="-1" role="presentation"></a>La interfaz a través de la cual el JavaScript del navegador puede hacer solicitudes HTTP se llama <code>fetch</code>.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-fupnyTs2Ao" href="#c-fupnyTs2Ao" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;ejemplo/datos.txt&quot;</span>).then(<span class="tok-definition">response</span> =&gt; {
-  console.log(response.status);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-p4FlCby1YQ" href="#c-p4FlCby1YQ" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;example/data.txt&quot;</span>).then(<span class="tok-definition">respuesta</span> =&gt; {
+  console.log(respuesta.status);
   <span class="tok-comment">// → 200</span>
-  console.log(response.headers.get(<span class="tok-string">&quot;Content-Type&quot;</span>));
+  console.log(respuesta.headers.get(<span class="tok-string">&quot;Content-Type&quot;</span>));
   <span class="tok-comment">// → text/plain</span>
 });</pre>
 
-<p><a class="p_ident" id="p-x6ujb0jI/b" href="#p-x6ujb0jI/b" tabindex="-1" role="presentation"></a>Llamar a <code>fetch</code> devuelve una promesa que se resuelve en un objeto <code>Response</code> que contiene información sobre la respuesta del servidor, como su código de estado y sus encabezados. Los encabezados están envueltos en un objeto similar a un <code>Map</code> que trata sus claves (los nombres de los encabezados) como insensibles a mayúsculas y minúsculas porque los nombres de los encabezados no deben ser sensibles a mayúsculas y minúsculas. Esto significa que <code>headers.<wbr>get(&quot;Content-Type&quot;)</code> y <code>headers.<wbr>get(&quot;content-TYPE&quot;)</code> devolverán el mismo valor.</p>
+<p><a class="p_ident" id="p-x6ujb0jI/b" href="#p-x6ujb0jI/b" tabindex="-1" role="presentation"></a>Llamar a <code>fetch</code> devuelve una promesa que se resuelve en un objeto <code>Response</code> que contiene información sobre la respuesta del servidor, como su código de estado y sus encabezados. Los encabezados están envueltos en un objeto similar a un <code>Map</code> que trata sus claves (los nombres de los encabezados) como insensibles a mayúsculas y minúsculas porque los nombres de los encabezados no deben serlo. Esto significa que <code>headers.<wbr>get(&quot;Content-Type&quot;)</code> y <code>headers.<wbr>get(&quot;content-TYPE&quot;)</code> devolverán el mismo valor.</p>
 
 <p><a class="p_ident" id="p-fSj4ILx7Ix" href="#p-fSj4ILx7Ix" tabindex="-1" role="presentation"></a>Ten en cuenta que la promesa devuelta por <code>fetch</code> se resuelve con éxito incluso si el servidor responde con un código de error. También puede ser rechazada si hay un error de red o si el servidor al que se dirige la solicitud no se puede encontrar.</p>
 
 <p><a class="p_ident" id="p-bkg/oy1Hze" href="#p-bkg/oy1Hze" tabindex="-1" role="presentation"></a>El primer argumento de <code>fetch</code> es la URL que se debe solicitar. Cuando esa URL no comienza con un nombre de protocolo (como <em>http:</em>), se trata como <em>relativa</em>, lo que significa que se interpreta en relación con el documento actual. Cuando comienza con una barra (/), reemplaza la ruta actual, que es la parte después del nombre del servidor. Cuando no lo hace, la parte de la ruta actual hasta e incluyendo su último carácter de barra se coloca al principio de la URL relativa.</p>
 
-<p><a class="p_ident" id="p-xYd9FtTyOM" href="#p-xYd9FtTyOM" tabindex="-1" role="presentation"></a>Para acceder al contenido real de una respuesta, puedes usar su método <code>text</code>. Debido a que la promesa inicial se resuelve tan pronto como se han recibido los encabezados de la respuesta y porque leer el cuerpo de la respuesta podría llevar un poco más de tiempo, esto devuelve nuevamente una promesa.</p>
+<p><a class="p_ident" id="p-xYd9FtTyOM" href="#p-xYd9FtTyOM" tabindex="-1" role="presentation"></a>Para acceder al contenido en sí de una respuesta, puedes usar su método <code>text</code>. Como la promesa inicial se resuelve tan pronto como se reciben los encabezados de la respuesta y dado que leer el cuerpo de la respuesta podría llevar un poco más de tiempo, esto devuelve nuevamente una promesa.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-x6TPRKyHG2" href="#c-x6TPRKyHG2" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;ejemplo/datos.txt&quot;</span>)
   .then(<span class="tok-definition">resp</span> =&gt; resp.text())
@@ -133,9 +139,9 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p-n4utrPaAws" href="#p-n4utrPaAws" tabindex="-1" role="presentation"></a>Un método similar, llamado <code>json</code>, devuelve una promesa que se resuelve al valor que obtienes al analizar el cuerpo como JSON o se rechaza si no es un JSON válido.</p>
 
-<p><a class="p_ident" id="p-Hw44ya2xAQ" href="#p-Hw44ya2xAQ" tabindex="-1" role="presentation"></a>Por defecto, <code>fetch</code> utiliza el método <code>GET</code> para realizar su solicitud y no incluye un cuerpo de solicitud. Puedes configurarlo de manera diferente pasando un objeto con opciones adicionales como segundo argumento. Por ejemplo, esta solicitud intenta eliminar <code>ejemplo/<wbr>datos.<wbr>txt</code>:</p>
+<p><a class="p_ident" id="p-Hw44ya2xAQ" href="#p-Hw44ya2xAQ" tabindex="-1" role="presentation"></a>Por defecto, <code>fetch</code> utiliza el método <code>GET</code> para realizar su solicitud y no incluye un cuerpo de solicitud. Puedes configurarlo de manera diferente pasando un objeto con opciones adicionales como segundo argumento. Por ejemplo, esta solicitud intenta eliminar <code>example/data.txt</code>:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-oAYudCtMpH" href="#c-oAYudCtMpH" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;ejemplo/datos.txt&quot;</span>, {<span class="tok-definition">method</span>: <span class="tok-string">&quot;DELETE&quot;</span>}).then(<span class="tok-definition">resp</span> =&gt; {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hrJqISfbr3" href="#c-hrJqISfbr3" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;example/data.txt&quot;</span>, {<span class="tok-definition">method</span>: <span class="tok-string">&quot;DELETE&quot;</span>}).then(<span class="tok-definition">resp</span> =&gt; {
   console.log(resp.status);
   <span class="tok-comment">// → 405</span>
 });</pre>
@@ -144,16 +150,16 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p-jNuYZ4aDPQ" href="#p-jNuYZ4aDPQ" tabindex="-1" role="presentation"></a>Para agregar un cuerpo de solicitud, puedes incluir una opción <code>body</code>. Para establecer cabeceras, está la opción <code>headers</code>. Por ejemplo, esta solicitud incluye una cabecera <code>Range</code>, que indica al servidor que devuelva solo una parte de un documento.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-AvTzEmYpI/" href="#c-AvTzEmYpI/" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;ejemplo/datos.txt&quot;</span>, {<span class="tok-definition">headers</span>: {<span class="tok-definition">Range</span>: <span class="tok-string">&quot;bytes=8-19&quot;</span>}})
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ayu6SNFLBc" href="#c-ayu6SNFLBc" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;example/data.txt&quot;</span>, {<span class="tok-definition">headers</span>: {<span class="tok-definition">Range</span>: <span class="tok-string">&quot;bytes=8-19&quot;</span>}})
   .then(<span class="tok-definition">resp</span> =&gt; resp.text())
   .then(console.log);
-<span class="tok-comment">// → el contenido</span></pre>
+<span class="tok-comment">// → the content</span></pre>
 
-<p><a class="p_ident" id="p-ARt091nKuf" href="#p-ARt091nKuf" tabindex="-1" role="presentation"></a>El navegador automáticamente añadirá algunas cabeceras de solicitud, como “Host” y aquellas necesarias para que el servidor pueda determinar el tamaño del cuerpo. Sin embargo, añadir tus propias cabeceras es muchas veces útil para incluir cosas como información de autenticación o para indicar al servidor en qué formato de archivo te gustaría recibir.</p>
+<p><a class="p_ident" id="p-ARt091nKuf" href="#p-ARt091nKuf" tabindex="-1" role="presentation"></a>El navegador automáticamente añadirá algunas cabeceras de solicitud, como “Host” y aquellas necesarias para que el servidor pueda determinar el tamaño del cuerpo. Sin embargo, añadir tus propias cabeceras es muchas veces útil para incluir cosas como información de autenticación o para indicar al servidor qué formato de archivo te gustaría recibir.</p>
 
 <h2 id="http_sandbox"><a class="h_ident" id="h-tFdPbe7u+y" href="#h-tFdPbe7u+y" tabindex="-1" role="presentation"></a>Aislamiento HTTP</h2>
 
-<p><a class="p_ident" id="p-s0B696RpmM" href="#p-s0B696RpmM" tabindex="-1" role="presentation"></a>Realizar solicitudes HTTP en scripts de páginas web plantea nuevamente preocupaciones sobre seguridad. La persona que controla el script puede no tener los mismos intereses que la persona en cuya computadora se está ejecutando. Específicamente, si visito <em>themafia.org</em>, no quiero que sus scripts puedan hacer una solicitud a <em>mybank.com</em>, utilizando información de identificación de mi navegador, con instrucciones para transferir todo mi dinero.</p>
+<p><a class="p_ident" id="p-s0B696RpmM" href="#p-s0B696RpmM" tabindex="-1" role="presentation"></a>Realizar solicitudes HTTP en scripts de páginas web plantea preocupaciones sobre seguridad. La persona que controla el script puede no tener los mismos intereses que la persona en cuya computadora se está ejecutando. Específicamente, si visito <em>themafia.org</em>, no quiero que sus scripts puedan hacer una solicitud a <em>mybank.com</em>, utilizando información de identificación de mi navegador, con instrucciones para transferir todo mi dinero.</p>
 
 <p><a class="p_ident" id="p-llWwqf7qfT" href="#p-llWwqf7qfT" tabindex="-1" role="presentation"></a>Por esta razón, los navegadores nos protegen al impedir que los scripts hagan solicitudes HTTP a otros dominios (nombres como <em>themafia.org</em> y <em>mybank.com</em>).</p>
 
@@ -165,27 +171,29 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p-2vqlKxMwbk" href="#p-2vqlKxMwbk" tabindex="-1" role="presentation"></a>Cuando se construye un sistema que requiere comunicación entre un programa JavaScript que se ejecuta en el navegador (lado del cliente) y un programa en un servidor (lado del servidor), hay varias formas diferentes de modelar esta comunicación.</p>
 
-<p><a class="p_ident" id="p-nl4mMNMIQt" href="#p-nl4mMNMIQt" tabindex="-1" role="presentation"></a>Un modelo comúnmente utilizado es el de las <em>llamadas de procedimiento remoto</em>. En este modelo, la comunicación sigue los patrones de llamadas de función normales, excepto que la función en realidad se está ejecutando en otra máquina. Llamarla implica hacer una solicitud al servidor que incluye el nombre de la función y sus argumentos. La respuesta a esa solicitud contiene el valor devuelto.</p>
+<p><a class="p_ident" id="p-nl4mMNMIQt" href="#p-nl4mMNMIQt" tabindex="-1" role="presentation"></a>Un modelo comúnmente utilizado es el de las <em>llamadas de procedimiento remoto</em>. En este modelo, la comunicación sigue los patrones de llamadas de función normales, excepto por que la función en realidad se está ejecutando en otra máquina. Llamarla implica hacer una solicitud al servidor que incluye el nombre de la función y sus argumentos. La respuesta a esa solicitud contiene el valor devuelto.</p>
 
 <p><a class="p_ident" id="p-j+WIcLxQ4Y" href="#p-j+WIcLxQ4Y" tabindex="-1" role="presentation"></a>Cuando se piensa en términos de llamadas de procedimiento remoto, HTTP es simplemente un vehículo de comunicación, y es muy probable que escribas una capa de abstracción que lo oculte por completo.</p>
 
-<p><a class="p_ident" id="p-Q0XFyLR3py" href="#p-Q0XFyLR3py" tabindex="-1" role="presentation"></a>Otro enfoque es construir tu comunicación en torno al concepto de recursos y métodos HTTP. En lugar de un procedimiento remoto llamado <code>addUser</code>, usas una solicitud <code>PUT</code> a <code>/usuarios/larry</code>. En lugar de codificar las propiedades de ese usuario en argumentos de función, defines un formato de documento JSON (o utilizas un formato existente) que represente a un usuario. El cuerpo de la solicitud <code>PUT</code> para crear un nuevo recurso es entonces dicho documento. Se obtiene un recurso realizando una solicitud <code>GET</code> a la URL del recurso (por ejemplo, <code>/usuario/larry</code>), que de nuevo devuelve el documento que representa al recurso.Este segundo enfoque facilita el uso de algunas de las características que proporciona HTTP, como el soporte para la caché de recursos (mantener una copia de un recurso en el cliente para un acceso rápido). Los conceptos utilizados en HTTP, que están bien diseñados, pueden proporcionar un conjunto útil de principios para diseñar la interfaz de tu servidor.</p>
+<p><a class="p_ident" id="p-P0k7JSAy+k" href="#p-P0k7JSAy+k" tabindex="-1" role="presentation"></a>Otro enfoque es construir tu comunicación en torno al concepto de recursos y métodos HTTP. En lugar de un procedimiento remoto llamado <code>addUser</code>, usas una solicitud <code>PUT</code> a <code>/usuarios/larry</code>. En lugar de codificar las propiedades de ese usuario en argumentos de función, defines un formato de documento JSON (o utilizas un formato existente) que represente a un usuario. El cuerpo de la solicitud <code>PUT</code> para crear un nuevo recurso es entonces dicho documento. Se obtiene un recurso realizando una solicitud <code>GET</code> a la URL del recurso (por ejemplo, <code>/usuario/larry</code>), que de nuevo devuelve el documento que representa al recurso.</p>
+
+<p><a class="p_ident" id="p-ou0JH35Di5" href="#p-ou0JH35Di5" tabindex="-1" role="presentation"></a>Este segundo enfoque facilita el uso de algunas de las características que proporciona HTTP, como el soporte para la caché de recursos (mantener una copia de un recurso en el cliente para un acceso rápido). Los conceptos utilizados en HTTP, que están bien diseñados, pueden proporcionar un conjunto útil de principios para diseñar la interfaz de tu servidor.</p>
 
 <h2><a class="h_ident" id="h-h7cGRyhxkA" href="#h-h7cGRyhxkA" tabindex="-1" role="presentation"></a>Seguridad y HTTPS</h2>
 
 <p><a class="p_ident" id="p-HnfoDF3qKu" href="#p-HnfoDF3qKu" tabindex="-1" role="presentation"></a>Los datos que viajan por Internet tienden a seguir un largo y peligroso camino. Para llegar a su destino, deben pasar por cualquier cosa, desde puntos de acceso Wi-Fi de cafeterías hasta redes controladas por varias empresas y estados. En cualquier punto a lo largo de su ruta, pueden ser inspeccionados o incluso modificados.</p>
 
-<p><a class="p_ident" id="p-b21n8u5IbZ" href="#p-b21n8u5IbZ" tabindex="-1" role="presentation"></a>Si es importante que algo se mantenga en secreto, como la contraseña de tu cuenta de correo electrónico, o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, HTTP simple no es suficiente.</p>
+<p><a class="p_ident" id="p-b21n8u5IbZ" href="#p-b21n8u5IbZ" tabindex="-1" role="presentation"></a>Si es importante que algo se mantenga en secreto, como la contraseña de tu cuenta de correo electrónico, o que llegue a su destino sin modificaciones, como el número de cuenta al que transfieres dinero a través del sitio web de tu banco, el HTTP simple no es suficiente.</p>
 
-<p><a class="p_ident" id="p-q6s/2UXNiF" href="#p-q6s/2UXNiF" tabindex="-1" role="presentation"></a>El protocolo seguro HTTP, utilizado para URLs que comienzan con <em>https://</em>, envuelve el tráfico HTTP de una manera que dificulta su lectura y manipulación. Antes de intercambiar datos, el cliente verifica que el servidor sea quien dice ser, solicitándole que demuestre que tiene un certificado criptográfico emitido por una autoridad de certificación que el navegador reconoce. Luego, todos los datos que pasan por la conexión están encriptados de una manera que debería evitar el espionaje y la manipulación.</p>
+<p><a class="p_ident" id="p-q6s/2UXNiF" href="#p-q6s/2UXNiF" tabindex="-1" role="presentation"></a>El protocolo seguro de HTTP, utilizado para URLs que comienzan con <em>https://</em>, envuelve el tráfico HTTP de una manera que dificulta su lectura y manipulación. Antes de intercambiar datos, el cliente verifica que el servidor sea quien dice ser, solicitándole que demuestre que tiene un certificado criptográfico emitido por una autoridad de certificación que el navegador reconoce. Luego, todos los datos que pasan por la conexión están encriptados de una manera que debería evitar el espionaje y la manipulación.</p>
 
-<p><a class="p_ident" id="p-HxzMdRrSAx" href="#p-HxzMdRrSAx" tabindex="-1" role="presentation"></a>Así, cuando funciona correctamente, HTTPS evita que otras personas se hagan pasar por el sitio web con el que estás intentando comunicarte <em>y</em> que espíen tu comunicación. No es perfecto, y ha habido varios incidentes en los que HTTPS falló debido a certificados falsificados o robados y software defectuoso, pero es <em>mucho</em> más seguro que el simple HTTP.</p>
+<p><a class="p_ident" id="p-SUZXSIVpEV" href="#p-SUZXSIVpEV" tabindex="-1" role="presentation"></a>Así, cuando funciona correctamente, HTTPS evita que otras personas se hagan pasar por el sitio web con el que estás intentando comunicarte <em>y</em> que espíen tu comunicación. No es perfecto, y ha habido varios incidentes en los que HTTPS falló debido a certificados falsificados o robados y software defectuoso, pero es <em>mucho</em> más seguro que el HTTP simple.</p>
 
 <h2 id="formularios"><a class="h_ident" id="h-vR60n2b5eW" href="#h-vR60n2b5eW" tabindex="-1" role="presentation"></a>Campos de formulario</h2>
 
-<p><a class="p_ident" id="p-urU/os5kQU" href="#p-urU/os5kQU" tabindex="-1" role="presentation"></a>Los formularios fueron diseñados originalmente para la Web pre-JavaScript para permitir que los sitios web envíen información enviada por el usuario en una solicitud HTTP. Este diseño asume que la interacción con el servidor siempre ocurre navegando a una nueva página.</p>
+<p><a class="p_ident" id="p-urU/os5kQU" href="#p-urU/os5kQU" tabindex="-1" role="presentation"></a>Los formularios fueron diseñados originalmente para la Web pre-JavaScript para permitir que los sitios web envíen información del usuario en una solicitud HTTP. Este diseño asume que la interacción con el servidor siempre ocurre navegando a una nueva página.</p>
 
-<p><a class="p_ident" id="p-CpuTWkD8RY" href="#p-CpuTWkD8RY" tabindex="-1" role="presentation"></a>Pero sus elementos son parte del DOM al igual que el resto de la página, y los elementos DOM que representan los campos de formulario admiten una serie de propiedades y eventos que no están presentes en otros elementos. Esto hace posible inspeccionar y controlar dichos campos de entrada con programas JavaScript y hacer cosas como agregar nueva funcionalidad a un formulario o utilizar formularios y campos como bloques de construcción en una aplicación JavaScript.</p>
+<p><a class="p_ident" id="p-CpuTWkD8RY" href="#p-CpuTWkD8RY" tabindex="-1" role="presentation"></a>Pero sus elementos son parte del DOM al igual que el resto de la página, y los elementos del DOM que representan los campos de formulario admiten una serie de propiedades y eventos que no están presentes en otros elementos. Esto hace posible inspeccionar y controlar dichos campos de entrada con programas JavaScript y hacer cosas como agregar nueva funcionalidad a un formulario o utilizar formularios y campos como bloques de construcción en una aplicación JavaScript.</p>
 
 <p><a class="p_ident" id="p-F9Gy1z8vid" href="#p-F9Gy1z8vid" tabindex="-1" role="presentation"></a>Un formulario web consiste en cualquier número de campos de entrada agrupados en una etiqueta <code>&lt;form&gt;</code>. HTML permite varios estilos diferentes de campos, que van desde simples casillas de verificación de encendido/apagado hasta menús desplegables y campos para entrada de texto. Este libro no intentará discutir exhaustivamente todos los tipos de campos, pero comenzaremos con una vista general aproximada.</p>
 
@@ -193,15 +201,15 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <table>
 
-<tr><td><code>texto</code></td><td>Un campo de una línea campo de texto</td>
+<tr><td><code>text</code></td><td>Un campo de una línea campo de texto</td>
 
 </tr>
 
-<tr><td><code>contraseña</code></td><td>Igual que <code>texto</code> pero oculta el texto que se escribe</td>
+<tr><td><code>password</code></td><td>Igual que <code>text</code> pero oculta el texto que se escribe</td>
 
 </tr>
 
-<tr><td><code>casilla de verificación</code></td><td>Un interruptor de encendido/apagado</td>
+<tr><td><code>checkbox</code></td><td>Un interruptor de encendido/apagado</td>
 
 </tr>
 
@@ -209,7 +217,7 @@ name=Jean&amp;message=Yes%3F</pre>
 
 </tr>
 
-<tr><td><code>fecha</code></td><td>Una fecha de calendario</td>
+<tr><td><code>date</code></td><td>Una fecha de calendario</td>
 
 </tr>
 
@@ -217,7 +225,7 @@ name=Jean&amp;message=Yes%3F</pre>
 
 </tr>
 
-<tr><td><code>archivo</code></td><td>Permite al usuario elegir un archivo de su computadora</td>
+<tr><td><code>file</code></td><td>Permite al usuario elegir un archivo de su computadora</td>
 
 </tr>
 
@@ -225,19 +233,19 @@ name=Jean&amp;message=Yes%3F</pre>
 
 <p><a class="p_ident" id="p-1/kyPRRaqb" href="#p-1/kyPRRaqb" tabindex="-1" role="presentation"></a>Los campos de formulario no necesariamente tienen que aparecer en una etiqueta <code>&lt;form&gt;</code>. Puedes ponerlos en cualquier parte de una página. Campos sin formulario no pueden ser enviados (solo un formulario en su totalidad puede), pero al responder a la entrada con JavaScript, a menudo no queremos enviar nuestros campos de forma normal de todos modos.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-UIZ3Zq7cpw" href="#c-UIZ3Zq7cpw" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;texto&quot;</span> value=<span class="tok-string">&quot;abc&quot;</span>&gt; (texto)&lt;/<span class="tok-typeName">p</span>&gt;
-&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;contraseña&quot;</span> value=<span class="tok-string">&quot;abc&quot;</span>&gt; (contraseña)&lt;/<span class="tok-typeName">p</span>&gt;
-&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;casilla de verificación&quot;</span> checked&gt; (casilla de verificación)&lt;/<span class="tok-typeName">p</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-uyXervXrEJ" href="#c-uyXervXrEJ" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> value=<span class="tok-string">&quot;abc&quot;</span>&gt; (texto)&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;password&quot;</span> value=<span class="tok-string">&quot;abc&quot;</span>&gt; (contraseña)&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;checkbox&quot;</span> checked&gt; (casilla de verificación)&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;color&quot;</span> value=<span class="tok-string">&quot;naranja&quot;</span>&gt; (color)&lt;/<span class="tok-typeName">p</span>&gt;
-&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;fecha&quot;</span> value=<span class="tok-string">&quot;2023-10-13&quot;</span>&gt; (fecha)&lt;/<span class="tok-typeName">p</span>&gt;
+&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;date&quot;</span> value=<span class="tok-string">&quot;2023-10-13&quot;</span>&gt; (fecha)&lt;/<span class="tok-typeName">p</span>&gt;
 &lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;radio&quot;</span> value=<span class="tok-string">&quot;A&quot;</span> name=<span class="tok-string">&quot;elección&quot;</span>&gt;
    &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;radio&quot;</span> value=<span class="tok-string">&quot;B&quot;</span> name=<span class="tok-string">&quot;elección&quot;</span> checked&gt;
    &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;radio&quot;</span> value=<span class="tok-string">&quot;C&quot;</span> name=<span class="tok-string">&quot;elección&quot;</span>&gt; (radio)&lt;/<span class="tok-typeName">p</span>&gt;
-&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;archivo&quot;</span>&gt; (archivo)&lt;/<span class="tok-typeName">p</span>&gt;</pre>
+&lt;<span class="tok-typeName">p</span>&gt;&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;file&quot;</span>&gt; (archivo)&lt;/<span class="tok-typeName">p</span>&gt;</pre>
 
 <p><a class="p_ident" id="p-JHY57wyhqd" href="#p-JHY57wyhqd" tabindex="-1" role="presentation"></a>La interfaz de JavaScript para estos elementos difiere según el tipo de elemento.</p>
 
-<p><a class="p_ident" id="p-mIbb5kma+g" href="#p-mIbb5kma+g" tabindex="-1" role="presentation"></a>Los campos de texto de varias líneas tienen su propia etiqueta, <code>&lt;textarea&gt;</code>, principalmente porque sería incómodo utilizar un atributo para especificar un valor de inicio de varias líneas. La etiqueta <code>&lt;textarea&gt;</code> requiere una etiqueta de cierre <code>&lt;/<wbr>textarea&gt;</code> coincidente y utiliza el texto entre esas dos etiquetas, en lugar del atributo <code>valor</code>, como texto de inicio.</p>
+<p><a class="p_ident" id="p-mIbb5kma+g" href="#p-mIbb5kma+g" tabindex="-1" role="presentation"></a>Los campos de texto de varias líneas tienen su propia etiqueta, <code>&lt;textarea&gt;</code>, principalmente porque sería incómodo utilizar un atributo para especificar un valor de inicio de varias líneas. La etiqueta <code>&lt;textarea&gt;</code> requiere una etiqueta de cierre <code>&lt;/<wbr>textarea&gt;</code> y utiliza el texto entre esas dos etiquetas, en lugar del atributo <code>valor</code>, como texto de inicio.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-uJfdUZxNUs" href="#c-uJfdUZxNUs" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">textarea</span>&gt;
 uno
@@ -253,11 +261,11 @@ tres
   &lt;<span class="tok-typeName">option</span>&gt;Helado&lt;/<span class="tok-typeName">option</span>&gt;
 &lt;/<span class="tok-typeName">select</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-EosklUZ5/x" href="#p-EosklUZ5/x" tabindex="-1" role="presentation"></a>Cada vez que cambia el valor de un campo de formulario, se desencadenará un evento <code>&quot;cambio&quot;</code>.</p>
+<p><a class="p_ident" id="p-EosklUZ5/x" href="#p-EosklUZ5/x" tabindex="-1" role="presentation"></a>Cada vez que cambia el valor de un campo de formulario, se desencadenará un evento “<code>change</code>”.</p>
 
 <h2><a class="h_ident" id="h-d25sZu5XS1" href="#h-d25sZu5XS1" tabindex="-1" role="presentation"></a>Enfoque</h2>
 
-<p><a class="p_ident" id="p-WsUvo7OvQM" href="#p-WsUvo7OvQM" tabindex="-1" role="presentation"></a>A diferencia de la mayoría de elementos en documentos HTML, los campos de formulario pueden obtener <em>enfoque de teclado</em>. Cuando se hace clic, se mueve con la tecla <span class="keyname">tab</span>, o se activa de alguna otra manera, se convierten en el elemento activo actual y en el receptor de la entrada de teclado.</p>
+<p><a class="p_ident" id="p-WsUvo7OvQM" href="#p-WsUvo7OvQM" tabindex="-1" role="presentation"></a>A diferencia de la mayoría de elementos en documentos HTML, los campos de formulario pueden obtener <em>enfoque de teclado</em>. Cuando se hace clic en ellos, se utiliza la tecla <span class="keyname">tab</span> para navegar hasta ellos, o se activan de alguna otra manera, se convierten en el elemento activo actual y en el receptor de la entrada de teclado.</p>
 
 <p><a class="p_ident" id="p-f8xUY3zbxR" href="#p-f8xUY3zbxR" tabindex="-1" role="presentation"></a>Por lo tanto, puedes escribir en un campo de texto solo cuando está enfocado. Otros campos responden diferentemente a los eventos de teclado. Por ejemplo, un menú <code>&lt;select&gt;</code> intenta moverse a la opción que contiene el texto que el usuario escribió y responde a las teclas de flecha moviendo su selección hacia arriba y hacia abajo.</p>
 
@@ -289,17 +297,17 @@ tres
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-rU8dCQPEEy" href="#c-rU8dCQPEEy" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">button</span>&gt;Estoy bien&lt;/<span class="tok-typeName">button</span>&gt;
 &lt;<span class="tok-typeName">button</span> disabled&gt;Estoy fuera&lt;/<span class="tok-typeName">button</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-apA0jOMPIr" href="#p-apA0jOMPIr" tabindex="-1" role="presentation"></a>Los campos deshabilitados no pueden ser enfocardos ni modificados, y los navegadores los muestran de color gris y atenuados.</p>
+<p><a class="p_ident" id="p-apA0jOMPIr" href="#p-apA0jOMPIr" tabindex="-1" role="presentation"></a>Los campos deshabilitados no pueden se pueden enfocar ni modificar, y los navegadores los muestran de color gris y atenuados.</p>
 
-<p><a class="p_ident" id="p-VHTwd9K7oy" href="#p-VHTwd9K7oy" tabindex="-1" role="presentation"></a>Cuando un programa está en proceso de manejar una acción provocada por algún botón u otro control que podría requerir comunicación con el servidor y por lo tanto llevar un tiempo, puede ser una buena idea deshabilitar el control hasta que la acción haya terminado. De esta forma, cuando el usuario se impaciente y hace clic nuevamente, no repiten accidentalmente su acción.</p>
+<p><a class="p_ident" id="p-VHTwd9K7oy" href="#p-VHTwd9K7oy" tabindex="-1" role="presentation"></a>Cuando un programa está en proceso de manejar una acción provocada por algún botón u otro control que podría requerir comunicación con el servidor y por lo tanto llevar un tiempo, puede ser una buena idea deshabilitar el control hasta que la acción haya terminado. De esta forma, cuando el usuario se impaciente y haga clic nuevamente, no repetirán accidentalmente su acción.</p>
 
 <h2><a class="h_ident" id="h-I8C+LttXH2" href="#h-I8C+LttXH2" tabindex="-1" role="presentation"></a>El formulario en su totalidad</h2>
 
-<p><a class="p_ident" id="p-wQwycJHlbV" href="#p-wQwycJHlbV" tabindex="-1" role="presentation"></a>Cuando un field está contenido en un elemento <code>&lt;form&gt;</code>, su elemento DOM tendrá una propiedad <code>form</code> que enlaza de vuelta al elemento DOM del formulario. El elemento <code>&lt;form&gt;</code>, a su vez, tiene una propiedad llamada <code>elements</code> que contiene una colección similar a un array de los campos dentro de él.</p>
+<p><a class="p_ident" id="p-wQwycJHlbV" href="#p-wQwycJHlbV" tabindex="-1" role="presentation"></a>Cuando un field está contenido en un elemento <code>&lt;form&gt;</code>, su elemento del DOM tendrá una propiedad <code>form</code> que enlaza de vuelta al elemento del DOM del formulario. El elemento <code>&lt;form&gt;</code>, a su vez, tiene una propiedad llamada <code>elements</code> que contiene una colección parecida a un array de los campos dentro de él.</p>
 
-<p><a class="p_ident" id="p-4HjtBqUpKB" href="#p-4HjtBqUpKB" tabindex="-1" role="presentation"></a>El atributo <code>name</code> de un campo de formulario determina la forma en que se identificará su valor cuando se submitee el formulario. También se puede utilizar como nombre de propiedad al acceder a la propiedad <code>elements</code> del formulario, la cual actúa tanto como un objeto similar a un array (accesible por número) como un mapa (accesible por nombre).</p>
+<p><a class="p_ident" id="p-4HjtBqUpKB" href="#p-4HjtBqUpKB" tabindex="-1" role="presentation"></a>El atributo <code>name</code> de un campo de formulario determina la forma en que se identificará su valor cuando se entrega el formulario. También se puede utilizar como nombre de propiedad al acceder a la propiedad <code>elements</code> del formulario, la cual actúa como un objeto parecido a un array (es decir, accesible por número) y a su vez como un mapa (accesible por nombre).</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-FO05TeR5TH" href="#c-FO05TeR5TH" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">form</span> action=<span class="tok-string">&quot;ejemplo/enviar.html&quot;</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-uRzDK9DiiW" href="#c-uRzDK9DiiW" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">form</span> action=<span class="tok-string">&quot;example/submit.html&quot;</span>&gt;
   Nombre: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> name=<span class="tok-string">&quot;nombre&quot;</span>&gt;&lt;<span class="tok-typeName">br</span>&gt;
   Contraseña: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;password&quot;</span> name=<span class="tok-string">&quot;contraseña&quot;</span>&gt;&lt;<span class="tok-typeName">br</span>&gt;
   &lt;<span class="tok-typeName">button</span> type=<span class="tok-string">&quot;submit&quot;</span>&gt;Ingresar&lt;/<span class="tok-typeName">button</span>&gt;
@@ -314,9 +322,9 @@ tres
   <span class="tok-comment">// → true</span>
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-UL0wLhERLt" href="#p-UL0wLhERLt" tabindex="-1" role="presentation"></a>Un botón con un atributo <code>type</code> de <code>submit</code> hará que, al presionarlo, se submita el formulario. Presionar <span class="keyname">enter</span> cuando un campo de formulario está enfocado tendrá el mismo efecto.</p>
+<p><a class="p_ident" id="p-UL0wLhERLt" href="#p-UL0wLhERLt" tabindex="-1" role="presentation"></a>Un botón con un atributo <code>type</code> de <code>submit</code> hará que, al presionarlo, se entregue el formulario. Presionar <span class="keyname">enter</span> cuando un campo de formulario está enfocado tendrá el mismo efecto.</p>
 
-<p><a class="p_ident" id="p-CE426zYDvk" href="#p-CE426zYDvk" tabindex="-1" role="presentation"></a>Enviar un formulario normalmente significa que el navegador se dirige a la página indicada por el atributo <code>action</code> del formulario, utilizando ya sea una solicitud <code>GET</code> o <code>POST</code>. Pero antes de que eso ocurra, se dispara un evento <code>&quot;submit&quot;</code>. Puedes manejar este evento con JavaScript y prevenir este comportamiento por defecto llamando a <code>preventDefault</code> en el objeto de evento.</p>
+<p><a class="p_ident" id="p-CE426zYDvk" href="#p-CE426zYDvk" tabindex="-1" role="presentation"></a>Enviar un formulario normalmente significa que el navegador se dirige a la página indicada por el atributo <code>action</code> del formulario, utilizando ya sea una solicitud <code>GET</code> o <code>POST</code>. Pero antes de que eso ocurra, se dispara un evento <code>&quot;submit&quot;</code>. Puedes manejar este evento con JavaScript y evitar este comportamiento por defecto llamando a <code>preventDefault</code> en el objeto de evento.</p>
 
 <pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-cmki/mPZEe" href="#c-cmki/mPZEe" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">form</span>&gt;
   Valor: &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;text&quot;</span> name=<span class="tok-string">&quot;valor&quot;</span>&gt;
@@ -330,38 +338,38 @@ tres
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-STSqtYSJYL" href="#p-STSqtYSJYL" tabindex="-1" role="presentation"></a>Interceptar los eventos <code>&quot;submit&quot;</code> en JavaScript tiene varios usos. Podemos escribir código para verificar que los valores ingresados por el usuario tengan sentido y mostrar inmediatamente un mensaje de error en lugar de enviar el formulario. O podemos deshabilitar completamente la forma regular de enviar el formulario, como en el ejemplo, y hacer que nuestro programa maneje la entrada, posiblemente utilizando <code>fetch</code> para enviarla a un servidor sin recargar la página.</p>
+<p><a class="p_ident" id="p-STSqtYSJYL" href="#p-STSqtYSJYL" tabindex="-1" role="presentation"></a>Interceptar los eventos <code>&quot;submit&quot;</code> en JavaScript tiene varios usos. Podemos escribir código para verificar que los valores ingresados por el usuario tengan sentido y mostrar inmediatamente un mensaje de error en lugar de enviar el formulario. O podemos deshabilitar completamente la forma usual de enviar el formulario, como en el ejemplo, y hacer que nuestro programa maneje la entrada, posiblemente utilizando <code>fetch</code> para enviarla a un servidor sin recargar la página.</p>
 
 <h2><a class="h_ident" id="h-aNECCZZECC" href="#h-aNECCZZECC" tabindex="-1" role="presentation"></a>Campos de texto</h2>
 
-<p><a class="p_ident" id="p-2/lDSlOr14" href="#p-2/lDSlOr14" tabindex="-1" role="presentation"></a>Los campos creados por etiquetas <code>&lt;textarea&gt;</code>, o etiquetas <code>&lt;input&gt;</code> con un tipo de <code>text</code> o <code>password</code>, comparten una interfaz común. Sus elementos DOM tienen una propiedad <code>value</code> que contiene su contenido actual como un valor de cadena. Establecer esta propiedad a otra cadena cambia el contenido del campo.</p>
+<p><a class="p_ident" id="p-2/lDSlOr14" href="#p-2/lDSlOr14" tabindex="-1" role="presentation"></a>Los campos creados por etiquetas <code>&lt;textarea&gt;</code>, o etiquetas <code>&lt;input&gt;</code> con un tipo de <code>text</code> o <code>password</code>, comparten una interfaz común. Sus elementos del DOM tienen una propiedad <code>value</code> que contiene su contenido actual como un valor de cadena. Establecer esta propiedad a otra cadena cambia el contenido del campo.</p>
 
 <p><a class="p_ident" id="p-kPF/BAetTh" href="#p-kPF/BAetTh" tabindex="-1" role="presentation"></a>Las propiedades <code>selectionStart</code> y <code>selectionEnd</code> de los campos de texto nos brindan información sobre la posición del cursor y la selección en el texto. Cuando no se ha seleccionado nada, estas dos propiedades contienen el mismo número, indicando la posición del cursor. Por ejemplo, 0 indica el inicio del texto, y 10 indica que el cursor está después del 10<sup>º</sup> carácter. Cuando se selecciona parte del campo, las dos propiedades serán diferentes, dándonos el inicio y el final del texto seleccionado. Al igual que <code>value</code>, estas propiedades también se pueden escribir.</p>
 
 <p><a class="p_ident" id="p-OWVzp9QFZ5" href="#p-OWVzp9QFZ5" tabindex="-1" role="presentation"></a>Imagina que estás escribiendo un artículo sobre Khasekhemwy pero tienes problemas para deletrear su nombre. El siguiente código vincula una etiqueta <code>&lt;textarea&gt;</code> con un controlador de eventos que, al presionar F2, inserta la cadena “Khasekhemwy” por ti.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-Gsi7+gn7T8" href="#c-Gsi7+gn7T8" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">textarea</span>&gt;&lt;/<span class="tok-typeName">textarea</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-fzkRKJAhNa" href="#c-fzkRKJAhNa" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">textarea</span>&gt;&lt;/<span class="tok-typeName">textarea</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">textarea</span> = document.querySelector(<span class="tok-string">&quot;textarea&quot;</span>);
-  textarea.addEventListener(<span class="tok-string">&quot;keydown&quot;</span>, <span class="tok-definition">event</span> =&gt; {
-    <span class="tok-keyword">if</span> (event.key == <span class="tok-string">&quot;F2&quot;</span>) {
-      replaceSelection(textarea, <span class="tok-string">&quot;Khasekhemwy&quot;</span>);
-      event.preventDefault();
+  <span class="tok-keyword">let</span> <span class="tok-definition">áreaDeTexto</span> = document.querySelector(<span class="tok-string">&quot;textarea&quot;</span>);
+  áreaDeTexto.addEventListener(<span class="tok-string">&quot;keydown&quot;</span>, <span class="tok-definition">evento</span> =&gt; {
+    <span class="tok-keyword">if</span> (evento.key == <span class="tok-string">&quot;F2&quot;</span>) {
+      replaceSelection(áreaDeTexto, <span class="tok-string">&quot;Khasekhemwy&quot;</span>);
+      evento.preventDefault();
     }
   });
-  <span class="tok-keyword">function</span> <span class="tok-definition">replaceSelection</span>(<span class="tok-definition">field</span>, <span class="tok-definition">word</span>) {
-    <span class="tok-keyword">let</span> <span class="tok-definition">from</span> = field.selectionStart, <span class="tok-definition">to</span> = field.selectionEnd;
-    field.value = field.value.slice(<span class="tok-number">0</span>, from) + word +
-                  field.value.slice(to);
+  <span class="tok-keyword">function</span> <span class="tok-definition">replaceSelection</span>(<span class="tok-definition">campo</span>, <span class="tok-definition">palabra</span>) {
+    <span class="tok-keyword">let</span> <span class="tok-definition">desde</span> = campo.selectionStart, <span class="tok-definition">hasta</span> = campo.selectionEnd;
+    campo.value = campo.value.slice(<span class="tok-number">0</span>, desde) + palabra +
+                  campo.value.slice(hasta);
     <span class="tok-comment">// Coloca el cursor después de la palabra</span>
-    field.selectionStart = from + word.length;
-    field.selectionEnd = from + word.length;
+    campo.selectionStart = desde + palabra.length;
+    campo.selectionEnd = desde + palabra.length;
   }
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
 <p><a class="p_ident" id="p-HiP/bodQoF" href="#p-HiP/bodQoF" tabindex="-1" role="presentation"></a>La función <code>replaceSelection</code> reemplaza la parte actualmente seleccionada del contenido de un campo de texto con la palabra proporcionada y luego mueve el cursor después de esa palabra para que el usuario pueda continuar escribiendo.</p>
 
-<p><a class="p_ident" id="p-iymd5B4YOv" href="#p-iymd5B4YOv" tabindex="-1" role="presentation"></a>El evento <code>&quot;change&quot;</code> para un campo de texto no se activa cada vez que se escribe algo. En cambio, se activa cuando el campo pierde el enfoque después de que su contenido haya cambiado. Para responder de inmediato a los cambios en un campo de texto, se debe registrar un controlador para el evento <code>&quot;input&quot;</code>, que se activa cada vez que el usuario escribe un carácter, elimina texto o de otra manera manipula el contenido del campo.</p>
+<p><a class="p_ident" id="p-iymd5B4YOv" href="#p-iymd5B4YOv" tabindex="-1" role="presentation"></a>El evento <code>&quot;change&quot;</code> para un campo de texto no se activa cada vez que se escribe algo. En cambio, se activa cuando el campo pierde el enfoque después de que su contenido haya cambiado. Para responder de inmediato a los cambios en un campo de texto, se debe registrar un controlador para el evento <code>&quot;input&quot;</code>, que se activa cada vez que el usuario escribe un carácter, elimina texto o manipula de otra manera el contenido del campo.</p>
 
 <p><a class="p_ident" id="p-vETjJ3j9ss" href="#p-vETjJ3j9ss" tabindex="-1" role="presentation"></a>El siguiente ejemplo muestra un campo de texto y un contador que muestra la longitud actual del texto en el campo:</p>
 
@@ -389,11 +397,11 @@ tres
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-HIgnvYrmlE" href="#p-HIgnvYrmlE" tabindex="-1" role="presentation"></a>La etiqueta <code>&lt;label&gt;</code> asocia un fragmento de documento con un campo de entrada. Hacer clic en cualquier parte de la etiqueta activará el campo, lo enfocará e invertirá su valor cuando sea un casilla de verificación o un botón de radio.</p>
+<p><a class="p_ident" id="p-HIgnvYrmlE" href="#p-HIgnvYrmlE" tabindex="-1" role="presentation"></a>La etiqueta <code>&lt;label&gt;</code> asocia un fragmento de documento con un campo de entrada. Hacer clic en cualquier parte de la etiqueta activará el campo, lo enfocará e invertirá su valor cuando sea una casilla de verificación o un botón de radio.</p>
 
 <p><a class="p_ident" id="p-OPMRZaFTvv" href="#p-OPMRZaFTvv" tabindex="-1" role="presentation"></a>Un botón de radio es similar a una casilla de verificación, pero está vinculado implícitamente a otros botones de radio con el mismo atributo <code>name</code> para que solo uno de ellos pueda estar activo en cualquier momento.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-Lbcy2d8Edd" href="#c-Lbcy2d8Edd" tabindex="-1" role="presentation"></a>Color:
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-lBGSCq/QeW" href="#c-lBGSCq/QeW" tabindex="-1" role="presentation"></a>Color:
 &lt;<span class="tok-typeName">label</span>&gt;
   &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;radio&quot;</span> name=<span class="tok-string">&quot;color&quot;</span> value=<span class="tok-string">&quot;orange&quot;</span>&gt; Naranja
 &lt;/<span class="tok-typeName">label</span>&gt;
@@ -404,10 +412,10 @@ tres
   &lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;radio&quot;</span> name=<span class="tok-string">&quot;color&quot;</span> value=<span class="tok-string">&quot;lightblue&quot;</span>&gt; Azul claro
 &lt;/<span class="tok-typeName">label</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">buttons</span> = document.querySelectorAll(<span class="tok-string">&quot;[name=color]&quot;</span>);
-  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">button</span> <span class="tok-keyword">of</span> Array.from(buttons)) {
-    button.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
-      document.body.style.background = button.value;
+  <span class="tok-keyword">let</span> <span class="tok-definition">botones</span> = document.querySelectorAll(<span class="tok-string">&quot;[name=color]&quot;</span>);
+  <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">botón</span> <span class="tok-keyword">of</span> Array.from(botones)) {
+    botón.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
+      document.body.style.background = botón.value;
     });
   }
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
@@ -418,7 +426,7 @@ tres
 
 <p><a class="p_ident" id="p-LwFLblAPrh" href="#p-LwFLblAPrh" tabindex="-1" role="presentation"></a>Los campos de selección son conceptualmente similares a los botones de radio, ya que también permiten al usuario elegir entre un conjunto de opciones. Sin embargo, mientras que un botón de radio pone el diseño de las opciones bajo nuestro control, la apariencia de una etiqueta <code>&lt;select&gt;</code> está determinada por el navegador.</p>
 
-<p><a class="p_ident" id="p-ovWpX69a8P" href="#p-ovWpX69a8P" tabindex="-1" role="presentation"></a>Los campos de selección también tienen una variante que se asemeja más a una lista de casillas de verificación que a botones de radio. Cuando se le otorga el atributo <code>multiple</code>, una etiqueta <code>&lt;select&gt;</code> permitirá al usuario seleccionar cualquier número de opciones, en lugar de una sola opción. Mientras que un campo de selección regular se muestra como un control de <em>lista desplegable</em>, que muestra las opciones inactivas solo cuando lo abres, un campo con <code>multiple</code> habilitado muestra múltiples opciones al mismo tiempo, permitiendo al usuario habilitar o deshabilitarlas individualmente.</p>
+<p><a class="p_ident" id="p-ovWpX69a8P" href="#p-ovWpX69a8P" tabindex="-1" role="presentation"></a>Los campos de selección también tienen una variante que se asemeja más a una lista de casillas de verificación que a botones de radio. Cuando se le otorga el atributo <code>multiple</code>, una etiqueta <code>&lt;select&gt;</code> permitirá al usuario seleccionar cualquier número de opciones, en lugar de una sola opción. Mientras que un campo de selección normal se muestra como un control de <em>lista desplegable</em>, que muestra las opciones inactivas solo cuando lo abres, un campo con <code>multiple</code> habilitado muestra múltiples opciones al mismo tiempo, permitiendo al usuario habilitarlas o deshabilitarlas individualmente.</p>
 
 <p><a class="p_ident" id="p-lMYxrT0Q64" href="#p-lMYxrT0Q64" tabindex="-1" role="presentation"></a>Cada etiqueta <code>&lt;option&gt;</code> tiene un valor. Este valor se puede definir con un atributo <code>value</code>. Cuando este no se proporciona, el texto dentro de la opción se considerará como su valor. La propiedad <code>value</code> de un elemento <code>&lt;select&gt;</code> refleja la opción actualmente seleccionada. Sin embargo, para un campo <code>multiple</code>, esta propiedad no significa mucho, ya que dará el valor de solo <em>una</em> de las opciones actualmente seleccionadas.</p>
 
@@ -426,23 +434,23 @@ tres
 
 <p><a class="p_ident" id="p-gohmWQPKBU" href="#p-gohmWQPKBU" tabindex="-1" role="presentation"></a>Este ejemplo extrae los valores seleccionados de un campo de selección <code>multiple</code> y los utiliza para componer un número binario a partir de bits individuales. Mantén pulsado <span class="keyname">control</span> (o <span class="keyname">command</span> en un Mac) para seleccionar múltiples opciones.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-Jh/nb6UYLR" href="#c-Jh/nb6UYLR" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">select</span> multiple&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-IUZrTqBBtg" href="#c-IUZrTqBBtg" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">select</span> multiple&gt;
   &lt;<span class="tok-typeName">option</span> value=<span class="tok-string">&quot;1&quot;</span>&gt;0001&lt;/<span class="tok-typeName">option</span>&gt;
   &lt;<span class="tok-typeName">option</span> value=<span class="tok-string">&quot;2&quot;</span>&gt;0010&lt;/<span class="tok-typeName">option</span>&gt;
   &lt;<span class="tok-typeName">option</span> value=<span class="tok-string">&quot;4&quot;</span>&gt;0100&lt;/<span class="tok-typeName">option</span>&gt;
   &lt;<span class="tok-typeName">option</span> value=<span class="tok-string">&quot;8&quot;</span>&gt;1000&lt;/<span class="tok-typeName">option</span>&gt;
-&lt;/<span class="tok-typeName">select</span>&gt; = &lt;<span class="tok-typeName">span</span> id=<span class="tok-string">&quot;output&quot;</span>&gt;0&lt;/<span class="tok-typeName">span</span>&gt;
+&lt;/<span class="tok-typeName">select</span>&gt; = &lt;<span class="tok-typeName">span</span> id=<span class="tok-string">&quot;salida&quot;</span>&gt;0&lt;/<span class="tok-typeName">span</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">select</span> = document.querySelector(<span class="tok-string">&quot;select&quot;</span>);
-  <span class="tok-keyword">let</span> <span class="tok-definition">output</span> = document.querySelector(<span class="tok-string">&quot;#output&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">salida</span> = document.querySelector(<span class="tok-string">&quot;#salida&quot;</span>);
   select.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
-    <span class="tok-keyword">let</span> <span class="tok-definition">number</span> = <span class="tok-number">0</span>;
-    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">option</span> <span class="tok-keyword">of</span> Array.from(select.options)) {
-      <span class="tok-keyword">if</span> (option.selected) {
-        number += Number(option.value);
+    <span class="tok-keyword">let</span> <span class="tok-definition">número</span> = <span class="tok-number">0</span>;
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">opción</span> <span class="tok-keyword">of</span> Array.from(select.options)) {
+      <span class="tok-keyword">if</span> (opción.selected) {
+        número += Number(opción.value);
       }
     }
-    output.textContent = number;
+    salida.textContent = número;
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
@@ -452,35 +460,35 @@ tres
 
 <p><a class="p_ident" id="p-x5QCNUXKJj" href="#p-x5QCNUXKJj" tabindex="-1" role="presentation"></a>Un campo de archivo suele parecerse a un botón etiquetado con algo como “elegir archivo” o “explorar”, con información sobre el archivo elegido al lado.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-dS1Y2LTicn" href="#c-dS1Y2LTicn" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;file&quot;</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-awLytAtIDt" href="#c-awLytAtIDt" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;file&quot;</span>&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">input</span> = document.querySelector(<span class="tok-string">&quot;input&quot;</span>);
   input.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
     <span class="tok-keyword">if</span> (input.files.length &gt; <span class="tok-number">0</span>) {
-      <span class="tok-keyword">let</span> <span class="tok-definition">file</span> = input.files[<span class="tok-number">0</span>];
-      console.log(<span class="tok-string">&quot;Has elegido&quot;</span>, file.name);
-      <span class="tok-keyword">if</span> (file.type) console.log(<span class="tok-string">&quot;Tiene tipo&quot;</span>, file.type);
+      <span class="tok-keyword">let</span> <span class="tok-definition">archivo</span> = input.files[<span class="tok-number">0</span>];
+      console.log(<span class="tok-string">&quot;Has elegido&quot;</span>, archivo.name);
+      <span class="tok-keyword">if</span> (archivo.type) console.log(<span class="tok-string">&quot;Tiene tipo&quot;</span>, archivo.type);
     }
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-u0pRmFLpFo" href="#p-u0pRmFLpFo" tabindex="-1" role="presentation"></a>La propiedad <code>files</code> de un elemento campo de archivo es un objeto similar a un arreglo (una vez más, no es un arreglo real) que contiene los archivos elegidos en el campo. Inicialmente está vacío. La razón por la que no hay simplemente una propiedad <code>file</code> es que los campos de archivo también admiten un atributo <code>multiple</code>, lo que permite seleccionar varios archivos al mismo tiempo.</p>
+<p><a class="p_ident" id="p-u0pRmFLpFo" href="#p-u0pRmFLpFo" tabindex="-1" role="presentation"></a>La propiedad <code>files</code> de un elemento campo de archivo es un objeto similar a un array (una vez más, no es un array de verdad) que contiene los archivos elegidos en el campo. Inicialmente está vacío. La razón por la que no hay simplemente una propiedad <code>file</code> es que los campos de archivo también admiten un atributo <code>multiple</code>, lo que permite seleccionar varios archivos al mismo tiempo.</p>
 
 <p><a class="p_ident" id="p-seFEA3+tCC" href="#p-seFEA3+tCC" tabindex="-1" role="presentation"></a>Los objetos en <code>files</code> tienen propiedades como <code>name</code> (el nombre de archivo), <code>size</code> (el tamaño del archivo en bytes, que son trozos de 8 bits) y <code>type</code> (el tipo de medio del archivo, como <code>text/plain</code> o <code>image/jpeg</code>).</p>
 
-<p id="filereader"><a class="p_ident" id="p-eqjNs8AmUZ" href="#p-eqjNs8AmUZ" tabindex="-1" role="presentation"></a>Lo que no tiene es una propiedad que contenga el contenido del archivo. Acceder a eso es un poco más complicado. Dado que leer un archivo desde el disco puede llevar tiempo, la interfaz es asíncrona para evitar que se congele la ventana.</p>
+<p id="filereader"><a class="p_ident" id="p-eqjNs8AmUZ" href="#p-eqjNs8AmUZ" tabindex="-1" role="presentation"></a>Lo que no tiene es una propiedad que contenga el contenido del archivo. Acceder a eso es un poco más complicado. Como leer un archivo desde el disco puede llevar tiempo, la interfaz es asíncrona para evitar que se congele la ventana.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-CiJUqBT97h" href="#c-CiJUqBT97h" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;file&quot;</span> multiple&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-L5So9ayRF5" href="#c-L5So9ayRF5" tabindex="-1" role="presentation"></a>&lt;<span class="tok-typeName">input</span> type=<span class="tok-string">&quot;file&quot;</span> multiple&gt;
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">input</span> = document.querySelector(<span class="tok-string">&quot;input&quot;</span>);
   input.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
-    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">file</span> <span class="tok-keyword">of</span> Array.from(input.files)) {
-      <span class="tok-keyword">let</span> <span class="tok-definition">reader</span> = <span class="tok-keyword">new</span> FileReader();
-      reader.addEventListener(<span class="tok-string">&quot;load&quot;</span>, () =&gt; {
-        console.log(<span class="tok-string">&quot;El archivo&quot;</span>, file.name, <span class="tok-string">&quot;comienza con&quot;</span>,
-                    reader.result.slice(<span class="tok-number">0</span>, <span class="tok-number">20</span>));
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">archivo</span> <span class="tok-keyword">of</span> Array.from(input.files)) {
+      <span class="tok-keyword">let</span> <span class="tok-definition">lector</span> = <span class="tok-keyword">new</span> FileReader();
+      lector.addEventListener(<span class="tok-string">&quot;load&quot;</span>, () =&gt; {
+        console.log(<span class="tok-string">&quot;El archivo&quot;</span>, archivo.name, <span class="tok-string">&quot;comienza con&quot;</span>,
+                    lector.result.slice(<span class="tok-number">0</span>, <span class="tok-number">20</span>));
       });
-      reader.readAsText(file);
+      lector.readAsText(archivo);
     }
   });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
@@ -502,9 +510,9 @@ tres
 
 <h2><a class="h_ident" id="h-pubr/frF3q" href="#h-pubr/frF3q" tabindex="-1" role="presentation"></a>Almacenando datos del lado del cliente</h2>
 
-<p><a class="p_ident" id="p-nQ5HeD4HcD" href="#p-nQ5HeD4HcD" tabindex="-1" role="presentation"></a>Páginas simples de HTML con un poco de JavaScript pueden ser un gran formato para “mini aplicaciones” - pequeños programas auxiliares que automatizan tareas básicas. Conectando unos cuantos campos de formulario con controladores de eventos, puedes hacer desde convertir entre centímetros y pulgadas hasta calcular contraseñas a partir de una contraseña maestra y un nombre de sitio web.</p>
+<p><a class="p_ident" id="p-nQ5HeD4HcD" href="#p-nQ5HeD4HcD" tabindex="-1" role="presentation"></a>Páginas simples de HTML con un poco de JavaScript pueden ser un gran formato para “mini aplicaciones” —pequeños programas auxiliares que automatizan tareas básicas. Conectando unos cuantos campos de formulario con controladores de eventos, puedes hacer desde un conversor entre centímetros y pulgadas hasta calcular contraseñas a partir de una contraseña maestra y un nombre de sitio web.</p>
 
-<p><a class="p_ident" id="p-thk+vTbuyG" href="#p-thk+vTbuyG" tabindex="-1" role="presentation"></a>Cuando una aplicación así necesita recordar algo entre sesiones, no puedes usar las vinculaciones de JavaScript, ya que estas se descartan cada vez que se cierra la página. Podrías configurar un servidor, conectarlo a Internet y hacer que tu aplicación almacene algo allí. Veremos cómo hacerlo en el <a href="20_node.html">Capítulo 20</a>. Pero eso implica mucho trabajo extra y complejidad. A veces es suficiente con mantener los datos en el navegador.</p>
+<p><a class="p_ident" id="p-thk+vTbuyG" href="#p-thk+vTbuyG" tabindex="-1" role="presentation"></a>Cuando una aplicación así necesita recordar algo entre sesiones, no puedes usar las asociaciones (o variables) de JavaScript, ya que estas se descartan cada vez que se cierra la página. Podrías configurar un servidor, conectarlo a Internet y hacer que tu aplicación almacene algo allí. Veremos cómo hacerlo en el <a href="20_node.html">Capítulo 20</a>. Pero eso implica mucho trabajo extra y complejidad. A veces es suficiente con mantener los datos en el navegador.</p>
 
 <p><a class="p_ident" id="p-nh16i7O6QQ" href="#p-nh16i7O6QQ" tabindex="-1" role="presentation"></a>El objeto <code>localStorage</code> se puede utilizar para almacenar datos de una manera que sobreviva a las recargas de página. Este objeto te permite guardar valores de cadena bajo nombres.</p>
 
@@ -521,39 +529,39 @@ localStorage.removeItem(<span class="tok-string">&quot;nombre de usuario&quot;</
 
 <p><a class="p_ident" id="p-kyXkj0Kaxd" href="#p-kyXkj0Kaxd" tabindex="-1" role="presentation"></a>El siguiente código implementa una aplicación rudimentaria de toma de notas. Mantiene un conjunto de notas con nombres y permite al usuario editar notas y crear nuevas.</p>
 
-<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-otCepJ04fN" href="#c-otCepJ04fN" tabindex="-1" role="presentation"></a>Notas: &lt;<span class="tok-typeName">select</span>&gt;&lt;/<span class="tok-typeName">select</span>&gt; &lt;<span class="tok-typeName">button</span>&gt;Añadir&lt;/<span class="tok-typeName">button</span>&gt;&lt;<span class="tok-typeName">br</span>&gt;
+<pre tabindex="0" class="snippet" data-language="html" ><a class="c_ident" id="c-Pv9vacB4FL" href="#c-Pv9vacB4FL" tabindex="-1" role="presentation"></a>Notas: &lt;<span class="tok-typeName">select</span>&gt;&lt;/<span class="tok-typeName">select</span>&gt; &lt;<span class="tok-typeName">button</span>&gt;Añadir&lt;/<span class="tok-typeName">button</span>&gt;&lt;<span class="tok-typeName">br</span>&gt;
 &lt;<span class="tok-typeName">textarea</span> style=<span class="tok-string">&quot;</span>width: <span class="tok-number">100</span><span class="tok-keyword">%</span><span class="tok-string">&quot;</span>&gt;&lt;/<span class="tok-typeName">textarea</span>&gt;
 
 &lt;<span class="tok-typeName">script</span>&gt;
-  <span class="tok-keyword">let</span> <span class="tok-definition">list</span> = document.querySelector(<span class="tok-string">&quot;select&quot;</span>);
-  <span class="tok-keyword">let</span> <span class="tok-definition">note</span> = document.querySelector(<span class="tok-string">&quot;textarea&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">lista</span> = document.querySelector(<span class="tok-string">&quot;select&quot;</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">nota</span> = document.querySelector(<span class="tok-string">&quot;textarea&quot;</span>);
 
-  <span class="tok-keyword">let</span> <span class="tok-definition">state</span>;
+  <span class="tok-keyword">let</span> <span class="tok-definition">estado</span>;
   <span class="tok-keyword">function</span> <span class="tok-definition">setState</span>(<span class="tok-definition">nuevoEstado</span>) {
-    list.textContent = <span class="tok-string">&quot;&quot;</span>;
+    lista.textContent = <span class="tok-string">&quot;&quot;</span>;
     <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">nombre</span> <span class="tok-keyword">of</span> Object.keys(nuevoEstado.notes)) {
-      <span class="tok-keyword">let</span> <span class="tok-definition">option</span> = document.createElement(<span class="tok-string">&quot;option&quot;</span>);
-      option.textContent = nombre;
-      <span class="tok-keyword">if</span> (nuevoEstado.selected == nombre) option.selected = true;
-      list.appendChild(option);
+      <span class="tok-keyword">let</span> <span class="tok-definition">opción</span> = document.createElement(<span class="tok-string">&quot;option&quot;</span>);
+      opción.textContent = nombre;
+      <span class="tok-keyword">if</span> (nuevoEstado.selected == nombre) opción.selected = true;
+      lista.appendChild(opción);
     }
-    note.value = nuevoEstado.notes[nuevoEstado.selected];
+    nota.value = nuevoEstado.notes[nuevoEstado.selected];
 
     localStorage.setItem(<span class="tok-string">&quot;Notas&quot;</span>, JSON.stringify(nuevoEstado));
-    state = nuevoEstado;
+    estado = nuevoEstado;
   }
   setState(JSON.parse(localStorage.getItem(<span class="tok-string">&quot;Notas&quot;</span>)) ?? {
     <span class="tok-definition">notes</span>: {<span class="tok-string">&quot;lista de compras&quot;</span>: <span class="tok-string">&quot;Zanahorias</span><span class="tok-string2">\n</span><span class="tok-string">Pasas&quot;</span>},
     <span class="tok-definition">selected</span>: <span class="tok-string">&quot;lista de compras&quot;</span>
   });
 
-  list.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
-    setState({<span class="tok-definition">notes</span>: state.notes, <span class="tok-definition">selected</span>: list.value});
+  lista.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
+    setState({<span class="tok-definition">notes</span>: estado.notes, <span class="tok-definition">selected</span>: lista.value});
   });
-  note.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
-    <span class="tok-keyword">let</span> {selected} = state;
+  nota.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
+    <span class="tok-keyword">let</span> {selected} = estado;
     setState({
-      <span class="tok-definition">notes</span>: {...state.notes, [selected]: note.value},
+      <span class="tok-definition">notes</span>: {...estado.notes, [selected]: nota.value},
       <span class="tok-definition">selected</span>
     });
   });
@@ -561,26 +569,28 @@ localStorage.removeItem(<span class="tok-string">&quot;nombre de usuario&quot;</
     .addEventListener(<span class="tok-string">&quot;click&quot;</span>, () =&gt; {
       <span class="tok-keyword">let</span> <span class="tok-definition">nombre</span> = prompt(<span class="tok-string">&quot;Nombre de la nota&quot;</span>);
       <span class="tok-keyword">if</span> (nombre) setState({
-        <span class="tok-definition">notes</span>: {...state.notes, [nombre]: <span class="tok-string">&quot;&quot;</span>},
+        <span class="tok-definition">notes</span>: {...estado.notes, [nombre]: <span class="tok-string">&quot;&quot;</span>},
         <span class="tok-definition">selected</span>: nombre
       });
     });
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p><a class="p_ident" id="p-j38aAM3IQT" href="#p-j38aAM3IQT" tabindex="-1" role="presentation"></a>El script obtiene su estado inicial del valor <code>&quot;Notas&quot;</code> almacenado en <code>localStorage</code> o, si está ausente, crea un estado de ejemplo que solo contiene una lista de compras. Leer un campo que no existe en <code>localStorage</code> devolverá <code>null</code>. Pasar <code>null</code> a <code>JSON.parse</code> hará que analice la cadena <code>&quot;null&quot;</code> y devuelva <code>null</code>. Por tanto, en una situación como esta se puede utilizar el operador <code>??</code> para proporcionar un valor predeterminado.</p>
+<p><a class="p_ident" id="p-j38aAM3IQT" href="#p-j38aAM3IQT" tabindex="-1" role="presentation"></a>El script obtiene su estado inicial del valor <code>&quot;Notas&quot;</code> almacenado en <code>localStorage</code> o, si este no existe, crea un estado de ejemplo que solo contiene una lista de compras. Leer un campo que no existe en <code>localStorage</code> devolverá <code>null</code>. Pasar <code>null</code> a <code>JSON.parse</code> hará que analice la cadena <code>&quot;null&quot;</code> y devuelva <code>null</code>. Por tanto, en una situación como esta se puede utilizar el operador <code>??</code> para proporcionar un valor predeterminado.</p>
 
 <p><a class="p_ident" id="p-P4AyBp+4Wu" href="#p-P4AyBp+4Wu" tabindex="-1" role="presentation"></a>El método <code>setState</code> se asegura de que el DOM muestre un estado dado y almacena el nuevo estado en <code>localStorage</code>. Los controladores de eventos llaman a esta función para moverse a un nuevo estado.</p>
 
-<p><a class="p_ident" id="p-d73ikDmnEL" href="#p-d73ikDmnEL" tabindex="-1" role="presentation"></a>La sintaxis <code>...</code> en el ejemplo se utiliza para crear un nuevo objeto que es un clon del antiguo <code>state.notes</code>, pero con una propiedad añadida o sobrescrita. Utiliza la sintaxis spread para primero añadir las propiedades del objeto antiguo y luego establecer una nueva propiedad. La notación de corchetes cuadrados en el literal del objeto se utiliza para crear una propiedad cuyo nombre se basa en algún valor dinámico.</p>
+<p><a class="p_ident" id="p-d73ikDmnEL" href="#p-d73ikDmnEL" tabindex="-1" role="presentation"></a>La sintaxis <code>...</code> en el ejemplo se utiliza para crear un nuevo objeto que es un clon del antiguo <code>estado.notes</code>, pero con una propiedad añadida o sobrescrita. Utiliza la sintaxis de expansión para primero añadir las propiedades del objeto antiguo y luego establecer una nueva propiedad. La notación de corchetes cuadrados en el literal del objeto se utiliza para crear una propiedad cuyo nombre se basa en algún valor dinámico.</p>
 
 <p><a class="p_ident" id="p-/7RsOyK0uu" href="#p-/7RsOyK0uu" tabindex="-1" role="presentation"></a>Existe otro objeto, similar a <code>localStorage</code>, llamado <code>sessionStorage</code>. La diferencia entre los dos es que el contenido de <code>sessionStorage</code> se olvida al final de cada <em>sesión</em>, lo que en la mayoría de los navegadores significa cada vez que se cierra el navegador.</p>
 
 <h2><a class="h_ident" id="h-NUFOUyK+lw" href="#h-NUFOUyK+lw" tabindex="-1" role="presentation"></a>Resumen</h2>
 
-<p><a class="p_ident" id="p-79tgTt/oEf" href="#p-79tgTt/oEf" tabindex="-1" role="presentation"></a>En este capítulo, discutimos cómo funciona el protocolo HTTP. Un <em>cliente</em> envía una solicitud, que contiene un método (generalmente <code>GET</code>) y una ruta que identifica un recurso. El <em>servidor</em> luego decide qué hacer con la solicitud y responde con un código de estado y un cuerpo de respuesta. Tanto las solicitudes como las respuestas pueden contener encabezados que proporcionan información adicional.La interfaz a través de la cual JavaScript del navegador puede realizar solicitudes HTTP se llama <code>fetch</code>. Realizar una solicitud se ve así:</p>
+<p><a class="p_ident" id="p-Kxuc0AeHn4" href="#p-Kxuc0AeHn4" tabindex="-1" role="presentation"></a>En este capítulo, discutimos cómo funciona el protocolo HTTP. Un <em>cliente</em> envía una solicitud, que contiene un método (generalmente <code>GET</code>) y una ruta que identifica un recurso. El <em>servidor</em> luego decide qué hacer con la solicitud y responde con un código de estado y un cuerpo de respuesta. Tanto las solicitudes como las respuestas pueden contener encabezados que proporcionan información adicional.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-vrS4utXmVF" href="#c-vrS4utXmVF" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;/18_http.html&quot;</span>).then(<span class="tok-definition">r</span> =&gt; r.text()).then(<span class="tok-definition">text</span> =&gt; {
-  console.log(<span class="tok-string2">`La página comienza con </span>${text.slice(<span class="tok-number">0</span>, <span class="tok-number">15</span>)}<span class="tok-string2">`</span>);
+<p><a class="p_ident" id="p-SdZFcq61He" href="#p-SdZFcq61He" tabindex="-1" role="presentation"></a>La interfaz a través de la cual el JavaScript del navegador puede realizar solicitudes HTTP se llama <code>fetch</code>. Este es el aspecto que tiene una tal solicitud:</p>
+
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-XuMQraOA7R" href="#c-XuMQraOA7R" tabindex="-1" role="presentation"></a>fetch(<span class="tok-string">&quot;/18_http.html&quot;</span>).then(<span class="tok-definition">r</span> =&gt; r.text()).then(<span class="tok-definition">texto</span> =&gt; {
+  console.log(<span class="tok-string2">`La página comienza con </span>${texto.slice(<span class="tok-number">0</span>, <span class="tok-number">15</span>)}<span class="tok-string2">`</span>);
 });</pre>
 
 <p><a class="p_ident" id="p-ujoeRsyQ0k" href="#p-ujoeRsyQ0k" tabindex="-1" role="presentation"></a>Los navegadores hacen solicitudes <code>GET</code> para obtener los recursos necesarios para mostrar una página web. Una página también puede contener formularios, que permiten enviar información ingresada por el usuario como una solicitud de una nueva página cuando se envía el formulario.</p>
@@ -611,9 +621,9 @@ localStorage.removeItem(<span class="tok-string">&quot;nombre de usuario&quot;</
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-yZerPhVUEO" href="#p-yZerPhVUEO" tabindex="-1" role="presentation"></a>Basate en los ejemplos de <code>fetch</code> <a href="18_http.html#fetch">anteriores en el capítulo</a>.</p>
+<p><a class="p_ident" id="p-B0WEv7Iz0W" href="#p-B0WEv7Iz0W" tabindex="-1" role="presentation"></a>Básate en los ejemplos de <code>fetch</code> <a href="18_http.html#fetch">que vimos antes en el capítulo</a>.</p>
 
-<p><a class="p_ident" id="p-47c4MyqZs2" href="#p-47c4MyqZs2" tabindex="-1" role="presentation"></a>Al solicitar un tipo de medio falso devolverá una respuesta con el código 406, “No aceptable”, que es el código que un servidor debería devolver cuando no puede cumplir con el encabezado <code>Accept</code>.</p>
+<p><a class="p_ident" id="p-IDCMvcNVmp" href="#p-IDCMvcNVmp" tabindex="-1" role="presentation"></a>Solicitar un tipo de medio falso devolverá una respuesta con el código 406, “No aceptable”, que es el código que un servidor debería devolver cuando no puede cumplir con el encabezado <code>Accept</code>.</p>
 
 </div></details>
 
@@ -637,31 +647,31 @@ localStorage.removeItem(<span class="tok-string">&quot;nombre de usuario&quot;</
 
 <p><a class="p_ident" id="p-4e8/QXypu+" href="#p-4e8/QXypu+" tabindex="-1" role="presentation"></a>Asegúrate de envolver tanto la llamada a <code>Function</code> como la llamada a su resultado en un bloque <code>try</code> para poder capturar las excepciones que produce. En este caso, realmente no sabemos qué tipo de excepción estamos buscando, así que captura todo.</p>
 
-<p><a class="p_ident" id="p-yvH5JsBX5j" href="#p-yvH5JsBX5j" tabindex="-1" role="presentation"></a>La propiedad <code>textContent</code> del elemento de salida se puede utilizar para llenarlo con un mensaje de cadena. O, si deseas mantener el contenido anterior, crea un nuevo nodo de texto utilizando <code>document.<wbr>createTextNode</code> y apéndelo al elemento. Recuerda agregar un carácter de nueva línea al final para que no aparezca toda la salida en una sola línea.</p>
+<p><a class="p_ident" id="p-yvH5JsBX5j" href="#p-yvH5JsBX5j" tabindex="-1" role="presentation"></a>La propiedad <code>textContent</code> del elemento de salida se puede utilizar para llenarlo con un mensaje de cadena. O, si deseas mantener el contenido anterior, crea un nuevo nodo de texto utilizando <code>document.<wbr>createTextNode</code> y añádelo al elemento. Recuerda agregar un carácter de nueva línea al final para que no aparezca toda la salida en una sola línea.</p>
 
 </div></details>
 
 <h3><a class="i_ident" id="i-lCrQZlCzVi" href="#i-lCrQZlCzVi" tabindex="-1" role="presentation"></a>Juego de la vida de Conway</h3>
 
-<p><a class="p_ident" id="p-VTdXQ4iYhX" href="#p-VTdXQ4iYhX" tabindex="-1" role="presentation"></a>El Juego de la vida de Conway es una simulación simple que crea “vida” artificial en una rejilla, donde cada celda puede estar viva o no. En cada generación (turno), se aplican las siguientes reglas:</p>
+<p><a class="p_ident" id="p-VTdXQ4iYhX" href="#p-VTdXQ4iYhX" tabindex="-1" role="presentation"></a>El Juego de la vida de Conway es una simulación simple que crea “vida” artificial en una rejilla, donde cada célula puede estar viva o no. En cada generación (turno), se aplican las siguientes reglas:</p>
 
 <ul>
 
 <li>
 
-<p><a class="p_ident" id="p-3XqNJWsWjV" href="#p-3XqNJWsWjV" tabindex="-1" role="presentation"></a>Cualquier celda viva con menos de dos o más de tres vecinos vivos muere.</p></li>
+<p><a class="p_ident" id="p-COJyQnzFy0" href="#p-COJyQnzFy0" tabindex="-1" role="presentation"></a>Cualquier célula viva con menos de dos o más de tres vecinos vivos muere.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p-Q+ChaJv/y3" href="#p-Q+ChaJv/y3" tabindex="-1" role="presentation"></a>Cualquier celda viva con dos o tres vecinos vivos sigue viva en la siguiente generación.</p></li>
+<p><a class="p_ident" id="p-XOqq4wf276" href="#p-XOqq4wf276" tabindex="-1" role="presentation"></a>Cualquier célula viva con dos o tres vecinos vivos sigue viva en la siguiente generación.</p></li>
 
 <li>
 
-<p><a class="p_ident" id="p-MVlb7wT9aU" href="#p-MVlb7wT9aU" tabindex="-1" role="presentation"></a>Cualquier celda muerta con exactamente tres vecinos vivos se convierte en una celda viva.</p></li></ul>
+<p><a class="p_ident" id="p-lGH+tteGaa" href="#p-lGH+tteGaa" tabindex="-1" role="presentation"></a>Cualquier célula muerta con exactamente tres vecinos vivos se convierte en una célula viva.</p></li></ul>
 
-<p><a class="p_ident" id="p-ioE5xDUdj8" href="#p-ioE5xDUdj8" tabindex="-1" role="presentation"></a>Un <em>vecino</em> se define como cualquier celda adyacente, incluidas las células adyacentes en diagonal.</p>
+<p><a class="p_ident" id="p-ioE5xDUdj8" href="#p-ioE5xDUdj8" tabindex="-1" role="presentation"></a>Un <em>vecino</em> se define como cualquier célula adyacente, incluidas las célula adyacentes en diagonal.</p>
 
-<p><a class="p_ident" id="p-FL8MfqSJdF" href="#p-FL8MfqSJdF" tabindex="-1" role="presentation"></a>Ten en cuenta que estas reglas se aplican a toda la rejilla de una vez, no cuadrado por cuadrado. Eso significa que el recuento de vecinos se basa en la situación al comienzo de la generación, y los cambios que ocurran en las células vecinas durante esta generación no deberían influir en el nuevo estado de una celda dada.</p>
+<p><a class="p_ident" id="p-9WLpoNjq4C" href="#p-9WLpoNjq4C" tabindex="-1" role="presentation"></a>Ten en cuenta que estas reglas se aplican a toda la rejilla a la vez, no cuadrado por cuadrado. Eso significa que el recuento de vecinos se basa en la situación al comienzo de la generación, y los cambios que ocurran en las células vecinas durante esta generación no deberían influir en el nuevo estado de una célula dada.</p>
 
 <p><a class="p_ident" id="p-DvtuDHOwfl" href="#p-DvtuDHOwfl" tabindex="-1" role="presentation"></a>Implementa este juego utilizando la estructura de datos que consideres apropiada. Utiliza <code>Math.random</code> para poblar la rejilla con un patrón aleatorio inicialmente. Muestra la rejilla como una cuadrícula de campo de verificación campos, con un botón al lado para avanzar a la siguiente generación. Cuando el usuario marque o desmarque los campos de verificación, sus cambios deberían incluirse al calcular la siguiente generación.</p>
 
@@ -676,13 +686,13 @@ localStorage.removeItem(<span class="tok-string">&quot;nombre de usuario&quot;</
 
 <p><a class="p_ident" id="p-j+hMBMOeev" href="#p-j+hMBMOeev" tabindex="-1" role="presentation"></a>Para resolver el problema de que los cambios ocurran conceptualmente al mismo tiempo, intenta ver la computación de una generación como una función pura, la cual toma un grid y produce un nuevo grid que representa el siguiente turno.</p>
 
-<p><a class="p_ident" id="p-Ze9kawBXIS" href="#p-Ze9kawBXIS" tabindex="-1" role="presentation"></a>La representación de la matriz se puede hacer con un solo array de elementos de ancho × alto, almacenando valores fila por fila, por lo que, por ejemplo, el tercer elemento en la quinta fila se almacena en la posición 4 × <em>ancho</em> + 2 (usando indexación basada en cero). Puedes contar los vecinos vivos con dos bucles anidados, recorriendo coordenadas adyacentes en ambas dimensiones. Asegúrate de no contar celdas fuera del campo e ignorar la celda en el centro, cuyos vecinos estamos contando.</p>
+<p><a class="p_ident" id="p-Ze9kawBXIS" href="#p-Ze9kawBXIS" tabindex="-1" role="presentation"></a>La representación de la matriz se puede hacer con un solo array de elementos de ancho × alto, almacenando valores fila por fila, por lo que, por ejemplo, el tercer elemento en la quinta fila se almacena en la posición 4 × <em>ancho</em> + 2 (usando indexación basada en cero). Puedes contar los vecinos vivos con dos bucles anidados, recorriendo coordenadas adyacentes en ambas dimensiones. Asegúrate de no contar célula fuera del campo e ignorar la célula en el centro, cuyos vecinos estamos contando.</p>
 
-<p><a class="p_ident" id="p-uQnDbslm5/" href="#p-uQnDbslm5/" tabindex="-1" role="presentation"></a>Asegurarse de que los cambios en los checkbox tengan efecto en la siguiente generación se puede hacer de dos maneras. Un manejador de eventos podría notar estos cambios y actualizar el grid actual para reflejarlos, o podrías generar un grid nuevo a partir de los valores de los checkboxes antes de calcular el siguiente turno.</p>
+<p><a class="p_ident" id="p-uQnDbslm5/" href="#p-uQnDbslm5/" tabindex="-1" role="presentation"></a>Asegurarse de que los cambios en los checkbox tengan efecto en la siguiente generación es algo que se puede hacer de dos maneras. Un manejador de eventos podría notar estos cambios y actualizar el grid actual para reflejarlos, o podrías generar un grid nuevo a partir de los valores de los checkboxes antes de calcular el siguiente turno.</p>
 
-<p><a class="p_ident" id="p-kKFNUYh8n2" href="#p-kKFNUYh8n2" tabindex="-1" role="presentation"></a>Si decides utilizar manejadores de eventos, es posible que desees adjuntar atributos que identifiquen la posición a la que corresponde cada checkbox para que sea fácil saber qué celda cambiar.</p>
+<p><a class="p_ident" id="p-DDWZCwFlLn" href="#p-DDWZCwFlLn" tabindex="-1" role="presentation"></a>Si decides utilizar manejadores de eventos, es posible que desees adjuntar atributos que identifiquen la posición a la que corresponde cada checkbox para que sea fácil saber qué célula cambiar.</p>
 
-<p><a class="p_ident" id="p-QGc6rnbVRd" href="#p-QGc6rnbVRd" tabindex="-1" role="presentation"></a>Para dibujar el grid de checkboxes, puedes usar un elemento <code>&lt;table&gt;</code> (ver <a href="14_dom.html#ejercicio_table">Capítulo 14</a>) o simplemente colocar todos en el mismo elemento y poner elementos <code>&lt;br&gt;</code> (salto de línea) entre las filas.</p>
+<p><a class="p_ident" id="p-QGc6rnbVRd" href="#p-QGc6rnbVRd" tabindex="-1" role="presentation"></a>Para dibujar el grid de checkboxes, puedes usar un elemento <code>&lt;table&gt;</code> (ver <a href="14_dom.html#exercise_table">Capítulo 14</a>) o simplemente colocar todos en el mismo elemento y poner elementos <code>&lt;br&gt;</code> (salto de línea) entre las filas.</p>
 
 </div></details><nav><a href="17_canvas.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="19_paint.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
 </nav>
