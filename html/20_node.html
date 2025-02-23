@@ -398,7 +398,7 @@ methods.DELETE = async function(request) {
 
 <p><a class="p_ident" id="p-ARSP8HNYDA" href="#p-ARSP8HNYDA" tabindex="-1" role="presentation"></a>Este es el manejador para las solicitudes <code>PUT</code>:</p>
 
-<pre class="snippet" data-language="null" ><a class="c_ident" id="c-V+n6chgMKs" href="#c-V+n6chgMKs" tabindex="-1" role="presentation"></a>import {createWriteStream} from &quot;node:fs&quot;;
+<pre class="snippet" data-language="null" ><a class="c_ident" id="c-ChtmXskNos" href="#c-ChtmXskNos" tabindex="-1" role="presentation"></a>import {createWriteStream} from &quot;node:fs&quot;;
 
 function pipeStream(from, to) {
   return new Promise((resolve, reject) =&gt; {
@@ -407,7 +407,9 @@ function pipeStream(from, to) {
     to.on(&quot;finish&quot;, resolve);
     from.pipe(to);
   });
-}```methods.PUT = async function(request) {
+}
+
+methods.PUT = async function(request) {
   let path = urlPath(request.url);
   await pipeStream(request, createWriteStream(path));
   return {status: 204};
