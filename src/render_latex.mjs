@@ -175,6 +175,35 @@ const renderer = {
   meta_keyname_open () { return noStarch ? '\\keycap{' : '\\textsc{' },
   meta_keyname_close () { return '}' },
 
+  meta_note(token) {
+    let contenido = '';
+    if (token.children && token.children.length) {
+        contenido = renderArray(token.children);
+    } else if (token.args && token.args[0]) {
+        contenido = renderArray(markdown.parse(token.args[0], {})); 
+    }
+
+
+	const escapeLatex = str => str
+    .replace(/\\/g, '\\textbackslash{}') // Escapar \ como \textbackslash{}
+    .replace(/_/g, '\\_')                // Escapar _ como \_
+    .replace(/\^/g, '\\textasciicircum{}') // Escapar ^ como \textasciicircum{}
+    .replace(/~/g, '\\textasciitilde{}')  // Escapar ~ como \textasciitilde{}
+    .replace(/#/g, '\\#')                 // Escapar #
+    .replace(/%/g, '\\%')                 // Escapar %
+    .replace(/&/g, '\\&')                 // Escapar &
+    .replace(/{/g, '\\{')                 // Escapar {
+    .replace(/}/g, '\\}');                // Escapar }
+
+// Reemplazo correcto para \lstinline
+contenido = contenido.replace(/\\lstinline`([^`]+)`/g, (_, code) => `\\texttt{${escapeLatex(code)}}`);
+
+
+    // contenido = contenido.replace(/\\lstinline\`([^`]+)\`/g, '\\texttt{\\$1}');
+
+    return contenido ? `\\footnote{${contenido}}` : '';
+  },
+
   link_open (token) {
     const href = token.attrGet('href')
     const maybeChapter = /^(\w+)(?:#(.*))?$/.exec(href)
