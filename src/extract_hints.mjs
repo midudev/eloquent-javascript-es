@@ -1,6 +1,6 @@
 import {readdirSync, readFileSync} from "fs"
 
-process.stdout.write("# Exercise Hints\n\nThe hints below might help when you are stuck with one of the exercises in this book. They don't give away the entire solution, but rather try to help you find it yourself.\n\n");
+process.stdout.write("# Pistas para los Ejercicios\n\nLas pistas a continuación pueden ayudarte cuando te encuentres atascado con uno de los ejercicios de este libro. No revelan la solución completa, sino que intentan ayudarte a encontrarla tú mismo.\n\n");
 
 for (let name of readdirSync(".")) {
   if (!/^\d\d.*\.md$/.test(name)) continue
