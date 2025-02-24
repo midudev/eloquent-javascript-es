@@ -278,7 +278,7 @@ Para obtener información precisa sobre el lugar donde ocurrió un evento de rat
 
 {{index "border-radius (CSS)", "posicionamiento absoluto", "ejemplo de programa de dibujo"}}
 
-{{id "dibujo_con_ratón"}}
+{{id "mouse_drawing"}}
 
 El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver [Capítulo ?](paint) para una aplicación de dibujo menos primitiva.
 
@@ -704,7 +704,7 @@ Una de estas era la _estela del ratón_ —una serie de elementos que seguirían
 
 {{index "posicionamiento absoluto", "background (CSS)"}}
 
-En este ejercicio, quiero que implementes una estela del ratón. Utiliza elementos `<div>` con posición absoluta y un tamaño fijo y color de fondo (consulta el [código](event#dibujo_con_ratón) en la sección de "Clics de ratón" para un ejemplo). Crea un montón de estos elementos y, al mover el ratón, muéstralos en la estela del puntero del ratón.
+En este ejercicio, quiero que implementes una estela del ratón. Utiliza elementos `<div>` con posición absoluta y un tamaño fijo y color de fondo (consulta el [código](event#mouse_drawing) en la sección de "Clics de ratón" para un ejemplo). Crea un montón de estos elementos y, al mover el ratón, muéstralos en la estela del puntero del ratón.
 
 {{index "mousemove event"}}
 

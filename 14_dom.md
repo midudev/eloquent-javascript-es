@@ -81,7 +81,7 @@ Otra forma de visualizar nuestro ((árbol)) de documento es la siguiente:
 
 Las hojas son nodos de texto, y las flechas indican las relaciones padre-hijo entre nodos.
 
-{{id "estándar"}}
+{{id "standard"}}
 
 ## El estándar
 
@@ -375,7 +375,7 @@ if}}
 
 {{index "método `getBoundingClientRect`", "posición", "propiedad `pageXOffset`", "propiedad `pageYOffset`"}}
 
-{{id "rectángulo delimitador"}}
+{{id "boundingRect"}}
 
 La manera más efectiva de encontrar la posición precisa de un elemento en la pantalla es el método `getBoundingClientRect`. Devuelve un objeto con las propiedades `top`, `bottom`, `left` y `right`, indicando las posiciones en píxeles de los lados del elemento en relación con la esquina superior izquierda de la pantalla. Si los quieres en relación al documento completo, debes sumar la posición actual de desplazamiento, que puedes encontrar en las variables `pageXOffset` y `pageYOffset`.
 

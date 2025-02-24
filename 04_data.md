@@ -106,7 +106,7 @@ Los elementos en un ((array)) se almacenan como propiedades del array, utilizand
 
 Al igual que las cadenas de texto, los arrays tienen una propiedad `length` que nos dice cuántos elementos tiene el array.
 
-{{id "métodos"}}
+{{id "methods"}}
 
 ## Métodos
 
@@ -132,7 +132,7 @@ Curiosamente, aunque la llamada a `toUpperCase` no pasa argumentos, de alguna ma
 
 Las propiedades que contienen funciones generalmente se llaman _métodos_ del valor al que pertenecen. Por ejemplo, `toUpperCase` es un método de una cadena.
 
-{{id "métodos_de_array"}}
+{{id "array_methods"}}
 
 Este ejemplo muestra dos métodos que puedes utilizar para manipular arrays:
 
@@ -775,7 +775,7 @@ Como hemos visto, `Math` es un saco de funciones tales como `Math.max` (máximo)
 
 {{index espacio de nombres, [objeto, propiedad]}}
 
-{{id "contaminación de espacio de nombres"}}
+{{id "namespace_pollution"}}
 
 El objeto `Math` se utiliza como un contenedor para agrupar un conjunto de funcionalidades relacionadas. Solo hay un objeto `Math` y casi nunca es útil como un valor. Más bien, proporciona un _espacio de nombres_ para que todas estas funciones y valores no tengan que ser variables globales.
 

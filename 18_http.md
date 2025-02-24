@@ -116,7 +116,7 @@ GET /example/message.html?name=Jean&message=Yes%3F HTTP/1.1
 
 {{index "carácter ampersand"}}
 
-El signo de interrogación indica el final de la parte de la ruta de la URL y el inicio de la consulta. Le siguen pares de nombres y valores, correspondientes al atributo `name` en los elementos del campo del formulario y al contenido de esos elementos, respectivamente. Un carácter ampersand (`&`) se utiliza para separar los pares.
+El signo de interrogación indica el final de la parte de la ruta de la URL y el inicio de la consulta. Le siguen pares de nombres y valores, correspondientes al atributo `name` en los elementos del campo del formulario y al contenido de esos elementos, respectivamente. Se usa un carácter ampersand (`&`) para separar los pares.
 
 {{index [escaping, "en URLs"], "número hexadecimal", "función encodeURIComponent", "función decodeURIComponent"}}
 
