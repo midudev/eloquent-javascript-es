@@ -156,6 +156,33 @@ function parseIndexTerm(state, silent) {
   return true
 }
 
+function parseBlockNote(state, startLine, endLine) {
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  let max = state.eMarks[startLine];
+  
+  if (state.src.slice(pos, pos + 7) !== ':::note') return false;
+  
+  let contentStart = pos + 7;
+  let contentEnd = max;
+  let close = state.src.indexOf(':::', contentStart);
+  if (close === -1) return false;
+  
+  contentEnd = close;
+  
+  let content = state.src.slice(contentStart, contentEnd).trim();
+  
+  let htmlContent = state.md.render(content);
+
+  let token = state.push('meta_note_open', '', 1);
+  token.map = [startLine, startLine + 1];
+  token.content = htmlContent;
+  
+  state.push('meta_note_close', '', -1);
+  
+  state.line = startLine + 1;
+  return true;
+  }
+  
 let TERMINATOR_RE = /[\n!#$%&*+\-:<=>@\[\\\]^_`{}~]|\(\(/
 
 function newText(state, silent) {
@@ -171,6 +198,7 @@ function plugin(md) {
   md.block.ruler.before("code", "meta", parseBlockMeta)
   md.block.ruler.before("code", "table", parseBlockTable)
   md.inline.ruler.before("link", "meta", parseInlineMeta)
+  md.block.ruler.before("code", "note", parseBlockNote)
   md.inline.ruler.at("text", newText)
   md.inline.ruler.before("strikethrough", "index_term", parseIndexTerm)
 }

@@ -1,14 +1,14 @@
 {{meta {load_files: ["code/chapter/19_paint.js"], zip: "html", include: ["css/paint.css"]}}}
 
-# Proyecto: Editor de Arte Pixelado
+# Proyecto: Editor de Píxel Art
 
-{{quote {author: "Joan Miro", chapter: true}
+{{quote {author: "Joan Miró", chapter: true}
 
-Observo los muchos colores ante mí. Observo mi lienzo en blanco. Luego, intento aplicar colores como palabras que conforman poemas, como notas que conforman música.
+Observo todos los colores que tengo ante mí. Observo mi lienzo en blanco. Luego, intento aplicar colores como palabras que conforman poemas, como notas que conforman música.
 
 quote}}
 
-{{index "Miro, Joan", "ejemplo de programa de dibujo", "capítulo del proyecto"}}
+{{index "Miró, Joan", "ejemplo de programa de dibujo", "capítulo de proyecto"}}
 
 {{figure {url: "img/chapter_picture_19.jpg", alt: "Ilustración que muestra un mosaico de baldosas negras, con tarros de otras baldosas junto a él", chapter: "framed"}}}
 
@@ -18,7 +18,7 @@ El material de los capítulos anteriores te brinda todos los elementos que neces
 
 Nuestra ((aplicación)) será un programa de ((dibujo)) de pixeles, donde puedes modificar una imagen píxel por píxel manipulando una vista ampliada de la misma, mostrada como una rejilla de cuadros de colores. Puedes utilizar el programa para abrir archivos de imagen, garabatear en ellos con tu ratón u otro dispositivo señalador, y guardarlos. Así es cómo se verá:
 
-{{figure {url: "img/pixel_editor.png", alt: "Captura de pantalla de la interfaz del editor de píxeles, con una rejilla de píxeles de colores en la parte superior y una serie de controles, en forma de campos y botones HTML, debajo de eso", width: "8cm"}}}
+{{figure {url: "img/pixel_editor.png", alt: "Captura de pantalla de la interfaz del editor de píxeles, con una rejilla de píxeles de colores en la parte superior y una serie de controles, en forma de campos y botones HTML, debajo", width: "8cm"}}}
 
 Pintar en una computadora es genial. No necesitas preocuparte por materiales, ((habilidad)) o talento. Simplemente comienzas a manchar y ves hacia dónde llegas.
 
@@ -36,7 +36,7 @@ Estructuraremos la interfaz del editor como un conjunto de _((componente))s_, ob
 
 El estado de la aplicación consiste en la imagen actual, la herramienta seleccionada y el color seleccionado. Organizaremos las cosas de manera que el estado resida en un único valor, y los componentes de la interfaz siempre se basen en el estado actual para verse.
 
-Para entender por qué esto es importante, consideremos la alternativa: distribuir piezas de estado a lo largo de la interfaz. Hasta cierto punto, esto es más fácil de programar. Podemos simplemente agregar un ((campo de color)) y leer su valor cuando necesitemos saber el color actual.
+Para entender por qué esto es importante, consideremos la otra alternativa: distribuir partes de estado a lo largo de la interfaz. Hasta cierto punto, esto es más fácil de programar. Podemos simplemente agregar un ((campo de color)) y leer su valor cuando necesitemos saber el color actual.
 
 Pero luego agregamos el ((selector de colores)) —una herramienta que te permite hacer clic en la imagen para seleccionar el color de un píxel determinado. Para mantener el campo de color mostrando el color correcto, esa herramienta tendría que saber que el campo de color existe y actualizarlo cada vez que elige un nuevo color. Si alguna vez añades otro lugar que muestre el color (quizás el cursor del ratón podría mostrarlo), tendrías que actualizar tu código de cambio de color para mantener eso sincronizado también.
 
@@ -44,15 +44,15 @@ Pero luego agregamos el ((selector de colores)) —una herramienta que te permit
 
 De hecho, esto crea un problema en el que cada parte de la interfaz necesita saber acerca de todas las demás partes, lo cual no es muy modular. Para aplicaciones pequeñas como la de este capítulo, eso puede no ser un problema. Para proyectos más grandes, puede convertirse en una verdadera pesadilla.
 
-Para evitar esta pesadilla en principio, vamos a ser estrictos acerca del _((flujo de datos))_. Hay un estado, y la interfaz se dibuja basada en ese estado. Un componente de la interfaz puede responder a las acciones del usuario actualizando el estado, momento en el cual los componentes tienen la oportunidad de sincronizarse con este nuevo estado.
+Para evitar esta pesadilla de entrada, vamos a ser estrictos acerca del _((flujo de datos))_. Hay un estado, y la interfaz se dibuja en base a ese estado. Un componente de la interfaz puede responder a las acciones del usuario actualizando el estado, momento en el cual los componentes tienen la oportunidad de sincronizarse con este nuevo estado.
 
 {{index biblioteca, marco de trabajo}}
 
-En la práctica, cada ((componente)) se configura para que, cuando reciba un nuevo estado, también notifique a sus componentes hijos, en la medida en que estos necesiten ser actualizados. Configurar esto es un poco tedioso. Hacer que esto sea más conveniente es el principal punto de venta de muchas bibliotecas de programación para el navegador. Pero para una aplicación pequeña como esta, podemos hacerlo sin dicha infraestructura.
+En la práctica, cada ((componente)) se configura para que, cuando reciba un nuevo estado, también notifique a sus componentes hijos, en la medida en que estos necesiten ser actualizados. Configurar esto es un poco tedioso. Hacer que esto sea más cómodo es el principal atractivo de muchas bibliotecas de programación para el navegador. Pero para una aplicación pequeña como esta, podemos hacerlo sin dicha infraestructura.
 
 {{index [estado, transiciones]}}
 
-Las actualizaciones al estado se representan como objetos, a los que llamaremos _((acciones))_. Los componentes pueden crear tales acciones y _((despachar))_ (enviarlos) a una función central de gestión de estado. Esa función calcula el próximo estado, tras lo cual los componentes de la interfaz se actualizan a este nuevo estado.
+Las actualizaciones al estado se representan como objetos, a los que llamaremos _((acciones))_. Los componentes pueden crear tales acciones y _((despachar))_los (enviarlos) a una función central de gestión de estado. Esa función calcula el próximo estado, tras lo cual los componentes de la interfaz se actualizan a este nuevo estado.
 
 {{index [DOM, componentes]}}
 
@@ -64,7 +64,7 @@ Hay _muchas_ variantes de este enfoque, cada una con sus propios beneficios y pr
 
 {{index "propiedad dom", [interfaz, objeto]}}
 
-Nuestros ((componente))s serán ((clases)) que cumplan con una interfaz. Su constructor recibe un estado, que puede ser el estado de toda la aplicación o algún valor más pequeño si no necesita acceso a todo, y lo utiliza para construir una propiedad `dom`. Este es el elemento DOM que representa el componente. La mayoría de los constructores también tomarán otros valores que no cambiarán con el tiempo, como la función que pueden utilizar para ((despachar)) una acción.
+Nuestros ((componente))s serán ((clases)) que cumplan con una interfaz. Su constructor recibe un estado, que puede ser el estado de toda la aplicación o algún valor más pequeño si no necesita acceso a todo, y lo utiliza para construir una propiedad `dom`. Este es el elemento del DOM que representa el componente. La mayoría de los constructores también tomarán otros valores que no cambiarán con el tiempo, como la función que pueden utilizar para ((despachar)) una acción.
 
 {{index "método syncState"}}
 
@@ -102,7 +102,7 @@ class Picture {
 
 {{index "side effect", "persistent data structure"}}
 
-Queremos poder tratar una imagen como un valor ((inmutable)) por razones que revisaremos más adelante en el capítulo. Pero a veces necesitamos actualizar todo un conjunto de píxeles a la vez. Para poder hacerlo, la clase tiene un método `draw` que espera un array de píxeles actualizados, objetos con propiedades `x`, `y` y `color`, y crea una nueva imagen con esos píxeles sobrescritos. Este método utiliza `slice` sin argumentos para copiar todo el array de píxeles - el inicio de la rebanada predetermina a 0, y el final predetermina a la longitud del array.
+Queremos poder tratar una imagen como un valor ((inmutable)) por razones que revisaremos más adelante en el capítulo. Pero a veces necesitamos actualizar todo un conjunto de píxeles a la vez. Para poder hacerlo, la clase tiene un método `draw` que espera un array de píxeles actualizados, objetos con propiedades `x`, `y` y `color`, y crea una nueva imagen con esos píxeles sobrescritos. Este método utiliza `slice` sin argumentos para copiar todo el array de píxeles - el inicio de este corte está predeterminado a 0, y el final está predeterminado a la longitud del array.
 
 {{index "Array constructor", "fill method", ["length property", "for array"], [array, creation]}}
 
@@ -110,7 +110,7 @@ El método `empty` utiliza dos funcionalidades de array que no hemos visto antes
 
 {{index "número hexadecimal", "componente de color", "campo de color", "propiedad fillStyle"}}
 
-Los colores se almacenan como cadenas que contienen códigos de colores CSS tradicionales compuestos por un ((signo de almohadilla)) (`#`) seguido de seis dígitos hexadecimales (base-16) - dos para el componente ((rojo)), dos para el componente ((verde)) y dos para el componente ((azul)). Esta es una forma algo críptica e incómoda de escribir colores, pero es el formato que utiliza el campo de entrada de color HTML, y se puede usar en la propiedad `fillStyle` de un contexto de dibujo de lienzo, por lo que para las formas en que usaremos colores en este programa, es lo bastante práctico.
+Los colores se almacenan como cadenas que contienen códigos de colores CSS tradicionales, compuestos por un ((signo de almohadilla)) (`#`) seguido de seis dígitos hexadecimales (base-16) - dos para el componente ((rojo)), dos para el componente ((verde)) y dos para el componente ((azul)). Esta es una forma algo críptica e incómoda de escribir colores, pero es el formato que utiliza el campo de entrada de color HTML, y se puede usar en la propiedad `fillStyle` de un contexto de dibujo de lienzo, por lo que para las formas en que vamos a usar colores en este programa, es lo suficientemente práctico.
 
 {{index negro}}
 
@@ -130,13 +130,13 @@ function updateState(state, action) {
 
 {{index "punto"}}
 
-Este patrón, en el que el operador de ((spread)) de objetos se utiliza primero para agregar las propiedades de un objeto existente y luego para anular algunas de ellas, es común en el código de JavaScript que utiliza objetos ((inmutables)).
+Este patrón, en el que el operador de ((expansión)) de objetos se utiliza primero para agregar las propiedades de un objeto existente y luego para anular algunas de ellas, es común en el código de JavaScript que utiliza objetos ((inmutables)).
 
 ## Construcción del DOM
 
 {{index "método `createElement`", "función `elt`", [DOM, "construcción"]}}
 
-Una de las principales funciones que cumplen los componentes de la interfaz es crear una estructura DOM. Nuevamente, no queremos utilizar directamente los métodos verbosos del DOM para eso, así que aquí tienes una versión ligeramente ampliada de la función `elt`:
+Una de las principales funciones que cumplen los componentes de la interfaz es crear una estructura DOM. De nuevo, no queremos utilizar directamente los métodos verbosos del DOM para eso, así que aquí tienes una versión ligeramente ampliada de la función `elt`:
 
 ```{includeCode: true}
 function elt(type, props, ...children) {
@@ -152,7 +152,7 @@ function elt(type, props, ...children) {
 
 {{index "método `setAttribute`", "atributo", "propiedad `onclick`", "evento de clic", "manejo de eventos"}}
 
-La diferencia principal entre esta versión y la que usamos en el [Capítulo ?](game#domdisplay) es que asigna _propiedades_ a los nodos del DOM, no _atributos_. Esto significa que no podemos usarlo para establecer atributos arbitrarios, pero _sí_ podemos usarlo para configurar propiedades cuyo valor no es una cadena, como `onclick`, que se puede establecer como una función para registrar un controlador de eventos de clic.
+La diferencia principal entre esta versión y la que usamos en el [Capítulo ?](game#domdisplay) es que esta asigna _propiedades_ a los nodos del DOM, no _atributos_. Esto significa que no podemos usarlo para establecer atributos arbitrarios, pero _sí_ podemos usarlo para configurar propiedades cuyo valor no es una cadena, como `onclick`, que se puede establecer como una función para registrar un controlador de eventos de clic.
 
 {{index "botón (etiqueta HTML)"}}
 
@@ -170,11 +170,11 @@ Esto permite este estilo conveniente para registrar manejadores de eventos:
 
 ## El lienzo
 
-El primer componente que definiremos es la parte de la interfaz que muestra la imagen como una cuadrícula de cuadros coloreados. Este componente es responsable de dos cosas: mostrar una imagen y comunicar ((evento de puntero))s en esa imagen al resto de la aplicación.
+El primer componente que definiremos es la parte de la interfaz que muestra la imagen como una cuadrícula de cuadros coloreados. Este componente es responsable de dos cosas: mostrar una imagen y comunicar ((eventos de puntero)) en esa imagen al resto de la aplicación.
 
 {{index "clase `PictureCanvas`", "función de devolución de llamada", "constante `scale`", "lienzo (etiqueta HTML)", "evento de mousedown", "evento de touchstart", [estado, "de la aplicación"]}}
 
-Como tal, podemos definirlo como un componente que solo conoce la imagen actual, no todo el estado de la aplicación. Dado que no sabe cómo funciona la aplicación en su totalidad, no puede despachar ((acción))es directamente. Más bien, al responder a eventos de puntero, llama a una función de devolución de llamada proporcionada por el código que lo creó, que se encargará de las partes específicas de la aplicación.
+Como tal, podemos definirlo como un componente que solo conoce la imagen actual, no todo el estado de la aplicación. Como no sabe cómo funciona la aplicación en su totalidad, no puede despachar ((acción))es directamente. Más bien, al responder a eventos de puntero, llama a una función de callback proporcionada por el código que lo creó, que se encargará de las partes específicas de la aplicación.
 
 ```{includeCode: true}
 const scale = 10;
@@ -285,9 +285,9 @@ Para eventos táctiles, `clientX` y `clientY` no están disponibles directamente
 
 ## La aplicación
 
-Para hacer posible construir la aplicación pieza por pieza, implementaremos el componente principal como una cáscara alrededor de un lienzo de imagen y un conjunto dinámico de ((tool))s y ((control))s que pasamos a su constructor.
+Para hacer posible construir la aplicación pieza por pieza, implementaremos el componente principal como una cáscara alrededor de un lienzo de imagen y un conjunto dinámico de ((herramienta))s y ((control))es que pasamos a su constructor.
 
-Los _controles_ son los elementos de interfaz que aparecen debajo de la imagen. Se proporcionarán como un array de constructores de ((component)).
+Los _controles_ son los elementos de la interfaz que aparecen debajo de la imagen. Se proporcionarán como un array de constructores de ((component))es.
 
 {{index "br (etiqueta HTML)", "flood fill", "select (etiqueta HTML)", "PixelEditor clase", dispatch}}
 
@@ -322,7 +322,7 @@ El manejador de puntero dado a `PictureCanvas` llama a la herramienta actualment
 
 {{index "reduce method", "map method", [whitespace, "in HTML"], "syncState method"}}
 
-Todos los controles se construyen y almacenan en `this.controls` para que puedan actualizarse cuando cambie el estado de la aplicación. La llamada a `reduce` introduce espacios entre los elementos DOM de los controles. De esa manera, no se ven tan juntos.
+Todos los controles se construyen y almacenan en `this.controls` para que puedan actualizarse cuando cambie el estado de la aplicación. La llamada a `reduce` introduce espacios entre los elementos del DOM de los controles. De esa manera, no se ven tan juntos.
 
 {{index "select (etiqueta HTML)", "change event", "ToolSelect clase", "syncState method"}}
 
@@ -352,7 +352,7 @@ También necesitamos poder cambiar el color, así que agreguemos un control para
 
 {{if book
 
-Dependiendo del navegador, el selector de color puede lucir así:
+Dependiendo del navegador, el selector de color puede tener un aspecto como este:
 
 {{figure {url: "img/color-field.png", alt: "Captura de pantalla del campo de color", width: "6cm"}}}
 
@@ -382,7 +382,7 @@ Antes de poder dibujar algo, necesitamos implementar las ((herramienta))s que co
 
 {{index "función de dibujo"}}
 
-La herramienta más básica es la herramienta de dibujo, que cambia cualquier ((píxel)) en el que hagas clic o toques al color seleccionado actualmente. Envía una acción que actualiza la imagen a una versión en la que el píxel señalado recibe el color seleccionado actualmente.
+La herramienta más básica es la herramienta de dibujo, que cambia el colo de cualquier ((píxel)) en el que hagas clic o toques al color seleccionado actualmente. Envía una acción que actualiza la imagen a una versión en la que el píxel señalado recibe el color seleccionado actualmente.
 
 ```{includeCode: true}
 function draw(pos, state, dispatch) {
@@ -434,26 +434,26 @@ Implementar el ((relleno por inundación)) es algo más complejo. Se trata de un
 Curiosamente, la forma en que lo haremos se parece un poco al código de ((búsqueda de caminos)) del [Capítulo ?](robot). Mientras que ese código buscaba a través de un grafo para encontrar una ruta, este código busca a través de una cuadrícula para encontrar todos los píxeles "conectados". El problema de llevar un conjunto ramificado de rutas posibles es similar.
 
 ```{includeCode: true}
-const alrededor = [{dx: -1, dy: 0}, {dx: 1, dy: 0},
+const around = [{dx: -1, dy: 0}, {dx: 1, dy: 0},
                 {dx: 0, dy: -1}, {dx: 0, dy: 1}];
 
-function rellenar({x, y}, estado, despachar) {
-  let colorObjetivo = estado.imagen.pixel(x, y);
-  let dibujados = [{x, y, color: estado.color}];
-  let visitados = new Set();
-  for (let hecho = 0; hecho < dibujados.length; hecho++) {
-    for (let {dx, dy} of alrededor) {
-      let x = dibujados[hecho].x + dx, y = dibujados[hecho].y + dy;
-      if (x >= 0 && x < estado.imagen.ancho &&
-          y >= 0 && y < estado.imagen.alto &&
-          !visitados.has(x + "," + y) &&
-          estado.imagen.pixel(x, y) == colorObjetivo) {
-        dibujados.push({x, y, color: estado.color});
-        visitados.add(x + "," + y);
+function fill({x, y}, state, dispatch) {
+  let targetColor = state.picture.pixel(x, y);
+  let drawn = [{x, y, color: state.color}];
+  let visited = new Set();
+  for (let done = 0; done < drawn.length; done++) {
+    for (let {dx, dy} of around) {
+      let x = drawn[done].x + dx, y = drawn[done].y + dy;
+      if (x >= 0 && x < state.picture.width &&
+          y >= 0 && y < state.picture.height &&
+          !visited.has(x + "," + y) &&
+          state.picture.pixel(x, y) == targetColor) {
+        drawn.push({x, y, color: state.color});
+        visited.add(x + "," + y);
       }
     }
   }
-  despachar({imagen: estado.imagen.dibujar(dibujados)});
+  dispatch({picture: state.picture.draw(drawn)});
 }
 ```
 
@@ -464,12 +464,40 @@ El array de píxeles dibujados funciona como la ((lista de trabajo)) de la funci
 La última ((herramienta)) es un ((selector de color)), que te permite apuntar a un color en la imagen para usarlo como color de dibujo actual.
 
 ```{includeCode: true}
-function seleccionar(pos, estado, despachar) {
-  despachar({color: estado.imagen.pixel(pos.x, pos.y)});
+function pick(pos, state, dispatch) {
+  dispatch({color: state.picture.pixel(pos.x, pos.y)});
 }
-```## Guardar y cargar
+```
 
-Cuando hemos dibujado nuestra obra maestra, querríamos guardarla para más tarde. Deberíamos añadir un botón para descargar la imagen actual como un archivo de imagen. Este control proporciona ese botón:
+{{if interactive
+
+¡Ahora podemos probar nuestra aplicación!
+
+```{lang: html}
+<div></div>
+<script>
+  let state = {
+    tool: "draw",
+    color: "#000000",
+    picture: Picture.empty(60, 30, "#f0f0f0")
+  };
+  let app = new PixelEditor(state, {
+    tools: {draw, fill, rectangle, pick},
+    controls: [ToolSelect, ColorSelect],
+    dispatch(action) {
+      state = updateState(state, action);
+      app.syncState(state);
+    }
+  });
+  document.querySelector("div").appendChild(app.dom);
+</script>
+```
+
+if}}
+
+## Guardar y cargar
+
+Una vez dibujada nuestra obra maestra, querríamos guardarla para más tarde. Deberíamos añadir un botón para descargar la imagen actual como un archivo de imagen. Este control proporciona ese botón:
 
 ```{includeCode: true}
 class SaveButton {
@@ -578,7 +606,7 @@ La propiedad `data` del objeto devuelto por `getImageData` es un array de compon
 
 Los dos dígitos hexadecimales por componente, como se usa en nuestra notación de color, corresponden precisamente al rango del 0 al 255: dos dígitos en base 16 pueden expresar 16^2^ = 256 números diferentes. El método `toString` de los números puede recibir como argumento una base, por lo que `n.toString(16)` producirá una representación en cadena en base 16. Debemos asegurarnos de que cada número tenga dos dígitos, por lo que la función auxiliar `hex` llama a `padStart` para agregar un cero inicial cuando sea necesario.
 
-¡Ya podemos cargar y guardar! Eso deja una característica más antes de que hayamos terminado.
+¡Ya podemos cargar y guardar! Eso significa que solo nos queda una característica más antes de que hayamos terminado.
 
 ## Historial de deshacer
 
@@ -586,11 +614,11 @@ La mitad del proceso de edición consiste en cometer pequeños errores y corregi
 
 {{index "estructura de datos persistente", [estado, "de la aplicación"]}}
 
-Para poder deshacer cambios, necesitamos almacenar versiones anteriores de la imagen. Dado que es un valor ((inmutable)), eso es fácil. Pero sí requiere un campo adicional en el estado de la aplicación.
+Para poder deshacer cambios, necesitamos almacenar versiones anteriores de la imagen. Como es un valor ((inmutable)), eso es fácil. Pero sí requiere un campo adicional en el estado de la aplicación.
 
 {{index "propiedad done"}}
 
-Agregaremos una matriz `done` para mantener versiones anteriores de la ((imagen)). Mantener esta propiedad requiere una función de actualización de estado más complicada que añade imágenes a la matriz.
+Agregaremos una matriz `done` para mantener versiones anteriores de la ((imagen)). Mantener esta propiedad requiere una función de actualización de estado más complicada que añade imágenes al array.
 
 {{index "propiedad doneAt", "función historyUpdateState", "función Date.now"}}
 
@@ -644,11 +672,11 @@ class UndoButton {
 }
 ```
 
-## Vamos a dibujar
+## Dibujemos
 
 {{index "clase PixelEditor", "constante startState", "constante baseTools", "constante baseControls", "función startPixelEditor"}}
 
-Para configurar la aplicación, necesitamos crear un estado, un conjunto de ((herramienta))s, un conjunto de ((control))es y una función ((despachar)). Podemos pasarlos al constructor `PixelEditor` para crear el componente principal. Dado que necesitaremos crear varios editores en los ejercicios, primero definimos algunos enlaces.
+Para configurar la aplicación, necesitamos crear un estado, un conjunto de ((herramienta))s, un conjunto de ((control))es y una función ((despachar)). Podemos pasarlos al constructor `PixelEditor` para crear el componente principal. Dado que necesitaremos crear varios editores en los ejercicios, primero definimos algunas variables.
 
 ```{includeCode: true}
 const startState = {
@@ -682,7 +710,9 @@ function startPixelEditor({state = startState,
 
 {{index "enlaces destructurantes", "operador =", [propiedad, acceso]}}
 
-Cuando desestructuras un objeto o un array, puedes usar `=` después de un nombre de enlace para darle al enlace un ((valor predeterminado)), que se usa cuando la propiedad está ausente o tiene `undefined`. La función `startPixelEditor` hace uso de esto para aceptar un objeto con varias propiedades opcionales como argumento. Si, por ejemplo, no proporcionas una propiedad `tools`, entonces `tools` estará vinculado a `baseTools`.Así es como obtenemos un editor real en la pantalla:
+Cuando desestructuras un objeto o un array, puedes usar `=` después de un nombre de variable para darle a la variable un ((valor predeterminado)), que se usa cuando la propiedad está ausente o tiene el valor `undefined`. La función `startPixelEditor` hace uso de esto para aceptar un objeto con varias propiedades opcionales como argumento. Si, por ejemplo, no proporcionas una propiedad `tools`, entonces `tools` estará vinculado a `baseTools`.
+
+Así es como obtenemos un editor real en la pantalla:
 
 ```{lang: html, startCode: true}
 <div></div>
@@ -694,7 +724,7 @@ Cuando desestructuras un objeto o un array, puedes usar `=` después de un nombr
 
 {{if interactive
 
-Adelante y dibuja algo.
+Adelante, ¡dibuja algo!
 
 if}}
 
@@ -702,7 +732,7 @@ if}}
 
 La tecnología del navegador es asombrosa. Proporciona un poderoso conjunto de bloques de construcción de interfaz, formas de diseñar y manipularlos, y herramientas para inspeccionar y depurar tus aplicaciones. El software que escribes para el ((navegador)) puede ejecutarse en casi todas las computadoras y teléfonos del planeta.
 
-Al mismo tiempo, la tecnología del navegador es ridícula. Tienes que aprender una gran cantidad de trucos tontos y hechos oscuros para dominarla, y el modelo de programación predeterminado que ofrece es tan problemático que la mayoría de los programadores prefieren cubrirlo con varias capas de ((abstracción)) en lugar de lidiar con él directamente.
+Al mismo tiempo, la tecnología del navegador es ridícula. Tienes que aprender una gran cantidad de trucos estúpidos para dominarla, y el modelo de programación predeterminado que ofrece es tan problemático que la mayoría de los programadores prefieren cubrirlo con varias capas de ((abstracción)) en lugar de lidiar con él directamente.
 
 {{index "estándar", "evolución"}}
 
@@ -712,7 +742,7 @@ Y aunque la situación definitivamente está mejorando, en su mayoría lo hace e
 
 La tecnología nunca existe en un vacío; estamos limitados por nuestras herramientas y los factores sociales, económicos e históricos que las produjeron. Esto puede ser molesto, pero generalmente es más productivo tratar de construir una buena comprensión de cómo funciona la realidad técnica _existente_ y por qué es como es, que luchar contra ella o esperar otra realidad.
 
-Nuevas ((abstracciones)) _pueden_ ser útiles. El modelo de componente y la convención de flujo de ((datos)) que utilicé en este capítulo es una forma rudimentaria de eso. Como se mencionó, hay bibliotecas que intentan hacer la programación de interfaces de usuario más agradable. En el momento de escribir esto, [React](https://reactjs.org/) y [Svelte](https://svelte.dev/) son opciones populares, pero hay toda una industria de tales marcos. Si estás interesado en programar aplicaciones web, recomiendo investigar algunos de ellos para comprender cómo funcionan y qué beneficios proporcionan.
+Nuevas ((abstracciones)) _pueden_ resultar útiles. El modelo de componente y la convención de flujo de ((datos)) que utilicé en este capítulo es una forma rudimentaria de eso. Como se mencionó, hay bibliotecas que intentan hacer la programación de interfaces de usuario más agradable. En el momento de escribir esto, [React](https://reactjs.org/) y [Svelte](https://svelte.dev/) son opciones populares, pero hay toda una industria de tales _frameworks_. Si estás interesado en programar aplicaciones web, recomiendo investigar algunos de ellos para comprender cómo funcionan y qué beneficios proporcionan.
 
 ## Ejercicios
 
@@ -782,7 +812,7 @@ Un controlador `"keydown"` puede inspeccionar su objeto de evento para ver si co
 
 {{index "método preventDefault"}}
 
-Cuando el evento de tecla coincide con un atajo, llama a `preventDefault` en él y ((dispatch)) la acción apropiada.
+Cuando el evento de tecla coincide con un atajo, llama a `preventDefault` en él y haz ((dispatch)) con la acción apropiada.
 
 hint}}
 
@@ -881,7 +911,7 @@ if}}
 
 {{index "círculos (ejercicio)", "función rectángulo"}}
 
-Puedes inspirarte en la herramienta `rectangle`. Como esa herramienta, querrás seguir dibujando en la imagen _inicial_, en lugar de la imagen actual, cuando el puntero se mueva.
+Puedes inspirarte en la herramienta `rectangle`. Como con esa herramienta, tendrás seguir dibujando en la imagen _inicial_, en lugar de la imagen actual, cuando el puntero se mueva.
 
 Para averiguar qué píxeles colorear, puedes usar el ((teorema de Pitágoras)). Primero averigua la distancia entre la posición actual del puntero y la posición de inicio tomando la raíz cuadrada (`Math.sqrt`) de la suma del cuadrado (`x ** 2`) de la diferencia en las coordenadas x y el cuadrado de la diferencia en las coordenadas y. Luego, recorre una cuadrícula de píxeles alrededor de la posición de inicio, cuyos lados tienen al menos el doble del ((radio)), y colorea aquellos que estén dentro del radio del círculo, nuevamente usando la fórmula pitagórica para averiguar la ((distancia)) desde el centro.
 
@@ -907,7 +937,7 @@ Una línea entre dos píxeles es una cadena conectada de píxeles, lo más recta
 
 {{figure {url: "img/line-grid.svg", alt: "Diagrama de dos líneas pixeladas, una clara, saltando píxeles diagonalmente, y otra más gruesa, con todos los píxeles conectados horizontal o verticalmente", width: "6cm"}}}
 
-Finalmente, si tenemos código que dibuja una línea entre dos puntos arbitrarios, podríamos usarlo también para definir una `herramienta` de `línea`, que dibuja una línea recta entre el inicio y el final de un arrastre.
+Finalmente, si tenemos código que dibuja una línea entre dos puntos arbitrarios, podríamos usar eso también para definir una `herramienta` de `línea`, que dibuja una línea recta entre el inicio y el final de un arrastre.
 
 {{if interactive
 
@@ -947,7 +977,7 @@ Pero tan pronto como tu pendiente cruce los 45 grados, necesitas cambiar la form
 
 No necesitas realmente escribir cuatro bucles. Dado que dibujar una línea de _A_ a _B_ es lo mismo que dibujar una línea de _B_ a _A_, puedes intercambiar las posiciones de inicio y fin para las líneas que van de derecha a izquierda y tratarlas como si fueran de izquierda a derecha.
 
-Por lo tanto, necesitas dos bucles diferentes. Lo primero que debería hacer tu función de dibujo de líneas es verificar si la diferencia entre las coordenadas x es mayor que la diferencia entre las coordenadas y. Si lo es, esta es una línea horizontal-ish y, si no, una línea vertical-ish.
+Por lo tanto, necesitas dos bucles diferentes. Lo primero que debería hacer tu función de dibujo de líneas es verificar si la diferencia entre las coordenadas x es mayor que la diferencia entre las coordenadas y. Si lo es, entonces se trata de una línea más bien tirando a horizontal y, si no, de una línea más bien tirando a vertical.
 
 {{index "Math.abs function", "valor absoluto"}}
 

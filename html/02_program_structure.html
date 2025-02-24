@@ -14,50 +14,53 @@
 
 <blockquote>
 
-<p><a class="p_ident" id="p-o/py/y446p" href="#p-o/py/y446p" tabindex="-1" role="presentation"></a>Y mi corazón brilla intensamente bajo mi piel diáfana y translúcida, y tienen que administrarme 10cc de JavaScript para hacerme volver. (Respondo bien a las toxinas en la sangre.) ¡Hombre, esa cosa sacará los melocotones de tus agallas!</p>
+<p><a class="p_ident" id="p-qP+4WumZIz" href="#p-qP+4WumZIz" tabindex="-1" role="presentation"></a>Y mi corazón brilla de color rojo intenso bajo mi diáfana y translúcida piel, y tienen que administrarme 10cc de JavaScript para traerme de vuelta. —Tolero bien las toxinas en la sangre. ¡Amigo, esa cosa sería capaz hasta de sacarte un melocotón atorado en las branquias!</p>
 
-<footer>_why, <cite>Guía (conmovedora) de Ruby de Why</cite></footer>
+<footer>_why, <cite>La (Conmovedora) Guía de Ruby de Why</cite></footer>
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_2.jpg" alt="Ilustración que muestra varios tentáculos sujetando piezas de ajedrez"></figure>
 
-<p><a class="p_ident" id="p-uqRM4ZM/cN" href="#p-uqRM4ZM/cN" tabindex="-1" role="presentation"></a>En este capítulo, comenzaremos a hacer cosas que realmente pueden ser llamadas <em>programación</em>. Ampliaremos nuestro dominio del lenguaje JavaScript más allá de los sustantivos y fragmentos de oraciones que hemos visto hasta ahora, hasta el punto en que podamos expresar prosa significativa.</p>
+<p><a class="p_ident" id="p-uqRM4ZM/cN" href="#p-uqRM4ZM/cN" tabindex="-1" role="presentation"></a>En este capítulo, vamos a empezar a hacer cosas que realmente podrían llamarse <em>programación</em>. Ampliaremos nuestro dominio del lenguaje JavaScript más allá de los sustantivos y fragmentos de oraciones que hemos visto hasta ahora, hasta el punto en que podamos expresar prosa significativa.</p>
 
 <h2><a class="h_ident" id="h-oqfl+ptPGG" href="#h-oqfl+ptPGG" tabindex="-1" role="presentation"></a>Expresiones y declaraciones</h2>
 
-<p><a class="p_ident" id="p-wp0fJOzSaK" href="#p-wp0fJOzSaK" tabindex="-1" role="presentation"></a>En el <a href="01_values.html">Capítulo 1</a> creamos valores y le aplicamos operadores para obtener nuevos valores. Crear valores de esta manera es la sustancia principal de cualquier programa JavaScript. Pero esa sustancia debe enmarcarse en una estructura más grande para ser útil. Eso es lo que cubriremos en este capítulo.</p>
+<p><a class="p_ident" id="p-wp0fJOzSaK" href="#p-wp0fJOzSaK" tabindex="-1" role="presentation"></a>En el <a href="01_values.html">Capítulo 1</a> hemos creado valores y les hemos aplicado operadores para obtener nuevos valores. Crear valores de esta manera es la esencia principal de cualquier programa de JavaScript. Pero esa esencia debe enmarcarse en una estructura más grande para ser de utilidad. Eso es lo que vamos a cubrir en este capítulo.</p>
 
-<p><a class="p_ident" id="p-3x4YDXd58+" href="#p-3x4YDXd58+" tabindex="-1" role="presentation"></a>Un fragmento de código que produce un valor se llama una <em>expresión</em>. Cada valor que está escrito literalmente (como <code>22</code> o <code>&quot;psicoanálisis&quot;</code>) es una expresión. Una expresión entre paréntesis también es una expresión, al igual que un operador binario aplicado a dos expresiones o un operador unario aplicado a uno.</p>
+<p><a class="p_ident" id="p-ZOiJ36tTUi" href="#p-ZOiJ36tTUi" tabindex="-1" role="presentation"></a>Un trozo de código que produce un valor se llama una <em>expresión</em>. Cada valor escrito literalmente (como <code>22</code> o <code>&quot;psicoanálisis&quot;</code>) es una expresión. Una expresión entre paréntesis también es una expresión, al igual que un operador binario aplicado a dos expresiones o un operador unario aplicado a una.</p>
 
-<p><a class="p_ident" id="p-UqOwwtmeFY" href="#p-UqOwwtmeFY" tabindex="-1" role="presentation"></a>Esto muestra parte de la belleza de una interfaz basada en un lenguaje. Las expresiones pueden contener otras expresiones de manera similar a cómo las oraciones están anidadas en el lenguaje humano: una oración puede contener sus propias oraciones y así sucesivamente. Esto nos permite construir expresiones que describen cálculos arbitrariamente complejos.</p>
+<p><a class="p_ident" id="p-UqOwwtmeFY" href="#p-UqOwwtmeFY" tabindex="-1" role="presentation"></a>Esto muestra parte de la belleza de una interfaz basada en un lenguaje. Las expresiones pueden contener otras expresiones de manera similar a cómo las oraciones están anidadas en el lenguaje humano —una oración puede contener sus propias oraciones y así sucesivamente. Esto nos permite construir expresiones que describen cálculos arbitrariamente complejos.</p>
 
-<p><a class="p_ident" id="p-ZVBoR+/oNP" href="#p-ZVBoR+/oNP" tabindex="-1" role="presentation"></a>Si una expresión corresponde a un fragmento de oración, una <em>declaración</em> de JavaScript corresponde a una oración completa. Un programa es una lista de declaraciones.</p>
+<p><a class="p_ident" id="p-ZVBoR+/oNP" href="#p-ZVBoR+/oNP" tabindex="-1" role="presentation"></a>Si una expresión corresponde a un fragmento de oración, una <em>declaración</em> (o sentencia, o instrucción) de JavaScript corresponde a una oración completa. Un programa es una lista de declaraciones.</p>
 
-<p><a class="p_ident" id="p-VEI0X64AX2" href="#p-VEI0X64AX2" tabindex="-1" role="presentation"></a>El tipo más simple de declaración es una expresión con un punto y coma al final. Este es un programa:</p>
+<p><a class="p_ident" id="p-VEI0X64AX2" href="#p-VEI0X64AX2" tabindex="-1" role="presentation"></a>El tipo más simple de declaración es una expresión con un punto y coma al final. Esto es un programa:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hjwmfcgDR0" href="#c-hjwmfcgDR0" tabindex="-1" role="presentation"></a><span class="tok-number">1</span>;
 !false;</pre>
 
-<p><a class="p_ident" id="p-tnSc/zEyIA" href="#p-tnSc/zEyIA" tabindex="-1" role="presentation"></a>Sin embargo, es un programa inútil. Una expresión puede conformarse con simplemente producir un valor, que luego puede ser utilizado por el código que la contiene. Sin embargo, una declaración se mantiene por sí misma, por lo que si no afecta al mundo, es inútil. Puede mostrar algo en la pantalla, como con <code>console.log</code>, o cambiar el estado de la máquina de una manera que afectará a las declaraciones que vienen después de ella. Estos cambios se llaman <em>efectos secundarios</em>. Las declaraciones en el ejemplo anterior simplemente producen los valores <code>1</code> y <code>verdadero</code>, y luego los desechan inmediatamente. Esto no deja ninguna impresión en el mundo en absoluto. Cuando ejecutas este programa no sucede nada observable.</p>
+<p><a class="p_ident" id="p-QL6KXOoBJm" href="#p-QL6KXOoBJm" tabindex="-1" role="presentation"></a>Aunque es un programa inútil. Una expresión puede conformarse con simplemente producir un valor, que luego podrá ser utilizado por el código que la contiene. Sin embargo, una declaración es autónoma, por lo que, si no afecta al mundo, es inútil. Puede mostrar algo en la pantalla, como con <code>console.log</code>, o cambiar el estado de la máquina de una manera que afectará a las declaraciones que vienen después de ella. Estos cambios se llaman <em>efectos secundarios</em>. Las declaraciones en el ejemplo anterior simplemente producen los valores <code>1</code> y <code>verdadero</code>, y luego los desecha inmediatamente. Esto no deja huella alguna en el mundo. Cuando ejecutas este programa no sucede nada observable.</p>
 
-<p><a class="p_ident" id="p-cfI3s2SImw" href="#p-cfI3s2SImw" tabindex="-1" role="presentation"></a>En algunos casos, JavaScript te permite omitir el punto y coma al final de una declaración. En otros casos, debe estar ahí, o la próxima línea se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a errores. Por lo tanto, en este libro, cada declaración que necesite un punto y coma siempre recibirá uno. Te recomiendo que hagas lo mismo, al menos hasta que hayas aprendido más sobre las sutilezas de la omisión del punto y coma.</p>
+<p><a class="p_ident" id="p-dbde+JAl0p" href="#p-dbde+JAl0p" tabindex="-1" role="presentation"></a>A veces, JavaScript te permite omitir el punto y coma al final de una declaración. Otras veces, debe estar ahí, o, si no, la próxima línea se tratará como parte de la misma declaración. Las reglas sobre cuándo se puede omitir de manera segura son algo complejas y propensas a causar errores. Por lo tanto, en este libro vamos a ponerle un punto y coma a cada declaración que lo necesite. Te recomiendo que hagas lo mismo, al menos hasta que aprendas más sobre las sutilezas que conlleva la omisión del punto y coma.</p>
 
 <h2><a class="h_ident" id="h-MCmlRffKOG" href="#h-MCmlRffKOG" tabindex="-1" role="presentation"></a>Enlaces</h2>
 
-<p><a class="p_ident" id="p-38bl8CNA5y" href="#p-38bl8CNA5y" tabindex="-1" role="presentation"></a>¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no cambia los valores antiguos, y el nuevo valor debe utilizarse inmediatamente o se disipará nuevamente. Para atrapar y retener valores, JavaScript proporciona una cosa llamada un <em>enlace</em>, o <em>variable</em>:</p>
+<p><a class="p_ident" id="p-38bl8CNA5y" href="#p-38bl8CNA5y" tabindex="-1" role="presentation"></a>¿Cómo mantiene un programa un estado interno? ¿Cómo recuerda las cosas? Hemos visto cómo producir nuevos valores a partir de valores antiguos, pero esto no modifica los valores originales. Además, el nuevo valor debe utilizarse inmediatamente o desaparecerá tan pronto aparezca. Para atrapar y retener valores, JavaScript nos da algo llamado <em>asociación</em>, o <em>enlace</em>, o <em>variable</em>:</p>
+
+<div class="translator-note"><p><strong>N. del T.:</strong> El uso de la palabra <strong>variable</strong> para denotar este concepto es muy común, aunque puede llegar a resultar confusa. En la versión original de este libro, el autor elige usar la palabra <strong>bind</strong> en lugar de <strong>variable</strong> para referirse a estas entidades. Nosotros haremos lo mismo utilizando la palabra <strong>asociación</strong>, aunque, en ocasiones, también se usará la palabra <strong>enlace</strong> o <strong>asignación</strong>. Rara vez usaremos la palabra <strong>variable</strong>, que se reservará en general para un tipo concreto de enlace. Veremos más sobre las diferencias entre cada tipo de asociación en este y el <a href="functions">siguiente capítulo</a></p>
+</div>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-aT9yLxdY/V" href="#c-aT9yLxdY/V" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">caught</span> = <span class="tok-number">5</span> * <span class="tok-number">5</span>;</pre>
 
-<p><a class="p_ident" id="p-X/x/ckvx7F" href="#p-X/x/ckvx7F" tabindex="-1" role="presentation"></a>Eso nos da un segundo tipo de declaración. La palabra clave (<em>keyword</em>) <code>let</code> indica que esta frase va a definir un enlace. Está seguida por el nombre del enlace y, si queremos darle inmediatamente un valor, por un operador <code>=</code> y una expresión.</p>
+<p><a class="p_ident" id="p-X/x/ckvx7F" href="#p-X/x/ckvx7F" tabindex="-1" role="presentation"></a>Eso nos da un segundo tipo de declaración. La palabra clave (<em>keyword</em>) <code>let</code> indica que esta frase va a definir una variable (o asociación). Está seguida por el nombre de la variable y, si queremos darle inmediatamente un valor, por un operador <code>=</code> y una expresión.</p>
 
-<p><a class="p_ident" id="p-dj86pp78/1" href="#p-dj86pp78/1" tabindex="-1" role="presentation"></a>El ejemplo crea un enlace llamado <code>caught</code> y lo utiliza para capturar el número que se produce al multiplicar 5 por 5.</p>
+<p><a class="p_ident" id="p-AT3mFhUtnW" href="#p-AT3mFhUtnW" tabindex="-1" role="presentation"></a>En el ejemplo se crea una asociación llamada <code>caught</code> y se utiliza para capturar el número que se produce al multiplicar 5 por 5.</p>
 
-<p><a class="p_ident" id="p-K3pByXEqHE" href="#p-K3pByXEqHE" tabindex="-1" role="presentation"></a>Después de que se haya definido un enlace, su nombre se puede usar como una expresión. El valor de esa expresión es el valor que el enlace mantiene actualmente. Aquí tienes un ejemplo:</p>
+<p><a class="p_ident" id="p-K3pByXEqHE" href="#p-K3pByXEqHE" tabindex="-1" role="presentation"></a>Después de que se haya definido una asociación, su nombre se puede usar como una expresión. El valor de esa expresión es el valor que la asociación guarda actualmente. Aquí tienes un ejemplo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FfLIqaoaFx" href="#c-FfLIqaoaFx" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">ten</span> = <span class="tok-number">10</span>;
 console.log(ten * ten);
 <span class="tok-comment">// → 100</span></pre>
 
-<p><a class="p_ident" id="p-AvjTHEDvCk" href="#p-AvjTHEDvCk" tabindex="-1" role="presentation"></a>Cuando un enlace apunta a un valor, eso no significa que esté atado a ese valor para siempre. El operador <code>=</code> se puede usar en cualquier momento en enlaces existentes para desconectarlos de su valor actual y hacer que apunten a uno nuevo:</p>
+<p><a class="p_ident" id="p-2GPt2tymia" href="#p-2GPt2tymia" tabindex="-1" role="presentation"></a>Cuando una asociación apunta a un valor, eso no significa que esté atada a ese valor para siempre. El operador <code>=</code> se puede usar en cualquier momento en asociaciones existentes para desconectarlas de su valor actual y hacer que apunten a uno nuevo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-FiZBrHz3CX" href="#c-FiZBrHz3CX" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">mood</span> = <span class="tok-string">&quot;light&quot;</span>;
 console.log(mood);
@@ -66,39 +69,39 @@ mood = <span class="tok-string">&quot;dark&quot;</span>;
 console.log(mood);
 <span class="tok-comment">// → dark</span></pre>
 
-<p><a class="p_ident" id="p-/t6Rp11+gu" href="#p-/t6Rp11+gu" tabindex="-1" role="presentation"></a>Debes imaginarte los enlaces como tentáculos en lugar de cajas. No <em>contienen</em> valores; los <em>agarran</em>—dos enlaces pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un nuevo tentáculo para agarrarlo o lo reconectas con uno de tus tentáculos existentes.</p>
+<p><a class="p_ident" id="p-F8iWo5Sq8i" href="#p-F8iWo5Sq8i" tabindex="-1" role="presentation"></a>Debes imaginarte las asociaciones como tentáculos más que como cajas. No <em>contienen</em> valores; los <em>agarran</em> —dos asociaciones pueden hacer referencia al mismo valor. Un programa solo puede acceder a los valores a los que todavía tiene una referencia. Cuando necesitas recordar algo, o bien haces crecer un nuevo tentáculo para agarrarlo o lo reconectas con uno de tus tentáculos existentes.</p>
 
-<p><a class="p_ident" id="p-rQptflTqgB" href="#p-rQptflTqgB" tabindex="-1" role="presentation"></a>Veamos otro ejemplo. Para recordar la cantidad de dólares que Luigi todavía te debe, creas un enlace. Cuando te paga $35, le das a este enlace un nuevo valor:</p>
+<p><a class="p_ident" id="p-rQptflTqgB" href="#p-rQptflTqgB" tabindex="-1" role="presentation"></a>Veamos otro ejemplo. Para recordar la cantidad de dólares que Luigi todavía te debe, creas una asociación. Cuando te paga $35, le das a esta asociación un nuevo valor:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-UpFQBNACng" href="#c-UpFQBNACng" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">luigisDebt</span> = <span class="tok-number">140</span>;
 luigisDebt = luigisDebt - <span class="tok-number">35</span>;
 console.log(luigisDebt);
 <span class="tok-comment">// → 105</span></pre>
 
-<p><a class="p_ident" id="p-kDETpjHlkv" href="#p-kDETpjHlkv" tabindex="-1" role="presentation"></a>Cuando defines un enlace sin darle un valor, el tentáculo no tiene nada que agarrar, por lo que termina en el aire. Si solicitas el valor de un enlace vacío, obtendrás el valor <code>undefined</code>.</p>
+<p><a class="p_ident" id="p-frevBaVx3D" href="#p-frevBaVx3D" tabindex="-1" role="presentation"></a>Cuando defines una asociación sin darle un valor, el tentáculo no tiene nada que agarrar, por lo que termina en el aire. Si solicitas el valor de un enlace vacío, obtendrás el valor <code>undefined</code>.</p>
 
-<p><a class="p_ident" id="p-i2sMZlYPHm" href="#p-i2sMZlYPHm" tabindex="-1" role="presentation"></a>Una sola instrucción <code>let</code> puede definir múltiples enlaces. Las definiciones deben estar separadas por comas:</p>
+<p><a class="p_ident" id="p-i2sMZlYPHm" href="#p-i2sMZlYPHm" tabindex="-1" role="presentation"></a>Una sola instrucción <code>let</code> puede definir múltiples asociaciones. Las definiciones deben estar separadas por comas:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-pT4pqev8kx" href="#c-pT4pqev8kx" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">one</span> = <span class="tok-number">1</span>, <span class="tok-definition">two</span> = <span class="tok-number">2</span>;
 console.log(one + two);
 <span class="tok-comment">// → 3</span></pre>
 
-<p><a class="p_ident" id="p-/pFwdGuv9j" href="#p-/pFwdGuv9j" tabindex="-1" role="presentation"></a>Las palabras <code>var</code> y <code>const</code> también se pueden usar para crear enlaces, de manera similar a <code>let</code>:</p>
+<p><a class="p_ident" id="p-8J5hlJwJL/" href="#p-8J5hlJwJL/" tabindex="-1" role="presentation"></a>Las palabras <code>var</code> y <code>const</code> también se pueden usar para crear asociaciones de manera similar a como lo hace <code>let</code>:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-MMmzlomlXC" href="#c-MMmzlomlXC" tabindex="-1" role="presentation"></a><span class="tok-keyword">var</span> <span class="tok-definition">name</span> = <span class="tok-string">&quot;Ayda&quot;</span>;
 <span class="tok-keyword">const</span> <span class="tok-definition">greeting</span> = <span class="tok-string">&quot;Hola &quot;</span>;
 console.log(greeting + name);
 <span class="tok-comment">// → Hola Ayda</span></pre>
 
-<p><a class="p_ident" id="p-MRfMa48ppd" href="#p-MRfMa48ppd" tabindex="-1" role="presentation"></a>La primera de estas, <code>var</code> (abreviatura de “variable”), es la forma en que se declaraban los enlaces en JavaScript anterior a 2015, cuando aún no existía <code>let</code>. Volveré a la forma precisa en que difiere de <code>let</code> en el <a href="03_functions.html">próximo capítulo</a>. Por ahora, recuerda que en su mayoría hace lo mismo, pero rara vez lo usaremos en este libro porque se comporta de manera extraña en algunas situaciones.</p>
+<p><a class="p_ident" id="p-MRfMa48ppd" href="#p-MRfMa48ppd" tabindex="-1" role="presentation"></a>La primera de estas, <code>var</code> (abreviatura de “variable”), es la forma en que se declaraban las asociaciones en JavaScript anterior a 2015, cuando aún no existía <code>let</code>. Veremos la forma precisa en que difiere de <code>let</code> en el <a href="03_functions.html">próximo capítulo</a>. Por ahora, recuerda que en su mayoría hace lo mismo, pero rara vez la usaremos en este libro porque se comporta de manera extraña en algunas situaciones.</p>
 
-<p><a class="p_ident" id="p-pY2LGjYZbd" href="#p-pY2LGjYZbd" tabindex="-1" role="presentation"></a>La palabra <code>const</code> significa <em>constante</em>. Define un enlace constante, que apunta al mismo valor mientras exista. Esto es útil para enlaces que solo dan un nombre a un valor para poder referirse fácilmente a él más tarde.</p>
+<p><a class="p_ident" id="p-De7FCWnS3+" href="#p-De7FCWnS3+" tabindex="-1" role="presentation"></a>La palabra <code>const</code> significa <em>constante</em>. Define una asociación constante, que apunta al mismo valor mientras exista. Esto es útil para asociaciones que solo dan un nombre a un valor de manera que más tarde puedas referirte fácilmente a él.</p>
 
 <h2><a class="h_ident" id="h-FHPw62JANA" href="#h-FHPw62JANA" tabindex="-1" role="presentation"></a>Nombres de enlaces</h2>
 
-<p><a class="p_ident" id="p-abUAVwO7KN" href="#p-abUAVwO7KN" tabindex="-1" role="presentation"></a>Los nombres de enlaces pueden ser cualquier secuencia de una o más letras. Los dígitos pueden formar parte de los nombres de enlaces, <code>catch22</code> es un nombre válido, por ejemplo, pero el nombre no puede empezar con un dígito. Un nombre de enlace puede incluir signos de dólar (<code>$</code>) o subrayados (<code>_</code>), pero no otros signos de puntuación o caracteres especiales.</p>
+<p><a class="p_ident" id="p-zmdNm4zBdm" href="#p-zmdNm4zBdm" tabindex="-1" role="presentation"></a>Los nombres de asociaciones o enlaces pueden ser cualquier secuencia de una o más letras. Podemos incluir dígitos como parte del nombre de un enlace —<code>catch22</code> es un nombre válido, por ejemplo—, siempre y cuando el nombre no empiece por uno de ellos. Un nombre de enlace puede incluir signos de dólar (<code>$</code>) o subrayados (<code>_</code>), pero ningún otro carácter especial o signo de puntuación.</p>
 
-<p><a class="p_ident" id="p-jVZGDp93c2" href="#p-jVZGDp93c2" tabindex="-1" role="presentation"></a>Palabras con un significado especial, como <code>let</code>, son <em>palabra clave</em>, y no pueden ser usadas como nombres de enlaces. También hay una serie de palabras que están “reservadas para su uso” en futuras versiones de JavaScript, las cuales tampoco se pueden usar como nombres de enlaces. La lista completa de palabras clave y palabras reservadas es bastante larga:</p>
+<p><a class="p_ident" id="p-twMqL1Xqqf" href="#p-twMqL1Xqqf" tabindex="-1" role="presentation"></a>Cualquier palabra con un significado especial, como <code>let</code>, es una <em>palabra clave</em>, y no puede ser usada como nombre de una asociación. También hay una serie de palabras que están “reservadas para su uso” en futuras versiones de JavaScript, las cuales tampoco se pueden usar como nombres de asociaciones. La lista completa de palabras clave y palabras reservadas es bastante larga:</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-7BGolnv7qC" href="#c-7BGolnv7qC" tabindex="-1" role="presentation"></a>break case catch class const continue debugger default
 delete do else enum export extends false finally for
@@ -106,25 +109,25 @@ function if implements import interface in instanceof let
 new package private protected public return static super
 switch this throw true try typeof var void while with yield</pre>
 
-<p><a class="p_ident" id="p-4lYOwB49B4" href="#p-4lYOwB49B4" tabindex="-1" role="presentation"></a>No te preocupes por memorizar esta lista. Cuando al crear un enlace se produce un error de sintaxis inesperado, verifica si estás intentando definir una palabra reservada.</p>
+<p><a class="p_ident" id="p-X1tpMP4uiz" href="#p-X1tpMP4uiz" tabindex="-1" role="presentation"></a>No te entretengas en memorizar esta lista. Simplemente, cuando al crear una asociación se produzca un error de sintaxis inesperado, comprueba si estás intentando definir una palabra reservada.</p>
 
 <h2><a class="h_ident" id="h-QDYVZFuV/L" href="#h-QDYVZFuV/L" tabindex="-1" role="presentation"></a>El entorno</h2>
 
-<p><a class="p_ident" id="p-K18DlGgInQ" href="#p-K18DlGgInQ" tabindex="-1" role="presentation"></a>La colección de enlaces y sus valores que existen en un momento dado se llama <em>entorno</em>. Cuando un programa se inicia, este entorno no está vacío. Siempre contiene enlaces que forman parte del lenguaje estándar, y la mayoría de las veces también tiene enlaces que proporcionan formas de interactuar con el sistema circundante. Por ejemplo, en un navegador, existen funciones para interactuar con el sitio web cargado actualmente y para leer la entrada del ratón y el teclado.</p>
+<p><a class="p_ident" id="p-K18DlGgInQ" href="#p-K18DlGgInQ" tabindex="-1" role="presentation"></a>La colección de enlaces y sus valores que existen en un momento dado se llama <em>entorno</em>. Cuando un programa se inicia, este entorno no está vacío. Siempre contiene enlaces que forman parte del estándar del lenguaje, y la mayoría de las veces también tiene enlaces que proporcionan formas de interactuar con el sistema circundante. Por ejemplo, en un navegador, existen funciones para interactuar con el sitio web cargado actualmente y para leer la entrada del ratón y el teclado.</p>
 
 <h2><a class="h_ident" id="h-H0l5He7QIh" href="#h-H0l5He7QIh" tabindex="-1" role="presentation"></a>Funciones</h2>
 
-<p><a class="p_ident" id="p-Ic41DcsHv8" href="#p-Ic41DcsHv8" tabindex="-1" role="presentation"></a>Muchos de los valores proporcionados en el entorno predeterminado tienen el tipo de <em>función</em>. Una función es un fragmento de programa envuelto en un valor. Estos valores pueden ser <em>aplicados</em> para ejecutar el programa envuelto. Por ejemplo, en un entorno de navegador, el enlace <code>prompt</code> contiene una función que muestra un pequeño cuadro de diálogo pidiendo la entrada del usuario. Se utiliza de la siguiente manera:</p>
+<p><a class="p_ident" id="p-Ic41DcsHv8" href="#p-Ic41DcsHv8" tabindex="-1" role="presentation"></a>Muchos de los valores proporcionados en el entorno predeterminado tienen el tipo <em>función</em>. Una función es un fragmento de programa encapsulado en un valor. Estos valores pueden ser <em>aplicados</em> para ejecutar el programa encapsulado. Por ejemplo, en un entorno de navegador, el enlace <code>prompt</code> contiene una función que muestra un pequeño cuadro de diálogo pidiendo la entrada del usuario. Se utiliza de la siguiente manera:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-QSUssd4nHv" href="#c-QSUssd4nHv" tabindex="-1" role="presentation"></a>prompt(<span class="tok-string">&quot;Enter passcode&quot;</span>);</pre><figure><img src="img/prompt.png" alt="Un cuadro de diálogo que dice 'Enter passcode'"></figure>
 
-<p><a class="p_ident" id="p-ndYtFXmH+W" href="#p-ndYtFXmH+W" tabindex="-1" role="presentation"></a>Ejecutar una función se llama <em>invocar</em>, <em>llamar</em>, o <em>aplicar</em> la función. Puedes llamar una función poniendo paréntesis después de una expresión que produce un valor de función. Usualmente usarás directamente el nombre del enlace que contiene la función. Los valores entre paréntesis se le pasan al programa dentro de la función. En el ejemplo, la función <code>prompt</code> utiliza la cadena que le pasamos como el texto a mostrar en el cuadro de diálogo. Los valores dados a las funciones se llaman <em>argumentos</em>. Diferentes funciones pueden necesitar un número diferente o diferentes tipos de argumentos.</p>
+<p><a class="p_ident" id="p-ndYtFXmH+W" href="#p-ndYtFXmH+W" tabindex="-1" role="presentation"></a>Ejecutar una función es lo que se conoce como <em>invocar</em>, <em>llamar</em>, o <em>aplicar</em> la función. Puedes llamar a una función poniendo paréntesis después de una expresión que produce un valor de función. Usualmente usarás directamente el nombre del enlace que contiene la función. Los valores entre paréntesis se le pasan al programa de dentro de la función. En el ejemplo, la función <code>prompt</code> utiliza la cadena que le pasamos como el texto a mostrar en el cuadro de diálogo. Los valores dados a las funciones se llaman <em>argumentos</em>. Diferentes funciones pueden necesitar un número diferente o diferentes tipos de argumentos.</p>
 
 <p><a class="p_ident" id="p-ocgjHJ27CZ" href="#p-ocgjHJ27CZ" tabindex="-1" role="presentation"></a>La función <code>prompt</code> no se usa mucho en la programación web moderna, principalmente porque no tienes control sobre cómo se ve el cuadro de diálogo resultante, pero puede ser útil en programas simples y experimentos.</p>
 
 <h2><a class="h_ident" id="h-Q017V5uet0" href="#h-Q017V5uet0" tabindex="-1" role="presentation"></a>La función console.log</h2>
 
-<p><a class="p_ident" id="p-vU+xFwvodB" href="#p-vU+xFwvodB" tabindex="-1" role="presentation"></a>En los ejemplos, utilicé <code>console.log</code> para mostrar valores. La mayoría de los sistemas de JavaScript (incluidos todos los navegadores web modernos y Node.js) proveen una función <code>console.log</code> que escribe sus argumentos en <em>algún</em> dispositivo de salida de texto. En los navegadores, la salida va a la consola de JavaScript. Esta parte de la interfaz del navegador está oculta por defecto, pero la mayoría de los navegadores la abren cuando presionas F12 o, en Mac, <span class="keyname">comando</span>-<span class="keyname">opción</span>-I. Si eso no funciona, busca a través de los menús un elemento llamado Herramientas para Desarrolladores o similar.</p>
+<p><a class="p_ident" id="p-vU+xFwvodB" href="#p-vU+xFwvodB" tabindex="-1" role="presentation"></a>En los ejemplos, he usado <code>console.log</code> para mostrar valores. La mayoría de los sistemas de JavaScript (incluidos todos los navegadores web modernos y Node.js) proveen una función <code>console.log</code> que escribe sus argumentos en <em>algún</em> dispositivo de salida de texto. En los navegadores, la salida va a la consola de JavaScript. Esta parte de la interfaz del navegador está oculta por defecto, pero la mayoría de los navegadores la abren cuando pulsas F12 o, en Mac, <span class="keyname">comando</span>-<span class="keyname">opción</span>-I. Si eso no funciona, busca a través de los menús un elemento llamado Herramientas para Desarrolladores o similar.</p>
 
 <p><a class="p_ident" id="p-pHtjXNwFtz" href="#p-pHtjXNwFtz" tabindex="-1" role="presentation"></a>Cuando ejecutas los ejemplos (o tu propio código) en las páginas de este libro, la salida de <code>console.log</code> se mostrará después del ejemplo, en lugar de en la consola de JavaScript del navegador.</p>
 
@@ -132,11 +135,11 @@ switch this throw true try typeof var void while with yield</pre>
 console.log(<span class="tok-string">&quot;el valor de x es&quot;</span>, x);
 <span class="tok-comment">// → el valor de x es 30</span></pre>
 
-<p><a class="p_ident" id="p-1QcFA54MdF" href="#p-1QcFA54MdF" tabindex="-1" role="presentation"></a>Aunque los nombres de enlaces no pueden contener puntos, <code>console.log</code> tiene uno. Esto se debe a que <code>console.log</code> no es un simple enlace, sino una expresión que recupera la propiedad <code>log</code> del valor contenido por el enlace <code>console</code>. Descubriremos exactamente lo que esto significa en el <a href="04_data.html#properties">Capítulo 4</a>.</p>
+<p><a class="p_ident" id="p-1QcFA54MdF" href="#p-1QcFA54MdF" tabindex="-1" role="presentation"></a>Aunque los nombres de asociaciones no pueden contener puntos, <code>console.log</code> tiene uno. Esto se debe a que <code>console.log</code> no es un simple enlace, sino una expresión que recupera la propiedad <code>log</code> del valor contenido por el enlace <code>console</code>. Descubriremos exactamente lo que esto significa en el <a href="04_data.html#properties">Capítulo 4</a>.</p>
 
 <h2 id="valores_retorno"><a class="h_ident" id="h-xdOUAXPBXv" href="#h-xdOUAXPBXv" tabindex="-1" role="presentation"></a>Valores de retorno</h2>
 
-<p><a class="p_ident" id="p-+t4lXUwK/u" href="#p-+t4lXUwK/u" tabindex="-1" role="presentation"></a>Mostrar un cuadro de diálogo o escribir texto en la pantalla es un efecto secundario. Muchas funciones son útiles debido a los efectos secundarios que producen. Las funciones también pueden producir valores, en cuyo caso no necesitan tener un efecto secundario para ser útiles. Por ejemplo, la función <code>Math.max</code> toma cualquier cantidad de argumentos numéricos y devuelve el mayor:</p>
+<p><a class="p_ident" id="p-7wc9bq6hIg" href="#p-7wc9bq6hIg" tabindex="-1" role="presentation"></a>Mostrar un cuadro de diálogo o escribir texto en la pantalla es un efecto secundario. Muchas funciones son útiles debido a los efectos secundarios que producen. Las funciones también pueden producir valores, en cuyo caso no necesitan tener un efecto secundario para ser útiles. Por ejemplo, la función <code>Math.max</code> toma una cantidad cualquiera de argumentos numéricos y devuelve el mayor de ellos:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-PEuTYZX6NI" href="#c-PEuTYZX6NI" tabindex="-1" role="presentation"></a>console.log(Math.max(<span class="tok-number">2</span>, <span class="tok-number">4</span>));
 <span class="tok-comment">// → 4</span></pre>
@@ -148,23 +151,23 @@ console.log(<span class="tok-string">&quot;el valor de x es&quot;</span>, x);
 
 <p><a class="p_ident" id="p-Pk0vMYrbRo" href="#p-Pk0vMYrbRo" tabindex="-1" role="presentation"></a>El <a href="03_functions.html">Capítulo 3</a> explicará cómo escribir tus propias funciones.</p>
 
-<h2><a class="h_ident" id="h-T9Yc/t6Db4" href="#h-T9Yc/t6Db4" tabindex="-1" role="presentation"></a>Control de flujo</h2>
+<h2><a class="h_ident" id="h-hdgf/RurEo" href="#h-hdgf/RurEo" tabindex="-1" role="presentation"></a>Flujo de control</h2>
 
-<p><a class="p_ident" id="p-9EgKeHK0je" href="#p-9EgKeHK0je" tabindex="-1" role="presentation"></a>Cuando tu programa contiene más de una sentencia, las sentencias se ejecutan como si fueran una historia, de arriba hacia abajo. Por ejemplo, el siguiente programa tiene dos sentencias. La primera le pide al usuario un número, y la segunda, que se ejecuta después de la primera, muestra el cuadrado de ese número:</p>
+<p><a class="p_ident" id="p-9EgKeHK0je" href="#p-9EgKeHK0je" tabindex="-1" role="presentation"></a>Cuando tu programa contiene más de una declaración (o sentencia), estas se ejecutan como si fueran una historia, de arriba hacia abajo. Por ejemplo, el siguiente programa tiene dos declaraciones. La primera le pide al usuario un número, y la segunda, que se ejecuta después de la primera, muestra el cuadrado de ese número:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/qJYz8f0H0" href="#c-/qJYz8f0H0" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">elNumero</span> = Number(prompt(<span class="tok-string">&quot;Elige un número&quot;</span>));
 console.log(<span class="tok-string">&quot;Tu número es la raíz cuadrada de &quot;</span> +
             elNumero * elNumero);</pre>
 
-<p><a class="p_ident" id="p-8DDMYXGv2v" href="#p-8DDMYXGv2v" tabindex="-1" role="presentation"></a>La función <code>Number</code> convierte un valor a un número. Necesitamos esa conversión porque el resultado de <code>prompt</code> es un valor de tipo string, y queremos un número. Hay funciones similares llamadas <code>String</code> y <code>Boolean</code> que convierten valores a esos tipos.</p>
+<p><a class="p_ident" id="p-8DDMYXGv2v" href="#p-8DDMYXGv2v" tabindex="-1" role="presentation"></a>La función <code>Number</code> convierte un valor a un número. Necesitamos esa conversión porque el resultado de <code>prompt</code> es un valor de tipo <em>string</em> (una cadena), y queremos un número (un valor de tipo <em>number</em>). Hay funciones similares llamadas <code>String</code> y <code>Boolean</code> que convierten valores a esos tipos.</p>
 
-<p><a class="p_ident" id="p-Hmketh0qEs" href="#p-Hmketh0qEs" tabindex="-1" role="presentation"></a>Aquí está la representación esquemática bastante trivial del flujo de control en línea recta:</p><figure><img src="img/controlflow-straight.svg" alt="Diagrama mostrando una flecha recta"></figure>
+<p><a class="p_ident" id="p-Hmketh0qEs" href="#p-Hmketh0qEs" tabindex="-1" role="presentation"></a>Aquí está la más bien trivial representación esquemática del flujo de control en línea recta:</p><figure><img src="img/controlflow-straight.svg" alt="Diagrama mostrando una flecha recta"></figure>
 
 <h2><a class="h_ident" id="h-iTDXrRhIfn" href="#h-iTDXrRhIfn" tabindex="-1" role="presentation"></a>Ejecución condicional</h2>
 
 <p><a class="p_ident" id="p-e8j4kqj9t6" href="#p-e8j4kqj9t6" tabindex="-1" role="presentation"></a>No todos los programas son caminos rectos. Podríamos, por ejemplo, querer crear una carretera ramificada donde el programa tome la rama adecuada basada en la situación en cuestión. Esto se llama <em>ejecución condicional</em>.</p><figure><img src="img/controlflow-if.svg" alt="Diagrama de una flecha que se divide en dos y luego se une de nuevo"></figure>
 
-<p><a class="p_ident" id="p-fZc5KedAGN" href="#p-fZc5KedAGN" tabindex="-1" role="presentation"></a>La ejecución condicional se crea con la palabra clave <code>if</code> en JavaScript. En el caso simple, queremos que cierto código se ejecute si, y solo si, una cierta condición es verdadera. Por ejemplo, podríamos querer mostrar el cuadrado de la entrada solo si la entrada es realmente un número:</p>
+<p><a class="p_ident" id="p-fZc5KedAGN" href="#p-fZc5KedAGN" tabindex="-1" role="presentation"></a>La ejecución condicional se crea con la palabra clave <code>if</code> en JavaScript. La idea es que queremos que cierto código se ejecute si, y solo si, una cierta condición es verdadera. Por ejemplo, podríamos querer mostrar el cuadrado de la entrada solo si la entrada es realmente un número:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-X/zXi7paJC" href="#c-X/zXi7paJC" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">elNumero</span> = Number(prompt(<span class="tok-string">&quot;Elige un número&quot;</span>));
 <span class="tok-keyword">if</span> (!Number.isNaN(elNumero)) {
@@ -174,26 +177,26 @@ console.log(<span class="tok-string">&quot;Tu número es la raíz cuadrada de &q
 
 <p><a class="p_ident" id="p-wm40Jh5aS8" href="#p-wm40Jh5aS8" tabindex="-1" role="presentation"></a>Con esta modificación, si introduces “loro”, no se mostrará ninguna salida.</p>
 
-<p><a class="p_ident" id="p-qmGSztfyJW" href="#p-qmGSztfyJW" tabindex="-1" role="presentation"></a>La palabra clave <code>if</code> ejecuta o salta una sentencia dependiendo del valor de una expresión booleana. La expresión de decisión se escribe después de la palabra clave, entre paréntesis, seguida de la sentencia a ejecutar.</p>
+<p><a class="p_ident" id="p-qmGSztfyJW" href="#p-qmGSztfyJW" tabindex="-1" role="presentation"></a>La palabra clave <code>if</code> ejecuta o salta una sentencia dependiendo del valor de una expresión booleana. La expresión de decisión (la condición) se escribe después de la palabra clave, entre paréntesis, seguida de la sentencia a ejecutar.</p>
 
 <p><a class="p_ident" id="p-76c1pNKDSl" href="#p-76c1pNKDSl" tabindex="-1" role="presentation"></a>La función <code>Number.isNaN</code> es una función estándar de JavaScript que devuelve <code>true</code> solo si el argumento que se le pasa es <code>NaN</code>. La función <code>Number</code> devuelve <code>NaN</code> cuando le das una cadena que no representa un número válido. Por lo tanto, la condición se traduce a “a menos que <code>elNumero</code> no sea un número, haz esto”.</p>
 
-<p><a class="p_ident" id="p-qWA8ZIJYjv" href="#p-qWA8ZIJYjv" tabindex="-1" role="presentation"></a>La sentencia después del <code>if</code> está envuelta entre llaves (<code>{</code> y <code>}</code>) en este ejemplo. Las llaves se pueden usar para agrupar cualquier cantidad de sentencias en una sola sentencia, llamada un <em>bloque</em>. También podrías haber omitido en este caso, ya que contienen solo una sentencia, pero para evitar tener que pensar si son necesarias, la mayoría de los programadores de JavaScript las usan en cada sentencia envuelta de esta manera. Seguiremos principalmente esa convención en este libro, excepto por los casos ocasionales de una sola línea.</p>
+<p><a class="p_ident" id="p-pmUn3Gxq/x" href="#p-pmUn3Gxq/x" tabindex="-1" role="presentation"></a>La sentencia después del <code>if</code> está envuelta entre llaves (<code>{</code> y <code>}</code>) en este ejemplo. Las llaves se pueden usar para agrupar cualquier cantidad de sentencias en una sola sentencia llamada <em>bloque</em>. También las podrías haber omitido en este caso, ya que contienen solo una sentencia, pero para evitar tener que pensar si son necesarias, la mayoría de los programadores de JavaScript las usan en todas las sentencias que forman parte de un <code>if</code>. Seguiremos principalmente esa convención en este libro, excepto por ocasionales expresiones de una sola línea (o <em>one-liners</em>).</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Oe35vWsR97" href="#c-Oe35vWsR97" tabindex="-1" role="presentation"></a><span class="tok-keyword">if</span> (<span class="tok-number">1</span> + <span class="tok-number">1</span> == <span class="tok-number">2</span>) console.log(<span class="tok-string">&quot;Es verdad&quot;</span>);
 <span class="tok-comment">// → Es verdad</span></pre>
 
-<p><a class="p_ident" id="p-Pu3zQ4TgAo" href="#p-Pu3zQ4TgAo" tabindex="-1" role="presentation"></a>A menudo no solo tendrás código que se ejecuta cuando una condición es verdadera, sino también código que maneja el otro caso. Esta ruta alternativa está representada por la segunda flecha en el diagrama. Puedes usar la palabra clave <code>else</code>, junto con <code>if</code>, para crear dos caminos de ejecución alternativos y separados:</p>
+<p><a class="p_ident" id="p-Pu3zQ4TgAo" href="#p-Pu3zQ4TgAo" tabindex="-1" role="presentation"></a>A menudo no solo tendrás código que se ejecuta cuando una condición es verdadera, sino también código que se encarga de lo que ocurre en caso contrario. Esta ruta alternativa está representada por la segunda flecha en el diagrama. Puedes usar la palabra clave <code>else</code>, junto con <code>if</code>, para crear dos caminos de ejecución alternativos y separados:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-01vgXGotuf" href="#c-01vgXGotuf" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">elNumero</span> = Number(prompt(<span class="tok-string">&quot;Elige un número&quot;</span>));
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NjAA+mEzvG" href="#c-NjAA+mEzvG" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">elNumero</span> = Number(prompt(<span class="tok-string">&quot;Elige un número&quot;</span>));
 <span class="tok-keyword">if</span> (!Number.isNaN(elNumero)) {
   console.log(<span class="tok-string">&quot;Tu número es la raíz cuadrada de &quot;</span> +
               elNumero * elNumero);
 } <span class="tok-keyword">else</span> {
-  console.log(<span class="tok-string">&quot;Oye. ¿Por qué no me diste un número?&quot;</span>);
+  console.log(<span class="tok-string">&quot;Oye. ¿Por qué no me has dado un número?&quot;</span>);
 }</pre>
 
-<p><a class="p_ident" id="p-wBEEbOmaGZ" href="#p-wBEEbOmaGZ" tabindex="-1" role="presentation"></a>Si tienes más de dos caminos para elegir, puedes “encadenar” múltiples pares <code>if</code>/<code>else</code>. Aquí tienes un ejemplo:</p>
+<p><a class="p_ident" id="p-wBEEbOmaGZ" href="#p-wBEEbOmaGZ" tabindex="-1" role="presentation"></a>Si tienes más de dos caminos entre los que elegir, puedes “encadenar” múltiples pares <code>if</code>/<code>else</code>. Aquí tienes un ejemplo:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Q0hG4Qfs2i" href="#c-Q0hG4Qfs2i" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">num</span> = Number(prompt(<span class="tok-string">&quot;Escoge un número&quot;</span>));
 
@@ -211,7 +214,7 @@ console.log(<span class="tok-string">&quot;Tu número es la raíz cuadrada de &q
 
 <h2 id="loops"><a class="h_ident" id="h-n6ktDf8NGQ" href="#h-n6ktDf8NGQ" tabindex="-1" role="presentation"></a>Bucles while y do</h2>
 
-<p><a class="p_ident" id="p-TNAfAvS4od" href="#p-TNAfAvS4od" tabindex="-1" role="presentation"></a>Considera un programa que imprime todos los números pares de 0 a 12. Una forma de escribirlo es la siguiente:</p>
+<p><a class="p_ident" id="p-TNAfAvS4od" href="#p-TNAfAvS4od" tabindex="-1" role="presentation"></a>Considera un programa que muestre en la consola todos los números pares de 0 a 12. Una forma de escribirlo es la siguiente:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-NiH5lbw9eg" href="#c-NiH5lbw9eg" tabindex="-1" role="presentation"></a>console.log(<span class="tok-number">0</span>);
 console.log(<span class="tok-number">2</span>);
@@ -221,9 +224,9 @@ console.log(<span class="tok-number">8</span>);
 console.log(<span class="tok-number">10</span>);
 console.log(<span class="tok-number">12</span>);</pre>
 
-<p><a class="p_ident" id="p-bG0ATAFQ8m" href="#p-bG0ATAFQ8m" tabindex="-1" role="presentation"></a>Eso funciona, pero la idea de escribir un programa es hacer <em>menos</em> trabajo, no más. Si necesitáramos todos los números pares menores que 1,000, este enfoque sería inviable. Lo que necesitamos es una manera de ejecutar un fragmento de código múltiples veces. Esta forma de control de flujo se llama <em>bucle</em>.</p><figure><img src="img/controlflow-loop.svg" alt="Diagrama que muestra una flecha que apunta a un punto que tiene una flecha cíclica que regresa a sí mismo y otra flecha que continúa"></figure>
+<p><a class="p_ident" id="p-tMc5CDndOi" href="#p-tMc5CDndOi" tabindex="-1" role="presentation"></a>Y eso funciona, pero la idea de escribir un programa es hacer <em>menos</em> trabajo, no más. Si necesitáramos todos los números pares menores que 1000, este enfoque sería inviable. Lo que necesitamos es una manera de ejecutar un fragmento de código múltiples veces. Esta forma de flujo de control se llama <em>bucle</em>.</p><figure><img src="img/controlflow-loop.svg" alt="Diagrama que muestra una flecha que apunta a un punto que tiene una flecha cíclica que regresa a sí mismo y otra flecha que continúa"></figure>
 
-<p><a class="p_ident" id="p-2Ohb6yv25X" href="#p-2Ohb6yv25X" tabindex="-1" role="presentation"></a>El control de flujo mediante bucles nos permite regresar a algún punto en el programa donde estábamos antes y repetirlo con nuestro estado de programa actual. Si combinamos esto con una variable que cuente, podemos hacer algo como esto:</p>
+<p><a class="p_ident" id="p-KOYU5zesRQ" href="#p-KOYU5zesRQ" tabindex="-1" role="presentation"></a>El flujo de control mediante bucles nos permite regresar a algún punto en el programa donde estábamos antes y repetirlo con nuestro estado de programa actual. Si combinamos esto con una variable contadora, podemos hacer algo como esto:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-4dT1JqWY0K" href="#c-4dT1JqWY0K" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">numero</span> = <span class="tok-number">0</span>;
 <span class="tok-keyword">while</span> (numero &lt;= <span class="tok-number">12</span>) {
@@ -234,26 +237,26 @@ console.log(<span class="tok-number">12</span>);</pre>
 <span class="tok-comment">// → 2</span>
 <span class="tok-comment">//   … etcétera</span></pre>
 
-<p><a class="p_ident" id="p-36iEUfXxKy" href="#p-36iEUfXxKy" tabindex="-1" role="presentation"></a>Una sentencia que comienza con la palabra clave <code>while</code> crea un bucle. La palabra <code>while</code> va seguida de una expresión entre paréntesis y luego un enunciado, similar a <code>if</code>. El bucle sigue ejecutando ese enunciado mientras la expresión produzca un valor que se convierta en <code>true</code> al convertirse a Booleano.</p>
+<p><a class="p_ident" id="p-36iEUfXxKy" href="#p-36iEUfXxKy" tabindex="-1" role="presentation"></a>Una sentencia que empiece con la palabra clave <code>while</code> crea un bucle. La palabra <code>while</code> va seguida de una expresión entre paréntesis y luego una sentencia, como con el <code>if</code>. El bucle sigue ejecutando esa sentencia mientras la expresión del paréntesis produzca un valor que dé <code>true</code> al convertirse a Booleano.</p>
 
-<p><a class="p_ident" id="p-zTOy1B7/aJ" href="#p-zTOy1B7/aJ" tabindex="-1" role="presentation"></a>El enlace ‘numero’ demuestra la forma en que un enlace puede seguir el progreso de un programa. Cada vez que se repite el bucle, ‘numero’ obtiene un valor que es 2 más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.</p>
+<p><a class="p_ident" id="p-G4Zb2m4vDY" href="#p-G4Zb2m4vDY" tabindex="-1" role="presentation"></a>El enlace <code>numero</code> demuestra la forma en que un enlace puede seguir el progreso de un programa. Cada vez que se repite el bucle, <code>numero</code> obtiene un valor que es 2 unidades más que su valor anterior. Al comienzo de cada repetición, se compara con el número 12 para decidir si el trabajo del programa ha terminado.</p>
 
 <p><a class="p_ident" id="p-IhKlP4aMVK" href="#p-IhKlP4aMVK" tabindex="-1" role="presentation"></a>Como ejemplo de algo realmente útil, ahora podemos escribir un programa que calcule y muestre el valor de 2<sup>10</sup> (2 elevado a la 10ª potencia). Usamos dos enlaces: uno para llevar un seguimiento de nuestro resultado y otro para contar cuántas veces hemos multiplicado este resultado por 2. El bucle comprueba si el segundo enlace ya ha alcanzado 10 y, si no, actualiza ambos enlaces.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9AxUm9n4M9" href="#c-9AxUm9n4M9" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">result</span> = <span class="tok-number">1</span>;
-<span class="tok-keyword">let</span> <span class="tok-definition">counter</span> = <span class="tok-number">0</span>;
-<span class="tok-keyword">while</span> (counter &lt; <span class="tok-number">10</span>) {
-  result = result * <span class="tok-number">2</span>;
-  counter = counter + <span class="tok-number">1</span>;
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9qGtVj9Vr2" href="#c-9qGtVj9Vr2" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">resultado</span> = <span class="tok-number">1</span>;
+<span class="tok-keyword">let</span> <span class="tok-definition">contador</span> = <span class="tok-number">0</span>;
+<span class="tok-keyword">while</span> (contador &lt; <span class="tok-number">10</span>) {
+  resultado = resultado * <span class="tok-number">2</span>;
+  contador = contador + <span class="tok-number">1</span>;
 }
-console.log(result);
+console.log(resultado);
 <span class="tok-comment">// → 1024</span></pre>
 
-<p><a class="p_ident" id="p-Ca1o09ICca" href="#p-Ca1o09ICca" tabindex="-1" role="presentation"></a>El contador también podría haber comenzado en <code>1</code> y haber comprobado si era <code>&lt;= 10</code>, pero por razones que se harán evidentes en el <a href="04_data.html#array_indexing">Capítulo 4</a>, es buena idea acostumbrarse a contar desde 0.</p>
+<p><a class="p_ident" id="p-Ca1o09ICca" href="#p-Ca1o09ICca" tabindex="-1" role="presentation"></a>El contador también podría haber comenzado en <code>1</code> y haber comprobado si era <code>&lt;= 10</code>, pero por razones que se harán evidentes en el <a href="04_data.html#array_indexing">Capítulo 4</a>, conviene acostumbrarse a contar desde 0.</p>
 
-<p><a class="p_ident" id="p-/WWtFe+R3M" href="#p-/WWtFe+R3M" tabindex="-1" role="presentation"></a>Ten en cuenta que JavaScript también tiene un operador para la potencia (<code>2 ** 10</code>), que usarías para calcular esto en un código real, pero eso habría arruinado el ejemplo.</p>
+<p><a class="p_ident" id="p-gN82FHEguV" href="#p-gN82FHEguV" tabindex="-1" role="presentation"></a>Ten en cuenta que JavaScript también tiene un operador para la potencia (<code>2 ** 10</code>), que sería lo que usarías para calcular esto en un código real —pero entonces nos quedaríamos sin ejemplo.</p>
 
-<p><a class="p_ident" id="p-0oKajUiBua" href="#p-0oKajUiBua" tabindex="-1" role="presentation"></a>Un bucle <code>do</code> es una estructura de control similar a un bucle <code>while</code>. La única diferencia radica en que un bucle <code>do</code> siempre ejecuta su cuerpo al menos una vez, y comienza a probar si debe detenerse solo después de esa primera ejecución. Para reflejar esto, la prueba aparece después del cuerpo del bucle:</p>
+<p><a class="p_ident" id="p-0oKajUiBua" href="#p-0oKajUiBua" tabindex="-1" role="presentation"></a>Un bucle <code>do</code> es una estructura de control similar a un bucle <code>while</code>. La única diferencia radica en que un bucle <code>do</code> siempre ejecuta su cuerpo al menos una vez, y comienza a probar si debe detenerse solo después de esa primera ejecución. Para reflejar esto, podemos hacer una comprobación después del cuerpo del bucle:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-o9i6UWcm3g" href="#c-o9i6UWcm3g" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">tuNombre</span>;
 <span class="tok-keyword">do</span> {
@@ -261,28 +264,28 @@ console.log(result);
 } <span class="tok-keyword">while</span> (!tuNombre);
 console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 
-<p><a class="p_ident" id="p-DuLfPxV3a1" href="#p-DuLfPxV3a1" tabindex="-1" role="presentation"></a>Este programa te obligará a ingresar un nombre. Preguntará una y otra vez hasta que obtenga algo que no sea una cadena vacía. Aplicar el operador <code>!</code> convertirá un valor al tipo Booleano antes de negarlo, y todas las cadenas excepto <code>&quot;&quot;</code> se convierten en <code>true</code>. Esto significa que el bucle continúa hasta que proporciones un nombre no vacío.</p>
+<p><a class="p_ident" id="p-DuLfPxV3a1" href="#p-DuLfPxV3a1" tabindex="-1" role="presentation"></a>Este programa te obligará a introducir un nombre. Preguntará una y otra vez hasta que obtenga algo que no sea una cadena vacía. Aplicar el operador <code>!</code> convertirá un valor al tipo Booleano antes de negarlo, y todas las cadenas excepto <code>&quot;&quot;</code> se convierten en <code>true</code>. Esto significa que el bucle continúa hasta que proporciones un nombre no vacío.</p>
 
 <h2><a class="h_ident" id="h-Ii0ETl2x9J" href="#h-Ii0ETl2x9J" tabindex="-1" role="presentation"></a>Sangrado de Código</h2>
 
-<p><a class="p_ident" id="p-Xy21oyeH2U" href="#p-Xy21oyeH2U" tabindex="-1" role="presentation"></a>En los ejemplos, he estado agregando espacios delante de las sentencias que son parte de alguna otra sentencia más grande. Estos espacios no son necesarios: la computadora aceptará el programa perfectamente sin ellos. De hecho, incluso los saltos de línea en los programas son opcionales. Podrías escribir un programa como una sola línea larga si así lo deseas.</p>
+<p><a class="p_ident" id="p-EIxizf1CMX" href="#p-EIxizf1CMX" tabindex="-1" role="presentation"></a>En los ejemplos, he estado agregando espacios delante de cada sentencia que forma parte de alguna otra sentencia más grande. Estos espacios no son necesarios: la computadora aceptará el programa perfectamente sin ellos. De hecho, incluso los saltos de línea en los programas son opcionales. Podrías escribir un programa como una sola línea larga si quisieras.</p>
 
-<p><a class="p_ident" id="p-znDKK7dtkr" href="#p-znDKK7dtkr" tabindex="-1" role="presentation"></a>El papel de este sangrado dentro de los bloques es hacer que la estructura del código resalte para los lectores humanos. En el código donde se abren nuevos bloques dentro de otros bloques, puede volverse difícil ver dónde termina un bloque y comienza otro. Con un sangrado adecuado, la forma visual de un programa corresponde a la forma de los bloques dentro de él. A mí me gusta usar dos espacios para cada bloque abierto, pero los gustos difieren: algunas personas usan cuatro espacios y otras usan caracteres de tabulación. Lo importante es que cada nuevo bloque agregue la misma cantidad de espacio.</p>
+<p><a class="p_ident" id="p-znDKK7dtkr" href="#p-znDKK7dtkr" tabindex="-1" role="presentation"></a>El papel de este sangrado dentro de los bloques es resaltar la estructura del código para los lectores humanos. En código donde se abren nuevos bloques dentro de otros bloques, puede hacerse complicado ver dónde termina un bloque y comienza otro. Con un sangrado adecuado, la forma visual de un programa corresponde a la forma de los bloques dentro de él. A mí me gusta usar dos espacios para cada bloque abierto, pero los gustos difieren: algunas personas usan cuatro espacios y otras usan caracteres de tabulación. Lo importante es que cada nuevo bloque agregue la misma cantidad de espacio.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-W90w2N6dBd" href="#c-W90w2N6dBd" tabindex="-1" role="presentation"></a><span class="tok-keyword">if</span> (false != true) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-l+Egm3hhDK" href="#c-l+Egm3hhDK" tabindex="-1" role="presentation"></a><span class="tok-keyword">if</span> (false != true) {
   console.log(<span class="tok-string">&quot;Tiene sentido.&quot;</span>);
   <span class="tok-keyword">if</span> (<span class="tok-number">1</span> &lt; <span class="tok-number">2</span>) {
-    console.log(<span class="tok-string">&quot;No hay sorpresas ahí.&quot;</span>);
+    console.log(<span class="tok-string">&quot;Sin sorpresas.&quot;</span>);
   }
 }</pre>
 
 <p><a class="p_ident" id="p-FgMgQYGV7f" href="#p-FgMgQYGV7f" tabindex="-1" role="presentation"></a>La mayoría de los programas de edición (incluido el de este libro) ayudarán automáticamente con la sangría adecuada al escribir nuevas líneas.</p>
 
-<h2><a class="h_ident" id="h-k4AXnmqH4l" href="#h-k4AXnmqH4l" tabindex="-1" role="presentation"></a>bucles for</h2>
+<h2><a class="h_ident" id="h-mgPDSpUcUD" href="#h-mgPDSpUcUD" tabindex="-1" role="presentation"></a>Bucles for</h2>
 
-<p><a class="p_ident" id="p-b/v1NpkLGq" href="#p-b/v1NpkLGq" tabindex="-1" role="presentation"></a>Muchos bucles siguen el patrón mostrado en los ejemplos de <code>while</code>. Primero se crea una variable de “contador” para rastrear el progreso del bucle. Luego viene un bucle <code>while</code>, generalmente con una expresión de prueba que verifica si el contador ha alcanzado su valor final. Al final del cuerpo del bucle, el contador se actualiza para rastrear el progreso.</p>
+<p><a class="p_ident" id="p-b/v1NpkLGq" href="#p-b/v1NpkLGq" tabindex="-1" role="presentation"></a>Muchos bucles siguen el patrón mostrado en los ejemplos de <code>while</code>. Primero se crea una variable “contador” para rastrear el progreso del bucle. Luego viene un bucle <code>while</code>, generalmente con una expresión de prueba que verifica si el contador ha alcanzado su valor final. Al final del cuerpo del bucle, el contador se actualiza para rastrear el progreso.</p>
 
-<p><a class="p_ident" id="p-087KFJUF4R" href="#p-087KFJUF4R" tabindex="-1" role="presentation"></a>Debido a que este patrón es tan común, JavaScript y lenguajes similares proporcionan una forma ligeramente más corta y completa, el bucle <code>for</code>:</p>
+<p><a class="p_ident" id="p-dIfowzePhR" href="#p-dIfowzePhR" tabindex="-1" role="presentation"></a>Debido a que este patrón es tan común, JavaScript y lenguajes similares proporcionan una forma ligeramente más corta y entendible, el bucle <code>for</code>:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-luM90AtsUL" href="#c-luM90AtsUL" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">numero</span> = <span class="tok-number">0</span>; numero &lt;= <span class="tok-number">12</span>; numero = numero + <span class="tok-number">2</span>) {
   console.log(numero);
@@ -291,9 +294,9 @@ console.log(<span class="tok-string">&quot;Hola &quot;</span> + tuNombre);</pre>
 <span class="tok-comment">// → 2</span>
 <span class="tok-comment">//   … etcétera</span></pre>
 
-<p><a class="p_ident" id="p-fN0Wqpo2bS" href="#p-fN0Wqpo2bS" tabindex="-1" role="presentation"></a>Este programa es exactamente equivalente al <a href="02_program_structure.html#loops">anterior</a> ejemplo de impresión de números pares. La única diferencia es que todas las declaraciones relacionadas con el “estado” del bucle están agrupadas después de <code>for</code>.</p>
+<p><a class="p_ident" id="p-fN0Wqpo2bS" href="#p-fN0Wqpo2bS" tabindex="-1" role="presentation"></a>Este programa es exactamente equivalente al <a href="02_program_structure.html#loops">anterior</a> ejemplo de impresión de números pares en la consola. La única diferencia es que todas las declaraciones relacionadas con el “estado” del bucle están agrupadas después de <code>for</code>.</p>
 
-<p><a class="p_ident" id="p-9Dk5fa1UtV" href="#p-9Dk5fa1UtV" tabindex="-1" role="presentation"></a>Los paréntesis después de la palabra clave <code>for</code> deben contener dos punto y coma. La parte antes del primer punto y coma <em>inicializa</em> el bucle, generalmente definiendo una variable. La segunda parte es la expresión que <em>verifica</em> si el bucle debe continuar. La parte final <em>actualiza</em> el estado del bucle después de cada iteración. En la mayoría de los casos, esto es más corto y claro que un <code>while</code> tradicional.</p>
+<p><a class="p_ident" id="p-9Dk5fa1UtV" href="#p-9Dk5fa1UtV" tabindex="-1" role="presentation"></a>Los paréntesis después de la palabra clave <code>for</code> deben contener dos punto y coma. La parte antes del primer punto y coma <em>inicializa</em> el bucle, normalmente definiendo una variable. La segunda parte es la expresión que <em>verifica</em> si el bucle debe continuar. La parte final <em>actualiza</em> el estado del bucle después de cada iteración. En la mayoría de los casos, esto es más corto y claro que un <code>while</code> tradicional.</p>
 
 <p><a class="p_ident" id="p-q5iPDIA0KE" href="#p-q5iPDIA0KE" tabindex="-1" role="presentation"></a>Este es el código que calcula 2<sup>10</sup> usando <code>for</code> en lugar de <code>while</code>:</p>
 
@@ -306,7 +309,7 @@ console.log(resultado);
 
 <h2><a class="h_ident" id="h-SKY+ZrYARv" href="#h-SKY+ZrYARv" tabindex="-1" role="presentation"></a>Saliendo de un bucle</h2>
 
-<p><a class="p_ident" id="p-hzS/J9owHF" href="#p-hzS/J9owHF" tabindex="-1" role="presentation"></a>Hacer que la condición del bucle produzca <code>false</code> no es la única forma en que un bucle puede terminar. La instrucción <code>break</code> tiene el efecto de salir inmediatamente del bucle que la contiene. Su uso se demuestra en el siguiente programa, que encuentra el primer número que es mayor o igual a 20 y divisible por 7:</p>
+<p><a class="p_ident" id="p-hzS/J9owHF" href="#p-hzS/J9owHF" tabindex="-1" role="presentation"></a>Hacer que la condición del bucle produzca <code>false</code> no es la única forma en que un bucle puede terminar. La instrucción <code>break</code> tiene el efecto de salir inmediatamente del bucle que la contiene. Su uso se demuestra en el siguiente programa, que encuentra el primer número mayor o igual a 20 que es divisible por 7:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-zHPHsO2cGF" href="#c-zHPHsO2cGF" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">actual</span> = <span class="tok-number">20</span>; ; actual = actual + <span class="tok-number">1</span>) {
   <span class="tok-keyword">if</span> (actual % <span class="tok-number">7</span> == <span class="tok-number">0</span>) {
@@ -320,9 +323,9 @@ console.log(resultado);
 
 <p><a class="p_ident" id="p-3Dsko/ipk1" href="#p-3Dsko/ipk1" tabindex="-1" role="presentation"></a>La construcción <code>for</code> en el ejemplo no tiene una parte que verifique el final del bucle. Esto significa que el bucle nunca se detendrá a menos que se ejecute la instrucción <code>break</code> dentro de él.</p>
 
-<p><a class="p_ident" id="p-c8yS1V0KKb" href="#p-c8yS1V0KKb" tabindex="-1" role="presentation"></a>Si eliminaras esa declaración <code>break</code> o escribieses accidentalmente una condición final que siempre produzca <code>true</code>, tu programa quedaría atrapado en un <em>bucle infinito</em>. Un programa atrapado en un bucle infinito nunca terminará de ejecutarse, lo cual suele ser algo malo.</p>
+<p><a class="p_ident" id="p-q4qJ+93ZrC" href="#p-q4qJ+93ZrC" tabindex="-1" role="presentation"></a>Si eliminaras esa declaración <code>break</code> o escribieses accidentalmente una condición final que siempre produzca <code>true</code>, tu programa quedaría atrapado en un <em>bucle infinito</em>. Un programa atrapado en un bucle infinito nunca terminará de ejecutarse, lo cual suele ser malo.</p>
 
-<p><a class="p_ident" id="p-pInh8lhdpP" href="#p-pInh8lhdpP" tabindex="-1" role="presentation"></a>Si creas un bucle infinito en uno de los ejemplos en estas páginas, generalmente se te preguntará si deseas detener el script después de unos segundos. Si eso falla, deberás cerrar la pestaña en la que estás trabajando para recuperarte.</p>
+<p><a class="p_ident" id="p-QiJsr1f8Ma" href="#p-QiJsr1f8Ma" tabindex="-1" role="presentation"></a>Si creas un bucle infinito en uno de los ejemplos en estas páginas, generalmente se te preguntará si deseas detener el script después de unos segundos. Si eso falla, deberás cerrar la pestaña en la que estás trabajando para pararlo.</p>
 
 <p><a class="p_ident" id="p-SpplRbvKVL" href="#p-SpplRbvKVL" tabindex="-1" role="presentation"></a>La palabra clave <code>continue</code> es similar a <code>break</code> en que influye en el progreso de un bucle. Cuando se encuentra <code>continue</code> en el cuerpo de un bucle, el control salta fuera del cuerpo y continúa con la siguiente iteración del bucle.</p>
 
@@ -330,39 +333,39 @@ console.log(resultado);
 
 <p><a class="p_ident" id="p-OmbzX4bGUg" href="#p-OmbzX4bGUg" tabindex="-1" role="presentation"></a>Especialmente al hacer bucles, un programa a menudo necesita “actualizar” un enlace para que contenga un valor basado en el valor anterior de ese enlace.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-aegdj8V5XM" href="#c-aegdj8V5XM" tabindex="-1" role="presentation"></a>counter = counter + <span class="tok-number">1</span>;</pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VGviBLlVDb" href="#c-VGviBLlVDb" tabindex="-1" role="presentation"></a>contador = contador + <span class="tok-number">1</span>;</pre>
 
 <p><a class="p_ident" id="p-vQO+HtxGdF" href="#p-vQO+HtxGdF" tabindex="-1" role="presentation"></a>JavaScript proporciona un atajo para esto:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-/XU8FyoU4+" href="#c-/XU8FyoU4+" tabindex="-1" role="presentation"></a>counter += <span class="tok-number">1</span>;</pre>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-VzxL+w9AHp" href="#c-VzxL+w9AHp" tabindex="-1" role="presentation"></a>contador += <span class="tok-number">1</span>;</pre>
 
-<p><a class="p_ident" id="p-csY/fb4wsk" href="#p-csY/fb4wsk" tabindex="-1" role="presentation"></a>Atajos similares funcionan para muchos otros operadores, como <code>result *= 2</code> para duplicar <code>result</code> o <code>counter -= 1</code> para contar hacia atrás.</p>
+<p><a class="p_ident" id="p-k9sYK52irQ" href="#p-k9sYK52irQ" tabindex="-1" role="presentation"></a>Para muchos otros operadores hay atajos similares, como <code>resultado *= 2</code> para duplicar <code>resultado</code> o <code>contador -= 1</code> para contar hacia atrás.</p>
 
 <p><a class="p_ident" id="p-2jbBcAR3za" href="#p-2jbBcAR3za" tabindex="-1" role="presentation"></a>Esto nos permite acortar aún más nuestro ejemplo de contar:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-h8HkwMM+IM" href="#c-h8HkwMM+IM" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">number</span> = <span class="tok-number">0</span>; number &lt;= <span class="tok-number">12</span>; number += <span class="tok-number">2</span>) {
-  console.log(number);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-WDAcfdyHyg" href="#c-WDAcfdyHyg" tabindex="-1" role="presentation"></a><span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">número</span> = <span class="tok-number">0</span>; número &lt;= <span class="tok-number">12</span>; número += <span class="tok-number">2</span>) {
+  console.log(número);
 }</pre>
 
-<p><a class="p_ident" id="p-HLfmDG26B4" href="#p-HLfmDG26B4" tabindex="-1" role="presentation"></a>Para <code>counter += 1</code> y <code>counter -= 1</code>, existen equivalentes aún más cortos: <code>counter++</code> y <code>counter--</code>.</p>
+<p><a class="p_ident" id="p-7MweW6WlSL" href="#p-7MweW6WlSL" tabindex="-1" role="presentation"></a>Para <code>contador += 1</code> y <code>contador -= 1</code>, existen equivalentes más cortos aún: <code>contador++</code> y <code>contador--</code>.</p>
 
-<h2><a class="h_ident" id="h-HJMpDD+dJv" href="#h-HJMpDD+dJv" tabindex="-1" role="presentation"></a>Despachar un valor con switch</h2>
+<h2><a class="h_ident" id="h-eZRVlMfTEH" href="#h-eZRVlMfTEH" tabindex="-1" role="presentation"></a>Despachar según un valor con switch</h2>
 
-<p><a class="p_ident" id="p-EC5mRWXF2U" href="#p-EC5mRWXF2U" tabindex="-1" role="presentation"></a>No es raro que el código luzca así:</p>
+<p><a class="p_ident" id="p-a7WK2eFLam" href="#p-a7WK2eFLam" tabindex="-1" role="presentation"></a>No es raro encontrar código con esta pinta:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ydQ9zTKexk" href="#c-ydQ9zTKexk" tabindex="-1" role="presentation"></a><span class="tok-keyword">if</span> (x == <span class="tok-string">&quot;valor1&quot;</span>) accion1();
 <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (x == <span class="tok-string">&quot;valor2&quot;</span>) accion2();
 <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (x == <span class="tok-string">&quot;valor3&quot;</span>) accion3();
 <span class="tok-keyword">else</span> accionPredeterminada();</pre>
 
-<p><a class="p_ident" id="p-TN80MDBMtL" href="#p-TN80MDBMtL" tabindex="-1" role="presentation"></a>Existe una construcción llamada <code>switch</code> que está destinada a expresar dicho “despacho” de una manera más directa. Desafortunadamente, la sintaxis que JavaScript utiliza para esto (heredada de la línea de lenguajes de programación C/Java) es algo incómoda; una cadena de declaraciones <code>if</code> puede verse mejor. Aquí hay un ejemplo:</p>
+<p><a class="p_ident" id="p-TN80MDBMtL" href="#p-TN80MDBMtL" tabindex="-1" role="presentation"></a>Existe una construcción llamada <code>switch</code> que está destinada a expresar dicho “despacho” de una manera más directa. Desafortunadamente, la sintaxis que JavaScript utiliza para esto (heredada de lenguajes de programación en la línea de C/Java) es algo incómoda —una cadena de declaraciones <code>if</code> podría quedar mejor. Aquí hay un ejemplo:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-LHfl9T/hCT" href="#c-LHfl9T/hCT" tabindex="-1" role="presentation"></a><span class="tok-keyword">switch</span> (prompt(<span class="tok-string">&quot;¿Cómo está el clima?&quot;</span>)) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Se77UtUd8a" href="#c-Se77UtUd8a" tabindex="-1" role="presentation"></a><span class="tok-keyword">switch</span> (prompt(<span class="tok-string">&quot;¿Cómo está el clima?&quot;</span>)) {
   <span class="tok-keyword">case</span> <span class="tok-string">&quot;lluvioso&quot;</span>:
     console.log(<span class="tok-string">&quot;Recuerda llevar un paraguas.&quot;</span>);
     <span class="tok-keyword">break</span>;
   <span class="tok-keyword">case</span> <span class="tok-string">&quot;soleado&quot;</span>:
-    console.log(<span class="tok-string">&quot;Vístete ligero.&quot;</span>);
+    console.log(<span class="tok-string">&quot;Vístete con ropa ligera.&quot;</span>);
   <span class="tok-keyword">case</span> <span class="tok-string">&quot;nublado&quot;</span>:
     console.log(<span class="tok-string">&quot;Sal al exterior.&quot;</span>);
     <span class="tok-keyword">break</span>;
@@ -371,41 +374,41 @@ console.log(resultado);
     <span class="tok-keyword">break</span>;
 }</pre>
 
-<p><a class="p_ident" id="p-Ebda3Pwhl6" href="#p-Ebda3Pwhl6" tabindex="-1" role="presentation"></a>Puedes colocar cualquier cantidad de etiquetas <code>case</code> dentro del bloque abierto por <code>switch</code>. El programa comenzará a ejecutarse en la etiqueta que corresponda al valor que se le dio a <code>switch</code>, o en <code>default</code> si no se encuentra ningún valor coincidente. Continuará ejecutándose, incluso a través de otras etiquetas, hasta que alcance una declaración <code>break</code>. En algunos casos, como el caso <code>&quot;soleado&quot;</code> en el ejemplo, esto se puede usar para compartir algo de código entre casos (recomienda salir al exterior tanto para el clima soleado como para el nublado). Sin embargo, ten cuidado, es fácil olvidar un <code>break</code> de este tipo, lo que hará que el programa ejecute código que no deseas ejecutar.</p>
+<p><a class="p_ident" id="p-Ebda3Pwhl6" href="#p-Ebda3Pwhl6" tabindex="-1" role="presentation"></a>Puedes colocar cualquier cantidad de etiquetas <code>case</code> dentro del cuerpo de <code>switch</code>. El programa comenzará a ejecutarse en la etiqueta que corresponda al valor que se le dio a <code>switch</code>, o en <code>default</code>, si no se encuentra ningún valor coincidente. Continuará ejecutándose, incluso a través de otras etiquetas, hasta que alcance una declaración <code>break</code>. En algunos casos, como el caso <code>&quot;soleado&quot;</code> del ejemplo, esto se puede usar para compartir algo de código entre casos (recomienda salir al exterior tanto para el clima soleado como para el nublado). Pero ten cuidado, es fácil olvidar un <code>break</code> de este tipo, lo que hará que el programa ejecute código que no deseas ejecutar.</p>
 
 <h2><a class="h_ident" id="h-uaN9rBKlOx" href="#h-uaN9rBKlOx" tabindex="-1" role="presentation"></a>Uso de mayúsculas</h2>
 
-<p><a class="p_ident" id="p-LPEByvMVpz" href="#p-LPEByvMVpz" tabindex="-1" role="presentation"></a>Los nombres de los enlaces no pueden contener espacios, sin embargo, a menudo es útil usar varias palabras para describir claramente lo que representa el enlace. Estas son básicamente tus opciones para escribir un nombre de enlace con varias palabras:</p>
+<p><a class="p_ident" id="p-LPEByvMVpz" href="#p-LPEByvMVpz" tabindex="-1" role="presentation"></a>Los nombres de los asociaciones no pueden contener espacios, aunque a menudo es útil usar varias palabras para describir claramente lo que representa la asociación. Estas son básicamente tus opciones para escribir un nombre de asociación con varias palabras:</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-HtUFwP9TF9" href="#c-HtUFwP9TF9" tabindex="-1" role="presentation"></a>fuzzylittleturtle
 fuzzy_little_turtle
 FuzzyLittleTurtle
 fuzzyLittleTurtle</pre>
 
-<p><a class="p_ident" id="p-p1W8F/2VE7" href="#p-p1W8F/2VE7" tabindex="-1" role="presentation"></a>El primer estilo puede ser difícil de leer. Personalmente me gusta más la apariencia de los guiones bajos, aunque ese estilo es un poco difícil de escribir. Las funciones estándar de JavaScript y la mayoría de los programadores de JavaScript siguen el último estilo: escriben con mayúscula cada palabra excepto la primera. No es difícil acostumbrarse a pequeñas cosas como esa, y el código con estilos de nombrado mixtos puede resultar molesto de leer, así que seguimos esta convención.</p>
+<p><a class="p_ident" id="p-7f2h/V6EQk" href="#p-7f2h/V6EQk" tabindex="-1" role="presentation"></a>El primer estilo puede ser difícil de leer. Personalmente me gusta más la apariencia de los guiones bajos, aunque ese estilo es un poco difícil de escribir. Las funciones estándar de JavaScript y la mayoría de los programadores de JavaScript siguen el último estilo: escriben con mayúscula cada palabra excepto la primera. No es difícil adoptar pequeñas costumbres como esta, y el código con estilos de nombrado mixtos puede resultar molesto de leer, así que seguiremos esta última convención.</p>
 
 <p><a class="p_ident" id="p-jCGMhIRLKD" href="#p-jCGMhIRLKD" tabindex="-1" role="presentation"></a>En algunos casos, como en la función <code>Number</code>, la primera letra de un enlace también está en mayúscula. Esto se hizo para marcar esta función como un constructor. Quedará claro lo que es un constructor en el <a href="06_object.html#constructors">Capítulo 6</a>. Por ahora, lo importante es no molestarse por esta aparente falta de consistencia.</p>
 
 <h2><a class="h_ident" id="h-BU3lBD6Cl5" href="#h-BU3lBD6Cl5" tabindex="-1" role="presentation"></a>Comentarios</h2>
 
-<p><a class="p_ident" id="p-HxjnUCWytj" href="#p-HxjnUCWytj" tabindex="-1" role="presentation"></a>A menudo, el código sin formato no transmite toda la información que deseas que un programa transmita a los lectores humanos, o lo hace de una manera tan críptica que las personas podrían no entenderlo. En otros momentos, es posible que solo quieras incluir algunos pensamientos relacionados como parte de tu programa. Para eso sirven los <em>comentarios</em>.</p>
+<p><a class="p_ident" id="p-HxjnUCWytj" href="#p-HxjnUCWytj" tabindex="-1" role="presentation"></a>A menudo, el código sin formato no transmite toda la información que quieres que un programa transmita a los lectores humanos, o lo hace de una manera tan críptica que la gente podría no entenderlo. Otras veces, es posible que solo quieras incluir algunos pensamientos relacionados como parte de tu programa. Para eso sirven los <em>comentarios</em>.</p>
 
 <p><a class="p_ident" id="p-7Y56DjyRCG" href="#p-7Y56DjyRCG" tabindex="-1" role="presentation"></a>Un comentario es un fragmento de texto que forma parte de un programa pero que es completamente ignorado por la computadora. JavaScript tiene dos formas de escribir comentarios. Para escribir un comentario de una sola línea, puedes usar dos caracteres de barra (<code>//</code>) y luego el texto del comentario después de eso:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-Jwoo61SRx6" href="#c-Jwoo61SRx6" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">saldoCuenta</span> = calcularSaldo(cuenta);
-<span class="tok-comment">// Es un hueco verde donde canta un río</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-GA8ZZh0lVD" href="#c-GA8ZZh0lVD" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">saldoCuenta</span> = calcularSaldo(cuenta);
+<span class="tok-comment">// Al olmo viejo, hendido por el rayo</span>
 saldoCuenta.ajustar();
-<span class="tok-comment">// Atrapando locamente pedazos blancos en la hierba.</span>
+<span class="tok-comment">// y en su mitad podrido,</span>
 <span class="tok-keyword">let</span> <span class="tok-definition">informe</span> = <span class="tok-keyword">new</span> Informe();
-<span class="tok-comment">// Donde el sol en la orgullosa montaña resuena:</span>
+<span class="tok-comment">// con las lluvias de abril y el sol de mayo</span>
 agregarAInforme(saldoCuenta, informe);
-<span class="tok-comment">// Es un valle pequeño, espumoso como la luz en un vaso.</span></pre>
+<span class="tok-comment">// algunas hojas verdes le han salido.</span></pre>
 
-<p><a class="p_ident" id="p-RiQt53UNig" href="#p-RiQt53UNig" tabindex="-1" role="presentation"></a>Un comentario con <code>//</code> solo va hasta el final de la línea. Una sección de texto entre <code>/*</code> y <code>*/</code> será ignorada por completo, independientemente de si contiene saltos de línea. Esto es útil para agregar bloques de información sobre un archivo o un fragmento de programa:</p>
+<p><a class="p_ident" id="p-RiQt53UNig" href="#p-RiQt53UNig" tabindex="-1" role="presentation"></a>Un comentario con <code>//</code> solo va hasta el final de la línea. Una sección de texto entre <code>/*</code> y <code>*/</code> será ignorada por completo, independientemente de si contiene saltos de línea o no. Esto es útil para agregar bloques de información sobre un archivo o un fragmento de programa:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-JrXwf+0z7J" href="#c-JrXwf+0z7J" tabindex="-1" role="presentation"></a><span class="tok-comment">/*</span>
-<span class="tok-comment">  Encontré este número por primera vez garabateado en la parte posterior de un viejo</span>
-<span class="tok-comment">  cuaderno. Desde entonces, a menudo ha aparecido, mostrándose en</span>
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-TErmbVw8Jm" href="#c-TErmbVw8Jm" tabindex="-1" role="presentation"></a><span class="tok-comment">/*</span>
+<span class="tok-comment">  Encontré este número por primera vez garabateado en la parte de atrás de un viejo</span>
+<span class="tok-comment">  cuaderno. Desde entonces, ha aparecido con frecuencia en</span>
 <span class="tok-comment">  números de teléfono y números de serie de productos que he</span>
 <span class="tok-comment">  comprado. Obviamente le gusto, así que he decidido quedármelo.</span>
 <span class="tok-comment">*/</span>
@@ -413,17 +416,17 @@ agregarAInforme(saldoCuenta, informe);
 
 <h2><a class="h_ident" id="h-NUFOUyK+lw" href="#h-NUFOUyK+lw" tabindex="-1" role="presentation"></a>Resumen</h2>
 
-<p><a class="p_ident" id="p-f/OQzkkDiz" href="#p-f/OQzkkDiz" tabindex="-1" role="presentation"></a>Ahora sabes que un programa está construido a partir de declaraciones, que a veces contienen más declaraciones. Las declaraciones tienden a contener expresiones, que a su vez pueden estar construidas a partir de expresiones más pequeñas. Poner declaraciones una después de la otra te da un programa que se ejecuta de arriba hacia abajo. Puedes introducir alteraciones en el flujo de control usando declaraciones condicionales (<code>if</code>, <code>else</code> y <code>switch</code>) y bucles (<code>while</code>, <code>do</code> y <code>for</code>).</p>
+<p><a class="p_ident" id="p-f/OQzkkDiz" href="#p-f/OQzkkDiz" tabindex="-1" role="presentation"></a>Ahora sabes que un programa está construido a partir de declaraciones (o sentencias), que a veces contienen más declaraciones. Las declaraciones tienden a contener expresiones, que a su vez pueden estar construidas a partir de expresiones más pequeñas. Poner declaraciones una después de la otra te da un programa que se ejecuta de arriba hacia abajo. Puedes introducir alteraciones en el flujo de control usando sentencias condicionales (<code>if</code>, <code>else</code> y <code>switch</code>) y bucles (<code>while</code>, <code>do</code> y <code>for</code>).</p>
 
-<p><a class="p_ident" id="p-rcZwELYOMD" href="#p-rcZwELYOMD" tabindex="-1" role="presentation"></a>Los enlaces se pueden usar para guardar fragmentos de datos bajo un nombre, y son útiles para hacer un seguimiento del estado en tu programa. El entorno es el conjunto de enlaces que están definidos. Los sistemas de JavaScript siempre colocan varios enlaces estándar útiles en tu entorno.</p>
+<p><a class="p_ident" id="p-rcZwELYOMD" href="#p-rcZwELYOMD" tabindex="-1" role="presentation"></a>Los enlaces se pueden usar para guardar fragmentos de datos bajo un nombre, y son útiles para hacer un seguimiento del estado en tu programa. El entorno es el conjunto de enlaces que están definidos. Los sistemas de JavaScript siempre ponen varios enlaces estándar útiles en tu entorno.</p>
 
 <p><a class="p_ident" id="p-lh+UoMXkIt" href="#p-lh+UoMXkIt" tabindex="-1" role="presentation"></a>Las funciones son valores especiales que encapsulan un fragmento de programa. Puedes invocarlas escribiendo <code>nombreDeFuncion(argumento1, argumento2)</code>. Dicha llamada a función es una expresión y puede producir un valor.</p>
 
 <h2><a class="h_ident" id="h-tkm7ntLto1" href="#h-tkm7ntLto1" tabindex="-1" role="presentation"></a>Ejercicios</h2>
 
-<p><a class="p_ident" id="p-3Wokp0YSAj" href="#p-3Wokp0YSAj" tabindex="-1" role="presentation"></a>Si no estás seguro de cómo probar tus soluciones a los ejercicios, consulta la <a href="00_intro.html">Introducción</a>.</p>
+<p><a class="p_ident" id="p-Vw2WvEdyD9" href="#p-Vw2WvEdyD9" tabindex="-1" role="presentation"></a>Si no sabes cómo comprobar tus soluciones a los ejercicios, consulta la <a href="00_intro.html">Introducción</a>.</p>
 
-<p><a class="p_ident" id="p-8sD0jXsHvJ" href="#p-8sD0jXsHvJ" tabindex="-1" role="presentation"></a>Cada ejercicio comienza con una descripción del problema. Lee esta descripción e intenta resolver el ejercicio. Si encuentras problemas, considera leer las pistas después del ejercicio. Puedes encontrar soluciones completas a los ejercicios en línea en <a href="https://eloquentjavascript.net/code#2"><em>https://eloquentjavascript.net/code</em></a>. Si deseas aprender algo de los ejercicios, te recomiendo mirar las soluciones solo después de haber resuelto el ejercicio, o al menos después de haberlo intentado lo suficiente como para tener un ligero dolor de cabeza.</p>
+<p><a class="p_ident" id="p-8sD0jXsHvJ" href="#p-8sD0jXsHvJ" tabindex="-1" role="presentation"></a>Cada ejercicio comienza con una descripción del problema. Léela e intenta resolver el ejercicio. Si tienes problemas, considera leer las pistas después del ejercicio. Puedes encontrar soluciones completas a los ejercicios en línea en <a href="https://eloquentjavascript.net/code#2"><em>https://eloquentjavascript.net/code</em></a>. Si quieres aprender algo de los ejercicios, te recomiendo mirar las soluciones solo después de haber resuelto el ejercicio, o al menos después de haberlo intentado lo suficiente como para tener un ligero dolor de cabeza.</p>
 
 <h3><a class="i_ident" id="i-ThHo8CNjUY" href="#i-ThHo8CNjUY" tabindex="-1" role="presentation"></a>Haciendo un triángulo con bucles</h3>
 
@@ -437,7 +440,7 @@ agregarAInforme(saldoCuenta, informe);
 ######
 #######</pre>
 
-<p><a class="p_ident" id="p-HnTbcF9d+w" href="#p-HnTbcF9d+w" tabindex="-1" role="presentation"></a>Puede ser útil saber que puedes encontrar la longitud de una cadena escribiendo <code>.length</code> después de ella.</p>
+<p><a class="p_ident" id="p-HnTbcF9d+w" href="#p-HnTbcF9d+w" tabindex="-1" role="presentation"></a>Puede ser útil saber que puedes calcular la longitud de una cadena escribiendo <code>.length</code> después de ella.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qHvXAGuPvV" href="#c-qHvXAGuPvV" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">abc</span> = <span class="tok-string">&quot;abc&quot;</span>;
 console.log(abc.length);
@@ -451,7 +454,7 @@ console.log(abc.length);
 
 <p><a class="p_ident" id="p-DpgPWjXISq" href="#p-DpgPWjXISq" tabindex="-1" role="presentation"></a>Puedes comenzar con un programa que imprime los números del 1 al 7, el cual puedes obtener haciendo algunas modificaciones al ejemplo de impresión de números pares dado anteriormente en el capítulo, donde se introdujo el bucle <code>for</code>.</p>
 
-<p><a class="p_ident" id="p-iFIl1kilIr" href="#p-iFIl1kilIr" tabindex="-1" role="presentation"></a>Ahora considera la equivalencia entre los números y las cadenas de caracteres &quot;#&quot; . Puedes pasar de 1 a 2 sumando 1 (<code>+= 1</code>). Puedes pasar de <code>&quot;#&quot;</code> a <code>&quot;##&quot;</code> agregando un carácter (<code>+= &quot;#&quot;</code>). Por lo tanto, tu solución puede seguir de cerca el programa de impresión de números.</p>
+<p><a class="p_ident" id="p-tjWvssIayu" href="#p-tjWvssIayu" tabindex="-1" role="presentation"></a>Luego, considera la equivalencia entre los números y las cadenas de caracteres &quot;#&quot; . Puedes pasar de 1 a 2 sumando 1 (<code>+= 1</code>). Puedes pasar de <code>&quot;#&quot;</code> a <code>&quot;##&quot;</code> agregando un carácter (<code>+= &quot;#&quot;</code>). Por lo tanto, tu solución puede basarse fuertemente en el programa de impresión de números.</p>
 
 </div></details>
 
@@ -459,19 +462,19 @@ console.log(abc.length);
 
 <p><a class="p_ident" id="p-sN81xT6Ls4" href="#p-sN81xT6Ls4" tabindex="-1" role="presentation"></a>Escribe un programa que use <code>console.log</code> para imprimir todos los números del 1 al 100, con dos excepciones. Para los números divisibles por 3, imprime <code>&quot;Fizz&quot;</code> en lugar del número, y para los números divisibles por 5 (y no por 3), imprime <code>&quot;Buzz&quot;</code> en su lugar.</p>
 
-<p><a class="p_ident" id="p-RDYVgc4FLA" href="#p-RDYVgc4FLA" tabindex="-1" role="presentation"></a>Cuando tengas eso funcionando, modifica tu programa para imprimir <code>&quot;FizzBuzz&quot;</code> para los números que son divisibles por 3 y 5 (y sigue imprimiendo <code>&quot;Fizz&quot;</code> o <code>&quot;Buzz&quot;</code> para los números que son divisibles solo por uno de esos).</p>
+<p><a class="p_ident" id="p-E9o5g3i4vC" href="#p-E9o5g3i4vC" tabindex="-1" role="presentation"></a>Cuando eso esté listo, modifica tu programa para imprimir <code>&quot;FizzBuzz&quot;</code> para los números que son divisibles por 3 y 5 (y sigue imprimiendo <code>&quot;Fizz&quot;</code> o <code>&quot;Buzz&quot;</code> para los números que son divisibles solo por uno de esos).</p>
 
-<p><a class="p_ident" id="p-xiZio9jEj5" href="#p-xiZio9jEj5" tabindex="-1" role="presentation"></a>(Esto es en realidad una pregunta de entrevista que se ha afirmado que elimina a un porcentaje significativo de candidatos a programadores. Entonces, si lo resolviste, tu valor en el mercado laboral acaba de aumentar.)</p>
+<p><a class="p_ident" id="p-xiZio9jEj5" href="#p-xiZio9jEj5" tabindex="-1" role="presentation"></a>(Esto es en realidad una pregunta de entrevista que se ha afirmado que elimina a un porcentaje significativo de candidatos a programadores. Por tanto, si lo resolviste, tu valor en el mercado laboral acaba de aumentar.)</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ROnwerR8AG_1" href="#c-ROnwerR8AG_1" tabindex="-1" role="presentation"></a><span class="tok-comment">// Tu código aquí.</span></pre>
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-FnPgHxuR9J" href="#p-FnPgHxuR9J" tabindex="-1" role="presentation"></a>Claramente, recorrer los números es un trabajo de bucle, y seleccionar qué imprimir es una cuestión de ejecución condicional. Recuerda el truco de usar el operador de resto (<code>%</code>) para verificar si un número es divisible por otro número (tiene un resto de cero).</p>
+<p><a class="p_ident" id="p-FnPgHxuR9J" href="#p-FnPgHxuR9J" tabindex="-1" role="presentation"></a>Claramente, recorrer los números es tarea para un bucle, y seleccionar qué imprimir es una cuestión de ejecución condicional. Recuerda el truco de usar el operador de resto (<code>%</code>) para verificar si un número es divisible por otro número (tiene un resto de cero).</p>
 
-<p><a class="p_ident" id="p-DgEYFa1d1o" href="#p-DgEYFa1d1o" tabindex="-1" role="presentation"></a>En la primera versión, hay tres resultados posibles para cada número, por lo que tendrás que crear una cadena <code>if</code>/<code>else if</code>/<code>else</code>.</p>
+<p><a class="p_ident" id="p-oYpHxgkxw/" href="#p-oYpHxgkxw/" tabindex="-1" role="presentation"></a>En la primera versión, hay tres resultados posibles para cada número, por lo que tendrás que crear una secuencia <code>if</code>/<code>else if</code>/<code>else</code>.</p>
 
-<p><a class="p_ident" id="p-wu2JrShz/M" href="#p-wu2JrShz/M" tabindex="-1" role="presentation"></a>La segunda versión del programa tiene una solución sencilla y una inteligente. La solución simple es agregar otra “rama” condicional para probar exactamente la condición dada. Para la solución inteligente, construye una cadena que contenga la palabra o palabras a imprimir e imprime esta palabra o el número si no hay palabra, potencialmente haciendo un buen uso del operador <code>||</code>.</p>
+<p><a class="p_ident" id="p-wu2JrShz/M" href="#p-wu2JrShz/M" tabindex="-1" role="presentation"></a>La segunda versión del programa tiene una solución sencilla y una inteligente. La solución sencilla es agregar otra “rama” condicional para probar exactamente la condición dada. Para la solución inteligente, construye una cadena que contenga la palabra o palabras a imprimir e imprime esta palabra o el número si no hubiera palabra, potencialmente haciendo un buen uso del operador <code>||</code>.</p>
 
 </div></details>
 
@@ -479,7 +482,7 @@ console.log(abc.length);
 
 <p><a class="p_ident" id="p-eZy03w3wJ3" href="#p-eZy03w3wJ3" tabindex="-1" role="presentation"></a>Escribe un programa que cree una cadena que represente un tablero de 8x8, usando caracteres de salto de línea para separar las líneas. En cada posición del tablero hay un carácter de espacio o un carácter &quot;#&quot;. Los caracteres deben formar un tablero de ajedrez.</p>
 
-<p><a class="p_ident" id="p-yoH2dRdE5H" href="#p-yoH2dRdE5H" tabindex="-1" role="presentation"></a>Al pasar esta cadena a <code>console.log</code> debería mostrar algo como esto:</p>
+<p><a class="p_ident" id="p-yoH2dRdE5H" href="#p-yoH2dRdE5H" tabindex="-1" role="presentation"></a>Al pasar esta cadena a <code>console.log</code>, debería mostrar algo como esto:</p>
 
 <pre class="snippet" data-language="null" ><a class="c_ident" id="c-7yVx5TrcJ/" href="#c-7yVx5TrcJ/" tabindex="-1" role="presentation"></a> # # # #
 # # # # 
@@ -496,9 +499,9 @@ console.log(abc.length);
 
 <details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">
 
-<p><a class="p_ident" id="p-Gr7cParUG1" href="#p-Gr7cParUG1" tabindex="-1" role="presentation"></a>Para trabajar con dos dimensiones, necesitarás un bucle dentro de otro bucle. Pon llaves alrededor de los cuerpos de ambos bucles para que sea fácil ver dónde empiezan y terminan. Intenta indentar correctamente estos cuerpos. El orden de los bucles debe seguir el orden en el que construimos la cadena (línea por línea, de izquierda a derecha, de arriba abajo). Entonces el bucle exterior maneja las líneas y el bucle interior maneja los caracteres en una línea.</p>
+<p><a class="p_ident" id="p-Gr7cParUG1" href="#p-Gr7cParUG1" tabindex="-1" role="presentation"></a>Para trabajar con dos dimensiones, necesitarás un bucle dentro de otro bucle. Pon llaves alrededor de los cuerpos de ambos bucles para que sea fácil ver dónde empiezan y terminan. Intenta añadir sangrado (o <em>indentar</em>) correctamente a estos cuerpos. El orden de los bucles debe seguir el orden en el que construimos la cadena (línea por línea, de izquierda a derecha, de arriba abajo). Entonces el bucle exterior maneja las líneas y el bucle interior maneja los caracteres en una línea.</p>
 
-<p><a class="p_ident" id="p-QwX2iYYwbo" href="#p-QwX2iYYwbo" tabindex="-1" role="presentation"></a>Necesitarás dos variables para hacer un seguimiento de tu progreso. Para saber si debes colocar un espacio o un signo de hash en una posición determinada, podrías verificar si la suma de los dos contadores es par (<code>% 2</code>).</p>
+<p><a class="p_ident" id="p-QwX2iYYwbo" href="#p-QwX2iYYwbo" tabindex="-1" role="presentation"></a>Necesitarás dos variables para hacer un seguimiento de tu progreso. Para saber si debes colocar un espacio o un signo de almohadilla en una posición determinada, podrías verificar si la suma de los dos contadores es par (<code>% 2</code>).</p>
 
 <p><a class="p_ident" id="p-YhRlDyis8S" href="#p-YhRlDyis8S" tabindex="-1" role="presentation"></a>Terminar una línea agregando un carácter de salto de línea debe ocurrir después de que se haya construido la línea, así que hazlo después del bucle interno pero dentro del bucle externo.</p>
 

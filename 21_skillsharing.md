@@ -4,17 +4,17 @@
 
 {{quote {author: "Margaret Fuller", chapter: true}
 
-Si tienes conocimiento, permite que otros enciendan sus velas en él.
+Si tienes conocimiento, permite que otros enciendan sus velas con él.
 
 quote}}
 
-{{index "proyecto de intercambio de habilidades", meetup, "capítulo del proyecto"}}
+{{index "proyecto de intercambio de habilidades", meetup, "capítulo de proyecto"}}
 
 {{figure {url: "img/chapter_picture_21.jpg", alt: "Ilustración que muestra dos monociclos apoyados en un buzón", chapter: "framed"}}}
 
-Una reunión de ((intercambio de habilidades)) es un evento en el que personas con un interés compartido se reúnen y dan pequeñas presentaciones informales sobre cosas que saben. En una reunión de intercambio de habilidades de ((jardinería)), alguien podría explicar cómo cultivar ((apio)). O en un grupo de intercambio de habilidades de programación, podrías pasar y contarles a la gente sobre Node.js.
+Una reunión de ((intercambio de habilidades)) es un evento en el que personas con un interés compartido se reúnen y dan pequeñas presentaciones informales sobre cosas que saben. En una reunión de intercambio de habilidades de ((jardinería)), alguien podría explicar cómo cultivar ((apio)). O en un grupo de intercambio de habilidades de programación, podrías pasarte y contarle a la gente sobre Node.js.
 
-En este último capítulo del proyecto, nuestro objetivo es configurar un ((sitio web)) para gestionar las ((charla))s impartidas en una reunión de intercambio de habilidades. Imagina un pequeño grupo de personas que se reúnen regularmente en la oficina de uno de los miembros para hablar sobre ((monociclos)). El organizador anterior de las reuniones se mudó a otra ciudad y nadie se ofreció a asumir esta tarea. Queremos un sistema que permita a los participantes proponer y discutir charlas entre ellos, sin un organizador activo.
+En este último capítulo de proyecto, nuestro objetivo es configurar un ((sitio web)) para gestionar las ((charla))s impartidas en una reunión de intercambio de habilidades. Imagina un pequeño grupo de personas que se reúnen regularmente en la oficina de uno de los miembros para hablar sobre ((monociclos)). El organizador anterior de las reuniones se mudó a otra ciudad y nadie se ofreció a asumir esta tarea. Queremos un sistema que permita a los participantes proponer y discutir charlas entre ellos, sin un organizador activo.
 
 [Al igual que en el [capítulo anterior](node), parte del código en este capítulo está escrito para Node.js y es poco probable que funcione si se ejecuta directamente en la página HTML que estás viendo.]{if interactive} El código completo del proyecto se puede ((descargar)) desde [_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip).
 
@@ -26,13 +26,13 @@ Este proyecto tiene una parte de _((servidor))_, escrita para ((Node.js)), y una
 
 {{index [HTTP, cliente]}}
 
-El servidor mantiene la lista de ((charla))s propuestas para la próxima reunión, y el cliente muestra esta lista. Cada charla tiene un nombre de presentador, un título, un resumen y una matriz de ((comentario))s asociados. El cliente permite a los usuarios proponer nuevas charlas (agregándolas a la lista), eliminar charlas y comentar en charlas existentes. Cada vez que el usuario realiza un cambio de este tipo, el cliente realiza una solicitud HTTP para informar al servidor al respecto.
+El servidor mantiene la lista de ((charla))s propuestas para la próxima reunión, y el cliente muestra esta lista. Cada charla tiene un nombre de presentador, un título, un resumen y un array de ((comentario))s asociados. El cliente permite a los usuarios proponer nuevas charlas (agregándolas a la lista), eliminar charlas y comentar en charlas existentes. Cada vez que el usuario realiza un cambio de este tipo, el cliente realiza una solicitud HTTP para informar al servidor al respecto.
 
 {{figure {url: "img/skillsharing.png", alt: "Captura de pantalla del sitio web de intercambio de habilidades", width: "10cm"}}}
 
 {{index "vista en vivo", "experiencia del usuario", "envío de datos", "conexión"}}
 
-La ((aplicación)) se configurará para mostrar una vista _en vivo_ de las charlas propuestas actuales y sus comentarios. Cada vez que alguien, en algún lugar, envíe una nueva charla o agregue un comentario, todas las personas que tengan la página abierta en sus navegadores deberían ver el cambio de inmediato. Esto plantea un desafío—no hay forma de que un servidor web abra una conexión a un cliente, ni hay una buena forma de saber qué clientes están viendo actualmente un sitio web dado.
+La ((aplicación)) se configurará para mostrar una vista _en vivo_ de las charlas propuestas actuales y sus comentarios. Cada vez que alguien, en algún lugar, envíe una nueva charla o agregue un comentario, todas las personas que tengan la página abierta en sus navegadores deberían ver el cambio de inmediato. Esto plantea un desafío —no hay forma de que un servidor web abra una conexión a un cliente, ni hay una buena forma de saber qué clientes están viendo actualmente un sitio web dado.
 
 {{index "Node.js"}}
 
@@ -50,7 +50,9 @@ Podemos hacer que el cliente abra la conexión y la mantenga activa para que el 
 
 Sin embargo, una solicitud ((HTTP)) permite solo un flujo simple de información: el cliente envía una solicitud, el servidor responde una sola vez, y eso es todo. Existe una tecnología llamada _((WebSockets))_ que permite abrir ((conexiones)) para el intercambio arbitrario de datos. Pero usarlas adecuadamente es algo complicado.
 
-En este capítulo, utilizamos una técnica más sencilla—((long polling))—donde los clientes preguntan continuamente al servidor por nueva información mediante solicitudes HTTP regulares, y el servidor retiene su respuesta cuando no tiene nada nuevo que informar.
+En este capítulo, utilizamos una técnica más sencilla —((long polling))— donde los clientes preguntan continuamente al servidor por nueva información mediante solicitudes HTTP normales, y el servidor retiene su respuesta cuando no tiene nada nuevo que informar.
+
+{{note "**N. del T.:** Como con otros muchos conceptos, elegimos en esta traducción no traducir el término _long polling_. Una traducción adecuada sería _sondeo prolongado_, así que la usaremos aquí, junto con otras posibles traducciones que se entenderán por el contexto."}}
 
 {{index "vista en vivo"}}
 
@@ -62,7 +64,7 @@ Para evitar que las conexiones se agoten por tiempo (se aborten debido a una fal
 
 {{index "Node.js"}}
 
-Un servidor ocupado que utiliza long polling puede tener miles de solicitudes en espera, y por lo tanto ((conexiones)) ((TCP)) abiertas. Node, que facilita la gestión de muchas conexiones sin crear un hilo de control separado para cada una, es ideal para este tipo de sistema.
+Un servidor ocupado que utiliza long polling puede tener miles de solicitudes en espera, y, por lo tanto, de ((conexiones)) ((TCP)) abiertas. Node, que facilita la gestión de muchas conexiones sin crear un hilo de control separado para cada una, es ideal para este tipo de sistema.
 
 ## Interfaz HTTP
 
@@ -72,7 +74,7 @@ Antes de comenzar a diseñar el servidor o el cliente, pensemos en el punto dond
 
 {{index [ruta, URL], ["método", HTTP]}}
 
-Utilizaremos ((JSON)) como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del [Capítulo ?](node#file_server), intentaremos hacer un buen uso de los métodos y ((cabecera))s HTTP. La interfaz se centra en la ruta `/talks`. Las rutas que no comienzan con `/talks` se utilizarán para servir ((archivos estáticos))—el código HTML y JavaScript para el sistema del lado del cliente.
+Utilizaremos ((JSON)) como formato de nuestro cuerpo de solicitud y respuesta. Al igual que en el servidor de archivos del [Capítulo ?](node#file_server), intentaremos hacer un buen uso de los métodos y ((cabecera))s HTTP. La interfaz se centra en la ruta `/talks`. Las rutas que no comienzan con `/talks` se utilizarán para servir ((archivos estáticos)) —el código HTML y JavaScript para el sistema del lado del cliente.
 
 {{index "Método GET"}}
 
@@ -87,14 +89,15 @@ Una solicitud `GET` a `/talks` devuelve un documento JSON como este:
 
 {{index "Método PUT", URL}}
 
-Crear una nueva charla se hace haciendo una solicitud `PUT` a una URL como `/talks/Unituning`, donde la parte después de la segunda barra es el título de la charla. El cuerpo de la solicitud `PUT` debe contener un objeto ((JSON)) que tenga propiedades `presenter` y `summary`.
+Una nueva charla se creará haciendo una solicitud `PUT` a una URL como `/talks/Unituning`, donde la parte después de la segunda barra es el título de la charla. El cuerpo de la solicitud `PUT` debe contener un objeto ((JSON)) que tenga propiedades `presenter` y `summary`.
 
 {{index "Función encodeURIComponent", [escape, "en URLs"], [espacios en blanco, "en URLs"]}}
 
 Dado que los títulos de las charlas pueden contener espacios y otros caracteres que normalmente no aparecen en una URL, las cadenas de título deben ser codificadas con la función `encodeURIComponent` al construir una URL de ese tipo.
 
 ```
-console.log("/talks/" + encodeURIComponent("Cómo hacer el caballito"));
+console.log("/talks/"
+            + encodeURIComponent("Cómo hacer el caballito"));
 // → /talks/Cómo%20hacer%20el%20caballito
 ```
 
@@ -126,7 +129,7 @@ Content-Length: 72
 
 {{index "cadena de consulta", tiempo de espera, "encabezado ETag", "encabezado If-None-Match"}}
 
-Para soportar ((encuestas prolongadas)), las solicitudes `GET` a `/talks` pueden incluir encabezados adicionales que informen al servidor para retrasar la respuesta si no hay nueva información disponible. Usaremos un par de encabezados normalmente destinados a gestionar el almacenamiento en caché: `ETag` y `If-None-Match`.
+Para soportar ((long pollings)), las solicitudes `GET` a `/talks` pueden incluir encabezados adicionales que informen al servidor para retrasar la respuesta si no hay nueva información disponible. Usaremos un par de encabezados normalmente destinados a gestionar el almacenamiento en caché: `ETag` y `If-None-Match`.
 
 {{index "304 (código de estado HTTP)"}}
 
@@ -134,7 +137,9 @@ Los servidores pueden incluir un encabezado `ETag` ("etiqueta de entidad") en un
 
 {{index "encabezado Prefer"}}
 
-Necesitamos algo como esto, donde el cliente puede decirle al servidor qué versión de la lista de charlas tiene, y el servidor responde solo cuando esa lista ha cambiado. Pero en lugar de devolver inmediatamente una respuesta 304, el servidor debería demorar la respuesta y devolverla solo cuando haya algo nuevo disponible o haya transcurrido una cantidad de tiempo determinada. Para distinguir las solicitudes de encuestas prolongadas de las solicitudes condicionales normales, les damos otro encabezado, `Prefer: wait=90`, que le indica al servidor que el cliente está dispuesto a esperar hasta 90 segundos por la respuesta.El servidor mantendrá un número de versión que actualiza cada vez que cambian las charlas y lo utilizará como valor `ETag`. Los clientes pueden hacer solicitudes como esta para ser notificados cuando las charlas cambien:
+Necesitamos algo como esto, donde el cliente puede decirle al servidor qué versión de la lista de charlas tiene, y el servidor responde solo cuando esa lista ha cambiado. Pero en lugar de devolver inmediatamente una respuesta 304, el servidor debería demorar la respuesta y devolverla solo cuando haya algo nuevo disponible o haya transcurrido una cantidad de tiempo determinada. Para distinguir las solicitudes de encuestas prolongadas de las solicitudes condicionales normales, les damos otro encabezado, `Prefer: wait=90`, que le indica al servidor que el cliente está dispuesto a esperar hasta 90 segundos por la respuesta.
+
+El servidor mantendrá un número de versión que actualiza cada vez que cambian las charlas y lo utilizará como valor `ETag`. Los clientes pueden hacer solicitudes como esta para ser notificados cuando las charlas cambien:
 
 ```{lang: null}
 GET /talks HTTP/1.1
@@ -153,7 +158,7 @@ Content-Length: 295
 
 {{index seguridad}}
 
-El protocolo descrito aquí no realiza ningún ((control de acceso)). Cualquiera puede comentar, modificar charlas e incluso eliminarlas. (Dado que Internet está lleno de ((matones)), poner un sistema en línea sin una protección adicional probablemente no terminaría bien).
+El protocolo descrito aquí no realiza ningún ((control de acceso)). Cualquiera puede comentar, modificar charlas e incluso eliminarlas. Dado que Internet está lleno de ((matones)), poner un sistema en línea sin protección adicional probablemente no terminaría bien.
 
 ## El servidor
 
@@ -171,13 +176,13 @@ Nuestro servidor utilizará `createServer` de Node para iniciar un servidor HTTP
 
 Un _((enrutador))_ es un componente que ayuda a despachar una solicitud a la función que puede manejarla. Puedes indicarle al enrutador, por ejemplo, que las solicitudes `PUT` con una ruta que coincida con la expresión regular `/^\/talks\/([^\/]+)$/` (`/talks/` seguido de un título de charla) pueden ser manejadas por una función dada. Además, puede ayudar a extraer las partes significativas de la ruta (en este caso el título de la charla), envueltas en paréntesis en la ((expresión regular)), y pasarlas a la función manejadora.
 
-Hay varios paquetes de enrutadores buenos en ((NPM)), pero aquí escribiremos uno nosotros mismos para ilustrar el principio.
+Hay varios paquetes de enrutadores buenos en ((NPM)), pero aquí escribiremos uno nosotros mismos para mostrar cómo funciona.
 
 {{index "palabra clave import", "clase Router", "módulo"}}
 
 Este es `router.mjs`, que luego `importaremos` desde nuestro módulo del servidor:
 
-```{includeCode: ">code/skillsharing/router.mjs"}
+```{includeCode: ">code/skillsharing/router.mjs", lang:null}
 export class Router {
   constructor() {
     this.routes = [];
@@ -213,7 +218,7 @@ Cuando una solicitud no coincide con ninguno de los tipos de solicitud definidos
 
 Opté por `serve-static`. Este no es el único servidor de este tipo en NPM, pero funciona bien y se ajusta a nuestros propósitos. El paquete `serve-static` exporta una función que puede ser llamada con un directorio raíz para producir una función manipuladora de solicitudes. La función manipuladora acepta los argumentos `request` y `response` proporcionados por el servidor de `"node:http"`, y un tercer argumento, una función que se llamará si ningún archivo coincide con la solicitud. Queremos que nuestro servidor primero compruebe las solicitudes que deberíamos manejar de manera especial, según lo definido en el enrutador, por lo que lo envolvemos en otra función.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 import {createServer} from "node:http";
 import serveStatic from "serve-static";
 
@@ -249,7 +254,7 @@ La función `serveFromRouter` tiene la misma interfaz que `fileServer`, tomando 
 
 Nuestra función `serveFromRouter` utiliza una convención similar a la del servidor de archivos del [capítulo anterior](node) para las respuestas: los manejadores en el enrutador devuelven promesas que se resuelven en objetos que describen la respuesta.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 import {Router} from "./router.mjs";
 
 const router = new Router();
@@ -272,14 +277,14 @@ async function serveFromRouter(server, request,
 
 ### Charlas como recursos
 
-Las ((charlas)) que se han propuesto se almacenan en la propiedad `talks` del servidor, un objeto cuyas propiedades son los títulos de las charlas. Agregaremos algunos controladores a nuestro enrutador que expongan estos como ((recursos)) HTTP bajo `/charlas/[título]`.
+Las ((charlas)) que se han propuesto se almacenan en la propiedad `talks` del servidor, un objeto cuyas propiedades son los títulos de las charlas. Agregaremos algunos controladores a nuestro enrutador que expongan estos como ((recursos)) HTTP bajo `/talks/[título]`.
 
 {{index "método GET", "404 (código de estado HTTP)", "función hasOwn"}}
 
 El controlador para las solicitudes que `GET` una sola charla debe buscar la charla y responder ya sea con los datos JSON de la charla o con una respuesta de error 404.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
-const talkPath = /^\/charlas\/([^\/]+)$/;
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
+const talkPath = /^\/talks\/([^\/]+)$/;
 
 router.add("GET", talkPath, async (server, title) => {
   if (Object.hasOwn(server.talks, title)) {
@@ -293,9 +298,9 @@ router.add("GET", talkPath, async (server, title) => {
 
 {{index "método DELETE"}}
 
-Eliminar una charla se hace eliminándola del objeto `talks`.
+Para eliminar una charla la eliminamos del objeto `talks`.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 router.add("DELETE", talkPath, async (server, title) => {
   if (Object.hasOwn(server.talks, title)) {
     delete server.talks[title];
@@ -307,11 +312,11 @@ router.add("DELETE", talkPath, async (server, title) => {
 
 {{index "espera larga", "método updated"}}
 
-El método `updated`, que definiremos [más adelante](skillsharing#updated), notifica a las solicitudes de espera larga sobre el cambio.
+El método `updated`, que definiremos [más adelante](skillsharing#updated), notifica a las solicitudes de long polling sobre el cambio.
 
 {{index "validación", entrada, "método PUT"}}
 
-Un controlador que necesita leer cuerpos de solicitud es el controlador `PUT`, que se utiliza para crear nuevas ((charlas)). Debe verificar si los datos que se le proporcionaron tienen propiedades `presentador` y `resumen`, que son cadenas de texto. Cualquier dato que provenga de fuera del sistema podría ser un sinsentido y no queremos corromper nuestro modelo de datos interno o ((fallar)) cuando lleguen solicitudes incorrectas.
+Un manejador que necesita leer cuerpos de solicitud es el manejador `PUT`, que se utiliza para crear nuevas ((charlas)). Debe verificar si los datos que se le proporcionaron tienen propiedades `presenter` y `summary`, que son cadenas de texto. Cualquier dato que provenga de fuera del sistema podría ser un sinsentido y no queremos corromper nuestro modelo de datos interno o ((fallar)) cuando lleguen solicitudes incorrectas.
 
 {{index "método updated"}}
 
@@ -321,7 +326,7 @@ Si los datos parecen válidos, el controlador almacena un objeto que representa 
 
 Para leer el cuerpo del flujo de solicitud, utilizaremos la función `json` de `"node:stream/consumers"`, que recopila los datos en el flujo y luego los analiza como JSON. Hay exportaciones similares llamadas `text` (para leer el contenido como una cadena) y `buffer` (para leerlo como datos binarios) en este paquete. Dado que `json` es un nombre genérico, la importación lo renombra a `readJSON` para evitar confusiones.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 import {json as readJSON} from "node:stream/consumers"
 
 router.add("PUT", talkPath,
@@ -341,9 +346,11 @@ router.add("PUT", talkPath,
   server.updated();
   return {status: 204};
 });
-```Agregar un ((comentario)) a una ((charla)) funciona de manera similar. Usamos `readJSON` para obtener el contenido de la solicitud, validamos los datos resultantes y los almacenamos como un comentario cuando parecen válidos.
+```
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+Agregar un ((comentario)) a una ((charla)) funciona de manera similar. Usamos `readJSON` para obtener el contenido de la solicitud, validamos los datos resultantes y los almacenamos como un comentario cuando parecen válidos.
+
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 router.add("POST", /^\/talks\/([^\/]+)\/comments$/,
            async (server, title, request) => {
   let comment = await readJSON(request);
@@ -365,15 +372,15 @@ router.add("POST", /^\/talks\/([^\/]+)\/comments$/,
 
 Intentar agregar un comentario a una charla inexistente devuelve un error 404.
 
-### Soporte para larga espera
+### Soporte para long polling
 
-El aspecto más interesante del servidor es la parte que maneja la ((larga espera)). Cuando llega una solicitud `GET` para `/charlas`, puede ser una solicitud regular o una solicitud de larga espera.
+El aspecto más interesante del servidor es la parte que maneja el _((long polling))_ (o la larga espera). Cuando llega una solicitud `GET` para `/talks`, puede ser una solicitud normal o una solicitud de larga espera.
 
 {{index "método talkResponse", "encabezado ETag"}}
 
-Habrá varios lugares en los que debamos enviar una matriz de charlas al cliente, por lo que primero definimos un método auxiliar que construya dicha matriz e incluya un encabezado `ETag` en la respuesta.
+Habrá varios lugares en los que debamos enviar un array de charlas al cliente, por lo que primero definimos un método auxiliar que construya dicho array e incluya un encabezado `ETag` en la respuesta.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 SkillShareServer.prototype.talkResponse = function() {
   let talks = Object.keys(this.talks)
     .map(title => this.talks[title]);
@@ -388,9 +395,9 @@ SkillShareServer.prototype.talkResponse = function() {
 
 {{index "cadena de consulta", "paquete url", "análisis"}}
 
-El controlador en sí mismo necesita examinar los encabezados de la solicitud para ver si están presentes los encabezados `If-None-Match` y `Prefer`. Node almacena los encabezados, cuyos nombres se especifican como insensibles a mayúsculas y minúsculas, bajo sus nombres en minúsculas.
+El manejador en sí mismo necesita examinar los encabezados de la solicitud para ver si están presentes los encabezados `If-None-Match` y `Prefer`. Node almacena los encabezados, cuyos nombres se especifican como insensibles a mayúsculas y minúsculas, bajo sus nombres en minúsculas.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 router.add("GET", /^\/talks$/, async (server, request) => {
   let tag = /"(.*)"/.exec(request.headers["if-none-match"]);
   let wait = /\bwait=(\d+)/.exec(request.headers["prefer"]);
@@ -406,13 +413,13 @@ router.add("GET", /^\/talks$/, async (server, request) => {
 
 {{index "larga espera", "método waitForChanges", "encabezado If-None-Match", "encabezado Prefer"}}
 
-Si no se proporcionó ninguna etiqueta o se proporcionó una etiqueta que no coincide con la versión actual del servidor, el controlador responde con la lista de charlas. Si la solicitud es condicional y las charlas no han cambiado, consultamos el encabezado `Prefer` para ver si debemos retrasar la respuesta o responder de inmediato.
+Si no se proporcionó ninguna etiqueta o se proporcionó una etiqueta que no coincide con la versión actual del servidor, el manejador responde con la lista de charlas. Si la solicitud es condicional y las charlas no han cambiado, consultamos el encabezado `Prefer` para ver si debemos retrasar la respuesta o responder de inmediato.
 
 {{index "304 (código de estado HTTP)", "función setTimeout", tiempo de espera, "función de devolución de llamada"}}
 
-Las funciones de devolución de llamada para solicitudes retardadas se almacenan en la matriz `waiting` del servidor para que puedan ser notificadas cuando ocurra algo. El método `waitForChanges` también establece inmediatamente un temporizador para responder con un estado 304 cuando la solicitud haya esperado el tiempo suficiente.
+Las funciones de callback para solicitudes retardadas se almacenan en el array `waiting` del servidor para que puedan ser notificadas cuando ocurra algo. El método `waitForChanges` también establece inmediatamente un temporizador para responder con un estado 304 cuando la solicitud haya esperado el tiempo suficiente.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 SkillShareServer.prototype.waitForChanges = function(time) {
   return new Promise(resolve => {
     this.waiting.push(resolve);
@@ -431,7 +438,7 @@ SkillShareServer.prototype.waitForChanges = function(time) {
 
 Registrar un cambio con `updated` incrementa la propiedad `versión` y despierta todas las solicitudes en espera.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 SkillShareServer.prototype.updated = function() {
   this.version++;
   let response = this.talkResponse();
@@ -444,7 +451,7 @@ SkillShareServer.prototype.updated = function() {
 
 Eso concluye el código del servidor. Si creamos una instancia de `SkillShareServer` y la iniciamos en el puerto 8000, el servidor HTTP resultante servirá archivos desde el subdirectorio `public` junto con una interfaz para manejar charlas bajo la URL `/talks`.
 
-```{includeCode: ">code/skillsharing/skillsharing_server.mjs"}
+```{includeCode: ">code/skillsharing/skillsharing_server.mjs", lang:null}
 new SkillShareServer({}).start(8000);
 ```
 
@@ -458,7 +465,7 @@ La parte del ((cliente)) del sitio web de intercambio de habilidades consiste en
 
 {{index "index.html"}}
 
-Es una convención ampliamente utilizada para servidores web intentar servir un archivo llamado `index.html` cuando se realiza una solicitud directamente a una ruta que corresponde a un directorio. El módulo de servidor de archivos que utilizamos, `serve-static`, soporta esta convención. Cuando se realiza una solicitud a la ruta `/`, el servidor busca el archivo `./public/index.html` (`./public` siendo la raíz que le dimos) y devuelve ese archivo si se encuentra.
+Es una convención ampliamente utilizada para servidores web intentar servir un archivo llamado `index.html` cuando se realiza una solicitud directamente a una ruta que corresponde a un directorio. El módulo de servidor de archivos que utilizamos, `serve-static`, adopta esta convención. Cuando se realiza una solicitud a la ruta `/`, el servidor busca el archivo `./public/index.html` (`./public` siendo la raíz que le dimos) y devuelve ese archivo si se encuentra.
 
 Por lo tanto, si queremos que una página aparezca cuando un navegador apunta a nuestro servidor, deberíamos colocarla en `public/index.html`. Este es nuestro archivo de índice:
 
@@ -479,13 +486,13 @@ Define el ((título)) del documento e incluye una hoja de estilos, que define al
 
 ### Acciones
 
-El estado de la aplicación consiste en la lista de charlas y el nombre del usuario, y lo almacenaremos en un objeto `{charlas, usuario}`. No permitimos que la interfaz de usuario manipule directamente el estado ni envíe solicitudes HTTP. En cambio, puede emitir _acciones_ que describen lo que el usuario está intentando hacer.
+El estado de la aplicación consiste en la lista de charlas y el nombre del usuario, y lo almacenaremos en un objeto `{talks, user}`. No permitimos que la interfaz de usuario manipule directamente el estado ni envíe solicitudes HTTP. En cambio, puede emitir _acciones_ que describen lo que el usuario está intentando hacer.
 
 {{index "función handleAction"}}
 
-La función `handleAction` toma una acción de este tipo y la lleva a cabo. Debido a que nuestras actualizaciones de estado son tan simples, los cambios de estado se manejan en la misma función.
+La función `handleAction` toma una acción de este tipo y la lleva a cabo. Como nuestras actualizaciones de estado son tan simples, los cambios de estado se manejan en la misma función.
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function handleAction(state, action) {
   if (action.type == "setUser") {
     localStorage.setItem("userName", action.user);
@@ -526,7 +533,7 @@ Almacenaremos el nombre del usuario en `localStorage` para que pueda ser restaur
 
 Las acciones que necesitan involucrar al servidor realizan peticiones a la red, utilizando `fetch`, a la interfaz HTTP descrita anteriormente. Utilizamos una función de envoltura, `fetchOK`, que se asegura de que la promesa devuelta sea rechazada cuando el servidor devuelve un código de error.
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function fetchOK(url, options) {
   return fetch(url, options).then(response => {
     if (response.status < 400) return response;
@@ -539,7 +546,7 @@ function fetchOK(url, options) {
 
 Esta función auxiliar se utiliza para construir una ((URL)) para una charla con un título dado.
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function talkURL(title) {
   return "talks/" + encodeURIComponent(title);
 }
@@ -547,9 +554,9 @@ function talkURL(title) {
 
 {{index "manejo de errores", "experiencia de usuario", "función reportError"}}
 
-Cuando la petición falla, no queremos que nuestra página simplemente se quede ahí, sin hacer nada sin explicación. Así que definimos una función llamada `reportError`, que al menos muestra al usuario un cuadro de diálogo que le informa que algo salió mal.
+Cuando la petición falla, no queremos que nuestra página simplemente se quede ahí, sin hacer nada sin explicación. Así que definimos una función llamada `reportError`, que al menos muestra al usuario un cuadro de diálogo que le informa de que algo salió mal.
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function reportError(error) {
   alert(String(error));
 }
@@ -559,9 +566,9 @@ function reportError(error) {
 
 {{index "función renderUserField"}}
 
-Utilizaremos un enfoque similar al que vimos en el [Capítulo ?](paint), dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo DOM. Por ejemplo, aquí hay un componente que muestra el campo donde el usuario puede ingresar su nombre:
+Utilizaremos un enfoque similar al que vimos en el [Capítulo ?](paint), dividiendo la aplicación en componentes. Pero dado que algunos de los componentes nunca necesitan actualizarse o siempre se redibujan por completo cuando se actualizan, definiremos aquellos no como clases, sino como funciones que devuelven directamente un nodo del DOM. Por ejemplo, aquí hay un componente que muestra el campo dónde el usuario puede ingresar su nombre:
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function renderUserField(name, dispatch) {
   return elt("label", {}, "Tu nombre: ", elt("input", {
     type: "text",
@@ -577,7 +584,7 @@ function renderUserField(name, dispatch) {
 
 La función `elt` utilizada para construir elementos DOM es la misma que usamos en el [Capítulo ?](paint).
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, hidden: true}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, hidden: true, lang:null}
 function elt(type, props, ...children) {
   let dom = document.createElement(type);
   if (props) Object.assign(dom, props);
@@ -593,7 +600,7 @@ function elt(type, props, ...children) {
 
 Se utiliza una función similar para renderizar charlas, que incluyen una lista de comentarios y un formulario para agregar un nuevo ((comentario)).
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function renderTalk(talk, dispatch) {
   return elt(
     "section", {className: "talk"},
@@ -629,7 +636,7 @@ Cuando se crean piezas moderadamente complejas del DOM, este estilo de programac
 
 Los comentarios son simples de renderizar.
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function renderComment(comment) {
   return elt("p", {className: "comment"},
              elt("strong", null, comment.author),
@@ -641,7 +648,7 @@ function renderComment(comment) {
 
 Finalmente, el formulario que el usuario puede usar para crear una nueva charla se representa de la siguiente manera:
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function renderTalkForm(dispatch) {
   let title = elt("input", {type: "text"});
   let summary = elt("input", {type: "text"});
@@ -664,9 +671,9 @@ function renderTalkForm(dispatch) {
 
 {{index "función pollTalks", "sondeo prolongado", "cabecera If-None-Match", "cabecera Prefer", "función fetch"}}
 
-Para iniciar la aplicación necesitamos la lista actual de charlas. Dado que la carga inicial está estrechamente relacionada con el proceso de sondeo prolongado, el `ETag` de la carga debe ser utilizado al sondear, escribiremos una función que siga sondeando al servidor en busca de `/charlas` y llame a una ((función de devolución de llamada)) cuando un nuevo conjunto de charlas esté disponible.
+Para iniciar la aplicación necesitamos la lista actual de charlas. Dado que la carga inicial está estrechamente relacionada con el proceso de sondeo prolongado (_long polling_), el `ETag` de la carga debe ser utilizado al sondear, escribiremos una función que siga sondeando al servidor en busca de `/talks` y llame a una ((función de callback)) cuando un nuevo conjunto de charlas esté disponible.
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 async function pollTalks(update) {
   let tag = undefined;
   for (;;) {
@@ -688,17 +695,17 @@ async function pollTalks(update) {
 }
 ```
 
-{{index "función asincrónica"}}
+{{index "función asíncrona"}}
 
-Esta es una función `async` para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de sondeo prolongado.
+Esta es una función `async` para facilitar el bucle y la espera de la solicitud. Ejecuta un bucle infinito que, en cada iteración, recupera la lista de charlas, ya sea normalmente o, si esta no es la primera solicitud, con las cabeceras incluidas que la convierten en una solicitud de long polling.
 
 {{index "manejo de errores", "clase Promise", "función setTimeout"}}
 
-Cuando una solicitud falla, la función espera un momento y luego intenta nuevamente. De esta manera, si tu conexión de red se interrumpe por un tiempo y luego vuelve, la aplicación puede recuperarse y continuar actualizándose. La promesa resuelta a través de `setTimeout` es una forma de forzar a la función `async` a esperar.
+Cuando una solicitud falla, la función espera un momento y luego lo intenta de nuevo. De esta manera, si tu conexión de red se interrumpe por un tiempo y luego vuelve, la aplicación puede recuperarse y continuar actualizándose. La promesa resuelta a través de `setTimeout` es una forma de forzar a la función `async` a esperar.
 
 {{index "304 (código de estado HTTP)", "encabezado ETag"}}
 
-Cuando el servidor devuelve una respuesta 304, eso significa que una solicitud de intercambio de larga duración expiró, por lo que la función debería comenzar inmediatamente la siguiente solicitud. Si la respuesta es un estado 200 normal, su cuerpo se lee como JSON y se pasa a la devolución de llamada, y el valor del encabezado `ETag` se almacena para la próxima iteración.
+Cuando el servidor devuelve una respuesta 304, eso significa que una solicitud de intercambio de larga duración expiró, por lo que la función debería comenzar inmediatamente la siguiente solicitud. Si la respuesta es un estado 200 normal, su cuerpo se lee como JSON y se pasa a la función de callback, y el valor del encabezado `ETag` se almacena para la próxima iteración.
 
 ### La aplicación
 
@@ -706,7 +713,7 @@ Cuando el servidor devuelve una respuesta 304, eso significa que una solicitud d
 
 El siguiente componente une toda la interfaz de usuario:
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 class SkillShareApp {
   constructor(state, dispatch) {
     this.dispatch = dispatch;
@@ -737,7 +744,7 @@ Cuando las charlas cambian, este componente las vuelve a dibujar todas. Esto es 
 
 Podemos iniciar la aplicación de esta manera:
 
-```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no}
+```{includeCode: ">code/skillsharing/public/skillsharing_client.js", test: no, lang:null}
 function runApp() {
   let user = localStorage.getItem("userName") || "Anon";
   let state, app;
@@ -766,7 +773,7 @@ Si ejecutas el servidor y abres dos ventanas del navegador para [_http://localho
 
 {{index "Node.js", NPM}}
 
-Los siguientes ejercicios implicarán modificar el sistema definido en este capítulo. Para trabajar en ellos, asegúrate de ((descargar)) primero el código ([_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip)), tener Node instalado ([_https://nodejs.org_](https://nodejs.org)), e instalar la dependencia del proyecto con `npm install`.
+Los siguientes ejercicios implicarán modificar el sistema definido en este capítulo. Para trabajar en ellos, asegúrate de ((descargar)) primero el código ([_https://eloquentjavascript.net/code/skillsharing.zip_](https://eloquentjavascript.net/code/skillsharing.zip)), tener Node instalado ([_https://nodejs.org_](https://nodejs.org)), e instalar las dependencias del proyecto con `npm install`.
 
 ### Persistencia en disco
 
@@ -786,7 +793,7 @@ La solución más simple que se me ocurre es codificar todo el objeto `talks` co
 
 {{index "función readFile", "función JSON.parse"}}
 
-Elige un nombre de archivo, por ejemplo `./talks.json`. Cuando el servidor se inicie, puede intentar leer ese archivo con `readFile`, y si tiene éxito, el servidor puede usar el contenido del archivo como sus datos iniciales.
+Elige un nombre de archivo, por ejemplo `./talks.json`. Cuando el servidor se inicie, puede intentar leer ese archivo con `readFile`, y si tiene éxito, el servidor puede usar el contenido del archivo como  datos iniciales.
 
 hint}}
 
@@ -794,7 +801,7 @@ hint}}
 
 {{index "restablecimiento del campo de comentarios (ejercicio)", plantilla, [estado, "de la aplicación"]}}
 
-La remodelación completa de las charlas funciona bastante bien porque generalmente no se puede distinguir entre un nodo de DOM y su sustitución idéntica. Pero hay excepciones. Si empiezas a escribir algo en el campo de comentarios para una charla en una ventana del navegador y luego, en otra, añades un comentario a esa charla, el campo en la primera ventana se volverá a dibujar, eliminando tanto su contenido como su enfoque.
+La remodelación completa de las charlas funciona bastante bien porque generalmente no se puede distinguir entre un nodo del DOM y su sustitución idéntica. Pero hay excepciones. Si empiezas a escribir algo en el campo de comentarios para una charla en una ventana del navegador y luego, en otra, añades un comentario a esa charla, el campo en la primera ventana se volverá a dibujar, eliminando tanto su contenido como su enfoque.
 
 Cuando varias personas están añadiendo comentarios al mismo tiempo, esto podría resultar molesto. ¿Puedes idear una manera de resolverlo?
 
@@ -808,6 +815,6 @@ La parte difícil es que, cuando llega una lista modificada de charlas, tenemos 
 
 {{index "sincronización", "vista en vivo"}}
 
-Para hacer esto, podría ser útil mantener una estructura de datos que almacene los componentes de las charlas bajo los títulos de las charlas para que puedas averiguar fácilmente si existe un componente para una charla dada. Luego puedes recorrer la nueva matriz de charlas y, para cada una de ellas, sincronizar un componente existente o crear uno nuevo. Para eliminar los componentes de charlas eliminadas, también tendrás que recorrer los componentes y comprobar si las charlas correspondientes aún existen.
+Para hacer esto, podría ser útil mantener una estructura de datos que almacene los componentes de las charlas bajo los títulos de las charlas para que puedas averiguar fácilmente si existe un componente para una charla dada. Luego puedes recorrer el nuevo array de charlas y, para cada una de ellas, sincronizar un componente existente o crear uno nuevo. Para eliminar los componentes de charlas eliminadas, también tendrás que recorrer los componentes y comprobar si las charlas correspondientes aún existen.
 
 hint}}

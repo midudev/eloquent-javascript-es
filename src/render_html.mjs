@@ -24,12 +24,33 @@ for (const arg of process.argv.slice(2)) {
 if (!file) throw new Error('No input file')
 const chapter = /^\d{2}_([^\.]+)/.exec(file) || [null, 'hints']
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const { tokens, metadata } = transformTokens(markdown.parse(fs.readFileSync(file, 'utf8'), {}), {
   defined: epub ? ['book', 'html'] : ['interactive', 'html'],
   strip: epub ? 'hints' : '',
   takeTitle: true,
   index: false
 })
+
+
+
+
+
 
 const close = epub ? '/' : ''
 const dir = dirname(fileURLToPath(import.meta.url))
@@ -172,6 +193,11 @@ const renderer = {
     return `<figure${attrs(token)}${className ? ` class="${className}"` : ''}><img src="${escape(url)}" alt="${escape(alt)}"${close}></figure>`
   },
 
+  meta_note(token) {
+    return `\n\n<div class="translator-note">${markdown.render(token.args[0])}</div>`;
+  },
+
+
   meta_quote_open () { return '\n\n<blockquote>' },
   meta_quote_close (token) {
     const { author, title } = token.args[0] || {}
@@ -182,7 +208,8 @@ const renderer = {
   meta_keyname_close () { return '</span>' },
 
   meta_hint_open () { return '\n\n<details class="solution"><summary>Mostrar pistas...</summary><div class="solution-text">' },
-  meta_hint_close () { return '\n\n</div></details>' }
+  meta_hint_close () { return '\n\n</div></details>' },
+
 }
 
 function renderArray (tokens) {

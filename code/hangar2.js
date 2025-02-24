@@ -47,10 +47,10 @@ var readTextFile = function() {
 
   let files = {
     __proto__: null,
-    "shopping_list.txt": "Peanut butter\nBananas",
+    "lista_compra.txt": "Mantequilla de cacahuete\nPlátanos",
     "old_shopping_list.txt": "Peanut butter\nJelly",
     "package.json": '{"name":"test project","author":"cāāw-krö","version":"1.1.2"}',
-    "plans.txt": "* Write a book\n  * Figure out asynchronous chapter\n  * Find an artist for the cover\n  * Write the rest of the book\n\n* Don't be sad\n  * Sit under tree\n  * Study bugs\n",
+    "planes.txt": "* Escribir un libro\n  * Escribir el capítulo sobre programación asíncrona\n  * Encontrar un artista para la portada\n  * Escribir el resto del libro\n\n* No estar triste\n  * Sentarme bajo un árbol\n  * Estudiar bichos\n",
     "camera_logs.txt": logs.map(l => l.name).join("\n")
   }
 
@@ -174,7 +174,7 @@ var request = function(){
   }
 }()
 
-var clipImages = [
+var imágenesVídeo = [
   [
     " 5dc",
     " e9.2 2b.3 .3 2b.o.3o. 2b.o.3o. 27.2 2.o2.o2. 27.o. .Oo.oO. . 25.o. .Oo.oO.4 20.2 2.Oo .Oo.oO.2o. 20.o 2.Oo.2Oo.oO.2o. 20.O. .O2.2Oo2O2o3. 20.O2 2oOo.O2oO2o3. 20.oOo oO2oO2oO2oOo. 1e.o2O3o2O8oOo 1f.O6oOao 1e.oO11o 1eoO12o. 1c.O13o. 6. 14.O14o. 1boO15. 1bO15o. 1aoO15o 1a.O16. 18. .O15o 1boO15. 1a.O15o 1b.O15. f",
