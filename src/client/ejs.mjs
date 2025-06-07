@@ -23,6 +23,20 @@ function chapterInteraction() {
         editor.focus()
       }
     }
+    if (e.key == "ArrowRight") {
+      let nextChapter = document.querySelector("a[aria-label='next chapter']")
+      if (nextChapter) {
+        e.preventDefault()
+        nextChapter.click()
+      }
+    }
+    if (e.key == "ArrowLeft") {
+      let previousChapter = document.querySelector("a[aria-label='previous chapter']")
+      if (previousChapter) {
+        e.preventDefault()
+        previousChapter.click()
+      }
+    }
   })
 
   let modName = /Mac/.test(navigator.platform) ? "Cmd-" : "Ctrl-"
