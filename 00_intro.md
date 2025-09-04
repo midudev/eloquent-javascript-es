@@ -148,22 +148,22 @@ Esta versión nos proporciona algunas mejoras. Lo más importante es que ya no e
 
 Al final del programa, después de que la construcción `while` haya terminado, se utiliza la operación `console.log` para escribir el resultado.
 
-{{index "función de suma", "función de rango", "abstracción", "función"}}
+{{index "función de sum", "función de range", "abstracción", "función"}}
 
-Finalmente, así es como podría verse el programa si tuviéramos a nuestra disposición las operaciones convenientes `rango` y `suma`, que respectivamente crean una colección de números dentro de un rango y calculan la suma de una colección de números:
+Finalmente, así es como podría verse el programa si tuviéramos a nuestra disposición las operaciones convenientes `range` y `sum`, que respectivamente crean una colección de números dentro de un rango y calculan la suma de una colección de números:
 
 ```{startCode: true}
-console.log(suma(rango(1, 10)));
+console.log(sum(range(1, 10)));
 // → 55
 ```
 
 {{index legibilidad}}
 
-La moraleja de esta historia es que el mismo programa puede expresarse de formas largas y cortas, ilegibles y legibles. La primera versión del programa era extremadamente críptica, mientras que esta última es casi en inglés: registra (`log`) la `suma` del `rango` de números del 1 al 10. (Veremos en [capítulos posteriores](data) cómo definir operaciones como `suma` y `rango`.)
+La moraleja de esta historia es que el mismo programa puede expresarse de formas largas y cortas, ilegibles y legibles. La primera versión del programa era extremadamente críptica, mientras que esta última es casi en inglés: registra (`log`) la `sum` del `range` de números del 1 al 10. (Veremos en [capítulos posteriores](data) cómo definir operaciones como `sum` y `range`.)
 
 {{index ["lenguaje de programación", "poder de"], composabilidad}}
 
-Un buen lenguaje de programación ayuda al programador al permitirle hablar sobre las acciones que la computadora debe realizar a un nivel más alto. Ayuda a omitir detalles, proporciona bloques de construcción convenientes (como `while` y `console.log`), te permite definir tus propios bloques de construcción (como `suma` y `rango`), y hace que esos bloques sean fáciles de componer.
+Un buen lenguaje de programación ayuda al programador al permitirle hablar sobre las acciones que la computadora debe realizar a un nivel más alto. Ayuda a omitir detalles, proporciona bloques de construcción convenientes (como `while` y `console.log`), te permite definir tus propios bloques de construcción (como `sum` y `range`), y hace que esos bloques sean fáciles de componer.
 
 ## ¿Qué es JavaScript?
 

@@ -359,7 +359,7 @@ if}}
 
 if}}
 
-(Si en este punto estás dejando el libro para concentrarte en un terrible flashback a la clase de matemáticas de décimo grado, ¡espera! No pretendo torturarte con interminables páginas de notación críptica, solo es esta fórmula por ahora. Y incluso con esta, todo lo que haremos es convertirla en JavaScript).
+(Si en este punto estás dejando el libro para concentrarte en un terrible flashback a la clase de matemáticas de décimo grado, ¡espera! No pretendo torturarte con interminables páginas de notación críptica, solo es esta fórmula por ahora. E incluso con esta, todo lo que haremos es convertirla en JavaScript).
 
 La notación [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} indica la cantidad de mediciones donde la primera variable (ardilla) es falsa (0) y la segunda variable (pizza) es verdadera (1). En la tabla de pizza, [_n_~01~]{if html}[[$n_{01}$]{latex}]{if tex} es 9.El valor [_n_~1•~]{if html}[[$n_{1\bullet}$]{latex}]{if tex} se refiere a la suma de todas las mediciones donde la primera variable es verdadera, que es 5 en el ejemplo de la tabla. De manera similar, [_n_~•0~]{if html}[[$n_{\bullet0}$]{latex}]{if tex} se refiere a la suma de las mediciones donde la segunda variable es falsa.
 
