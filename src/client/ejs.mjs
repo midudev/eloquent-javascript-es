@@ -339,8 +339,32 @@ function debounce(fn, delay = 50) {
   }
 }
 
+function navigateBetweenChapters() {
+  document.addEventListener("keydown", e => {
+    let activeElement = document.activeElement
+
+    if (activeElement && activeElement.contentEditable === "true" || activeElement.nodeName === "INPUT") return
+
+    if (e.key === "ArrowRight") {
+      let nextChapter = document.querySelector("a[aria-label='next chapter']")
+      if (nextChapter) {
+        e.preventDefault()
+        nextChapter.click()
+      }
+    }
+    if (e.key === "ArrowLeft") {
+      let previousChapter = document.querySelector("a[aria-label='previous chapter']")
+      if (previousChapter) {
+        e.preventDefault()
+        previousChapter.click()
+      }
+    }
+  })
+}
+
 if (window.page && /^chapter|hints$/.test(window.page.type)) {
   chapterInteraction()
+  navigateBetweenChapters()
   // 3rd-edition-style anchor
   let {hash} = document.location
   if (/^#[phic]_./.test(hash)) {
