@@ -81,7 +81,6 @@ for (const file of fs.readdirSync('.').sort()) {
 
   const zip = chapterZipFile(meta, chapter)
   let extraLinks = meta.match(/\bcode_links: (\[.*?\])/)
-  console.log({ chapter, extraLinks })
   if (extraLinks) extraLinks = JSON.parse(extraLinks[1])
   if (extraLinks || zip) { chapter.links = (zip ? [zip] : []).concat(extraLinks || []) }
 
@@ -301,7 +300,6 @@ function chapterZipFile (meta, chapter) {
   const data = meta.match(/include=\[(.*?)\]/)
   const name = 'code/chapter/' + chapter.id + '.zip'
 
-  console.log(meta)
   const includeMatch = meta.match(/include=\[(.*?)\]/)
   const metaInclude = JSON.parse(`[${includeMatch[1]}]`)
 

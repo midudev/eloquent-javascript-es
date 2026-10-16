@@ -12,12 +12,6 @@
 /pdf/book.toc
 /pdf/book_mobile.*
 /pdf/*.log
-/code/chapter/*
-/code/chapter_info.js
-/code/file_server.mjs
-/code/skillsharing.zip
-/code/solutions/20_3_a_public_space_on_the_web.zip
-/code/skillsharing/*
 /node_modules
 .tern-port
 /toc.txt
