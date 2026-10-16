@@ -1,4 +1,6 @@
 \documentclass[fontsize=13pt,oneside,headings=small,chapterprefix]{scrbook}
+% https://tex.stackexchange.com/questions/764989/system-upgrade-introduced-a-new-error-scrtsolstlistinglinefill-undefined
+\makeatletter \def\scr@tso@lstlisting@linefill{} \def\scr@tso@lstlisting@pagenumberformat#1{} \makeatother
 \usepackage{listings}
 \usepackage{graphicx}
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
