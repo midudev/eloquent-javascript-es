@@ -151,7 +151,7 @@ console.log(semana.nombre(semana.numero(<span class="tok-string">&quot;Domingo&q
 <p><a class="p_ident" id="p-xUg6iYrQ1R" href="#p-xUg6iYrQ1R" tabindex="-1" role="presentation"></a>La cadena de template puede contener códigos que indican el formato, como <code>YYYY</code> para el año completo y <code>Do</code> para el día ordinal del mes. Puede pasársele una cadena como <code>&quot;MMMM Do YYYY&quot;</code> para obtener una salida como “22 de noviembre de 2017”.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-hEFnba6fud" href="#c-hEFnba6fud" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">ordinal</span> = require(<span class="tok-string">&quot;ordinal&quot;</span>);
-<span class="tok-keyword">const</span> {days, months} = require(<span class="tok-string">&quot;date-names&quot;</span>);
+<span class="tok-keyword">const</span> {<span class="tok-definition">days</span>, <span class="tok-definition">months</span>} = require(<span class="tok-string">&quot;date-names&quot;</span>);
 
 exports.formatDate = <span class="tok-keyword">function</span>(<span class="tok-definition">date</span>, <span class="tok-definition">format</span>) {
   <span class="tok-keyword">return</span> format.replace(<span class="tok-string2">/YYYY|M(MMM)?|Do?|dddd/g</span>, <span class="tok-definition">tag</span> =&gt; {
@@ -168,7 +168,7 @@ exports.formatDate = <span class="tok-keyword">function</span>(<span class="tok-
 
 <p><a class="p_ident" id="p-GEs894RmkW" href="#p-GEs894RmkW" tabindex="-1" role="presentation"></a>El módulo añade su función de interfaz a <code>exports</code> para que los módulos que dependen de él tengan acceso a ella. Podemos usar el módulo de la siguiente manera:</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-UjqCqg9xZu" href="#c-UjqCqg9xZu" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> {formatDate} = require(<span class="tok-string">&quot;./format-date.js&quot;</span>);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-UjqCqg9xZu" href="#c-UjqCqg9xZu" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> {<span class="tok-definition">formatDate</span>} = require(<span class="tok-string">&quot;./format-date.js&quot;</span>);
 
 console.log(formatDate(<span class="tok-keyword">new</span> Date(<span class="tok-number">2017</span>, <span class="tok-number">9</span>, <span class="tok-number">13</span>),
                        <span class="tok-string">&quot;dddd the Do&quot;</span>));
@@ -239,7 +239,7 @@ require.cache = Object.create(<span class="tok-keyword">null</span>);</pre>
 
 <p><a class="p_ident" id="p-yhx4gxUsUs" href="#p-yhx4gxUsUs" tabindex="-1" role="presentation"></a>Por lo tanto, si quisiéramos usar ese paquete, deberíamos asegurarnos de que nuestro grafo esté almacenado en el formato que espera. Todas las aristas tienen el mismo peso, ya que nuestro modelo simplificado trata cada camino como teniendo el mismo coste (una vuelta).</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qllW3k2edE" href="#c-qllW3k2edE" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> {find_path} = require(<span class="tok-string">&quot;dijkstrajs&quot;</span>);
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qllW3k2edE" href="#c-qllW3k2edE" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> {<span class="tok-definition">find_path</span>} = require(<span class="tok-string">&quot;dijkstrajs&quot;</span>);
 
 <span class="tok-keyword">let</span> <span class="tok-definition">graph</span> = {};
 <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">node</span> <span class="tok-keyword">of</span> Object.keys(roadGraph)) {

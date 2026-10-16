@@ -967,8 +967,6 @@ Podrías necesitar `Math.sin` y `Math.cos` de nuevo, que se describen en el [Cap
 
 {{if interactive
 
-{{if interactive
-
 ```{lang: html, test: no}
 <canvas width="600" height="300"></canvas>
 <script>

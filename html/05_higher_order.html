@@ -346,7 +346,7 @@ console.log(horseShoe.codePointAt(<span class="tok-number">0</span>));
 
 <p><a class="p_ident" id="p-BS9MJRj/qW" href="#p-BS9MJRj/qW" tabindex="-1" role="presentation"></a>El método <code>charCodeAt</code> de JavaScript te da una unidad de código, no un código de carácter completo. El método <code>codePointAt</code>, añadido más tarde, sí da un carácter Unicode completo, por lo que podríamos usarlo para obtener caracteres de una cadena. Pero el argumento pasado a <code>codePointAt</code> sigue siendo un índice en la secuencia de unidades de código. Para recorrer todos los caracteres en una cadena, aún necesitaríamos abordar la cuestión de si un carácter ocupa una o dos unidades de código.</p>
 
-<p><a class="p_ident" id="p-+k9Io/S3re" href="#p-+k9Io/S3re" tabindex="-1" role="presentation"></a>En el <a href="datos#bucle_for_of">capítulo anterior</a>, mencioné que un bucle <code>for</code>/<code>of</code> también se puede usar en cadenas. Al igual que <code>codePointAt</code>, este tipo de bucle se introdujo en un momento en que la gente era muy consciente de los problemas con UTF-16. Cuando lo usas para recorrer una cadena, te proporciona caracteres reales, no unidades de código:</p>
+<p><a class="p_ident" id="p-+k9Io/S3re" href="#p-+k9Io/S3re" tabindex="-1" role="presentation"></a>En el <a href="04_data.html#for_of_loop">capítulo anterior</a>, mencioné que un bucle <code>for</code>/<code>of</code> también se puede usar en cadenas. Al igual que <code>codePointAt</code>, este tipo de bucle se introdujo en un momento en que la gente era muy consciente de los problemas con UTF-16. Cuando lo usas para recorrer una cadena, te proporciona caracteres reales, no unidades de código:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-9QIfA1qjtG" href="#c-9QIfA1qjtG" tabindex="-1" role="presentation"></a><span class="tok-keyword">let</span> <span class="tok-definition">roseDragon</span> = <span class="tok-string">&quot;🌹🐉&quot;</span>;
 <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">char</span> <span class="tok-keyword">of</span> roseDragon) {
@@ -388,12 +388,12 @@ console.log(countBy([<span class="tok-number">1</span>, <span class="tok-number"
   <span class="tok-keyword">let</span> <span class="tok-definition">scripts</span> = countBy(text, <span class="tok-definition">char</span> =&gt; {
     <span class="tok-keyword">let</span> <span class="tok-definition">script</span> = characterScript(char.codePointAt(<span class="tok-number">0</span>));
     <span class="tok-keyword">return</span> script ? script.name : <span class="tok-string">&quot;ninguno&quot;</span>;
-  }).filter(({name}) =&gt; name != <span class="tok-string">&quot;ninguno&quot;</span>);
+  }).filter(({<span class="tok-definition">name</span>}) =&gt; name != <span class="tok-string">&quot;ninguno&quot;</span>);
 
-  <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = scripts.reduce((<span class="tok-definition">n</span>, {count}) =&gt; n + count, <span class="tok-number">0</span>);
+  <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = scripts.reduce((<span class="tok-definition">n</span>, {<span class="tok-definition">count</span>}) =&gt; n + count, <span class="tok-number">0</span>);
   <span class="tok-keyword">if</span> (total == <span class="tok-number">0</span>) <span class="tok-keyword">return</span> <span class="tok-string">&quot;No se encontraron scripts&quot;</span>;
 
-  <span class="tok-keyword">return</span> scripts.map(({name, count}) =&gt; {
+  <span class="tok-keyword">return</span> scripts.map(({<span class="tok-definition">name</span>, <span class="tok-definition">count</span>}) =&gt; {
     <span class="tok-keyword">return</span> <span class="tok-string2">`</span>${Math.round(count * <span class="tok-number">100</span> / total)}<span class="tok-string2">% </span>${name}<span class="tok-string2">`</span>;
   }).join(<span class="tok-string">&quot;, &quot;</span>);
 }

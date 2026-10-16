@@ -203,7 +203,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">&quot;canvas&quot;</span>).getContext(<span class="tok-string">&quot;2d&quot;</span>);
   <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = results
-    .reduce((<span class="tok-definition">sum</span>, {count}) =&gt; sum + count, <span class="tok-number">0</span>);
+    .reduce((<span class="tok-definition">sum</span>, {<span class="tok-definition">count</span>}) =&gt; sum + count, <span class="tok-number">0</span>);
   <span class="tok-comment">// Comenzar en la parte superior</span>
   <span class="tok-keyword">let</span> <span class="tok-definition">currentAngle</span> = -<span class="tok-number">0.5</span> * Math.PI;
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">result</span> <span class="tok-keyword">of</span> results) {
@@ -460,7 +460,7 @@ circle.setAttribute(<span class="tok-string">&quot;fill&quot;</span>, <span clas
 otherSprites.src = <span class="tok-string">&quot;img/sprites.png&quot;</span>;
 
 CanvasDisplay.prototype.drawBackground = <span class="tok-keyword">function</span>(<span class="tok-definition">level</span>) {
-  <span class="tok-keyword">let</span> {left, top, width, height} = <span class="tok-keyword">this</span>.viewport;
+  <span class="tok-keyword">let</span> {<span class="tok-definition">left</span>, <span class="tok-definition">top</span>, <span class="tok-definition">width</span>, <span class="tok-definition">height</span>} = <span class="tok-keyword">this</span>.viewport;
   <span class="tok-keyword">let</span> <span class="tok-definition">xStart</span> = Math.floor(left);
   <span class="tok-keyword">let</span> <span class="tok-definition">xEnd</span> = Math.ceil(left + width);
   <span class="tok-keyword">let</span> <span class="tok-definition">yStart</span> = Math.floor(top);
@@ -655,7 +655,7 @@ CanvasDisplay.prototype.drawPlayer = <span class="tok-keyword">function</span>(<
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = document.querySelector(<span class="tok-string">&quot;canvas&quot;</span>).getContext(<span class="tok-string">&quot;2d&quot;</span>);
   <span class="tok-keyword">let</span> <span class="tok-definition">total</span> = results
-    .reduce((<span class="tok-definition">sum</span>, {count}) =&gt; sum + count, <span class="tok-number">0</span>);
+    .reduce((<span class="tok-definition">sum</span>, {<span class="tok-definition">count</span>}) =&gt; sum + count, <span class="tok-number">0</span>);
   <span class="tok-keyword">let</span> <span class="tok-definition">currentAngle</span> = -<span class="tok-number">0.5</span> * Math.PI;
   <span class="tok-keyword">let</span> <span class="tok-definition">centerX</span> = <span class="tok-number">300</span>, <span class="tok-definition">centerY</span> = <span class="tok-number">150</span>;
 

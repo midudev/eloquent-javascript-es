@@ -285,7 +285,7 @@ createServer((<span class="tok-definition">request</span>, <span class="tok-defi
   handler(request).catch(<span class="tok-definition">error</span> =&gt; {
     <span class="tok-keyword">if</span> (error.status != <span class="tok-keyword">null</span>) <span class="tok-keyword">return</span> error;
     <span class="tok-keyword">return</span> {<span class="tok-definition">body</span>: String(error), <span class="tok-definition">status</span>: <span class="tok-number">500</span>};
-  }).then(({body, status = <span class="tok-number">200</span>, type = <span class="tok-string">&quot;text/plain&quot;</span>}) =&gt; {
+  }).then(({<span class="tok-definition">body</span>, <span class="tok-definition">status</span> = <span class="tok-number">200</span>, <span class="tok-definition">type</span> = <span class="tok-string">&quot;text/plain&quot;</span>}) =&gt; {
     response.writeHead(status, {<span class="tok-string">&quot;Content-Type&quot;</span>: type});
     <span class="tok-keyword">if</span> (body &amp;&amp; body.pipe) body.pipe(response);
     <span class="tok-keyword">else</span> response.end(body);
@@ -315,7 +315,7 @@ createServer((<span class="tok-definition">request</span>, <span class="tok-defi
 <span class="tok-keyword">const</span> <span class="tok-definition">baseDirectory</span> = process.cwd();
 
 <span class="tok-keyword">function</span> <span class="tok-definition">urlPath</span>(<span class="tok-definition">url</span>) {
-  <span class="tok-keyword">let</span> {pathname} = <span class="tok-keyword">new</span> URL(url, <span class="tok-string">&quot;http://d&quot;</span>);
+  <span class="tok-keyword">let</span> {<span class="tok-definition">pathname</span>} = <span class="tok-keyword">new</span> URL(url, <span class="tok-string">&quot;http://d&quot;</span>);
   <span class="tok-keyword">let</span> <span class="tok-definition">path</span> = resolve(decodeURIComponent(pathname).slice(<span class="tok-number">1</span>));
   <span class="tok-keyword">if</span> (path != baseDirectory &amp;&amp;
       !path.startsWith(baseDirectory + sep)) {

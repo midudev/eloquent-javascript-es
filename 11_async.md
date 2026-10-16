@@ -707,7 +707,7 @@ Resumir todos los puntos temporales en una tabla de horas se puede hacer creando
 
 Asegúrate de usar `await` en el resultado de las funciones asíncronas antes de hacer cualquier cosa con él, o terminarás con una `Promise` donde esperabas un string.
 
-hinting}}
+hint}}
 
 
 ### Promesas Reales
@@ -838,4 +838,4 @@ Esto último se puede hacer con un contador que se inicializa con la longitud de
 
 Manejar el fallo requiere un poco de pensamiento pero resulta ser extremadamente simple. Simplemente pasa la función `reject` de la promesa contenedora a cada una de las promesas en el array como un controlador `catch` o como un segundo argumento para `then` para que un fallo en una de ellas desencadene el rechazo de toda la promesa contenedora.
 
-pista
+hint}}

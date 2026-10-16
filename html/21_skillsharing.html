@@ -135,8 +135,8 @@ Content-Length: 295
     <span class="tok-keyword">this</span>.routes.push({<span class="tok-definition">method</span>, <span class="tok-definition">url</span>, <span class="tok-definition">handler</span>});
   }
   <span class="tok-keyword">async</span> <span class="tok-definition">resolve</span>(<span class="tok-definition">request</span>, <span class="tok-definition">context</span>) {
-    <span class="tok-keyword">let</span> {pathname} = <span class="tok-keyword">new</span> URL(request.url, <span class="tok-string">&quot;http://d&quot;</span>);
-    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> {method, url, handler} <span class="tok-keyword">of</span> <span class="tok-keyword">this</span>.routes) {
+    <span class="tok-keyword">let</span> {<span class="tok-definition">pathname</span>} = <span class="tok-keyword">new</span> URL(request.url, <span class="tok-string">&quot;http://d&quot;</span>);
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> {<span class="tok-definition">method</span>, <span class="tok-definition">url</span>, <span class="tok-definition">handler</span>} <span class="tok-keyword">of</span> <span class="tok-keyword">this</span>.routes) {
       <span class="tok-keyword">let</span> <span class="tok-definition">match</span> = url.exec(pathname);
       <span class="tok-keyword">if</span> (!match || request.method != method) <span class="tok-keyword">continue</span>;
       <span class="tok-keyword">let</span> <span class="tok-definition">parts</span> = match.slice(<span class="tok-number">1</span>).map(decodeURIComponent);
@@ -202,7 +202,7 @@ Content-Length: 295
       <span class="tok-keyword">return</span> {<span class="tok-definition">body</span>: String(error), <span class="tok-definition">status</span>: <span class="tok-number">500</span>};
     });
   <span class="tok-keyword">if</span> (!resolved) <span class="tok-keyword">return</span> next();
-  <span class="tok-keyword">let</span> {body, status = <span class="tok-number">200</span>, headers = defaultHeaders} =
+  <span class="tok-keyword">let</span> {<span class="tok-definition">body</span>, <span class="tok-definition">status</span> = <span class="tok-number">200</span>, <span class="tok-definition">headers</span> = defaultHeaders} =
     <span class="tok-keyword">await</span> resolved;
   response.writeHead(status, headers);
   response.end(body);

@@ -436,7 +436,7 @@ El método `charCodeAt` de JavaScript te da una unidad de código, no un código
 
 {{index "bucle for/of", caracter}}
 
-En el [capítulo anterior](datos#bucle_for_of), mencioné que un bucle `for`/`of` también se puede usar en cadenas. Al igual que `codePointAt`, este tipo de bucle se introdujo en un momento en que la gente era muy consciente de los problemas con UTF-16. Cuando lo usas para recorrer una cadena, te proporciona caracteres reales, no unidades de código:
+En el [capítulo anterior](data#for_of_loop), mencioné que un bucle `for`/`of` también se puede usar en cadenas. Al igual que `codePointAt`, este tipo de bucle se introdujo en un momento en que la gente era muy consciente de los problemas con UTF-16. Cuando lo usas para recorrer una cadena, te proporciona caracteres reales, no unidades de código:
 
 ```
 let roseDragon = "🌹🐉";

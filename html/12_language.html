@@ -126,7 +126,7 @@
 <p><a class="p_ident" id="p-89g4z+3rO6" href="#p-89g4z+3rO6" tabindex="-1" role="presentation"></a>Esto es todo lo que necesitamos para analizar Egg. Lo envolvemos en una conveniente <code>parse</code> función que verifica que ha llegado al final de la cadena de entrada después de analizar la expresión (un programa Egg es una sola expresión), y que nos da la estructura de datos del programa.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-PRcHuKWwJ9" href="#c-PRcHuKWwJ9" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">parse</span>(<span class="tok-definition">program</span>) {
-  <span class="tok-keyword">let</span> {expr, rest} = parseExpression(program);
+  <span class="tok-keyword">let</span> {<span class="tok-definition">expr</span>, <span class="tok-definition">rest</span>} = parseExpression(program);
   <span class="tok-keyword">if</span> (skipSpace(rest).length &gt; <span class="tok-number">0</span>) {
     <span class="tok-keyword">throw</span> <span class="tok-keyword">new</span> SyntaxError(<span class="tok-string">&quot;Texto inesperado después del programa&quot;</span>);
   }
@@ -158,7 +158,7 @@ console.log(parse(<span class="tok-string">&quot;+(a, 10)&quot;</span>));
         <span class="tok-string2">`Vinculación indefinida: </span>${expr.name}<span class="tok-string2">`</span>);
     }
   } <span class="tok-keyword">else</span> <span class="tok-keyword">if</span> (expr.type == <span class="tok-string">&quot;apply&quot;</span>) {
-    <span class="tok-keyword">let</span> {operator, args} = expr;
+    <span class="tok-keyword">let</span> {<span class="tok-definition">operator</span>, <span class="tok-definition">args</span>} = expr;
     <span class="tok-keyword">if</span> (operator.type == <span class="tok-string">&quot;word&quot;</span> &amp;&amp;
         operator.name <span class="tok-keyword">in</span> specialForms) {
       <span class="tok-keyword">return</span> specialForms[operator.name](expr.args, scope);

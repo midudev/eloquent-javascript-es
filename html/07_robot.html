@@ -249,7 +249,7 @@ console.log(object.value);
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-qT/+IETEgM" href="#c-qT/+IETEgM" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">findRoute</span>(<span class="tok-definition">graph</span>, <span class="tok-definition">from</span>, <span class="tok-definition">to</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">work</span> = [{<span class="tok-definition">at</span>: from, <span class="tok-definition">route</span>: []}];
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; work.length; i++) {
-    <span class="tok-keyword">let</span> {at, route} = work[i];
+    <span class="tok-keyword">let</span> {<span class="tok-definition">at</span>, <span class="tok-definition">route</span>} = work[i];
     <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">place</span> <span class="tok-keyword">of</span> graph[at]) {
       <span class="tok-keyword">if</span> (place == to) <span class="tok-keyword">return</span> route.concat(place);
       <span class="tok-keyword">if</span> (!work.some(<span class="tok-definition">w</span> =&gt; w.at == place)) {
@@ -269,7 +269,7 @@ console.log(object.value);
 
 <p><a class="p_ident" id="p-8xtuFs30lw" href="#p-8xtuFs30lw" tabindex="-1" role="presentation"></a>Nuestro código no maneja la situación en la que no hay más elementos de trabajo en la lista de trabajo porque sabemos que nuestro gráfico está <em>conectado</em>, lo que significa que se puede llegar a cada ubicación desde todas las demás ubicaciones. Siempre podremos encontrar una ruta entre dos puntos, y la búsqueda no puede fallar.</p>
 
-<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-RJgvG9cgxq" href="#c-RJgvG9cgxq" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">goalOrientedRobot</span>({place, parcels}, <span class="tok-definition">route</span>) {
+<pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-RJgvG9cgxq" href="#c-RJgvG9cgxq" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">goalOrientedRobot</span>({<span class="tok-definition">place</span>, <span class="tok-definition">parcels</span>}, <span class="tok-definition">route</span>) {
   <span class="tok-keyword">if</span> (route.length == <span class="tok-number">0</span>) {
     <span class="tok-keyword">let</span> <span class="tok-definition">parcel</span> = parcels[<span class="tok-number">0</span>];
     <span class="tok-keyword">if</span> (parcel.place != place) {

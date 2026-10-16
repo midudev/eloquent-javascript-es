@@ -20,7 +20,7 @@
 
 </blockquote><figure class="chapter framed"><img src="img/chapter_picture_1.jpg" alt="Una foto de un mar de bits"></figure>
 
-<p><a class="p_ident" id="p-5q3V1d0pX9" href="#p-5q3V1d0pX9" tabindex="-1" role="presentation"></a>En el mundo de la computadora, solo existe data. Puedes leer data, modificar data, crear nueva data, pero aquello que no es data no puede ser mencionado. Toda esta data se almacena como largas secuencias de bits y, por lo tanto, es fundamentalmente similar.</p>
+<p><a class="p_ident" id="p-5q3V1d0pX9" href="#p-5q3V1d0pX9" tabindex="-1" role="presentation"></a>En el mundo de la computadora, solo existen datos. Puedes leer datos, modificar datos, crear nuevos datos, pero aquello que no son datos no puede ser mencionado. Todos estos datos se almacenan como largas secuencias de bits y, por lo tanto, es fundamentalmente similar.</p>
 
 <p><a class="p_ident" id="p-ufYtysiybY" href="#p-ufYtysiybY" tabindex="-1" role="presentation"></a><em>Los bits</em> son cualquier tipo de cosas de dos valores, generalmente descritos como ceros y unos. Dentro de la computadora, toman formas como una carga eléctrica alta o baja, una señal fuerte o débil, o un punto brillante u opaco en la superficie de un CD. Cualquier pieza de información discreta puede reducirse a una secuencia de ceros y unos y por lo tanto representarse en bits.</p>
 
@@ -51,7 +51,7 @@
 
 <p><a class="p_ident" id="p-zoQfMGsjpS" href="#p-zoQfMGsjpS" tabindex="-1" role="presentation"></a>La memoria de la computadora solía ser mucho más pequeña, y la gente solía utilizar grupos de 8 o 16 bits para representar sus números. Era fácil tener un <em>desbordamiento</em> accidental con números tan pequeños, terminando con un número que no encajaba en la cantidad dada de bits. Hoy en día, incluso las computadoras que caben en tu bolsillo tienen mucha memoria, por lo que puedes utilizar trozos de 64 bits y solo necesitas preocuparte por el desbordamiento cuando lidias con números realmente astronómicos.</p>
 
-<p><a class="p_ident" id="p-g9ZdolZbnN" href="#p-g9ZdolZbnN" tabindex="-1" role="presentation"></a>Sin embargo, no todos los números enteros menores que 18 mil trillones encajan en un número de JavaScript. Esos bits también almacenan números negativos, por lo que un bit indica el signo del número. Un problema más grande es representar números no enteros. Para hacer esto, algunos de los bits se utilizan para almacenar la posición del punto decimal. El número entero máximo real que se puede almacenar está más en el rango de 9 cuatrillones (15 ceros), que sigue siendo increíblemente grande.</p>
+<p><a class="p_ident" id="p-g9ZdolZbnN" href="#p-g9ZdolZbnN" tabindex="-1" role="presentation"></a>Sin embargo, no todos los números enteros menores que 18 mil trillones encajan en un número de JavaScript. Esos bits también almacenan números negativos, por lo que un bit indica el signo del número. Un problema más grande es representar números no enteros. Para hacer esto, algunos de los bits se utilizan para almacenar la posición del punto decimal. El número entero máximo real que se puede almacenar está más en el rango de 9 mil billones (15 ceros), que sigue siendo increíblemente grande.</p>
 
 <p><a class="p_ident" id="p-QuaxCY0XYg" href="#p-QuaxCY0XYg" tabindex="-1" role="presentation"></a>Los números fraccionarios se escriben usando un punto:</p>
 
@@ -63,7 +63,7 @@
 
 <p><a class="p_ident" id="p-vx7ox7vlBw" href="#p-vx7ox7vlBw" tabindex="-1" role="presentation"></a>Eso es 2.998 × 10<sup>8</sup> = 299,800,000.</p>
 
-<p><a class="p_ident" id="p-At4IfW0/+5" href="#p-At4IfW0/+5" tabindex="-1" role="presentation"></a>Los cálculos con números enteros (también llamados <em>enteros</em>) que son más pequeños que los mencionados 9 cuatrillones siempre serán precisos. Desafortunadamente, los cálculos con números fraccionarios generalmente no lo son. Así como π (pi) no puede expresarse con precisión mediante un número finito de dígitos decimales, muchos números pierden algo de precisión cuando solo están disponibles 64 bits para almacenarlos. Es una lástima, pero solo causa problemas prácticos en situaciones específicas. Lo importante es ser consciente de esto y tratar los números digitales fraccionarios como aproximaciones, no como valores precisos.</p>
+<p><a class="p_ident" id="p-a20cJeA9QW" href="#p-a20cJeA9QW" tabindex="-1" role="presentation"></a>Se garantiza que los cálculos con números enteros (también llamados <em>enteros</em>) menores que los 9 mil billones antes mencionados siempre serán precisos. Desafortunadamente, los cálculos con números fraccionarios generalmente no lo son. Así como π (pi) no puede expresarse con precisión mediante un número finito de dígitos decimales, muchos números pierden algo de precisión cuando solo están disponibles 64 bits para almacenarlos. Es una lástima, pero solo causa problemas prácticos en situaciones específicas. Lo importante es ser consciente de esto y tratar los números digitales fraccionarios como aproximaciones, no como valores precisos.</p>
 
 <h3><a class="i_ident" id="i-aIf95z3S0d" href="#i-aIf95z3S0d" tabindex="-1" role="presentation"></a>Aritmética</h3>
 
@@ -73,7 +73,7 @@
 
 <p><a class="p_ident" id="p-PNPKgKWrHK" href="#p-PNPKgKWrHK" tabindex="-1" role="presentation"></a>Los símbolos <code>+</code> y <code>*</code> se llaman <em>operadores</em>. El primero representa la suma y el segundo representa la multiplicación. Colocar un operador entre dos valores aplicará ese operador a esos valores y producirá un nuevo valor.</p>
 
-<p><a class="p_ident" id="p-rbQOL3GnYq" href="#p-rbQOL3GnYq" tabindex="-1" role="presentation"></a>¿Significa este ejemplo “Sumar 4 y 100, y luego multiplicar el resultado por 11”, o se realiza primero la multiplicación antes de la suma? Como habrás adivinado, la multiplicación se realiza primero. Como en matemáticas, puedes cambiar esto envolviendo la suma entre paréntesis:</p>
+<p><a class="p_ident" id="p-rbQOL3GnYq" href="#p-rbQOL3GnYq" tabindex="-1" role="presentation"></a>¿Significa este ejemplo “Sumar 4 y 100, y luego multiplicar el resultado por 11”, o se realiza primero la multiplicación antes de la suma? Como habrás adivinado, la multiplicación se realiza primero. Pero igual que en matemáticas, puedes cambiar esto envolviendo la suma entre paréntesis:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript"  data-meta="expr"><a class="c_ident" id="c-ij6V90ZZBQ" href="#c-ij6V90ZZBQ" tabindex="-1" role="presentation"></a>(<span class="tok-number">100</span> + <span class="tok-number">4</span>) * <span class="tok-number">11</span></pre>
 
@@ -89,7 +89,7 @@
 
 <p><a class="p_ident" id="p-Yzdmqjc9np" href="#p-Yzdmqjc9np" tabindex="-1" role="presentation"></a>Hay tres valores especiales en JavaScript que se consideran números pero no se comportan como números normales. Los dos primeros son <code>Infinity</code> y <code>-Infinity</code>, que representan el infinito positivo y negativo. <code>Infinity - 1</code> sigue siendo <code>Infinity</code>, y así sucesivamente. Sin embargo, no confíes demasiado en los cálculos basados en infinito. No es matemáticamente sólido y rápidamente te llevará al siguiente número especial: <code>NaN</code>.</p>
 
-<p><a class="p_ident" id="p-FTEAETPV0R" href="#p-FTEAETPV0R" tabindex="-1" role="presentation"></a><code>NaN</code> significa “no es un número”, aunque <em>es</em> un valor del tipo numérico. Obtendrás este resultado cuando, por ejemplo, intentes calcular <code>0 / 0</code> (cero dividido por cero), <code>Infinity - Infinity</code>, u cualquier otra operación numérica que no produzca un resultado significativo.</p>
+<p><a class="p_ident" id="p-FTEAETPV0R" href="#p-FTEAETPV0R" tabindex="-1" role="presentation"></a><code>NaN</code> significa “no es un número”, aunque <em>es</em> un valor del tipo numérico. Obtendrás este resultado cuando, por ejemplo, intentes calcular <code>0 / 0</code> (cero dividido por cero), <code>Infinity - Infinity</code>, o cualquier otra operación numérica que no produzca un resultado significativo.</p>
 
 <h2><a class="h_ident" id="h-J4o1MED4vw" href="#h-J4o1MED4vw" tabindex="-1" role="presentation"></a>Cadenas</h2>
 
@@ -118,9 +118,9 @@ Y esta es la segunda</pre>
 
 <p id="unicode"><a class="p_ident" id="p-mbzJaYAs/g" href="#p-mbzJaYAs/g" tabindex="-1" role="presentation"></a>Las cadenas también deben ser modeladas como una serie de bits para poder existir dentro de la computadora. La forma en que JavaScript lo hace se basa en el estándar <em>Unicode</em>. Este estándar asigna un número a prácticamente cada carácter que puedas necesitar, incluidos los caracteres griegos, árabes, japoneses, armenios, y así sucesivamente. Si tenemos un número para cada carácter, una cadena puede ser descrita por una secuencia de números. Y eso es lo que hace JavaScript.</p>
 
-<p><a class="p_ident" id="p-Ygjt4M8HFV" href="#p-Ygjt4M8HFV" tabindex="-1" role="presentation"></a>Sin embargo, hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2<sup>16</sup> caracteres diferentes. Sin embargo, Unicode define más caracteres que eso —aproximadamente el doble, en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos “posiciones de caracteres” en las cadenas de JavaScript. Volveremos a esto en el <a href="05_higher_order.html#code_units">Capítulo 5</a>.</p>
+<p><a class="p_ident" id="p-bmXKm5HFnp" href="#p-bmXKm5HFnp" tabindex="-1" role="presentation"></a>Pero hay una complicación: la representación de JavaScript utiliza 16 bits por elemento de cadena, lo que puede describir hasta 2<sup>16</sup> caracteres diferentes. Sin embargo, Unicode define más caracteres que eso (aproximadamente el doble), en este momento. Por lo tanto, algunos caracteres, como muchos emoji, ocupan dos “posiciones de caracteres” en las cadenas de JavaScript. Volveremos a esto en el <a href="05_higher_order.html#code_units">Capítulo 5</a>.</p>
 
-<p><a class="p_ident" id="p-yVQTjTfX8O" href="#p-yVQTjTfX8O" tabindex="-1" role="presentation"></a>Las cadenas no se pueden dividir, multiplicar o restar. El operador <code>+</code> se puede usar en ellas, no para sumar, sino para <em>concatenar</em> —unir dos cadenas. La siguiente línea producirá la cadena <code>&quot;concatenar&quot;</code>:</p>
+<p><a class="p_ident" id="p-yVQTjTfX8O" href="#p-yVQTjTfX8O" tabindex="-1" role="presentation"></a>Las cadenas no se pueden dividir, multiplicar o restar. El operador <code>+</code> se puede usar en ellas, no para sumar, sino para <em>concatenar</em> (unir dos cadenas). La siguiente línea producirá la cadena <code>&quot;concatenar&quot;</code>:</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript"  data-meta="expr"><a class="c_ident" id="c-AF1pg1pIWq" href="#c-AF1pg1pIWq" tabindex="-1" role="presentation"></a><span class="tok-string">&quot;con&quot;</span> + <span class="tok-string">&quot;cat&quot;</span> + <span class="tok-string">&quot;e&quot;</span> + <span class="tok-string">&quot;nar&quot;</span></pre>
 

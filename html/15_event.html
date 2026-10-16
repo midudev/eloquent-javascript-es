@@ -294,7 +294,7 @@
       dot.remove();
     }
     <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">i</span> = <span class="tok-number">0</span>; i &lt; event.touches.length; i++) {
-      <span class="tok-keyword">let</span> {pageX, pageY} = event.touches[i];
+      <span class="tok-keyword">let</span> {<span class="tok-definition">pageX</span>, <span class="tok-definition">pageY</span>} = event.touches[i];
       <span class="tok-keyword">let</span> <span class="tok-definition">dot</span> = document.createElement(<span class="tok-string">&quot;dot&quot;</span>);
       dot.style.left = (pageX - <span class="tok-number">50</span>) + <span class="tok-string">&quot;px&quot;</span>;
       dot.style.top = (pageY - <span class="tok-number">50</span>) + <span class="tok-string">&quot;px&quot;</span>;

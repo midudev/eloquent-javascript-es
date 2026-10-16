@@ -73,7 +73,7 @@
   }
   <span class="tok-definition">draw</span>(<span class="tok-definition">pixels</span>) {
     <span class="tok-keyword">let</span> <span class="tok-definition">copy</span> = <span class="tok-keyword">this</span>.pixels.slice();
-    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> {x, y, color} <span class="tok-keyword">of</span> pixels) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> {<span class="tok-definition">x</span>, <span class="tok-definition">y</span>, <span class="tok-definition">color</span>} <span class="tok-keyword">of</span> pixels) {
       copy[x + y * <span class="tok-keyword">this</span>.width] = color;
     }
     <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> Picture(<span class="tok-keyword">this</span>.width, <span class="tok-keyword">this</span>.height, copy);
@@ -225,7 +225,7 @@
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-bksTXX2fO6" href="#c-bksTXX2fO6" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> PixelEditor {
   <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, <span class="tok-definition">config</span>) {
-    <span class="tok-keyword">let</span> {tools, controls, dispatch} = config;
+    <span class="tok-keyword">let</span> {<span class="tok-definition">tools</span>, <span class="tok-definition">controls</span>, <span class="tok-definition">dispatch</span>} = config;
     <span class="tok-keyword">this</span>.state = state;
 
     <span class="tok-keyword">this</span>.canvas = <span class="tok-keyword">new</span> PictureCanvas(state.picture, <span class="tok-definition">pos</span> =&gt; {
@@ -253,7 +253,7 @@
 <p><a class="p_ident" id="p-nUpTNIXgFk" href="#p-nUpTNIXgFk" tabindex="-1" role="presentation"></a>El primer control es el menú de selección de tool. Crea un elemento <code>&lt;select&gt;</code> con una opción para cada herramienta y configura un manejador de evento <code>&quot;change&quot;</code> que actualiza el estado de la aplicación cuando el usuario selecciona una herramienta diferente.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-ChYtVqenyZ" href="#c-ChYtVqenyZ" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> ToolSelect {
-  <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, {tools, dispatch}) {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, {<span class="tok-definition">tools</span>, <span class="tok-definition">dispatch</span>}) {
     <span class="tok-keyword">this</span>.select = elt(<span class="tok-string">&quot;select&quot;</span>, {
       <span class="tok-definition">onchange</span>: () =&gt; dispatch({<span class="tok-definition">tool</span>: <span class="tok-keyword">this</span>.select.value})
     }, ...Object.keys(tools).map(<span class="tok-definition">name</span> =&gt; elt(<span class="tok-string">&quot;option&quot;</span>, {
@@ -271,7 +271,7 @@
 <p><a class="p_ident" id="p-DCc+xLwzIA" href="#p-DCc+xLwzIA" tabindex="-1" role="presentation"></a>Este control crea un campo de ese tipo y lo conecta para que se mantenga sincronizado con la propiedad <code>color</code> del estado de la aplicación.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-CNKBIFujc0" href="#c-CNKBIFujc0" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> ColorSelect {
-  <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, {dispatch}) {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, {<span class="tok-definition">dispatch</span>}) {
     <span class="tok-keyword">this</span>.input = elt(<span class="tok-string">&quot;input&quot;</span>, {
       <span class="tok-definition">type</span>: <span class="tok-string">&quot;color&quot;</span>,
       <span class="tok-definition">value</span>: state.color,
@@ -289,7 +289,7 @@
 <p><a class="p_ident" id="p-psz/qCe9Ez" href="#p-psz/qCe9Ez" tabindex="-1" role="presentation"></a>La herramienta más básica es la herramienta de dibujo, que cambia cualquier píxel en el que hagas clic o toques al color seleccionado actualmente. Envía una acción que actualiza la imagen a una versión en la que el píxel señalado recibe el color seleccionado actualmente.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-CZoPfAkoSo" href="#c-CZoPfAkoSo" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">draw</span>(<span class="tok-definition">pos</span>, <span class="tok-definition">state</span>, <span class="tok-definition">dispatch</span>) {
-  <span class="tok-keyword">function</span> <span class="tok-definition">drawPixel</span>({x, y}, <span class="tok-definition">state</span>) {
+  <span class="tok-keyword">function</span> <span class="tok-definition">drawPixel</span>({<span class="tok-definition">x</span>, <span class="tok-definition">y</span>}, <span class="tok-definition">state</span>) {
     <span class="tok-keyword">let</span> <span class="tok-definition">drawn</span> = {<span class="tok-definition">x</span>, <span class="tok-definition">y</span>, <span class="tok-definition">color</span>: state.color};
     dispatch({<span class="tok-definition">picture</span>: state.picture.draw([drawn])});
   }
@@ -328,12 +328,12 @@
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-8PRlVbnIGd" href="#c-8PRlVbnIGd" tabindex="-1" role="presentation"></a><span class="tok-keyword">const</span> <span class="tok-definition">alrededor</span> = [{<span class="tok-definition">dx</span>: -<span class="tok-number">1</span>, <span class="tok-definition">dy</span>: <span class="tok-number">0</span>}, {<span class="tok-definition">dx</span>: <span class="tok-number">1</span>, <span class="tok-definition">dy</span>: <span class="tok-number">0</span>},
                 {<span class="tok-definition">dx</span>: <span class="tok-number">0</span>, <span class="tok-definition">dy</span>: -<span class="tok-number">1</span>}, {<span class="tok-definition">dx</span>: <span class="tok-number">0</span>, <span class="tok-definition">dy</span>: <span class="tok-number">1</span>}];
 
-<span class="tok-keyword">function</span> <span class="tok-definition">rellenar</span>({x, y}, <span class="tok-definition">estado</span>, <span class="tok-definition">despachar</span>) {
+<span class="tok-keyword">function</span> <span class="tok-definition">rellenar</span>({<span class="tok-definition">x</span>, <span class="tok-definition">y</span>}, <span class="tok-definition">estado</span>, <span class="tok-definition">despachar</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">colorObjetivo</span> = estado.imagen.pixel(x, y);
   <span class="tok-keyword">let</span> <span class="tok-definition">dibujados</span> = [{<span class="tok-definition">x</span>, <span class="tok-definition">y</span>, <span class="tok-definition">color</span>: estado.color}];
   <span class="tok-keyword">let</span> <span class="tok-definition">visitados</span> = <span class="tok-keyword">new</span> Set();
   <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> <span class="tok-definition">hecho</span> = <span class="tok-number">0</span>; hecho &lt; dibujados.length; hecho++) {
-    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> {dx, dy} <span class="tok-keyword">of</span> alrededor) {
+    <span class="tok-keyword">for</span> (<span class="tok-keyword">let</span> {<span class="tok-definition">dx</span>, <span class="tok-definition">dy</span>} <span class="tok-keyword">of</span> alrededor) {
       <span class="tok-keyword">let</span> <span class="tok-definition">x</span> = dibujados[hecho].x + dx, <span class="tok-definition">y</span> = dibujados[hecho].y + dy;
       <span class="tok-keyword">if</span> (x &gt;= <span class="tok-number">0</span> &amp;&amp; x &lt; estado.imagen.ancho &amp;&amp;
           y &gt;= <span class="tok-number">0</span> &amp;&amp; y &lt; estado.imagen.alto &amp;&amp;
@@ -389,7 +389,7 @@
 <p><a class="p_ident" id="p-GJAkWVfRnj" href="#p-GJAkWVfRnj" tabindex="-1" role="presentation"></a>Y la cosa se pone peor. También querríamos cargar archivos de imagen existentes en nuestra aplicación. Para hacer eso, nuevamente definimos un componente de botón.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-YP6f4Axhsc" href="#c-YP6f4Axhsc" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> LoadButton {
-  <span class="tok-definition">constructor</span>(<span class="tok-definition">_</span>, {dispatch}) {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">_</span>, {<span class="tok-definition">dispatch</span>}) {
     <span class="tok-keyword">this</span>.dom = elt(<span class="tok-string">&quot;button&quot;</span>, {
       <span class="tok-definition">onclick</span>: () =&gt; startLoad(dispatch)
     }, <span class="tok-string">&quot;📁 Cargar&quot;</span>);
@@ -434,7 +434,7 @@
   <span class="tok-keyword">let</span> <span class="tok-definition">cx</span> = canvas.getContext(<span class="tok-string">&quot;2d&quot;</span>);
   cx.drawImage(image, <span class="tok-number">0</span>, <span class="tok-number">0</span>);
   <span class="tok-keyword">let</span> <span class="tok-definition">pixels</span> = [];
-  <span class="tok-keyword">let</span> {data} = cx.getImageData(<span class="tok-number">0</span>, <span class="tok-number">0</span>, width, height);
+  <span class="tok-keyword">let</span> {<span class="tok-definition">data</span>} = cx.getImageData(<span class="tok-number">0</span>, <span class="tok-number">0</span>, width, height);
 
   <span class="tok-keyword">function</span> <span class="tok-definition">hex</span>(<span class="tok-definition">n</span>) {
     <span class="tok-keyword">return</span> n.toString(<span class="tok-number">16</span>).padStart(<span class="tok-number">2</span>, <span class="tok-string">&quot;0&quot;</span>);
@@ -493,7 +493,7 @@
 <p><a class="p_ident" id="p-xRQc1w6a+d" href="#p-xRQc1w6a+d" tabindex="-1" role="presentation"></a>El botón de deshacer componente no hace mucho. Despacha acciones de deshacer al hacer clic y se deshabilita cuando no hay nada que deshacer.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-rtpXQHxju+" href="#c-rtpXQHxju+" tabindex="-1" role="presentation"></a><span class="tok-keyword">class</span> UndoButton {
-  <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, {dispatch}) {
+  <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, {<span class="tok-definition">dispatch</span>}) {
     <span class="tok-keyword">this</span>.dom = elt(<span class="tok-string">&quot;button&quot;</span>, {
       <span class="tok-definition">onclick</span>: () =&gt; dispatch({<span class="tok-definition">undo</span>: true}),
       <span class="tok-definition">disabled</span>: state.done.length == <span class="tok-number">0</span>
@@ -522,9 +522,9 @@
   ToolSelect, ColorSelect, SaveButton, LoadButton, UndoButton
 ];
 
-<span class="tok-keyword">function</span> <span class="tok-definition">startPixelEditor</span>({state = startState,
-                           tools = baseTools,
-                           controls = baseControls}) {
+<span class="tok-keyword">function</span> <span class="tok-definition">startPixelEditor</span>({<span class="tok-definition">state</span> = startState,
+                           <span class="tok-definition">tools</span> = baseTools,
+                           <span class="tok-definition">controls</span> = baseControls}) {
   <span class="tok-keyword">let</span> <span class="tok-definition">app</span> = <span class="tok-keyword">new</span> PixelEditor(state, {
     <span class="tok-definition">tools</span>,
     <span class="tok-definition">controls</span>,
@@ -575,7 +575,7 @@
   <span class="tok-comment">// La clase PixelEditor original. Extiende el constructor.</span>
   <span class="tok-keyword">class</span> PixelEditor {
     <span class="tok-definition">constructor</span>(<span class="tok-definition">state</span>, <span class="tok-definition">config</span>) {
-      <span class="tok-keyword">let</span> {tools, controls, dispatch} = config;
+      <span class="tok-keyword">let</span> {<span class="tok-definition">tools</span>, <span class="tok-definition">controls</span>, <span class="tok-definition">dispatch</span>} = config;
       <span class="tok-keyword">this</span>.state = state;
 
       <span class="tok-keyword">this</span>.canvas = <span class="tok-keyword">new</span> PictureCanvas(state.picture, <span class="tok-definition">pos</span> =&gt; {
@@ -703,7 +703,7 @@
 &lt;<span class="tok-typeName">script</span>&gt;
   <span class="tok-comment">// The old draw tool. Rewrite this.</span>
   <span class="tok-keyword">function</span> <span class="tok-definition">draw</span>(<span class="tok-definition">pos</span>, <span class="tok-definition">state</span>, <span class="tok-definition">dispatch</span>) {
-    <span class="tok-keyword">function</span> <span class="tok-definition">drawPixel</span>({x, y}, <span class="tok-definition">state</span>) {
+    <span class="tok-keyword">function</span> <span class="tok-definition">drawPixel</span>({<span class="tok-definition">x</span>, <span class="tok-definition">y</span>}, <span class="tok-definition">state</span>) {
       <span class="tok-keyword">let</span> <span class="tok-definition">drawn</span> = {<span class="tok-definition">x</span>, <span class="tok-definition">y</span>, <span class="tok-definition">color</span>: state.color};
       dispatch({<span class="tok-definition">picture</span>: state.picture.draw([drawn])});
     }

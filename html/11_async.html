@@ -531,7 +531,7 @@ activityTable(<span class="tok-number">1</span>)
 
 <p><a class="p_ident" id="p-iW4mBbLVDT" href="#p-iW4mBbLVDT" tabindex="-1" role="presentation"></a>Asegúrate de usar <code>await</code> en el resultado de las funciones asíncronas antes de hacer cualquier cosa con él, o terminarás con una <code>Promise</code> donde esperabas un string.</p>
 
-<p><a class="p_ident" id="p-MYC7CGnZ1D" href="#p-MYC7CGnZ1D" tabindex="-1" role="presentation"></a>hinting}}</p>
+</div></details>
 
 <h3><a class="i_ident" id="i-rAhebsaSY2" href="#i-rAhebsaSY2" tabindex="-1" role="presentation"></a>Promesas Reales</h3>
 
@@ -624,10 +624,6 @@ Promise_all([pronto(<span class="tok-number">1</span>), Promise.reject(<span cla
 <p><a class="p_ident" id="p-pv4cygIqmH" href="#p-pv4cygIqmH" tabindex="-1" role="presentation"></a>Esto último se puede hacer con un contador que se inicializa con la longitud del array de entrada y del cual restamos 1 cada vez que una promesa tiene éxito. Cuando llegue a 0, hemos terminado. Asegúrate de tener en cuenta la situación en la que el array de entrada está vacío (y por lo tanto ninguna promesa se resolverá nunca).</p>
 
 <p><a class="p_ident" id="p-RfvboDBLxx" href="#p-RfvboDBLxx" tabindex="-1" role="presentation"></a>Manejar el fallo requiere un poco de pensamiento pero resulta ser extremadamente simple. Simplemente pasa la función <code>reject</code> de la promesa contenedora a cada una de las promesas en el array como un controlador <code>catch</code> o como un segundo argumento para <code>then</code> para que un fallo en una de ellas desencadene el rechazo de toda la promesa contenedora.</p>
-
-<p><a class="p_ident" id="p-nfQ6A5rdkZ" href="#p-nfQ6A5rdkZ" tabindex="-1" role="presentation"></a>pista</p>
-
-</div></details>
 
 </div></details><nav><a href="10_modules.html" title="previous chapter" aria-label="previous chapter">◂</a> <a href="index.html" title="cover" aria-label="cover">●</a> <a href="12_language.html" title="next chapter" aria-label="next chapter">▸</a>&nbsp;<button class=help title="help" aria-label="help"><strong>?</strong></button>
 </nav>

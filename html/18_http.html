@@ -551,7 +551,7 @@ localStorage.removeItem(<span class="tok-string">&quot;nombre de usuario&quot;</
     setState({<span class="tok-definition">notes</span>: state.notes, <span class="tok-definition">selected</span>: list.value});
   });
   note.addEventListener(<span class="tok-string">&quot;change&quot;</span>, () =&gt; {
-    <span class="tok-keyword">let</span> {selected} = state;
+    <span class="tok-keyword">let</span> {<span class="tok-definition">selected</span>} = state;
     setState({
       <span class="tok-definition">notes</span>: {...state.notes, [selected]: note.value},
       <span class="tok-definition">selected</span>
