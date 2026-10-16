@@ -261,7 +261,7 @@ El protocolo seguro ((HTTP)), utilizado para ((URL))s que comienzan con _https:/
 
 Así, cuando funciona correctamente, ((HTTPS)) evita que otras personas se hagan pasar por el sitio web con el que estás intentando comunicarte _y_ que espíen tu comunicación. No es perfecto, y ha habido varios incidentes en los que HTTPS falló debido a certificados falsificados o robados y software defectuoso, pero es _mucho_ más seguro que el simple HTTP.
 
-{{id formularios}}
+{{id forms}}
 
 ## Campos de formulario
 
@@ -950,6 +950,6 @@ Si decides utilizar manejadores de eventos, es posible que desees adjuntar ((atr
 
 {{index dibujo, "tabla (etiqueta HTML)", "br (etiqueta HTML)"}}
 
-Para dibujar el grid de checkboxes, puedes usar un elemento `<table>` (ver [Capítulo ?](dom#ejercicio_table)) o simplemente colocar todos en el mismo elemento y poner elementos `<br>` (salto de línea) entre las filas.
+Para dibujar el grid de checkboxes, puedes usar un elemento `<table>` (ver [Capítulo ?](dom#exercise_table)) o simplemente colocar todos en el mismo elemento y poner elementos `<br>` (salto de línea) entre las filas.
 
 hint}}

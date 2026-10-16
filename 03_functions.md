@@ -109,7 +109,7 @@ console.log(n);
 // → 10
 ```
 
-{{id alcance}}
+{{id scoping}}
 
 ## Ámbito anidado
 
@@ -236,7 +236,7 @@ const cuerno = () => {
 
 No hay una razón profunda para tener tanto funciones de flecha como expresiones `function` en el lenguaje. Aparte de un detalle menor, que discutiremos en el [Capítulo ?](object), hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en el [Capítulo ?](higher_order) .
 
-{{id pila}}
+{{id stack}}
 
 ## La pila de llamadas
 
@@ -441,7 +441,7 @@ Por lo tanto, generalmente deberías comenzar escribiendo algo que sea correcto 
 
 La recursión no siempre es simplemente una alternativa ineficiente a los bucles. Algunos problemas realmente son más fáciles de resolver con recursión que con bucles. Con mayor frecuencia, estos son problemas que requieren explorar o procesar varias "ramas", cada una de las cuales podría ramificarse nuevamente en aún más ramas.
 
-{{id rompecabezas_recursivo}}
+{{id recursive_puzzle}}
 {{index "recursión", "ejemplo de rompecabezas numérico"}}
 
 Considera este rompecabezas: al comenzar desde el número 1 y repetidamente sumar 5 o multiplicar por 3, se puede producir un conjunto infinito de números. ¿Cómo escribirías una función que, dado un número, intente encontrar una secuencia de tales sumas y multiplicaciones que produzcan ese número? Por ejemplo, el número 13 podría alcanzarse al multiplicar por 3 y luego sumar 5 dos veces, mientras que el número 15 no podría alcanzarse en absoluto.
@@ -604,7 +604,7 @@ Una función con un nombre claro y obvio como `rellenarConCeros` hace que sea m�
 
 Un principio útil es abstenerse de agregar ingenio a menos que estés absolutamente seguro de que lo vas a necesitar. Puede ser tentador escribir "((frameworks))" genéricos para cada trozo de funcionalidad que te encuentres. Resiste esa tentación. No lograrás hacer ningún trabajo real: estarás demasiado ocupado escribiendo código que nunca usarás.
 
-{{id puro}}
+{{id pure}}
 
 ## Funciones y efectos secundarios
 

@@ -65,7 +65,7 @@
 
 <p><a class="p_ident" id="p-TpGsKP/H5i" href="#p-TpGsKP/H5i" tabindex="-1" role="presentation"></a>Las hojas son nodos de texto, y las flechas indican las relaciones padre-hijo entre nodos.</p>
 
-<h2 id="estándar"><a class="h_ident" id="h-CFjVAEqJy7" href="#h-CFjVAEqJy7" tabindex="-1" role="presentation"></a>El estándar</h2>
+<h2 id="standard"><a class="h_ident" id="h-CFjVAEqJy7" href="#h-CFjVAEqJy7" tabindex="-1" role="presentation"></a>El estándar</h2>
 
 <p><a class="p_ident" id="p-d46TYUYjnb" href="#p-d46TYUYjnb" tabindex="-1" role="presentation"></a>Usar códigos numéricos crípticos para representar tipos de nodos no es algo muy propio de JavaScript. Más adelante en este capítulo, veremos que otras partes de la interfaz del DOM también se sienten incómodas y extrañas. La razón de esto es que la interfaz del DOM no fue diseñada exclusivamente para JavaScript. Más bien, intenta ser una interfaz neutral en cuanto a lenguaje que también pueda utilizarse en otros sistemas, no solo para HTML, sino también para XML, que es un formato de datos genérico con una sintaxis similar a HTML.</p>
 
@@ -253,7 +253,7 @@ console.log(array.map(<span class="tok-definition">s</span> =&gt; s.toUpperCase(
   <span class="tok-comment">// → 25</span>
 &lt;/<span class="tok-typeName">script</span>&gt;</pre>
 
-<p id="rectángulo delimitador"><a class="p_ident" id="p-x9VDcFAD2/" href="#p-x9VDcFAD2/" tabindex="-1" role="presentation"></a>La manera más efectiva de encontrar la posición precisa de un elemento en la pantalla es el método <code>getBoundingClientRect</code>. Devuelve un objeto con las propiedades <code>top</code>, <code>bottom</code>, <code>left</code> y <code>right</code>, indicando las posiciones en píxeles de los lados del elemento en relación con la esquina superior izquierda de la pantalla. Si los quieres en relación al documento completo, debes sumar la posición actual de desplazamiento, que puedes encontrar en las variables <code>pageXOffset</code> y <code>pageYOffset</code>.</p>
+<p id="boundingRect"><a class="p_ident" id="p-x9VDcFAD2/" href="#p-x9VDcFAD2/" tabindex="-1" role="presentation"></a>La manera más efectiva de encontrar la posición precisa de un elemento en la pantalla es el método <code>getBoundingClientRect</code>. Devuelve un objeto con las propiedades <code>top</code>, <code>bottom</code>, <code>left</code> y <code>right</code>, indicando las posiciones en píxeles de los lados del elemento en relación con la esquina superior izquierda de la pantalla. Si los quieres en relación al documento completo, debes sumar la posición actual de desplazamiento, que puedes encontrar en las variables <code>pageXOffset</code> y <code>pageYOffset</code>.</p>
 
 <p><a class="p_ident" id="p-1CP2gBKXRb" href="#p-1CP2gBKXRb" tabindex="-1" role="presentation"></a>Diseñar un documento puede ser bastante trabajo. En aras de la rapidez, los motores de los navegadores no vuelven a diseñar inmediatamente un documento cada vez que se modifica, sino que esperan tanto como pueden. Cuando un programa de JavaScript que ha modificado el documento finaliza su ejecución, el navegador tendrá que calcular un nuevo diseño para dibujar el documento modificado en la pantalla. Cuando un programa <em>pide</em> la posición o tamaño de algo leyendo propiedades como <code>offsetHeight</code> o llamando a <code>getBoundingClientRect</code>, proporcionar esa información también requiere calcular un diseño.</p>
 

@@ -342,7 +342,7 @@ console.log(animalCount.test(<span class="tok-string">&quot;15 pugs&quot;</span>
 
 <p><a class="p_ident" id="p-6KuJyUkARn" href="#p-6KuJyUkARn" tabindex="-1" role="presentation"></a>Nuestra expresión coincide si podemos encontrar un camino desde el lado izquierdo del diagrama hasta el lado derecho. Mantenemos una posición actual en la cadena, y cada vez que avanzamos a través de un recuadro, verificamos que la parte de la cadena después de nuestra posición actual coincida con ese recuadro.</p>
 
-<h2 id="retroceso"><a class="h_ident" id="h-nmeiqrCjN8" href="#h-nmeiqrCjN8" tabindex="-1" role="presentation"></a>Retroceso</h2>
+<h2 id="backtracking"><a class="h_ident" id="h-nmeiqrCjN8" href="#h-nmeiqrCjN8" tabindex="-1" role="presentation"></a>Retroceso</h2>
 
 <p><a class="p_ident" id="p-QOY2sD8j/J" href="#p-QOY2sD8j/J" tabindex="-1" role="presentation"></a>La expresión regular <code>/<wbr>^([01]+b|[\da-f]+h|\d+)$/<wbr></code> coincide ya sea con un número binario seguido de una <em>b</em>, un número hexadecimal (es decir, base 16, con las letras <em>a</em> a <em>f</em> representando los dígitos del 10 al 15) seguido de un <em>h</em>, o un número decimal regular sin un carácter de sufijo. Este es el diagrama correspondiente:</p><figure><img src="img/re_number.svg" alt="Diagrama de ferrocarril para la expresión regular '^([01]+b|\d+|[\da-f]+h)$'"></figure>
 

@@ -332,7 +332,7 @@ Así que, cuando abres esa página en tu navegador, envía una solicitud a tu pr
 
 {{index "200 (código de estado HTTP)", "encabezado Content-Type", "método writeHead"}}
 
-Para enviar algo al cliente, llamas a métodos en el objeto `respuesta`. El primero, `writeHead`, escribirá los ((encabezados de respuesta)) (ver [Capítulo ?](http#encabezados)). Le das el código de estado (200 para "OK" en este caso) y un objeto que contiene valores de encabezado. El ejemplo establece el encabezado `Content-Type` para informar al cliente que estaremos enviando de vuelta un documento HTML.
+Para enviar algo al cliente, llamas a métodos en el objeto `respuesta`. El primero, `writeHead`, escribirá los ((encabezados de respuesta)) (ver [Capítulo ?](http#headers)). Le das el código de estado (200 para "OK" en este caso) y un objeto que contiene valores de encabezado. El ejemplo establece el encabezado `Content-Type` para informar al cliente que estaremos enviando de vuelta un documento HTML.
 
 {{index "flujo de escritura", "cuerpo (HTTP)", stream, "método write", "método end"}}
 

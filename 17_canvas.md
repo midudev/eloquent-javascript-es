@@ -28,7 +28,7 @@ La segunda alternativa se llama _((lienzo))_. Un lienzo es un solo elemento DOM 
 
 ## SVG
 
-Este libro no se adentrará en detalles sobre ((SVG)), pero explicaré brevemente cómo funciona. Al [final del capítulo](canvas#tradeoffs_graficos), volveré a los compromisos que debes considerar al decidir qué mecanismo de ((dibujo)) es adecuado para una aplicación determinada.
+Este libro no se adentrará en detalles sobre ((SVG)), pero explicaré brevemente cómo funciona. Al [final del capítulo](canvas#graphics_tradeoffs), volveré a los compromisos que debes considerar al decidir qué mecanismo de ((dibujo)) es adecuado para una aplicación determinada.
 
 Este es un documento HTML con una sencilla imagen SVG en él:
 
@@ -308,7 +308,7 @@ La imagen resultante contiene una ((línea)) desde la derecha del círculo compl
 
 if}}
 
-{{id diagrama_sectores}}
+{{id pie_chart}}
 
 ## Dibujo de un diagrama de sectores
 

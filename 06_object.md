@@ -34,7 +34,7 @@ Si se encuentra un problema en una clase de objeto como esta, a menudo se puede 
 
 Incluso mejor, puede ser posible utilizar clases de objetos en varios programas diferentes, evitando la necesidad de recrear su funcionalidad desde cero. Puedes pensar en las estructuras de datos integradas de JavaScript, como arrays y strings, como tipos de datos abstractos reutilizables de este tipo.
 
-{{id interfaz}}
+{{id interface}}
 {{index [interfaz, objeto]}}
 
 Cada tipo de dato abstracto tiene una _interfaz_, que es la colección de operaciones que el código externo puede realizar en él. Incluso cosas básicas como los números pueden considerarse un tipo de dato abstracto cuya interfaz nos permite sumarlos, multiplicarlos, compararlos, y así sucesivamente. De hecho, la fijación en objetos _individuales_ como la unidad principal de organización en la programación orientada a objetos clásica es un tanto desafortunada, ya que a menudo las piezas de funcionalidad útiles involucran un grupo de diferentes clases de objetos que trabajan estrechamente juntos.
@@ -169,7 +169,7 @@ blackRabbit.speak("Soy el miedo y la oscuridad");
 
 El conejo "proto" actúa como un contenedor para las propiedades que son compartidas por todos los conejos. Un objeto de conejo individual, como el conejo negro, contiene propiedades que se aplican solo a él mismo, en este caso su tipo, y deriva propiedades compartidas de su prototipo.
 
-{{id clases}}
+{{id classes}}
 
 ## Clases
 
@@ -181,7 +181,7 @@ El sistema de ((prototipos)) de JavaScript puede interpretarse como una versión
 
 Los prototipos son útiles para definir propiedades cuyo valor es compartido por todas las instancias de una clase. Las propiedades que difieren por instancia, como la propiedad `type` de nuestros conejos, deben ser almacenadas directamente en los objetos mismos.
 
-{{id constructores}}
+{{id constructors}}
 
 Así que para crear una instancia de una clase, debes hacer un objeto que se derive del prototipo adecuado, pero _también_ debes asegurarte de que él mismo tenga las propiedades que se supone que deben tener las instancias de esta clase. Esto es lo que hace una función _((constructor))_.
 

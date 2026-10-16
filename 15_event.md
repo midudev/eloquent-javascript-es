@@ -278,7 +278,7 @@ Para obtener información precisa sobre el lugar donde ocurrió un evento de rat
 
 {{index "border-radius (CSS)", "posicionamiento absoluto", "ejemplo de programa de dibujo"}}
 
-{{id "dibujo con ratón"}}
+{{id mouse_drawing}}
 
 El siguiente programa implementa una aplicación de dibujo primitiva. Cada vez que haces clic en el documento, agrega un punto bajo el puntero de tu ratón. Ver [Capítulo ?](paint) para una aplicación de dibujo menos primitiva.
 

@@ -44,7 +44,7 @@
 
 <p><a class="p_ident" id="p-waStMtTsQB" href="#p-waStMtTsQB" tabindex="-1" role="presentation"></a>Podemos representar el fondo como una tabla ya que es una cuadrícula inmutable de cuadrados. Los elementos de movimiento libre se pueden superponer utilizando elementos posicionados absolutamente.</p>
 
-<p><a class="p_ident" id="p-JT/4zQXp3g" href="#p-JT/4zQXp3g" tabindex="-1" role="presentation"></a>En juegos y otros programas que deben animar gráficos y responder a la entrada del usuario sin retrasos notables, la eficiencia es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas animaciones en el <a href="14_dom.html#animacion">Capítulo 14</a>. En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la optimización.</p>
+<p><a class="p_ident" id="p-JT/4zQXp3g" href="#p-JT/4zQXp3g" tabindex="-1" role="presentation"></a>En juegos y otros programas que deben animar gráficos y responder a la entrada del usuario sin retrasos notables, la eficiencia es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas animaciones en el <a href="14_dom.html#animation">Capítulo 14</a>. En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la optimización.</p>
 
 <p><a class="p_ident" id="p-3byV0kYq/Y" href="#p-3byV0kYq/Y" tabindex="-1" role="presentation"></a>En el <a href="17_canvas.html">próximo capítulo</a>, exploraremos otra tecnología del navegador, la etiqueta <code>&lt;canvas&gt;</code>, que proporciona una forma más tradicional de dibujar gráficos, trabajando en términos de formas y píxeles en lugar de elementos del DOM.</p>
 
@@ -71,7 +71,7 @@
 
 <p><a class="p_ident" id="p-6ZMi163FJ3" href="#p-6ZMi163FJ3" tabindex="-1" role="presentation"></a>Un juego completo consta de varios niveles que el jugador debe completar. Un nivel se completa cuando se han recolectado todas las monedas. Si el jugador toca la lava, el nivel actual se restablece a su posición inicial y el jugador puede intentarlo de nuevo.</p>
 
-<h2 id="nivel"><a class="h_ident" id="h-aY9E3hyvI1" href="#h-aY9E3hyvI1" tabindex="-1" role="presentation"></a>Leyendo un nivel</h2>
+<h2 id="level"><a class="h_ident" id="h-aY9E3hyvI1" href="#h-aY9E3hyvI1" tabindex="-1" role="presentation"></a>Leyendo un nivel</h2>
 
 <p><a class="p_ident" id="p-GSLhpHHv58" href="#p-GSLhpHHv58" tabindex="-1" role="presentation"></a>La siguiente clase almacena un objeto nivel. Su argumento debe ser la cadena que define el nivel.</p>
 
@@ -293,7 +293,9 @@ console.log(<span class="tok-string2">`</span>${simpleLevel.width}<span class="t
   ));
 }</pre>
 
-<p><a class="p_ident" id="p-TP/V+66O4v" href="#p-TP/V+66O4v" tabindex="-1" role="presentation"></a>El elemento <code>&lt;table&gt;</code> se corresponde bien con la estructura de la propiedad <code>rows</code> del nivel: cada fila de la cuadrícula se convierte en una fila de tabla (<code>&lt;tr&gt;</code>). Las cadenas en la cuadrícula se usan como nombres de clase para los elementos de celda de tabla (<code>&lt;td&gt;</code>). El código utiliza el operador de propagación (triple punto) para pasar matrices de nodos secundarios a <code>elt</code> como argumentos separados.El siguiente CSS hace que la tabla se vea como el fondo que queremos:</p>
+<p><a class="p_ident" id="p-sNq6n0070Z" href="#p-sNq6n0070Z" tabindex="-1" role="presentation"></a>El elemento <code>&lt;table&gt;</code> se corresponde bien con la estructura de la propiedad <code>rows</code> del nivel: cada fila de la cuadrícula se convierte en una fila de tabla (<code>&lt;tr&gt;</code>). Las cadenas en la cuadrícula se usan como nombres de clase para los elementos de celda de tabla (<code>&lt;td&gt;</code>). El código utiliza el operador de propagación (triple punto) para pasar matrices de nodos secundarios a <code>elt</code> como argumentos separados.</p>
+
+<p id="game_css"><a class="p_ident" id="p-vnZkJYmGQm" href="#p-vnZkJYmGQm" tabindex="-1" role="presentation"></a>El siguiente CSS hace que la tabla se vea como el fondo que queremos:</p>
 
 <pre class="snippet" data-language="css" ><a class="c_ident" id="c-wOP5LzF6Sp" href="#c-wOP5LzF6Sp" tabindex="-1" role="presentation"></a>.background    { background: <span class="tok-keyword">rgb</span>(<span class="tok-number">52</span>, <span class="tok-number">166</span>, <span class="tok-number">251</span>);
                  table-layout: <span class="tok-atom">fixed</span>;
@@ -481,7 +483,7 @@ Coin.prototype.collide = <span class="tok-keyword">function</span>(<span class="
   <span class="tok-keyword">return</span> <span class="tok-keyword">new</span> State(state.level, filtered, status);
 };</pre>
 
-<h2 id="actores"><a class="h_ident" id="h-uo8ruJq0l5" href="#h-uo8ruJq0l5" tabindex="-1" role="presentation"></a>Actualizaciones de actores</h2>
+<h2 id="actors"><a class="h_ident" id="h-uo8ruJq0l5" href="#h-uo8ruJq0l5" tabindex="-1" role="presentation"></a>Actualizaciones de actores</h2>
 
 <p><a class="p_ident" id="p-a0Ow9mdDIT" href="#p-a0Ow9mdDIT" tabindex="-1" role="presentation"></a>Los métodos <code>update</code> de los objetos actor toman como argumentos el paso de tiempo, el objeto de estado y un objeto <code>keys</code>. El de tipo actor <code>Lava</code> ignora el objeto <code>keys</code>.</p>
 

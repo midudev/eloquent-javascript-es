@@ -54,7 +54,7 @@ Podemos representar el fondo como una tabla ya que es una ((cuadrícula)) inmuta
 
 {{index rendimiento, [DOM, "gráficos"]}}
 
-En juegos y otros programas que deben animar ((gráficos)) y responder a la ((entrada)) del usuario sin retrasos notables, la ((eficiencia)) es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas ((animacione))s en el [Capítulo ?](dom#animacion). En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la ((optimización)).
+En juegos y otros programas que deben animar ((gráficos)) y responder a la ((entrada)) del usuario sin retrasos notables, la ((eficiencia)) es importante. Aunque el DOM no fue diseñado originalmente para gráficos de alto rendimiento, en realidad es mejor en esto de lo que podrías esperar. Viste algunas ((animacione))s en el [Capítulo ?](dom#animation). En una máquina moderna, un juego simple como este funciona bien, incluso si no nos preocupamos mucho por la ((optimización)).
 
 {{index lienzo, [DOM, "gráficos"]}}
 
@@ -91,7 +91,7 @@ Además de las dos formas adicionales de lava en movimiento, el carácter de tub
 
 Un ((juego)) completo consta de varios ((nivel))es que el ((jugador)) debe completar. Un nivel se completa cuando se han recolectado todas las ((moneda))s. Si el jugador toca la ((lava)), el nivel actual se restablece a su posición inicial y el jugador puede intentarlo de nuevo.
 
-{{id nivel}}
+{{id level}}
 
 ## Leyendo un nivel
 
@@ -383,7 +383,11 @@ function dibujarGrid(nivel) {
 
 {{index "table (etiqueta HTML)", "tr (etiqueta HTML)", "td (etiqueta HTML)", "operador de propagación"}}
 
-El elemento `<table>` se corresponde bien con la estructura de la propiedad `rows` del nivel: cada fila de la cuadrícula se convierte en una fila de tabla (`<tr>`). Las cadenas en la cuadrícula se usan como nombres de clase para los elementos de celda de tabla (`<td>`). El código utiliza el operador de propagación (triple punto) para pasar matrices de nodos secundarios a `elt` como argumentos separados.El siguiente ((CSS)) hace que la tabla se vea como el fondo que queremos:
+El elemento `<table>` se corresponde bien con la estructura de la propiedad `rows` del nivel: cada fila de la cuadrícula se convierte en una fila de tabla (`<tr>`). Las cadenas en la cuadrícula se usan como nombres de clase para los elementos de celda de tabla (`<td>`). El código utiliza el operador de propagación (triple punto) para pasar matrices de nodos secundarios a `elt` como argumentos separados.
+
+{{id game_css}}
+
+El siguiente ((CSS)) hace que la tabla se vea como el fondo que queremos:
 
 ```{lang: "css"}
 .background    { background: rgb(52, 166, 251);
@@ -635,7 +639,7 @@ Coin.prototype.collide = function(state) {
 };
 ```
 
-{{id actores}}
+{{id actors}}
 
 ## Actualizaciones de actores
 

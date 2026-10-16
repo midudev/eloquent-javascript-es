@@ -200,7 +200,7 @@ if}}
 
 Aunque los nombres de enlaces no pueden contener ((puntos)), `console.log` tiene uno. Esto se debe a que `console.log` no es un simple enlace, sino una expresión que recupera la propiedad `log` del valor contenido por el enlace `console`. Descubriremos exactamente lo que esto significa en el [Capítulo ?](data#properties).
 
-{{id valores_retorno}}
+{{id return_values}}
 ## Valores de retorno
 
 {{index ["comparación", "de números"], "valor de retorno", "función Math.max", "máximo"}}

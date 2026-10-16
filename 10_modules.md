@@ -40,6 +40,8 @@ Pero la interfaz que un módulo proporciona para que otros la utilicen es solo l
 
 Cuando las formas en que los módulos interactúan entre sí son explícitas, un sistema se vuelve más como ((LEGO)), donde las piezas interactúan a través de conectores bien definidos, y menos como barro, donde todo se mezcla con todo.
 
+{{id es}}
+
 ## Módulos ES
 
 {{index "ámbito global", ["vinculación", global]}}
@@ -151,7 +153,7 @@ Por defecto, eres el ((propietario de los derechos de autor)) del código que es
 
 La mayoría del código en ((NPM)) tiene esta licencia. Algunas licencias requieren que también publiques el código que construyes sobre el paquete bajo la misma licencia. Otros son menos exigentes, simplemente requiriendo que mantengas la licencia con el código al distribuirlo. La comunidad de JavaScript mayormente utiliza este último tipo de licencia. Al usar paquetes de otras personas, asegúrate de estar al tanto de su licencia.
 
-{{id modulos_ini}}
+{{id modules_ini}}
 
 {{index "paquete ini"}}
 

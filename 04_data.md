@@ -74,7 +74,7 @@ La notación para acceder a los elementos dentro de un array también utiliza ((
 
 El primer índice de un array es cero, no uno, por lo que el primer elemento se recupera con `listaDeNumeros[0]`. El conteo basado en cero tiene una larga tradición en tecnología y, de cierta manera, tiene mucho sentido, pero se necesita un poco de tiempo para acostumbrarse. Piensa en el índice como el número de elementos a omitir, contando desde el inicio del array.
 
-{{id propiedades}}
+{{id properties}}
 
 ## Propiedades
 
@@ -102,7 +102,7 @@ Los elementos en un ((array)) se almacenan como propiedades del array, utilizand
 
 Al igual que las cadenas de texto, los arrays tienen una propiedad `length` que nos dice cuántos elementos tiene el array.
 
-{{id "métodos"}}
+{{id methods}}
 
 ## Métodos
 
@@ -128,7 +128,7 @@ Curiosamente, aunque la llamada a `toUpperCase` no pasa argumentos, de alguna ma
 
 Las propiedades que contienen funciones generalmente se llaman _métodos_ del valor al que pertenecen, como en "`toUpperCase` es un método de una cadena".
 
-{{id "métodos_de_array"}}
+{{id array_methods}}
 
 Este ejemplo demuestra dos métodos que puedes utilizar para manipular arrays:
 
@@ -765,7 +765,7 @@ Como hemos visto, `Math` es una bolsa de funciones de utilidad relacionadas con 
 
 {{index espacio de nombres, [objeto, propiedad]}}
 
-{{id "contaminación de espacio de nombres"}}
+{{id namespace_pollution}}
 
 El objeto `Math` se utiliza como un contenedor para agrupar un conjunto de funcionalidades relacionadas. Solo hay un objeto `Math` y casi nunca es útil como un valor. Más bien, proporciona un _espacio de nombres_ para que todas estas funciones y valores no tengan que ser enlaces globales.
 

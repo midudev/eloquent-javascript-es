@@ -36,7 +36,7 @@
 
 <p><a class="p_ident" id="p-vwqJ9SVv4F" href="#p-vwqJ9SVv4F" tabindex="-1" role="presentation"></a>Incluso mejor, puede ser posible utilizar clases de objetos en varios programas diferentes, evitando la necesidad de recrear su funcionalidad desde cero. Puedes pensar en las estructuras de datos integradas de JavaScript, como arrays y strings, como tipos de datos abstractos reutilizables de este tipo.</p>
 
-<p id="interfaz"><a class="p_ident" id="p-S2D2FTl9dT" href="#p-S2D2FTl9dT" tabindex="-1" role="presentation"></a>Cada tipo de dato abstracto tiene una <em>interfaz</em>, que es la colección de operaciones que el código externo puede realizar en él. Incluso cosas básicas como los números pueden considerarse un tipo de dato abstracto cuya interfaz nos permite sumarlos, multiplicarlos, compararlos, y así sucesivamente. De hecho, la fijación en objetos <em>individuales</em> como la unidad principal de organización en la programación orientada a objetos clásica es un tanto desafortunada, ya que a menudo las piezas de funcionalidad útiles involucran un grupo de diferentes clases de objetos que trabajan estrechamente juntos.</p>
+<p id="interface"><a class="p_ident" id="p-S2D2FTl9dT" href="#p-S2D2FTl9dT" tabindex="-1" role="presentation"></a>Cada tipo de dato abstracto tiene una <em>interfaz</em>, que es la colección de operaciones que el código externo puede realizar en él. Incluso cosas básicas como los números pueden considerarse un tipo de dato abstracto cuya interfaz nos permite sumarlos, multiplicarlos, compararlos, y así sucesivamente. De hecho, la fijación en objetos <em>individuales</em> como la unidad principal de organización en la programación orientada a objetos clásica es un tanto desafortunada, ya que a menudo las piezas de funcionalidad útiles involucran un grupo de diferentes clases de objetos que trabajan estrechamente juntos.</p>
 
 <h2 id="obj_methods"><a class="h_ident" id="h-OYddlNFqr1" href="#h-OYddlNFqr1" tabindex="-1" role="presentation"></a>Métodos</h2>
 
@@ -126,13 +126,13 @@ blackRabbit.speak(<span class="tok-string">&quot;Soy el miedo y la oscuridad&quo
 
 <p><a class="p_ident" id="p-uB941a5WJb" href="#p-uB941a5WJb" tabindex="-1" role="presentation"></a>El conejo “proto” actúa como un contenedor para las propiedades que son compartidas por todos los conejos. Un objeto de conejo individual, como el conejo negro, contiene propiedades que se aplican solo a él mismo, en este caso su tipo, y deriva propiedades compartidas de su prototipo.</p>
 
-<h2 id="clases"><a class="h_ident" id="h-KLZW7aPxR5" href="#h-KLZW7aPxR5" tabindex="-1" role="presentation"></a>Clases</h2>
+<h2 id="classes"><a class="h_ident" id="h-KLZW7aPxR5" href="#h-KLZW7aPxR5" tabindex="-1" role="presentation"></a>Clases</h2>
 
 <p><a class="p_ident" id="p-KApLmuwuZI" href="#p-KApLmuwuZI" tabindex="-1" role="presentation"></a>El sistema de prototipos de JavaScript puede interpretarse como una versión algo libre de los tipos de datos abstractos o clases. Una clase define la forma de un tipo de objeto, los métodos y propiedades que tiene. A dicho objeto se le llama una <em>instancia</em> de la clase.</p>
 
 <p><a class="p_ident" id="p-zz4nhYtJgu" href="#p-zz4nhYtJgu" tabindex="-1" role="presentation"></a>Los prototipos son útiles para definir propiedades cuyo valor es compartido por todas las instancias de una clase. Las propiedades que difieren por instancia, como la propiedad <code>type</code> de nuestros conejos, deben ser almacenadas directamente en los objetos mismos.</p>
 
-<p id="constructores"><a class="p_ident" id="p-+3ctSy6D/c" href="#p-+3ctSy6D/c" tabindex="-1" role="presentation"></a>Así que para crear una instancia de una clase, debes hacer un objeto que se derive del prototipo adecuado, pero <em>también</em> debes asegurarte de que él mismo tenga las propiedades que se supone que deben tener las instancias de esta clase. Esto es lo que hace una función <em>constructor</em>.</p>
+<p id="constructors"><a class="p_ident" id="p-+3ctSy6D/c" href="#p-+3ctSy6D/c" tabindex="-1" role="presentation"></a>Así que para crear una instancia de una clase, debes hacer un objeto que se derive del prototipo adecuado, pero <em>también</em> debes asegurarte de que él mismo tenga las propiedades que se supone que deben tener las instancias de esta clase. Esto es lo que hace una función <em>constructor</em>.</p>
 
 <pre tabindex="0" class="snippet" data-language="javascript" ><a class="c_ident" id="c-oOKUeIzSVa" href="#c-oOKUeIzSVa" tabindex="-1" role="presentation"></a><span class="tok-keyword">function</span> <span class="tok-definition">makeRabbit</span>(<span class="tok-definition">type</span>) {
   <span class="tok-keyword">let</span> <span class="tok-definition">rabbit</span> = Object.create(protoRabbit);

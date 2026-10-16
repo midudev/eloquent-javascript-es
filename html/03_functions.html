@@ -86,7 +86,7 @@ console.log(halve(<span class="tok-number">100</span>));
 console.log(n);
 <span class="tok-comment">// → 10</span></pre>
 
-<h2 id="alcance"><a class="h_ident" id="h-Bb1XV2UFNf" href="#h-Bb1XV2UFNf" tabindex="-1" role="presentation"></a>Ámbito anidado</h2>
+<h2 id="scoping"><a class="h_ident" id="h-Bb1XV2UFNf" href="#h-Bb1XV2UFNf" tabindex="-1" role="presentation"></a>Ámbito anidado</h2>
 
 <p><a class="p_ident" id="p-WQPriPynnr" href="#p-WQPriPynnr" tabindex="-1" role="presentation"></a>JavaScript distingue no solo entre enlaces globales y locales. Bloques y funciones pueden ser creados dentro de otros bloques y funciones, produciendo múltiples grados de localidad.</p>
 
@@ -171,7 +171,7 @@ console.log(n);
 
 <p><a class="p_ident" id="p-q9uDkTN2Zd" href="#p-q9uDkTN2Zd" tabindex="-1" role="presentation"></a>No hay una razón profunda para tener tanto funciones de flecha como expresiones <code>function</code> en el lenguaje. Aparte de un detalle menor, que discutiremos en el <a href="06_object.html">Capítulo 6</a>, hacen lo mismo. Las funciones de flecha se agregaron en 2015, principalmente para hacer posible escribir expresiones de función pequeñas de una manera menos verbosa. Las usaremos a menudo en el <a href="05_higher_order.html">Capítulo 5</a> .</p>
 
-<h2 id="pila"><a class="h_ident" id="h-nePB5S+L1Q" href="#h-nePB5S+L1Q" tabindex="-1" role="presentation"></a>La pila de llamadas</h2>
+<h2 id="stack"><a class="h_ident" id="h-nePB5S+L1Q" href="#h-nePB5S+L1Q" tabindex="-1" role="presentation"></a>La pila de llamadas</h2>
 
 <p><a class="p_ident" id="p-aMmoKkJUw3" href="#p-aMmoKkJUw3" tabindex="-1" role="presentation"></a>La forma en que el control fluye a través de las funciones es un tanto complicada. Echemos un vistazo más de cerca. Aquí hay un programa simple que realiza algunas llamadas de función:</p>
 
@@ -314,7 +314,7 @@ console.log(power(<span class="tok-number">2</span>, <span class="tok-number">3<
 
 <p><a class="p_ident" id="p-oNzYWF+2hF" href="#p-oNzYWF+2hF" tabindex="-1" role="presentation"></a>La recursión no siempre es simplemente una alternativa ineficiente a los bucles. Algunos problemas realmente son más fáciles de resolver con recursión que con bucles. Con mayor frecuencia, estos son problemas que requieren explorar o procesar varias “ramas”, cada una de las cuales podría ramificarse nuevamente en aún más ramas.</p>
 
-<p id="rompecabezas_recursivo"><a class="p_ident" id="p-z8AgKvwZXc" href="#p-z8AgKvwZXc" tabindex="-1" role="presentation"></a>Considera este rompecabezas: al comenzar desde el número 1 y repetidamente sumar 5 o multiplicar por 3, se puede producir un conjunto infinito de números. ¿Cómo escribirías una función que, dado un número, intente encontrar una secuencia de tales sumas y multiplicaciones que produzcan ese número? Por ejemplo, el número 13 podría alcanzarse al multiplicar por 3 y luego sumar 5 dos veces, mientras que el número 15 no podría alcanzarse en absoluto.</p>
+<p id="recursive_puzzle"><a class="p_ident" id="p-z8AgKvwZXc" href="#p-z8AgKvwZXc" tabindex="-1" role="presentation"></a>Considera este rompecabezas: al comenzar desde el número 1 y repetidamente sumar 5 o multiplicar por 3, se puede producir un conjunto infinito de números. ¿Cómo escribirías una función que, dado un número, intente encontrar una secuencia de tales sumas y multiplicaciones que produzcan ese número? Por ejemplo, el número 13 podría alcanzarse al multiplicar por 3 y luego sumar 5 dos veces, mientras que el número 15 no podría alcanzarse en absoluto.</p>
 
 <p><a class="p_ident" id="p-HOoTgs7o63" href="#p-HOoTgs7o63" tabindex="-1" role="presentation"></a>Aquí tienes una solución recursiva:</p>
 
@@ -438,7 +438,7 @@ imprimirInventarioGranja(<span class="tok-number">7</span>, <span class="tok-num
 
 <p><a class="p_ident" id="p-CvP+uxDh/X" href="#p-CvP+uxDh/X" tabindex="-1" role="presentation"></a>Un principio útil es abstenerse de agregar ingenio a menos que estés absolutamente seguro de que lo vas a necesitar. Puede ser tentador escribir “frameworks” genéricos para cada trozo de funcionalidad que te encuentres. Resiste esa tentación. No lograrás hacer ningún trabajo real: estarás demasiado ocupado escribiendo código que nunca usarás.</p>
 
-<h2 id="puro"><a class="h_ident" id="h-FYE5dPFb4a" href="#h-FYE5dPFb4a" tabindex="-1" role="presentation"></a>Funciones y efectos secundarios</h2>
+<h2 id="pure"><a class="h_ident" id="h-FYE5dPFb4a" href="#h-FYE5dPFb4a" tabindex="-1" role="presentation"></a>Funciones y efectos secundarios</h2>
 
 <p><a class="p_ident" id="p-WDphrqGwmP" href="#p-WDphrqGwmP" tabindex="-1" role="presentation"></a>Las funciones pueden dividirse aproximadamente en aquellas que se llaman por sus efectos secundarios y aquellas que se llaman por su valor de retorno (aunque también es posible tener efectos secundarios y devolver un valor).</p>
 

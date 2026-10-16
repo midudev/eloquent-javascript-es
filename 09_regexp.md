@@ -445,7 +445,7 @@ Para hacer la coincidencia real, el motor trata a una expresión regular algo as
 
 Nuestra expresión coincide si podemos encontrar un camino desde el lado izquierdo del diagrama hasta el lado derecho. Mantenemos una posición actual en la cadena, y cada vez que avanzamos a través de un recuadro, verificamos que la parte de la cadena después de nuestra posición actual coincida con ese recuadro.
 
-{{id retroceso}}
+{{id backtracking}}
 
 ## Retroceso
 
